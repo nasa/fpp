@@ -78,3 +78,8 @@ run_suite()
   exit `cat num_failed.txt`
 
 }
+
+remove_fpp_version()
+{
+  sed -E 's/("fppVersion"[[:space:]]*:[[:space:]]*")[^"]+(")/\1[ fpp version ]\2/'
+}

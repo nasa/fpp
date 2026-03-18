@@ -41,7 +41,7 @@ namespace {
   // Define a message buffer class large enough to handle all the
   // asynchronous inputs to the component
   class ComponentIpcSerializableBuffer :
-    public Fw::SerializeBufferBase
+    public Fw::LinearBufferBase
   {
 
     public:
@@ -55,7 +55,7 @@ namespace {
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
-      Fw::Serializable::SizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -2227,7 +2227,7 @@ void QueuedCommandsComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2334,7 +2334,7 @@ void QueuedCommandsComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2441,7 +2441,7 @@ void QueuedCommandsComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2548,7 +2548,7 @@ void QueuedCommandsComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -3063,7 +3063,7 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3133,7 +3133,7 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3195,7 +3195,7 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3243,7 +3243,7 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3290,7 +3290,7 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3337,7 +3337,7 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3365,7 +3365,7 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3439,7 +3439,7 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3505,7 +3505,7 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3557,7 +3557,7 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3608,7 +3608,7 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3659,7 +3659,7 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -4242,7 +4242,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -4315,7 +4315,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -4388,7 +4388,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -4461,7 +4461,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -4539,7 +4539,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
+      if (args.getDeserializeSizeLeft() != 0) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
@@ -4586,7 +4586,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
+      if (args.getDeserializeSizeLeft() != 0) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
@@ -4648,7 +4648,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
+      if (args.getDeserializeSizeLeft() != 0) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
@@ -4698,7 +4698,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
+      if (args.getDeserializeSizeLeft() != 0) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
@@ -4760,7 +4760,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
+      if (args.getDeserializeSizeLeft() != 0) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }

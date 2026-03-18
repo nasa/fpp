@@ -9,7 +9,7 @@ import scala.annotation.tailrec
 import scala.collection.immutable.HashMap
 import fpp.compiler.syntax.TokenId
 import fpp.compiler.syntax.TokenId.*
-import fpp.compiler.util.SemanticError.InvalidToken
+import fpp.compiler.util.LexerError.InvalidToken
 
 import scala.util.parsing.input.{Position, Reader}
 
@@ -47,6 +47,7 @@ object Lexer {
     ("cpu", CPU),
     ("default", DEFAULT),
     ("diagnostic", DIAGNOSTIC),
+    ("dictionary", DICTIONARY),
     ("do", DO),
     ("drop", DROP),
     ("else", ELSE),
@@ -111,6 +112,7 @@ object Lexer {
     ("severity", SEVERITY),
     ("signal", SIGNAL),
     ("size", SIZE),
+    ("sizeof", SIZEOF),
     ("stack", STACK),
     ("state", STATE),
     ("string", STRING),
@@ -239,6 +241,7 @@ object Lexer {
         case CPU => Token.CPU()
         case DEFAULT => Token.DEFAULT()
         case DIAGNOSTIC => Token.DIAGNOSTIC()
+        case DICTIONARY => Token.DICTIONARY()
         case DO => Token.DO()
         case DOT => Token.DOT()
         case DROP => Token.DROP()
@@ -329,6 +332,7 @@ object Lexer {
         case SEVERITY => Token.SEVERITY()
         case SIGNAL => Token.SIGNAL()
         case SIZE => Token.SIZE()
+        case SIZEOF => Token.SIZEOF()
         case SLASH => Token.SLASH()
         case STACK => Token.STACK()
         case STAR => Token.STAR()

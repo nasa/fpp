@@ -226,7 +226,7 @@ case class ComponentCommands (
                   s"""|#if FW_CMD_CHECK_RESIDUAL
                       |// Make sure there was no data left over.
                       |// That means the argument buffer size was incorrect.
-                      |if (args.getBuffLeft() != 0) {
+                      |if (args.getDeserializeSizeLeft() != 0) {
                       |  if (this->${portVariableName(cmdRespPort.get)}[0].isConnected()) {
                       |    this->${portVariableName(cmdRespPort.get)}[0].invoke(
                       |      opCode,

@@ -36,6 +36,7 @@
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 //! \class QueuedCommandsComponentBase
 //! \brief Auto-generated base for QueuedCommands component

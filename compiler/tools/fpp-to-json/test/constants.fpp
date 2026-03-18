@@ -19,7 +19,7 @@ constant l = 1
 constant m = l
 
 constant n = -1
-constant o = 1 + 2
+constant o = 1 + 2 + sizeof(U32)
 constant p = (1)
 
 constant q = true
@@ -29,3 +29,5 @@ constant r = false
 @ It has two lines.
 constant s = 0 @< This is a post annotation.
                @< It also has two lines.
+
+constant t = sizeof(bool)

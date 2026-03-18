@@ -15,6 +15,7 @@
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/String.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 namespace M {
 
@@ -73,7 +74,7 @@ namespace M {
 #if FW_PORT_SERIALIZATION == 1
 
       //! Invoke the port with serialized arguments
-      Fw::SerializeStatus invokeSerial(Fw::SerializeBufferBase& _buffer);
+      Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer);
 
 #endif
 

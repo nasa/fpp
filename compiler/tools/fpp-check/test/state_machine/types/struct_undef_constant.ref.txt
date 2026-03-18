@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/types/struct_undef_constant.fpp:2.37
+  struct S { x: U32 } default { x = a }
+                                    ^
+error: symbol a is not defined
+note: looking for a constant here

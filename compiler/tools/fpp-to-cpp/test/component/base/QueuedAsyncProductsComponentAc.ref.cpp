@@ -38,7 +38,7 @@ namespace {
   // Define a message buffer class large enough to handle all the
   // asynchronous inputs to the component
   class ComponentIpcSerializableBuffer :
-    public Fw::SerializeBufferBase
+    public Fw::LinearBufferBase
   {
 
     public:
@@ -52,7 +52,7 @@ namespace {
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
-      Fw::Serializable::SizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -110,7 +110,7 @@ Fw::SerializeStatus QueuedAsyncProductsComponentBase::DpContainer ::
   }
   // Serialize the elements if they will fit
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
+  if ((this->m_dataBuffer.getSize() + sizeDelta) <= this->m_dataBuffer.getCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::DataArrayRecord;
     status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
@@ -135,7 +135,7 @@ Fw::SerializeStatus QueuedAsyncProductsComponentBase::DpContainer ::
     sizeof(FwDpIdType) +
     elt.serializedSize();
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
+  if (this->m_dataBuffer.getSize() + sizeDelta <= this->m_dataBuffer.getCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::DataRecord;
     status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
@@ -157,7 +157,7 @@ Fw::SerializeStatus QueuedAsyncProductsComponentBase::DpContainer ::
 {
   FW_ASSERT(array != nullptr);
   // Compute the size delta
-  const FwSizeType stringSize = 80;
+  const FwSizeType stringSize = static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE);
   FwSizeType sizeDelta =
     sizeof(FwDpIdType) +
     sizeof(FwSizeStoreType);
@@ -168,7 +168,7 @@ Fw::SerializeStatus QueuedAsyncProductsComponentBase::DpContainer ::
   }
   // Serialize the elements if they will fit
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
+  if ((this->m_dataBuffer.getSize() + sizeDelta) <= this->m_dataBuffer.getCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::StringArrayRecord;
     status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
@@ -191,12 +191,12 @@ Fw::SerializeStatus QueuedAsyncProductsComponentBase::DpContainer ::
 Fw::SerializeStatus QueuedAsyncProductsComponentBase::DpContainer ::
   serializeRecord_StringRecord(const Fw::StringBase& elt)
 {
-  const FwSizeType stringSize = 80;
+  const FwSizeType stringSize = static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE);
   const FwSizeType sizeDelta =
     sizeof(FwDpIdType) +
     elt.serializedTruncatedSize(stringSize);
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
+  if (this->m_dataBuffer.getSize() + sizeDelta <= this->m_dataBuffer.getCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::StringRecord;
     status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
@@ -224,7 +224,7 @@ Fw::SerializeStatus QueuedAsyncProductsComponentBase::DpContainer ::
     size * sizeof(U32);
   // Serialize the elements if they will fit
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
+  if ((this->m_dataBuffer.getSize() + sizeDelta) <= this->m_dataBuffer.getCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::U32ArrayRecord;
     status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
@@ -249,7 +249,7 @@ Fw::SerializeStatus QueuedAsyncProductsComponentBase::DpContainer ::
     sizeof(FwDpIdType) +
     sizeof(U32);
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
+  if (this->m_dataBuffer.getSize() + sizeDelta <= this->m_dataBuffer.getCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::U32Record;
     status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
@@ -277,7 +277,7 @@ Fw::SerializeStatus QueuedAsyncProductsComponentBase::DpContainer ::
     size * sizeof(U8);
   // Serialize the elements if they will fit
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
+  if ((this->m_dataBuffer.getSize() + sizeDelta) <= this->m_dataBuffer.getCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::U8ArrayRecord;
     status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
@@ -2596,7 +2596,7 @@ void QueuedAsyncProductsComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2703,7 +2703,7 @@ void QueuedAsyncProductsComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2810,7 +2810,7 @@ void QueuedAsyncProductsComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2917,7 +2917,7 @@ void QueuedAsyncProductsComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -3486,8 +3486,6 @@ void QueuedAsyncProductsComponentBase ::
   container.setTimeTag(timeTag);
   // Serialize the header into the packet
   container.serializeHeader();
-  // Update the data hash
-  container.updateDataHash();
   // Update the size of the buffer according to the data size
   const FwSizeType packetSize = container.getPacketSize();
   Fw::Buffer buffer = container.getBuffer();
@@ -3724,7 +3722,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedAsyncProductsComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -3797,7 +3795,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedAsyncProductsComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -3870,7 +3868,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedAsyncProductsComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -3943,7 +3941,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedAsyncProductsComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -4462,7 +4460,10 @@ void QueuedAsyncProductsComponentBase ::
       const Fw::Success& status
   )
 {
-  DpContainer container(id, buffer, this->getIdBase());
+  DpContainer container;
+  if (status == Fw::Success::SUCCESS) {
+    container = DpContainer(id, buffer, this->getIdBase());
+  }
   // Convert global id to local id
   const FwDpIdType idBase = this->getIdBase();
   FW_ASSERT(

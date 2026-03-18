@@ -39,7 +39,7 @@ namespace {
   // Define a message buffer class large enough to handle all the
   // asynchronous inputs to the component
   class ComponentIpcSerializableBuffer :
-    public Fw::SerializeBufferBase
+    public Fw::LinearBufferBase
   {
 
     public:
@@ -53,7 +53,7 @@ namespace {
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
-      Fw::Serializable::SizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -1032,7 +1032,7 @@ void QueuedOverflowComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -1139,7 +1139,7 @@ void QueuedOverflowComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -1246,7 +1246,7 @@ void QueuedOverflowComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -1358,7 +1358,7 @@ void QueuedOverflowComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -1409,7 +1409,7 @@ void QueuedOverflowComponentBase ::
 void QueuedOverflowComponentBase ::
   serialAsyncHook_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -1562,7 +1562,7 @@ void QueuedOverflowComponentBase ::
 void QueuedOverflowComponentBase ::
   serialAsyncHook_preMsgHook(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Default: no-op
@@ -1927,7 +1927,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedOverflowComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -2000,7 +2000,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedOverflowComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -2073,7 +2073,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedOverflowComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -2146,7 +2146,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedOverflowComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -2242,7 +2242,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedOverflowComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
+      if (args.getDeserializeSizeLeft() != 0) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
@@ -2304,7 +2304,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedOverflowComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
+      if (args.getDeserializeSizeLeft() != 0) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
@@ -2327,8 +2327,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedOverflowComponentBase ::
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        _msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(_msg.getBuffLeft())
+        _msg.getDeserializeSizeLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getDeserializeSizeLeft())
       );
 
       // Call handler function
@@ -2545,7 +2545,7 @@ void QueuedOverflowComponentBase ::
   m_p_serialAsyncHook_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp);

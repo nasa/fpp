@@ -14,11 +14,11 @@ namespace {
   // Port buffer class
   // ----------------------------------------------------------------------
 
-  class StringPortBuffer : public Fw::SerializeBufferBase {
+  class StringPortBuffer : public Fw::LinearBufferBase {
 
     public:
 
-      Fw::Serializable::SizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getCapacity() const {
         return InputStringPort::SERIALIZED_SIZE;
       }
 
@@ -91,7 +91,7 @@ void InputStringPort ::
 #if FW_PORT_SERIALIZATION == 1
 
 Fw::SerializeStatus InputStringPort ::
-  invokeSerial(Fw::SerializeBufferBase& _buffer)
+  invokeSerial(Fw::LinearBufferBase& _buffer)
 {
   Fw::SerializeStatus _status;
 
@@ -102,14 +102,14 @@ Fw::SerializeStatus InputStringPort ::
   FW_ASSERT(this->m_comp != nullptr);
   FW_ASSERT(this->m_func != nullptr);
 
-  char __fprime_ac_str80_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+  char __fprime_ac_str80_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
   Fw::ExternalString str80(__fprime_ac_str80_buffer, sizeof __fprime_ac_str80_buffer);
   _status = _buffer.deserializeTo(str80);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  char __fprime_ac_str80Ref_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+  char __fprime_ac_str80Ref_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
   Fw::ExternalString str80Ref(__fprime_ac_str80Ref_buffer, sizeof __fprime_ac_str80Ref_buffer);
   _status = _buffer.deserializeTo(str80Ref);
   if (_status != Fw::FW_SERIALIZE_OK) {

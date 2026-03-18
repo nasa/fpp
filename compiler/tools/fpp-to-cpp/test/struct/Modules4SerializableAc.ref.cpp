@@ -13,14 +13,11 @@
 
 Modules4 ::
   Modules4() :
-    Serializable()
+    Serializable(),
+    m_arr1(),
+    m_arr2()
 {
-  for (FwSizeType i = 0; i < 3; i++) {
-    this->m_arr1[i] = M::Modules2(M::Modules1(0, 0.0f));
-  }
-  for (FwSizeType i = 0; i < 6; i++) {
-    this->m_arr2[i] = M::Modules2(M::Modules1(0, 0.0f));
-  }
+
 }
 
 Modules4 ::
@@ -125,7 +122,7 @@ std::ostream& operator<<(std::ostream& os, const Modules4& obj) {
 
 Fw::SerializeStatus Modules4 ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -149,7 +146,7 @@ Fw::SerializeStatus Modules4 ::
 
 Fw::SerializeStatus Modules4 ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

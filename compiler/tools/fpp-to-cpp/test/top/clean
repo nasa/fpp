@@ -4,8 +4,7 @@
 
 clean
 rm -f default-tests.sh default-update-ref.sh
-for file in `find . -maxdepth 1 -name '*out.*' -or -name '*.names.txt' -or -name '*o' -or -name '*Ac.hpp' -or -name '*Ac.cpp'`
+for file in `find . -name '*o' -or -name '*Ac.hpp' -or -name '*Ac.cpp' -or -name '*.names.txt'`
 do
   rm $file
 done
-(cd check-cpp-dir; ./clean)

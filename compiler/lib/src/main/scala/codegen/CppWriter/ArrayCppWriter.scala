@@ -162,17 +162,31 @@ case class ArrayCppWriter (
 
   private val initElementsCall = guardedList (hasStringEltType) (lines("this->initElements();"))
 
+  private val defaultElementInitialization: Boolean = {
+    val elements = arrayType.getDefaultValue.get.anonArray.elements
+    val elementType = arrayType.anonArray.eltType.getDefaultValue
+    elementType match {
+      case None => false
+      case Some(elementTypeDefault) =>
+        elements.head == elementTypeDefault &&
+        elements.tail.forall(_ == elements.head)
+    }
+  }
+
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
     val defaultValueConstructor = constructorClassMember(
       Some("Constructor (default value)"),
       Nil,
-      List("Serializable()"),
+      List(
+        "Serializable()",
+        "elements()"
+      ),
       List.concat(
         initElementsCall,
-        {
+        guardedList (!defaultElementInitialization) ({
           val valueString = ValueCppWriter.write(s, arrayType.getDefaultValue.get)
           lines(s"*this = $valueString;")
-        }
+        })
       )
     )
     val singleElementConstructor = constructorClassMember(
@@ -440,18 +454,14 @@ case class ArrayCppWriter (
                  |tmp.format(\"%s\", tmp.toChar());"""
 
     val formatLoop = indexIterator(lines(
-      s"""|Fw::String tmp;
+      s"""|// Array data
+          |Fw::String tmp;
           |$fillTmpString
           |
-          |FwSizeType size = tmp.length() + (index > 0 ? 2 : 0);
-          |if ((size + sb.length()) <= sb.maxLength()) {
-          |  if (index > 0) {
-          |    sb += ", ";
-          |  }
-          |  sb += tmp;
-          |} else {
-          |  break;
+          |if (index > 0) {
+          |  sb += ", ";
           |}
+          |sb += tmp;
           |"""
     ))
     val serializedSize = eltType.getUnderlyingType match {
@@ -480,7 +490,7 @@ case class ArrayCppWriter (
         "serializeTo",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("Fw::SerializeBufferBase&"),
+            CppDoc.Type("Fw::SerialBufferBase&"),
             "buffer",
             Some("The serial buffer"),
           ),
@@ -508,7 +518,7 @@ case class ArrayCppWriter (
         "deserializeFrom",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("Fw::SerializeBufferBase&"),
+            CppDoc.Type("Fw::SerialBufferBase&"),
             "buffer",
             Some("The serial buffer"),
           ),
@@ -559,19 +569,13 @@ case class ArrayCppWriter (
                     |sb = "";
                     |
                     |// Array prefix
-                    |if (sb.length() + 2 <= sb.maxLength()) {
-                    |  sb += \"[ \";
-                    |} else {
-                    |  return;
-                    |}"""),
+                    |sb += \"[ \";"""),
               List(Line.blank),
               formatLoop,
               List(Line.blank),
               lines(
                 s"""|// Array suffix
-                    |if (sb.length() + 2 <= sb.maxLength()) {
-                    |  sb += \" ]\";
-                    |}"""),
+                    |sb += \" ]\";""")
             ),
             CppDoc.Function.NonSV,
             CppDoc.Function.Const,

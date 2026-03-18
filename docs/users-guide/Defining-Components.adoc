@@ -1051,7 +1051,8 @@ for the following:
 . None of the parameters may be a
 <<Defining-Ports_Reference-Parameters,reference parameter>>.
 
-. Each parameter must have a *displayable type*, i.e., a
+. Each parameter must have a <<Dictionary-Definitions,displayable type>>, i.e., 
+a
 type that the F Prime ground data system knows how to display.
 For example, the type may not be an
 <<Defining-Types_Abstract-Type-Definitions,abstract type>>.
@@ -1226,6 +1227,9 @@ Here is an example:
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 @ A component for illustrating priority and queue full behavior for async
 @ commands
 active component PriorityQueueFull {
@@ -1506,7 +1510,9 @@ or a few warnings.
 
 To achieve this behavior, you can write the keyword `throttle` and a
 numeric expression after the format string.
-The expression must evaluate to a constant value _n_.
+The expression must evaluate to a constant value _n_, where _n_ is a number
+greater than zero.
+_n_ is called the *maximum throttle count*.
 After an instance of the component has emitted the event _n_ times, it will
 stop emitting the event.
 Here is an example:
@@ -1541,14 +1547,88 @@ passive component EventThrottling {
 }
 ----
 
-In this example, event `E` will be throttled after the component
+In this example, event `Event1` will be throttled after the component
 instance has emitted it ten times.
 
-Once an event is throttled, the component instance will no longer
-emit the event until the throttling is canceled.
-Typically, the canceling happens via a FSW command.
+Once an event is throttled, the component
+instance will no longer emit the event until the throttling is reset.
+There are two ways to reset the throttling of an event: manually and 
+automatically.
+
+*Manual reset:*
+To manually reset throttling for events,
+you can use a <<Defining-Components_Commands,command>>.
+For example, you can define a command `CLEAR_EVENT_THROTTLE`
+that resets throttling for all throttled events.
+You can implement this command by calling functions
+that reset the throttle counts to zero.
+The auto-generated {cpp} code provides one such function for
+each event with throttling.
 For details, see the
 https://fprime.jpl.nasa.gov/devel/docs/user-manual/[F Prime User Manual].
+
+*Automatic reset:*
+You can also specify in FPP that the throttling for an event should be reset
+automatically after a specified amount of time.
+To do this, you write `every` and a time interval after the maximum throttle 
+count.
+The time interval is a <<Defining-Constants_Expressions_Struct-Values,struct 
+value expression>> with two members: `seconds` and `useconds`.
+`useconds` is short for "`microseconds.`"
+Each member must evaluate to an integer value.
+Either or both of the members can be omitted; an omitted member evaluates to 
+zero.
+
+Here is an example:
+
+[source,fpp]
+----
+@ Component for illustrating event throttling with timeouts
+passive component EventThrottlingWithTimeout {
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Event port
+  event port eventOut
+
+  @ Text event port
+  text event port textEventOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Events
+  # ----------------------------------------------------------------------
+
+  @ Event 1
+  event Event1 severity warning high \
+    format "Event 1 occurred" \
+    throttle 10 every { seconds = 2 }
+
+  @ Event 2
+  event Event2 severity warning high \
+    format "Event 2 occurred" \
+    throttle 10 every { seconds = 2, useconds = 500000 }
+
+  @ Event 3
+  event Event3 severity warning high \
+    format "Event 3 occurred" \
+    throttle 10 every { useconds = 500000 }
+
+}
+----
+
+In this example, an instance of `EventThrottlingWithTimeout` will emit events
+at the following rates:
+
+* `Event1`: Up to 10 events every 2 seconds.
+
+* `Event2`: Up to 10 events every 2.5 seconds.
+
+* `Event3`: Up to 10 events every 0.5 seconds.
 
 === Telemetry
 
@@ -2576,14 +2656,16 @@ or
 <<Defining-State-Machines,state machine definition>>
 as a component member.
 When you do this, the component qualifies
-the name of the constant or type, similarly to the way that a
-<<Defining-Modules,module>> qualifies the names of the
+the name of the definition, similarly to the way that a
+<<Defining-Modules,module>> or 
+<<Defining-State-Machines_Constants-Types-and-Enums,
+state machine>> qualifies the names of the
 definitions it contains.
 For example, if you define a type `T` inside a component
 `C`, then
 
 * Inside the definition of `C`, you can refer to the
-type as `T`.
+type as `T` or `C.T`.
 
 * Outside the definition of `C`, you must refer to the
 type as `C.T`.
@@ -2665,7 +2747,7 @@ active component Switch {
 }
 ----
 
-In general, it is a good idea to state a definition inside a component
+In general, it is a good idea to put a definition inside a component
 when the definition logically belongs to the component.
 The name scoping mechanism emphasizes the hierarchical relationship
 and prevents name clashes.
@@ -2675,7 +2757,8 @@ in FPP becomes a qualified name such as `Switch::State` when translating
 to {cpp}.
 However, the current {cpp} code generation strategy does not
 support the definition
-of constants and types as members of {cpp} components.
+of constants, types, and state machines as
+members of {cpp} components.
 Therefore, when translating the previous example to {cpp},
 the following occurs:
 
@@ -2690,11 +2773,18 @@ We will have more to say about this issue in the section on
 <<Analyzing-and-Translating-Models_Generating-C-Plus-Plus,
 generating {cpp}>>.
 
+If you define a state machine inside a component, and you
+define a constant, type, or enum
+<<Defining-State-Machines_Constants-Types-and-Enums,inside a state machine>>,
+then the name prefixes are joined in the obvious way.
+For example, a type `T` defined inside a state machine `SM` defined
+inside a component `C` has the name `C_SM_T`.
+
 === Include Specifiers
 
 Component definitions can become long, especially when there
 are many commands, events, telemetry channels, and parameters.
-In this case it is useful to break up the component
+In this case it can be useful to break up the
 definition into several files.
 
 For example, suppose you are defining a component with
@@ -2730,9 +2820,9 @@ or syntax that may not appear inside a component,
 or if the file `Commands.fppi` does not exist, then
 the specifier `include "Commands.fppi"` is not valid.
 
-Include specifiers are perhaps most useful when defining
-components, but they can also appear at the top level of a
-model, inside a module definition, or inside a
+Include specifiers can also appear at the top level of a
+model, inside a module definition, inside a state machine
+definition, or inside a
 topology definition.
 We discuss include specifiers further in the section on
 <<Specifying-Models-as-Files_Include-Specifiers,

@@ -1,6 +1,10 @@
 @ Definitions and specifiers
 module DefinitionsAndSpecifiers {
 
+  type FwSizeStoreType = U16
+
+  constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
   @ Abstract type definition
   type T @< Abstract type definition
 
@@ -224,8 +228,8 @@ module DefinitionsAndSpecifiers {
       i4
     } @< Graph pattern specifier
 
-    @ Topology import specifier
-    import T1 @< Topology import specifier
+    @ Topology instance specifier
+    instance T1 @< Topology instance specifier
 
     @ Telemetry packet group
     telemetry packets P {
@@ -348,5 +352,16 @@ module Expressions {
                          b = 2
                          c = 3
                        } @< Struct
+
+  @ SizeOf
+  module SizeOf {
+
+    constant typeFloat = sizeof(F64)
+
+    constant typeQualId = sizeof(TypeNames.typeNameU32)
+
+    constant typeString = sizeof(string size 20)
+
+  } @< SizeOf
 
 } @< Expressions

@@ -26,20 +26,10 @@ object FPPLocateUses {
     }
     val a = Analysis(inputFileSet = options.files.toSet)
     for {
-      tulFiles <- Result.map(
-        files,
-        Parser.parseFile (Parser.transUnit) (None) _
-      )
-      aTulFiles <- ResolveSpecInclude.transformList(
-        a,
-        tulFiles, 
-        ResolveSpecInclude.transUnit
-      )
-      tulFiles <- Right(aTulFiles._2)
-      tulImports <- Result.map(
-        options.imports,
-        Parser.parseFile (Parser.transUnit) (None) _
-      )
+      aTulTul <- ToolUtils.parseFilesAndResolveAsts(a, files, options.imports)
+      a <- Right(aTulTul._1)
+      tulFiles <- Right(aTulTul._2)
+      tulImports <- Right(aTulTul._3)
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
       a <- UsedSymbols.visitList(a, tulFiles, UsedSymbols.transUnit)
     } yield {
@@ -73,7 +63,7 @@ object FPPLocateUses {
           case _: Symbol.AliasType => Ast.SpecLoc.Type
           case _: Symbol.Array => Ast.SpecLoc.Type
           case _: Symbol.Component => Ast.SpecLoc.Component
-          case _: Symbol.ComponentInstance => Ast.SpecLoc.ComponentInstance
+          case _: Symbol.ComponentInstance => Ast.SpecLoc.Instance
           case _: Symbol.Constant => Ast.SpecLoc.Constant
           case _: Symbol.Enum => Ast.SpecLoc.Type
           case _: Symbol.EnumConstant => Ast.SpecLoc.Type
@@ -82,9 +72,17 @@ object FPPLocateUses {
           case _: Symbol.Port => Ast.SpecLoc.Port
           case _: Symbol.StateMachine => Ast.SpecLoc.StateMachine
           case _: Symbol.Struct => Ast.SpecLoc.Type
-          case _: Symbol.Topology => Ast.SpecLoc.Topology
+          case _: Symbol.Topology => Ast.SpecLoc.Instance
         }
-        val specLocNode = AstNode.create(Ast.SpecLoc(kind, qualIdentNode, fileNode))
+        val isDictionaryDef = s match {
+          case Symbol.Array(aNode) => aNode._2.data.isDictionaryDef
+          case Symbol.AliasType(aNode) => aNode._2.data.isDictionaryDef
+          case Symbol.Struct(aNode) => aNode._2.data.isDictionaryDef
+          case Symbol.Enum(aNode) => aNode._2.data.isDictionaryDef
+          case Symbol.Constant(aNode) => aNode._2.data.isDictionaryDef
+          case _ => false
+        }
+        val specLocNode = AstNode.create(Ast.SpecLoc(kind, qualIdentNode, fileNode, isDictionaryDef))
         val specLocAnnotatedNode = (Nil, specLocNode, Nil)
         FppWriter.specLocAnnotatedNode((), specLocAnnotatedNode)
       }

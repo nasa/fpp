@@ -78,7 +78,8 @@ object Ast {
   /* Aliased type definition */
   final case class DefAliasType(
     name: Ident,
-    typeName: AstNode[TypeName]
+    typeName: AstNode[TypeName],
+    isDictionaryDef: Boolean
   )
 
   /* Array definition */
@@ -87,7 +88,8 @@ object Ast {
     size: AstNode[Expr],
     eltType: AstNode[TypeName],
     default: Option[AstNode[Expr]],
-    format: Option[AstNode[String]]
+    format: Option[AstNode[String]],
+    isDictionaryDef: Boolean
   )
 
   /** Component definition */
@@ -112,14 +114,19 @@ object Ast {
   )
 
   /** Constant definition */
-  final case class DefConstant(name: Ident, value: AstNode[Expr])
+  final case class DefConstant(
+    name: Ident,
+    value: AstNode[Expr],
+    isDictionaryDef: Boolean
+)
 
   /** Enum definition */
   final case class DefEnum(
     name: Ident,
     typeName: Option[AstNode[TypeName]],
     constants: List[Annotated[AstNode[DefEnumConstant]]],
-    default: Option[AstNode[Expr]]
+    default: Option[AstNode[Expr]],
+    isDictionaryDef: Boolean
   )
 
   /** Enum constant definition */
@@ -172,11 +179,18 @@ object Ast {
   final case class StateMachineMember(node: Annotated[StateMachineMember.Node])
   object StateMachineMember {
     sealed trait Node
+    final case class DefAbsType(node: AstNode[Ast.DefAbsType]) extends Node
     final case class DefAction(node: AstNode[Ast.DefAction]) extends Node
+    final case class DefAliasType(node: AstNode[Ast.DefAliasType]) extends Node
+    final case class DefArray(node: AstNode[Ast.DefArray]) extends Node
     final case class DefChoice(node: AstNode[Ast.DefChoice]) extends Node
+    final case class DefConstant(node: AstNode[Ast.DefConstant]) extends Node
+    final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node
     final case class DefGuard(node: AstNode[Ast.DefGuard]) extends Node
     final case class DefSignal(node: AstNode[Ast.DefSignal]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
+    final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
+    final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
     final case class SpecInitialTransition(node: AstNode[Ast.SpecInitialTransition]) extends Node
   }
 
@@ -224,6 +238,7 @@ object Ast {
     sealed trait Node
     final case class DefChoice(node: AstNode[Ast.DefChoice]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
+    final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
     final case class SpecInitialTransition(node: AstNode[Ast.SpecInitialTransition]) extends Node
     final case class SpecStateEntry(node: AstNode[Ast.SpecStateEntry]) extends Node
     final case class SpecStateExit(node: AstNode[Ast.SpecStateExit]) extends Node
@@ -279,7 +294,8 @@ object Ast {
   final case class DefStruct(
     name: Ident,
     members: List[Annotated[AstNode[StructTypeMember]]],
-    default: Option[AstNode[Expr]]
+    default: Option[AstNode[Expr]],
+    isDictionaryDef: Boolean
   )
 
   /** Expression */
@@ -290,10 +306,11 @@ object Ast {
   final case class ExprDot(e: AstNode[Expr], id: AstNode[Ident]) extends Expr
   final case class ExprIdent(value: Ident) extends Expr
   final case class ExprLiteralBool(value: LiteralBool) extends Expr
-  final case class ExprLiteralInt(value: String) extends Expr
   final case class ExprLiteralFloat(value: String) extends Expr
+  final case class ExprLiteralInt(value: String) extends Expr
   final case class ExprLiteralString(value: String) extends Expr
   final case class ExprParen(e: AstNode[Expr]) extends Expr
+  final case class ExprSizeOf(typeName: AstNode[TypeName]) extends Expr
   final case class ExprStruct(members: List[AstNode[StructMember]]) extends Expr
   final case class ExprUnop(op: Unop, e: AstNode[Expr]) extends Expr
 
@@ -308,12 +325,11 @@ object Ast {
   final case class TopologyMember(node: Annotated[TopologyMember.Node])
   object TopologyMember {
     sealed trait Node
-    final case class SpecCompInstance(node: AstNode[Ast.SpecCompInstance]) extends Node
+    final case class SpecInstance(node: AstNode[Ast.SpecInstance]) extends Node
     final case class SpecConnectionGraph(node: AstNode[Ast.SpecConnectionGraph]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
     final case class SpecTopPort(node: AstNode[Ast.SpecTopPort]) extends Node
     final case class SpecTlmPacketSet(node: AstNode[Ast.SpecTlmPacketSet]) extends Node
-    final case class SpecTopImport(node: AstNode[Ast.SpecImport]) extends Node
   }
 
   /** Formal parameter */
@@ -342,7 +358,7 @@ object Ast {
 
   /** Port instance identifier */
   final case class PortInstanceIdentifier(
-    componentInstance: AstNode[QualIdent],
+    interfaceInstance: AstNode[QualIdent],
     portName: AstNode[Ident]
   )
 
@@ -457,7 +473,7 @@ object Ast {
   }
 
   /** Component instance specifier */
-  final case class SpecCompInstance(
+  final case class SpecInstance(
     instance: AstNode[QualIdent]
   )
 
@@ -579,7 +595,8 @@ object Ast {
   final case class SpecLoc(
     kind: SpecLoc.Kind,
     symbol: AstNode[QualIdent],
-    file: AstNode[String]
+    file: AstNode[String],
+    isDictionaryDef: Boolean
   )
   object SpecLoc {
     /** Location specifier kind */
@@ -587,7 +604,7 @@ object Ast {
     case object Component extends Kind {
       override def toString = "component"
     }
-    case object ComponentInstance extends Kind {
+    case object Instance extends Kind {
       override def toString = "instance"
     }
     case object Constant extends Kind {
@@ -598,9 +615,6 @@ object Ast {
     }
     case object StateMachine extends Kind {
       override def toString = "state machine"
-    }
-    case object Topology extends Kind {
-      override def toString = "topology"
     }
     case object Type extends Kind {
       override def toString = "type"
@@ -793,7 +807,7 @@ object Ast {
   /** Topology port specifier */
   final case class SpecTopPort(
     name: Ident,
-    underlyingPort: AstNode[QualIdent],
+    underlyingPort: AstNode[PortInstanceIdentifier],
   )
 
   /** Import specifier */
@@ -844,37 +858,37 @@ object Ast {
 
   /** Float type */
   sealed trait TypeFloat
-  final case class F32() extends TypeFloat {
+  case object F32 extends TypeFloat {
     override def toString = "F32"
   }
-  final case class F64() extends TypeFloat {
+  case object F64 extends TypeFloat {
     override def toString = "F64"
   }
 
   /** Int type */
   sealed trait TypeInt
-  final case class I8() extends TypeInt {
+  case object I8 extends TypeInt {
     override def toString = "I8"
   }
-  final case class I16() extends TypeInt {
+  case object I16 extends TypeInt {
     override def toString = "I16"
   }
-  final case class I32() extends TypeInt {
+  case object I32 extends TypeInt {
     override def toString = "I32"
   }
-  final case class I64() extends TypeInt {
+  case object I64 extends TypeInt {
     override def toString = "I64"
   }
-  final case class U8() extends TypeInt {
+  case object U8 extends TypeInt {
     override def toString = "U8"
   }
-  final case class U16() extends TypeInt {
+  case object U16 extends TypeInt {
     override def toString = "U16"
   }
-  final case class U32() extends TypeInt {
+  case object U32 extends TypeInt {
     override def toString = "U32"
   }
-  final case class U64() extends TypeInt {
+  case object U64 extends TypeInt {
     override def toString = "U64"
   }
 

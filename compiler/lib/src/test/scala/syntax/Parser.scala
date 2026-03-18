@@ -57,6 +57,17 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
+  "def alias type OK" should {
+    parseAllOK(
+      Parser.defAliasType,
+      List(
+        "type a = U32",
+        "type a = F32",
+        "dictionary type a = string"
+      )
+    )
+  }
+
   "def array OK" should {
     parseAllOK(
       Parser.defArray,
@@ -64,6 +75,7 @@ class ParserSpec extends AnyWordSpec {
         "array a = [10] U32",
         "array a = [10] U32 default 0",
         "array a = [10] U32 default 0 format \"{} counts\"",
+        "dictionary array a = [10] U32"
       )
     )
   }
@@ -122,6 +134,8 @@ class ParserSpec extends AnyWordSpec {
       Parser.defConstant,
       List(
         "constant a = 0",
+        "dictionary constant a = 0",
+        "constant a = sizeof(bool)"
       )
     )
   }
@@ -138,6 +152,7 @@ class ParserSpec extends AnyWordSpec {
           @ Pre
           Y = 1 @< Post
         }""",
+        "dictionary enum E { X = 0 }"
       )
     )
   }
@@ -186,7 +201,23 @@ class ParserSpec extends AnyWordSpec {
     parseAllOK(
       Parser.defStateMachine,
       List(
-        "state machine S",
+        "state machine M",
+        """state machine M {
+          constant c = 0
+          type T
+          type X = T
+          array A = [3] U32
+          struct S { x: U32 }
+          enum E { A, B }
+          action a
+          signal s
+          guard g
+          initial enter S
+          state S {
+            on g enter T
+          }
+          state T
+        }"""
       )
     )
   }
@@ -206,6 +237,7 @@ class ParserSpec extends AnyWordSpec {
           @ Pre
           y: F32 @< Post
         }""",
+        "dictionary struct S { x: [3] U32 }"
       )
     )
   }
@@ -317,7 +349,10 @@ class ParserSpec extends AnyWordSpec {
              x = 1,
              y = 2,
              z = 3,
-           }"""
+           }""",
+        "sizeof(U32)",
+        "sizeof(string size 10)",
+        "sizeof(a.b.c)"
       )
     )
   }
@@ -395,9 +430,9 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
-  "spec component instance OK" should {
+  "spec instance OK" should {
     parseAllOK(
-      Parser.specCompInstance,
+      Parser.specInstance,
       List(
         "instance a",
         "instance a.b",
@@ -490,8 +525,9 @@ class ParserSpec extends AnyWordSpec {
         "locate instance a.b at \"c.fpp\"",
         "locate constant a.b at \"c.fpp\"",
         "locate port a.b at \"c.fpp\"",
-        "locate topology a.b at \"c.fpp\"",
         "locate type a.b at \"c.fpp\"",
+        "locate dictionary type a.b at \"c.fpp\"",
+        "locate dictionary constant a.b at \"c.fpp\"",
       )
     )
   }
@@ -644,7 +680,7 @@ class ParserSpec extends AnyWordSpec {
     parseAllOK(
       Parser.specTopPort,
       List(
-        "port a = b",
+        "port a = a.b.c.d",
         "port b = c.b",
       )
     )

@@ -20,7 +20,7 @@ namespace M {
         const FwPrmIdType baseId,
         const FwPrmIdType localId,
         const Fw::ParamValid prmStat,
-        Fw::SerializeBufferBase& buff
+        Fw::SerialBufferBase& buff
     )
   {
     Fw::SerializeStatus stat;
@@ -65,7 +65,7 @@ namespace M {
     serializeParam(
         const FwPrmIdType baseId,
         const FwPrmIdType localId,
-        Fw::SerializeBufferBase& buff
+        Fw::SerialBufferBase& buff
     ) const
   {
     Fw::SerializeStatus stat;

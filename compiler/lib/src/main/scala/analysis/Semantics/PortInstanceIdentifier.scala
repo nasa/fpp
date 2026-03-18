@@ -5,8 +5,8 @@ import fpp.compiler.util._
 
 /** An FPP port instance identifier */
 case class PortInstanceIdentifier(
-  /** The component instance */
-  componentInstance: ComponentInstance,
+  /** The interface instance */
+  interfaceInstance: InterfaceInstance,
   /** The port instance */
   portInstance: PortInstance
 ) {
@@ -15,16 +15,16 @@ case class PortInstanceIdentifier(
 
   /** Gets the qualified name */
   def getQualifiedName: Name.Qualified = {
-    val componentName = componentInstance.qualifiedName
-    val identList = componentName.toIdentList
+    val instanceName = interfaceInstance.getQualifiedName
+    val identList = instanceName.toIdentList
     Name.Qualified.fromIdentList(identList :+ portInstance.getUnqualifiedName)
   }
 
   /** Gets the unqualified name */
   def getUnqualifiedName: Name.Qualified = {
-    val componentName = componentInstance.getUnqualifiedName
+    val instanceName = interfaceInstance.getUnqualifiedName
     val portName = portInstance.getUnqualifiedName
-    val identList = List(componentName, portName)
+    val identList = List(instanceName, portName)
     Name.Qualified.fromIdentList(identList)
   }
 
@@ -37,15 +37,15 @@ object PortInstanceIdentifier {
     Result.Result[PortInstanceIdentifier] = {
       val data = node.data
       for {
-        componentInstance <- a.getComponentInstance(
-          data.componentInstance.id
+        interfaceInstance <- a.getInterfaceInstance(
+          data.interfaceInstance.id
         )
-        portInstance <- componentInstance.component.getPortInstance(
+        portInstance <- interfaceInstance.getPortInstance(
           data.portName
         )
       }
       yield PortInstanceIdentifier(
-        componentInstance,
+        interfaceInstance,
         portInstance
       )
     }

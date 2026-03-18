@@ -26,6 +26,7 @@ case class TopHelperFns(
       getStopTasksFn,
       getFreeThreadsFn,
       getTearDownComponentsFn,
+      getDeinitFn
     )
     // Compute the set of names with nonempty lines
     val fnNames = pairs.foldLeft (Set[String]()) {
@@ -105,7 +106,7 @@ case class TopHelperFns(
 
   private def getConnectComponentsFn = {
     def getPortInfo(pii: PortInstanceIdentifier, c: Connection) = {
-      val cppQualifiedName = CppWriter.writeQualifiedName(pii.componentInstance.qualifiedName)
+      val cppQualifiedName = CppWriter.writeQualifiedName(pii.interfaceInstance.getQualifiedName)
       val portName = pii.portInstance.getUnqualifiedName
       val portNumber = t.getPortNumber(pii.portInstance, c).get
       (cppQualifiedName, portName, portNumber)
@@ -265,6 +266,22 @@ case class TopHelperFns(
     val name = "freeThreads"
     val memberOpt = getFnMemberOpt(
       "Free threads",
+      name,
+      stateParams,
+      instances.flatMap(getCode)
+    )
+    (name, memberOpt)
+  }
+
+  private def getDeinitFn = {
+    def getCode(ci: ComponentInstance): List[Line] =
+      getCodeLinesForPhase (CppWriter.Phases.deinitComponents) (ci).getOrElse {
+        val cppQualifiedName = CppWriter.writeQualifiedName(ci.qualifiedName)
+        lines(s"$cppQualifiedName.deinit();")
+      }
+    val name = "deinitComponents"
+    val memberOpt = getFnMemberOpt(
+      "Deinitialize components",
       name,
       stateParams,
       instances.flatMap(getCode)

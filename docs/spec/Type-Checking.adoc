@@ -151,8 +151,12 @@ with element type stem:[T] and size stem:[n].
 
 . Check that stem:[T_2] <<Type-Checking_Type-Conversion,may be converted to>>
 _Integer_.
-  
+
 . Use stem:[T] as the type of the expression.
+
+=== Sizeof Expressions
+
+The type of a <<Expressions_Sizeof-Expressions,sizeof expression>> is _Integer_.
 
 === Struct Expressions
 
@@ -269,10 +273,6 @@ the type.
 are both
 <<Types_The-Boolean-Type,the Boolean type>>.
 
-. stem:[T_1] and stem:[T_2]
-are both  the same
-<<Types_String-Types,string type>>.
-
 . Each of stem:[T_1] and stem:[T_2]
 is an
 <<Types_Abstract-Types,abstract type>>,
@@ -281,6 +281,8 @@ is an
 <<Types_Enum-Types,enum type>>, or
 <<Types_Struct-Types,struct type>>,
 and both types refer to the same definition.
+
+Note that string types are never identical.
 
 === Type Conversion
 
@@ -295,7 +297,7 @@ are <<Type-Checking_Identical-Types,identical types>>.
 
 . If either stem:[T_1] or stem:[T_2] or both is an
 <<Types_Alias-Types,alias type>>, then stem:[T_1]
-may be converted to stem:[T_2] if the <<Types_Underlying-Types,underlying 
+may be converted to stem:[T_2] if the <<Types_Underlying-Types,underlying
 type>> of stem:[T_1] may be converted to
 the <<Types_Underlying-Types,underlying type>> of stem:[T_2].
 
@@ -373,16 +375,16 @@ the whole expression):
 <<Type-Checking_Identical-Types,identical types>>, then let
 stem:[T] be stem:[T_1].
 
-. Otherwise if stem:[T_1] or stem:[T_2] or both are <<Types_Alias-Types,alias 
+. Otherwise if stem:[T_1] or stem:[T_2] or both are <<Types_Alias-Types,alias
 types>>, then do the following:
 
 .. Let stem:[L_1] be the <<Types_Alias-Lists,alias list>> of stem:[T_1].
 
 .. Let stem:[L_2] be the <<Types_Alias-Lists,alias list>> of stem:[T_2].
 
-.. If there is no type in stem:[L_1] that is 
+.. If there is no type in stem:[L_1] that is
 <<Type-Checking_Identical-Types,identical>>
-to a type in stem:[L_2], then replace each each alias type with its 
+to a type in stem:[L_2], then replace each each alias type with its
 <<Types_Underlying-Types,underlying type>> and reapply these rules.
 
 .. Otherwise let stem:[T] be the first type in stem:[L_2] that is identical
@@ -460,7 +462,7 @@ stem:[T_1, ... , T_n], do the following:
 . Let stem:[T'_1] be stem:[T_1].
 
 .  For each stem:[i in [2,n]], compute the
-<<Type-Options_Computing-a-Common-Type-Option,
-common type option>> stem:[T'_i] of stem:[T'_(i-1)] and stem:[T_i].
+<<Type-Checking_Computing-a-Common-Type,
+common type>> stem:[T'_i] of stem:[T'_(i-1)] and stem:[T_i].
 
-.  Use stem:[T'_n] as the common type option of the list.
+.  Use stem:[T'_n] as the common type of the list.

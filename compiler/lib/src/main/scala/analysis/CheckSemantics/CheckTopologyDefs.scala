@@ -5,7 +5,7 @@ import fpp.compiler.util._
 
 /** Check topology definitions */
 object CheckTopologyDefs
-  extends Analyzer 
+  extends Analyzer
   with ModuleAnalyzer
   with TopologyAnalyzer
 {
@@ -18,19 +18,22 @@ object CheckTopologyDefs
     a.topologyMap.get(symbol) match {
       case None =>
         // Topology is not in the map: visit it
-        val a1 = a.copy(topology = Some(Topology(aNode)))
         for {
-          // Visit topology members and compute unresolved top
-          a <- super.defTopologyAnnotatedNode(a1, aNode)
-          top <- Right(a.topology.get)
+          // Resolve connections on topologies directly imported into this topology
           a <- {
             // Resolve topologies directly imported by top, updating a
-            val tops = top.directImportMap.toList
+            val top = a.partialTopologyMap(symbol)
+            val tops = top.directTopologies.toList
             Result.foldLeft (tops) (a) ((a, tl) => {
               defTopologyAnnotatedNode(a, tl._1.node)
             })
           }
+
+          // Visit topology members and compute unresolved top
+          a <- Right(a.copy(topology = Some(a.partialTopologyMap(symbol))))
+          a <- super.defTopologyAnnotatedNode(a, aNode)
           // Use the updated analysis to resolve top
+          top <- Right(a.topology.get)
           top <- ResolveTopology.resolve(a, top)
         }
         yield a.copy(topologyMap = a.topologyMap + (symbol -> top))
@@ -39,22 +42,6 @@ object CheckTopologyDefs
         Right(a)
       }
     }
-  }
-
-  override def specCompInstanceAnnotatedNode(
-    a: Analysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecCompInstance]]
-  ) = {
-    val node = aNode._2
-    val instanceNode = node.data.instance
-    for {
-      instance <- a.getComponentInstance(instanceNode.id)
-      topology <- a.topology.get.addUniqueInstance(
-        instance,
-        Locations.get(node.id)
-      )
-    }
-    yield a.copy(topology = Some(topology))
   }
 
   override def specConnectionGraphAnnotatedNode(
@@ -75,22 +62,6 @@ object CheckTopologyDefs
           } yield t
       }
     } yield a.copy(topology = Some(topology))
-  }
-
-  override def specTopImportAnnotatedNode(
-    a: Analysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecImport]]
-  ) = {
-    val node = aNode._2
-    val topNode = node.data.sym
-    for {
-      ts <- a.getTopologySymbol(topNode.id)
-      topology <- a.topology.get.addImportedTopology(
-        ts,
-        Locations.get(node.id)
-      )
-    }
-    yield a.copy(topology = Some(topology))
   }
 
 }

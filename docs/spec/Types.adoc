@@ -43,12 +43,21 @@ A string type is written `string` or `string size` _n_,
 where _n_ is an integer value in the range [1,2^31-1].
 There is one string type `string` and one string type `string size` _n_
 for each legal value of _n_.
+The string type names map to the string types in the following way:
 
-The value _n_, if present, is called the *size* associated with the string 
+* The type name `string` maps to the type `string`.
+
+* The type name `string` `size` _e_ maps to the type `string` `size` _n_,
+after evaluating the expression _e_ to the value _n_.
+
+The value _n_, if present, is called the *size* associated with the string
 type.
-The size provides a maximum string length that the code generator can use
+The size provides a maximum string length that the code generator uses
 for allocating memory and serializing data.
-If no explicit size is present, then the code generator uses a default size.
+If no size is present, then the code generator uses
+the <<Definitions_Framework-Definitions_Constant-Definitions,
+framework definition>> `FW_FIXED_LENGTH_STRING_SIZE` as the
+maximum string length.
 
 === Array Types
 
@@ -158,14 +167,13 @@ associated with _T_ in the definition of _T_.
 A *displayable type* is a type that the F Prime ground data system can display.
 It is one of the following:
 
-* A <<Types_Primitive-Integer-Types,primitive integer type>>.
-* A <<Types_Floating-Point-Types,floating-point type>>.
+* A <<Types_Primitive-Numeric-Types,primitive numeric type>>.
 * A <<Types_The-Boolean-Type,boolean type>>.
 * A <<Types_String-Types,string type>>.
 * An <<Types_Enum-Types,enum type>>.
 * An <<Types_Array-Types,array type>> whose member type is a displayable type.
 * A <<Types_Struct-Types,struct type>> whose member types are all displayable types.
-* An <<Types_Alias-Types,alias type>> whose <<Types_Underlying-Types,underlying 
+* An <<Types_Alias-Types,alias type>> whose <<Types_Underlying-Types,underlying
 type>> is a displayable type.
 
 === Types with Numeric Members
@@ -248,3 +256,48 @@ of _T_ must provide a concrete value.
 <<Types_Alias-Types,alias type>> _T_ is the
 <<Types_Default-Values,default value>> of its
 <<Types_Underlying-Types,underlying type>>.
+
+=== Serialized Sizes
+
+Every <<Types_Displayable-Types,displayable type>>
+has a *serialized size*.  This is the maximum number of bytes required to 
+represent a <<Values,value>> _v_ of type _T_ in
+the standard F Prime serialized format.
+The serialized size _s_ of a type _T_ is defined as follows:
+
+* If _T_ is a
+<<Types_Primitive-Numeric-Types,primitive numeric type>>, then _s_ is the byte
+width of the type.  For example, the serialized size of a value of type `F64`
+is 8.
+
+* If _T_ is
+<<Types_The-Boolean-Type,`bool`>>, then _s_ is 1.
+
+* If _T_ is a
+<<Types_String-Types,string type>>, then _s_ is the sum of the following two numbers:
+
+** The serialized size of the 
+<<Definitions_Framework-Definitions_Type-Definitions,framework type>>
+`FwSizeStoreType`.
+This is the space used to store the length of the string.
+
+** The size _n_ specified in _T_, if it exists; otherwise the
+<<Definitions_Framework-Definitions_Constant-Definitions,framework constant>>
+`FW_FIXED_LENGTH_STRING_SIZE`.
+This is the maximum space required to store the characters of the string.
+
+* If _T_ is an
+<<Types_Array-Types,array type>> with element type _T'_ and size _n_, then _s_
+is _n_ times the serialized size of _T'_.
+
+* If _T_ is an
+<<Types_Enum-Types,enum type>>, then _s_ is the serialized size of the
+representation type of _T_.
+
+* If _T_ is a
+<<Types_Struct-Types,struct type>>, then _s_
+the sum of the serialized sizes of the types in the members of _T_
+
+* If _T_ is an
+<<Types_Alias-Types,alias type>>, then _s_ is the serialized size of the
+<<Types_Underlying-Types,underlying type>> of _T_.

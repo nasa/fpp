@@ -22,7 +22,7 @@ ActiveEventsTester ::
 ActiveEventsTester ::
   ~ActiveEventsTester()
 {
-
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

@@ -113,6 +113,11 @@ definition's parameter list.
 
 === Sub-Interfaces
 
-An interface _I_ is a *sub-interface* of an interface _I'_ if
+A port interface _I_ is a *sub-interface* of a port interface _I'_ if
 the set of port instances represented by _I_ is a subset of the set of
 port instances represented by _I'_.
+For purposes of this comparison, two port instances _i_ and _i'_
+are considered
+to be identical if they are defined in different places in the model
+but are otherwise identical.
+In this case we say that _i_ and _i'_ have the same *signature*.

@@ -1,0 +1,10 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/enum_dictionary_error.fpp:1.1
+locate dictionary type E at "enum_dictionary_error.fpp"
+^
+error: incorrect location specifier
+actual definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/enum_dictionary_error.fpp:2.1
+enum E { X }
+^
+note: one specifies dictionary and one does not

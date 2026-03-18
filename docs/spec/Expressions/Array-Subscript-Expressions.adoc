@@ -1,6 +1,6 @@
 === Array Subscript Expressions
 
-An *array subscript expression* is an expression that selects an element from 
+An *array subscript expression* is an expression that selects an element from
 an array value.
 
 ==== Syntax

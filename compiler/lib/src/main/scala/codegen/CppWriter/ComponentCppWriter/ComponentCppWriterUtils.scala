@@ -512,6 +512,7 @@ abstract class ComponentCppWriterUtils(
       case PortInstance.General(aNode, _, _, _, _, _) => aNode
       case PortInstance.Special(aNode, _, _, _, _, _) => aNode
       case PortInstance.Internal(aNode, _, _) => aNode
+      case _: PortInstance.Topology => throw InternalError("topology port not flattened")
     }
 
     AnnotationCppWriter.asStringOpt(aNode)
@@ -521,7 +522,7 @@ abstract class ComponentCppWriterUtils(
   def getPortParams(p: PortInstance): List[(String, String, Option[Type])] =
     p.getType match {
       case Some(PortInstance.Type.Serial) => List(
-        ("buffer", "Fw::SerializeBufferBase", None)
+        ("buffer", "Fw::LinearBufferBase", None)
       )
       case _ => portParamTypeMap(p.getUnqualifiedName).map((n, tn, t) => (n, tn, Some(t)))
     }
@@ -531,7 +532,7 @@ abstract class ComponentCppWriterUtils(
     p.getType match {
       case Some(PortInstance.Type.Serial) => List(
         CppDoc.Function.Param(
-          CppDoc.Type("Fw::SerializeBufferBase&"),
+          CppDoc.Type("Fw::LinearBufferBase&"),
           "buffer",
           Some("The serialization buffer")
         )
@@ -599,6 +600,7 @@ abstract class ComponentCppWriterUtils(
       }
       case _: PortInstance.Special => "special"
       case _: PortInstance.Internal => "internal"
+      case _: PortInstance.Topology => throw InternalError("topology port not flattened")
     }
 
   def getPortListTypeString(ports: List[PortInstance]): String =

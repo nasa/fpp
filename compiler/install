@@ -3,12 +3,15 @@
 # ----------------------------------------------------------------------
 # FPP installer
 # ----------------------------------------------------------------------
+# To select a version of java other than the system default,
+# set the environment variable
+# FPP_JAVA_HOME
+#
 # To pass flags to sbt, set the environment variable
 # FPP_SBT_FLAGS
 #
-# To override the java command and/or set java flags, set the
-# environment variable
-# FPP_INSTALL_JAVA
+# To pass flags to java, set the environment variable
+# FPP_JAVA_FLAGS
 # ----------------------------------------------------------------------
 
 # Check arguments
@@ -38,12 +41,15 @@ cd $wd
 
 scala_version="3.1.2"
 
-if test -n "$FPP_INSTALL_JAVA"
+if test -n "$FPP_JAVA_HOME"
 then
-  java=$FPP_INSTALL_JAVA
+  sbt="sbt --java-home $FPP_JAVA_HOME $FPP_SBT_FLAGS"
+  java="$FPP_JAVA_HOME/bin/java $FPP_JAVA_FLAGS"
 else
-  java=java
+  sbt="sbt $FPP_SBT_FLAGS"
+  java=java $FPP_JAVA_FLAGS
 fi
+echo "sbt command: $sbt"
 echo "java command: $java"
 
 dir=`dirname $dest`
@@ -67,7 +73,7 @@ sed -i.update.bak -e "s/val v = .*/val v = \"$version\"/" \
   $util/Version.scala
 
 echo "Building jar files"
-cmd="sbt $FPP_SBT_FLAGS assembly"
+cmd="$sbt assembly"
 echo $cmd
 $cmd
 

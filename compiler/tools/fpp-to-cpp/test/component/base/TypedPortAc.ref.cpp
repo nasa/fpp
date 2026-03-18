@@ -16,11 +16,11 @@ namespace Ports {
     // Port buffer class
     // ----------------------------------------------------------------------
 
-    class TypedPortBuffer : public Fw::SerializeBufferBase {
+    class TypedPortBuffer : public Fw::LinearBufferBase {
 
       public:
 
-        Fw::Serializable::SizeType getBuffCapacity() const {
+        Fw::Serializable::SizeType getCapacity() const {
           return InputTypedPort::SERIALIZED_SIZE;
         }
 
@@ -96,7 +96,7 @@ namespace Ports {
 #if FW_PORT_SERIALIZATION == 1
 
   Fw::SerializeStatus InputTypedPort ::
-    invokeSerial(Fw::SerializeBufferBase& _buffer)
+    invokeSerial(Fw::LinearBufferBase& _buffer)
   {
     Fw::SerializeStatus _status;
 
@@ -125,7 +125,7 @@ namespace Ports {
       return _status;
     }
 
-    char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+    char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
     Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
     _status = _buffer.deserializeTo(str1);
     if (_status != Fw::FW_SERIALIZE_OK) {

@@ -10,6 +10,7 @@ object EnterSymbols
   with InterfaceAnalyzer
   with ComponentAnalyzer
   with ModuleAnalyzer
+  with StateMachineAnalyzer
   with TopologyAnalyzer
 {
 
@@ -94,7 +95,7 @@ object EnterSymbols
     val name = data.name
     val symbol = Symbol.ComponentInstance(aNode)
     val nestedScope = a.nestedScope
-    for (nestedScope <- nestedScope.put(NameGroup.ComponentInstance)(name, symbol))
+    for (nestedScope <- nestedScope.put(NameGroup.PortInterfaceInstance)(name, symbol))
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
@@ -164,7 +165,7 @@ object EnterSymbols
     val name = data.name
     val symbol = Symbol.Interface(aNode)
     val nestedScope = a.nestedScope
-    for (nestedScope <- nestedScope.put(NameGroup.Interface)(name, symbol))
+    for (nestedScope <- nestedScope.put(NameGroup.PortInterface)(name, symbol))
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
@@ -180,12 +181,12 @@ object EnterSymbols
     val a1 = a.copy(scopeNameList = newScopeNameList)
     for {
       triple <- a1.nestedScope.innerScope.get (NameGroup.Value) (name) match {
-        case Some(symbol: Symbol.Module) => 
+        case Some(symbol: Symbol.Module) =>
           // We found a module symbol with the same name at the current level.
           // Re-open the scope.
           val scope = a1.symbolScopeMap(symbol)
           Right((a1, symbol, scope))
-        case Some(symbol) => 
+        case Some(symbol) =>
           // We found a non-module symbol with the same name at the current level.
           // This is an error.
           val error = SemanticError.RedefinedSymbol(
@@ -194,7 +195,7 @@ object EnterSymbols
             symbol.getLoc
           )
           Left(error)
-        case None => 
+        case None =>
           // We did not find a symbol with the same name at the current level.
           // Create a new module symbol now.
           val symbol = Symbol.Module(aNode)
@@ -252,10 +253,29 @@ object EnterSymbols
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
+    val parentSymbol = a.parentSymbol
     val symbol = Symbol.StateMachine(aNode)
-    val nestedScope = a.nestedScope
-    for (nestedScope <- nestedScope.put(NameGroup.StateMachine)(name, symbol))
-      yield updateMap(a, symbol).copy(nestedScope = nestedScope)
+    for {
+      nestedScope <- a.nestedScope.put(NameGroup.StateMachine)(name, symbol)
+      nestedScope <- nestedScope.put(NameGroup.Type)(name, symbol)
+      nestedScope <- nestedScope.put(NameGroup.Value)(name, symbol)
+      a <- {
+        val scope = Scope.empty
+        val nestedScope1 = nestedScope.push(scope)
+        val a1 = a.copy(nestedScope = nestedScope1, parentSymbol = Some(symbol))
+        super.defStateMachineAnnotatedNode(a1, aNode)
+      }
+    }
+    yield {
+      val scope = a.nestedScope.innerScope
+      val newSymbolScopeMap = a.symbolScopeMap + (symbol -> scope)
+      val a1 = a.copy(
+        nestedScope = a.nestedScope.pop,
+        parentSymbol = parentSymbol,
+        symbolScopeMap = newSymbolScopeMap
+      )
+      updateMap(a1, symbol)
+    }
   }
 
   override def defStructAnnotatedNode(
@@ -280,7 +300,7 @@ object EnterSymbols
     val name = data.name
     val symbol = Symbol.Topology(aNode)
     val nestedScope = a.nestedScope
-    for (nestedScope <- nestedScope.put(NameGroup.Topology)(name, symbol))
+    for (nestedScope <- nestedScope.put(NameGroup.PortInterfaceInstance)(name, symbol))
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 

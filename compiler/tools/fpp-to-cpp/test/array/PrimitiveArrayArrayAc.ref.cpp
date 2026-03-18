@@ -13,9 +13,10 @@
 
 PrimitiveArray ::
   PrimitiveArray() :
-    Serializable()
+    Serializable(),
+    elements()
 {
-  *this = PrimitiveArray(M::PrimitiveF64({1.0, 2.0, 3.0, 4.0, 5.0}));
+
 }
 
 PrimitiveArray ::
@@ -141,7 +142,7 @@ std::ostream& operator<<(std::ostream& os, const PrimitiveArray& obj) {
 
 Fw::SerializeStatus PrimitiveArray ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -157,7 +158,7 @@ Fw::SerializeStatus PrimitiveArray ::
 
 Fw::SerializeStatus PrimitiveArray ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {
@@ -190,31 +191,21 @@ void PrimitiveArray ::
   sb = "";
 
   // Array prefix
-  if (sb.length() + 2 <= sb.maxLength()) {
-    sb += "[ ";
-  } else {
-    return;
-  }
+  sb += "[ ";
 
   for (FwSizeType index = 0; index < SIZE; index++) {
+    // Array data
     Fw::String tmp;
     this->elements[index].toString(tmp);
 
-    FwSizeType size = tmp.length() + (index > 0 ? 2 : 0);
-    if ((size + sb.length()) <= sb.maxLength()) {
-      if (index > 0) {
-        sb += ", ";
-      }
-      sb += tmp;
-    } else {
-      break;
+    if (index > 0) {
+      sb += ", ";
     }
+    sb += tmp;
   }
 
   // Array suffix
-  if (sb.length() + 2 <= sb.maxLength()) {
-    sb += " ]";
-  }
+  sb += " ]";
 }
 
 #endif

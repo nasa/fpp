@@ -185,7 +185,7 @@ class PassiveSerialTesterBase :
       U32 u32;
       F32 f32;
       bool b;
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1;
       E e;
       A a;
@@ -206,7 +206,7 @@ class PassiveSerialTesterBase :
       U32 u32;
       F32 f32;
       bool b;
-      char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str2;
       E e;
       A a;
@@ -409,14 +409,14 @@ class PassiveSerialTesterBase :
             const FwPrmIdType baseId, //!< The component base parameter ID to deserialize
             const FwPrmIdType localId, //!< The parameter local ID to deserialize
             const Fw::ParamValid prmStat, //!< The parameter validity status
-            Fw::SerializeBufferBase& buff //!< The buffer containing the parameter to deserialize
+            Fw::SerialBufferBase& buff //!< The buffer containing the parameter to deserialize
         ) override;
 
         //! Parameter serialization function for external parameter unit testing
         Fw::SerializeStatus serializeParam(
             const FwPrmIdType baseId, //!< The component base parameter ID to serialize
             const FwPrmIdType localId, //!< The parameter local ID to serialize
-            Fw::SerializeBufferBase& buff //!< The buffer to serialize the parameter into
+            Fw::SerialBufferBase& buff //!< The buffer to serialize the parameter into
         ) const override;
 
     };
@@ -770,7 +770,7 @@ class PassiveSerialTesterBase :
     //! Default handler implementation for from_serialOut
     virtual void from_serialOut_handler(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     );
 
   protected:
@@ -857,7 +857,7 @@ class PassiveSerialTesterBase :
     //! Handler base-class function for from_serialOut
     void from_serialOut_handlerBase(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     );
 
   protected:
@@ -983,13 +983,13 @@ class PassiveSerialTesterBase :
     //! Invoke the to port connected to serialGuarded
     void invoke_to_serialGuarded(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     );
 
     //! Invoke the to port connected to serialSync
     void invoke_to_serialSync(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     );
 
   protected:
@@ -2100,7 +2100,7 @@ class PassiveSerialTesterBase :
     static void from_serialOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     );
 
   protected:

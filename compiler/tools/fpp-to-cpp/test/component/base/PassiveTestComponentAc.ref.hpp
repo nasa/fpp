@@ -47,6 +47,7 @@
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 //! \class PassiveTestComponentBase
 //! \brief Auto-generated base for PassiveTest component
@@ -221,10 +222,10 @@ class PassiveTestComponentBase :
     static constexpr FwSizeType SIZE_OF_DataRecord_RECORD =
       sizeof(FwDpIdType) + PassiveTest_Data::SERIALIZED_SIZE;
     static constexpr FwSizeType SIZE_OF_StringArrayRecord_RECORD(FwSizeType arraySize) {
-      return sizeof(FwDpIdType) + sizeof(FwSizeStoreType) + arraySize * Fw::StringBase::STATIC_SERIALIZED_SIZE(80);
+      return sizeof(FwDpIdType) + sizeof(FwSizeStoreType) + arraySize * Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
     }
     static constexpr FwSizeType SIZE_OF_StringRecord_RECORD =
-      sizeof(FwDpIdType) + Fw::StringBase::STATIC_SERIALIZED_SIZE(80);
+      sizeof(FwDpIdType) + Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
     static constexpr FwSizeType SIZE_OF_U32ArrayRecord_RECORD(FwSizeType arraySize) {
       return sizeof(FwDpIdType) + sizeof(FwSizeStoreType) + arraySize * sizeof(U32);
     }
@@ -2346,84 +2347,84 @@ class PassiveTestComponentBase :
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamU32(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamF64
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamF64(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamString
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamString(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamEnum
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamEnum(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamArray
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamArray(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamStruct
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamStruct(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamI32Ext
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamI32Ext(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamF64Ext
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamF64Ext(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamStringExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamStringExt(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamEnumExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamEnumExt(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamArrayExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamArrayExt(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamStructExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamStructExt(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
   private:

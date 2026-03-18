@@ -188,7 +188,7 @@ namespace M {
         U32 u32;
         F32 f32;
         bool b;
-        char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+        char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
         Fw::ExternalString str1;
         E e;
         A a;
@@ -209,7 +209,7 @@ namespace M {
         U32 u32;
         F32 f32;
         bool b;
-        char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+        char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
         Fw::ExternalString str2;
         E e;
         A a;
@@ -424,14 +424,14 @@ namespace M {
               const FwPrmIdType baseId, //!< The component base parameter ID to deserialize
               const FwPrmIdType localId, //!< The parameter local ID to deserialize
               const Fw::ParamValid prmStat, //!< The parameter validity status
-              Fw::SerializeBufferBase& buff //!< The buffer containing the parameter to deserialize
+              Fw::SerialBufferBase& buff //!< The buffer containing the parameter to deserialize
           ) override;
 
           //! Parameter serialization function for external parameter unit testing
           Fw::SerializeStatus serializeParam(
               const FwPrmIdType baseId, //!< The component base parameter ID to serialize
               const FwPrmIdType localId, //!< The parameter local ID to serialize
-              Fw::SerializeBufferBase& buff //!< The buffer to serialize the parameter into
+              Fw::SerialBufferBase& buff //!< The buffer to serialize the parameter into
           ) const override;
 
       };

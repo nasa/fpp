@@ -1,6 +1,12 @@
 @ Definitions and specifiers
 def module
   ident DefinitionsAndSpecifiers
+  def alias type
+    ident FwSizeStoreType
+    type name U16
+  def constant
+    ident FW_FIXED_LENGTH_STRING_SIZE
+    literal int 256
   @ Abstract type definition
   def abs type
     ident T
@@ -336,7 +342,7 @@ def module
   def topology
     ident T
     @ Public instance specifier
-    spec comp instance
+    spec interface instance
       qual ident i1
     @< Public instance specifier
     @ Direct connection graph specifier
@@ -364,10 +370,10 @@ def module
       target qual ident i3
       target qual ident i4
     @< Graph pattern specifier
-    @ Topology import specifier
-    spec top import
+    @ Topology instance specifier
+    spec interface instance
       qual ident T1
-    @< Topology import specifier
+    @< Topology instance specifier
     @ Telemetry packet group
     spec tlm packet set
       ident P
@@ -440,7 +446,7 @@ def module
     ident typeNameString
     size literal int 10
     type name string
-                size literal int 256
+      size literal int 256
   def array
     ident typeNameQID
     size literal int 10
@@ -584,4 +590,21 @@ def module
         ident c
         literal int 3
   @< Struct
+  @ SizeOf
+  def module
+    ident SizeOf
+    def constant
+      ident typeFloat
+      expr sizeof
+        type name F64
+    def constant
+      ident typeQualId
+      expr sizeof
+        type name qual ident TypeNames.typeNameU32
+    def constant
+      ident typeString
+      expr sizeof
+        type name string
+          size literal int 20
+  @< SizeOf
 @< Expressions

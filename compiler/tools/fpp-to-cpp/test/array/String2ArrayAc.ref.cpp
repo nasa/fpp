@@ -13,7 +13,8 @@
 
 String2 ::
   String2() :
-    Serializable()
+    Serializable(),
+    elements()
 {
   this->initElements();
   *this = String2({Fw::String("\"\\"), Fw::String("abc\ndef\n")});
@@ -148,7 +149,7 @@ std::ostream& operator<<(std::ostream& os, const String2& obj) {
 
 Fw::SerializeStatus String2 ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -164,7 +165,7 @@ Fw::SerializeStatus String2 ::
 
 Fw::SerializeStatus String2 ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {
@@ -197,31 +198,21 @@ void String2 ::
   sb = "";
 
   // Array prefix
-  if (sb.length() + 2 <= sb.maxLength()) {
-    sb += "[ ";
-  } else {
-    return;
-  }
+  sb += "[ ";
 
   for (FwSizeType index = 0; index < SIZE; index++) {
+    // Array data
     Fw::String tmp;
     tmp.format("a %s b", this->elements[index].toChar());
 
-    FwSizeType size = tmp.length() + (index > 0 ? 2 : 0);
-    if ((size + sb.length()) <= sb.maxLength()) {
-      if (index > 0) {
-        sb += ", ";
-      }
-      sb += tmp;
-    } else {
-      break;
+    if (index > 0) {
+      sb += ", ";
     }
+    sb += tmp;
   }
 
   // Array suffix
-  if (sb.length() + 2 <= sb.maxLength()) {
-    sb += " ]";
-  }
+  sb += " ]";
 }
 
 #endif

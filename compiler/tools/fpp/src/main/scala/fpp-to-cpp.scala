@@ -18,7 +18,6 @@ object FPPToCpp {
     guardPrefix: Option[String] = None,
     names: Option[String] = None,
     pathPrefixes: List[String] = Nil,
-    defaultStringSize: Int = CppWriterState.defaultDefaultStringSize,
     template: Boolean = false,
     unitTest: Boolean = false,
   )
@@ -32,17 +31,10 @@ object FPPToCpp {
     val a = Analysis(inputFileSet = options.files.toSet)
     val mode = CppWriter.getMode(options.template, options.unitTest)
     for {
-      tulFiles <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
-      aTulFiles <- ResolveSpecInclude.transformList(
-        a,
-        tulFiles, 
-        ResolveSpecInclude.transUnit
-      )
-      tulFiles <- Right(aTulFiles._2)
-      tulImports <- Result.map(
-        options.imports,
-        Parser.parseFile (Parser.transUnit) (None) _
-      )
+      aTulTul <- ToolUtils.parseFilesAndResolveAsts(a, files, options.imports)
+      a <- Right(aTulTul._1)
+      tulFiles <- Right(aTulTul._2)
+      tulImports <- Right(aTulTul._3)
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
       // Compute the generated file names. This step also checks for
       // name collisions.
@@ -97,7 +89,6 @@ object FPPToCpp {
           dir,
           options.guardPrefix,
           options.pathPrefixes,
-          options.defaultStringSize,
           Some(name)
         )
         mode match {
@@ -157,11 +148,6 @@ object FPPToCpp {
         .valueName("<prefix1>,<prefix2>...")
         .action((p, c) => c.copy(pathPrefixes = p.toList))
         .text("prefixes to delete from generated file paths"),
-      opt[Int]('s', "size")
-        .valueName("<size>")
-        .validate(s => if (s > 0) success else failure("size must be greater than zero"))
-        .action((s, c) => c.copy(defaultStringSize = s))
-        .text("default string size"),
       opt[Unit]('t', "template")
         .action((_, c) => c.copy(template = true))
         .text("emit template code"),

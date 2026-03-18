@@ -1523,6 +1523,7 @@ case class ComponentTesterBaseWriter(
             )
           }
         case _: PortInstance.Internal => Nil
+        case _: PortInstance.Topology => throw InternalError("topology port not flattened")
       }
       lazy val member = functionClassMember(
         Some(s"Static function for port ${testerPortName(p)}"),
@@ -1730,7 +1731,7 @@ case class ExternalParameterDelegate(
               Some("The parameter validity status")
             ),
             CppDoc.Function.Param(
-              CppDoc.Type("Fw::SerializeBufferBase&"),
+              CppDoc.Type("Fw::SerialBufferBase&"),
               "buff",
               Some("The buffer containing the parameter to deserialize")
             )
@@ -1786,7 +1787,7 @@ case class ExternalParameterDelegate(
               Some("The parameter local ID to serialize")
             ),
             CppDoc.Function.Param(
-              CppDoc.Type("Fw::SerializeBufferBase&"),
+              CppDoc.Type("Fw::SerialBufferBase&"),
               "buff",
               Some("The buffer to serialize the parameter into")
             )

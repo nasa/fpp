@@ -36,7 +36,7 @@ namespace {
   // Define a message buffer class large enough to handle all the
   // asynchronous inputs to the component
   class ComponentIpcSerializableBuffer :
-    public Fw::SerializeBufferBase
+    public Fw::LinearBufferBase
   {
 
     public:
@@ -50,7 +50,7 @@ namespace {
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
-      Fw::Serializable::SizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -2383,7 +2383,7 @@ void QueuedParamsComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2490,7 +2490,7 @@ void QueuedParamsComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2597,7 +2597,7 @@ void QueuedParamsComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2704,7 +2704,7 @@ void QueuedParamsComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -3482,7 +3482,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedParamsComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -3555,7 +3555,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedParamsComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -3628,7 +3628,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedParamsComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -3701,7 +3701,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedParamsComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -4326,7 +4326,7 @@ void QueuedParamsComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::CmdResponse QueuedParamsComponentBase ::
-  paramSet_ParamU32(Fw::SerializeBufferBase& val)
+  paramSet_ParamU32(Fw::SerialBufferBase& val)
 {
   U32 _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -4346,7 +4346,7 @@ Fw::CmdResponse QueuedParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedParamsComponentBase ::
-  paramSet_ParamF64(Fw::SerializeBufferBase& val)
+  paramSet_ParamF64(Fw::SerialBufferBase& val)
 {
   F64 _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -4366,7 +4366,7 @@ Fw::CmdResponse QueuedParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedParamsComponentBase ::
-  paramSet_ParamString(Fw::SerializeBufferBase& val)
+  paramSet_ParamString(Fw::SerialBufferBase& val)
 {
   Fw::ParamString _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -4386,7 +4386,7 @@ Fw::CmdResponse QueuedParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedParamsComponentBase ::
-  paramSet_ParamEnum(Fw::SerializeBufferBase& val)
+  paramSet_ParamEnum(Fw::SerialBufferBase& val)
 {
   E _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -4406,7 +4406,7 @@ Fw::CmdResponse QueuedParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedParamsComponentBase ::
-  paramSet_ParamArray(Fw::SerializeBufferBase& val)
+  paramSet_ParamArray(Fw::SerialBufferBase& val)
 {
   A _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -4426,7 +4426,7 @@ Fw::CmdResponse QueuedParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedParamsComponentBase ::
-  paramSet_ParamStruct(Fw::SerializeBufferBase& val)
+  paramSet_ParamStruct(Fw::SerialBufferBase& val)
 {
   S _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);

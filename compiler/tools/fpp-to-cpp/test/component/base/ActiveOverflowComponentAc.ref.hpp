@@ -645,7 +645,7 @@ class ActiveOverflowComponentBase :
     //! Handler for input port serialAsyncHook
     virtual void serialAsyncHook_handler(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     ) = 0;
 
   protected:
@@ -659,7 +659,7 @@ class ActiveOverflowComponentBase :
     //! Handler base-class function for input port serialAsyncHook
     void serialAsyncHook_handlerBase(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     );
 
   protected:
@@ -751,7 +751,7 @@ class ActiveOverflowComponentBase :
     //! Pre-message hook for async input port serialAsyncHook
     virtual void serialAsyncHook_preMsgHook(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     );
 
   protected:
@@ -807,7 +807,7 @@ class ActiveOverflowComponentBase :
     //! Overflow hook for async input port serialAsyncHook
     virtual void serialAsyncHook_overflowHook(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     ) = 0;
 
   protected:
@@ -1061,7 +1061,7 @@ class ActiveOverflowComponentBase :
     static void m_p_serialAsyncHook_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     );
 
 #endif

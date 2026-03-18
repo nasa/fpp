@@ -86,11 +86,19 @@ object AutocodeCppWriter extends CppWriter {
   override def defStateMachineAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
-  ) = StateMachine.getSymbolKind(Symbol.StateMachine(aNode)) match {
-    case StateMachine.Kind.Internal =>
-      val cppDoc = StateMachineCppWriter(s, aNode).write
-      CppWriter.writeCppDoc(s, cppDoc)
-    case StateMachine.Kind.External => Right(s)
+  ) = {
+    val node = aNode._2
+    val data = node.data
+    data.members match {
+      case Some(members) =>
+        val cppDoc = StateMachineCppWriter(s, aNode).write
+        for {
+          s <- CppWriter.writeCppDoc(s, cppDoc)
+          s <- visitList(s, members, matchStateMachineMember)
+        }
+        yield s
+      case None => Right(s)
+    }
   }
 
   override def defStructAnnotatedNode(

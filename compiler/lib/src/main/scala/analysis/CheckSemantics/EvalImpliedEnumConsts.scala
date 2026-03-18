@@ -8,6 +8,7 @@ object EvalImpliedEnumConsts
   extends Analyzer
   with ModuleAnalyzer
   with ComponentAnalyzer
+  with StateMachineAnalyzer
 {
 
   override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {

@@ -6,7 +6,7 @@ cd $wd
 
 . scripts/utils.sh
 
-sbt clean
+./fpp-sbt clean
 rm -rf bin native-fpp-* test-output.txt
 clean
 for file in `find . -mindepth 2 -name clean`

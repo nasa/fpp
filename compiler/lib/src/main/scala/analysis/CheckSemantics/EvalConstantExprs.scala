@@ -179,9 +179,29 @@ object EvalConstantExprs extends UseAnalyzer {
     Right(a.assignValue(node -> v))
   }
 
+  override def exprNode(a: Analysis, node: AstNode[Ast.Expr]) =
+    // If we've already visited the expression, don't analyze it again
+    if !a.valueMap.contains(node.id) then super.exprNode(a, node) else Right(a)
+
   override def exprParenNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprParen) = {
     for (a <- super.exprParenNode(a, node, e))
       yield a.assignValue(node -> a.valueMap(e.e.id))
+  }
+
+  override def exprSizeOfNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprSizeOf) = {
+    val t = a.typeMap(e.typeName.id)
+    for {
+      a <- super.typeNameNode(a, e.typeName)
+      // Finalize the type so we can compute the size
+      a <- FinalizeType.finalizeIfNeeded(a, t)
+    } yield {
+      // Get the finalized type
+      val tFin = FinalizeType.getFinalizedType(a, t)
+      // Use the finalized type to compute the size
+      val size = Type.SerializedSize.ty(a, tFin).get
+      val v = Value.Integer(size)
+      a.assignValue(node -> v)
+    }
   }
 
   override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) =
@@ -237,4 +257,66 @@ object EvalConstantExprs extends UseAnalyzer {
       a.assignValue(node -> v)
     }
   }
+
+  // Visit nodes and member types, and finalize type defs
+  // The FinalizeTypeDefs methods update the visited symbol set
+  private object FinalizeType extends TypeVisitor {
+
+    type In = Analysis
+
+    type Out = Result.Result[Analysis]
+
+    override def default(a: Analysis, t: Type) = Right(a)
+
+    override def aliasType(a: Analysis, t: Type.AliasType) =
+      for {
+        a <- defAliasTypeAnnotatedNode(a, t.node)
+        a <- FinalizeTypeDefs.defAliasTypeAnnotatedNode(a, t.node)
+      } yield a
+
+    override def array(a: Analysis, t: Type.Array) =
+      for {
+        a <- defArrayAnnotatedNode(a, t.node)
+        a <- finalizeIfNeeded(a, t.anonArray.eltType)
+        a <- FinalizeTypeDefs.defArrayAnnotatedNode(a, t.node)
+      } yield a
+
+    override def enumeration(a: Analysis, t: Type.Enum) =
+      for {
+        a <- defEnumAnnotatedNode(a, t.node)
+        a <- FinalizeTypeDefs.defEnumAnnotatedNode(a, t.node)
+      } yield a
+
+    override def struct(a: Analysis, t: Type.Struct) =
+      for {
+        a <- defStructAnnotatedNode(a, t.node)
+        a <- Result.foldLeft (t.anonStruct.members.toList) (a) {
+          case (a1, (_ -> t1)) => finalizeIfNeeded(a1, t1)
+        }
+        a <- FinalizeTypeDefs.defStructAnnotatedNode(a, t.node)
+      } yield a
+
+    // Query whether a type is finalized
+    // A type is finalized if (1) it has a definition symbol S
+    // and S is in the visited symbol set; or (2)
+    // it has no definition symbol
+    private def typeIsFinalized(a: Analysis, t: Type) =
+      t.getDefSymbol match {
+        case Some(sym) => a.visitedSymbolSet.contains(sym)
+        case _ => true
+      }
+
+    // Finalize a type if not already finalized
+    def finalizeIfNeeded(a: Analysis, t: Type) =
+      if !typeIsFinalized(a, t) then ty(a, t) else Right(a)
+
+    // Get the finalized type for a type
+    // For a type with a definition, the finalized type
+    // is mapped to the definition in the type map
+    // Otherwise the type is the finalized type
+    def getFinalizedType(a: Analysis, t: Type) =
+      t.getDefNodeId.map(a.typeMap(_)).getOrElse(t)
+
+  }
+
 }

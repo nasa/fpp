@@ -14,7 +14,7 @@
 Included ::
   Included() :
     Serializable(),
-    m_x(0)
+    m_x()
 {
 
 }
@@ -79,7 +79,7 @@ std::ostream& operator<<(std::ostream& os, const Included& obj) {
 
 Fw::SerializeStatus Included ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -95,7 +95,7 @@ Fw::SerializeStatus Included ::
 
 Fw::SerializeStatus Included ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

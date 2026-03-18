@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/types/array_undef_type.fpp:2.17
+  array A = [3] T
+                ^
+error: symbol T is not defined
+note: looking for a type here

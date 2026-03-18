@@ -158,8 +158,6 @@ case class ComponentParameters (
                             |  _buff
                             |);
                             |
-                            |// Get the local ID to pass to the delegate
-                            |_id = ${paramIdConstantName(param.getName)};
                             |// If there was a deserialization issue, mark it invalid
                             |"""
                       ),
@@ -167,11 +165,11 @@ case class ComponentParameters (
                         s"param_valid == Fw::ParamValid::VALID",
                         lines(
                           s"""|// Pass the local ID to the delegate
-                              |_id = ${paramIdConstantName(param.getName)};
+                              |constexpr FwPrmIdType _localId = ${paramIdConstantName(param.getName)};
                               |
                               |FW_ASSERT(this->paramDelegatePtr != nullptr);
                               |// Call the delegate deserialize function for ${paramVariableName(param.getName)}
-                              |_stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+                              |_stat = this->paramDelegatePtr->deserializeParam(_baseId, _localId, param_valid, _buff);
                               |"""
                         ) ++
                           wrapInIf(
@@ -367,7 +365,7 @@ case class ComponentParameters (
           paramHandlerName(param.getName, Command.Param.Set),
           List(
             CppDoc.Function.Param(
-              CppDoc.Type("Fw::SerializeBufferBase&"),
+              CppDoc.Type("Fw::SerialBufferBase&"),
               "val",
               Some("The serialization buffer")
             ),

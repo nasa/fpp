@@ -14,11 +14,11 @@
 StructWithAlias ::
   StructWithAlias() :
     Serializable(),
-    m_x(0),
+    m_x(),
     m_y(m___fprime_ac_y_buffer, sizeof m___fprime_ac_y_buffer, Fw::String("")),
-    m_z(A(0)),
-    m_w(A(0)),
-    m_q(ArrayAliasArray(A(0)))
+    m_z(),
+    m_w(),
+    m_q()
 {
 
 }
@@ -104,7 +104,7 @@ std::ostream& operator<<(std::ostream& os, const StructWithAlias& obj) {
 
 Fw::SerializeStatus StructWithAlias ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -136,7 +136,7 @@ Fw::SerializeStatus StructWithAlias ::
 
 Fw::SerializeStatus StructWithAlias ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

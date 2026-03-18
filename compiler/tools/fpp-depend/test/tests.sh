@@ -8,6 +8,8 @@ def_interface
 def_port
 def_state_machine
 def_struct
+dictionary
+dictionary_no_top
 direct
 enum_constant
 expr_array
@@ -15,6 +17,8 @@ expr_binop
 expr_dot
 expr_ident
 expr_paren
+expr_sizeof
+expr_sizeof_implied_type
 expr_struct
 expr_struct_dot
 expr_unop
@@ -52,7 +56,11 @@ spec_state_machine_instance
 spec_tlm_channel
 spec_tlm_packet
 spec_top_import
+spec_top_port
 special_ports
+top_implements
+string_no_size_implied_framework_defs
+string_with_size_implied_framework_defs
 topology_implied_type
 transitive_instance
 "

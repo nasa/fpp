@@ -1673,16 +1673,14 @@ void PassiveSerialComponentBase ::
     _buff
   );
 
-  // Get the local ID to pass to the delegate
-  _id = PARAMID_PARAMI32EXT;
   // If there was a deserialization issue, mark it invalid
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
-    _id = PARAMID_PARAMI32EXT;
+    constexpr FwPrmIdType _localId = PARAMID_PARAMI32EXT;
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamI32Ext
-    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _localId, param_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       param_valid = Fw::ParamValid::INVALID;
     }
@@ -1699,16 +1697,14 @@ void PassiveSerialComponentBase ::
     _buff
   );
 
-  // Get the local ID to pass to the delegate
-  _id = PARAMID_PARAMF64EXT;
   // If there was a deserialization issue, mark it invalid
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
-    _id = PARAMID_PARAMF64EXT;
+    constexpr FwPrmIdType _localId = PARAMID_PARAMF64EXT;
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamF64Ext
-    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _localId, param_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       param_valid = Fw::ParamValid::INVALID;
     }
@@ -1725,16 +1721,14 @@ void PassiveSerialComponentBase ::
     _buff
   );
 
-  // Get the local ID to pass to the delegate
-  _id = PARAMID_PARAMSTRINGEXT;
   // If there was a deserialization issue, mark it invalid
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
-    _id = PARAMID_PARAMSTRINGEXT;
+    constexpr FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamStringExt
-    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _localId, param_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       param_valid = Fw::ParamValid::INVALID;
     }
@@ -1751,16 +1745,14 @@ void PassiveSerialComponentBase ::
     _buff
   );
 
-  // Get the local ID to pass to the delegate
-  _id = PARAMID_PARAMENUMEXT;
   // If there was a deserialization issue, mark it invalid
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
-    _id = PARAMID_PARAMENUMEXT;
+    constexpr FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamEnumExt
-    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _localId, param_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       param_valid = Fw::ParamValid::INVALID;
     }
@@ -1777,16 +1769,14 @@ void PassiveSerialComponentBase ::
     _buff
   );
 
-  // Get the local ID to pass to the delegate
-  _id = PARAMID_PARAMARRAYEXT;
   // If there was a deserialization issue, mark it invalid
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
-    _id = PARAMID_PARAMARRAYEXT;
+    constexpr FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamArrayExt
-    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _localId, param_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       param_valid = Fw::ParamValid::INVALID;
     }
@@ -1803,16 +1793,14 @@ void PassiveSerialComponentBase ::
     _buff
   );
 
-  // Get the local ID to pass to the delegate
-  _id = PARAMID_PARAMSTRUCTEXT;
   // If there was a deserialization issue, mark it invalid
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
-    _id = PARAMID_PARAMSTRUCTEXT;
+    constexpr FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamStructExt
-    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _localId, param_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       param_valid = Fw::ParamValid::INVALID;
     }
@@ -2430,7 +2418,7 @@ void PassiveSerialComponentBase ::
 void PassiveSerialComponentBase ::
   serialGuarded_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -2455,7 +2443,7 @@ void PassiveSerialComponentBase ::
 void PassiveSerialComponentBase ::
   serialSync_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -2687,7 +2675,7 @@ F32 PassiveSerialComponentBase ::
 Fw::SerializeStatus PassiveSerialComponentBase ::
   serialOut_out(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(
@@ -2735,7 +2723,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -2805,7 +2793,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -2867,7 +2855,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -2915,7 +2903,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -2962,7 +2950,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3009,7 +2997,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3037,7 +3025,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3111,7 +3099,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3177,7 +3165,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3229,7 +3217,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3280,7 +3268,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3331,7 +3319,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3580,13 +3568,13 @@ void PassiveSerialComponentBase ::
     );
 #endif
 
-    _status = str1.serializeTo(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, 80));
+    _status = str1.serializeTo(_logBuff, FW_MIN(static_cast<FwSizeType>(FW_LOG_STRING_MAX_SIZE), static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = str2.serializeTo(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, 100));
+    _status = str2.serializeTo(_logBuff, FW_MIN(static_cast<FwSizeType>(FW_LOG_STRING_MAX_SIZE), 100));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -4195,7 +4183,7 @@ void PassiveSerialComponentBase ::
     }
 
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = arg.serializeTo(_tlmBuff, FW_MIN(FW_TLM_STRING_MAX_SIZE, 80));
+    Fw::SerializeStatus _stat = arg.serializeTo(_tlmBuff, FW_MIN(static_cast<FwSizeType>(FW_TLM_STRING_MAX_SIZE), static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)));
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)
@@ -5466,7 +5454,7 @@ void PassiveSerialComponentBase ::
   m_p_serialGuarded_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp);
@@ -5481,7 +5469,7 @@ void PassiveSerialComponentBase ::
   m_p_serialSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp);
@@ -5499,7 +5487,7 @@ void PassiveSerialComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamU32(Fw::SerializeBufferBase& val)
+  paramSet_ParamU32(Fw::SerialBufferBase& val)
 {
   U32 _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -5519,7 +5507,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamF64(Fw::SerializeBufferBase& val)
+  paramSet_ParamF64(Fw::SerialBufferBase& val)
 {
   F64 _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -5539,7 +5527,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamString(Fw::SerializeBufferBase& val)
+  paramSet_ParamString(Fw::SerialBufferBase& val)
 {
   Fw::ParamString _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -5559,7 +5547,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamEnum(Fw::SerializeBufferBase& val)
+  paramSet_ParamEnum(Fw::SerialBufferBase& val)
 {
   E _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -5579,7 +5567,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamArray(Fw::SerializeBufferBase& val)
+  paramSet_ParamArray(Fw::SerialBufferBase& val)
 {
   A _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -5599,7 +5587,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamStruct(Fw::SerializeBufferBase& val)
+  paramSet_ParamStruct(Fw::SerialBufferBase& val)
 {
   S _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -5619,7 +5607,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamI32Ext(Fw::SerializeBufferBase& val)
+  paramSet_ParamI32Ext(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMI32EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -5642,7 +5630,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamF64Ext(Fw::SerializeBufferBase& val)
+  paramSet_ParamF64Ext(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMF64EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -5665,7 +5653,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamStringExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamStringExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -5688,7 +5676,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamEnumExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamEnumExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -5711,7 +5699,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamArrayExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamArrayExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -5734,7 +5722,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamStructExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamStructExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
