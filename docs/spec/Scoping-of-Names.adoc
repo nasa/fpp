@@ -72,6 +72,8 @@ Definitions reside in name groups as follows:
 
 * Abstract type definitions reside in the type name group.
 
+* Alias type definitions reside in the type name group.
+
 * Array type definitions reside in the type name group.
 
 * Component definitions reside in the component name group,
