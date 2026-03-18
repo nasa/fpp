@@ -2988,89 +2988,15 @@ which each element is a <a href="#Definitions_Module-Definitions_Syntax">module 
 <p>Module template definitions define parameterized FPP syntax. A template can be expanded
 through a <a href="#Specifiers_Template-Expansion-Specifiers">template expansion specifier</a>.</p>
 </div>
-<div id="Definitions_Module-Template-Definitions_" class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Important</div>
-</td>
-<td class="content">
-<div class="title">TODO</div>
-<div class="paragraph">
-<p>I&#8217;m not sure if this is the proper way to specify this</p>
-</div>
-<div class="paragraph">
-<p>What I want to say is:</p>
-</div>
-<div class="paragraph">
-<p>For each template expansion:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Resolve template uses to template definitions</p>
-</li>
-<li>
-<p>Clone syntax from template definition into expansion members</p>
-</li>
-<li>
-<p>Create two new scopes:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p><em>S<sub>P</sub></em> Parameter Scope</p>
-</li>
-<li>
-<p><em>S<sub>D</sub></em> Member Definitions Scope</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Add template params to <em>S<sub>P</sub></em></p>
-</li>
-<li>
-<p>Add definitions in the template expansion to <em>S<sub>D</sub></em></p>
-</li>
-<li>
-<p>Add definitions in template expansion to the parent scope of the expansion</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>To resolve uses in the expansion:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Build up a nested scope with the following:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>All nested scopes up to the template definition</p>
-</li>
-<li>
-<p><em>S<sub>D</sub></em></p>
-</li>
-<li>
-<p><em>S<sub>P</sub></em></p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-</td>
-</tr>
-</table>
-</div>
+<div class="sect4">
+<h5 id="Definitions_Module-Template-Definitions_Semantics_Template-Expansion">Template Expansion</h5>
 <div class="paragraph">
 <p>Templates are expanded with the following algorithm:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>For each template expansion specifier <em>E</em>:</p>
+<p>While there are unexpected template expansion specifiers, for each template expansion specifier <em>E</em>:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -3088,9 +3014,9 @@ through a <a href="#Specifiers_Template-Expansion-Specifiers">template expansion
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>Definitions inside expanded templates will follow different rules from standard definitions.</p>
 </div>
+<div class="sect4">
+<h5 id="Definitions_Module-Template-Definitions_Semantics_Entering-Definitions">Entering Definitions</h5>
 <div class="paragraph">
 <p>Definitions inside expanded templates will be entered using the following algorithm:</p>
 </div>
@@ -3104,7 +3030,7 @@ through a <a href="#Specifiers_Template-Expansion-Specifiers">template expansion
 <p>Create a new scope <em>S<sub>P</sub></em>.</p>
 </li>
 <li>
-<p>For each template parameter <em>P<sub>D</sub></em> specified in <em>T</em> and template parameter value <em>P<sub>V</sub></em> in <em>E</em>:</p>
+<p>For each template parameter <em>P<sub>D</sub></em> specified in <em>T</em> with corresponding template parameter argument <em>P<sub>V</sub></em> in <em>E</em>:</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
@@ -3115,7 +3041,20 @@ through a <a href="#Specifiers_Template-Expansion-Specifiers">template expansion
 <p><em>P<sub>V</sub></em> must be an <a href="#Expressions">expression</a></p>
 </li>
 <li>
-<p>Add a template parameter constant with value <em>P<sub>V</sub></em> to <em>S<sub>P</sub></em>.</p>
+<p>Add a constant template parameter with expression <em>P<sub>V</sub></em> to <em>S<sub>P</sub></em>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>If <em>P<sub>D</sub></em> is a <code>type</code> parameter:</p>
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p><em>P<sub>V</sub></em> must be a <a href="#Type-Names">type name</a></p>
+</li>
+<li>
+<p>Add a type template parameter with aliased type name <em>P<sub>V</sub></em> to <em>S<sub>P</sub></em>.</p>
 </li>
 </ol>
 </div>
@@ -3125,7 +3064,12 @@ through a <a href="#Specifiers_Template-Expansion-Specifiers">template expansion
 <div class="olist upperalpha">
 <ol class="upperalpha" type="A">
 <li>
-<p><em>P<sub>V</sub></em> must be an</p>
+<p><em>P<sub>V</sub></em> must refer to a <a href="#Ports_Port-Interface-Instances">port interface instance</a>,
+i.e., a component instance definition, topology definition,
+or template interface parameter.</p>
+</li>
+<li>
+<p>Add an interface template parameter refering to <em>P<sub>V</sub></em> to <em>S<sub>P</sub></em>.</p>
 </li>
 </ol>
 </div>
@@ -3154,6 +3098,9 @@ through a <a href="#Specifiers_Template-Expansion-Specifiers">template expansion
 </li>
 </ol>
 </div>
+</div>
+<div class="sect4">
+<h5 id="Definitions_Module-Template-Definitions_Semantics_Identifier-Resolution">Identifier Resolution</h5>
 <div class="paragraph">
 <p>The following rules govern the resolution of identifiers, i.e.,
 associating identifiers with definitions <em>inside</em> a template expansion <em>E</em>:</p>
@@ -3192,6 +3139,7 @@ exists in name group <em>S</em>.</p>
 </div>
 </li>
 </ol>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -9898,9 +9846,9 @@ IEEE floating-point number.</p>
 <p>An <strong>identifier expression</strong> is an
 <a href="#Lexical-Elements_Identifiers">identifier</a>
 that refers to a
-<a href="#Definitions_Constant-Definitions">constant definition</a>
-or
+<a href="#Definitions_Constant-Definitions">constant definition</a>,
 <a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>,
+or <a href="#Definitions_Module-Template-Definitions">constant template parameter</a>,
 according to the
 <a href="#Scoping-of-Names_Resolution-of-Identifiers">rules for resolving identifiers</a>.</p>
 </div>
@@ -10914,6 +10862,9 @@ the value name group, and the type name group.</p>
 <p>Module template definitions reside in all name groups.</p>
 </li>
 <li>
+<p>Template parameters in expanded templates reside in all name groups.</p>
+</li>
+<li>
 <p>Topology definitions reside in the topology name group.</p>
 </li>
 </ul>
@@ -11016,6 +10967,12 @@ module M {
 <div class="paragraph">
 <p>The following rules govern the resolution of identifiers, i.e.,
 associating identifiers with definitions:</p>
+</div>
+<div class="paragraph">
+<p>If the identifier we are resolving resides in a
+<a href="#Specifiers_Template-Expansion-Specifiers">template expansion</a>, see
+<a href="#Definitions_Module-Template-Definitions_Semantics_Identifier-Resolution">rules for resolving identifiers in template</a>
+instead of these rules.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -13494,7 +13451,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-18 12:22:07 -0700
+Last updated 2026-03-18 13:08:58 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

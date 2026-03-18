@@ -110,6 +110,8 @@ the value name group, and the type name group.
 
 * Module template definitions reside in all name groups.
 
+* Template parameters in expanded templates reside in all name groups.
+
 * Topology definitions reside in the topology name group.
 
 Notice that elements with scopes reside in the name groups of items
@@ -197,6 +199,12 @@ module M {
 
 The following rules govern the resolution of identifiers, i.e.,
 associating identifiers with definitions:
+
+If the identifier we are resolving resides in a
+<<Specifiers_Template-Expansion-Specifiers,template expansion>>, see
+<<Definitions_Module-Template-Definitions_Semantics_Identifier-Resolution,
+rules for resolving identifiers in template>>
+instead of these rules.
 
 . Use the context to determine which
 <<Scoping-of-Names_Name-Groups,name group>>

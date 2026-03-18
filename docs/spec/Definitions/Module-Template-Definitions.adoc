@@ -36,36 +36,11 @@ Module template definitions define parameterized FPP syntax. A template can be e
 through a <<Specifiers_Template-Expansion-Specifiers,
 template expansion specifier>>.
 
-
-[IMPORTANT] 
-.TODO
-==== 
-I'm not sure if this is the proper way to specify this
-
-What I want to say is:
-
-For each template expansion:
-
-. Resolve template uses to template definitions
-. Clone syntax from template definition into expansion members
-. Create two new scopes:
-.. _S~P~_ Parameter Scope
-.. _S~D~_ Member Definitions Scope
-. Add template params to _S~P~_
-. Add definitions in the template expansion to _S~D~_
-. Add definitions in template expansion to the parent scope of the expansion
-
-To resolve uses in the expansion:
-
-. Build up a nested scope with the following:
-.. All nested scopes up to the template definition
-.. _S~D~_
-.. _S~P~_
-====
+===== Template Expansion
 
 Templates are expanded with the following algorithm:
 
-. For each template expansion specifier _E_:
+. While there are unexpected template expansion specifiers, for each template expansion specifier _E_:
 
 .. Resolve the module template definition _T_ which _E_
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refers to>>.
@@ -74,7 +49,7 @@ Templates are expanded with the following algorithm:
 
 .. For each template expansion specifier in _X_, re-apply these rules until all template expansions are expanded.
 
-Definitions inside expanded templates will follow different rules from standard definitions.
+===== Entering Definitions
 
 Definitions inside expanded templates will be entered using the following algorithm:
 
@@ -82,17 +57,27 @@ Definitions inside expanded templates will be entered using the following algori
 
 .. Create a new scope _S~P~_.
 
-.. For each template parameter _P~D~_ specified in _T_ and template parameter value _P~V~_ in _E_:
+.. For each template parameter _P~D~_ specified in _T_ with corresponding template parameter argument _P~V~_ in _E_:
 
 ... If _P~D~_ is a `constant` parameter:
 
 .... _P~V~_ must be an <<Expressions,expression>>
 
-.... Add a template parameter constant with value _P~V~_ to _S~P~_.
+.... Add a constant template parameter with expression _P~V~_ to _S~P~_.
+
+... If _P~D~_ is a `type` parameter:
+
+.... _P~V~_ must be a <<Type-Names,type name>>
+
+.... Add a type template parameter with aliased type name _P~V~_ to _S~P~_.
 
 ... If _P~D~_ is an `interface` parameter:
 
-.... _P~V~_ must be an 
+.... _P~V~_ must refer to a <<Ports_Port-Interface-Instances,port interface instance>>,
+i.e., a component instance definition, topology definition,
+or template interface parameter.
+
+.... Add an interface template parameter refering to _P~V~_ to _S~P~_.
 
 .. Create a new scope _S~D~_.
 
@@ -101,6 +86,8 @@ Definitions inside expanded templates will be entered using the following algori
 ... Add _D_ to _S~D~_.
 
 ... Add _D_ to _S_.
+
+===== Identifier Resolution
 
 The following rules govern the resolution of identifiers, i.e.,
 associating identifiers with definitions _inside_ a template expansion _E_:
