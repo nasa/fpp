@@ -4,11 +4,19 @@
 
 A *qualified identifier* is one of the following:
 
+1. _Q_
+
+2. `.` _Q_
+
+where _Q_ is one of the following:
+
 1.  An
 <<Lexical-Elements_Identifiers,identifier>>.
 
-2.  _Q_ `.` _I_, where _Q_ is a qualified identifier and _I_ is an
-identifier.
+2.  _Q_ `.` _I_.
+
+A qualified identifier _Q_ is *scope relative*.
+A qualified identifier `.` _Q_ is *absolute*.
 
 Examples:
 
@@ -17,6 +25,7 @@ Examples:
 a
 a.b
 a.b.c
+.a.b.c
 ----
 
 === Names of Definitions
@@ -100,6 +109,8 @@ the value name group, and the type name group.
 * Struct type definitions reside in the type name group.
 
 * Module template definitions reside in all name groups.
+
+* Template parameters in expanded templates reside in all name groups.
 
 * Topology definitions reside in the topology name group.
 
@@ -189,6 +200,12 @@ module M {
 The following rules govern the resolution of identifiers, i.e.,
 associating identifiers with definitions:
 
+If the identifier we are resolving resides in a
+<<Specifiers_Template-Expansion-Specifiers,template expansion>>, see
+<<Definitions_Module-Template-Definitions_Semantics_Identifier-Resolution,
+rules for resolving identifiers in template>>
+instead of these rules.
+
 . Use the context to determine which
 <<Scoping-of-Names_Name-Groups,name group>>
 _S_ to use. For example, if we are expecting a type name, then use the
@@ -270,7 +287,12 @@ associating qualified identifiers with definitions:
 stated in the
 <<Scoping-of-Names_Resolution-of-Identifiers,previous section>>.
 
-. Otherwise, the qualified identifier has the form _Q_ `.` _I_, where
+. If a qualified identifier is of the form `.` _I_, then resolve it as
+stated in the
+<<Scoping-of-Names_Resolution-of-Identifiers,previous section>> as if _I_ were
+appearing at the top level.
+
+. If a qualified identifier is of the form _Q_ `.` _I_, where
 _Q_ is a qualified identifier and _I_ is an identifier. Do the
 following:
 
@@ -286,6 +308,7 @@ _I_.
     If there is none, issue an error.
 
 .. Otherwise the qualified identifier is invalid. Issue an error.
+
 
 *Example:*
 

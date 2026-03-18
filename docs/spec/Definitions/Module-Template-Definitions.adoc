@@ -1,0 +1,157 @@
+=== Module Template Definitions
+
+A *module template definition* defines an FPP template that can
+help reduce FPP model code duplication.
+A module template is an FPP construct with definitions inside
+parameterized with a set of types, constants, and interfaces that
+can be expanded into a module.
+
+==== Syntax
+
+`template`
+<<Lexical-Elements_Identifiers,_identifier_>>
+`(` _parameter-sequence_ `)` `{`
+_module-member-sequence_
+`}`
+
+The _identifier_ specifies the name of the template.
+
+_parameter-sequence_ is an
+<<Element-Sequences,element sequence>> in which the
+elements are one of the following and the terminating punctuation
+is a comma:
+
+* `constant` <<Lexical-Elements_Identifiers,_identifier_>> `:` <<Type-Names,_type-name_>>
+* `interface` <<Lexical-Elements_Identifiers,_identifier_>> `:` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+* `type` <<Lexical-Elements_Identifiers,_identifier_>>
+
+_module-member-sequence_ is an
+<<Element-Sequences,element sequence>> in
+which each element is a <<Definitions_Module-Definitions_Syntax,
+module member>>, and the terminating punctuation is a semicolon.
+
+==== Semantics
+
+Module template definitions define parameterized FPP syntax. A template can be expanded
+through a <<Specifiers_Template-Expansion-Specifiers,
+template expansion specifier>>.
+
+===== Template Expansion
+
+Templates are expanded with the following algorithm:
+
+. While there are unexpected template expansion specifiers, for each template expansion specifier _E_:
+
+.. Resolve the module template definition _T_ which _E_
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refers to>>.
+
+.. Duplicate the syntax contained in _T_ into syntax _X_ contained under _E_.
+
+.. For each template expansion specifier in _X_, re-apply these rules until all template expansions are expanded.
+
+===== Entering Definitions
+
+Definitions inside expanded templates will be entered using the following algorithm:
+
+. For each expanded template specifier _E_ in scope _S_ referring to template _T_:
+
+.. Create a new scope _S~P~_.
+
+.. For each template parameter _P~D~_ specified in _T_ with corresponding template parameter argument _P~V~_ in _E_:
+
+... If _P~D~_ is a `constant` parameter:
+
+.... _P~V~_ must be an <<Expressions,expression>>
+
+.... Add a constant template parameter with expression _P~V~_ to _S~P~_.
+
+... If _P~D~_ is a `type` parameter:
+
+.... _P~V~_ must be a <<Type-Names,type name>>
+
+.... Add a type template parameter with aliased type name _P~V~_ to _S~P~_.
+
+... If _P~D~_ is an `interface` parameter:
+
+.... _P~V~_ must refer to a <<Ports_Port-Interface-Instances,port interface instance>>,
+i.e., a component instance definition, topology definition,
+or template interface parameter.
+
+.... Add an interface template parameter refering to _P~V~_ to _S~P~_.
+
+.. Create a new scope _S~D~_.
+
+.. For each definition _D_ in expanded members of _E_:
+
+... Add _D_ to _S~D~_.
+
+... Add _D_ to _S_.
+
+===== Identifier Resolution
+
+The following rules govern the resolution of identifiers, i.e.,
+associating identifiers with definitions _inside_ a template expansion _E_:
+
+. Use the context to determine which
+<<Scoping-of-Names_Name-Groups,name group>>
+_G_ to use. For example, if we are expecting a type name, then use the
+type name group.
+
+. Look up the scopes _S~P~_ and _S~D~_ for _E_.
+
+. Inside the template expansion referring to a template definition _T_
+with qualified name _N_:
+
+.. The identifier _I_ refers to a template parameter in _S~P~_
+
+.. Otherwise _I_ refers to a definition inside _S~D~_ in the name group _G_.
+
+.. Otherwise _I_ refers to the definition with qualified name
+_N_ `.` _I_ if it exists in name group _S_.
+
+.. Otherwise _I_ refers to the definition with qualified name _I_ if it
+exists in name group _S_.
+
+==== Example
+
+[source,fpp]
+----
+template MT(
+    constant base_id: U32,
+    interface comDriver: ByteStreamDriver
+) {
+    instance comStub: Svc.ComStub base id \
+        base_id + 0x0800
+
+    toplogy T {
+        instance comStub
+
+        # TODO(tumbar) What is this? Do we need it
+        # (do we need `instance comStub`?)
+        instance comDriver
+
+        # Connect to the driver from the parameter list
+        connections Downlink {
+            # ComStub <-> ComDriver
+            comStub.drvSendOut      -> comDriver.$send
+            comDriver.sendReturnOut -> comStub.drvSendReturnIn
+            comDriver.ready         -> comStub.drvConnected
+        }
+    }
+}
+
+instance comDriver: Drv.TcpClient base id 0x10300000 + 0x100
+
+module M {
+    # Instantiate template with topology inside
+    # Pass an external component into the topology
+    expand MT(constant 0x100, interface comDriver)
+}
+
+topology T {
+    import M.T # Imports the instantiated template topology
+    import MT.T # Error: Cannot reference definitions inside a _template_
+
+    instance comDriver
+}
+----

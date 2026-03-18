@@ -3,9 +3,9 @@
 An *identifier expression* is an
 <<Lexical-Elements_Identifiers,identifier>>
 that refers to a
-<<Definitions_Constant-Definitions,constant definition>>
-or
+<<Definitions_Constant-Definitions,constant definition>>,
 <<Definitions_Enumerated-Constant-Definitions,enumerated constant definition>>,
+or <<Definitions_Module-Template-Definitions,constant template parameter>>,
 according to the
 <<Scoping-of-Names_Resolution-of-Identifiers,rules for resolving identifiers>>.
 
