@@ -17,6 +17,9 @@ The definition associates the name _N_ with
 the type _T_ specified after the `=` symbol.
 Elsewhere in the model, the name _N_ may be used as alias of (i.e., an
 alternate name for) the type _T_.
+If _T_ names an <<Types_Enum-Types,enum type>>, then _N_
+is an alias of the type only.
+It is not an alias of the constant qualifier provided by the enum.
 
 If the optional keyword `dictionary` is present, then the
 definition must conform to the rules stated in the
@@ -34,4 +37,13 @@ struct B {
   x: A
   y: F32
 } default { y = 1 }
+
+# Defines an enum type E with values E.X and E.Y
+enum E { X, Y }
+# Defines an enum type T that is an alias of E
+type T = E
+# OK: E.X is a value of type E
+constant a = E.X
+# Error: T is not an alias of the constant qualifier E
+constant b = T.X
 ----
