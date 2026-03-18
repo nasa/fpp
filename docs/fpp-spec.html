@@ -11310,7 +11310,19 @@ representation type of <em>T</em>.</p>
 <li>
 <p>If <em>T</em> is a
 <a href="#Types_Struct-Types">struct type</a>, then <em>s</em>
-the sum of the serialized sizes of the types in the members of <em>T</em></p>
+the sum of the serialized sizes of the members of <em>T</em>.
+For each member <em>m</em> with type \$T_m\$:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If <em>m</em> has size <em>n</em>, then the serialized size of
+<em>m</em> is <em>n</em> times the serialized size of \$T_m\$.</p>
+</li>
+<li>
+<p>Otherwise the serialized size of <em>m</em> is the serialized size of \$T_m\$.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>If <em>T</em> is an
@@ -12981,7 +12993,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-18 13:11:27 -0700
+Last updated 2026-03-18 16:09:39 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
