@@ -216,7 +216,12 @@ To type a
 arithmetic expression>> stem:[e_1] _op_ stem:[e_2], the semantic analyzer does
 the following:
 
-. Compute the common type stem:[T] of stem:[e_1] and stem:[e_2].
+. If _op_ is `+` and both stem:[e_1] and stem:[e_2] have
+<<Type-Names_String-Type-Names,string type>>, then the expression has
+string type and denotes
+<<Expressions_String-Concatenation-Expressions,string concatenation>>.
+
+. Otherwise compute the common type stem:[T] of stem:[e_1] and stem:[e_2].
 
 . If stem:[T] is a <<Types_Internal-Types_Numeric-Types,numeric type>>, then use stem:[T].
 
@@ -235,6 +240,7 @@ constant c = -0xFFFFFFFF # Type is Integer
 enum E { X = 1, Y = 2 }
 constant d = X + Y # Type is Integer
 constant e = true + "abcd" # Error
+constant f = "ab" + "cd" # Type is String
 ----
 
 === Parenthesis Expressions
