@@ -16,6 +16,93 @@ class Empty :
   public Fw::Serializable
 {
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Constants
+    // ----------------------------------------------------------------------
+
+    enum {
+      //! The size of the serial representation
+      SERIALIZED_SIZE =
+        0
+    };
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Constructors
+    // ----------------------------------------------------------------------
+
+    //! Constructor (default value)
+    Empty();
+
+    //! Copy constructor
+    Empty(
+        const Empty& obj //!< The source object
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Operators
+    // ----------------------------------------------------------------------
+
+    //! Copy assignment operator
+    Empty& operator=(
+        const Empty& obj //!< The source object
+    );
+
+    //! Equality operator
+    bool operator==(
+        const Empty& obj //!< The other object
+    ) const;
+
+    //! Inequality operator
+    bool operator!=(
+        const Empty& obj //!< The other object
+    ) const;
+
+#ifdef BUILD_UT
+
+    //! Ostream operator
+    friend std::ostream& operator<<(
+        std::ostream& os, //!< The ostream
+        const Empty& obj //!< The object
+    );
+
+#endif
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Member functions
+    // ----------------------------------------------------------------------
+
+    //! Serialization
+    Fw::SerializeStatus serializeTo(
+        Fw::SerialBufferBase& buffer, //!< The serial buffer
+        Fw::Endianness mode = Fw::Endianness::BIG //!< Endianness of serialized buffer
+    ) const;
+
+    //! Deserialization
+    Fw::SerializeStatus deserializeFrom(
+        Fw::SerialBufferBase& buffer, //!< The serial buffer
+        Fw::Endianness mode = Fw::Endianness::BIG //!< Endianness of serialized buffer
+    );
+
+    //! Get the dynamic serialized size of the struct
+    FwSizeType serializedSize() const;
+
+#if FW_SERIALIZABLE_TO_STRING
+
+    //! Convert struct to string
+    void toString(
+        Fw::StringBase& sb //!< The StringBase object to hold the result
+    ) const;
+
+#endif
+
 };
 
 #endif

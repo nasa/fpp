@@ -184,21 +184,40 @@ case class StructCppWriter(
     addAccessTagAndComment("public", "Types", members, CppDoc.Lines.Hpp)
   }
 
-  private def getConstructorMembers: List[CppDoc.Class.Member] = {
-    // Write this constructor only if the struct has an array member
-    // In this case, the constructor provides scalar initialization
-    // of the array members.
-    val scalarConstructor =
-      if sizes.isEmpty then None
-      else Some(
-        constructorClassMember(
-          Some("Member constructor (scalar values for arrays)"),
-          memberList.map(writeMemberAsParamScalar),
-          writeInitializerList(n => n),
-          writeArraySetters(n => n)
-        )
-      )
+  private def scalarConstructor =
+    constructorClassMember(
+      Some("Member constructor (scalar values for arrays)"),
+      memberList.map(writeMemberAsParamScalar),
+      writeInitializerList(n => n),
+      writeArraySetters(n => n)
+    )
 
+  private def defaultValueConstructor =
+    constructorClassMember(
+      Some("Constructor (default value)"),
+      Nil,
+      "Serializable()" :: initializerListMemberNames.map(n => {
+        if defaultMemberNames.contains(n) then s"m_$n()"
+        else defaultValueMembers(n) match {
+          case v: Value.Struct => s"m_$n(${ValueCppWriter.writeStructMembers(s, v)})"
+          case _: Value.AbsType => s"m_$n()"
+          case v => writeInitializer(n, ValueCppWriter.write(s, v))
+        }
+      }),
+      nonInitializerListArrayMemberNames.flatMap(n => writeArrayMemberSetter(
+        n, ValueCppWriter.write(s, defaultValueMembers(n)
+      )))
+    )
+
+  private def memberConstructor =
+    constructorClassMember(
+      Some("Member constructor"),
+      memberList.map(writeMemberAsParam),
+      writeInitializerList(n => n),
+      writeArraySetters(n => s"$n[i]")
+    )
+
+  private def getConstructorMembers: List[CppDoc.Class.Member] = {
     List.concat(
       List(
         linesClassMember(
@@ -208,47 +227,29 @@ case class StructCppWriter(
           CppDocWriter.writeBannerComment("Constructors"),
           CppDoc.Lines.Both
         ),
-        constructorClassMember(
-          Some("Constructor (default value)"),
-          Nil,
-          "Serializable()" :: initializerListMemberNames.map(n => {
-            if defaultMemberNames.contains(n) then s"m_$n()"
-            else defaultValueMembers(n) match {
-              case v: Value.Struct => s"m_$n(${ValueCppWriter.writeStructMembers(s, v)})"
-              case _: Value.AbsType => s"m_$n()"
-              case v => writeInitializer(n, ValueCppWriter.write(s, v))
-            }
-          }),
-          nonInitializerListArrayMemberNames.flatMap(n => writeArrayMemberSetter(
-            n, ValueCppWriter.write(s, defaultValueMembers(n)
-          )))
-        ),
       ),
-      if memberList.size == 0 then Nil else List(
-        constructorClassMember(
-          Some("Member constructor"),
-          memberList.map(writeMemberAsParam),
-          writeInitializerList(n => n),
-          writeArraySetters(n => s"$n[i]")
-        )
-      ),
-      List(
-        constructorClassMember(
-          Some("Copy constructor"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(s"const $name&"),
-              "obj",
-              Some("The source object")
-            )
-          ),
-          writeInitializerList(n => s"obj.m_$n"),
-          writeArraySetters(n => s"obj.m_$n[i]")
-        )
-      )
-    ) ++
-      scalarConstructor
+      List(defaultValueConstructor),
+      guardedList (!memberList.isEmpty) (List(memberConstructor)),
+      List(copyConstructor),
+      // Write this constructor only if the struct has an array member
+      // In this case, the constructor provides scalar initialization
+      // of the array members.
+      guardedList (!sizes.isEmpty) (List(scalarConstructor))
+    )
   }
+
+  private val copyConstructor = constructorClassMember(
+    Some("Copy constructor"),
+    List(
+      CppDoc.Function.Param(
+        CppDoc.Type(s"const $name&"),
+        "obj",
+        Some("The source object")
+      )
+    ),
+    writeInitializerList(n => s"obj.m_$n"),
+    writeArraySetters(n => s"obj.m_$n[i]")
+  )
 
   private def getOperatorMembers: List[CppDoc.Class.Member] = {
     val nonArrayMemberCheck = lines(
@@ -494,7 +495,7 @@ case class StructCppWriter(
     def writeDeserializeCall(n: String) =
       line(s"status = buffer.deserializeTo(this->m_$n, mode);") :: writeSerializeStatusCheck
 
-    List(
+    List.concat(
       List(
         linesClassMember(
           CppDocHppWriter.writeAccessTag("public")
@@ -520,7 +521,7 @@ case class StructCppWriter(
             )
           ),
           CppDoc.Type("Fw::SerializeStatus"),
-          List(
+          List.concat(
             lines("Fw::SerializeStatus status;"),
             Line.blank :: memberNames.flatMap(n =>
               if sizes.contains(n) then
@@ -529,7 +530,7 @@ case class StructCppWriter(
                 writeSerializeCall(n)
             ),
             Line.blank :: lines("return status;"),
-          ).flatten,
+          ),
           CppDoc.Function.NonSV,
           CppDoc.Function.Const
         ),
@@ -550,7 +551,7 @@ case class StructCppWriter(
             )
           ),
           CppDoc.Type("Fw::SerializeStatus"),
-          List(
+          List.concat(
             lines("Fw::SerializeStatus status;"),
             Line.blank :: memberNames.flatMap(n =>
               if sizes.contains(n) then
@@ -559,7 +560,7 @@ case class StructCppWriter(
                 writeDeserializeCall(n)
             ),
             Line.blank :: lines("return status;"),
-          ).flatten
+          )
         ),
         functionClassMember(
           Some("Get the dynamic serialized size of the struct"),
@@ -601,14 +602,18 @@ case class StructCppWriter(
           )
         )
       ),
-      linesClassMember(
-        CppDocWriter.writeBannerComment("Getter functions"),
-      ) :: getGetterFunctionMembers,
-      linesClassMember(
-        CppDocWriter.writeBannerComment("Setter functions"),
-        CppDoc.Lines.Both
-      ) :: getSetterFunctionMembers,
-    ).flatten
+      guardedList (memberList.size > 0) (
+        List.concat(
+          linesClassMember(
+            CppDocWriter.writeBannerComment("Getter functions"),
+          ) :: getGetterFunctionMembers,
+          linesClassMember(
+            CppDocWriter.writeBannerComment("Setter functions"),
+            CppDoc.Lines.Both
+          ) :: getSetterFunctionMembers
+        )
+      )
+    )
   }
 
   private def getGetterFunctionMembers: List[CppDoc.Class.Member] = {
@@ -690,16 +695,19 @@ case class StructCppWriter(
       )
 
   private def getVariableMembers: List[CppDoc.Class.Member] =
-    List(
-      linesClassMember(
-        CppDocHppWriter.writeAccessTag("protected")
+    addAccessTagAndComment(
+      "protected",
+      "Member variables",
+      guardedList (memberList.size > 0) (
+        List(
+          linesClassMember(
+            addBlankPrefix(memberList.flatMap((n, tn) => lines(
+              writeMemberDecl(s, tn, n, typeMembers(n), "m_", sizes.get(n).map(_.toString))
+            )))
+          )
+        )
       ),
-      linesClassMember(
-        CppDocWriter.writeBannerComment("Member variables") ++
-          addBlankPrefix(memberList.flatMap((n, tn) => lines(
-            writeMemberDecl(s, tn, n, typeMembers(n), "m_", sizes.get(n).map(_.toString))
-          )))
-      )
+      CppDoc.Lines.Hpp
     )
 
   private def writeMemberAsParam(member: (String, String)) = member match {
