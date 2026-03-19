@@ -504,81 +504,109 @@ case class StructCppWriter(
       CppDoc.Function.Const
     )
 
-  private def getFunctionMembers: List[CppDoc.Class.Member] = {
-    // Members on which to call toString()
-    val needsTmpString =
-      astMembers.map((_, node, _) => {
-        val t = typeMembers(node.data.name)
-        (node, node.data.name, typeCppWriter.write(t))
-      }).find((n, _, tn) => (sizes.contains(n.data.name), typeMembers(n.data.name).getUnderlyingType) match {
-        // Only plain string types don't need a tmp string form appending to the struct
-        case (false, _: Type.String) => false
-        case _ => true
-      }).isDefined
 
-    val getMemberToString = (node: AstNode[Ast.StructTypeMember], n: String, tn: String) => {
-      (sizes.contains(node.data.name), typeMembers(node.data.name).getUnderlyingType) match {
-        case (false, _: Type.String) =>
-          // Type is already a string, no need to perform any conversion
-          lines(s"sb += this->m_$n;")
-        case (false, t) if s.isPrimitive(t, tn) =>
-          // Format the primitive into a temporary string buffer
-          val formatStr = FormatCppWriter.write(
-            s,
-            getFormatStr(name),
-            node.data.typeName
-          )
-          lines(s"""|tmp.format("$formatStr", ${promoteF32ToF64 (t) (s"this->m_$n")});
-                    |sb += tmp;""")
-        case (true, _) =>
-          // An array member
-          // Iterate through each member and format it into 'tmp'
-          // Append 'tmp' to the final string
-          val formatStr = FormatCppWriter.write(
-            s,
-            getFormatStr(name),
-            node.data.typeName
-          )
+  // Members on which to call toString()
+  private val needsTmpString =
+    astMembers.map((_, node, _) => {
+      val t = typeMembers(node.data.name)
+      (node, node.data.name, typeCppWriter.write(t))
+    }).find((n, _, tn) => (sizes.contains(n.data.name), typeMembers(n.data.name).getUnderlyingType) match {
+      // Only plain string types don't need a tmp string form appending to the struct
+      case (false, _: Type.String) => false
+      case _ => true
+    }).isDefined
 
-          val fillTmpString = (typeMembers(n).getUnderlyingType) match {
-            case (_: Type.String) =>
-              s"tmp = this->m_$n[i];"
-            case t if s.isPrimitive(t, tn) =>
-              s"""tmp.format("$formatStr", ${promoteF32ToF64 (t) (s"this->m_$n[i]")});"""
-            case _ =>
-              s"this->m_$n[i].toString(tmp);"
-          }
+  private def getMemberToString(node: AstNode[Ast.StructTypeMember], n: String, tn: String) = {
+    (sizes.contains(node.data.name), typeMembers(node.data.name).getUnderlyingType) match {
+      case (false, _: Type.String) =>
+        // Type is already a string, no need to perform any conversion
+        lines(s"sb += this->m_$n;")
+      case (false, t) if s.isPrimitive(t, tn) =>
+        // Format the primitive into a temporary string buffer
+        val formatStr = FormatCppWriter.write(
+          s,
+          getFormatStr(name),
+          node.data.typeName
+        )
+        lines(s"""|tmp.format("$formatStr", ${promoteF32ToF64 (t) (s"this->m_$n")});
+                  |sb += tmp;""")
+      case (true, _) =>
+        // An array member
+        // Iterate through each member and format it into 'tmp'
+        // Append 'tmp' to the final string
+        val formatStr = FormatCppWriter.write(
+          s,
+          getFormatStr(name),
+          node.data.typeName
+        )
 
-          List.concat(
-            lines("sb += \"[ \";"),
-            iterateN(sizes(n), lines(
-              s"""|${fillTmpString}
-                  |if (i > 0) {
-                  |  sb += ", ";
-                  |}
-                  |sb += tmp;"""
-            )),
-            lines("sb += \" ]\";"),
-          )
-        case (false, _) =>
-          // A complex (non-array) type
-          lines(s"""|this->m_$n.toString(tmp);
-                    |sb += tmp;""")
-      }
+        val fillTmpString = (typeMembers(n).getUnderlyingType) match {
+          case (_: Type.String) =>
+            s"tmp = this->m_$n[i];"
+          case t if s.isPrimitive(t, tn) =>
+            s"""tmp.format("$formatStr", ${promoteF32ToF64 (t) (s"this->m_$n[i]")});"""
+          case _ =>
+            s"this->m_$n[i].toString(tmp);"
+        }
+
+        List.concat(
+          lines("sb += \"[ \";"),
+          iterateN(sizes(n), lines(
+            s"""|${fillTmpString}
+                |if (i > 0) {
+                |  sb += ", ";
+                |}
+                |sb += tmp;"""
+          )),
+          lines("sb += \" ]\";"),
+        )
+      case (false, _) =>
+        // A complex (non-array) type
+        lines(s"""|this->m_$n.toString(tmp);
+                  |sb += tmp;""")
     }
+  }
 
-    // toString() append formatted member to string
-    val memberToString =
-      astMembers.map((_, node, _) => {
-        val t = typeMembers(node.data.name)
-        (node, node.data.name, typeCppWriter.write(t))
-      }).map((node, n, tn) => List.concat(
-          lines(s"""|
-                    |// Format $n
-                    |sb += "$n = ";"""),
-          getMemberToString(node, n, tn),
-      ))
+  // toString() append formatted member to string
+  private val memberToString =
+    astMembers.map((_, node, _) => {
+      val t = typeMembers(node.data.name)
+      (node, node.data.name, typeCppWriter.write(t))
+    }).map((node, n, tn) => List.concat(
+        lines(s"""|
+                  |// Format $n
+                  |sb += "$n = ";"""),
+        getMemberToString(node, n, tn),
+    ))
 
+  private def getToStringFunctionMember: CppDoc.Class.Member.Function =
+    functionClassMember(
+      Some("Convert struct to string"),
+      "toString",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::StringBase&"),
+          "sb",
+          Some("The StringBase object to hold the result")
+        )
+      ),
+      CppDoc.Type("void"),
+      List.concat(
+        if needsTmpString then lines("Fw::String tmp;") else List(),
+        lines("sb = \"( \";"),
+        memberToString.zipWithIndex.flatMap((memberToStringLines, idx) => {
+          if idx > 0 then List.concat(
+            lines("sb += \", \";"),
+            memberToStringLines,
+          ) else memberToStringLines
+        }),
+        lines("sb += \" )\";"),
+      ),
+      CppDoc.Function.NonSV,
+      CppDoc.Function.Const
+    )
+
+  private def getFunctionMembers: List[CppDoc.Class.Member] = {
     List.concat(
       List(
         linesClassMember(
@@ -594,33 +622,7 @@ case class StructCppWriter(
       ),
       wrapClassMembersInIfDirective(
         "\n#if FW_SERIALIZABLE_TO_STRING",
-        List(
-          functionClassMember(
-            Some("Convert struct to string"),
-            "toString",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::StringBase&"),
-                "sb",
-                Some("The StringBase object to hold the result")
-              )
-            ),
-            CppDoc.Type("void"),
-            List.concat(
-              if needsTmpString then lines("Fw::String tmp;") else List(),
-              lines("sb = \"( \";"),
-              memberToString.zipWithIndex.flatMap((memberToStringLines, idx) => {
-                if idx > 0 then List.concat(
-                  lines("sb += \", \";"),
-                  memberToStringLines,
-                ) else memberToStringLines
-              }),
-              lines("sb += \" )\";"),
-            ),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
-          )
-        )
+        List(getToStringFunctionMember)
       ),
       getGetterFunctionMembers,
       guardedList (!memberList.isEmpty) (
