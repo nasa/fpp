@@ -386,6 +386,50 @@ case class StructCppWriter(
       )
     )
 
+  private def writeSerializeStatusCheck =
+    wrapInIf(
+      "status != Fw::FW_SERIALIZE_OK",
+      lines("return status;")
+    )
+
+  private def writeSerializeCall(n: String) =
+    line(s"status = buffer.serializeFrom(this->m_$n, mode);") :: writeSerializeStatusCheck
+
+  private def writeDeserializeCall(n: String) =
+    line(s"status = buffer.deserializeTo(this->m_$n, mode);") :: writeSerializeStatusCheck
+
+  private def getSerializeToMember: CppDoc.Class.Member =
+    functionClassMember(
+      Some("Serialization"),
+      "serializeTo",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::SerialBufferBase&"),
+          "buffer",
+          Some("The serial buffer")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::Endianness"),
+          "mode",
+          Some("Endianness of serialized buffer"),
+          Some("Fw::Endianness::BIG"),
+        )
+      ),
+      CppDoc.Type("Fw::SerializeStatus"),
+      List.concat(
+        lines("Fw::SerializeStatus status;"),
+        Line.blank :: memberNames.flatMap(n =>
+          if sizes.contains(n) then
+            iterateN(sizes(n), writeSerializeCall(s"$n[i]"))
+          else
+            writeSerializeCall(n)
+        ),
+        Line.blank :: lines("return status;"),
+      ),
+      CppDoc.Function.NonSV,
+      CppDoc.Function.Const
+    )
+
   private def getFunctionMembers: List[CppDoc.Class.Member] = {
     // Members on which to call toString()
     val needsTmpString =
@@ -494,15 +538,6 @@ case class StructCppWriter(
         lines("return size;")
       )
 
-    def writeSerializeStatusCheck =
-      wrapInIf(
-        "status != Fw::FW_SERIALIZE_OK",
-        lines("return status;")
-      )
-    def writeSerializeCall(n: String) =
-      line(s"status = buffer.serializeFrom(this->m_$n, mode);") :: writeSerializeStatusCheck
-    def writeDeserializeCall(n: String) =
-      line(s"status = buffer.deserializeTo(this->m_$n, mode);") :: writeSerializeStatusCheck
 
     List.concat(
       List(
@@ -513,36 +548,7 @@ case class StructCppWriter(
           CppDocWriter.writeBannerComment("Member functions"),
           CppDoc.Lines.Both
         ),
-        functionClassMember(
-          Some("Serialization"),
-          "serializeTo",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::SerialBufferBase&"),
-              "buffer",
-              Some("The serial buffer")
-            ),
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::Endianness"),
-              "mode",
-              Some("Endianness of serialized buffer"),
-              Some("Fw::Endianness::BIG"),
-            )
-          ),
-          CppDoc.Type("Fw::SerializeStatus"),
-          List.concat(
-            lines("Fw::SerializeStatus status;"),
-            Line.blank :: memberNames.flatMap(n =>
-              if sizes.contains(n) then
-                iterateN(sizes(n), writeSerializeCall(s"$n[i]"))
-              else
-                writeSerializeCall(n)
-            ),
-            Line.blank :: lines("return status;"),
-          ),
-          CppDoc.Function.NonSV,
-          CppDoc.Function.Const
-        ),
+        getSerializeToMember,
         functionClassMember(
           Some("Deserialization"),
           "deserializeFrom",
