@@ -398,7 +398,7 @@ case class StructCppWriter(
   private def writeDeserializeCall(n: String) =
     line(s"status = buffer.deserializeTo(this->m_$n, mode);") :: writeSerializeStatusCheck
 
-  private def getSerializeToMember: CppDoc.Class.Member.Function =
+  private def getSerializeToFunctionMember: CppDoc.Class.Member.Function =
     functionClassMember(
       Some("Serialization"),
       "serializeTo",
@@ -430,7 +430,7 @@ case class StructCppWriter(
       CppDoc.Function.Const
     )
 
-  private def getDeserializeFromMember: CppDoc.Class.Member.Function =
+  private def getDeserializeFromFunctionMember: CppDoc.Class.Member.Function =
     functionClassMember(
       Some("Deserialization"),
       "deserializeFrom",
@@ -458,6 +458,50 @@ case class StructCppWriter(
         ),
         Line.blank :: lines("return status;"),
       )
+    )
+
+  private def getSerializedSize(n: String, tn: String) = 
+    typeMembers(n).getUnderlyingType match {
+      case ts: (Type.Array | Type.Struct | Type.String) => {
+        if sizes.contains(n) then
+          sizeIterator(
+            sizes(n),
+            lines(s"size += this->m_$n[index].serializedSize();")
+          ).mkString("\n")
+        else s"size += this->m_$n.serializedSize();"
+      }
+      case ts => s"size += ${writeStaticSerializedSizeExpr(s, ts, tn) + (
+          if sizes.contains(n) then s" * ${sizes(n)};"
+          else ";"
+      )}"
+    }
+
+  private def sizeIterator(size: Int, ll: List[Line]): List[Line] =
+    wrapInForLoop(
+      "U32 index = 0",
+      s"index < $size",
+      "index++",
+      ll,
+    )
+
+  private val serializedSize = 
+    List.concat(
+      lines("FwSizeType size = 0;"),
+      lines(memberList.map((n, tn) => 
+        s"${getSerializedSize(n, tn)}"
+      ).mkString("\n")),
+      lines("return size;")
+    )
+
+  private def getSerializedSizeFunctionMember: CppDoc.Class.Member.Function =
+    functionClassMember(
+      Some("Get the dynamic serialized size of the struct"),
+      "serializedSize",
+      List(),
+      CppDoc.Type("FwSizeType"),
+      serializedSize,
+      CppDoc.Function.NonSV,
+      CppDoc.Function.Const
     )
 
   private def getFunctionMembers: List[CppDoc.Class.Member] = {
@@ -535,40 +579,6 @@ case class StructCppWriter(
           getMemberToString(node, n, tn),
       ))
 
-    def sizeIterator(size: Int, ll: List[Line]): List[Line] =
-      wrapInForLoop(
-        "U32 index = 0",
-        s"index < $size",
-        "index++",
-        ll,
-      )
-
-    def getSerializedSize(n: String, tn: String) = 
-      typeMembers(n).getUnderlyingType match {
-        case ts: (Type.Array | Type.Struct | Type.String) => {
-          if sizes.contains(n) then
-            sizeIterator(
-              sizes(n),
-              lines(s"size += this->m_$n[index].serializedSize();")
-            ).mkString("\n")
-          else s"size += this->m_$n.serializedSize();"
-        }
-        case ts => s"size += ${writeStaticSerializedSizeExpr(s, ts, tn) + (
-            if sizes.contains(n) then s" * ${sizes(n)};"
-            else ";"
-        )}"
-      }
-
-    val serializedSize = 
-      List.concat(
-        lines("FwSizeType size = 0;"),
-        lines(memberList.map((n, tn) => 
-          s"${getSerializedSize(n, tn)}"
-        ).mkString("\n")),
-        lines("return size;")
-      )
-
-
     List.concat(
       List(
         linesClassMember(
@@ -578,17 +588,9 @@ case class StructCppWriter(
           CppDocWriter.writeBannerComment("Member functions"),
           CppDoc.Lines.Both
         ),
-        getSerializeToMember,
-        getDeserializeFromMember,
-        functionClassMember(
-          Some("Get the dynamic serialized size of the struct"),
-          "serializedSize",
-          List(),
-          CppDoc.Type("FwSizeType"),
-          serializedSize,
-          CppDoc.Function.NonSV,
-          CppDoc.Function.Const
-        )
+        getSerializeToFunctionMember,
+        getDeserializeFromFunctionMember,
+        getSerializedSizeFunctionMember,
       ),
       wrapClassMembersInIfDirective(
         "\n#if FW_SERIALIZABLE_TO_STRING",
