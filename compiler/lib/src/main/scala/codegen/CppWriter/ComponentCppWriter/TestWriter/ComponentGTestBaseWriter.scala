@@ -20,8 +20,6 @@ case class ComponentGTestBaseWriter(
 
   private val testerFileName = ComputeCppFiles.FileNames.getComponentTesterBase(componentName)
 
-  private val testerRelativeFileName = s.getRelativePath(testerFileName).toString
-
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
     CppWriter.createCppDoc(
@@ -51,7 +49,7 @@ case class ComponentGTestBaseWriter(
 
   private def getHppIncludes = {
     val userHeaders = List(
-      s"$testerRelativeFileName.hpp",
+      s.getIncludePath(componentSymbol, testerFileName),
       "gtest/gtest.h"
     ).sorted.map(CppWriter.headerString).map(line)
     linesMember(
