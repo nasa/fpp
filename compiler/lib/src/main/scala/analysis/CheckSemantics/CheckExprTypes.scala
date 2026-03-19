@@ -160,10 +160,7 @@ object CheckExprTypes extends UseAnalyzer {
       a <- super.exprBinopNode(a, node, e)
       t <- a.commonType(e.e1.id, e.e2.id, loc)
       _ <- e.op match {
-        case Ast.Binop.Add => t match {
-          case _: Type.String => Right(t)
-          case _ => convertToNumeric(loc, t)
-        }
+        case Ast.Binop.Add => convertToNumericOrString(loc, t)
         case _ => convertToNumeric(loc, t)
       }
     } yield a.assignType(node -> t)
@@ -487,5 +484,13 @@ object CheckExprTypes extends UseAnalyzer {
       Left(error)
     }
   }
-
+  
+  private def convertToNumericOrString(loc: Location, t: Type): Result.Result[Type] = {
+    t match {
+      case _: Type.String => Right(t)
+      case _ if t.isNumeric => Right(t)
+      case _ if t.isConvertibleTo(Type.Integer) => Right(Type.Integer)
+      case _ => Left(SemanticError.InvalidType(loc, s"cannot convert $t to a numeric or string type"))
+    }
+  }
 }
