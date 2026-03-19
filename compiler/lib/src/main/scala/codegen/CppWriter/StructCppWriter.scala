@@ -100,16 +100,11 @@ case class StructCppWriter(
       AnnotationCppWriter.asStringOpt(aNode),
       name,
       Some("public Fw::Serializable"),
-      // If struct is empty, write an empty class
-      if memberList.isEmpty then Nil
-      else getClassMembers
+      getClassMembers
     )
-    List(
-      // If struct is empty, write an empty .cpp file
-      if memberList.isEmpty then List(hppIncludes)
-      else List(hppIncludes, cppIncludes),
-      wrapInNamespaces(namespaceIdentList, List(cls))
-    ).flatten
+    hppIncludes ::
+    cppIncludes ::
+    wrapInNamespaces(namespaceIdentList, List(cls))
   }
 
   private def writeIncludeDirectives = {
@@ -154,15 +149,17 @@ case class StructCppWriter(
           CppDocWriter.writeBannerComment("Constants") ++
           addBlankPrefix(
             wrapInEnum(
-              List(
+              List.concat(
                 lines("//! The size of the serial representation"),
                 lines("SERIALIZED_SIZE ="),
-                lines(memberList.map((n, tn) =>
-                  writeStaticSerializedSizeExpr(s, typeMembers(n), tn) + (
-                    if sizes.contains(n) then s" * ${sizes(n)}"
-                    else ""
-                    )).mkString(" +\n")).map(indentIn),
-              ).flatten
+                lines(
+                  if memberList.size == 0 then "0"
+                  else memberList.map((n, tn) =>
+                    writeStaticSerializedSizeExpr(s, typeMembers(n), tn) + (
+                      if sizes.contains(n) then s" * ${sizes(n)}"
+                      else ""
+                  )).mkString(" +\n")).map(indentIn),
+              )
             )
           )
       )
@@ -202,47 +199,53 @@ case class StructCppWriter(
         )
       )
 
-    List(
-      linesClassMember(
-        CppDocHppWriter.writeAccessTag("public")
-      ),
-      linesClassMember(
-        CppDocWriter.writeBannerComment("Constructors"),
-        CppDoc.Lines.Both
-      ),
-      constructorClassMember(
-        Some("Constructor (default value)"),
-        Nil,
-        "Serializable()" :: initializerListMemberNames.map(n => {
-          if defaultMemberNames.contains(n) then s"m_$n()"
-          else defaultValueMembers(n) match {
-            case v: Value.Struct => s"m_$n(${ValueCppWriter.writeStructMembers(s, v)})"
-            case _: Value.AbsType => s"m_$n()"
-            case v => writeInitializer(n, ValueCppWriter.write(s, v))
-          }
-        }),
-        nonInitializerListArrayMemberNames.flatMap(n => writeArrayMemberSetter(
-          n, ValueCppWriter.write(s, defaultValueMembers(n)
-        )))
-      ),
-      constructorClassMember(
-        Some("Member constructor"),
-        memberList.map(writeMemberAsParam),
-        writeInitializerList(n => n),
-        writeArraySetters(n => s"$n[i]")
-      ),
-      constructorClassMember(
-        Some("Copy constructor"),
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type(s"const $name&"),
-            "obj",
-            Some("The source object")
-          )
+    List.concat(
+      List(
+        linesClassMember(
+          CppDocHppWriter.writeAccessTag("public")
         ),
-        writeInitializerList(n => s"obj.m_$n"),
-        writeArraySetters(n => s"obj.m_$n[i]")
+        linesClassMember(
+          CppDocWriter.writeBannerComment("Constructors"),
+          CppDoc.Lines.Both
+        ),
+        constructorClassMember(
+          Some("Constructor (default value)"),
+          Nil,
+          "Serializable()" :: initializerListMemberNames.map(n => {
+            if defaultMemberNames.contains(n) then s"m_$n()"
+            else defaultValueMembers(n) match {
+              case v: Value.Struct => s"m_$n(${ValueCppWriter.writeStructMembers(s, v)})"
+              case _: Value.AbsType => s"m_$n()"
+              case v => writeInitializer(n, ValueCppWriter.write(s, v))
+            }
+          }),
+          nonInitializerListArrayMemberNames.flatMap(n => writeArrayMemberSetter(
+            n, ValueCppWriter.write(s, defaultValueMembers(n)
+          )))
+        ),
       ),
+      if memberList.size == 0 then Nil else List(
+        constructorClassMember(
+          Some("Member constructor"),
+          memberList.map(writeMemberAsParam),
+          writeInitializerList(n => n),
+          writeArraySetters(n => s"$n[i]")
+        )
+      ),
+      List(
+        constructorClassMember(
+          Some("Copy constructor"),
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"const $name&"),
+              "obj",
+              Some("The source object")
+            )
+          ),
+          writeInitializerList(n => s"obj.m_$n"),
+          writeArraySetters(n => s"obj.m_$n[i]")
+        )
+      )
     ) ++
       scalarConstructor
   }
