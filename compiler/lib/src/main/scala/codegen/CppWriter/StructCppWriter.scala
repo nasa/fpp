@@ -623,7 +623,7 @@ case class StructCppWriter(
 
   private def getGetterName(n: String) = s"get_$n"
 
-  private def writeEnumGetter(n: String, tn: String) = List(
+  private def writeEnumGetter(n: String, tn: String) =
     linesClassMember(
       lines(
         s"""|
@@ -634,9 +634,8 @@ case class StructCppWriter(
             |}"""
       )
     )
-  )
 
-  private def writePrimitiveGetter(n: String, tn: String) = List(
+  private def writePrimitiveGetter(n: String, tn: String) =
     linesClassMember(
       lines(
         s"""|
@@ -647,9 +646,8 @@ case class StructCppWriter(
             |}"""
       )
     )
-  )
 
-  private def writeNonPrimitiveGetters(n: String, tn: String) = List(
+  private def writeNonPrimitiveGetters(n: String, tn: String) =
     linesClassMember(
       lines(
         s"""|
@@ -666,9 +664,8 @@ case class StructCppWriter(
             |}"""
       )
     )
-  )
 
-  private def getGetterFunctionMember(n: String, tn: String): List[CppDoc.Class.Member] =
+  private def getGetterFunctionMember(n: String, tn: String): CppDoc.Class.Member =
     (sizes.contains(n), typeMembers(n).getUnderlyingType) match {
       case (false, _: Type.Enum) =>
         writeEnumGetter(n, tn)
@@ -682,35 +679,41 @@ case class StructCppWriter(
     guardedList (!memberList.isEmpty) (
       linesClassMember(
         CppDocWriter.writeBannerComment("Getter functions")
-      ) :: memberList.flatMap(getGetterFunctionMember)
+      ) :: memberList.map(getGetterFunctionMember)
     )
 
-  private def getSetterFunctionMembers: List[CppDoc.Class.Member] =
+  private def getSingleSetterFunctionMember(n: String, tn: String): CppDoc.Class.Member.Function =
+    functionClassMember(
+      Some(s"Set member $n"),
+      s"set_$n",
+      List(
+        writeMemberAsParam((n, tn))
+      ),
+      CppDoc.Type("void"),
+      if sizes.contains(n) then
+        iterateN(sizes(n), lines(s"this->m_$n[i] = $n[i];"))
+      else
+        lines(s"this->m_$n = $n;")
+    )
+
+  private def getSingleSetterFunctionMembers =
+    memberList.map(getSingleSetterFunctionMember)
+
+  private def getAllSetterFunctionMember =
     functionClassMember(
       Some("Set all members"),
       "set",
       memberList.map(writeMemberAsParam),
       CppDoc.Type("void"),
-      List(
+      List.concat(
         nonArrayMemberNames.map(n => line(s"this->m_$n = $n;")),
         if arrayMemberNames.isEmpty then Nil
         else Line.blank :: writeArraySetters(n => s"$n[i]"),
-      ).flatten
-    ) ::
-      memberList.map((n, tn) =>
-        functionClassMember(
-          Some(s"Set member $n"),
-          s"set_$n",
-          List(
-            writeMemberAsParam((n, tn))
-          ),
-          CppDoc.Type("void"),
-          if sizes.contains(n) then
-            iterateN(sizes(n), lines(s"this->m_$n[i] = $n[i];"))
-          else
-            lines(s"this->m_$n = $n;")
-        )
       )
+    )
+
+  private def getSetterFunctionMembers: List[CppDoc.Class.Member] =
+    getAllSetterFunctionMember :: getSingleSetterFunctionMembers
 
   private def getVariableMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
