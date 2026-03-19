@@ -142,27 +142,33 @@ case class StructCppWriter(
       getVariableMembers,
     ).flatten
 
-  private def getConstantMembers: List[CppDoc.Class.Member] =
-    List(
-      linesClassMember(
-        CppDocHppWriter.writeAccessTag("public") ++
-          CppDocWriter.writeBannerComment("Constants") ++
-          addBlankPrefix(
-            wrapInEnum(
-              List.concat(
-                lines("//! The size of the serial representation"),
-                lines("SERIALIZED_SIZE ="),
-                lines(
-                  if memberList.size == 0 then "0"
-                  else memberList.map((n, tn) =>
-                    writeStaticSerializedSizeExpr(s, typeMembers(n), tn) + (
-                      if sizes.contains(n) then s" * ${sizes(n)}"
-                      else ""
-                  )).mkString(" +\n")).map(indentIn),
-              )
-            )
+  private def getSerializedSizeExpr =
+    if memberList.size == 0 then "0"
+    else memberList.map((n, tn) =>
+      writeStaticSerializedSizeExpr(s, typeMembers(n), tn) + (
+        if sizes.contains(n) then s" * ${sizes(n)}"
+        else ""
+    )).mkString(" +\n")
+
+  private def getSerializedSizeEnum =
+    linesClassMember(
+      addBlankPrefix(
+        wrapInEnum(
+          List.concat(
+            lines("//! The size of the serial representation"),
+            lines("SERIALIZED_SIZE ="),
+            lines(getSerializedSizeExpr).map(indentIn)
           )
+        )
       )
+    )
+
+  private def getConstantMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "public",
+      "Constants",
+      List(getSerializedSizeEnum),
+      CppDoc.Lines.Hpp
     )
 
   /** Provide type aliases for array member types, to work
@@ -184,7 +190,7 @@ case class StructCppWriter(
     addAccessTagAndComment("public", "Types", members, CppDoc.Lines.Hpp)
   }
 
-  private def scalarConstructor =
+  private def getScalarArrayConstructor =
     constructorClassMember(
       Some("Member constructor (scalar values for arrays)"),
       memberList.map(writeMemberAsParamScalar),
@@ -192,7 +198,7 @@ case class StructCppWriter(
       writeArraySetters(n => n)
     )
 
-  private def defaultValueConstructor =
+  private def getDefaultValueConstructor =
     constructorClassMember(
       Some("Constructor (default value)"),
       Nil,
@@ -218,27 +224,22 @@ case class StructCppWriter(
     )
 
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
-    List.concat(
-      List(
-        linesClassMember(
-          CppDocHppWriter.writeAccessTag("public")
-        ),
-        linesClassMember(
-          CppDocWriter.writeBannerComment("Constructors"),
-          CppDoc.Lines.Both
-        ),
-      ),
-      List(defaultValueConstructor),
-      guardedList (!memberList.isEmpty) (List(memberConstructor)),
-      List(copyConstructor),
-      // Write this constructor only if the struct has an array member
-      // In this case, the constructor provides scalar initialization
-      // of the array members.
-      guardedList (!sizes.isEmpty) (List(scalarConstructor))
+    addAccessTagAndComment(
+      "public",
+      "Constructors",
+      List.concat(
+        List(getDefaultValueConstructor),
+        // Write the member constructor if and only if there are members
+        guardedList (!memberList.isEmpty) (List(memberConstructor)),
+        List(getCopyConstructor),
+        // Write the scalar array constructor if and only if there are
+        // array members
+        guardedList (!sizes.isEmpty) (List(getScalarArrayConstructor))
+      )
     )
   }
 
-  private val copyConstructor = constructorClassMember(
+  private def getCopyConstructor = constructorClassMember(
     Some("Copy constructor"),
     List(
       CppDoc.Function.Param(
@@ -251,12 +252,33 @@ case class StructCppWriter(
     writeArraySetters(n => s"obj.m_$n[i]")
   )
 
-  private def getOperatorMembers: List[CppDoc.Class.Member] = {
+  private def getCopyAssignmentOperator =
+    functionClassMember(
+      Some("Copy assignment operator"),
+      "operator=",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type(s"const $name&"),
+          "obj",
+          Some("The source object")
+        ),
+      ),
+      CppDoc.Type(s"$name&"),
+      List.concat(
+        wrapInIf("this == &obj", lines("return *this;")),
+        Line.blank :: lines(
+          s"set(${memberNames.map(n => s"obj.m_$n").mkString(", ")});"
+        ),
+        lines("return *this;"),
+      )
+    )
+
+  private def getEqualityOperator = {
     val nonArrayMemberCheck = lines(
       nonArrayMemberNames.map(n => s"(this->m_$n == obj.m_$n)"
       ).mkString(" &&\n"))
     val addressEqualityCheck = lines("if (this == &obj) { return true; }")
-    lazy val emptySizes =
+    def emptySizes =
       if nonArrayMemberNames.length == 1 then
         lines(s"return ${nonArrayMemberCheck.head};")
       else List.concat(
@@ -267,7 +289,7 @@ case class StructCppWriter(
           ");"
         )
       )
-    lazy val nonEmptySizes = List.concat(
+    def nonEmptySizes = List.concat(
       addBlankPostfix(addressEqualityCheck),
       if nonArrayMemberNames.length > 0
       then List.concat(
@@ -304,78 +326,65 @@ case class StructCppWriter(
       // Simplify syntax if there are no array members
       if sizes.isEmpty then emptySizes else nonEmptySizes
 
-    List(
-      linesClassMember(
-        CppDocHppWriter.writeAccessTag("public")
-      ),
-      linesClassMember(
-        CppDocWriter.writeBannerComment("Operators"),
-        CppDoc.Lines.Both
-      ),
-      functionClassMember(
-        Some("Copy assignment operator"),
-        "operator=",
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type(s"const $name&"),
-            "obj",
-            Some("The source object")
-          ),
-        ),
-        CppDoc.Type(s"$name&"),
-        List(
-          wrapInIf("this == &obj", lines("return *this;")),
-          Line.blank :: lines(
-            s"set(${memberNames.map(n => s"obj.m_$n").mkString(", ")});"
-          ),
-          lines("return *this;"),
-        ).flatten
-      ),
-      functionClassMember(
-        Some("Equality operator"),
-        "operator==",
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type(s"const $name&"),
-            "obj",
-            Some("The other object")
-          )
-        ),
-        CppDoc.Type("bool"),
-        equalityOpBody,
-        CppDoc.Function.NonSV,
-        CppDoc.Function.Const
-      ),
-      functionClassMember(
-        Some("Inequality operator"),
-        "operator!=",
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type(s"const $name&"),
-            "obj",
-            Some("The other object")
-          )
-        ),
-        CppDoc.Type("bool"),
-        lines("return !(*this == obj);"),
-        CppDoc.Function.NonSV,
-        CppDoc.Function.Const
-      ),
-    ) ++ (
-      linesClassMember(
-        List(Line.blank),
-        CppDoc.Lines.Both
-      ) :: writeOstreamOperator(
-        name,
-        lines(
-          """|Fw::String s;
-             |obj.toString(s);
-             |os << s.toChar();
-             |return os;"""
+    functionClassMember(
+      Some("Equality operator"),
+      "operator==",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type(s"const $name&"),
+          "obj",
+          Some("The other object")
         )
-      )
+      ),
+      CppDoc.Type("bool"),
+      equalityOpBody,
+      CppDoc.Function.NonSV,
+      CppDoc.Function.Const
     )
   }
+
+  private def getInequalityOperator =
+    functionClassMember(
+      Some("Inequality operator"),
+      "operator!=",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type(s"const $name&"),
+          "obj",
+          Some("The other object")
+        )
+      ),
+      CppDoc.Type("bool"),
+      lines("return !(*this == obj);"),
+      CppDoc.Function.NonSV,
+      CppDoc.Function.Const
+    )
+
+  private def getOstreamOperator =
+    linesClassMember(List(Line.blank), CppDoc.Lines.Both) ::
+    writeOstreamOperator(
+      name,
+      lines(
+        """|Fw::String s;
+           |obj.toString(s);
+           |os << s.toChar();
+           |return os;"""
+      )
+    )
+
+  private def getOperatorMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "public",
+      "Operators",
+      List.concat(
+        List(
+          getCopyAssignmentOperator,
+          getEqualityOperator,
+          getInequalityOperator
+        ),
+        getOstreamOperator
+      )
+    )
 
   private def getFunctionMembers: List[CppDoc.Class.Member] = {
     // Members on which to call toString()
@@ -602,7 +611,7 @@ case class StructCppWriter(
           )
         )
       ),
-      guardedList (memberList.size > 0) (
+      guardedList (!memberList.isEmpty) (
         List.concat(
           linesClassMember(
             CppDocWriter.writeBannerComment("Getter functions"),
