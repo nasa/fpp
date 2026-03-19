@@ -22,8 +22,6 @@ case class ComponentTesterBaseWriter(
 
   private val namespaceIdentList = componentNamespaceIdentList
 
-  private val relativeFileName = s.getRelativePath(fileName).toString
-
   private val externalParameterDelegate = ExternalParameterDelegate(s, aNode)
 
   def write: CppDoc = {
@@ -83,7 +81,9 @@ case class ComponentTesterBaseWriter(
   }
 
   private def getCppIncludes: CppDoc.Member = {
-    val userHeader = lines(CppWriter.headerString(s"$relativeFileName.hpp"))
+    val userHeaders = lines(
+      CppWriter.headerString(s.getIncludePath(componentSymbol, fileName))
+    )
     val systemHeaders = List(
       "cstdlib",
       "cstring"
@@ -91,7 +91,7 @@ case class ComponentTesterBaseWriter(
     linesMember(
       List.concat(
         Line.blank :: systemHeaders,
-        Line.blank :: userHeader
+        Line.blank :: userHeaders
       ),
       CppDoc.Lines.Cpp
     )
