@@ -1755,7 +1755,10 @@ that is defined elsewhere.</p>
 The definition associates the name <em>N</em> with
 the type <em>T</em> specified after the <code>=</code> symbol.
 Elsewhere in the model, the name <em>N</em> may be used as alias of (i.e., an
-alternate name for) the type <em>T</em>.</p>
+alternate name for) the type <em>T</em>.
+If <em>T</em> names an <a href="#Types_Enum-Types">enum type</a>, then <em>N</em>
+is an alias of the type only.
+It is not an alias of the constant qualifier provided by the enum.</p>
 </div>
 <div class="paragraph">
 <p>If the optional keyword <code>dictionary</code> is present, then the
@@ -1774,7 +1777,16 @@ type A = U32
 struct B {
   x: A
   y: F32
-} default { y = 1 }</code></pre>
+} default { y = 1 }
+
+# Defines an enum type E with values E.X and E.Y
+enum E { X, Y }
+# Defines an enum type T that is an alias of E
+type T = E
+# OK: E.X is a value of type E
+constant a = E.X
+# Error: T is not an alias of the constant qualifier E
+constant b = T.X</code></pre>
 </div>
 </div>
 </div>
@@ -10366,6 +10378,9 @@ reside in the following <strong>name groups</strong>:</p>
 <p>Abstract type definitions reside in the type name group.</p>
 </li>
 <li>
+<p>Alias type definitions reside in the type name group.</p>
+</li>
+<li>
 <p>Array type definitions reside in the type name group.</p>
 </li>
 <li>
@@ -11295,7 +11310,19 @@ representation type of <em>T</em>.</p>
 <li>
 <p>If <em>T</em> is a
 <a href="#Types_Struct-Types">struct type</a>, then <em>s</em>
-the sum of the serialized sizes of the types in the members of <em>T</em></p>
+the sum of the serialized sizes of the members of <em>T</em>.
+For each member <em>m</em> with type \$T_m\$:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If <em>m</em> has size <em>n</em>, then the serialized size of
+<em>m</em> is <em>n</em> times the serialized size of \$T_m\$.</p>
+</li>
+<li>
+<p>Otherwise the serialized size of <em>m</em> is the serialized size of \$T_m\$.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>If <em>T</em> is an
@@ -12966,7 +12993,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-12 17:24:15 -0700
+Last updated 2026-03-18 11:18:08 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
