@@ -398,7 +398,7 @@ case class StructCppWriter(
   private def writeDeserializeCall(n: String) =
     line(s"status = buffer.deserializeTo(this->m_$n, mode);") :: writeSerializeStatusCheck
 
-  private def getSerializeToMember: CppDoc.Class.Member =
+  private def getSerializeToMember: CppDoc.Class.Member.Function =
     functionClassMember(
       Some("Serialization"),
       "serializeTo",
@@ -428,6 +428,36 @@ case class StructCppWriter(
       ),
       CppDoc.Function.NonSV,
       CppDoc.Function.Const
+    )
+
+  private def getDeserializeFromMember: CppDoc.Class.Member.Function =
+    functionClassMember(
+      Some("Deserialization"),
+      "deserializeFrom",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::SerialBufferBase&"),
+          "buffer",
+          Some("The serial buffer")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::Endianness"),
+          "mode",
+          Some("Endianness of serialized buffer"),
+          Some("Fw::Endianness::BIG"),
+        )
+      ),
+      CppDoc.Type("Fw::SerializeStatus"),
+      List.concat(
+        lines("Fw::SerializeStatus status;"),
+        Line.blank :: memberNames.flatMap(n =>
+          if sizes.contains(n) then
+            iterateN(sizes(n), writeDeserializeCall(s"$n[i]"))
+          else
+            writeDeserializeCall(n)
+        ),
+        Line.blank :: lines("return status;"),
+      )
     )
 
   private def getFunctionMembers: List[CppDoc.Class.Member] = {
@@ -549,34 +579,7 @@ case class StructCppWriter(
           CppDoc.Lines.Both
         ),
         getSerializeToMember,
-        functionClassMember(
-          Some("Deserialization"),
-          "deserializeFrom",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::SerialBufferBase&"),
-              "buffer",
-              Some("The serial buffer")
-            ),
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::Endianness"),
-              "mode",
-              Some("Endianness of serialized buffer"),
-              Some("Fw::Endianness::BIG"),
-            )
-          ),
-          CppDoc.Type("Fw::SerializeStatus"),
-          List.concat(
-            lines("Fw::SerializeStatus status;"),
-            Line.blank :: memberNames.flatMap(n =>
-              if sizes.contains(n) then
-                iterateN(sizes(n), writeDeserializeCall(s"$n[i]"))
-              else
-                writeDeserializeCall(n)
-            ),
-            Line.blank :: lines("return status;"),
-          )
-        ),
+        getDeserializeFromMember,
         functionClassMember(
           Some("Get the dynamic serialized size of the struct"),
           "serializedSize",
