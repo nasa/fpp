@@ -14,8 +14,6 @@ case class ComponentTesterBaseWriter(
 
   private val componentFileName = ComputeCppFiles.FileNames.getComponent(componentName)
 
-  //private val componentRelativeFileName = s.getRelativePath(componentFileName).toString
-
   private val fileName = ComputeCppFiles.FileNames.getComponentTesterBase(componentName)
 
   private val historyWriter = ComponentHistory(s, aNode)
@@ -59,7 +57,6 @@ case class ComponentTesterBaseWriter(
 
   private def getHppIncludes: CppDoc.Member = {
     val standardHeaders = List(
-      //s"$componentRelativeFileName.hpp",
       s.getIncludePath(componentSymbol, componentFileName),
       "Fw/Comp/PassiveComponentBase.hpp",
       "Fw/Port/InputSerializePort.hpp",
