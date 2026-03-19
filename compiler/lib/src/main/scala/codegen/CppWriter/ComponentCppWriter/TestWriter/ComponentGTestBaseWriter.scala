@@ -16,8 +16,6 @@ case class ComponentGTestBaseWriter(
 
   private val namespaceIdentList = componentNamespaceIdentList
 
-  private val relativeFileName = s.getRelativePath(fileName).toString
-
   private val symbol = componentSymbol
 
   private val testerFileName = ComputeCppFiles.FileNames.getComponentTesterBase(componentName)
@@ -62,9 +60,11 @@ case class ComponentGTestBaseWriter(
   }
 
   private def getCppIncludes = {
-    val userHeader = lines(CppWriter.headerString(s"$relativeFileName.hpp"))
+    val userHeaders = lines(
+      CppWriter.headerString(s.getIncludePath(componentSymbol, fileName))
+    )
     linesMember(
-      addBlankPrefix(userHeader),
+      addBlankPrefix(userHeaders),
       CppDoc.Lines.Cpp
     )
   }
