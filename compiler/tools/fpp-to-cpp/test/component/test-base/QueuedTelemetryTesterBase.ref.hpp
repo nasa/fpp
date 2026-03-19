@@ -13,7 +13,7 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/QueuedTelemetryComponentAc.hpp"
+#include "QueuedTelemetryComponentAc.hpp"
 
 //! \class QueuedTelemetryTesterBase
 //! \brief Auto-generated base for QueuedTelemetry component test harness

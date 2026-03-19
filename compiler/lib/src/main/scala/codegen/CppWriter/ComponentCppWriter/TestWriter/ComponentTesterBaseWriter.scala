@@ -14,7 +14,7 @@ case class ComponentTesterBaseWriter(
 
   private val componentFileName = ComputeCppFiles.FileNames.getComponent(componentName)
 
-  private val componentRelativeFileName = s.getRelativePath(componentFileName).toString
+  //private val componentRelativeFileName = s.getRelativePath(componentFileName).toString
 
   private val fileName = ComputeCppFiles.FileNames.getComponentTesterBase(componentName)
 
@@ -26,12 +26,10 @@ case class ComponentTesterBaseWriter(
 
   private val relativeFileName = s.getRelativePath(fileName).toString
 
-  private val symbol = componentSymbol
-
   private val externalParameterDelegate = ExternalParameterDelegate(s, aNode)
 
   def write: CppDoc = {
-    val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
+    val includeGuard = s.includeGuardFromQualifiedName(componentSymbol, fileName)
     CppWriter.createCppDoc(
       s"$name component test harness base class",
       fileName,
@@ -61,7 +59,8 @@ case class ComponentTesterBaseWriter(
 
   private def getHppIncludes: CppDoc.Member = {
     val standardHeaders = List(
-      s"$componentRelativeFileName.hpp",
+      //s"$componentRelativeFileName.hpp",
+      s.getIncludePath(componentSymbol, componentFileName),
       "Fw/Comp/PassiveComponentBase.hpp",
       "Fw/Port/InputSerializePort.hpp",
       "Fw/Types/Assert.hpp",
