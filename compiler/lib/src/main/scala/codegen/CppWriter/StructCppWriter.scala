@@ -611,70 +611,79 @@ case class StructCppWriter(
           )
         )
       ),
+      getGetterFunctionMembers,
       guardedList (!memberList.isEmpty) (
-        List.concat(
-          linesClassMember(
-            CppDocWriter.writeBannerComment("Getter functions"),
-          ) :: getGetterFunctionMembers,
-          linesClassMember(
-            CppDocWriter.writeBannerComment("Setter functions"),
-            CppDoc.Lines.Both
-          ) :: getSetterFunctionMembers
-        )
+        linesClassMember(
+          CppDocWriter.writeBannerComment("Setter functions"),
+          CppDoc.Lines.Both
+        ) :: getSetterFunctionMembers
       )
     )
   }
 
-  private def getGetterFunctionMembers: List[CppDoc.Class.Member] = {
-    def getGetterName(n: String) = s"get_$n"
+  private def getGetterName(n: String) = s"get_$n"
 
-    memberList.flatMap((n, tn) => (sizes.contains(n), typeMembers(n).getUnderlyingType) match {
-      case (false, _: Type.Enum) => List(
-        CppDoc.Class.Member.Lines(
-          CppDoc.Lines(
-            lines(
-              s"""|
-                  |//! Get member $n
-                  |${writeMemberAsReturnType((n, tn))} ${getGetterName(n)}() const
-                  |{
-                  |  return this->m_$n.e;
-                  |}"""
-            ),
-          )
-        )
+  private def writeEnumGetter(n: String, tn: String) = List(
+    linesClassMember(
+      lines(
+        s"""|
+            |//! Get member $n
+            |${writeMemberAsReturnType((n, tn))} ${getGetterName(n)}() const
+            |{
+            |  return this->m_$n.e;
+            |}"""
       )
-      case (false, t) if s.isPrimitive(t, tn) => List(
-        linesClassMember(
-          lines(
-            s"""|
-                |//! Get member $n
-                |${writeMemberAsReturnType((n, tn))} ${getGetterName(n)}() const
-                |{
-                |  return this->m_$n;
-                |}"""
-          ),
-        )
+    )
+  )
+
+  private def writePrimitiveGetter(n: String, tn: String) = List(
+    linesClassMember(
+      lines(
+        s"""|
+            |//! Get member $n
+            |${writeMemberAsReturnType((n, tn))} ${getGetterName(n)}() const
+            |{
+            |  return this->m_$n;
+            |}"""
       )
-      case _ => List(
-        linesClassMember(
-          lines(
-            s"""|
-                |//! Get member $n
-                |${writeMemberAsReturnType((n, tn))} ${getGetterName(n)}()
-                |{
-                |  return this->m_$n;
-                |}
-                |
-                |//! Get member $n (const)
-                |${writeMemberAsReturnType((n, tn), StructCppWriter.Const)} ${getGetterName(n)}() const
-                |{
-                |  return this->m_$n;
-                |}"""
-          ),
-        )
+    )
+  )
+
+  private def writeNonPrimitiveGetters(n: String, tn: String) = List(
+    linesClassMember(
+      lines(
+        s"""|
+            |//! Get member $n
+            |${writeMemberAsReturnType((n, tn))} ${getGetterName(n)}()
+            |{
+            |  return this->m_$n;
+            |}
+            |
+            |//! Get member $n (const)
+            |${writeMemberAsReturnType((n, tn), StructCppWriter.Const)} ${getGetterName(n)}() const
+            |{
+            |  return this->m_$n;
+            |}"""
       )
-    })
-  }
+    )
+  )
+
+  private def getGetterFunctionMember(n: String, tn: String): List[CppDoc.Class.Member] =
+    (sizes.contains(n), typeMembers(n).getUnderlyingType) match {
+      case (false, _: Type.Enum) =>
+        writeEnumGetter(n, tn)
+      case (false, t) if s.isPrimitive(t, tn) =>
+        writePrimitiveGetter(n, tn)
+      case _ =>
+        writeNonPrimitiveGetters(n, tn)
+    }
+
+  private def getGetterFunctionMembers: List[CppDoc.Class.Member] =
+    guardedList (!memberList.isEmpty) (
+      linesClassMember(
+        CppDocWriter.writeBannerComment("Getter functions")
+      ) :: memberList.flatMap(getGetterFunctionMember)
+    )
 
   private def getSetterFunctionMembers: List[CppDoc.Class.Member] =
     functionClassMember(
