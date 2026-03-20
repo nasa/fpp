@@ -434,7 +434,9 @@ case class StructCppWriter(
       linesClassMember(
         CppDocWriter.writeBannerComment("Setter functions"),
         CppDoc.Lines.Both
-      ) :: getAllSetterFunctionMember :: getSingleSetterFunctionMembers
+      ) ::
+      getAllSetterFunctionMember ::
+      getSingleSetterFunctionMembers
     )
 
   private def getSingleSetterFunctionMember(n: String, tn: String): CppDoc.Class.Member.Function =
@@ -471,6 +473,18 @@ case class StructCppWriter(
     addAccessTagAndComment("public", "Types", members, CppDoc.Lines.Hpp)
   }
 
+  private def getVariableMember(n: String, tn: String): List[Line] =
+    lines(
+      writeMemberDecl(
+        s,
+        tn,
+        n,
+        typeMembers(n),
+        "m_",
+        sizes.get(n).map(_.toString)
+      )
+    )
+
   private def getVariableMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "protected",
@@ -478,9 +492,9 @@ case class StructCppWriter(
       guardedList (memberList.size > 0) (
         List(
           linesClassMember(
-            addBlankPrefix(memberList.flatMap((n, tn) => lines(
-              writeMemberDecl(s, tn, n, typeMembers(n), "m_", sizes.get(n).map(_.toString))
-            )))
+            addBlankPrefix(
+              memberList.flatMap(getVariableMember)
+            )
           )
         )
       ),
@@ -495,9 +509,11 @@ case class StructCppWriter(
             typeMembers(memberName).getUnderlyingType match {
               case _: Type.String =>
                 val bufferName = getBufferName(memberName)
-                lines(s"""|// Initialize the external string
-                          |this->m_$memberName[i].setBuffer(&m_$bufferName[i][0], sizeof m_$bufferName[i]);
-                          |// Set the array value""".stripMargin)
+                lines(
+                  s"""|// Initialize the external string
+                      |this->m_$memberName[i].setBuffer(&m_$bufferName[i][0], sizeof m_$bufferName[i]);
+                      |// Set the array value"""
+                )
               case _ => Nil
             }
           },
@@ -507,7 +523,8 @@ case class StructCppWriter(
   }
 
   private def writeDeserializeCall(n: String) =
-    line(s"status = buffer.deserializeTo(this->m_$n, mode);") :: writeSerializeStatusCheck
+    line(s"status = buffer.deserializeTo(this->m_$n, mode);") ::
+    writeSerializeStatusCheck
 
   private def writeEnumGetter(n: String, tn: String) =
     linesClassMember(
