@@ -768,6 +768,26 @@ case class StructCppWriter(
       memberNames.exists(predicate)
     }
 
+    // Write toString code for one struct member
+    private def writeCodeForMember(member: Ast.StructTypeMember, idx: Int) = {
+      val n = member.name
+      List.concat(
+        guardedList (idx > 0) (lines("sb += \", \";")),
+        lines(s"""|
+                  |// Format $n
+                  |sb += "$n = ";"""),
+        if sizes.contains(n)
+        then writeCodeForArrayMember(member)
+        else writeCodeForNonArrayMember(member)
+      )
+    }
+
+    // write toString code for all struct members
+    private val writeCodeForMembers =
+      astMembers.zipWithIndex.flatMap {
+        case ((_, node, _), idx) => writeCodeForMember(node.data, idx)
+      }
+
     // Write toString code for an array member
     private def writeCodeForArrayMember(member: Ast.StructTypeMember) = {
       val n = member.name
@@ -820,34 +840,12 @@ case class StructCppWriter(
           lines(s"""|tmp.format("$formatStr", ${promoteF32ToF64 (t) (s"this->m_$n")});
                     |sb += tmp;""")
         case _ =>
-          // A complex (non-array) type
+          // A non-primitive, non-string type
           lines(s"""|this->m_$n.toString(tmp);
                     |sb += tmp;""")
       }
 
     }
-
-    // Write toString code for one member
-    private def writeCodeForMember(member: Ast.StructTypeMember) = {
-      val n = member.name
-      if sizes.contains(n)
-      then writeCodeForArrayMember(member)
-      else writeCodeForNonArrayMember(member)
-    }
-
-    // write toString code for all members
-    private val writeCodeForMembers =
-      astMembers.zipWithIndex.flatMap {
-        case ((_, node, _), idx) =>
-          val n = node.data.name
-          List.concat(
-            guardedList (idx > 0) (lines("sb += \", \";")),
-            lines(s"""|
-                      |// Format $n
-                      |sb += "$n = ";"""),
-            writeCodeForMember(node.data)
-          )
-      }
 
   }
 
