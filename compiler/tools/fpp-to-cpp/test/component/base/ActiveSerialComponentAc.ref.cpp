@@ -4,12 +4,12 @@
 // \brief  cpp file for ActiveSerial component base class
 // ======================================================================
 
+#include "ActiveSerialComponentAc.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
-#include "base/ActiveSerialComponentAc.hpp"
 
 namespace {
   enum MsgTypeEnum {

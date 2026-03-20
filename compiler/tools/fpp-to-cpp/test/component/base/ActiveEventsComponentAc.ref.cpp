@@ -4,12 +4,12 @@
 // \brief  cpp file for ActiveEvents component base class
 // ======================================================================
 
+#include "ActiveEventsComponentAc.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
-#include "base/ActiveEventsComponentAc.hpp"
 
 namespace {
   enum MsgTypeEnum {

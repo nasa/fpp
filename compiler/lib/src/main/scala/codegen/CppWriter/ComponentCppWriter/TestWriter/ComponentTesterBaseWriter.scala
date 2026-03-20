@@ -14,8 +14,6 @@ case class ComponentTesterBaseWriter(
 
   private val componentFileName = ComputeCppFiles.FileNames.getComponent(componentName)
 
-  private val componentRelativeFileName = s.getRelativePath(componentFileName).toString
-
   private val fileName = ComputeCppFiles.FileNames.getComponentTesterBase(componentName)
 
   private val historyWriter = ComponentHistory(s, aNode)
@@ -24,14 +22,10 @@ case class ComponentTesterBaseWriter(
 
   private val namespaceIdentList = componentNamespaceIdentList
 
-  private val relativeFileName = s.getRelativePath(fileName).toString
-
-  private val symbol = componentSymbol
-
   private val externalParameterDelegate = ExternalParameterDelegate(s, aNode)
 
   def write: CppDoc = {
-    val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
+    val includeGuard = s.includeGuardFromQualifiedName(componentSymbol, fileName)
     CppWriter.createCppDoc(
       s"$name component test harness base class",
       fileName,
@@ -61,7 +55,7 @@ case class ComponentTesterBaseWriter(
 
   private def getHppIncludes: CppDoc.Member = {
     val standardHeaders = List(
-      s"$componentRelativeFileName.hpp",
+      s.getIncludePath(componentSymbol, componentFileName),
       "Fw/Comp/PassiveComponentBase.hpp",
       "Fw/Port/InputSerializePort.hpp",
       "Fw/Types/Assert.hpp",
@@ -87,7 +81,9 @@ case class ComponentTesterBaseWriter(
   }
 
   private def getCppIncludes: CppDoc.Member = {
-    val userHeader = lines(CppWriter.headerString(s"$relativeFileName.hpp"))
+    val userHeaders = lines(
+      CppWriter.headerString(s.getIncludePath(componentSymbol, fileName))
+    )
     val systemHeaders = List(
       "cstdlib",
       "cstring"
@@ -95,7 +91,7 @@ case class ComponentTesterBaseWriter(
     linesMember(
       List.concat(
         Line.blank :: systemHeaders,
-        Line.blank :: userHeader
+        Line.blank :: userHeaders
       ),
       CppDoc.Lines.Cpp
     )

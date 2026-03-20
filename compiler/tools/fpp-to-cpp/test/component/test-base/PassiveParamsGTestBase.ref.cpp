@@ -4,7 +4,7 @@
 // \brief  cpp file for PassiveParams component Google Test harness base class
 // ======================================================================
 
-#include "test-base/PassiveParamsGTestBase.hpp"
+#include "PassiveParamsGTestBase.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test-base/QueuedCommandsTesterBase.hpp"
+#include "QueuedCommandsTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization

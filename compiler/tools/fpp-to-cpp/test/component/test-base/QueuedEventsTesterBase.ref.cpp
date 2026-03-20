@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test-base/QueuedEventsTesterBase.hpp"
+#include "QueuedEventsTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization

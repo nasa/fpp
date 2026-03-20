@@ -9,12 +9,12 @@
 
 #include <cstdio>
 
+#include "ActiveExternalParamsComponentAc.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Prm/PrmExternalTypes.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/ActiveExternalParamsComponentAc.hpp"
 
 //! \class ActiveExternalParamsTesterBase
 //! \brief Auto-generated base for ActiveExternalParams component test harness

@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test-base/ActiveTelemetryTesterBase.hpp"
+#include "ActiveTelemetryTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization

@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test-base/EmptyTesterBase.hpp"
+#include "EmptyTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization

@@ -127,16 +127,27 @@ case class CppWriterState(
       getQualifyingNameAsIdentList(psOpt, suffix1)
   }
 
+  /** Get the neighbor path of a symbol.
+   *  This is the path of the directory where the symbol is located,
+   *  with prefixes removed. */
+  def getNeighborPath(
+    sym: Symbol,
+    fileName: String
+  ): String = {
+    val loc = sym.getLoc.tuLocation
+    val fullPath = loc.getNeighborPath(fileName)
+    val path = removeLongestPathPrefix(fullPath)
+    path.toString
+  }
+
   /** Get an include path for a symbol and a file name base */
   def getIncludePath(
     sym: Symbol,
     fileNameBase: String,
     headerExtension: String = "hpp"
   ): String = {
-    val loc = sym.getLoc.tuLocation
-    val fullPath = loc.getNeighborPath(fileNameBase)
-    val path = removeLongestPathPrefix(fullPath)
-    s"${path.toString}.$headerExtension"
+    val neighborPath = getNeighborPath(sym, fileNameBase)
+    s"${neighborPath}.$headerExtension"
   }
 
   /** Write include directives for autocoded files */

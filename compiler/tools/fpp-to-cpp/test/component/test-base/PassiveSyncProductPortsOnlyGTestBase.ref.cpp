@@ -4,7 +4,7 @@
 // \brief  cpp file for PassiveSyncProductPortsOnly component Google Test harness base class
 // ======================================================================
 
-#include "test-base/PassiveSyncProductPortsOnlyGTestBase.hpp"
+#include "PassiveSyncProductPortsOnlyGTestBase.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

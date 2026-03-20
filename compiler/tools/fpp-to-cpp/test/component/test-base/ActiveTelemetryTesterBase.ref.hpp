@@ -9,11 +9,11 @@
 
 #include <cstdio>
 
+#include "ActiveTelemetryComponentAc.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/ActiveTelemetryComponentAc.hpp"
 
 //! \class ActiveTelemetryTesterBase
 //! \brief Auto-generated base for ActiveTelemetry component test harness

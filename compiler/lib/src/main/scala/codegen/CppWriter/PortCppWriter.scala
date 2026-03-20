@@ -164,7 +164,7 @@ case class PortCppWriter (
     val userHeaders = List(
       "Fw/Types/Assert.hpp",
       "Fw/Types/ExternalString.hpp",
-      s"${s.getRelativePath(fileName).toString}.hpp"
+      s.getIncludePath(symbol, fileName)
     ).sorted.map(CppWriter.headerString).map(line)
     linesMember(
       Line.blank :: userHeaders,

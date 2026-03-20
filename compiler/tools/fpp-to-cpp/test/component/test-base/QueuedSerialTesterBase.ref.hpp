@@ -14,7 +14,7 @@
 #include "Fw/Prm/PrmExternalTypes.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/QueuedSerialComponentAc.hpp"
+#include "QueuedSerialComponentAc.hpp"
 
 //! \class QueuedSerialTesterBase
 //! \brief Auto-generated base for QueuedSerial component test harness

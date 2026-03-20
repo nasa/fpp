@@ -4,12 +4,12 @@
 // \brief  cpp file for ActiveParams component base class
 // ======================================================================
 
+#include "ActiveParamsComponentAc.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
-#include "base/ActiveParamsComponentAc.hpp"
 
 namespace {
   enum MsgTypeEnum {

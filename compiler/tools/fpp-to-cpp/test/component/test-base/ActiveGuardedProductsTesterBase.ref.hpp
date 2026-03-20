@@ -9,12 +9,12 @@
 
 #include <cstdio>
 
+#include "ActiveGuardedProductsComponentAc.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Dp/test/util/DpContainerHeader.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/ActiveGuardedProductsComponentAc.hpp"
 
 //! \class ActiveGuardedProductsTesterBase
 //! \brief Auto-generated base for ActiveGuardedProducts component test harness

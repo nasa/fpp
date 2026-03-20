@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test-base/QueuedAsyncProductPortsOnlyTesterBase.hpp"
+#include "QueuedAsyncProductPortsOnlyTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization
