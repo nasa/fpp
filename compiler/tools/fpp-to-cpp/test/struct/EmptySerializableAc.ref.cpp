@@ -32,11 +32,7 @@ Empty ::
 Empty& Empty ::
   operator=(const Empty& obj)
 {
-  if (this == &obj) {
-    return *this;
-  }
-
-  set();
+  (void) obj;
   return *this;
 }
 
@@ -74,10 +70,9 @@ Fw::SerializeStatus Empty ::
       Fw::Endianness mode
   ) const
 {
-  Fw::SerializeStatus status;
-
-
-  return status;
+  (void) buffer;
+  (void) mode;
+  return Fw::FW_SERIALIZE_OK;
 }
 
 Fw::SerializeStatus Empty ::
@@ -86,10 +81,9 @@ Fw::SerializeStatus Empty ::
       Fw::Endianness mode
   )
 {
-  Fw::SerializeStatus status;
-
-
-  return status;
+  (void) buffer;
+  (void) mode;
+  return Fw::FW_SERIALIZE_OK;
 }
 
 FwSizeType Empty ::
@@ -105,8 +99,7 @@ FwSizeType Empty ::
 void Empty ::
   toString(Fw::StringBase& sb) const
 {
-  sb = "( ";
-  sb += " )";
+  sb = "()";
 }
 
 #endif

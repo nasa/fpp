@@ -267,7 +267,12 @@ case class StructCppWriter(
         ),
       ),
       CppDoc.Type(s"$structName&"),
-      List.concat(
+      if memberList.isEmpty
+      then lines (
+        """|(void) obj;
+           |return *this;"""
+      )
+      else List.concat(
         wrapInIf("this == &obj", lines("return *this;")),
         Line.blank :: lines(
           s"set(${memberNames.map(n => s"obj.m_$n").mkString(", ")});"
@@ -315,6 +320,15 @@ case class StructCppWriter(
       getOstreamOperator
     )
 
+  private def writeSerializeFunctionBody(body: List[Line]) =
+    if memberList.isEmpty
+    then lines(
+      """|(void) buffer;
+         |(void) mode;
+         |return Fw::FW_SERIALIZE_OK;"""
+    )
+    else body
+
   private def getSerializeToFunctionMember: CppDoc.Class.Member.Function =
     functionClassMember(
       Some("Serialization"),
@@ -333,15 +347,17 @@ case class StructCppWriter(
         )
       ),
       CppDoc.Type("Fw::SerializeStatus"),
-      List.concat(
-        lines("Fw::SerializeStatus status;"),
-        Line.blank :: memberNames.flatMap(n =>
-          if sizes.contains(n) then
-            iterateN(sizes(n), writeSerializeCall(s"$n[i]"))
-          else
-            writeSerializeCall(n)
-        ),
-        Line.blank :: lines("return status;"),
+      writeSerializeFunctionBody(
+        List.concat(
+          lines("Fw::SerializeStatus status;"),
+          Line.blank :: memberNames.flatMap(n =>
+            if sizes.contains(n) then
+              iterateN(sizes(n), writeSerializeCall(s"$n[i]"))
+            else
+              writeSerializeCall(n)
+          ),
+          Line.blank :: lines("return status;"),
+        )
       ),
       CppDoc.Function.NonSV,
       CppDoc.Function.Const
@@ -365,15 +381,17 @@ case class StructCppWriter(
         )
       ),
       CppDoc.Type("Fw::SerializeStatus"),
-      List.concat(
-        lines("Fw::SerializeStatus status;"),
-        Line.blank :: memberNames.flatMap(n =>
-          if sizes.contains(n) then
-            iterateN(sizes(n), writeDeserializeCall(s"$n[i]"))
-          else
-            writeDeserializeCall(n)
-        ),
-        Line.blank :: lines("return status;"),
+      writeSerializeFunctionBody(
+        List.concat(
+          lines("Fw::SerializeStatus status;"),
+          Line.blank :: memberNames.flatMap(n =>
+            if sizes.contains(n) then
+              iterateN(sizes(n), writeDeserializeCall(s"$n[i]"))
+            else
+              writeDeserializeCall(n)
+          ),
+          Line.blank :: lines("return status;"),
+        )
       )
     )
 
@@ -660,6 +678,24 @@ case class StructCppWriter(
   /** Object for generating the equality operator */
   private object EqualityOperator {
 
+    def get = {
+      functionClassMember(
+        Some("Equality operator"),
+        "operator==",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type(s"const $structName&"),
+            "obj",
+            Some("The other object")
+          )
+        ),
+        CppDoc.Type("bool"),
+        writeCode,
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
+      )
+    }
+
     private val nonArrayMemberCheck = lines(
       nonArrayMemberNames.map(n => s"(this->m_$n == obj.m_$n)"
     ).mkString(" &&\n"))
@@ -722,24 +758,6 @@ case class StructCppWriter(
       else if sizes.isEmpty then writeCodeForEmptySizes
       else writeCodeForNonEmptySizes
 
-    def get = {
-      functionClassMember(
-        Some("Equality operator"),
-        "operator==",
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type(s"const $structName&"),
-            "obj",
-            Some("The other object")
-          )
-        ),
-        CppDoc.Type("bool"),
-        writeCode,
-        CppDoc.Function.NonSV,
-        CppDoc.Function.Const
-      )
-    }
-
   }
 
   /** Object for generating the toString function member */
@@ -758,7 +776,9 @@ case class StructCppWriter(
           )
         ),
         CppDoc.Type("void"),
-        List.concat(
+        if memberList.isEmpty
+        then lines("sb = \"()\";")
+        else List.concat(
           guardedList (needsTmpString) (lines("Fw::String tmp;")),
           lines("sb = \"( \";"),
           writeCodeForMembers,
