@@ -114,14 +114,14 @@ case class StructCppWriter(
     )
 
   private def getClassMembers: List[CppDoc.Class.Member] =
-    List(
+    List.concat(
       getTypeMembers,
       getConstantMembers,
       getConstructorMembers,
       getOperatorMembers,
       getFunctionMembers,
       getVariableMembers,
-    ).flatten
+    )
 
   private def getConstantMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
