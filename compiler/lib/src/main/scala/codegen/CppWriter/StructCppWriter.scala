@@ -606,33 +606,27 @@ case class StructCppWriter(
       CppDoc.Function.Const
     )
 
-  private def getFunctionMembers: List[CppDoc.Class.Member] = {
-    List.concat(
-      List(
-        linesClassMember(
-          CppDocHppWriter.writeAccessTag("public")
+  private def getSerialFunctionMembers =
+    List(
+      getSerializeToFunctionMember,
+      getDeserializeFromFunctionMember,
+      getSerializedSizeFunctionMember
+    )
+
+  private def getFunctionMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "public",
+      "Member functions",
+      List.concat(
+        getSerialFunctionMembers,
+        wrapClassMembersInIfDirective(
+          "\n#if FW_SERIALIZABLE_TO_STRING",
+          List(getToStringFunctionMember)
         ),
-        linesClassMember(
-          CppDocWriter.writeBannerComment("Member functions"),
-          CppDoc.Lines.Both
-        ),
-        getSerializeToFunctionMember,
-        getDeserializeFromFunctionMember,
-        getSerializedSizeFunctionMember,
-      ),
-      wrapClassMembersInIfDirective(
-        "\n#if FW_SERIALIZABLE_TO_STRING",
-        List(getToStringFunctionMember)
-      ),
-      getGetterFunctionMembers,
-      guardedList (!memberList.isEmpty) (
-        linesClassMember(
-          CppDocWriter.writeBannerComment("Setter functions"),
-          CppDoc.Lines.Both
-        ) :: getSetterFunctionMembers
+        getGetterFunctionMembers,
+        getSetterFunctionMembers
       )
     )
-  }
 
   private def getGetterName(n: String) = s"get_$n"
 
@@ -726,7 +720,12 @@ case class StructCppWriter(
     )
 
   private def getSetterFunctionMembers: List[CppDoc.Class.Member] =
-    getAllSetterFunctionMember :: getSingleSetterFunctionMembers
+    guardedList (!memberList.isEmpty) (
+      linesClassMember(
+        CppDocWriter.writeBannerComment("Setter functions"),
+        CppDoc.Lines.Both
+      ) :: getAllSetterFunctionMember :: getSingleSetterFunctionMembers
+    )
 
   private def getVariableMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
