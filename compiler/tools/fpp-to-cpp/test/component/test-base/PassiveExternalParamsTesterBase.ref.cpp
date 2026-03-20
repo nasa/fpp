@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test-base/PassiveExternalParamsTesterBase.hpp"
+#include "PassiveExternalParamsTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Unit test implementation of external parameter delegate serialization/deserialization

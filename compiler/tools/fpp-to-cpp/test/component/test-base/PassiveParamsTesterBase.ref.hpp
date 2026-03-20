@@ -13,7 +13,7 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/PassiveParamsComponentAc.hpp"
+#include "PassiveParamsComponentAc.hpp"
 
 //! \class PassiveParamsTesterBase
 //! \brief Auto-generated base for PassiveParams component test harness

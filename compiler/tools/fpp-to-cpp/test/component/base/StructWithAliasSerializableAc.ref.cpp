@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
-#include "base/StructWithAliasSerializableAc.hpp"
+#include "StructWithAliasSerializableAc.hpp"
 
 // ----------------------------------------------------------------------
 // Constructors

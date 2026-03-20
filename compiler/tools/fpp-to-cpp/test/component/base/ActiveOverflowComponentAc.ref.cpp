@@ -4,12 +4,12 @@
 // \brief  cpp file for ActiveOverflow component base class
 // ======================================================================
 
+#include "ActiveOverflowComponentAc.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
-#include "base/ActiveOverflowComponentAc.hpp"
 
 namespace {
   enum MsgTypeEnum {

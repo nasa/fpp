@@ -13,7 +13,7 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/QueuedEventsComponentAc.hpp"
+#include "QueuedEventsComponentAc.hpp"
 
 //! \class QueuedEventsTesterBase
 //! \brief Auto-generated base for QueuedEvents component test harness

@@ -7,8 +7,8 @@
 #ifndef ActiveNoArgsPortsOnlyGTestBase_HPP
 #define ActiveNoArgsPortsOnlyGTestBase_HPP
 
+#include "ActiveNoArgsPortsOnlyTesterBase.hpp"
 #include "gtest/gtest.h"
-#include "test-base/ActiveNoArgsPortsOnlyTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Macros for typed user from port history assertions

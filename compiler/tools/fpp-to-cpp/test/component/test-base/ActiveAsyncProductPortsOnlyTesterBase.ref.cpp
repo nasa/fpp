@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test-base/ActiveAsyncProductPortsOnlyTesterBase.hpp"
+#include "ActiveAsyncProductPortsOnlyTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization

@@ -13,7 +13,7 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/PassiveTelemetryComponentAc.hpp"
+#include "PassiveTelemetryComponentAc.hpp"
 
 //! \class PassiveTelemetryTesterBase
 //! \brief Auto-generated base for PassiveTelemetry component test harness

@@ -6,7 +6,7 @@
 
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "base/TypedPortAc.hpp"
+#include "TypedPortAc.hpp"
 
 #if !FW_DIRECT_PORT_CALLS
 

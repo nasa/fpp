@@ -14,7 +14,7 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/PassiveSyncProductsComponentAc.hpp"
+#include "PassiveSyncProductsComponentAc.hpp"
 
 //! \class PassiveSyncProductsTesterBase
 //! \brief Auto-generated base for PassiveSyncProducts component test harness

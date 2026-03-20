@@ -9,11 +9,11 @@
 
 #include <cstdio>
 
+#include "ActiveCommandsComponentAc.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/ActiveCommandsComponentAc.hpp"
 
 //! \class ActiveCommandsTesterBase
 //! \brief Auto-generated base for ActiveCommands component test harness

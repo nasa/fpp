@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test-base/QueuedSerialTesterBase.hpp"
+#include "QueuedSerialTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Unit test implementation of external parameter delegate serialization/deserialization

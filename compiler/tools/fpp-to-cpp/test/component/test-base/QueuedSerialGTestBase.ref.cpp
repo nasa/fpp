@@ -4,7 +4,7 @@
 // \brief  cpp file for QueuedSerial component Google Test harness base class
 // ======================================================================
 
-#include "test-base/QueuedSerialGTestBase.hpp"
+#include "QueuedSerialGTestBase.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

@@ -42,18 +42,18 @@ case class TopologyCppWriter(
         TopTlmPacketIncludes(s, aNode).getHeaderStrings,
         List(
           CppWriter.headerString(
-            s.getRelativePath(s"${name}TopologyDefs.hpp").toString
+            s.getIncludePath(symbol, s"${name}TopologyDefs")
           )
         )
       ).sorted
       linesMember(Line.blank :: strings.map(line))
     }
     val cpp = {
-      val fileName = s"${ComputeCppFiles.FileNames.getTopology(name)}.hpp"
+      val fileName = ComputeCppFiles.FileNames.getTopology(name)
       linesMember(
         List(
           Line.blank,
-          CppWriter.headerLine(s.getRelativePath(fileName).toString)
+          CppWriter.headerLine(s.getIncludePath(symbol, fileName))
         ),
         CppDoc.Lines.Cpp
       )

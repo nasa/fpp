@@ -9,11 +9,11 @@
 
 #include <cstdio>
 
+#include "ActiveEventsComponentAc.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/ActiveEventsComponentAc.hpp"
 
 //! \class ActiveEventsTesterBase
 //! \brief Auto-generated base for ActiveEvents component test harness

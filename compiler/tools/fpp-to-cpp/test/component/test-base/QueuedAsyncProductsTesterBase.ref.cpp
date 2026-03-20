@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test-base/QueuedAsyncProductsTesterBase.hpp"
+#include "QueuedAsyncProductsTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization
