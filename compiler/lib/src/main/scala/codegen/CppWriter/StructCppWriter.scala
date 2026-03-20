@@ -771,7 +771,7 @@ case class StructCppWriter(
     // Write toString code for an array member
     private def writeCodeForArrayMember(member: Ast.StructTypeMember) = {
       val n = member.name
-      val t = typeMembers(n)
+      val t = typeMembers(n).getUnderlyingType
       val tn = typeCppWriter.write(t)
       // Iterate through each member and format it into 'tmp'
       // Append 'tmp' to the final string
@@ -780,7 +780,7 @@ case class StructCppWriter(
         getFormatStr(structName),
         member.typeName
       )
-      val fillTmpString = (typeMembers(n).getUnderlyingType) match {
+      val fillTmpString = t match {
         case (_: Type.String) =>
           s"tmp = this->m_$n[i];"
         case t if s.isPrimitive(t, tn) =>
@@ -791,7 +791,7 @@ case class StructCppWriter(
       List.concat(
         lines("sb += \"[ \";"),
         iterateN(sizes(n), lines(
-          s"""|${fillTmpString}
+          s"""|$fillTmpString
               |if (i > 0) {
               |  sb += ", ";
               |}
@@ -801,18 +801,16 @@ case class StructCppWriter(
       )
     }
 
-    // Write toString code for one member
-    private def writeCodeForMember(member: Ast.StructTypeMember) = {
+    // Write toString code for a non-array member
+    private def writeCodeForNonArrayMember(member: Ast.StructTypeMember) = {
       val n = member.name
-      val t = typeMembers(n)
-      val tn = typeCppWriter.write(t)
-      val isArray = sizes.contains(n)
       val memberType = typeMembers(n).getUnderlyingType
-      (isArray, memberType) match {
-        case (false, _: Type.String) =>
+      val tn = typeCppWriter.write(memberType)
+      memberType match {
+        case _: Type.String =>
           // Type is already a string, no need to perform any conversion
           lines(s"sb += this->m_$n;")
-        case (false, t) if s.isPrimitive(t, tn) =>
+        case t if s.isPrimitive(t, tn) =>
           // Format the primitive into a temporary string buffer
           val formatStr = FormatCppWriter.write(
             s,
@@ -821,12 +819,20 @@ case class StructCppWriter(
           )
           lines(s"""|tmp.format("$formatStr", ${promoteF32ToF64 (t) (s"this->m_$n")});
                     |sb += tmp;""")
-        case (true, _) => writeCodeForArrayMember(member)
-        case (false, _) =>
+        case _ =>
           // A complex (non-array) type
           lines(s"""|this->m_$n.toString(tmp);
                     |sb += tmp;""")
       }
+
+    }
+
+    // Write toString code for one member
+    private def writeCodeForMember(member: Ast.StructTypeMember) = {
+      val n = member.name
+      if sizes.contains(n)
+      then writeCodeForArrayMember(member)
+      else writeCodeForNonArrayMember(member)
     }
 
     // write toString code for all members
