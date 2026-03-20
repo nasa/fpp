@@ -215,7 +215,7 @@ case class StructCppWriter(
       )))
     )
 
-  private def memberConstructor =
+  private def getMemberConstructor =
     constructorClassMember(
       Some("Member constructor"),
       memberList.map(writeMemberAsParam),
@@ -230,7 +230,7 @@ case class StructCppWriter(
       List.concat(
         List(getDefaultValueConstructor),
         // Write the member constructor if and only if there are members
-        guardedList (!memberList.isEmpty) (List(memberConstructor)),
+        guardedList (!memberList.isEmpty) (List(getMemberConstructor)),
         List(getCopyConstructor),
         // Write the scalar array constructor if and only if there are
         // array members
@@ -249,7 +249,10 @@ case class StructCppWriter(
       )
     ),
     writeInitializerList(n => s"obj.m_$n"),
-    writeArraySetters(n => s"obj.m_$n[i]")
+    List.concat(
+      guardedList (memberList.isEmpty) (lines("(void) obj;")),
+      writeArraySetters(n => s"obj.m_$n[i]")
+    )
   )
 
   private def getCopyAssignmentOperator =
@@ -272,75 +275,6 @@ case class StructCppWriter(
         lines("return *this;"),
       )
     )
-
-  private def getEqualityOperator = {
-    val nonArrayMemberCheck = lines(
-      nonArrayMemberNames.map(n => s"(this->m_$n == obj.m_$n)"
-      ).mkString(" &&\n"))
-    val addressEqualityCheck = lines("if (this == &obj) { return true; }")
-    def emptySizes =
-      if nonArrayMemberNames.length == 1 then
-        lines(s"return ${nonArrayMemberCheck.head};")
-      else List.concat(
-        addressEqualityCheck,
-        wrapInScope(
-          "return (",
-          nonArrayMemberCheck,
-          ");"
-        )
-      )
-    def nonEmptySizes = List.concat(
-      addBlankPostfix(addressEqualityCheck),
-      if nonArrayMemberNames.length > 0
-      then List.concat(
-        lines("// Compare non-array members"),
-        if nonArrayMemberNames.length == 1 then
-          wrapInIf(
-            s"!${nonArrayMemberCheck.head}",
-            lines("return false;")
-          )
-        else List.concat(
-          lines("if (!("),
-          nonArrayMemberCheck.map(indentIn),
-          lines(
-            """|)) {
-               |  return false;
-               |}"""
-          )
-        )
-      )
-      else lines(s""),
-      Line.blank :: lines("// Compare array members"),
-      arrayMemberNames.flatMap(n =>
-        iterateN(
-          sizes(n),
-          wrapInIf(
-            s"!(this->m_$n[i] == obj.m_$n[i])",
-            lines("return false;")
-          )
-        )
-      ),
-      Line.blank :: lines("return true;"),
-    )
-    val equalityOpBody = 
-      // Simplify syntax if there are no array members
-      if sizes.isEmpty then emptySizes else nonEmptySizes
-    functionClassMember(
-      Some("Equality operator"),
-      "operator==",
-      List(
-        CppDoc.Function.Param(
-          CppDoc.Type(s"const $structName&"),
-          "obj",
-          Some("The other object")
-        )
-      ),
-      CppDoc.Type("bool"),
-      equalityOpBody,
-      CppDoc.Function.NonSV,
-      CppDoc.Function.Const
-    )
-  }
 
   private def getInequalityOperator =
     functionClassMember(
@@ -375,27 +309,11 @@ case class StructCppWriter(
     addAccessTagAndComment(
       "public",
       "Operators",
-      List.concat(
-        List(
-          getCopyAssignmentOperator,
-          getEqualityOperator,
-          getInequalityOperator
-        ),
-        getOstreamOperator
-      )
+      getCopyAssignmentOperator ::
+      EqualityOperator.get ::
+      getInequalityOperator ::
+      getOstreamOperator
     )
-
-  private def writeSerializeStatusCheck =
-    wrapInIf(
-      "status != Fw::FW_SERIALIZE_OK",
-      lines("return status;")
-    )
-
-  private def writeSerializeCall(n: String) =
-    line(s"status = buffer.serializeFrom(this->m_$n, mode);") :: writeSerializeStatusCheck
-
-  private def writeDeserializeCall(n: String) =
-    line(s"status = buffer.deserializeTo(this->m_$n, mode);") :: writeSerializeStatusCheck
 
   private def getSerializeToFunctionMember: CppDoc.Class.Member.Function =
     functionClassMember(
@@ -526,6 +444,18 @@ case class StructCppWriter(
     )
 
   private def getGetterName(n: String) = s"get_$n"
+
+  private def writeSerializeStatusCheck =
+    wrapInIf(
+      "status != Fw::FW_SERIALIZE_OK",
+      lines("return status;")
+    )
+
+  private def writeSerializeCall(n: String) =
+    line(s"status = buffer.serializeFrom(this->m_$n, mode);") :: writeSerializeStatusCheck
+
+  private def writeDeserializeCall(n: String) =
+    line(s"status = buffer.deserializeTo(this->m_$n, mode);") :: writeSerializeStatusCheck
 
   private def writeEnumGetter(n: String, tn: String) =
     linesClassMember(
@@ -726,6 +656,91 @@ case class StructCppWriter(
       "i++",
       ll
     )
+
+  /** Object for generating the equality operator */
+  private object EqualityOperator {
+
+    private val nonArrayMemberCheck = lines(
+      nonArrayMemberNames.map(n => s"(this->m_$n == obj.m_$n)"
+    ).mkString(" &&\n"))
+
+    private val addressEqualityCheck =
+      lines("if (this == &obj) { return true; }")
+
+    private def writeCodeForEmptySizes =
+      if nonArrayMemberNames.length == 1 then
+        lines(s"return ${nonArrayMemberCheck.head};")
+      else List.concat(
+        addressEqualityCheck,
+        wrapInScope(
+          "return (",
+          nonArrayMemberCheck,
+          ");"
+        )
+      )
+
+    private def writeCodeForNonEmptySizes = List.concat(
+      addressEqualityCheck,
+      guardedList (nonArrayMemberNames.length > 0) (
+        Line.blank ::
+        List.concat(
+          lines("// Compare non-array members"),
+          if nonArrayMemberNames.length == 1 then
+            wrapInIf(
+              s"!${nonArrayMemberCheck.head}",
+              lines("return false;")
+            )
+          else List.concat(
+            lines("if (!("),
+            nonArrayMemberCheck.map(indentIn),
+            lines(
+              """|)) {
+                 |  return false;
+                 |}"""
+            )
+          )
+        )
+      ),
+      Line.blank :: lines("// Compare array members"),
+      arrayMemberNames.flatMap(n =>
+        iterateN(
+          sizes(n),
+          wrapInIf(
+            s"!(this->m_$n[i] == obj.m_$n[i])",
+            lines("return false;")
+          )
+        )
+      ),
+      Line.blank :: lines("return true;"),
+    )
+
+    def writeCode = 
+      if astMembers.isEmpty then lines(
+        """|(void) obj;
+           |return true;"""
+      )
+      else if sizes.isEmpty then writeCodeForEmptySizes
+      else writeCodeForNonEmptySizes
+
+    def get = {
+      functionClassMember(
+        Some("Equality operator"),
+        "operator==",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type(s"const $structName&"),
+            "obj",
+            Some("The other object")
+          )
+        ),
+        CppDoc.Type("bool"),
+        writeCode,
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
+      )
+    }
+
+  }
 
   /** Object for generating the toString function member */
   private object ToStringFunctionMember {

@@ -22,7 +22,7 @@ Empty ::
   Empty(const Empty& obj) :
     Serializable()
 {
-
+  (void) obj;
 }
 
 // ----------------------------------------------------------------------
@@ -43,10 +43,8 @@ Empty& Empty ::
 bool Empty ::
   operator==(const Empty& obj) const
 {
-  if (this == &obj) { return true; }
-  return (
-
-  );
+  (void) obj;
+  return true;
 }
 
 bool Empty ::
