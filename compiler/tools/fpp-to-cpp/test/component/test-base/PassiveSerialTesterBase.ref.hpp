@@ -14,7 +14,7 @@
 #include "Fw/Prm/PrmExternalTypes.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/PassiveSerialComponentAc.hpp"
+#include "PassiveSerialComponentAc.hpp"
 
 //! \class PassiveSerialTesterBase
 //! \brief Auto-generated base for PassiveSerial component test harness

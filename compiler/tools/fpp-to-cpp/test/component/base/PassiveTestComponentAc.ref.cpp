@@ -9,7 +9,7 @@
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
-#include "base/PassiveTestComponentAc.hpp"
+#include "PassiveTestComponentAc.hpp"
 
 // ----------------------------------------------------------------------
 // Types for data products

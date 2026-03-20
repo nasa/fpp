@@ -7,8 +7,8 @@
 #ifndef EmptyGTestBase_HPP
 #define EmptyGTestBase_HPP
 
+#include "EmptyTesterBase.hpp"
 #include "gtest/gtest.h"
-#include "test-base/EmptyTesterBase.hpp"
 
 //! \class EmptyGTestBase
 //! \brief Auto-generated base for Empty component Google Test harness

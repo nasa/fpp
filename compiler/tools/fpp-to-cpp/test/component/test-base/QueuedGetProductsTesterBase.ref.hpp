@@ -14,7 +14,7 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/QueuedGetProductsComponentAc.hpp"
+#include "QueuedGetProductsComponentAc.hpp"
 
 //! \class QueuedGetProductsTesterBase
 //! \brief Auto-generated base for QueuedGetProducts component test harness

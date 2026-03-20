@@ -75,7 +75,7 @@ case class StateMachineCppWriter(
   private def getCppIncludes: CppDoc.Member = {
     val userHeaders = List.concat(
       standardUserCppHeaders,
-      List(s"${s.getRelativePath(fileName)}.hpp").map(CppWriter.headerString)
+      List(s.getIncludePath(symbol, fileName)).map(CppWriter.headerString)
     ).sorted
     val headerLines = List.concat(
       addBlankPrefix(standardSystemCppHeaders.map(line)),

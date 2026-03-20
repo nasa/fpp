@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test-base/ActiveParamsTesterBase.hpp"
+#include "ActiveParamsTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization
