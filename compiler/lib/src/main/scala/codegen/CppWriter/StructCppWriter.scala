@@ -38,8 +38,6 @@ case class StructCppWriter(
     case None => structType.anonStruct.getDefaultValue
   }
 
-  private def defaultValueMembers = defaultValue.get.members
-
   // List of tuples (<memberName>, <memberTypeName>)
   // Preserves ordering of struct members
   private val memberList = astMembers.map((_, node, _) => {
@@ -76,11 +74,18 @@ case class StructCppWriter(
   private val initializerListMemberNames = memberNames.filter((name) =>
       defaultMemberNames.contains(name) || !sizes.contains(name))
 
-  private def getFormatStr(n: String) =
-    if formats.contains(n) then formats(n)
-    else Format("", List((Format.Field.Default, "")))
+  // Writes a for loop that iterates n times
+  private def iterateN(n: Int, ll: List[Line]) =
+    wrapInForLoop(
+      "FwSizeType i = 0",
+      s"i < $n",
+      "i++",
+      ll
+    )
 
-  private def getMemberTypeName(n: String) = s"Type_of_$n"
+  // Writes a for loop to set the value of each array member
+  private def writeArraySetters(getValue: String => String) =
+    arrayMemberNames.flatMap(n => this.writeArrayMemberSetter(n, getValue(n)))
 
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
@@ -93,44 +98,20 @@ case class StructCppWriter(
     )
   }
 
-  private def getMembers: List[CppDoc.Member] = {
-    val hppIncludes = getHppIncludes
-    val cppIncludes = getCppIncludes
-    val cls = classMember(
-      AnnotationCppWriter.asStringOpt(aNode),
-      structName,
-      Some("public Fw::Serializable"),
-      getClassMembers
+  private def defaultValueMembers = defaultValue.get.members
+
+  private def getAllSetterFunctionMember =
+    functionClassMember(
+      Some("Set all members"),
+      "set",
+      memberList.map(writeMemberAsParam),
+      CppDoc.Type("void"),
+      List.concat(
+        nonArrayMemberNames.map(n => line(s"this->m_$n = $n;")),
+        if arrayMemberNames.isEmpty then Nil
+        else Line.blank :: writeArraySetters(n => s"$n[i]"),
+      )
     )
-    hppIncludes ::
-    cppIncludes ::
-    wrapInNamespaces(namespaceIdentList, List(cls))
-  }
-
-  private def writeIncludeDirectives = {
-    val Right(a) = UsedSymbols.defStructAnnotatedNode(s.a, aNode)
-    s.writeIncludeDirectives(a.usedSymbolSet)
-  }
-
-  private def getHppIncludes: CppDoc.Member = {
-    val userHeaders = List(
-      "Fw/FPrimeBasicTypes.hpp",
-      "Fw/Types/ExternalString.hpp",
-      "Fw/Types/Serializable.hpp",
-      "Fw/Types/String.hpp"
-    ).map(CppWriter.headerString)
-    val symbolHeaders = writeIncludeDirectives
-    val headers = userHeaders ++ symbolHeaders
-    linesMember(addBlankPrefix(headers.sorted.map(line)))
-  }
-
-  private def getCppIncludes: CppDoc.Member = {
-    val userHeaders = List(
-      "Fw/Types/Assert.hpp",
-      s"${s.getRelativePath(fileName).toString}.hpp",
-    ).sorted.map(CppWriter.headerString).map(line)
-    linesMember(Line.blank :: userHeaders, CppDoc.Lines.Cpp)
-  }
 
   private def getClassMembers: List[CppDoc.Class.Member] =
     List(
@@ -142,85 +123,12 @@ case class StructCppWriter(
       getVariableMembers,
     ).flatten
 
-  private def getSerializedSizeExpr =
-    if memberList.size == 0 then "0"
-    else memberList.map((n, tn) =>
-      writeStaticSerializedSizeExpr(s, typeMembers(n), tn) + (
-        if sizes.contains(n) then s" * ${sizes(n)}"
-        else ""
-    )).mkString(" +\n")
-
-  private def getSerializedSizeEnum =
-    linesClassMember(
-      addBlankPrefix(
-        wrapInEnum(
-          List.concat(
-            lines("//! The size of the serial representation"),
-            lines("SERIALIZED_SIZE ="),
-            lines(getSerializedSizeExpr).map(indentIn)
-          )
-        )
-      )
-    )
-
   private def getConstantMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "public",
       "Constants",
       List(getSerializedSizeEnum),
       CppDoc.Lines.Hpp
-    )
-
-  /** Provide type aliases for array member types, to work
-   *  around difficult C++ array syntax. */
-  private def getTypeMembers: List[CppDoc.Class.Member] = {
-    val typeAliases = memberList.flatMap((n, tn) => {
-      val mtn = getMemberTypeName(n)
-      sizes.get(n) match {
-        case Some(size) =>
-          Line.blank ::
-          line(s"//! The type of $n") ::
-          lines(s"using $mtn = $tn[$size];")
-        case None => Nil
-      }
-    })
-    val members = if typeAliases.isEmpty
-      then Nil
-      else List(linesClassMember(typeAliases))
-    addAccessTagAndComment("public", "Types", members, CppDoc.Lines.Hpp)
-  }
-
-  private def getScalarArrayConstructor =
-    constructorClassMember(
-      Some("Member constructor (scalar values for arrays)"),
-      memberList.map(writeMemberAsParamScalar),
-      writeInitializerList(n => n),
-      writeArraySetters(n => n)
-    )
-
-  private def getDefaultValueConstructor =
-    constructorClassMember(
-      Some("Constructor (default value)"),
-      Nil,
-      "Serializable()" :: initializerListMemberNames.map(n => {
-        if defaultMemberNames.contains(n) then s"m_$n()"
-        else defaultValueMembers(n) match {
-          case v: Value.Struct => s"m_$n(${ValueCppWriter.writeStructMembers(s, v)})"
-          case _: Value.AbsType => s"m_$n()"
-          case v => writeInitializer(n, ValueCppWriter.write(s, v))
-        }
-      }),
-      nonInitializerListArrayMemberNames.flatMap(n => writeArrayMemberSetter(
-        n, ValueCppWriter.write(s, defaultValueMembers(n)
-      )))
-    )
-
-  private def getMemberConstructor =
-    constructorClassMember(
-      Some("Member constructor"),
-      memberList.map(writeMemberAsParam),
-      writeInitializerList(n => n),
-      writeArraySetters(n => s"$n[i]")
     )
 
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
@@ -238,22 +146,6 @@ case class StructCppWriter(
       )
     )
   }
-
-  private def getCopyConstructor = constructorClassMember(
-    Some("Copy constructor"),
-    List(
-      CppDoc.Function.Param(
-        CppDoc.Type(s"const $structName&"),
-        "obj",
-        Some("The source object")
-      )
-    ),
-    writeInitializerList(n => s"obj.m_$n"),
-    List.concat(
-      guardedList (memberList.isEmpty) (lines("(void) obj;")),
-      writeArraySetters(n => s"obj.m_$n[i]")
-    )
-  )
 
   private def getCopyAssignmentOperator =
     functionClassMember(
@@ -281,6 +173,129 @@ case class StructCppWriter(
       )
     )
 
+  private def getCopyConstructor = constructorClassMember(
+    Some("Copy constructor"),
+    List(
+      CppDoc.Function.Param(
+        CppDoc.Type(s"const $structName&"),
+        "obj",
+        Some("The source object")
+      )
+    ),
+    writeInitializerList(n => s"obj.m_$n"),
+    List.concat(
+      guardedList (memberList.isEmpty) (lines("(void) obj;")),
+      writeArraySetters(n => s"obj.m_$n[i]")
+    )
+  )
+
+  private def getCppIncludes: CppDoc.Member = {
+    val userHeaders = List(
+      "Fw/Types/Assert.hpp",
+      s"${s.getRelativePath(fileName).toString}.hpp",
+    ).sorted.map(CppWriter.headerString).map(line)
+    linesMember(Line.blank :: userHeaders, CppDoc.Lines.Cpp)
+  }
+
+  private def getDefaultValueConstructor =
+    constructorClassMember(
+      Some("Constructor (default value)"),
+      Nil,
+      "Serializable()" :: initializerListMemberNames.map(n => {
+        if defaultMemberNames.contains(n) then s"m_$n()"
+        else defaultValueMembers(n) match {
+          case v: Value.Struct => s"m_$n(${ValueCppWriter.writeStructMembers(s, v)})"
+          case _: Value.AbsType => s"m_$n()"
+          case v => writeInitializer(n, ValueCppWriter.write(s, v))
+        }
+      }),
+      nonInitializerListArrayMemberNames.flatMap(n => writeArrayMemberSetter(
+        n, ValueCppWriter.write(s, defaultValueMembers(n)
+      )))
+    )
+
+  private def getDeserializeFromFunctionMember: CppDoc.Class.Member.Function =
+    functionClassMember(
+      Some("Deserialization"),
+      "deserializeFrom",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::SerialBufferBase&"),
+          "buffer",
+          Some("The serial buffer")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::Endianness"),
+          "mode",
+          Some("Endianness of serialized buffer"),
+          Some("Fw::Endianness::BIG"),
+        )
+      ),
+      CppDoc.Type("Fw::SerializeStatus"),
+      writeSerializeFunctionBody(
+        List.concat(
+          lines("Fw::SerializeStatus status;"),
+          Line.blank :: memberNames.flatMap(n =>
+            if sizes.contains(n) then
+              iterateN(sizes(n), writeDeserializeCall(s"$n[i]"))
+            else
+              writeDeserializeCall(n)
+          ),
+          Line.blank :: lines("return status;"),
+        )
+      )
+    )
+
+  private def getFormatStr(n: String) =
+    if formats.contains(n) then formats(n)
+    else Format("", List((Format.Field.Default, "")))
+
+  private def getFunctionMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "public",
+      "Member functions",
+      List.concat(
+        getSerialFunctionMembers,
+        wrapClassMembersInIfDirective(
+          "\n#if FW_SERIALIZABLE_TO_STRING",
+          List(ToStringFunctionMember.get)
+        ),
+        getGetterFunctionMembers,
+        getSetterFunctionMembers
+      )
+    )
+
+  private def getGetterFunctionMember(n: String, tn: String): CppDoc.Class.Member =
+    (sizes.contains(n), typeMembers(n).getUnderlyingType) match {
+      case (false, _: Type.Enum) =>
+        writeEnumGetter(n, tn)
+      case (false, t) if s.isPrimitive(t, tn) =>
+        writePrimitiveGetter(n, tn)
+      case _ =>
+        writeNonPrimitiveGetters(n, tn)
+    }
+
+  private def getGetterFunctionMembers: List[CppDoc.Class.Member] =
+    guardedList (!memberList.isEmpty) (
+      linesClassMember(
+        CppDocWriter.writeBannerComment("Getter functions")
+      ) :: memberList.map(getGetterFunctionMember)
+    )
+
+  private def getGetterName(n: String) = s"get_$n"
+
+  private def getHppIncludes: CppDoc.Member = {
+    val userHeaders = List(
+      "Fw/FPrimeBasicTypes.hpp",
+      "Fw/Types/ExternalString.hpp",
+      "Fw/Types/Serializable.hpp",
+      "Fw/Types/String.hpp"
+    ).map(CppWriter.headerString)
+    val symbolHeaders = writeIncludeDirectives
+    val headers = userHeaders ++ symbolHeaders
+    linesMember(addBlankPrefix(headers.sorted.map(line)))
+  }
+
   private def getInequalityOperator =
     functionClassMember(
       Some("Inequality operator"),
@@ -298,6 +313,40 @@ case class StructCppWriter(
       CppDoc.Function.Const
     )
 
+  private def getMemberConstructor =
+    constructorClassMember(
+      Some("Member constructor"),
+      memberList.map(writeMemberAsParam),
+      writeInitializerList(n => n),
+      writeArraySetters(n => s"$n[i]")
+    )
+
+  private def getMemberTypeName(n: String) = s"Type_of_$n"
+
+  private def getMembers: List[CppDoc.Member] = {
+    val hppIncludes = getHppIncludes
+    val cppIncludes = getCppIncludes
+    val cls = classMember(
+      AnnotationCppWriter.asStringOpt(aNode),
+      structName,
+      Some("public Fw::Serializable"),
+      getClassMembers
+    )
+    hppIncludes ::
+    cppIncludes ::
+    wrapInNamespaces(namespaceIdentList, List(cls))
+  }
+
+  private def getOperatorMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "public",
+      "Operators",
+      getCopyAssignmentOperator ::
+      EqualityOperator.get ::
+      getInequalityOperator ::
+      getOstreamOperator
+    )
+
   private def getOstreamOperator =
     linesClassMember(List(Line.blank), CppDoc.Lines.Both) ::
     writeOstreamOperator(
@@ -310,24 +359,20 @@ case class StructCppWriter(
       )
     )
 
-  private def getOperatorMembers: List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "public",
-      "Operators",
-      getCopyAssignmentOperator ::
-      EqualityOperator.get ::
-      getInequalityOperator ::
-      getOstreamOperator
+  private def getScalarArrayConstructor =
+    constructorClassMember(
+      Some("Member constructor (scalar values for arrays)"),
+      memberList.map(writeMemberAsParamScalar),
+      writeInitializerList(n => n),
+      writeArraySetters(n => n)
     )
 
-  private def writeSerializeFunctionBody(body: List[Line]) =
-    if memberList.isEmpty
-    then lines(
-      """|(void) buffer;
-         |(void) mode;
-         |return Fw::FW_SERIALIZE_OK;"""
+  private def getSerialFunctionMembers =
+    List(
+      getSerializeToFunctionMember,
+      getDeserializeFromFunctionMember,
+      SerializedSizeFunctionMember.get
     )
-    else body
 
   private def getSerializeToFunctionMember: CppDoc.Class.Member.Function =
     functionClassMember(
@@ -363,131 +408,33 @@ case class StructCppWriter(
       CppDoc.Function.Const
     )
 
-  private def getDeserializeFromFunctionMember: CppDoc.Class.Member.Function =
-    functionClassMember(
-      Some("Deserialization"),
-      "deserializeFrom",
-      List(
-        CppDoc.Function.Param(
-          CppDoc.Type("Fw::SerialBufferBase&"),
-          "buffer",
-          Some("The serial buffer")
-        ),
-        CppDoc.Function.Param(
-          CppDoc.Type("Fw::Endianness"),
-          "mode",
-          Some("Endianness of serialized buffer"),
-          Some("Fw::Endianness::BIG"),
-        )
-      ),
-      CppDoc.Type("Fw::SerializeStatus"),
-      writeSerializeFunctionBody(
-        List.concat(
-          lines("Fw::SerializeStatus status;"),
-          Line.blank :: memberNames.flatMap(n =>
-            if sizes.contains(n) then
-              iterateN(sizes(n), writeDeserializeCall(s"$n[i]"))
-            else
-              writeDeserializeCall(n)
-          ),
-          Line.blank :: lines("return status;"),
+  private def getSerializedSizeEnum =
+    linesClassMember(
+      addBlankPrefix(
+        wrapInEnum(
+          List.concat(
+            lines("//! The size of the serial representation"),
+            lines("SERIALIZED_SIZE ="),
+            lines(getSerializedSizeExpr).map(indentIn)
+          )
         )
       )
     )
 
-  private def getSerialFunctionMembers =
-    List(
-      getSerializeToFunctionMember,
-      getDeserializeFromFunctionMember,
-      SerializedSizeFunctionMember.get
-    )
+  private def getSerializedSizeExpr =
+    if memberList.size == 0 then "0"
+    else memberList.map((n, tn) =>
+      writeStaticSerializedSizeExpr(s, typeMembers(n), tn) + (
+        if sizes.contains(n) then s" * ${sizes(n)}"
+        else ""
+    )).mkString(" +\n")
 
-  private def getFunctionMembers: List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "public",
-      "Member functions",
-      List.concat(
-        getSerialFunctionMembers,
-        wrapClassMembersInIfDirective(
-          "\n#if FW_SERIALIZABLE_TO_STRING",
-          List(ToStringFunctionMember.get)
-        ),
-        getGetterFunctionMembers,
-        getSetterFunctionMembers
-      )
-    )
-
-  private def getGetterName(n: String) = s"get_$n"
-
-  private def writeSerializeStatusCheck =
-    wrapInIf(
-      "status != Fw::FW_SERIALIZE_OK",
-      lines("return status;")
-    )
-
-  private def writeSerializeCall(n: String) =
-    line(s"status = buffer.serializeFrom(this->m_$n, mode);") :: writeSerializeStatusCheck
-
-  private def writeDeserializeCall(n: String) =
-    line(s"status = buffer.deserializeTo(this->m_$n, mode);") :: writeSerializeStatusCheck
-
-  private def writeEnumGetter(n: String, tn: String) =
-    linesClassMember(
-      lines(
-        s"""|
-            |//! Get member $n
-            |${writeMemberAsReturnType((n, tn))} ${getGetterName(n)}() const
-            |{
-            |  return this->m_$n.e;
-            |}"""
-      )
-    )
-
-  private def writePrimitiveGetter(n: String, tn: String) =
-    linesClassMember(
-      lines(
-        s"""|
-            |//! Get member $n
-            |${writeMemberAsReturnType((n, tn))} ${getGetterName(n)}() const
-            |{
-            |  return this->m_$n;
-            |}"""
-      )
-    )
-
-  private def writeNonPrimitiveGetters(n: String, tn: String) =
-    linesClassMember(
-      lines(
-        s"""|
-            |//! Get member $n
-            |${writeMemberAsReturnType((n, tn))} ${getGetterName(n)}()
-            |{
-            |  return this->m_$n;
-            |}
-            |
-            |//! Get member $n (const)
-            |${writeMemberAsReturnType((n, tn), StructCppWriter.Const)} ${getGetterName(n)}() const
-            |{
-            |  return this->m_$n;
-            |}"""
-      )
-    )
-
-  private def getGetterFunctionMember(n: String, tn: String): CppDoc.Class.Member =
-    (sizes.contains(n), typeMembers(n).getUnderlyingType) match {
-      case (false, _: Type.Enum) =>
-        writeEnumGetter(n, tn)
-      case (false, t) if s.isPrimitive(t, tn) =>
-        writePrimitiveGetter(n, tn)
-      case _ =>
-        writeNonPrimitiveGetters(n, tn)
-    }
-
-  private def getGetterFunctionMembers: List[CppDoc.Class.Member] =
+  private def getSetterFunctionMembers: List[CppDoc.Class.Member] =
     guardedList (!memberList.isEmpty) (
       linesClassMember(
-        CppDocWriter.writeBannerComment("Getter functions")
-      ) :: memberList.map(getGetterFunctionMember)
+        CppDocWriter.writeBannerComment("Setter functions"),
+        CppDoc.Lines.Both
+      ) :: getAllSetterFunctionMember :: getSingleSetterFunctionMembers
     )
 
   private def getSingleSetterFunctionMember(n: String, tn: String): CppDoc.Class.Member.Function =
@@ -505,26 +452,24 @@ case class StructCppWriter(
   private def getSingleSetterFunctionMembers =
     memberList.map(getSingleSetterFunctionMember)
 
-  private def getAllSetterFunctionMember =
-    functionClassMember(
-      Some("Set all members"),
-      "set",
-      memberList.map(writeMemberAsParam),
-      CppDoc.Type("void"),
-      List.concat(
-        nonArrayMemberNames.map(n => line(s"this->m_$n = $n;")),
-        if arrayMemberNames.isEmpty then Nil
-        else Line.blank :: writeArraySetters(n => s"$n[i]"),
-      )
-    )
-
-  private def getSetterFunctionMembers: List[CppDoc.Class.Member] =
-    guardedList (!memberList.isEmpty) (
-      linesClassMember(
-        CppDocWriter.writeBannerComment("Setter functions"),
-        CppDoc.Lines.Both
-      ) :: getAllSetterFunctionMember :: getSingleSetterFunctionMembers
-    )
+  private def getTypeMembers: List[CppDoc.Class.Member] = {
+  /** Provide type aliases for array member types, to work
+   *  around difficult C++ array syntax. */
+    val typeAliases = memberList.flatMap((n, tn) => {
+      val mtn = getMemberTypeName(n)
+      sizes.get(n) match {
+        case Some(size) =>
+          Line.blank ::
+          line(s"//! The type of $n") ::
+          lines(s"using $mtn = $tn[$size];")
+        case None => Nil
+      }
+    })
+    val members = if typeAliases.isEmpty
+      then Nil
+      else List(linesClassMember(typeAliases))
+    addAccessTagAndComment("public", "Types", members, CppDoc.Lines.Hpp)
+  }
 
   private def getVariableMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
@@ -541,6 +486,57 @@ case class StructCppWriter(
       ),
       CppDoc.Lines.Hpp
     )
+
+  private def writeArrayMemberSetter(memberName: String, memberValue: String) = {
+    iterateN(
+        sizes(memberName),
+        List.concat(
+          {
+            typeMembers(memberName).getUnderlyingType match {
+              case _: Type.String =>
+                val bufferName = getBufferName(memberName)
+                lines(s"""|// Initialize the external string
+                          |this->m_$memberName[i].setBuffer(&m_$bufferName[i][0], sizeof m_$bufferName[i]);
+                          |// Set the array value""".stripMargin)
+              case _ => Nil
+            }
+          },
+          lines(s"this->m_$memberName[i] = $memberValue;")
+        )
+      )
+  }
+
+  private def writeDeserializeCall(n: String) =
+    line(s"status = buffer.deserializeTo(this->m_$n, mode);") :: writeSerializeStatusCheck
+
+  private def writeEnumGetter(n: String, tn: String) =
+    linesClassMember(
+      lines(
+        s"""|
+            |//! Get member $n
+            |${writeMemberAsReturnType((n, tn))} ${getGetterName(n)}() const
+            |{
+            |  return this->m_$n.e;
+            |}"""
+      )
+    )
+
+  private def writeIncludeDirectives = {
+    val Right(a) = UsedSymbols.defStructAnnotatedNode(s.a, aNode)
+    s.writeIncludeDirectives(a.usedSymbolSet)
+  }
+
+  private def writeInitializer(name: String, value: String) = {
+    val bufferName = getBufferName(name)
+    typeMembers(name).getUnderlyingType match {
+      case _: Type.String => s"m_$name(m_$bufferName, sizeof m_$bufferName, $value)"
+      case _ => s"m_$name($value)"
+    }
+  }
+
+  private def writeInitializerList(getValue: String => String) =
+    "Serializable()" ::
+    nonArrayMemberNames.map(name => writeInitializer(name, getValue(name)))
 
   private def writeMemberAsParam(member: (String, String)) = member match {
     case (n, _) =>
@@ -585,48 +581,52 @@ case class StructCppWriter(
       }
   }
 
-  private def writeInitializer(name: String, value: String) = {
-    val bufferName = getBufferName(name)
-    typeMembers(name).getUnderlyingType match {
-      case _: Type.String => s"m_$name(m_$bufferName, sizeof m_$bufferName, $value)"
-      case _ => s"m_$name($value)"
-    }
-  }
-
-  private def writeInitializerList(getValue: String => String) =
-    "Serializable()" ::
-    nonArrayMemberNames.map(name => writeInitializer(name, getValue(name)))
-
-  private def writeArrayMemberSetter(memberName: String, memberValue: String) = {
-    iterateN(
-        sizes(memberName),
-        List.concat(
-          {
-            typeMembers(memberName).getUnderlyingType match {
-              case _: Type.String =>
-                val bufferName = getBufferName(memberName)
-                lines(s"""|// Initialize the external string
-                          |this->m_$memberName[i].setBuffer(&m_$bufferName[i][0], sizeof m_$bufferName[i]);
-                          |// Set the array value""".stripMargin)
-              case _ => Nil
-            }
-          },
-          lines(s"this->m_$memberName[i] = $memberValue;")
-        )
+  private def writeNonPrimitiveGetters(n: String, tn: String) =
+    linesClassMember(
+      lines(
+        s"""|
+            |//! Get member $n
+            |${writeMemberAsReturnType((n, tn))} ${getGetterName(n)}()
+            |{
+            |  return this->m_$n;
+            |}
+            |
+            |//! Get member $n (const)
+            |${writeMemberAsReturnType((n, tn), StructCppWriter.Const)} ${getGetterName(n)}() const
+            |{
+            |  return this->m_$n;
+            |}"""
       )
-  }
+    )
 
-  // Writes a for loop to set the value of each array member
-  private def writeArraySetters(getValue: String => String) =
-    arrayMemberNames.flatMap(n => this.writeArrayMemberSetter(n, getValue(n)))
+  private def writePrimitiveGetter(n: String, tn: String) =
+    linesClassMember(
+      lines(
+        s"""|
+            |//! Get member $n
+            |${writeMemberAsReturnType((n, tn))} ${getGetterName(n)}() const
+            |{
+            |  return this->m_$n;
+            |}"""
+      )
+    )
 
-  // Writes a for loop that iterates n times
-  private def iterateN(n: Int, ll: List[Line]) =
-    wrapInForLoop(
-      "FwSizeType i = 0",
-      s"i < $n",
-      "i++",
-      ll
+  private def writeSerializeCall(n: String) =
+    line(s"status = buffer.serializeFrom(this->m_$n, mode);") :: writeSerializeStatusCheck
+
+  private def writeSerializeFunctionBody(body: List[Line]) =
+    if memberList.isEmpty
+    then lines(
+      """|(void) buffer;
+         |(void) mode;
+         |return Fw::FW_SERIALIZE_OK;"""
+    )
+    else body
+
+  private def writeSerializeStatusCheck =
+    wrapInIf(
+      "status != Fw::FW_SERIALIZE_OK",
+      lines("return status;")
     )
 
   /** Object for generating the equality operator */
