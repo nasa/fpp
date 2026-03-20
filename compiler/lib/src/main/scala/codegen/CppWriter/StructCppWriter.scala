@@ -395,55 +395,11 @@ case class StructCppWriter(
       )
     )
 
-  private def getSerializedSize(n: String, tn: String) = 
-    typeMembers(n).getUnderlyingType match {
-      case ts: (Type.Array | Type.Struct | Type.String) => {
-        if sizes.contains(n) then
-          sizeIterator(
-            sizes(n),
-            lines(s"size += this->m_$n[index].serializedSize();")
-          ).mkString("\n")
-        else s"size += this->m_$n.serializedSize();"
-      }
-      case ts => s"size += ${writeStaticSerializedSizeExpr(s, ts, tn) + (
-          if sizes.contains(n) then s" * ${sizes(n)};"
-          else ";"
-      )}"
-    }
-
-  private def sizeIterator(size: Int, ll: List[Line]): List[Line] =
-    wrapInForLoop(
-      "U32 index = 0",
-      s"index < $size",
-      "index++",
-      ll,
-    )
-
-  private val serializedSize = 
-    List.concat(
-      lines("FwSizeType size = 0;"),
-      lines(memberList.map((n, tn) => 
-        s"${getSerializedSize(n, tn)}"
-      ).mkString("\n")),
-      lines("return size;")
-    )
-
-  private def getSerializedSizeFunctionMember: CppDoc.Class.Member.Function =
-    functionClassMember(
-      Some("Get the dynamic serialized size of the struct"),
-      "serializedSize",
-      List(),
-      CppDoc.Type("FwSizeType"),
-      serializedSize,
-      CppDoc.Function.NonSV,
-      CppDoc.Function.Const
-    )
-
   private def getSerialFunctionMembers =
     List(
       getSerializeToFunctionMember,
       getDeserializeFromFunctionMember,
-      getSerializedSizeFunctionMember
+      SerializedSizeFunctionMember.get
     )
 
   private def getFunctionMembers: List[CppDoc.Class.Member] =
@@ -538,9 +494,7 @@ case class StructCppWriter(
     functionClassMember(
       Some(s"Set member $n"),
       s"set_$n",
-      List(
-        writeMemberAsParam((n, tn))
-      ),
+      List(writeMemberAsParam((n, tn))),
       CppDoc.Type("void"),
       if sizes.contains(n) then
         iterateN(sizes(n), lines(s"this->m_$n[i] = $n[i];"))
@@ -759,6 +713,55 @@ case class StructCppWriter(
       else writeCodeForNonEmptySizes
 
   }
+
+  /** Object for generating the serialized size function member */
+  private object SerializedSizeFunctionMember {
+
+    private def sizeIterator(size: Int, ll: List[Line]): List[Line] =
+      wrapInForLoop(
+        "U32 index = 0",
+        s"index < $size",
+        "index++",
+        ll,
+      )
+
+    private def writeCodeForMember(n: String, tn: String) = 
+      typeMembers(n).getUnderlyingType match {
+        case ts: (Type.Array | Type.Struct | Type.String) => {
+          if sizes.contains(n) then
+            sizeIterator(
+              sizes(n),
+              lines(s"size += this->m_$n[index].serializedSize();")
+            ).mkString("\n")
+          else s"size += this->m_$n.serializedSize();"
+        }
+        case ts => s"size += ${writeStaticSerializedSizeExpr(s, ts, tn) + (
+          if sizes.contains(n) then s" * ${sizes(n)};" else ";"
+        )}"
+      }
+
+    private val writeCode = 
+      if memberList.isEmpty
+      then lines("return 0;")
+      else List.concat(
+        lines("FwSizeType size = 0;"),
+        lines(memberList.map(writeCodeForMember).mkString("\n")),
+        lines("return size;")
+      )
+
+    def get: CppDoc.Class.Member.Function =
+      functionClassMember(
+        Some("Get the dynamic serialized size of the struct"),
+        "serializedSize",
+        List(),
+        CppDoc.Type("FwSizeType"),
+        writeCode,
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
+      )
+
+  }
+
 
   /** Object for generating the toString function member */
   private object ToStringFunctionMember {

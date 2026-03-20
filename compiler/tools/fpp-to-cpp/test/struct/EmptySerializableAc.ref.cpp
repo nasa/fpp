@@ -89,9 +89,7 @@ Fw::SerializeStatus Empty ::
 FwSizeType Empty ::
   serializedSize() const
 {
-  FwSizeType size = 0;
-
-  return size;
+  return 0;
 }
 
 #if FW_SERIALIZABLE_TO_STRING
