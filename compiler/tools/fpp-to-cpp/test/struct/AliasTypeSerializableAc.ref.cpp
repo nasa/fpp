@@ -122,9 +122,23 @@ bool AliasType ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const AliasType& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s.toChar();
+  os << "{ ";
+  os << "x = ";
+  os << obj.m_x;
+  os << ", ";
+  os << "y = ";
+  os << obj.m_y;
+  os << ", ";
+  os << "z = ";
+  os << "[ ";
+  for (FwSizeType i = 0; i < 10; i++) {
+    if (i > 0) {
+      os << ", ";
+    }
+    os << obj.m_z[i];
+  }
+  os << " ]";
+  os << " }";
   return os;
 }
 

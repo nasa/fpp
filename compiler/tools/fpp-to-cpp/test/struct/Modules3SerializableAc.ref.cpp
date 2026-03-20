@@ -100,9 +100,20 @@ bool Modules3 ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const Modules3& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s.toChar();
+  os << "{ ";
+  os << "x = ";
+  os << obj.m_x;
+  os << ", ";
+  os << "arr = ";
+  os << "[ ";
+  for (FwSizeType i = 0; i < 3; i++) {
+    if (i > 0) {
+      os << ", ";
+    }
+    os << obj.m_arr[i];
+  }
+  os << " ]";
+  os << " }";
   return os;
 }
 

@@ -65,9 +65,10 @@ bool AbsType ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const AbsType& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s.toChar();
+  os << "{ ";
+  os << "t = ";
+  os << obj.m_t;
+  os << " }";
   return os;
 }
 

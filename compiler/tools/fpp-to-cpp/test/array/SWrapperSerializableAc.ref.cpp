@@ -65,9 +65,10 @@ bool SWrapper ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const SWrapper& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s.toChar();
+  os << "{ ";
+  os << "s = ";
+  os << obj.m_s;
+  os << " }";
   return os;
 }
 

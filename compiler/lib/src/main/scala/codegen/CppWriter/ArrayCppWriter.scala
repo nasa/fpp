@@ -429,11 +429,17 @@ case class ArrayCppWriter (
         CppDoc.Lines.Both
       ) :: writeOstreamOperator(
         name,
-        lines(
-          """|Fw::String s;
-             |obj.toString(s);
-             |os << s;
-             |return os;"""
+        List.concat(
+          lines("os << \"[\";"),
+          indexIterator(lines(
+            s"""|if (index > 0) {
+                |  os << ", ";
+                |}
+                |
+                |os << this->elements[index];
+            """)),
+          lines("""|os << "]";
+                   |return os;""")
         )
       )
     )

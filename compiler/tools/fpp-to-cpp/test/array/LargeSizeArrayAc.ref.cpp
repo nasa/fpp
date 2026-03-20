@@ -128,9 +128,16 @@ bool LargeSize ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const LargeSize& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s;
+  os << "[";
+  for (FwSizeType index = 0; index < SIZE; index++) {
+    if (index > 0) {
+      os << ", ";
+    }
+
+    os << this->elements[index];
+                
+  }
+  os << "]";
   return os;
 }
 
