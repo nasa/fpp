@@ -768,6 +768,39 @@ case class StructCppWriter(
       memberNames.exists(predicate)
     }
 
+    // Write toString code for an array member
+    private def writeCodeForArrayMember(member: Ast.StructTypeMember) = {
+      val n = member.name
+      val t = typeMembers(n)
+      val tn = typeCppWriter.write(t)
+      // Iterate through each member and format it into 'tmp'
+      // Append 'tmp' to the final string
+      val formatStr = FormatCppWriter.write(
+        s,
+        getFormatStr(structName),
+        member.typeName
+      )
+      val fillTmpString = (typeMembers(n).getUnderlyingType) match {
+        case (_: Type.String) =>
+          s"tmp = this->m_$n[i];"
+        case t if s.isPrimitive(t, tn) =>
+          s"""tmp.format("$formatStr", ${promoteF32ToF64 (t) (s"this->m_$n[i]")});"""
+        case _ =>
+          s"this->m_$n[i].toString(tmp);"
+      }
+      List.concat(
+        lines("sb += \"[ \";"),
+        iterateN(sizes(n), lines(
+          s"""|${fillTmpString}
+              |if (i > 0) {
+              |  sb += ", ";
+              |}
+              |sb += tmp;"""
+        )),
+        lines("sb += \" ]\";"),
+      )
+    }
+
     // Write toString code for one member
     private def writeCodeForMember(member: Ast.StructTypeMember) = {
       val n = member.name
@@ -788,34 +821,7 @@ case class StructCppWriter(
           )
           lines(s"""|tmp.format("$formatStr", ${promoteF32ToF64 (t) (s"this->m_$n")});
                     |sb += tmp;""")
-        case (true, _) =>
-          // An array member
-          // Iterate through each member and format it into 'tmp'
-          // Append 'tmp' to the final string
-          val formatStr = FormatCppWriter.write(
-            s,
-            getFormatStr(structName),
-            member.typeName
-          )
-          val fillTmpString = (typeMembers(n).getUnderlyingType) match {
-            case (_: Type.String) =>
-              s"tmp = this->m_$n[i];"
-            case t if s.isPrimitive(t, tn) =>
-              s"""tmp.format("$formatStr", ${promoteF32ToF64 (t) (s"this->m_$n[i]")});"""
-            case _ =>
-              s"this->m_$n[i].toString(tmp);"
-          }
-          List.concat(
-            lines("sb += \"[ \";"),
-            iterateN(sizes(n), lines(
-              s"""|${fillTmpString}
-                  |if (i > 0) {
-                  |  sb += ", ";
-                  |}
-                  |sb += tmp;"""
-            )),
-            lines("sb += \" ]\";"),
-          )
+        case (true, _) => writeCodeForArrayMember(member)
         case (false, _) =>
           // A complex (non-array) type
           lines(s"""|this->m_$n.toString(tmp);
