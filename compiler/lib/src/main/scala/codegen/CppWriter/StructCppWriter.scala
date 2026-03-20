@@ -15,9 +15,9 @@ case class StructCppWriter(
 
   private val symbol = Symbol.Struct(aNode)
 
-  private val name = s.getName(symbol)
+  private val structName = s.getName(symbol)
 
-  private val fileName = ComputeCppFiles.FileNames.getStruct(name)
+  private val fileName = ComputeCppFiles.FileNames.getStruct(structName)
 
   private val structType@Type.Struct(_, _, _, _, _) = s.a.typeMap(node.id)
 
@@ -85,7 +85,7 @@ case class StructCppWriter(
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
     CppWriter.createCppDoc(
-      s"$name struct",
+      s"$structName struct",
       fileName,
       includeGuard,
       getMembers,
@@ -98,7 +98,7 @@ case class StructCppWriter(
     val cppIncludes = getCppIncludes
     val cls = classMember(
       AnnotationCppWriter.asStringOpt(aNode),
-      name,
+      structName,
       Some("public Fw::Serializable"),
       getClassMembers
     )
@@ -243,7 +243,7 @@ case class StructCppWriter(
     Some("Copy constructor"),
     List(
       CppDoc.Function.Param(
-        CppDoc.Type(s"const $name&"),
+        CppDoc.Type(s"const $structName&"),
         "obj",
         Some("The source object")
       )
@@ -258,12 +258,12 @@ case class StructCppWriter(
       "operator=",
       List(
         CppDoc.Function.Param(
-          CppDoc.Type(s"const $name&"),
+          CppDoc.Type(s"const $structName&"),
           "obj",
           Some("The source object")
         ),
       ),
-      CppDoc.Type(s"$name&"),
+      CppDoc.Type(s"$structName&"),
       List.concat(
         wrapInIf("this == &obj", lines("return *this;")),
         Line.blank :: lines(
@@ -325,13 +325,12 @@ case class StructCppWriter(
     val equalityOpBody = 
       // Simplify syntax if there are no array members
       if sizes.isEmpty then emptySizes else nonEmptySizes
-
     functionClassMember(
       Some("Equality operator"),
       "operator==",
       List(
         CppDoc.Function.Param(
-          CppDoc.Type(s"const $name&"),
+          CppDoc.Type(s"const $structName&"),
           "obj",
           Some("The other object")
         )
@@ -349,7 +348,7 @@ case class StructCppWriter(
       "operator!=",
       List(
         CppDoc.Function.Param(
-          CppDoc.Type(s"const $name&"),
+          CppDoc.Type(s"const $structName&"),
           "obj",
           Some("The other object")
         )
@@ -363,7 +362,7 @@ case class StructCppWriter(
   private def getOstreamOperator =
     linesClassMember(List(Line.blank), CppDoc.Lines.Both) ::
     writeOstreamOperator(
-      name,
+      structName,
       lines(
         """|Fw::String s;
            |obj.toString(s);
@@ -504,20 +503,26 @@ case class StructCppWriter(
       CppDoc.Function.Const
     )
 
-
-  // Members on which to call toString()
-  private val needsTmpString =
-    astMembers.map((_, node, _) => {
-      val t = typeMembers(node.data.name)
-      (node, node.data.name, typeCppWriter.write(t))
-    }).find((n, _, tn) => (sizes.contains(n.data.name), typeMembers(n.data.name).getUnderlyingType) match {
-      // Only plain string types don't need a tmp string form appending to the struct
-      case (false, _: Type.String) => false
-      case _ => true
-    }).isDefined
+  // Does toString need a temporary string?
+  private val toStringNeedsTmpString = {
+    def helper(n: String) = {
+      val t = typeMembers(n).getUnderlyingType
+      val isArray = sizes.contains(n)
+      val isString = t match {
+        case _: Type.String => true
+        case _ => false
+      }
+      // Both non-strings and arrays need a tmp string
+      (!isString) || isArray
+    }
+    memberNames.find(helper).isDefined
+  }
 
   private def getMemberToString(node: AstNode[Ast.StructTypeMember], n: String, tn: String) = {
-    (sizes.contains(node.data.name), typeMembers(node.data.name).getUnderlyingType) match {
+    val name = node.data.name
+    val isArray = sizes.contains(name)
+    val memberType = typeMembers(name).getUnderlyingType
+    (isArray, memberType) match {
       case (false, _: Type.String) =>
         // Type is already a string, no need to perform any conversion
         lines(s"sb += this->m_$n;")
@@ -525,7 +530,7 @@ case class StructCppWriter(
         // Format the primitive into a temporary string buffer
         val formatStr = FormatCppWriter.write(
           s,
-          getFormatStr(name),
+          getFormatStr(structName),
           node.data.typeName
         )
         lines(s"""|tmp.format("$formatStr", ${promoteF32ToF64 (t) (s"this->m_$n")});
@@ -536,10 +541,9 @@ case class StructCppWriter(
         // Append 'tmp' to the final string
         val formatStr = FormatCppWriter.write(
           s,
-          getFormatStr(name),
+          getFormatStr(structName),
           node.data.typeName
         )
-
         val fillTmpString = (typeMembers(n).getUnderlyingType) match {
           case (_: Type.String) =>
             s"tmp = this->m_$n[i];"
@@ -548,7 +552,6 @@ case class StructCppWriter(
           case _ =>
             s"this->m_$n[i].toString(tmp);"
         }
-
         List.concat(
           lines("sb += \"[ \";"),
           iterateN(sizes(n), lines(
@@ -592,7 +595,7 @@ case class StructCppWriter(
       ),
       CppDoc.Type("void"),
       List.concat(
-        if needsTmpString then lines("Fw::String tmp;") else List(),
+        if toStringNeedsTmpString then lines("Fw::String tmp;") else List(),
         lines("sb = \"( \";"),
         memberToString.zipWithIndex.flatMap((memberToStringLines, idx) => {
           if idx > 0 then List.concat(
@@ -753,8 +756,8 @@ case class StructCppWriter(
       else writeMemberAsParamScalar(member)
   }
 
-  // Writes members as function parameters using scalars for arrays
   private def writeMemberAsParamScalar(member: (String, String)) = member match {
+    // Writes members as function parameters using scalars for arrays
     case (n, tn) => CppDoc.Function.Param(
       CppDoc.Type(
         typeMembers(n).getUnderlyingType match {
