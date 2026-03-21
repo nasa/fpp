@@ -430,13 +430,14 @@ case class ArrayCppWriter (
       ) :: writeOstreamOperator(
         name,
         List.concat(
-          lines("os << \"[\";"),
+          lines(s"""|os << "[";
+                    |constexpr auto SIZE = $name::SIZE;"""),
           indexIterator(lines(
             s"""|if (index > 0) {
                 |  os << ", ";
                 |}
                 |
-                |os << this->elements[index];
+                |os << obj.elements[index];
             """)),
           lines("""|os << "]";
                    |return os;""")

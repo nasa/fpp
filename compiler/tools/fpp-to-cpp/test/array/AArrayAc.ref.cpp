@@ -129,12 +129,13 @@ bool A ::
 
 std::ostream& operator<<(std::ostream& os, const A& obj) {
   os << "[";
+  constexpr auto SIZE = A::SIZE;
   for (FwSizeType index = 0; index < SIZE; index++) {
     if (index > 0) {
       os << ", ";
     }
 
-    os << this->elements[index];
+    os << obj.elements[index];
                 
   }
   os << "]";

@@ -131,12 +131,13 @@ namespace M {
 
   std::ostream& operator<<(std::ostream& os, const PrimitiveF32f& obj) {
     os << "[";
+    constexpr auto SIZE = PrimitiveF32f::SIZE;
     for (FwSizeType index = 0; index < SIZE; index++) {
       if (index > 0) {
         os << ", ";
       }
 
-      os << this->elements[index];
+      os << obj.elements[index];
                   
     }
     os << "]";

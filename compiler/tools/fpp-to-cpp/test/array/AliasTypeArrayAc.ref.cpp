@@ -129,12 +129,13 @@ bool AliasType ::
 
 std::ostream& operator<<(std::ostream& os, const AliasType& obj) {
   os << "[";
+  constexpr auto SIZE = AliasType::SIZE;
   for (FwSizeType index = 0; index < SIZE; index++) {
     if (index > 0) {
       os << ", ";
     }
 
-    os << this->elements[index];
+    os << obj.elements[index];
                 
   }
   os << "]";

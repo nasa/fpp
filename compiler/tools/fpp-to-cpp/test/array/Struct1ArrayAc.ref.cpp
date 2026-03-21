@@ -129,12 +129,13 @@ bool Struct1 ::
 
 std::ostream& operator<<(std::ostream& os, const Struct1& obj) {
   os << "[";
+  constexpr auto SIZE = Struct1::SIZE;
   for (FwSizeType index = 0; index < SIZE; index++) {
     if (index > 0) {
       os << ", ";
     }
 
-    os << this->elements[index];
+    os << obj.elements[index];
                 
   }
   os << "]";

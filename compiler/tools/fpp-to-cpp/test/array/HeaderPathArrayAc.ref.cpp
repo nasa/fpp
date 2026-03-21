@@ -129,12 +129,13 @@ bool HeaderPath ::
 
 std::ostream& operator<<(std::ostream& os, const HeaderPath& obj) {
   os << "[";
+  constexpr auto SIZE = HeaderPath::SIZE;
   for (FwSizeType index = 0; index < SIZE; index++) {
     if (index > 0) {
       os << ", ";
     }
 
-    os << this->elements[index];
+    os << obj.elements[index];
                 
   }
   os << "]";

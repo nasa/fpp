@@ -136,12 +136,13 @@ bool String2 ::
 
 std::ostream& operator<<(std::ostream& os, const String2& obj) {
   os << "[";
+  constexpr auto SIZE = String2::SIZE;
   for (FwSizeType index = 0; index < SIZE; index++) {
     if (index > 0) {
       os << ", ";
     }
 
-    os << this->elements[index];
+    os << obj.elements[index];
                 
   }
   os << "]";
