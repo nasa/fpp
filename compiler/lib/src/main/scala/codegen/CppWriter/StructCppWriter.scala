@@ -253,7 +253,6 @@ case class StructCppWriter(
       val fieldLabel = lines(s"""os << "$n = ";""")
 
       val fieldValue = if sizes.contains(n) then
-        // Array member - iterate and output each element
         List.concat(
           lines("""os << "[ ";"""),
           iterateN(sizes(n), lines(
@@ -265,7 +264,6 @@ case class StructCppWriter(
           lines("""os << " ]";""")
         )
       else
-        // Non-array member - output directly
         lines(s"os << obj.m_$n;")
 
       List.concat(prefix, fieldLabel, fieldValue)
