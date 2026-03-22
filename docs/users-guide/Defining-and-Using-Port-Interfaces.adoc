@@ -232,7 +232,7 @@ topology T1 implements I1 {
 
 In the above example, `T0` and `T1` are functionally equivalent.
 `T1` includes an `implements` clause which is useful for development
-and maintainence to signal that the topology is directly related to
+and maintenance to signal that the topology is directly related to
 the interface.
 
 If a topology includes an `implements` clause that does not define

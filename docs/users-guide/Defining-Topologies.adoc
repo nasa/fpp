@@ -865,7 +865,7 @@ a.p[0] -> b.p[0]
 a.p[1] -> c.p[0]
 --------
 
-=== Composing Topologies
+=== Importing Topologies
 
 It is often useful to decompose a flight software project
 into several topologies.
@@ -888,39 +888,24 @@ Further, to enable modular testing, it is useful for
 each topology to be able to run on its own.
 
 In FPP, the way we accomplish these goals is to *import*
-one topology into another one and to encapsulate topologies
-into black boxes using topology *ports*.
+one topology into another one.
 In this section of the User Guide, we explain how to do that.
 
 ==== Importing Instances and Connections
 
 To import a topology `A` into a topology `B`, you write
-`instance A` inside topology `B`, like this:
+`import A` inside topology `B`, like this:
 
 [source,fpp]
 --------
 topology B {
   
-  instance A
+  import A
 
   ...
 
 }
 --------
-
-Notice that the the topology `A` is not distinguished from a component instance
-`A`. This is because both are considered interface instances. Typically
-topologies are named in `PascalCase` while component are named in `camelCase`.
-Interface instances refer to either component instances or topologies. They are FPP
-constructs that include port _instances_ and therefore can be thought of as the
-instantiation of a port _interface_.
-
-[NOTE] 
-.Backwards compatibility
-==== 
-`import A` may be used in place of `instance A`. The `import` keyword was
-kept for backwards compatibility and is 1:1 compatible with `instance`.
-====
 
 You may add instances and connections as usual to `B`, as shown
 by the dots.
@@ -963,7 +948,7 @@ topology A {
 
 topology B {
 
-  instance A
+  import A
 
   instance c
 
@@ -1012,8 +997,8 @@ For example:
 --------
 topology A {
 
-  instance B
-  instance C
+  import B
+  import C
 
   ...
 
@@ -1031,8 +1016,8 @@ For example, this is incorrect:
 --------
 topology A {
 
-  instance B
-  instance B # Error: B imported twice
+  import B
+  import B # Error: B imported twice
 
 }
 --------
