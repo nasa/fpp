@@ -679,17 +679,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Topologies_Importing-Topologies_Importing-Instances-and-Connections">14.4.1. Importing Instances and Connections</a></li>
 <li><a href="#Defining-Topologies_Importing-Topologies_Multiple-Imports">14.4.2. Multiple Imports</a></li>
 <li><a href="#Defining-Topologies_Importing-Topologies_Transitive-Imports">14.4.3. Transitive Imports</a></li>
-<li><a href="#Defining-Topologies_Importing-Topologies_Topology-Ports">14.4.4. Topology Ports</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Topologies_Include-Specifiers">14.5. Include Specifiers</a></li>
-<li><a href="#Defining-Topologies_Telemetry-Packets">14.6. Telemetry Packets</a>
+<li><a href="#Defining-Topologies_Topology-Ports">14.5. Topology Ports</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Sets">14.6.1. Telemetry Packet Sets</a></li>
-<li><a href="#Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Identifiers">14.6.2. Telemetry Packet Identifiers</a></li>
-<li><a href="#Defining-Topologies_Telemetry-Packets_Omitting-Channels">14.6.3. Omitting Channels</a></li>
-<li><a href="#Defining-Topologies_Telemetry-Packets_Specifying-Multiple-Telemetry-Packet-Sets">14.6.4. Specifying Multiple Telemetry Packet Sets</a></li>
-<li><a href="#Defining-Topologies_Telemetry-Packets_Include-Specifiers">14.6.5. Include Specifiers</a></li>
+<li><a href="#Defining-Topologies_Topology-Ports_Specifying-Topology-Ports">14.5.1. Specifying Topology Ports</a></li>
+<li><a href="#Defining-Topologies_Topology-Ports_Implementing-Port-Interfaces">14.5.2. Implementing Port Interfaces</a></li>
+<li><a href="#Defining-Topologies_Topology-Ports_Port-Interface-Instances">14.5.3. Port Interface Instances</a></li>
+</ul>
+</li>
+<li><a href="#Defining-Topologies_Include-Specifiers">14.6. Include Specifiers</a></li>
+<li><a href="#Defining-Topologies_Telemetry-Packets">14.7. Telemetry Packets</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Sets">14.7.1. Telemetry Packet Sets</a></li>
+<li><a href="#Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Identifiers">14.7.2. Telemetry Packet Identifiers</a></li>
+<li><a href="#Defining-Topologies_Telemetry-Packets_Omitting-Channels">14.7.3. Omitting Channels</a></li>
+<li><a href="#Defining-Topologies_Telemetry-Packets_Specifying-Multiple-Telemetry-Packet-Sets">14.7.4. Specifying Multiple Telemetry Packet Sets</a></li>
+<li><a href="#Defining-Topologies_Telemetry-Packets_Include-Specifiers">14.7.5. Include Specifiers</a></li>
 </ul>
 </li>
 </ul>
@@ -9969,86 +9975,10 @@ interface I2 {
 <div class="sect2">
 <h3 id="Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Topology-Definitions">12.4. Using Port Interfaces in Topology Definitions</h3>
 <div class="paragraph">
-<p>Unlike when used in component definitions and interface definitions,
-topologies cannot <em>import</em> port interfaces. Rather port interfaces in
-the context of topologies are just for verifying the existence and
-signature of the port instances in the topology.</p>
-</div>
-<div class="paragraph">
-<p>We say that a topology <em>implements</em> a port interfaces if and only if
-the topology includes a topology port for every port instance defined
-in the interface with a matching port definition. To mark a topology
-with a port interface, an <code>implements</code> clause may be used.</p>
-</div>
-<div class="paragraph">
-<p>For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">port P
-
-interface I1 {
-  sync input port p1: P
-  sync input port p2: P
-}
-
-passive component C {
-  import I1
-
-  sync input port p3: P
-}
-
-instance i1: C base id 0
-instance i2: C base id 1
-
-topology T0 {
-  instance i1
-  instance i2
-
-  port p1 = i1.p1
-  port p2 = i2.p2
-  port p2Extra = i2.p3
-}
-
-topology T1 implements I1 {
-  instance i1
-  instance i2
-
-  # Topology ports for every port in I1
-  port p1 = i1.p1
-  port p2 = i2.p2
-
-  # Additional ports may be defined outside of I1
-  port p2Extra = i2.p3
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In the above example, <code>T0</code> and <code>T1</code> are functionally equivalent.
-<code>T1</code> includes an <code>implements</code> clause which is useful for development
-and maintenance to signal that the topology is directly related to
-the interface.</p>
-</div>
-<div class="paragraph">
-<p>If a topology includes an <code>implements</code> clause that does not define
-a port instance <code>I1</code>, this is considered invalid FPP and will produce
-an error.</p>
-</div>
-<div class="paragraph">
-<p>For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">port P
-
-interface I1 {
-  sync input port p1: P
-  sync input port p2: P
-}
-
-# Error: topology definition missing port `p1` and p2
-topology T implements I1 {}</code></pre>
-</div>
+<p>You can use a port interface to specify the
+interface of a topology.
+We will explain how to do this in the section on
+<a href="#Defining-Topologies_Topology-Ports_Implementing-Port-Interfaces">defining topologies</a>.</p>
 </div>
 </div>
 </div>
@@ -12214,93 +12144,471 @@ For example, if <code>A</code> imports <code>B</code> and <code>B</code> imports
 and <code>C</code> imports <code>A</code>, you will get an error.</p>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Topologies_Topology-Ports">14.5. Topology Ports</h3>
+<div class="paragraph">
+<p>In the previous section, we explained the most basic way to import a topology
+<code>B</code> into a topology <code>A</code>.
+This method of importing topologies erases or flattens the structure implied
+by the separate topologies <code>A</code> and <code>B</code>.
+In particular, when <code>B</code> is imported into <code>A</code>,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>All the component instances named in <code>B</code> are visible in <code>A</code>.</p>
+</li>
+<li>
+<p>Connections that span <code>A</code> and <code>B</code> go directly between
+component instances named in <code>A</code> and component instances named in <code>B</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This approach is simple and flexible.
+It also aligns well with the C&#43;&#43; implementation, which is flattened in this
+way.
+However, when specifying connections in the model,
+it is often useful to preserve the separation between
+an importing topology <code>A</code> and an imported topology <code>B</code>.
+To do that, FPP has a feature called <strong>topology ports</strong>,
+which we explain in this section.</p>
+</div>
+<div class="paragraph">
+<p>With topology ports, the code generator still flattens the
+hierarchy of imported topologies into a single topology, as
+described in the previous section.
+However, before this flattening occurs, you can specify
+connections <em>to and from topologies</em>.
+For example, you can specify a connection from a component instance
+<code>a</code> of <code>A</code> to a <em>port</em> of topology <code>B</code>, and this connection is automatically
+flattened to a connection between <code>a</code> and a component instance <code>b</code> of <code>B</code>.
+In this way, you can think of imported subtopologies as
+units of function that have their own interfaces and connections.</p>
+</div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Importing-Topologies_Topology-Ports">14.4.4. Topology Ports</h4>
+<h4 id="Defining-Topologies_Topology-Ports_Specifying-Topology-Ports">14.5.1. Specifying Topology Ports</h4>
 <div class="paragraph">
-<p>A topology port is a port name assigned to the topology that maps
-to another port instance. It is best to think of a topology port
-like a port alias for a connection endpoint <em>inside</em> the topology.</p>
-</div>
-<div class="paragraph">
-<p>The concrete behavior of a port will be defined by the port instance
-it maps to. If that port instance is another topology port, this behavior
-will be recursively resolved to a port instance of a component instance
-definition.</p>
-</div>
-<div class="paragraph">
-<p>For example:</p>
+<p><strong>Connections to subtopologies:</strong>
+Consider the following example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">topology A {
 
-  instance b
+  instance a
 
-  port bOut = b.somePortOut
+  import B
+
+  connections C {
+    a.p -&gt; b.p
+  }
 
 }
 
 topology B {
 
-  instance A # import the topology
-  instance c # import another instance
+  instance b
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As discussed in the previous section, import resolution produces this
+flattened topology:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  instance a
+  instance b
 
   connections C {
-
-    A.bOut -&gt; c.bIn
-
+    a.p -&gt; b.p
   }
 
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Because the topology port <code>A.bOut</code> is really just an alias to
-<code>b.somePortOut</code>, this topology will eventually resolve to:</p>
+<p>Notice that in both the original topology and the flattened topology,
+the connection goes directly from <code>a.p</code> to <code>b.p</code>.</p>
+</div>
+<div class="paragraph">
+<p>Now let us rewrite this example using topology ports.
+First, we need a way to specify a port of topology <code>B</code> and to map it to
+a port of an instance of <code>B</code>, so the flattening can occur.
+To do that, we write <code>port</code> followed by a name, and equals sign,
+and a port of a component instance, like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">topology B {
 
-  instance A # import the topology
-  instance c # import another instance
+  instance b
+
+  port p = b.p
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here the FPP analyzer checks that <code>b.p</code> is a port of instance <code>b</code>;
+if not, an error will occur.</p>
+</div>
+<div class="paragraph">
+<p>Now in topology <code>A</code>, we can write a connection to port <code>B.p</code> instead
+of directly to component instance <code>b.p</code>, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  instance a
+
+  import B
 
   connections C {
-
-    b.somePortOut -&gt; c.bIn
-
+    a.p -&gt; B.p
   }
 
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>It can be useful to use topology ports in most cases when a subtopology
-is imported into a parent topology. Defining topology ports allows
-encapsulation of port connections and signals to a developer importing
-a topology which port instances need to interface with the outer topology.</p>
-</div>
-<div class="sect4">
-<h5 id="Defining-Topologies_Importing-Topologies_Topology-Ports_Implementing-interfaces">Implementing interfaces</h5>
-<div class="paragraph">
-<p>A topology definition may refer to a port interface through an
-<code>implements</code> clause which will verify that the set of port instances
-defined in the port interface exist in the topology definition.</p>
+<p>As usual, the FPP analyzer checks that <code>a.p</code> is an output port,
+that <code>B.p</code> is a input port, and that the types of the ports
+are compatible.
+Here <code>B.p</code> is an input port if and only if
+<code>b.p</code> the actual port to which the topology port <code>B.p</code> is mapped,
+is an input port.
+If these requirements aren&#8217;t met, then an error occurs.</p>
 </div>
 <div class="paragraph">
-<p>The usage of the <code>implements`</code> clause is defined in <a href="#Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Topology-Definitions">a separate section</a>.</p>
+<p>After import resolution, the result is the same as before:
+<code>A</code> has two instances <code>a</code> and <code>b</code> and one connection
+from <code>a.p</code> to <code>b.p</code>.
+However, the source model respects the hierarchical structure
+of <code>A</code> and <code>B</code>:
+the connection goes from an instance of <code>A</code> to the interface
+of <code>B</code>, instead of going directly to an instance of <code>B</code>.</p>
 </div>
 <div class="paragraph">
-<p>We recommend using the implements clause whenever a topology definition
-needs to conform to a port interface. This ensures compatibility
-expectations with the topology when imported into another larger
-topologies.</p>
+<p><strong>Connections from subtopologies:</strong>
+Connections from subtopologies work in the same way,
+with the arrow reversed.
+For example, if we assume that <code>B.p</code> is an output port
+and <code>a.p</code> is an input port, then we could write this:</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  instance a
+
+  import B
+
+  connections C {
+    B.p -&gt; a.p
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Connections between subtopologies:</strong>
+Another useful pattern is to have a topology <code>A</code> import
+two subtopologies <code>B1</code> and <code>B2</code> and to specify a connection
+from <code>B1</code> to <code>B2</code>.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology B1 {
+
+  instance b1
+
+  port p = b1.p
+
+}
+
+topology B2 {
+
+  instance b2
+
+  port p = b2.p
+
+}
+
+topology A {
+
+  import B1
+  import B2
+
+  connections C {
+    B1.p -&gt; B2.p
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After flattening, topology <code>A</code> looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  instance b1
+  instance b2
+
+  connections {
+    b1.p -&gt; b2.p
+  }
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Topologies_Topology-Ports_Implementing-Port-Interfaces">14.5.2. Implementing Port Interfaces</h4>
+<div class="paragraph">
+<p>A topology is like a component instance, in that it provides
+a port interface.
+We will have more to say about this similarity in the
+<a href="#Defining-Topologies_Topology-Ports_Port-Interface-Instances">next section</a>.</p>
+</div>
+<div class="paragraph">
+<p>In the case of an instance of a component <em>C</em>, we can
+<a href="#Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces">define a port interface <em>I</em></a> and make <em>I</em> part of the
+interface of <em>C</em>.
+We do that by
+<a href="#Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Component-Definitions">importing</a> <em>I</em> into the definition of <em>C</em>.
+In the case of a topology <em>T</em>, we can&#8217;t import an interface <em>I</em> in this way,
+because we have to specify a mapping for each of the ports
+in the interface of <em>T</em> to a port of a component instance of an imported
+topology of <em>T</em>.
+However, we can use one or more interfaces to specify and
+check that the interface of <em>T</em> contains all the ports that it should.
+To do this, we write the keyword <code>implements</code> followed by list of names
+that refer to interfaces.
+The FPP analyzer will then check that the topology provides
+all the ports required by each of the interfaces.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">port P
+
+interface I {
+  sync input port p: P
+}
+
+passive component C {
+  import I
+}
+
+instance a: C base id 0x100
+
+@ Specify and check that topology T provides the ports of interface I
+topology T implements I {
+
+  instance a
+
+  port p = a.p
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This code is correct because topology <code>T</code> provides the port <code>p</code> of interface <code>I</code>,
+via the line <code>port p = a.p</code>.
+An error would result in each of the following cases:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We delete line <code>port p = a.p</code> is deleted from the model.
+In this case, the <code>implements</code> clause is violated, because
+topology <code>T</code> provides no port <code>p</code>.</p>
+</li>
+<li>
+<p>We remove <code>import I</code> from the definition of <code>C</code> and replace it with <code>output port p: P</code>.
+In this case, topology <code>T</code> does provide a port <code>p</code>, but the port does
+not conform to the interface <code>I</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Try these examples in <code>fpp-check</code>, to make sure you understand what is
+happening in each case.</p>
+</div>
+<div class="paragraph">
+<p>You can also write more than one interface name in an <code>implements</code> clause.
+In general the interface names form an
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element
+sequence</a>
+in which the optional terminating punctuation is a comma.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">port P
+
+port Q
+
+interface I {
+  sync input port p: P
+}
+
+interface J {
+  output port q: Q
+}
+
+passive component C {
+  import I
+  import J
+}
+
+instance a: C base id 0x100
+
+@ Topology T provides the ports of interfaces I and J
+topology T implements I, J {
+
+  instance a
+
+  port p = a.p
+
+  port q = a.q
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Implements clauses are not strictly required: any correct model
+containing implements clauses will also be a correct model if
+they are deleted.
+However, they are useful for documenting and checking intended behavior.
+For example, if the intent of a topology <em>T</em> is to provide a certain
+interface, and there is no <code>implements</code> clause documenting the intent,
+then a developer could inadvertently change the contract of <em>T</em> by removing or
+modifying a port in its interface.
+If <em>T</em> has an implements clause, then the change will cause an error,
+alerting the developer to the fact that an interface contract is
+being changed.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Topologies_Topology-Ports_Port-Interface-Instances">14.5.3. Port Interface Instances</h4>
+<div class="paragraph">
+<p>As noted in the previous section, both topologies and component
+instances provide port interfaces.
+Therefore we refer to both topologies and component instances as <strong>port
+interface instances</strong>.
+The motivation for this name is as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A port interface instance is a concrete implementation (an instance)
+of a unit of function that has a port interface.</p>
+</li>
+<li>
+<p>The units of function with port interfaces are component
+instances and topologies.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Thus the concept of a port interface instance generalizes
+the concept of a component instance in a way that includes
+the concept of a topology.</p>
+</div>
+<div class="paragraph">
+<p>The concept of a port interface instance will become more obviously useful
+in a future version of FPP, where we will introduce the following
+features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Module templates</strong> that you can expand several times to generate
+different sections of of FPP code (for example, topologies) that are largely
+the same, but that differ in particular ways that you specify.</p>
+</li>
+<li>
+<p><strong>Template parameters</strong> that let you bind concrete values to parameters
+when instantiating templates.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When instantiating templates, it will be useful to treat component
+instances and topologies in the same way, so that a single <code>instance</code>
+parameter can be bound to either a component instance or a topology,
+as long as the constraints of the parameter are satisfied.</p>
+</div>
+<div class="paragraph">
+<p>For now, we note that the concept of a port interface instance exists.
+We also note that imported topologies are port interface instances.
+For this reason, you can use the keyword <code>instance</code> to import a topology.
+For example, instead of writing <code>import A</code> to import topology <code>A</code>,
+you can write <code>instance A</code>.
+Here is one of the  FPP models from
+<a href="#Defining-Topologies_Topology-Ports_Specifying-Topology-Ports">the section on
+specifying topology ports</a>,
+written using <code>instance</code> instead of <code>import</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology B {
+
+  instance b
+
+  port p = b.p
+
+}
+
+topology A {
+
+  instance a
+
+  instance B
+
+  connections C {
+    a.p -&gt; B.p
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice how this syntax emphasizes that both the component instance <code>a</code>
+and the imported topology <code>B</code> provide port interfaces
+that can participate in connections, as in the connection shown.</p>
+</div>
+<div class="paragraph">
+<p>The concept of a port interface instance is new as of v3.2.0 of FPP.
+In previous versions, the only way to import a topology was to
+use the <code>import</code> keyword, as discussed in the previous sections.
+For backwards compatibility, we do not require you to use <code>instance</code>
+when importing a topology; you may still use <code>import</code>.
+However, it may be useful to use <code>instance</code> in cases where you specify
+connections to and from the ports of an imported topology <code>T</code>, without
+specifying any connections directly to or from the instances
+of <code>T</code>.
+In this case, you may wish to think of <code>T</code> as a pure port interface,
+with the details of its implementation (its component instances,
+imported subtopologies, and connections) abstracted away.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Topologies_Include-Specifiers">14.5. Include Specifiers</h3>
+<h3 id="Defining-Topologies_Include-Specifiers">14.6. Include Specifiers</h3>
 <div class="paragraph">
 <p>You can include code from another file in a topology definition.
 You do this by writing an <strong>include specifier</strong>.
@@ -12324,7 +12632,7 @@ below.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Topologies_Telemetry-Packets">14.6. Telemetry Packets</h3>
+<h3 id="Defining-Topologies_Telemetry-Packets">14.7. Telemetry Packets</h3>
 <div class="paragraph">
 <p>When defining a topology, you may (but are not required to)
 specify how the <a href="#Defining-Components_Telemetry">telemetry channels</a>
@@ -12337,7 +12645,7 @@ individual channels.
 In this section we explain how to specify telemetry packets in FPP.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Sets">14.6.1. Telemetry Packet Sets</h4>
+<h4 id="Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Sets">14.7.1. Telemetry Packet Sets</h4>
 <div class="paragraph">
 <p>To group the channels of a topology <em>T</em> into packets, you write a
 <strong>telemetry packet set</strong> as part of the definition of <em>T</em>.
@@ -12492,7 +12800,7 @@ channel <code>M.c1.T</code> instead of channel <code>c1.T</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Identifiers">14.6.2. Telemetry Packet Identifiers</h4>
+<h4 id="Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Identifiers">14.7.2. Telemetry Packet Identifiers</h4>
 <div class="paragraph">
 <p>Within a telemetry packet set, every packet has a unique numeric identifier.
 Typically the identifiers start at zero and count up by one.
@@ -12528,7 +12836,7 @@ packet P2 id 1 group 1 {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Telemetry-Packets_Omitting-Channels">14.6.3. Omitting Channels</h4>
+<h4 id="Defining-Topologies_Telemetry-Packets_Omitting-Channels">14.7.3. Omitting Channels</h4>
 <div class="paragraph">
 <p>By default, every telemetry channel in the topology must appear
 in at least one telemetry packet.
@@ -12593,7 +12901,7 @@ packet and also to appear in the omitted list.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Telemetry-Packets_Specifying-Multiple-Telemetry-Packet-Sets">14.6.4. Specifying Multiple Telemetry Packet Sets</h4>
+<h4 id="Defining-Topologies_Telemetry-Packets_Specifying-Multiple-Telemetry-Packet-Sets">14.7.4. Specifying Multiple Telemetry Packet Sets</h4>
 <div class="paragraph">
 <p>You may specify more than one telemetry packet set in a topology.
 Each telemetry packet set must have a distinct name.
@@ -12652,7 +12960,7 @@ telemetry packet set to use to decode the packets.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Telemetry-Packets_Include-Specifiers">14.6.5. Include Specifiers</h4>
+<h4 id="Defining-Topologies_Telemetry-Packets_Include-Specifiers">14.7.5. Include Specifiers</h4>
 <div class="paragraph">
 <p>When writing a telemetry packet set, you can
 <a href="#Defining-Topologies_Include-Specifiers">include code
@@ -16773,7 +17081,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-22 14:09:48 -0700
+Last updated 2026-03-22 17:06:30 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
