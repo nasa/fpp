@@ -1926,13 +1926,8 @@
         "instanceMap" : [
           [
             {
-              "InterfaceComponentInstance" : {
-                "qualifiedName" : {
-                  "qualifier" : [
-                  ],
-                  "base" : "i"
-                },
-                "unqualifiedName" : "i"
+              "ComponentInstance" : {
+                "astNodeId" : 92
               }
             },
             {
@@ -1976,13 +1971,8 @@
         "unconnectedPortSet" : [
           {
             "interfaceInstance" : {
-              "InterfaceComponentInstance" : {
-                "qualifiedName" : {
-                  "qualifier" : [
-                  ],
-                  "base" : "i"
-                },
-                "unqualifiedName" : "i"
+              "ComponentInstance" : {
+                "astNodeId" : 92
               }
             },
             "portInstance" : {

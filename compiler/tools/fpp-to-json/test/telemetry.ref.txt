@@ -1993,13 +1993,8 @@
         "instanceMap" : [
           [
             {
-              "InterfaceComponentInstance" : {
-                "qualifiedName" : {
-                  "qualifier" : [
-                  ],
-                  "base" : "i"
-                },
-                "unqualifiedName" : "i"
+              "ComponentInstance" : {
+                "astNodeId" : 67
               }
             },
             {
@@ -2043,13 +2038,8 @@
         "unconnectedPortSet" : [
           {
             "interfaceInstance" : {
-              "InterfaceComponentInstance" : {
-                "qualifiedName" : {
-                  "qualifier" : [
-                  ],
-                  "base" : "i"
-                },
-                "unqualifiedName" : "i"
+              "ComponentInstance" : {
+                "astNodeId" : 67
               }
             },
             "portInstance" : {
@@ -2083,13 +2073,8 @@
           },
           {
             "interfaceInstance" : {
-              "InterfaceComponentInstance" : {
-                "qualifiedName" : {
-                  "qualifier" : [
-                  ],
-                  "base" : "i"
-                },
-                "unqualifiedName" : "i"
+              "ComponentInstance" : {
+                "astNodeId" : 67
               }
             },
             "portInstance" : {
