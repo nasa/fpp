@@ -1299,7 +1299,7 @@ This code is correct because topology `T` provides the port `p` of interface `I`
 via the line `port p = a.p`.
 An error would result in each of the following cases:
 
-* We delete line `port p = a.p` is deleted from the model.
+* We delete line `port p = a.p` from the model.
   In this case, the `implements` clause is violated, because
   topology `T` provides no port `p`.
 
