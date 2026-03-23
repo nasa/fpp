@@ -1134,6 +1134,8 @@ topology B {
 
 Here the FPP analyzer checks that `b.p` is a port of instance `b`;
 if not, an error will occur.
+It is also an error to provide specify multiple ports with
+the same name in the same topology.
 
 Now in topology `A`, we can write a connection to port `B.p` instead
 of directly to component instance `b.p`, like this:
@@ -1299,7 +1301,7 @@ This code is correct because topology `T` provides the port `p` of interface `I`
 via the line `port p = a.p`.
 An error would result in each of the following cases:
 
-* We delete line `port p = a.p` from the model.
+* We delete `port p = a.p` from the model.
   In this case, the `implements` clause is violated, because
   topology `T` provides no port `p`.
 
@@ -1364,6 +1366,13 @@ Because of the implements clause, this can't happen.
 Instead an error will occur,
 alerting the developer to the fact that an interface contract is
 being changed.
+
+Finally, an implements clause does not require that a topology implement
+_only_ what is in the clause.
+For example, in the code shown above, we could add any number
+of ports to `T` that are not specified in the interfaces `I` and `J`.
+The only requirement is that all the ports specified in `I` and `J`
+are present in the interface.
 
 ==== Port Interface Instances
 

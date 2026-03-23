@@ -12257,7 +12257,9 @@ and a port of a component instance, like this:</p>
 </div>
 <div class="paragraph">
 <p>Here the FPP analyzer checks that <code>b.p</code> is a port of instance <code>b</code>;
-if not, an error will occur.</p>
+if not, an error will occur.
+It is also an error to provide specify multiple ports with
+the same name in the same topology.</p>
 </div>
 <div class="paragraph">
 <p>Now in topology <code>A</code>, we can write a connection to port <code>B.p</code> instead
@@ -12434,7 +12436,7 @@ An error would result in each of the following cases:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>We delete line <code>port p = a.p</code> from the model.
+<p>We delete <code>port p = a.p</code> from the model.
 In this case, the <code>implements</code> clause is violated, because
 topology <code>T</code> provides no port <code>p</code>.</p>
 </li>
@@ -12505,6 +12507,14 @@ Because of the implements clause, this can&#8217;t happen.
 Instead an error will occur,
 alerting the developer to the fact that an interface contract is
 being changed.</p>
+</div>
+<div class="paragraph">
+<p>Finally, an implements clause does not require that a topology implement
+<em>only</em> what is in the clause.
+For example, in the code shown above, we could add any number
+of ports to <code>T</code> that are not specified in the interfaces <code>I</code> and <code>J</code>.
+The only requirement is that all the ports specified in <code>I</code> and <code>J</code>
+are present in the interface.</p>
 </div>
 </div>
 <div class="sect3">
@@ -17091,7 +17101,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-22 17:38:58 -0700
+Last updated 2026-03-22 18:17:56 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
