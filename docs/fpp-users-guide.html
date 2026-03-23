@@ -12258,7 +12258,7 @@ and a port of a component instance, like this:</p>
 <div class="paragraph">
 <p>Here the FPP analyzer checks that <code>b.p</code> is a port of instance <code>b</code>;
 if not, an error will occur.
-It is also an error to provide specify multiple ports with
+It is also an error to specify multiple ports with
 the same name in the same topology.</p>
 </div>
 <div class="paragraph">
@@ -12284,10 +12284,8 @@ of directly to component instance <code>b.p</code>, like this:</p>
 <p>As usual, the FPP analyzer checks that <code>a.p</code> is an output port,
 that <code>B.p</code> is a input port, and that the types of the ports
 are compatible.
-Here <code>B.p</code> has the type of <code>b.p</code>, the actual port to which the topology port
-<code>B.p</code> is mapped,
-and <code>B.p</code> is an input port if and only if <code>b.p</code>
-is an input port.
+Here <code>B.p</code> has the direction and type of <code>b.p</code>, the actual port to which the
+topology port <code>B.p</code> is mapped.
 If these requirements aren&#8217;t met, then an error occurs.</p>
 </div>
 <div class="paragraph">
@@ -17101,7 +17099,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-22 18:17:56 -0700
+Last updated 2026-03-22 18:34:50 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

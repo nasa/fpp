@@ -1134,7 +1134,7 @@ topology B {
 
 Here the FPP analyzer checks that `b.p` is a port of instance `b`;
 if not, an error will occur.
-It is also an error to provide specify multiple ports with
+It is also an error to specify multiple ports with
 the same name in the same topology.
 
 Now in topology `A`, we can write a connection to port `B.p` instead
@@ -1158,10 +1158,8 @@ topology A {
 As usual, the FPP analyzer checks that `a.p` is an output port,
 that `B.p` is a input port, and that the types of the ports
 are compatible.
-Here `B.p` has the type of `b.p`, the actual port to which the topology port 
-`B.p` is mapped,
-and `B.p` is an input port if and only if `b.p`
-is an input port.
+Here `B.p` has the direction and type of `b.p`, the actual port to which the 
+topology port `B.p` is mapped.
 If these requirements aren't met, then an error occurs.
 
 After import resolution, the result is the same as before:
