@@ -12496,12 +12496,13 @@ containing an implements clause will also be correct if
 that clause is deleted.
 However, implements clauses are useful for documenting and checking intended
 behavior.
-For example, if the intent of topology <code>T</code> in the previous example
-is to provide interfaces <code>I</code> and <code>J</code>,
-interface, and there is no <code>implements</code> clause documenting the intent,
+For example, suppose the intent of topology <code>T</code> in the previous example
+is to provide interfaces <code>I</code> and <code>J</code>.
+If there were no <code>implements</code> clause,
 then a developer could inadvertently change the contract of <code>T</code> by removing or
 modifying ports <code>p</code> or <code>q</code> of <code>T</code>.
-Because of the implements clause, an error will occur,
+Because of the implements clause, this can&#8217;t happen.
+Instead an error will occur,
 alerting the developer to the fact that an interface contract is
 being changed.</p>
 </div>
@@ -17090,7 +17091,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-22 17:31:35 -0700
+Last updated 2026-03-22 17:38:58 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -1355,12 +1355,13 @@ containing an implements clause will also be correct if
 that clause is deleted.
 However, implements clauses are useful for documenting and checking intended 
 behavior.
-For example, if the intent of topology `T` in the previous example
-is to provide interfaces `I` and `J`,
-interface, and there is no `implements` clause documenting the intent,
+For example, suppose the intent of topology `T` in the previous example
+is to provide interfaces `I` and `J`.
+If there were no `implements` clause,
 then a developer could inadvertently change the contract of `T` by removing or
 modifying ports `p` or `q` of `T`.
-Because of the implements clause, an error will occur,
+Because of the implements clause, this can't happen.
+Instead an error will occur,
 alerting the developer to the fact that an interface contract is
 being changed.
 
