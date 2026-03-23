@@ -1043,10 +1043,11 @@ This method of importing topologies erases or flattens the structure implied
 by the separate topologies `A` and `B`.
 In particular, when `B` is imported into `A`,
 
-* All the component instances named in `B` are visible in `A`.
+* All component instances that are part of `B` (directly or by import) are visible in `A`.
 
 * Connections that span `A` and `B` go directly between
-  component instances named in `A` and component instances named in `B`.
+  component instances that are part of `A` and component instances that are 
+  part of `B`.
 
 This approach is simple and flexible.
 It also aligns well with the {cpp} implementation, which is flattened in this 
@@ -1061,11 +1062,11 @@ With topology ports, the code generator still flattens the
 hierarchy of imported topologies into a single topology, as
 described in the previous section.
 However, before this flattening occurs, you can specify
-connections _to and from topologies_.
+connections _to and from subtopologies_.
 For example, you can specify a connection from a component instance
 `a` of `A` to a _port_ of topology `B`, and this connection is automatically
 flattened to a connection between `a` and a component instance `b` of `B`.
-In this way, you can think of imported subtopologies as
+In this way, you can think of imported topologies as
 units of function that have their own interfaces and connections.
 
 ==== Specifying Topology Ports
@@ -1155,8 +1156,9 @@ topology A {
 As usual, the FPP analyzer checks that `a.p` is an output port,
 that `B.p` is a input port, and that the types of the ports
 are compatible.
-Here `B.p` is an input port if and only if
-`b.p` the actual port to which the topology port `B.p` is mapped,
+Here `B.p` has the type of `b.p`, the actual port to which the topology port 
+`B.p` is mapped,
+and `B.p` is an input port if and only if `b.p`
 is an input port.
 If these requirements aren't met, then an error occurs.
 
@@ -1165,7 +1167,7 @@ After import resolution, the result is the same as before:
 from `a.p` to `b.p`.
 However, the source model respects the hierarchical structure
 of `A` and `B`:
-the connection goes from an instance of `A` to the interface
+the connection goes to the interface
 of `B`, instead of going directly to an instance of `B`.
 
 *Connections from subtopologies:*
@@ -1258,14 +1260,14 @@ We do that by
 importing>> _I_ into the definition of _C_.
 In the case of a topology _T_, we can't import an interface _I_ in this way,
 because we have to specify a mapping for each of the ports
-in the interface of _T_ to a port of a component instance of an imported 
+in the interface of _T_ to a port of a component instance or an imported 
 topology of _T_.
-However, we can use one or more interfaces to specify and 
-check that the interface of _T_ contains all the ports that it should.
+However, we can use one or more port interface definitions to specify and check 
+that the actual interface of _T_ provides all the ports that it should.
 To do this, we write the keyword `implements` followed by list of names
-that refer to interfaces.
+that refer to port interface definitions.
 The FPP analyzer will then check that the topology provides
-all the ports required by each of the interfaces.
+all the ports required by each of the interfaces in the definitions.
 
 Here is an example:
 
@@ -1305,7 +1307,7 @@ An error would result in each of the following cases:
   In this case, topology `T` does provide a port `p`, but the port does 
   not conform to the interface `I`.
 
-Try these examples in `fpp-check`, to make sure you understand what is 
+Try these examples in `fpp-check`, and make sure you understand what is 
 happening in each case.
 
 You can also write more than one interface name in an `implements` clause.
@@ -1336,7 +1338,7 @@ passive component C {
 
 instance a: C base id 0x100
 
-@ Topology T provides the ports of interfaces I and J
+@ Specify and check that topology T provides the ports of interfaces I and J
 topology T implements I, J {
 
   instance a
@@ -1349,14 +1351,16 @@ topology T implements I, J {
 ----
 
 Implements clauses are not strictly required: any correct model
-containing implements clauses will also be a correct model if
-they are deleted.
-However, they are useful for documenting and checking intended behavior.
-For example, if the intent of a topology _T_ is to provide a certain
+containing an implements clause will also be correct if
+that clause is deleted.
+However, implements clauses are useful for documenting and checking intended 
+behavior.
+For example, if the intent of topology `T` in the previous example
+is to provide interfaces `I` and `J`,
 interface, and there is no `implements` clause documenting the intent,
-then a developer could inadvertently change the contract of _T_ by removing or
-modifying a port in its interface.
-If _T_ has an implements clause, then the change will cause an error,
+then a developer could inadvertently change the contract of `T` by removing or
+modifying ports `p` or `q` of `T`.
+Because of the implements clause, an error will occur,
 alerting the developer to the fact that an interface contract is
 being changed.
 
@@ -1383,8 +1387,8 @@ in a future version of FPP, where we will introduce the following
 features:
 
 * *Module templates* that you can expand several times to generate
-different sections of of FPP code (for example, topologies) that are largely 
-the same, but that differ in particular ways that you specify.
+different sections of of FPP code (for example, different topologies) that are 
+largely the same, but that differ in particular ways that you specify.
 
 * *Template parameters* that let you bind concrete values to parameters
 when instantiating templates.
@@ -1418,6 +1422,9 @@ topology A {
 
   instance a
 
+  # Here we write instance B to import topology B into A
+  # Previously we wrote import B
+  # Both are valid syntax as of FPP v3.2.0
   instance B
 
   connections C {
@@ -1429,10 +1436,12 @@ topology A {
 
 Notice how this syntax emphasizes that both the component instance `a`
 and the imported topology `B` provide port interfaces
-that can participate in connections, as in the connection shown.
+that can participate in connections.
 
 The concept of a port interface instance is new as of v3.2.0 of FPP.
-In previous versions, the only way to import a topology was to
+In previous versions, there were no topology ports, so topologies
+were not port interface instances.
+Further, the only way to import a topology was to
 use the `import` keyword, as discussed in the previous sections.
 For backwards compatibility, we do not require you to use `instance`
 when importing a topology; you may still use `import`.

@@ -12157,11 +12157,12 @@ In particular, when <code>B</code> is imported into <code>A</code>,</p>
 <div class="ulist">
 <ul>
 <li>
-<p>All the component instances named in <code>B</code> are visible in <code>A</code>.</p>
+<p>All component instances that are part of <code>B</code> (directly or by import) are visible in <code>A</code>.</p>
 </li>
 <li>
 <p>Connections that span <code>A</code> and <code>B</code> go directly between
-component instances named in <code>A</code> and component instances named in <code>B</code>.</p>
+component instances that are part of <code>A</code> and component instances that are
+part of <code>B</code>.</p>
 </li>
 </ul>
 </div>
@@ -12180,11 +12181,11 @@ which we explain in this section.</p>
 hierarchy of imported topologies into a single topology, as
 described in the previous section.
 However, before this flattening occurs, you can specify
-connections <em>to and from topologies</em>.
+connections <em>to and from subtopologies</em>.
 For example, you can specify a connection from a component instance
 <code>a</code> of <code>A</code> to a <em>port</em> of topology <code>B</code>, and this connection is automatically
 flattened to a connection between <code>a</code> and a component instance <code>b</code> of <code>B</code>.
-In this way, you can think of imported subtopologies as
+In this way, you can think of imported topologies as
 units of function that have their own interfaces and connections.</p>
 </div>
 <div class="sect3">
@@ -12281,8 +12282,9 @@ of directly to component instance <code>b.p</code>, like this:</p>
 <p>As usual, the FPP analyzer checks that <code>a.p</code> is an output port,
 that <code>B.p</code> is a input port, and that the types of the ports
 are compatible.
-Here <code>B.p</code> is an input port if and only if
-<code>b.p</code> the actual port to which the topology port <code>B.p</code> is mapped,
+Here <code>B.p</code> has the type of <code>b.p</code>, the actual port to which the topology port
+<code>B.p</code> is mapped,
+and <code>B.p</code> is an input port if and only if <code>b.p</code>
 is an input port.
 If these requirements aren&#8217;t met, then an error occurs.</p>
 </div>
@@ -12292,7 +12294,7 @@ If these requirements aren&#8217;t met, then an error occurs.</p>
 from <code>a.p</code> to <code>b.p</code>.
 However, the source model respects the hierarchical structure
 of <code>A</code> and <code>B</code>:
-the connection goes from an instance of <code>A</code> to the interface
+the connection goes to the interface
 of <code>B</code>, instead of going directly to an instance of <code>B</code>.</p>
 </div>
 <div class="paragraph">
@@ -12388,14 +12390,14 @@ We do that by
 <a href="#Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Component-Definitions">importing</a> <em>I</em> into the definition of <em>C</em>.
 In the case of a topology <em>T</em>, we can&#8217;t import an interface <em>I</em> in this way,
 because we have to specify a mapping for each of the ports
-in the interface of <em>T</em> to a port of a component instance of an imported
+in the interface of <em>T</em> to a port of a component instance or an imported
 topology of <em>T</em>.
-However, we can use one or more interfaces to specify and
-check that the interface of <em>T</em> contains all the ports that it should.
+However, we can use one or more port interface definitions to specify and check
+that the actual interface of <em>T</em> provides all the ports that it should.
 To do this, we write the keyword <code>implements</code> followed by list of names
-that refer to interfaces.
+that refer to port interface definitions.
 The FPP analyzer will then check that the topology provides
-all the ports required by each of the interfaces.</p>
+all the ports required by each of the interfaces in the definitions.</p>
 </div>
 <div class="paragraph">
 <p>Here is an example:</p>
@@ -12444,7 +12446,7 @@ not conform to the interface <code>I</code>.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Try these examples in <code>fpp-check</code>, to make sure you understand what is
+<p>Try these examples in <code>fpp-check</code>, and make sure you understand what is
 happening in each case.</p>
 </div>
 <div class="paragraph">
@@ -12476,7 +12478,7 @@ passive component C {
 
 instance a: C base id 0x100
 
-@ Topology T provides the ports of interfaces I and J
+@ Specify and check that topology T provides the ports of interfaces I and J
 topology T implements I, J {
 
   instance a
@@ -12490,14 +12492,16 @@ topology T implements I, J {
 </div>
 <div class="paragraph">
 <p>Implements clauses are not strictly required: any correct model
-containing implements clauses will also be a correct model if
-they are deleted.
-However, they are useful for documenting and checking intended behavior.
-For example, if the intent of a topology <em>T</em> is to provide a certain
+containing an implements clause will also be correct if
+that clause is deleted.
+However, implements clauses are useful for documenting and checking intended
+behavior.
+For example, if the intent of topology <code>T</code> in the previous example
+is to provide interfaces <code>I</code> and <code>J</code>,
 interface, and there is no <code>implements</code> clause documenting the intent,
-then a developer could inadvertently change the contract of <em>T</em> by removing or
-modifying a port in its interface.
-If <em>T</em> has an implements clause, then the change will cause an error,
+then a developer could inadvertently change the contract of <code>T</code> by removing or
+modifying ports <code>p</code> or <code>q</code> of <code>T</code>.
+Because of the implements clause, an error will occur,
 alerting the developer to the fact that an interface contract is
 being changed.</p>
 </div>
@@ -12537,8 +12541,8 @@ features:</p>
 <ul>
 <li>
 <p><strong>Module templates</strong> that you can expand several times to generate
-different sections of of FPP code (for example, topologies) that are largely
-the same, but that differ in particular ways that you specify.</p>
+different sections of of FPP code (for example, different topologies) that are
+largely the same, but that differ in particular ways that you specify.</p>
 </li>
 <li>
 <p><strong>Template parameters</strong> that let you bind concrete values to parameters
@@ -12577,6 +12581,9 @@ topology A {
 
   instance a
 
+  # Here we write instance B to import topology B into A
+  # Previously we wrote import B
+  # Both are valid syntax as of FPP v3.2.0
   instance B
 
   connections C {
@@ -12589,11 +12596,13 @@ topology A {
 <div class="paragraph">
 <p>Notice how this syntax emphasizes that both the component instance <code>a</code>
 and the imported topology <code>B</code> provide port interfaces
-that can participate in connections, as in the connection shown.</p>
+that can participate in connections.</p>
 </div>
 <div class="paragraph">
 <p>The concept of a port interface instance is new as of v3.2.0 of FPP.
-In previous versions, the only way to import a topology was to
+In previous versions, there were no topology ports, so topologies
+were not port interface instances.
+Further, the only way to import a topology was to
 use the <code>import</code> keyword, as discussed in the previous sections.
 For backwards compatibility, we do not require you to use <code>instance</code>
 when importing a topology; you may still use <code>import</code>.
@@ -17081,7 +17090,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-22 17:06:30 -0700
+Last updated 2026-03-22 17:29:35 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
