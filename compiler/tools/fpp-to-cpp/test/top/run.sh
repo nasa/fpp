@@ -89,6 +89,16 @@ serial_ports_passive()
   return $status
 }
 
+serial_ports_queued()
+{
+  cd $TOP_DIR/serial_ports_queued
+  run_test "-p $PWD,$FPRIME_DIR components.fpp -i $FPRIME_DEPS" topology && \
+    diff_cpp SerialPortsQueuedTopology
+  status=$?
+  cd $TOP_DIR
+  return $status
+}
+
 tlm()
 {
   cd $TOP_DIR/tlm
