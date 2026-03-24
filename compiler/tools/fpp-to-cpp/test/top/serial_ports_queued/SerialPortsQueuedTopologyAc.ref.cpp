@@ -280,20 +280,28 @@ namespace SerialPortsQueued {
             FW_ASSERT(0);
             break;
           case 4:
-            // TODO: Serial to serial connection
-            FW_ASSERT(0);
+            SerialPortsQueued::receiver.pSerialSync_handlerBase(
+              2,
+              buffer
+            );
             break;
           case 5:
-            // TODO: Serial to serial connection
-            FW_ASSERT(0);
+            SerialPortsQueued::receiver.pSerialSync_handlerBase(
+              3,
+              buffer
+            );
             break;
           case 6:
-            // TODO: Serial to serial connection
-            FW_ASSERT(0);
+            SerialPortsQueued::receiver.pSerialAsync_handlerBase(
+              2,
+              buffer
+            );
             break;
           case 7:
-            // TODO: Serial to serial connection
-            FW_ASSERT(0);
+            SerialPortsQueued::receiver.pSerialAsync_handlerBase(
+              3,
+              buffer
+            );
             break;
           default:
             FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
