@@ -11,6 +11,8 @@ case class PortCppWriter (
 
   private val node = aNode._2
 
+  private val annotation = AnnotationCppWriter.asString(aNode)
+
   private val data = node.data
 
   private val symbol = Symbol.Port(aNode)
@@ -54,8 +56,14 @@ case class PortCppWriter (
     (n, typeCppWriter.write(t), k)
   })
 
+  // Param names in a comma-separated list
+  val paramNames = paramList.map(_._1).mkString(", ")
+
   // Param names appended to a comma-separated list
-  val appendedParamNames = paramList.map((n, _, _) => s", $n").mkString
+  val appendedParamNames = paramNames match {
+    case "" => ""
+    case _ => s", $paramNames"
+  }
 
   // Port params as CppDoc Function Params
   private val functionParams: List[CppDoc.Function.Param] =
@@ -86,7 +94,6 @@ case class PortCppWriter (
   private def getMembers: List[CppDoc.Member] = {
     val hppIncludes = getHppIncludes
     val cppIncludes = getCppIncludes
-    val annotation = AnnotationCppWriter.asString(aNode)
     val portBufferClass = data.returnType match {
       case Some(_) => Nil
       case None => List(
@@ -99,13 +106,8 @@ case class PortCppWriter (
     val classes = List.concat(
       portBufferClass,
       List(
-        InputPortClass.get(annotation),
-        classMember(
-          Some(s"Output $name port\n$annotation"),
-          PortCppWriter.outputPortName(name),
-          Some("public Fw::OutputPortBase"),
-          getOutputPortClassMembers
-        ),
+        InputPortClass.get,
+        OutputPortClass.get
       )
     )
     List.concat(
@@ -226,7 +228,7 @@ case class PortCppWriter (
   /** Object for writing the input port class */
   private object InputPortClass {
 
-    def get(annotation: String) = classMember(
+    def get = classMember(
       Some(s"Input $name port\n$annotation"),
       PortCppWriter.inputPortName(name),
       Some("public Fw::InputPortBase"),
@@ -338,7 +340,7 @@ case class PortCppWriter (
         lines("Fw::InputPortBase::init();")
       )
 
-    private def getInvokeFunction = {
+    private def getInvokeFunction =
       functionClassMember(
         Some("Invoke a port interface"),
         "invoke",
@@ -356,7 +358,6 @@ case class PortCppWriter (
               |"""
         )
       )
-    }
 
     private def getInvokeSerialFunction =
       functionClassMember(
@@ -462,78 +463,38 @@ case class PortCppWriter (
 
   }
 
-  private def getOutputPortClassMembers: List[CppDoc.Class.Member] =
-    List.concat(
-      getOutputPortFunctionMembers,
-      getOutputPortVariableMembers
+
+  /** Object for writing the output port class */
+  private object OutputPortClass {
+
+    def get = classMember(
+      Some(s"Output $name port\n$annotation"),
+      PortCppWriter.outputPortName(name),
+      Some("public Fw::OutputPortBase"),
+      List.concat(
+        getFunctionMembers,
+        getVariableMembers
+      )
     )
 
-  private def getOutputPortFunctionMembers: List[CppDoc.Class.Member] = {
-    val invokeCall = s"this->m_port->invoke(${paramList.map(_._1).mkString(", ")});"
-    val invokeBody = data.returnType match {
-      case Some(_) => lines(
-        s"""|
-            |FW_ASSERT(this->m_port != nullptr);
-            |return $invokeCall
-            |"""
-      )
-      case None => List.concat(
-        lines(
-          s"""|
-              |#if FW_PORT_SERIALIZATION
-              |FW_ASSERT((this->m_port != nullptr) || (this->m_serPort != nullptr));
-              |
-              |if (this->m_port != nullptr) {
-              |  $invokeCall
-              |}
-              |else {
-              |  Fw::SerializeStatus _status;
-              |  ${name}PortBuffer _buffer;
-              |"""
-        ),
-        paramList.flatMap((n, _, _) => {
-          lines(
-            s"""|
-                |  _status = _buffer.serializeFrom($n);
-                |  FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-                |"""
-          )
-        }),
-        lines(
-          s"""|
-              |  _status = this->m_serPort->invokeSerial(_buffer);
-              |  FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-              |}
-              |#else
-              |FW_ASSERT(this->m_port != nullptr);
-              |$invokeCall
-              |#endif
-              |"""
-        )
-      )
-    }
-
-    List(
-      linesClassMember(
-        CppDocHppWriter.writeAccessTag("public")
-      ),
-      linesClassMember(
-        CppDocWriter.writeBannerComment("Output Port Member functions"),
-        CppDoc.Lines.Both
-      ),
+    private def getConstructor =
       constructorClassMember(
         Some("Constructor"),
         Nil,
         List("Fw::OutputPortBase()", "m_port(nullptr)"),
         Nil
-      ),
+      )
+
+    private def getInitFunction =
       functionClassMember(
         Some("Initialization function"),
         "init",
         Nil,
         CppDoc.Type("void"),
         lines("Fw::OutputPortBase::init();")
-      ),
+      )
+
+    private def getAddCallPortFunction =
       functionClassMember(
         Some("Register an input port"),
         "addCallPort",
@@ -556,7 +517,69 @@ case class PortCppWriter (
              |#endif
              |"""
         )
-      ),
+      )
+
+    private def getFunctionMembers: List[CppDoc.Class.Member] = {
+      List(
+        linesClassMember(
+          CppDocHppWriter.writeAccessTag("public")
+        ),
+        linesClassMember(
+          CppDocWriter.writeBannerComment("Output Port Member functions"),
+          CppDoc.Lines.Both
+        ),
+        getConstructor,
+        getInitFunction,
+        getAddCallPortFunction,
+        getInvokeFunction
+      )
+    }
+
+    private def writeInvokeBodyNonVoid =
+      lines(
+        s"""|
+            |FW_ASSERT(this->m_port != nullptr);
+            |return this->m_port->invoke($paramNames);
+            |"""
+      )
+
+    private def writeInvokeBodyVoid =
+      List.concat(
+        lines(
+          s"""|
+              |#if FW_PORT_SERIALIZATION
+              |FW_ASSERT((this->m_port != nullptr) || (this->m_serPort != nullptr));
+              |
+              |if (this->m_port != nullptr) {
+              |  this->m_port->invoke($paramNames);
+              |}
+              |else {
+              |  Fw::SerializeStatus _status;
+              |  ${name}PortBuffer _buffer;
+              |"""
+        ),
+        paramList.flatMap((n, _, _) => {
+          lines(
+            s"""|
+                |  _status = _buffer.serializeFrom($n);
+                |  FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+                |"""
+          )
+        }),
+        lines(
+          s"""|
+              |  _status = this->m_serPort->invokeSerial(_buffer);
+              |  FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+              |}
+              |#else
+              |FW_ASSERT(this->m_port != nullptr);
+              |this->m_port->invoke($paramNames);
+              |#endif
+              |"""
+        )
+      )
+
+    private def getInvokeFunction =
       functionClassMember(
         Some("Invoke a port interface"),
         "invoke",
@@ -569,25 +592,31 @@ case class PortCppWriter (
                 |#endif
                 |"""
           ),
-          invokeBody
+          data.returnType match {
+            case Some(_) => writeInvokeBodyNonVoid
+            case None => writeInvokeBodyVoid
+          }
         ),
         CppDoc.Function.NonSV,
         CppDoc.Function.Const
       )
-    )
-  }
 
-  private def getOutputPortVariableMembers: List[CppDoc.Class.Member] = {
-    List(
-      linesClassMember(
-        List.concat(
-          CppDocHppWriter.writeAccessTag("private"),
-          CppDocWriter.writeBannerComment("Member variables"),
-          Line.blank :: lines("//! The pointer to the input port"),
-          lines(s"${PortCppWriter.inputPortName(name)}* m_port;")
-        )
+    private def getVariableMembers: List[CppDoc.Class.Member] =
+      addAccessTagAndComment(
+        "private",
+        "Member variables",
+        List(
+          linesClassMember(
+            lines(
+              s"""|
+                  |//! The pointer to the input port
+                  |${PortCppWriter.inputPortName(name)}* m_port;"""
+            )
+          )
+        ),
+        CppDoc.Lines.Hpp
       )
-    )
+
   }
 
 }
