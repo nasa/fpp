@@ -293,6 +293,51 @@ case class PortCppWriter (
       )
     )
 
+    private def getConstructor = 
+      constructorClassMember(
+        Some("Constructor"),
+        Nil,
+        List("Fw::InputPortBase()", "m_func(nullptr)"),
+        Nil
+      )
+
+    def getInitFunction =
+      functionClassMember(
+        Some("Initialization function"),
+        "init",
+        Nil,
+        CppDoc.Type("void"),
+        lines("Fw::InputPortBase::init();")
+      )
+
+    private def getAddCallCompFunction =
+      functionClassMember(
+        Some("Register a component"),
+        "addCallComp",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::PassiveComponentBase*"),
+            "callComp",
+            Some("The containing component")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("CompFuncPtr"),
+            "funcPtr",
+            Some("The port callback function")
+          )
+        ),
+        CppDoc.Type("void"),
+        lines(
+          """|FW_ASSERT(callComp != nullptr);
+             |FW_ASSERT(funcPtr != nullptr);
+             |
+             |this->m_comp = callComp;
+             |this->m_func = funcPtr;
+             |this->m_connObj = callComp;
+             |"""
+        )
+      )
+
     private def getFunctionMembers: List[CppDoc.Class.Member] = {
       val paramNames = paramList.map((n, _, _) => s", $n").mkString("")
       List(
@@ -303,45 +348,9 @@ case class PortCppWriter (
           CppDocWriter.writeBannerComment("Input Port Member functions"),
           CppDoc.Lines.Both
         ),
-        constructorClassMember(
-          Some("Constructor"),
-          Nil,
-          List("Fw::InputPortBase()", "m_func(nullptr)"),
-          Nil
-        ),
-        functionClassMember(
-          Some("Initialization function"),
-          "init",
-          Nil,
-          CppDoc.Type("void"),
-          lines("Fw::InputPortBase::init();")
-        ),
-        functionClassMember(
-          Some("Register a component"),
-          "addCallComp",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::PassiveComponentBase*"),
-              "callComp",
-              Some("The containing component")
-            ),
-            CppDoc.Function.Param(
-              CppDoc.Type("CompFuncPtr"),
-              "funcPtr",
-              Some("The port callback function")
-            )
-          ),
-          CppDoc.Type("void"),
-          lines(
-            """|FW_ASSERT(callComp != nullptr);
-               |FW_ASSERT(funcPtr != nullptr);
-               |
-               |this->m_comp = callComp;
-               |this->m_func = funcPtr;
-               |this->m_connObj = callComp;
-               |"""
-          )
-        ),
+        getConstructor,
+        getInitFunction,
+        getAddCallCompFunction,
         functionClassMember(
           Some("Invoke a port interface"),
           "invoke",
