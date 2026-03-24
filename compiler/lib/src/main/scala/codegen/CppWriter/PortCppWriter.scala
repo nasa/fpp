@@ -91,27 +91,28 @@ case class PortCppWriter (
     )
   }
 
-  private def getMembers: List[CppDoc.Member] = {
-    val hppIncludes = getHppIncludes
-    val cppIncludes = getCppIncludes
-    val portBufferClass = data.returnType match {
-      case Some(_) => Nil
-      case None => List(
-        linesMember(
-          Line.blank :: wrapInAnonymousNamespace(getPortBufferClass),
-          CppDoc.Lines.Cpp
+  private def getClasses =
+    List.concat(
+      guardedList (!data.returnType.isDefined) (
+        List(
+          linesMember(
+            Line.blank :: wrapInAnonymousNamespace(getPortBufferClass),
+            CppDoc.Lines.Cpp
+          ),
         )
-      )
-    }
-    val classes = List.concat(
-      portBufferClass,
+      ),
       List(
         InputPortClass.get,
         OutputPortClass.get
       )
     )
+
+  private def getMembers: List[CppDoc.Member] =
     List.concat(
-      List(hppIncludes, cppIncludes),
+      List(
+        getHppIncludes,
+        getCppIncludes
+      ),
       wrapMembersInIfDirective(
         "#if !FW_DIRECT_PORT_CALLS",
         wrapInNamespaces(
@@ -120,7 +121,7 @@ case class PortCppWriter (
             getPortConstants,
             wrapMembersInIfDirective(
               "#if !FW_DIRECT_PORT_CALLS",
-              classes,
+              getClasses,
               CppDoc.Lines.Hpp
             )
           )
@@ -128,7 +129,6 @@ case class PortCppWriter (
         CppDoc.Lines.Cpp
       )
     )
-  }
 
   private def getHppIncludes: CppDoc.Member = {
     val unconditional = List.concat(
@@ -192,13 +192,15 @@ case class PortCppWriter (
 
   private def getPortBufferClass: List[Line] = {
     val privateMemberVariables =
-      if params.isEmpty then Nil
-      else
-        CppDocHppWriter.writeAccessTag("private") ++
-          lines(s"\nU8 m_buff[${PortCppWriter.inputPortName(name)}::SERIALIZED_SIZE];")
+      guardedList (!params.isEmpty) (
+        List.concat(
+          CppDocHppWriter.writeAccessTag("private"),
+          lines(s"\nU8 m_buff[${PortCppWriter.inputPortName(name)}::SERIALIZED_SIZE];"
+        )
+      )
+    )
     val buffAddr =
       if params.isEmpty then "nullptr" else "m_buff"
-
     List.concat(
       CppDocWriter.writeBannerComment("Port buffer class"),
       Line.blank :: lines(s"class ${name}PortBuffer : public Fw::LinearBufferBase {"),
@@ -477,23 +479,6 @@ case class PortCppWriter (
       )
     )
 
-    private def getConstructor =
-      constructorClassMember(
-        Some("Constructor"),
-        Nil,
-        List("Fw::OutputPortBase()", "m_port(nullptr)"),
-        Nil
-      )
-
-    private def getInitFunction =
-      functionClassMember(
-        Some("Initialization function"),
-        "init",
-        Nil,
-        CppDoc.Type("void"),
-        lines("Fw::OutputPortBase::init();")
-      )
-
     private def getAddCallPortFunction =
       functionClassMember(
         Some("Register an input port"),
@@ -519,6 +504,14 @@ case class PortCppWriter (
         )
       )
 
+    private def getConstructor =
+      constructorClassMember(
+        Some("Constructor"),
+        Nil,
+        List("Fw::OutputPortBase()", "m_port(nullptr)"),
+        Nil
+      )
+
     private def getFunctionMembers: List[CppDoc.Class.Member] =
       addAccessTagAndComment(
         "public",
@@ -529,6 +522,53 @@ case class PortCppWriter (
           getAddCallPortFunction,
           getInvokeFunction
         )
+      )
+
+    private def getInitFunction =
+      functionClassMember(
+        Some("Initialization function"),
+        "init",
+        Nil,
+        CppDoc.Type("void"),
+        lines("Fw::OutputPortBase::init();")
+      )
+
+    private def getInvokeFunction =
+      functionClassMember(
+        Some("Invoke a port interface"),
+        "invoke",
+        functionParams,
+        CppDoc.Type(returnType),
+        List.concat(
+          lines(
+            s"""|#if FW_PORT_TRACING == 1
+                |this->trace();
+                |#endif
+                |"""
+          ),
+          data.returnType match {
+            case Some(_) => writeInvokeBodyNonVoid
+            case None => writeInvokeBodyVoid
+          }
+        ),
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
+      )
+
+    private def getVariableMembers: List[CppDoc.Class.Member] =
+      addAccessTagAndComment(
+        "private",
+        "Member variables",
+        List(
+          linesClassMember(
+            lines(
+              s"""|
+                  |//! The pointer to the input port
+                  |${PortCppWriter.inputPortName(name)}* m_port;"""
+            )
+          )
+        ),
+        CppDoc.Lines.Hpp
       )
 
     private def writeInvokeBodyNonVoid =
@@ -573,44 +613,6 @@ case class PortCppWriter (
               |#endif
               |"""
         )
-      )
-
-    private def getInvokeFunction =
-      functionClassMember(
-        Some("Invoke a port interface"),
-        "invoke",
-        functionParams,
-        CppDoc.Type(returnType),
-        List.concat(
-          lines(
-            s"""|#if FW_PORT_TRACING == 1
-                |this->trace();
-                |#endif
-                |"""
-          ),
-          data.returnType match {
-            case Some(_) => writeInvokeBodyNonVoid
-            case None => writeInvokeBodyVoid
-          }
-        ),
-        CppDoc.Function.NonSV,
-        CppDoc.Function.Const
-      )
-
-    private def getVariableMembers: List[CppDoc.Class.Member] =
-      addAccessTagAndComment(
-        "private",
-        "Member variables",
-        List(
-          linesClassMember(
-            lines(
-              s"""|
-                  |//! The pointer to the input port
-                  |${PortCppWriter.inputPortName(name)}* m_port;"""
-            )
-          )
-        ),
-        CppDoc.Lines.Hpp
       )
 
   }
