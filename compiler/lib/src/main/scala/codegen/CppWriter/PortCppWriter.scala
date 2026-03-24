@@ -54,7 +54,7 @@ case class PortCppWriter (
     (n, typeCppWriter.write(t), k)
   })
 
-  // Param names to append to a comma-separated list
+  // Param names appended to a comma-separated list
   val appendedParamNames = paramList.map((n, _, _) => s", $n").mkString
 
   // Port params as CppDoc Function Params
@@ -223,6 +223,7 @@ case class PortCppWriter (
     )
   }
 
+  /** Object for writing the input port class */
   private object InputPortClass {
 
     def get(annotation: String) = classMember(
