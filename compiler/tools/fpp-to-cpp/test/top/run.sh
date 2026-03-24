@@ -84,7 +84,9 @@ serial_ports_passive()
   cd $TOP_DIR/serial_ports_passive
   run_test "-p $PWD,$FPRIME_DIR components.fpp -i $FPRIME_DEPS" topology && \
     diff_cpp SerialPortsPassiveTopology
+  status=$?
   cd $TOP_DIR
+  return $status
 }
 
 tlm()

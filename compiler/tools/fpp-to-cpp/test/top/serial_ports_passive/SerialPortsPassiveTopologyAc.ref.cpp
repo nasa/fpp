@@ -132,6 +132,11 @@ namespace SerialPortsPassive {
     // Nothing to do
   }
 
+  void deinitComponents(const TopologyState& state) {
+    SerialPortsPassive::receiver.deinit();
+    SerialPortsPassive::sender.deinit();
+  }
+
   // ----------------------------------------------------------------------
   // Setup and teardown functions
   // ----------------------------------------------------------------------
@@ -151,6 +156,7 @@ namespace SerialPortsPassive {
     stopTasks(state);
     freeThreads(state);
     tearDownComponents(state);
+    deinitComponents(state);
   }
 
 }
