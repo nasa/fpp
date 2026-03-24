@@ -93,14 +93,7 @@ case class PortCppWriter (
 
   private def getClasses =
     List.concat(
-      guardedList (!data.returnType.isDefined) (
-        List(
-          linesMember(
-            Line.blank :: wrapInAnonymousNamespace(getPortBufferClass),
-            CppDoc.Lines.Cpp
-          ),
-        )
-      ),
+      guardedList (!data.returnType.isDefined) (List(PortBufferClass.get)),
       List(
         InputPortClass.get,
         OutputPortClass.get
@@ -190,8 +183,49 @@ case class PortCppWriter (
     )
   )
 
-  private def getPortBufferClass: List[Line] = {
-    val privateMemberVariables =
+  /** Object for writing the port buffer class */
+  private object PortBufferClass {
+
+    def get =
+      linesMember(
+        Line.blank :: wrapInAnonymousNamespace(write),
+        CppDoc.Lines.Cpp
+      )
+
+    private def write: List[Line] = {
+      List.concat(
+        CppDocWriter.writeBannerComment("Port buffer class"),
+        Line.blank :: lines(s"class ${name}PortBuffer : public Fw::LinearBufferBase {"),
+        List.concat(
+          CppDocHppWriter.writeAccessTag("public"),
+          writeMemberFunctions,
+          writeMemberVariables
+        ).map(indentIn).map(indentIn),
+        Line.blank :: lines("};"),
+        List(Line.blank)
+      )
+    }
+
+    private def writeMemberFunctions = {
+      val buffAddr =
+        if params.isEmpty then "nullptr" else "m_buff"
+      Line.blank :: lines(
+        s"""|Fw::Serializable::SizeType getCapacity() const {
+            |  return ${PortCppWriter.inputPortName(name)}::SERIALIZED_SIZE;
+            |}
+            |
+            |U8* getBuffAddr() {
+            |  return $buffAddr;
+            |}
+            |
+            |const U8* getBuffAddr() const {
+            |  return $buffAddr;
+            |}
+            |"""
+      )
+    }
+
+    def writeMemberVariables =
       guardedList (!params.isEmpty) (
         List.concat(
           CppDocHppWriter.writeAccessTag("private"),
@@ -199,32 +233,7 @@ case class PortCppWriter (
         )
       )
     )
-    val buffAddr =
-      if params.isEmpty then "nullptr" else "m_buff"
-    List.concat(
-      CppDocWriter.writeBannerComment("Port buffer class"),
-      Line.blank :: lines(s"class ${name}PortBuffer : public Fw::LinearBufferBase {"),
-      List.concat(
-        CppDocHppWriter.writeAccessTag("public"),
-        Line.blank :: lines(
-          s"""|Fw::Serializable::SizeType getCapacity() const {
-              |  return ${PortCppWriter.inputPortName(name)}::SERIALIZED_SIZE;
-              |}
-              |
-              |U8* getBuffAddr() {
-              |  return $buffAddr;
-              |}
-              |
-              |const U8* getBuffAddr() const {
-              |  return $buffAddr;
-              |}
-              |"""
-        ),
-        privateMemberVariables
-      ).map(indentIn).map(indentIn),
-      Line.blank :: lines("};"),
-      List(Line.blank)
-    )
+
   }
 
   /** Object for writing the input port class */
