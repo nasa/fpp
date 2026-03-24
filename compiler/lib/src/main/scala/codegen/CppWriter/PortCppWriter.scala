@@ -519,21 +519,17 @@ case class PortCppWriter (
         )
       )
 
-    private def getFunctionMembers: List[CppDoc.Class.Member] = {
-      List(
-        linesClassMember(
-          CppDocHppWriter.writeAccessTag("public")
-        ),
-        linesClassMember(
-          CppDocWriter.writeBannerComment("Output Port Member functions"),
-          CppDoc.Lines.Both
-        ),
-        getConstructor,
-        getInitFunction,
-        getAddCallPortFunction,
-        getInvokeFunction
+    private def getFunctionMembers: List[CppDoc.Class.Member] =
+      addAccessTagAndComment(
+        "public",
+        "Output Port Member functions",
+        List(
+          getConstructor,
+          getInitFunction,
+          getAddCallPortFunction,
+          getInvokeFunction
+        )
       )
-    }
 
     private def writeInvokeBodyNonVoid =
       lines(
