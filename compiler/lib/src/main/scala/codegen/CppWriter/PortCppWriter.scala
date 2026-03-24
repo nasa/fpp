@@ -241,17 +241,18 @@ case class PortCppWriter (
       addAccessTagAndComment(
         "public",
         "Constants",
-        List(getSerializedSize),
+        List(getSerializedSizeConstant),
         CppDoc.Lines.Hpp
       )
 
-    private def getSerializedSize = linesClassMember(
+    private def getSerializedSizeConstant = linesClassMember(
       addBlankPrefix(
         wrapInEnum(
-          lines(
+          lines({
+            val constantsName = PortCppWriter.getPortConstantsName(name)
             s"""|//! The size of the serial representations of the port arguments
-                |SERIALIZED_SIZE = ${PortCppWriter.getPortConstantsName(name)}::INPUT_SERIALIZED_SIZE"""
-          )
+                |SERIALIZED_SIZE = $constantsName::INPUT_SERIALIZED_SIZE"""
+          })
         )
       )
     )
@@ -260,34 +261,33 @@ case class PortCppWriter (
       addAccessTagAndComment(
         "public",
         "Types",
-        List(getCompFunc),
+        List(getCompFuncType),
         CppDoc.Lines.Hpp
       )
 
+    private def getCompFuncParam(p: Ast.Annotated[AstNode[Ast.FormalParam]]) = {
+      val data = p._2.data
+      val t = formalParamsCppWriter.getFormalParamType(
+        data,
+        "Fw::StringBase"
+      )
+      line(s"${t.hppType} ${data.name}")
+    }
+
     private def getCompFuncParams = 
-      line("Fw::PassiveComponentBase* callComp,") :: (
-        if params.isEmpty then
-          lines("FwIndexType portNum")
-        else
-          line("FwIndexType portNum,") ::
-          lines(
-            params.map(
-              p => {
-                val t = formalParamsCppWriter.getFormalParamType(
-                  p._2.data,
-                  "Fw::StringBase"
-                )
-                s"${t.hppType} ${p._2.data.name}"
-              }
-            ).mkString(",\n")
-          )
+      addSeparators (",") (
+        line("Fw::PassiveComponentBase* callComp") ::
+        line("FwIndexType portNum") ::
+        params.map(getCompFuncParam)
       )
 
-    private def getCompFunc = linesClassMember(
-      Line.blank ::
-      line("//! The port callback function type") ::
-      line(s"typedef $returnType (*CompFuncPtr)(") ::
+    private def getCompFuncType = linesClassMember(
       List.concat(
+        lines(
+          s"""|
+              |//! The port callback function type
+              |typedef $returnType (*CompFuncPtr)("""
+        ),
         getCompFuncParams.map(indentIn),
         lines(");")
       )
