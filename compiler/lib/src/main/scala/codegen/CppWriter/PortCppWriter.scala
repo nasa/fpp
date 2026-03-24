@@ -338,8 +338,28 @@ case class PortCppWriter (
         )
       )
 
-    private def getFunctionMembers: List[CppDoc.Class.Member] = {
+    private def getInvokeFunction = {
       val paramNames = paramList.map((n, _, _) => s", $n").mkString("")
+      functionClassMember(
+        Some("Invoke a port interface"),
+        "invoke",
+        functionParams,
+        CppDoc.Type(returnType),
+        lines(
+          s"""|#if FW_PORT_TRACING == 1
+              |this->trace();
+              |#endif
+              |
+              |FW_ASSERT(this->m_comp != nullptr);
+              |FW_ASSERT(this->m_func != nullptr);
+              |
+              |return this->m_func(this->m_comp, this->m_portNum${paramNames});
+              |"""
+        )
+      )
+    }
+
+    private def getFunctionMembers: List[CppDoc.Class.Member] = {
       List(
         linesClassMember(
           CppDocHppWriter.writeAccessTag("public")
@@ -351,26 +371,8 @@ case class PortCppWriter (
         getConstructor,
         getInitFunction,
         getAddCallCompFunction,
-        functionClassMember(
-          Some("Invoke a port interface"),
-          "invoke",
-          functionParams,
-          CppDoc.Type(returnType),
-          lines(
-            s"""|#if FW_PORT_TRACING == 1
-                |this->trace();
-                |#endif
-                |
-                |FW_ASSERT(this->m_comp != nullptr);
-                |FW_ASSERT(this->m_func != nullptr);
-                |
-                |return this->m_func(this->m_comp, this->m_portNum${paramNames});
-                |"""
-          )
-        ),
-        linesClassMember(
-          CppDocHppWriter.writeAccessTag("private")
-        ),
+        getInvokeFunction,
+        linesClassMember(CppDocHppWriter.writeAccessTag("private")),
       ) ++
         wrapClassMembersInIfDirective(
           "#if FW_PORT_SERIALIZATION == 1",
