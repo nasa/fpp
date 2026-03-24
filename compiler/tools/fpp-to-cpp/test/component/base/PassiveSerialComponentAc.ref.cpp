@@ -1402,7 +1402,7 @@ void PassiveSerialComponentBase ::
 #if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
-// Connect serial input ports to serial output ports
+// Connect typed and serial input ports to serial output ports
 // ----------------------------------------------------------------------
 
 void PassiveSerialComponentBase ::
