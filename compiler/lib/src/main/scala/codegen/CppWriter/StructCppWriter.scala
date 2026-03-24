@@ -453,9 +453,9 @@ case class StructCppWriter(
   private def getSingleSetterFunctionMembers =
     memberList.map(getSingleSetterFunctionMember)
 
-  private def getTypeMembers: List[CppDoc.Class.Member] = {
   /** Provide type aliases for array member types, to work
    *  around difficult C++ array syntax. */
+  private def getTypeMembers: List[CppDoc.Class.Member] = {
     val typeAliases = memberList.flatMap((n, tn) => {
       val mtn = getMemberTypeName(n)
       sizes.get(n) match {
@@ -564,8 +564,8 @@ case class StructCppWriter(
       else writeMemberAsParamScalar(member)
   }
 
+  // Writes members as function parameters using scalars for arrays
   private def writeMemberAsParamScalar(member: (String, String)) = member match {
-    // Writes members as function parameters using scalars for arrays
     case (n, tn) => CppDoc.Function.Param(
       CppDoc.Type(
         typeMembers(n).getUnderlyingType match {
