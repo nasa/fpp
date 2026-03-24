@@ -266,12 +266,12 @@ case class PortCppWriter (
       )
 
     private def getCompFuncParam(p: Ast.Annotated[AstNode[Ast.FormalParam]]) = {
-      val data = p._2.data
+      val paramData = p._2.data
       val t = formalParamsCppWriter.getFormalParamType(
-        data,
+        paramData,
         "Fw::StringBase"
       )
-      line(s"${t.hppType} ${data.name}")
+      line(s"${t.hppType} ${paramData.name}")
     }
 
     private def getCompFuncParams = 
@@ -295,49 +295,6 @@ case class PortCppWriter (
 
     private def getFunctionMembers: List[CppDoc.Class.Member] = {
       val paramNames = paramList.map((n, _, _) => s", $n").mkString("")
-      val invokeSerialBody = data.returnType match {
-        case Some(_) => lines(
-          """|// For ports with a return type, invokeSerial is not used
-             |(void) _buffer;
-             |
-             |FW_ASSERT(0);
-             |return Fw::FW_SERIALIZE_OK;
-             |"""
-        )
-        case None =>
-          (if params.isEmpty then line("(void) _buffer;")
-          else line("Fw::SerializeStatus _status;")) ::
-            lines(
-              """|
-                 |#if FW_PORT_TRACING == 1
-                 |this->trace();
-                 |#endif
-                 |
-                 |FW_ASSERT(this->m_comp != nullptr);
-                 |FW_ASSERT(this->m_func != nullptr);
-                 |"""
-            ) ++
-            paramList.flatMap((n, tn, _) => {
-              val varDecl = writeVarDecl(s, tn, n, paramTypeMap(n))
-              lines(
-                s"""|
-                    |$varDecl
-                    |_status = _buffer.deserializeTo($n);
-                    |if (_status != Fw::FW_SERIALIZE_OK) {
-                    |  return _status;
-                    |}
-                    |"""
-              )
-            }) ++
-            lines(
-              s"""|
-                  |this->m_func(this->m_comp, this->m_portNum${paramNames});
-                  |
-                  |return Fw::FW_SERIALIZE_OK;
-                  |"""
-            )
-      }
-
       List(
         linesClassMember(
           CppDocHppWriter.writeAccessTag("public")
@@ -408,22 +365,76 @@ case class PortCppWriter (
       ) ++
         wrapClassMembersInIfDirective(
           "#if FW_PORT_SERIALIZATION == 1",
-          List(
-            functionClassMember(
-              Some("Invoke the port with serialized arguments"),
-              "invokeSerial",
-              List(
-                CppDoc.Function.Param(
-                  CppDoc.Type("Fw::LinearBufferBase&"),
-                  "_buffer"
-                )
-              ),
-              CppDoc.Type("Fw::SerializeStatus"),
-              invokeSerialBody
-            )
-          )
+          List(getInvokeSerialFunction)
         )
     }
+
+    private def getInvokeSerialBodyNonVoid =
+      lines(
+        """|// For ports with a return type, invokeSerial is not used
+           |(void) _buffer;
+           |
+           |FW_ASSERT(0);
+           |return Fw::FW_SERIALIZE_OK;
+           |"""
+      )
+
+    private def getInvokeSerialBodyVoid = {
+      val paramNames = paramList.map((n, _, _) => s", $n").mkString("")
+      val bufferUse =
+        if params.isEmpty
+        then line("(void) _buffer;")
+        else line("Fw::SerializeStatus _status;")
+      bufferUse ::
+      List.concat(
+        lines(
+          """|
+             |#if FW_PORT_TRACING == 1
+             |this->trace();
+             |#endif
+             |
+             |FW_ASSERT(this->m_comp != nullptr);
+             |FW_ASSERT(this->m_func != nullptr);
+             |"""
+        ),
+        paramList.flatMap((n, tn, _) => {
+          val varDecl = writeVarDecl(s, tn, n, paramTypeMap(n))
+          lines(
+            s"""|
+                |$varDecl
+                |_status = _buffer.deserializeTo($n);
+                |if (_status != Fw::FW_SERIALIZE_OK) {
+                |  return _status;
+                |}
+                |"""
+          )
+        }),
+        lines(
+          s"""|
+              |this->m_func(this->m_comp, this->m_portNum${paramNames});
+              |
+              |return Fw::FW_SERIALIZE_OK;
+              |"""
+        )
+      )
+    }
+
+    private def getInvokeSerialFunction =
+      functionClassMember(
+        Some("Invoke the port with serialized arguments"),
+        "invokeSerial",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::LinearBufferBase&"),
+            "_buffer"
+          )
+        ),
+        CppDoc.Type("Fw::SerializeStatus"),
+        data.returnType match {
+          case Some(_) => getInvokeSerialBodyNonVoid
+          case None => getInvokeSerialBodyVoid
+        }
+      )
 
     private def getVariableMembers: List[CppDoc.Class.Member] = {
       List(
