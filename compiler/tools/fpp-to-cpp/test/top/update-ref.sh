@@ -63,6 +63,14 @@ params()
   cd $TOP_DIR
 }
 
+serial_ports_active()
+{
+  cd $TOP_DIR/serial_ports_active
+  update "-p $PWD,$FPRIME_DIR components.fpp -i $FPRIME_DEPS" topology
+  move_cpp SerialPortsActiveTopology
+  cd $TOP_DIR
+}
+
 serial_ports_passive()
 {
   cd $TOP_DIR/serial_ports_passive
