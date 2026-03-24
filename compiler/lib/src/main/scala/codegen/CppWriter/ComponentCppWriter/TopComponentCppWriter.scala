@@ -147,25 +147,20 @@ case class TopComponentCppWriter (
     val returnType = getHandlerReturnTypeAsString(toPortInstance)
     val addResultPrefix = addConditionalPrefix (returnType != "void") ("_result =")
     (fromPortInstance.getType.get, toPortInstance.getType.get) match {
-      case (_: PortInstance.Type.DefPort, _: PortInstance.Type.DefPort) =>
-        // Typed to typed connection
-        writeFunctionCall(
-          addResultPrefix(fnName),
-          List(toPortNum.toString),
-          getPortParams(fromPort.portInstance).map(_._1)
-        )
       case (_: PortInstance.Type.DefPort, PortInstance.Type.Serial) =>
+        // Typed to serial connection
         lines(
           """|// TODO: Typed to serial connection
              |FW_ASSERT(0);"""
         )
       case (PortInstance.Type.Serial, _: PortInstance.Type.DefPort) =>
+        // Serial to typed connection
         lines(
           """|// TODO: Serial to typed connection
              |FW_ASSERT(0);"""
         )
       case _ =>
-        // Serial to serial connection
+        // Typed to typed connection or serial to serial connection
         writeFunctionCall(
           addResultPrefix(fnName),
           List(toPortNum.toString),
