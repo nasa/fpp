@@ -28,6 +28,8 @@ Each subexpression of an arithmetic expression must have
 <<Types_Internal-Types_Numeric-Types,numeric type>>.  Evaluation is by either
 standard integer arithmetic or standard floating-point arithmetic, depending on
 the <<Type-Checking,type of the expression>>.
+For the use of `+` with operands of <<Type-Names_String-Type-Names, string type>>, see
+<<Expressions_String-Concatenation-Expressions, String Concatenation Expressions>>.
 
 *Example:*
 

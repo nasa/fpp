@@ -106,6 +106,11 @@ If this happens, the framework will *truncate* the value _v_
 to _n_ characters before storing it.
 That means that the first _n_ characters of _v_ are stored in the buffer.
 
+A string value may be denoted by a
+<<Expressions_String-Literals, string literal expression>>
+or produced by a
+<<Expressions_String-Concatenation-Expressions, string concatenation expression>>.
+
 === Abstract Type Values
 
 An *abstract type value* is a value associated with an abstract
