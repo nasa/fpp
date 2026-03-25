@@ -39,27 +39,13 @@ case class PortCppWriter (
     Some("The serial buffer")
   )
 
-  // Map from param name to param type
-  private val paramTypeMap = params.map((_, node, _) => {
-    (node.data.name, s.a.typeMap(node.data.typeName.id))
-  }).toMap
-
-  // List of tuples (name, C++ type, kind) for each param
-  private val paramList = params.map((_, node, _) => {
-    val n = node.data.name
-    val k = node.data.kind
-    val t = paramTypeMap(n)
-
-    (n, typeCppWriter.write(t), k)
-  })
-
   // Param names in a comma-separated list
-  val paramNames = params.map(_._2.data.name).mkString(", ")
+  def writeParamNames = params.map(_._2.data.name).mkString(", ")
 
   // Param names appended to a comma-separated list
-  val appendedParamNames = paramNames match {
+  val appendParamNames = writeParamNames match {
     case "" => ""
-    case _ => s", $paramNames"
+    case paramNames => s", $paramNames"
   }
 
   // Port params as CppDoc Function Params
@@ -71,6 +57,8 @@ case class PortCppWriter (
     case Some(value) => returnTypeCppWriter.write(s.a.typeMap(value.id))
     case None => "void"
   }
+
+  private val hasReturnType = data.returnType.isDefined
 
   private def writeIncludeDirectives: List[String] = {
     val Right(a) = UsedSymbols.defPortAnnotatedNode(s.a, aNode)
@@ -90,7 +78,7 @@ case class PortCppWriter (
 
   private def getClasses =
     List.concat(
-      guardedList (!data.returnType.isDefined) (List(PortBufferClass.get)),
+      guardedList (!hasReturnType) (List(PortBufferClass.get)),
       wrapMembersInIfDirective(
         "#if !FW_DIRECT_PORT_CALLS",
         List(
@@ -122,7 +110,7 @@ case class PortCppWriter (
       writeIncludeDirectives
     ).sorted.map(line)
     val conditional = List.concat(
-      guardedList (!data.returnType.isDefined) (List("Fw/Types/Serializable.hpp")),
+      guardedList (!hasReturnType) (List("Fw/Types/Serializable.hpp")),
       List(
         "Fw/Comp/PassiveComponentBase.hpp",
         "Fw/Port/InputPortBase.hpp",
@@ -399,7 +387,7 @@ case class PortCppWriter (
               |FW_ASSERT(this->m_comp != nullptr);
               |FW_ASSERT(this->m_func != nullptr);
               |
-              |return this->m_func(this->m_comp, this->m_portNum${appendedParamNames});
+              |return this->m_func(this->m_comp, this->m_portNum${appendParamNames});
               |"""
         )
       )
@@ -410,10 +398,9 @@ case class PortCppWriter (
         "invokeSerial",
         List(bufferFunctionParam),
         CppDoc.Type("Fw::SerializeStatus"),
-        data.returnType match {
-          case Some(_) => writeInvokeSerialBodyNonVoid
-          case None => writeInvokeSerialBodyVoid
-        }
+        if hasReturnType
+        then writeInvokeSerialBodyNonVoid
+        else writeInvokeSerialBodyVoid
       )
 
     private def getTypeMembers: List[CppDoc.Class.Member] =
@@ -467,12 +454,16 @@ case class PortCppWriter (
              |FW_ASSERT(this->m_func != nullptr);
              |"""
         ),
-        paramList.flatMap((n, tn, _) => {
-          val varDecl = writeVarDecl(s, tn, n, paramTypeMap(n))
+        params.flatMap(param => {
+          val data = param._2.data
+          val portName = data.name
+          val t = s.a.typeMap(data.typeName.id)
+          val tn = typeCppWriter.write(t)
+          val varDecl = writeVarDecl(s, tn, portName, t)
           lines(
             s"""|
                 |$varDecl
-                |_status = _buffer.deserializeTo($n);
+                |_status = _buffer.deserializeTo($portName);
                 |if (_status != Fw::FW_SERIALIZE_OK) {
                 |  return _status;
                 |}
@@ -481,7 +472,7 @@ case class PortCppWriter (
         }),
         lines(
           s"""|
-              |this->m_func(this->m_comp, this->m_portNum${appendedParamNames});
+              |this->m_func(this->m_comp, this->m_portNum${appendParamNames});
               |
               |return Fw::FW_SERIALIZE_OK;
               |"""
@@ -571,10 +562,9 @@ case class PortCppWriter (
                 |#endif
                 |"""
           ),
-          data.returnType match {
-            case Some(_) => writeInvokeBodyNonVoid
-            case None => writeInvokeBodyVoid
-          }
+          if hasReturnType
+          then writeInvokeBodyNonVoid
+          else writeInvokeBodyVoid
         ),
         CppDoc.Function.NonSV,
         CppDoc.Function.Const
@@ -600,7 +590,7 @@ case class PortCppWriter (
       lines(
         s"""|
             |FW_ASSERT(this->m_port != nullptr);
-            |return this->m_port->invoke($paramNames);
+            |return this->m_port->invoke($writeParamNames);
             |"""
       )
 
@@ -612,7 +602,7 @@ case class PortCppWriter (
               |FW_ASSERT((this->m_port != nullptr) || (this->m_serPort != nullptr));
               |
               |if (this->m_port != nullptr) {
-              |  this->m_port->invoke($paramNames);
+              |  this->m_port->invoke($writeParamNames);
               |}
               |else {
               |  Fw::SerializeStatus _status;
@@ -635,7 +625,7 @@ case class PortCppWriter (
               |}
               |#else
               |FW_ASSERT(this->m_port != nullptr);
-              |this->m_port->invoke($paramNames);
+              |this->m_port->invoke($writeParamNames);
               |#endif
               |"""
         )
