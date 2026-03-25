@@ -46,18 +46,16 @@ object AnalysisJsonEncoder extends JsonEncoder{
     )
   )
 
+  // JSON encoder for interface instances
+  // Replace component instance/topology with its AST node
   private implicit val interfaceInstanceEncoder: Encoder[InterfaceInstance] =
-    Encoder.instance {
-      case InterfaceInstance.InterfaceComponentInstance(ci) =>
-        Json.obj(
-          "ComponentInstance" -> ci.aNode.asJson
-        )
-
-      case InterfaceInstance.InterfaceTopology(top) =>
-        Json.obj(
-          "Topology" -> top.aNode.asJson
-        )
-    }
+    Encoder.instance { instance =>
+      val nodeJson = instance match {
+        case InterfaceInstance.InterfaceComponentInstance(ci) => ci.aNode.asJson
+        case InterfaceInstance.InterfaceTopology(t) => t.aNode.asJson
+      }
+      addTypeNameKey(instance, nodeJson)
+  }
 
   // JSON encoder for component instances
   // Use the default Circe encoding, but replace the component instance

@@ -1569,7 +1569,7 @@
         "instanceMap" : [
           [
             {
-              "ComponentInstance" : {
+              "InterfaceComponentInstance" : {
                 "astNodeId" : 24
               }
             },
@@ -1581,7 +1581,7 @@
           ],
           [
             {
-              "ComponentInstance" : {
+              "InterfaceComponentInstance" : {
                 "astNodeId" : 28
               }
             },
@@ -1626,7 +1626,7 @@
         "unconnectedPortSet" : [
           {
             "interfaceInstance" : {
-              "ComponentInstance" : {
+              "InterfaceComponentInstance" : {
                 "astNodeId" : 24
               }
             },
@@ -1670,7 +1670,7 @@
           },
           {
             "interfaceInstance" : {
-              "ComponentInstance" : {
+              "InterfaceComponentInstance" : {
                 "astNodeId" : 28
               }
             },
@@ -1705,7 +1705,7 @@
           },
           {
             "interfaceInstance" : {
-              "ComponentInstance" : {
+              "InterfaceComponentInstance" : {
                 "astNodeId" : 24
               }
             },
@@ -1749,7 +1749,7 @@
           },
           {
             "interfaceInstance" : {
-              "ComponentInstance" : {
+              "InterfaceComponentInstance" : {
                 "astNodeId" : 28
               }
             },
@@ -1793,7 +1793,7 @@
           },
           {
             "interfaceInstance" : {
-              "ComponentInstance" : {
+              "InterfaceComponentInstance" : {
                 "astNodeId" : 28
               }
             },
@@ -1828,7 +1828,7 @@
           },
           {
             "interfaceInstance" : {
-              "ComponentInstance" : {
+              "InterfaceComponentInstance" : {
                 "astNodeId" : 28
               }
             },
@@ -1872,7 +1872,7 @@
           },
           {
             "interfaceInstance" : {
-              "ComponentInstance" : {
+              "InterfaceComponentInstance" : {
                 "astNodeId" : 24
               }
             },
@@ -1907,7 +1907,7 @@
           },
           {
             "interfaceInstance" : {
-              "ComponentInstance" : {
+              "InterfaceComponentInstance" : {
                 "astNodeId" : 24
               }
             },

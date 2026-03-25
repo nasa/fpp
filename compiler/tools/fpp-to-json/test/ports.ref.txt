@@ -1926,7 +1926,7 @@
         "instanceMap" : [
           [
             {
-              "ComponentInstance" : {
+              "InterfaceComponentInstance" : {
                 "astNodeId" : 92
               }
             },
@@ -1971,7 +1971,7 @@
         "unconnectedPortSet" : [
           {
             "interfaceInstance" : {
-              "ComponentInstance" : {
+              "InterfaceComponentInstance" : {
                 "astNodeId" : 92
               }
             },
