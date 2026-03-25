@@ -54,7 +54,7 @@ case class PortCppWriter (
   })
 
   // Param names in a comma-separated list
-  val paramNames = paramList.map(_._1).mkString(", ")
+  val paramNames = params.map(_._2.data.name).mkString(", ")
 
   // Param names appended to a comma-separated list
   val appendedParamNames = paramNames match {
@@ -153,8 +153,13 @@ case class PortCppWriter (
   }
 
   private def writeBufferCapacity: List[Line] = writeSum(
-    paramList.map(
-      (n, tn, _) => writeStaticSerializedSizeExpr(s, paramTypeMap(n), tn)
+    params.map(
+      param => {
+        val data = param._2.data
+        val t = s.a.typeMap(data.typeName.id)
+        val tn = typeCppWriter.write(t)
+        writeStaticSerializedSizeExpr(s, t, tn)
+      }
     )
   )
 
@@ -614,10 +619,11 @@ case class PortCppWriter (
               |  $portBufferName _buffer;
               |"""
         ),
-        paramList.flatMap((n, _, _) => {
+        params.flatMap(param => {
+          val paramName = param._2.data.name
           lines(
             s"""|
-                |  _status = _buffer.serializeFrom($n);
+                |  _status = _buffer.serializeFrom($paramName);
                 |  FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
                 |"""
           )
@@ -643,9 +649,9 @@ object PortCppWriter {
 
   type PortParamType = Ast.Annotated[AstNode[Ast.FormalParam]]
 
-  private def inputPortName(name: String) = s"Input${name}Port"
+  def inputPortName(name: String) = s"Input${name}Port"
 
-  private def outputPortName(name: String) = s"Output${name}Port"
+  def outputPortName(name: String) = s"Output${name}Port"
 
   /** Gets the name of the port buffer class */
   def getPortBufferName(name: String) = s"${name}PortBuffer"
