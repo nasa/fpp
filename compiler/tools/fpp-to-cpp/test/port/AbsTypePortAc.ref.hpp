@@ -26,14 +26,14 @@ class AbsTypePortBuffer :
   public:
 
     //! The serialized size of the arguments
-    static constexpr FwSizeType SIZE =
+    static constexpr FwSizeType CAPACITY =
       T::SERIALIZED_SIZE +
       T::SERIALIZED_SIZE;
 
   public:
 
     Fw::Serializable::SizeType getCapacity() const {
-      return SIZE;
+      return CAPACITY;
     }
 
     U8* getBuffAddr() {
@@ -50,7 +50,7 @@ class AbsTypePortBuffer :
 
   private:
 
-    U8 m_buff[SIZE];
+    U8 m_buff[CAPACITY];
 
 };
 

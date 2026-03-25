@@ -26,7 +26,7 @@ class StringPortBuffer :
   public:
 
     //! The serialized size of the arguments
-    static constexpr FwSizeType SIZE =
+    static constexpr FwSizeType CAPACITY =
       Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
       Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
       Fw::StringBase::STATIC_SERIALIZED_SIZE(100) +
@@ -35,7 +35,7 @@ class StringPortBuffer :
   public:
 
     Fw::Serializable::SizeType getCapacity() const {
-      return SIZE;
+      return CAPACITY;
     }
 
     U8* getBuffAddr() {
@@ -52,7 +52,7 @@ class StringPortBuffer :
 
   private:
 
-    U8 m_buff[SIZE];
+    U8 m_buff[CAPACITY];
 
 };
 

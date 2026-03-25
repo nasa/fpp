@@ -28,7 +28,7 @@ class FppTypePortBuffer :
   public:
 
     //! The serialized size of the arguments
-    static constexpr FwSizeType SIZE =
+    static constexpr FwSizeType CAPACITY =
       E::SERIALIZED_SIZE +
       E::SERIALIZED_SIZE +
       A::SERIALIZED_SIZE +
@@ -39,7 +39,7 @@ class FppTypePortBuffer :
   public:
 
     Fw::Serializable::SizeType getCapacity() const {
-      return SIZE;
+      return CAPACITY;
     }
 
     U8* getBuffAddr() {
@@ -56,7 +56,7 @@ class FppTypePortBuffer :
 
   private:
 
-    U8 m_buff[SIZE];
+    U8 m_buff[CAPACITY];
 
 };
 

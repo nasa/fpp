@@ -31,7 +31,7 @@ namespace Ports {
     public:
 
       //! The serialized size of the arguments
-      static constexpr FwSizeType SIZE =
+      static constexpr FwSizeType CAPACITY =
         sizeof(U32) +
         sizeof(F32) +
         sizeof(U8) +
@@ -43,7 +43,7 @@ namespace Ports {
     public:
 
       Fw::Serializable::SizeType getCapacity() const {
-        return SIZE;
+        return CAPACITY;
       }
 
       U8* getBuffAddr() {
@@ -60,7 +60,7 @@ namespace Ports {
 
     private:
 
-      U8 m_buff[SIZE];
+      U8 m_buff[CAPACITY];
 
   };
 

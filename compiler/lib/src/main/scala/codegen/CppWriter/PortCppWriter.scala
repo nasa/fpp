@@ -157,7 +157,7 @@ case class PortCppWriter (
     )
   }
 
-  private def writeBufferSize: List[Line] = writeSum(
+  private def writeBufferCapacity: List[Line] = writeSum(
     paramList.map(
       (n, tn, _) => writeStaticSerializedSizeExpr(s, paramTypeMap(n), tn)
     )
@@ -186,9 +186,9 @@ case class PortCppWriter (
             lines(
               s"""|
                   |//! The serialized size of the arguments
-                  |static constexpr FwSizeType SIZE ="""
+                  |static constexpr FwSizeType CAPACITY ="""
             ),
-            writeBufferSize.map(indentIn)
+            writeBufferCapacity.map(indentIn)
           )
         )
       )
@@ -203,7 +203,7 @@ case class PortCppWriter (
           lines(
             s"""|
                 |Fw::Serializable::SizeType getCapacity() const {
-                |  return SIZE;
+                |  return CAPACITY;
                 |}
                 |
                 |U8* getBuffAddr() {
@@ -241,7 +241,7 @@ case class PortCppWriter (
           List(
             linesClassMember(
               Line.blank ::
-              lines(s"U8 m_buff[SIZE];")
+              lines(s"U8 m_buff[CAPACITY];")
             )
           )
         )

@@ -28,12 +28,12 @@ namespace {
   // Get the max size by constructing a union of the async input, command, and
   // internal port serialization sizes
   union BuffUnion {
-    BYTE productRecvInHookPortSize[Fw::DpResponsePortBuffer::SIZE];
-    BYTE assertAsyncPortSize[Ports::TypedPortBuffer::SIZE];
-    BYTE blockAsyncPortSize[Ports::TypedPortBuffer::SIZE];
-    BYTE dropAsyncPortSize[Ports::TypedPortBuffer::SIZE];
-    BYTE hookAsyncPortSize[Ports::TypedPortBuffer::SIZE];
-    BYTE cmdPortSize[Fw::CmdPortBuffer::SIZE];
+    BYTE productRecvInHookPortSize[Fw::DpResponsePortBuffer::CAPACITY];
+    BYTE assertAsyncPortSize[Ports::TypedPortBuffer::CAPACITY];
+    BYTE blockAsyncPortSize[Ports::TypedPortBuffer::CAPACITY];
+    BYTE dropAsyncPortSize[Ports::TypedPortBuffer::CAPACITY];
+    BYTE hookAsyncPortSize[Ports::TypedPortBuffer::CAPACITY];
+    BYTE cmdPortSize[Fw::CmdPortBuffer::CAPACITY];
   };
 
   // Define a message buffer class large enough to handle all the
