@@ -14,7 +14,7 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/PassiveGuardedProductsComponentAc.hpp"
+#include "PassiveGuardedProductsComponentAc.hpp"
 
 //! \class PassiveGuardedProductsTesterBase
 //! \brief Auto-generated base for PassiveGuardedProducts component test harness

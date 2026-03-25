@@ -97,7 +97,7 @@ case class EnumCppWriter(
     val systemStrings = List("cstring", "limits")
     val strings = List(
       "Fw/Types/Assert.hpp",
-      s"${s.getRelativePath(fileName).toString}.hpp"
+      s.getIncludePath(symbol, fileName)
     )
     linesMember(
       List(

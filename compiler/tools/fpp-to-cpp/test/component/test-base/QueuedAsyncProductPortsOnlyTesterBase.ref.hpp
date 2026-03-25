@@ -13,7 +13,7 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/QueuedAsyncProductPortsOnlyComponentAc.hpp"
+#include "QueuedAsyncProductPortsOnlyComponentAc.hpp"
 
 //! \class QueuedAsyncProductPortsOnlyTesterBase
 //! \brief Auto-generated base for QueuedAsyncProductPortsOnly component test harness

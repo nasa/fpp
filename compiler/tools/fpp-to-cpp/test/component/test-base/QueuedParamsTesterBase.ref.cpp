@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test-base/QueuedParamsTesterBase.hpp"
+#include "QueuedParamsTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization

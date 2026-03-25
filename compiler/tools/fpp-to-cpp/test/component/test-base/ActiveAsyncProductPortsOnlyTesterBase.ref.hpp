@@ -9,11 +9,11 @@
 
 #include <cstdio>
 
+#include "ActiveAsyncProductPortsOnlyComponentAc.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/ActiveAsyncProductPortsOnlyComponentAc.hpp"
 
 //! \class ActiveAsyncProductPortsOnlyTesterBase
 //! \brief Auto-generated base for ActiveAsyncProductPortsOnly component test harness

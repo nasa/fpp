@@ -8,7 +8,7 @@
 #include <limits>
 
 #include "Fw/Types/Assert.hpp"
-#include "base/EEnumAc.hpp"
+#include "EEnumAc.hpp"
 
 // ----------------------------------------------------------------------
 // Operators
