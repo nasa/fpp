@@ -19,7 +19,7 @@
 #include "Fw/Types/Serializable.hpp"
 #endif
 
-//! FppType buffer
+//! Serialization buffer for FppType port
 //! A port with FPP type parameters
 class FppTypePortBuffer :
   public Fw::LinearBufferBase
@@ -27,7 +27,12 @@ class FppTypePortBuffer :
 
   public:
 
-    //! The serialized size of the arguments
+    // ----------------------------------------------------------------------
+    // Public constants
+    // ----------------------------------------------------------------------
+
+    //! The buffer capacity. This is the sum of the static serialized
+    //! sizes of the port arguments.
     static constexpr FwSizeType CAPACITY =
       E::SERIALIZED_SIZE +
       E::SERIALIZED_SIZE +
@@ -38,23 +43,52 @@ class FppTypePortBuffer :
 
   public:
 
-    Fw::Serializable::SizeType getCapacity() const {
+    // ----------------------------------------------------------------------
+    // Public member functions
+    // ----------------------------------------------------------------------
+
+    //! Get the capacity of the buffer
+    //! \return The capacity
+    Fw::Serializable::SizeType getCapacity() const override {
       return CAPACITY;
     }
 
-    U8* getBuffAddr() {
+    //! Get the buffer address (non-const)
+    //! \return The buffer address
+    U8* getBuffAddr() override {
       return m_buff;
     }
 
-    const U8* getBuffAddr() const {
+    //! Get the buffer address (const)
+    //! \return The buffer address
+    const U8* getBuffAddr() const override {
       return m_buff;
     }
 
   public:
 
-    // TODO: Serialize and deserialize into buffer
+    // ----------------------------------------------------------------------
+    // Public static functions
+    // ----------------------------------------------------------------------
+
+    //! Serialize port arguments into the buffer
+    static Fw::SerializeStatus serializePortArgs(
+        const E& e, //!< An enum
+                    //!< Line 2 of the comment
+        E& eRef, //!< An enum ref
+                 //!< Line 2 of the comment
+        const A& a, //!< An array
+        A& aRef, //!< An array ref
+        const S& s, //!< A struct
+        S& sRef, //!< A struct ref
+        Fw::LinearBufferBase& _buffer //!< The serial buffer
+    );
 
   private:
+
+    // ----------------------------------------------------------------------
+    // Private member variables
+    // ----------------------------------------------------------------------
 
     U8 m_buff[CAPACITY];
 
@@ -121,7 +155,9 @@ class InputFppTypePort :
 #if FW_PORT_SERIALIZATION == 1
 
     //! Invoke the port with serialized arguments
-    Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer);
+    Fw::SerializeStatus invokeSerial(
+        Fw::LinearBufferBase& _buffer //!< The serial buffer
+    );
 
 #endif
 

@@ -33,21 +33,16 @@ case class PortCppWriter (
 
   private val params = data.params
 
+  private val bufferFunctionParam = CppDoc.Function.Param(
+    CppDoc.Type("Fw::LinearBufferBase&"),
+    "_buffer",
+    Some("The serial buffer")
+  )
+
   // Map from param name to param type
   private val paramTypeMap = params.map((_, node, _) => {
     (node.data.name, s.a.typeMap(node.data.typeName.id))
   }).toMap
-
-  // List of tuples (name, type) for each string param
-  private val strParamList = paramTypeMap.map((n, t) => t.getUnderlyingType match {
-    case t: Type.String => Some((n, t))
-    case _ => None
-  }).filter(_.isDefined).map(_.get).toList
-
-  // Map from string size to list of names of string of that size
-  private val strNameMap = strParamList.groupBy((_, t) => {
-    writeStringSize(s, t)
-  }).map((size, l) => (size, l.map(_._1)))
 
   // List of tuples (name, C++ type, kind) for each param
   private val paramList = params.map((_, node, _) => {
@@ -68,7 +63,7 @@ case class PortCppWriter (
   }
 
   // Port params as CppDoc Function Params
-  private val functionParams: List[CppDoc.Function.Param] =
+  private val portFunctionParams: List[CppDoc.Function.Param] =
     formalParamsCppWriter.write(params, "Fw::StringBase")
 
   // Return type as a C++ type
@@ -167,76 +162,105 @@ case class PortCppWriter (
   private object PortBufferClass {
 
     def get = classMember(
-      Some(s"$portName buffer\n$annotation"),
+      Some(s"Serialization buffer for $portName port\n$annotation"),
       portBufferName,
       Some("public Fw::LinearBufferBase"),
       List.concat(
-        getConstants,
-        getMemberFunctions,
-        getStaticFunctions,
-        getMemberVariables
+        getPublicConstants,
+        getPublicMemberFunctions,
+        getPublicStaticFunctions,
+        getPrivateMemberVariables
       )
     )
 
-    private def getConstants = addAccessTag(
+    private def getPublicConstants = addAccessTagAndComment(
       "public",
+      "Public constants",
       List(
         linesClassMember(
           List.concat(
             lines(
               s"""|
-                  |//! The serialized size of the arguments
+                  |//! The buffer capacity. This is the sum of the static serialized
+                  |//! sizes of the port arguments.
                   |static constexpr FwSizeType CAPACITY ="""
             ),
             writeBufferCapacity.map(indentIn)
           )
         )
-      )
+      ),
+      CppDoc.Lines.Hpp
     )
 
-    private def getMemberFunctions = addAccessTag(
+    private def getPublicMemberFunctions = addAccessTagAndComment(
       "public",
+      "Public member functions",
       List(
         linesClassMember({
           val buffAddr =
             if params.isEmpty then "nullptr" else "m_buff"
           lines(
             s"""|
-                |Fw::Serializable::SizeType getCapacity() const {
+                |//! Get the capacity of the buffer
+                |//! \\return The capacity
+                |Fw::Serializable::SizeType getCapacity() const override {
                 |  return CAPACITY;
                 |}
                 |
-                |U8* getBuffAddr() {
+                |//! Get the buffer address (non-const)
+                |//! \\return The buffer address
+                |U8* getBuffAddr() override {
                 |  return $buffAddr;
                 |}
                 |
-                |const U8* getBuffAddr() const {
+                |//! Get the buffer address (const)
+                |//! \\return The buffer address
+                |const U8* getBuffAddr() const override {
                 |  return $buffAddr;
                 |}
                 |"""
           )
         })
-      )
+      ),
+      CppDoc.Lines.Hpp
     )
 
-    private def getStaticFunctions =
-      addAccessTag(
+    private def getPublicStaticFunctions =
+      addAccessTagAndComment(
         "public",
+        "Public static functions",
         guardedList (!params.isEmpty) (
-          List(
-            linesClassMember(
-              lines(
-                """|
-                   |// TODO: Serialize and deserialize into buffer"""
-              )
-            )
-          )
+          List(getSerializeFunction)
         )
       )
 
-    private def getMemberVariables =
-      addAccessTag(
+    private def writeSerializationForParam(param: PortCppWriter.PortParamType) = {
+      val paramName = param._2.data.name
+      lines(
+        s"""|if (_status == Fw::FW_SERIALIZE_OK) {
+            |  _status = _buffer.serializeFrom($paramName);
+            |}"""
+      )
+    }
+
+    private def getSerializeFunction =
+      functionClassMember(
+        Some("Serialize port arguments into the buffer"),
+        "serializePortArgs",
+        portFunctionParams :+ bufferFunctionParam,
+        CppDoc.Type("Fw::SerializeStatus"),
+        List.concat(
+          lines("Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;"),
+          params.flatMap(writeSerializationForParam),
+          lines("return _status;")
+        ),
+        CppDoc.Function.Static
+      )
+
+    private def getPrivateMemberVariables =
+      addAccessTagAndComment(
         "private",
+        "Private member variables",
         guardedList (!params.isEmpty) (
           List(
             linesClassMember(
@@ -244,7 +268,8 @@ case class PortCppWriter (
               lines(s"U8 m_buff[CAPACITY];")
             )
           )
-        )
+        ),
+        CppDoc.Lines.Hpp
       )
 
   }
@@ -291,7 +316,7 @@ case class PortCppWriter (
         )
       )
 
-    private def getCompFuncParam(p: Ast.Annotated[AstNode[Ast.FormalParam]]) = {
+    private def getCompFuncParam(p: PortCppWriter.PortParamType) = {
       val paramData = p._2.data
       val t = formalParamsCppWriter.getFormalParamType(
         paramData,
@@ -359,7 +384,7 @@ case class PortCppWriter (
       functionClassMember(
         Some("Invoke a port interface"),
         "invoke",
-        functionParams,
+        portFunctionParams,
         CppDoc.Type(returnType),
         lines(
           s"""|#if FW_PORT_TRACING == 1
@@ -378,12 +403,7 @@ case class PortCppWriter (
       functionClassMember(
         Some("Invoke the port with serialized arguments"),
         "invokeSerial",
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("Fw::LinearBufferBase&"),
-            "_buffer"
-          )
-        ),
+        List(bufferFunctionParam),
         CppDoc.Type("Fw::SerializeStatus"),
         data.returnType match {
           case Some(_) => writeInvokeSerialBodyNonVoid
@@ -537,7 +557,7 @@ case class PortCppWriter (
       functionClassMember(
         Some("Invoke a port interface"),
         "invoke",
-        functionParams,
+        portFunctionParams,
         CppDoc.Type(returnType),
         List.concat(
           lines(
@@ -621,6 +641,8 @@ case class PortCppWriter (
 
 object PortCppWriter {
 
+  type PortParamType = Ast.Annotated[AstNode[Ast.FormalParam]]
+
   private def inputPortName(name: String) = s"Input${name}Port"
 
   private def outputPortName(name: String) = s"Output${name}Port"
@@ -634,16 +656,5 @@ object PortCppWriter {
       case PortInstance.Direction.Input => inputPortName(name)
       case PortInstance.Direction.Output => outputPortName(name)
     }
-
-  /** Get the name of the port string class namespace */
-  def getPortStringNamespace(s: CppWriterState, symbol: Symbol.Port): String = {
-    val fppName = s.a.getQualifiedName(symbol)
-    val cppName = CppWriter.writeQualifiedName(fppName)
-    s"${cppName}PortStrings"
-  }
-
-  /** Get the names of port namespaces as a list */
-  def getPortNamespaces(s: CppWriterState, symbol: Symbol.Port): List[String] =
-    List(getPortStringNamespace(s, symbol))
 
 }

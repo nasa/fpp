@@ -8,6 +8,23 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "KwdNamePortAc.hpp"
 
+// ----------------------------------------------------------------------
+// Public static functions
+// ----------------------------------------------------------------------
+
+Fw::SerializeStatus KwdNamePortBuffer ::
+  serializePortArgs(
+      U32& time,
+      Fw::LinearBufferBase& _buffer
+  )
+{
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(time);
+  }
+  return _status;
+}
+
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------

@@ -8,6 +8,35 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "StringPortAc.hpp"
 
+// ----------------------------------------------------------------------
+// Public static functions
+// ----------------------------------------------------------------------
+
+Fw::SerializeStatus StringPortBuffer ::
+  serializePortArgs(
+      const Fw::StringBase& str80,
+      Fw::StringBase& str80Ref,
+      const Fw::StringBase& str100,
+      Fw::StringBase& str100Ref,
+      Fw::LinearBufferBase& _buffer
+  )
+{
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(str80);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(str80Ref);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(str100);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(str100Ref);
+  }
+  return _status;
+}
+
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------

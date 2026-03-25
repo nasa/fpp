@@ -16,7 +16,7 @@
 #include "Fw/Types/Serializable.hpp"
 #endif
 
-//! Empty buffer
+//! Serialization buffer for Empty port
 //! An empty port
 class EmptyPortBuffer :
   public Fw::LinearBufferBase
@@ -24,21 +24,36 @@ class EmptyPortBuffer :
 
   public:
 
-    //! The serialized size of the arguments
+    // ----------------------------------------------------------------------
+    // Public constants
+    // ----------------------------------------------------------------------
+
+    //! The buffer capacity. This is the sum of the static serialized
+    //! sizes of the port arguments.
     static constexpr FwSizeType CAPACITY =
       0;
 
   public:
 
-    Fw::Serializable::SizeType getCapacity() const {
+    // ----------------------------------------------------------------------
+    // Public member functions
+    // ----------------------------------------------------------------------
+
+    //! Get the capacity of the buffer
+    //! \return The capacity
+    Fw::Serializable::SizeType getCapacity() const override {
       return CAPACITY;
     }
 
-    U8* getBuffAddr() {
+    //! Get the buffer address (non-const)
+    //! \return The buffer address
+    U8* getBuffAddr() override {
       return nullptr;
     }
 
-    const U8* getBuffAddr() const {
+    //! Get the buffer address (const)
+    //! \return The buffer address
+    const U8* getBuffAddr() const override {
       return nullptr;
     }
 
@@ -90,7 +105,9 @@ class InputEmptyPort :
 #if FW_PORT_SERIALIZATION == 1
 
     //! Invoke the port with serialized arguments
-    Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer);
+    Fw::SerializeStatus invokeSerial(
+        Fw::LinearBufferBase& _buffer //!< The serial buffer
+    );
 
 #endif
 

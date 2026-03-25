@@ -8,6 +8,43 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "PrimitivePortAc.hpp"
 
+// ----------------------------------------------------------------------
+// Public static functions
+// ----------------------------------------------------------------------
+
+Fw::SerializeStatus PrimitivePortBuffer ::
+  serializePortArgs(
+      U32 u32,
+      U32& u32Ref,
+      F32 f32,
+      F32& f32Ref,
+      bool b,
+      bool& bRef,
+      Fw::LinearBufferBase& _buffer
+  )
+{
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(u32);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(u32Ref);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(f32);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(f32Ref);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(b);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(bRef);
+  }
+  return _status;
+}
+
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------

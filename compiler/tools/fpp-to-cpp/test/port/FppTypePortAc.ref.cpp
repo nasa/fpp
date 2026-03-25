@@ -8,6 +8,43 @@
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 
+// ----------------------------------------------------------------------
+// Public static functions
+// ----------------------------------------------------------------------
+
+Fw::SerializeStatus FppTypePortBuffer ::
+  serializePortArgs(
+      const E& e,
+      E& eRef,
+      const A& a,
+      A& aRef,
+      const S& s,
+      S& sRef,
+      Fw::LinearBufferBase& _buffer
+  )
+{
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(e);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(eRef);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(a);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(aRef);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(s);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(sRef);
+  }
+  return _status;
+}
+
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------

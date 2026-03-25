@@ -16,7 +16,7 @@
 #include "Fw/Types/Serializable.hpp"
 #endif
 
-//! Primitive buffer
+//! Serialization buffer for Primitive port
 //! A port with primitive parameters
 class PrimitivePortBuffer :
   public Fw::LinearBufferBase
@@ -24,7 +24,12 @@ class PrimitivePortBuffer :
 
   public:
 
-    //! The serialized size of the arguments
+    // ----------------------------------------------------------------------
+    // Public constants
+    // ----------------------------------------------------------------------
+
+    //! The buffer capacity. This is the sum of the static serialized
+    //! sizes of the port arguments.
     static constexpr FwSizeType CAPACITY =
       sizeof(U32) +
       sizeof(U32) +
@@ -35,23 +40,50 @@ class PrimitivePortBuffer :
 
   public:
 
-    Fw::Serializable::SizeType getCapacity() const {
+    // ----------------------------------------------------------------------
+    // Public member functions
+    // ----------------------------------------------------------------------
+
+    //! Get the capacity of the buffer
+    //! \return The capacity
+    Fw::Serializable::SizeType getCapacity() const override {
       return CAPACITY;
     }
 
-    U8* getBuffAddr() {
+    //! Get the buffer address (non-const)
+    //! \return The buffer address
+    U8* getBuffAddr() override {
       return m_buff;
     }
 
-    const U8* getBuffAddr() const {
+    //! Get the buffer address (const)
+    //! \return The buffer address
+    const U8* getBuffAddr() const override {
       return m_buff;
     }
 
   public:
 
-    // TODO: Serialize and deserialize into buffer
+    // ----------------------------------------------------------------------
+    // Public static functions
+    // ----------------------------------------------------------------------
+
+    //! Serialize port arguments into the buffer
+    static Fw::SerializeStatus serializePortArgs(
+        U32 u32,
+        U32& u32Ref,
+        F32 f32,
+        F32& f32Ref,
+        bool b,
+        bool& bRef,
+        Fw::LinearBufferBase& _buffer //!< The serial buffer
+    );
 
   private:
+
+    // ----------------------------------------------------------------------
+    // Private member variables
+    // ----------------------------------------------------------------------
 
     U8 m_buff[CAPACITY];
 
@@ -116,7 +148,9 @@ class InputPrimitivePort :
 #if FW_PORT_SERIALIZATION == 1
 
     //! Invoke the port with serialized arguments
-    Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer);
+    Fw::SerializeStatus invokeSerial(
+        Fw::LinearBufferBase& _buffer //!< The serial buffer
+    );
 
 #endif
 
