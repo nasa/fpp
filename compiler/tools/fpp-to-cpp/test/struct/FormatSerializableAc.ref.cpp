@@ -150,9 +150,58 @@ bool Format ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const Format& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s.toChar();
+  os << "{ ";
+  os << "m1 = ";
+  os << obj.m_m1;
+  os << ", ";
+  os << "m2 = ";
+  os << obj.m_m2;
+  os << ", ";
+  os << "m3 = ";
+  os << obj.m_m3;
+  os << ", ";
+  os << "m4 = ";
+  os << obj.m_m4;
+  os << ", ";
+  os << "m5 = ";
+  os << obj.m_m5;
+  os << ", ";
+  os << "m6 = ";
+  os << obj.m_m6;
+  os << ", ";
+  os << "m7 = ";
+  os << obj.m_m7;
+  os << ", ";
+  os << "m8 = ";
+  os << obj.m_m8;
+  os << ", ";
+  os << "m9 = ";
+  os << obj.m_m9;
+  os << ", ";
+  os << "m10 = ";
+  os << obj.m_m10;
+  os << ", ";
+  os << "m11 = ";
+  os << obj.m_m11;
+  os << ", ";
+  os << "m12 = ";
+  os << obj.m_m12;
+  os << ", ";
+  os << "m13 = ";
+  os << obj.m_m13;
+  os << ", ";
+  os << "m14 = ";
+  os << obj.m_m14;
+  os << ", ";
+  os << "m15 = ";
+  os << obj.m_m15;
+  os << ", ";
+  os << "m16 = ";
+  os << obj.m_m16;
+  os << ", ";
+  os << "m17 = ";
+  os << obj.m_m17;
+  os << " }";
   return os;
 }
 

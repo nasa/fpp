@@ -134,9 +134,17 @@ bool String1 ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const String1& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s;
+  os << "[";
+  constexpr auto SIZE = String1::SIZE;
+  for (FwSizeType index = 0; index < SIZE; index++) {
+    if (index > 0) {
+      os << ", ";
+    }
+
+    os << obj.elements[index];
+                
+  }
+  os << "]";
   return os;
 }
 

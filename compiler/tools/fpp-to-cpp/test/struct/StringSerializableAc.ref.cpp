@@ -75,9 +75,13 @@ bool String ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const String& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s.toChar();
+  os << "{ ";
+  os << "s1 = ";
+  os << obj.m_s1;
+  os << ", ";
+  os << "s2 = ";
+  os << obj.m_s2;
+  os << " }";
   return os;
 }
 

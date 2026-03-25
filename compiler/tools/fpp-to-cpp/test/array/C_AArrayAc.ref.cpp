@@ -128,9 +128,17 @@ bool C_A ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const C_A& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s;
+  os << "[";
+  constexpr auto SIZE = C_A::SIZE;
+  for (FwSizeType index = 0; index < SIZE; index++) {
+    if (index > 0) {
+      os << ", ";
+    }
+
+    os << obj.elements[index];
+                
+  }
+  os << "]";
   return os;
 }
 

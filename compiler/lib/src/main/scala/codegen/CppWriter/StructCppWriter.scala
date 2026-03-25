@@ -247,6 +247,36 @@ case class StructCppWriter(
       scalarConstructor
   }
 
+  private def writeOstreamBody: List[Line] = {
+    val memberOutputs = memberList.zipWithIndex.flatMap { case ((n, tn), idx) =>
+      val prefix = if idx > 0 then lines("""os << ", ";""") else Nil
+      val fieldLabel = lines(s"""os << "$n = ";""")
+
+      val fieldValue = if sizes.contains(n) then
+        List.concat(
+          lines("""os << "[ ";"""),
+          iterateN(sizes(n), lines(
+            """|if (i > 0) {
+               |  os << ", ";
+               |}
+               |os << obj.m_""" + n + "[i];"
+          )),
+          lines("""os << " ]";""")
+        )
+      else
+        lines(s"os << obj.m_$n;")
+
+      List.concat(prefix, fieldLabel, fieldValue)
+    }
+
+    List.concat(
+      lines("""os << "{ ";"""),
+      memberOutputs,
+      lines("""os << " }";"""),
+      lines("return os;")
+    )
+  }
+
   private def getOperatorMembers: List[CppDoc.Class.Member] = {
     val nonArrayMemberCheck = lines(
       nonArrayMemberNames.map(n => s"(this->m_$n == obj.m_$n)"
@@ -363,12 +393,7 @@ case class StructCppWriter(
         CppDoc.Lines.Both
       ) :: writeOstreamOperator(
         name,
-        lines(
-          """|Fw::String s;
-             |obj.toString(s);
-             |os << s.toChar();
-             |return os;"""
-        )
+        writeOstreamBody
       )
     )
   }

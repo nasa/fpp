@@ -130,9 +130,17 @@ namespace M {
 #ifdef BUILD_UT
 
   std::ostream& operator<<(std::ostream& os, const PrimitiveF32f& obj) {
-    Fw::String s;
-    obj.toString(s);
-    os << s;
+    os << "[";
+    constexpr auto SIZE = PrimitiveF32f::SIZE;
+    for (FwSizeType index = 0; index < SIZE; index++) {
+      if (index > 0) {
+        os << ", ";
+      }
+
+      os << obj.elements[index];
+                  
+    }
+    os << "]";
     return os;
   }
 

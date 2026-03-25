@@ -80,9 +80,16 @@ bool Default ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const Default& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s.toChar();
+  os << "{ ";
+  os << "mU32 = ";
+  os << obj.m_mU32;
+  os << ", ";
+  os << "mS1 = ";
+  os << obj.m_mS1;
+  os << ", ";
+  os << "mF64 = ";
+  os << obj.m_mF64;
+  os << " }";
   return os;
 }
 

@@ -108,9 +108,27 @@ bool Modules4 ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const Modules4& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s.toChar();
+  os << "{ ";
+  os << "arr1 = ";
+  os << "[ ";
+  for (FwSizeType i = 0; i < 3; i++) {
+    if (i > 0) {
+      os << ", ";
+    }
+    os << obj.m_arr1[i];
+  }
+  os << " ]";
+  os << ", ";
+  os << "arr2 = ";
+  os << "[ ";
+  for (FwSizeType i = 0; i < 6; i++) {
+    if (i > 0) {
+      os << ", ";
+    }
+    os << obj.m_arr2[i];
+  }
+  os << " ]";
+  os << " }";
   return os;
 }
 

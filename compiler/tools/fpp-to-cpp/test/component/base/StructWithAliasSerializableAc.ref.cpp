@@ -90,9 +90,22 @@ bool StructWithAlias ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const StructWithAlias& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s.toChar();
+  os << "{ ";
+  os << "x = ";
+  os << obj.m_x;
+  os << ", ";
+  os << "y = ";
+  os << obj.m_y;
+  os << ", ";
+  os << "z = ";
+  os << obj.m_z;
+  os << ", ";
+  os << "w = ";
+  os << obj.m_w;
+  os << ", ";
+  os << "q = ";
+  os << obj.m_q;
+  os << " }";
   return os;
 }
 

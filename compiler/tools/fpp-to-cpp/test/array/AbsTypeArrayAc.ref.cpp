@@ -128,9 +128,17 @@ bool AbsType ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const AbsType& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s;
+  os << "[";
+  constexpr auto SIZE = AbsType::SIZE;
+  for (FwSizeType index = 0; index < SIZE; index++) {
+    if (index > 0) {
+      os << ", ";
+    }
+
+    os << obj.elements[index];
+                
+  }
+  os << "]";
   return os;
 }
 
