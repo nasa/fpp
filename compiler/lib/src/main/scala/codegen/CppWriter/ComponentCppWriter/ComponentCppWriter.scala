@@ -339,12 +339,12 @@ case class ComponentCppWriter (
         val portName = p.getUnqualifiedName
         val _ @ Some(PortInstance.Type.DefPort(symbol)) = p.getType
         val cppPortName = s.writeSymbol(symbol)
-        val cppPortBufferName = PortCppWriter.getPortBufferName(cppPortName)
+        val cppPortBufferName = PortCppWriterUtils.getPortBufferName(cppPortName)
         lines(s"BYTE ${portName}PortSize[$cppPortBufferName::CAPACITY];")
       }),
       // Command input port
       {
-        val cppPortBufferName = PortCppWriter.getPortBufferName("Fw::Cmd")
+        val cppPortBufferName = PortCppWriterUtils.getPortBufferName("Fw::Cmd")
         guardedList (cmdRecvPort.isDefined)
           (lines(s"BYTE cmdPortSize[$cppPortBufferName::CAPACITY];"))
       },

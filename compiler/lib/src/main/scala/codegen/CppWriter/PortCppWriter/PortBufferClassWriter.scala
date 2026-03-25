@@ -5,12 +5,12 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Writes the buffer class for a port definition */
-case class PortBufferClass(
+case class PortBufferClassWriter(
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefPort]]
 ) extends PortCppWriterUtils(s, aNode) {
 
-  def get = classMember(
+  def write: CppDoc.Member.Class = classMember(
     Some(s"Serialization buffer for $portName port\n$portAnnotation"),
     portBufferName,
     Some("public Fw::LinearBufferBase"),
@@ -123,7 +123,7 @@ case class PortBufferClass(
     )
   )
 
-  private def writeSerializationForParam(param: PortCppWriter.PortParamType) = {
+  private def writeSerializationForParam(param: PortParamType) = {
     val paramName = param._2.data.name
     lines(
       s"""|if (_status == Fw::FW_SERIALIZE_OK) {

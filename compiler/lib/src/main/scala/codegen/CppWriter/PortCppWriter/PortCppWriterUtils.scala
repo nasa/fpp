@@ -10,6 +10,8 @@ abstract class PortCppWriterUtils(
   aNode: Ast.Annotated[AstNode[Ast.DefPort]]
 ) extends CppWriterUtils {
 
+  type PortParamType = Ast.Annotated[AstNode[Ast.FormalParam]]
+
   val portNode = aNode._2
 
   val portAnnotation = AnnotationCppWriter.asString(aNode)
@@ -20,7 +22,7 @@ abstract class PortCppWriterUtils(
 
   val portName = s.getName(portSymbol)
 
-  val portBufferName = PortCppWriter.getPortBufferName(portName)
+  val portBufferName = PortCppWriterUtils.getPortBufferName(portName)
 
   val portFileName = ComputeCppFiles.FileNames.getPort(portName)
 
@@ -39,6 +41,10 @@ abstract class PortCppWriterUtils(
     "_buffer",
     Some("The serial buffer")
   )
+
+  val inputPortClassName = PortCppWriterUtils.getInputPortClassName(portName)
+
+  val outputPortClassName = PortCppWriterUtils.getOutputPortClassName(portName)
 
   // Param names in a comma-separated list
   def writeParamNames = portParams.map(_._2.data.name).mkString(", ")
@@ -65,5 +71,23 @@ abstract class PortCppWriterUtils(
   // Whether the port has a return value
   val hasReturnValue = portData.returnType.isDefined
 
+
+}
+
+object PortCppWriterUtils {
+
+  def getInputPortClassName(name: String) = s"Input${name}Port"
+
+  def getOutputPortClassName(name: String) = s"Output${name}Port"
+
+  /** Gets the name of the port buffer class */
+  def getPortBufferName(name: String) = s"${name}PortBuffer"
+
+  /** Get the name of a port class */
+  def getPortName (name: String) (direction: PortInstance.Direction): String =
+    direction match {
+      case PortInstance.Direction.Input => getInputPortClassName(name)
+      case PortInstance.Direction.Output => getOutputPortClassName(name)
+    }
 
 }
