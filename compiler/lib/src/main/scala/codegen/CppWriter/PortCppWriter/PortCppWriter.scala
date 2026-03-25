@@ -12,6 +12,8 @@ case class PortCppWriter (
 
   private val portBufferClassWriter = PortBufferClassWriter(s, aNode)
 
+  private val portSerializerClassWriter = PortSerializerClassWriter(s, aNode)
+
   private val inputPortClassWriter = InputPortClassWriter(s, aNode)
 
   private val outputPortClassWriter = OutputPortClassWriter(s, aNode)
@@ -29,7 +31,10 @@ case class PortCppWriter (
 
   private def getClasses =
     List.concat(
-      guardedList (!hasReturnValue) (List(portBufferClassWriter.write)),
+      guardedList (!hasReturnType)
+        (List(portBufferClassWriter.write)),
+      guardedList (!hasReturnType && hasParams)
+        (List(portSerializerClassWriter.write)),
       wrapMembersInIfDirective(
         "#if !FW_DIRECT_PORT_CALLS",
         List(
@@ -61,7 +66,7 @@ case class PortCppWriter (
       writeIncludeDirectives
     ).sorted.map(line)
     val conditional = List.concat(
-      guardedList (!hasReturnValue) (List("Fw/Types/Serializable.hpp")),
+      guardedList (!hasReturnType) (List("Fw/Types/Serializable.hpp")),
       List(
         "Fw/Comp/PassiveComponentBase.hpp",
         "Fw/Port/InputPortBase.hpp",

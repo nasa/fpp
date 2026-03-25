@@ -59,19 +59,6 @@ class AbsTypePortBuffer :
       return m_buff;
     }
 
-  public:
-
-    // ----------------------------------------------------------------------
-    // Public static functions
-    // ----------------------------------------------------------------------
-
-    //! Serialize port arguments into the buffer
-    static Fw::SerializeStatus serializePortArgs(
-        const T& t,
-        T& tRef,
-        Fw::LinearBufferBase& _buffer //!< The serial buffer
-    );
-
   private:
 
     // ----------------------------------------------------------------------
@@ -79,6 +66,25 @@ class AbsTypePortBuffer :
     // ----------------------------------------------------------------------
 
     U8 m_buff[CAPACITY];
+
+};
+
+//! Serializer for AbsType port
+//! A port with abstract type parameters
+class AbsTypePortSerializer {
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public static functions for AbsTypePortSerializer
+    // ----------------------------------------------------------------------
+
+    //! Serialize port arguments into a buffer
+    static Fw::SerializeStatus serializePortArgs(
+        const T& t,
+        T& tRef,
+        Fw::SerialBufferBase& _buffer //!< The serial buffer
+    );
 
 };
 

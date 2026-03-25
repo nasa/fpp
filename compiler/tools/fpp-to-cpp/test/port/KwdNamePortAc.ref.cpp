@@ -9,13 +9,13 @@
 #include "KwdNamePortAc.hpp"
 
 // ----------------------------------------------------------------------
-// Public static functions
+// Public static functions for KwdNamePortSerializer
 // ----------------------------------------------------------------------
 
-Fw::SerializeStatus KwdNamePortBuffer ::
+Fw::SerializeStatus KwdNamePortSerializer ::
   serializePortArgs(
       U32& time,
-      Fw::LinearBufferBase& _buffer
+      Fw::SerialBufferBase& _buffer
   )
 {
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;

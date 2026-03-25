@@ -11,10 +11,10 @@
 namespace Ports {
 
   // ----------------------------------------------------------------------
-  // Public static functions
+  // Public static functions for TypedPortSerializer
   // ----------------------------------------------------------------------
 
-  Fw::SerializeStatus TypedPortBuffer ::
+  Fw::SerializeStatus TypedPortSerializer ::
     serializePortArgs(
         U32 u32,
         F32 f32,
@@ -23,7 +23,7 @@ namespace Ports {
         const E& e,
         const A& a,
         const S& s,
-        Fw::LinearBufferBase& _buffer
+        Fw::SerialBufferBase& _buffer
     )
   {
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;

@@ -61,21 +61,6 @@ class StringPortBuffer :
       return m_buff;
     }
 
-  public:
-
-    // ----------------------------------------------------------------------
-    // Public static functions
-    // ----------------------------------------------------------------------
-
-    //! Serialize port arguments into the buffer
-    static Fw::SerializeStatus serializePortArgs(
-        const Fw::StringBase& str80, //!< A string of size 80
-        Fw::StringBase& str80Ref,
-        const Fw::StringBase& str100, //!< A string of size 100
-        Fw::StringBase& str100Ref,
-        Fw::LinearBufferBase& _buffer //!< The serial buffer
-    );
-
   private:
 
     // ----------------------------------------------------------------------
@@ -83,6 +68,27 @@ class StringPortBuffer :
     // ----------------------------------------------------------------------
 
     U8 m_buff[CAPACITY];
+
+};
+
+//! Serializer for String port
+//! A port with string parameters
+class StringPortSerializer {
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public static functions for StringPortSerializer
+    // ----------------------------------------------------------------------
+
+    //! Serialize port arguments into a buffer
+    static Fw::SerializeStatus serializePortArgs(
+        const Fw::StringBase& str80, //!< A string of size 80
+        Fw::StringBase& str80Ref,
+        const Fw::StringBase& str100, //!< A string of size 100
+        Fw::StringBase& str100Ref,
+        Fw::SerialBufferBase& _buffer //!< The serial buffer
+    );
 
 };
 

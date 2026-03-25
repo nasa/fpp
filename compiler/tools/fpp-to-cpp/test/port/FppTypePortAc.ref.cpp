@@ -9,10 +9,10 @@
 #include "Fw/Types/ExternalString.hpp"
 
 // ----------------------------------------------------------------------
-// Public static functions
+// Public static functions for FppTypePortSerializer
 // ----------------------------------------------------------------------
 
-Fw::SerializeStatus FppTypePortBuffer ::
+Fw::SerializeStatus FppTypePortSerializer ::
   serializePortArgs(
       const E& e,
       E& eRef,
@@ -20,7 +20,7 @@ Fw::SerializeStatus FppTypePortBuffer ::
       A& aRef,
       const S& s,
       S& sRef,
-      Fw::LinearBufferBase& _buffer
+      Fw::SerialBufferBase& _buffer
   )
 {
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;

@@ -17,7 +17,6 @@ case class PortBufferClassWriter(
     List.concat(
       getPublicConstants,
       getPublicMemberFunctions,
-      getPublicStaticFunctions,
       getPrivateMemberVariables
     )
   )
@@ -89,29 +88,6 @@ case class PortBufferClassWriter(
     CppDoc.Lines.Hpp
   )
 
-  private def getPublicStaticFunctions =
-    addAccessTagAndComment(
-      "public",
-      "Public static functions",
-      guardedList (hasParams) (
-        List(getSerializeFunction)
-      )
-    )
-
-  private def getSerializeFunction =
-    functionClassMember(
-      Some("Serialize port arguments into the buffer"),
-      "serializePortArgs",
-      portFunctionParams :+ bufferFunctionParam,
-      CppDoc.Type("Fw::SerializeStatus"),
-      List.concat(
-        lines("Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;"),
-        portParams.flatMap(writeSerializationForParam),
-        lines("return _status;")
-      ),
-      CppDoc.Function.Static
-    )
-
   private def writeBufferCapacity: List[Line] = writeSum(
     portParams.map(
       param => {
@@ -122,14 +98,5 @@ case class PortBufferClassWriter(
       }
     )
   )
-
-  private def writeSerializationForParam(param: PortParamType) = {
-    val paramName = param._2.data.name
-    lines(
-      s"""|if (_status == Fw::FW_SERIALIZE_OK) {
-          |  _status = _buffer.serializeFrom($paramName);
-          |}"""
-    )
-  }
 
 }

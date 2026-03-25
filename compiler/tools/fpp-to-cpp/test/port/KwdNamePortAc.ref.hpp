@@ -57,18 +57,6 @@ class KwdNamePortBuffer :
       return m_buff;
     }
 
-  public:
-
-    // ----------------------------------------------------------------------
-    // Public static functions
-    // ----------------------------------------------------------------------
-
-    //! Serialize port arguments into the buffer
-    static Fw::SerializeStatus serializePortArgs(
-        U32& time,
-        Fw::LinearBufferBase& _buffer //!< The serial buffer
-    );
-
   private:
 
     // ----------------------------------------------------------------------
@@ -76,6 +64,24 @@ class KwdNamePortBuffer :
     // ----------------------------------------------------------------------
 
     U8 m_buff[CAPACITY];
+
+};
+
+//! Serializer for KwdName port
+//! A port with a keyword name
+class KwdNamePortSerializer {
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public static functions for KwdNamePortSerializer
+    // ----------------------------------------------------------------------
+
+    //! Serialize port arguments into a buffer
+    static Fw::SerializeStatus serializePortArgs(
+        U32& time,
+        Fw::SerialBufferBase& _buffer //!< The serial buffer
+    );
 
 };
 

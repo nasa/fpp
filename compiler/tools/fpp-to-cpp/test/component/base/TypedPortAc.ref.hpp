@@ -69,13 +69,27 @@ namespace Ports {
         return m_buff;
       }
 
+    private:
+
+      // ----------------------------------------------------------------------
+      // Private member variables
+      // ----------------------------------------------------------------------
+
+      U8 m_buff[CAPACITY];
+
+  };
+
+  //! Serializer for Typed port
+  //! A typed port
+  class TypedPortSerializer {
+
     public:
 
       // ----------------------------------------------------------------------
-      // Public static functions
+      // Public static functions for TypedPortSerializer
       // ----------------------------------------------------------------------
 
-      //! Serialize port arguments into the buffer
+      //! Serialize port arguments into a buffer
       static Fw::SerializeStatus serializePortArgs(
           U32 u32, //!< A U32
           F32 f32, //!< An F32
@@ -84,16 +98,8 @@ namespace Ports {
           const E& e, //!< An enum
           const A& a, //!< An array
           const S& s, //!< A struct
-          Fw::LinearBufferBase& _buffer //!< The serial buffer
+          Fw::SerialBufferBase& _buffer //!< The serial buffer
       );
-
-    private:
-
-      // ----------------------------------------------------------------------
-      // Private member variables
-      // ----------------------------------------------------------------------
-
-      U8 m_buff[CAPACITY];
 
   };
 

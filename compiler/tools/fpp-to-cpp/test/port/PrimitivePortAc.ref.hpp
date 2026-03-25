@@ -62,23 +62,6 @@ class PrimitivePortBuffer :
       return m_buff;
     }
 
-  public:
-
-    // ----------------------------------------------------------------------
-    // Public static functions
-    // ----------------------------------------------------------------------
-
-    //! Serialize port arguments into the buffer
-    static Fw::SerializeStatus serializePortArgs(
-        U32 u32,
-        U32& u32Ref,
-        F32 f32,
-        F32& f32Ref,
-        bool b,
-        bool& bRef,
-        Fw::LinearBufferBase& _buffer //!< The serial buffer
-    );
-
   private:
 
     // ----------------------------------------------------------------------
@@ -86,6 +69,29 @@ class PrimitivePortBuffer :
     // ----------------------------------------------------------------------
 
     U8 m_buff[CAPACITY];
+
+};
+
+//! Serializer for Primitive port
+//! A port with primitive parameters
+class PrimitivePortSerializer {
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public static functions for PrimitivePortSerializer
+    // ----------------------------------------------------------------------
+
+    //! Serialize port arguments into a buffer
+    static Fw::SerializeStatus serializePortArgs(
+        U32 u32,
+        U32& u32Ref,
+        F32 f32,
+        F32& f32Ref,
+        bool b,
+        bool& bRef,
+        Fw::SerialBufferBase& _buffer //!< The serial buffer
+    );
 
 };
 

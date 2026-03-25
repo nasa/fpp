@@ -9,14 +9,14 @@
 #include "Fw/Types/ExternalString.hpp"
 
 // ----------------------------------------------------------------------
-// Public static functions
+// Public static functions for AbsTypePortSerializer
 // ----------------------------------------------------------------------
 
-Fw::SerializeStatus AbsTypePortBuffer ::
+Fw::SerializeStatus AbsTypePortSerializer ::
   serializePortArgs(
       const T& t,
       T& tRef,
-      Fw::LinearBufferBase& _buffer
+      Fw::SerialBufferBase& _buffer
   )
 {
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;

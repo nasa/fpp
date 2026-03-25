@@ -78,7 +78,7 @@ case class OutputPortClassWriter(
     functionClassMember(
       {
         val returnComment =
-          if hasReturnValue
+          if hasReturnType
           then "\n\\return The return value of the port handler"
           else ""
         Some(s"Invoke a port connection$returnComment")
@@ -93,7 +93,7 @@ case class OutputPortClassWriter(
               |#endif
               |"""
         ),
-        if hasReturnValue
+        if hasReturnType
         then writeInvokeBodyNonVoid
         else writeInvokeBodyVoid
       ),

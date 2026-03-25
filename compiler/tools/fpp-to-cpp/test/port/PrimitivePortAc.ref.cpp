@@ -9,10 +9,10 @@
 #include "PrimitivePortAc.hpp"
 
 // ----------------------------------------------------------------------
-// Public static functions
+// Public static functions for PrimitivePortSerializer
 // ----------------------------------------------------------------------
 
-Fw::SerializeStatus PrimitivePortBuffer ::
+Fw::SerializeStatus PrimitivePortSerializer ::
   serializePortArgs(
       U32 u32,
       U32& u32Ref,
@@ -20,7 +20,7 @@ Fw::SerializeStatus PrimitivePortBuffer ::
       F32& f32Ref,
       bool b,
       bool& bRef,
-      Fw::LinearBufferBase& _buffer
+      Fw::SerialBufferBase& _buffer
   )
 {
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;

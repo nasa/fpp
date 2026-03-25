@@ -65,13 +65,27 @@ class FppTypePortBuffer :
       return m_buff;
     }
 
+  private:
+
+    // ----------------------------------------------------------------------
+    // Private member variables
+    // ----------------------------------------------------------------------
+
+    U8 m_buff[CAPACITY];
+
+};
+
+//! Serializer for FppType port
+//! A port with FPP type parameters
+class FppTypePortSerializer {
+
   public:
 
     // ----------------------------------------------------------------------
-    // Public static functions
+    // Public static functions for FppTypePortSerializer
     // ----------------------------------------------------------------------
 
-    //! Serialize port arguments into the buffer
+    //! Serialize port arguments into a buffer
     static Fw::SerializeStatus serializePortArgs(
         const E& e, //!< An enum
                     //!< Line 2 of the comment
@@ -81,16 +95,8 @@ class FppTypePortBuffer :
         A& aRef, //!< An array ref
         const S& s, //!< A struct
         S& sRef, //!< A struct ref
-        Fw::LinearBufferBase& _buffer //!< The serial buffer
+        Fw::SerialBufferBase& _buffer //!< The serial buffer
     );
-
-  private:
-
-    // ----------------------------------------------------------------------
-    // Private member variables
-    // ----------------------------------------------------------------------
-
-    U8 m_buff[CAPACITY];
 
 };
 

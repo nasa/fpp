@@ -9,16 +9,16 @@
 #include "StringPortAc.hpp"
 
 // ----------------------------------------------------------------------
-// Public static functions
+// Public static functions for StringPortSerializer
 // ----------------------------------------------------------------------
 
-Fw::SerializeStatus StringPortBuffer ::
+Fw::SerializeStatus StringPortSerializer ::
   serializePortArgs(
       const Fw::StringBase& str80,
       Fw::StringBase& str80Ref,
       const Fw::StringBase& str100,
       Fw::StringBase& str100Ref,
-      Fw::LinearBufferBase& _buffer
+      Fw::SerialBufferBase& _buffer
   )
 {
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;

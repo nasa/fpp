@@ -139,9 +139,9 @@ case class InputPortClassWriter(
            |\return The serialize status"""
       ),
       "invokeSerial",
-      List(bufferFunctionParam),
+      List(linearBufferFunctionParam),
       CppDoc.Type("Fw::SerializeStatus"),
-      if hasReturnValue
+      if hasReturnType
       then writeInvokeSerialBodyNonVoid
       else writeInvokeSerialBodyVoid
     )

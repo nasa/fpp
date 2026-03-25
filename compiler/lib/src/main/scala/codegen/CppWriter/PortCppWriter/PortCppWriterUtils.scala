@@ -24,6 +24,8 @@ abstract class PortCppWriterUtils(
 
   val portBufferName = PortCppWriterUtils.getPortBufferName(portName)
 
+  val portSerializerName = PortCppWriterUtils.getPortSerializerName(portName)
+
   val portFileName = ComputeCppFiles.FileNames.getPort(portName)
 
   val namespaceIdentList = s.getNamespaceIdentList(portSymbol)
@@ -36,8 +38,14 @@ abstract class PortCppWriterUtils(
 
   val portParams = portData.params
 
-  val bufferFunctionParam = CppDoc.Function.Param(
+  val linearBufferFunctionParam = CppDoc.Function.Param(
     CppDoc.Type("Fw::LinearBufferBase&"),
+    "_buffer",
+    Some("The serial buffer")
+  )
+
+  val serialBufferFunctionParam = CppDoc.Function.Param(
+    CppDoc.Type("Fw::SerialBufferBase&"),
     "_buffer",
     Some("The serial buffer")
   )
@@ -68,9 +76,8 @@ abstract class PortCppWriterUtils(
   // Whether the port has params
   val hasParams = !portParams.isEmpty
 
-  // Whether the port has a return value
-  val hasReturnValue = portData.returnType.isDefined
-
+  // Whether the port has a return type
+  val hasReturnType = portData.returnType.isDefined
 
 }
 
@@ -82,6 +89,9 @@ object PortCppWriterUtils {
 
   /** Gets the name of the port buffer class */
   def getPortBufferName(name: String) = s"${name}PortBuffer"
+
+  /** Gets the name of the port serializer class */
+  def getPortSerializerName(name: String) = s"${name}PortSerializer"
 
   /** Get the name of a port class */
   def getPortName (name: String) (direction: PortInstance.Direction): String =
