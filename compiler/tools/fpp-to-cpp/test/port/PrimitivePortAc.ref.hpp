@@ -28,6 +28,40 @@ struct PrimitivePortConstants {
     sizeof(U8);
 };
 
+//! Primitive buffer
+//! A port with primitive parameters
+class PrimitivePortBuffer : public Fw::LinearBufferBase {
+
+  public:
+
+    static constexpr FwSizeType SERIALIZED_SIZE =
+      sizeof(U32) +
+      sizeof(U32) +
+      sizeof(F32) +
+      sizeof(F32) +
+      sizeof(U8) +
+      sizeof(U8);
+
+  public:
+
+    Fw::Serializable::SizeType getCapacity() const {
+      return SERIALIZED_SIZE;
+    }
+
+    U8* getBuffAddr() {
+      return m_buff;
+    }
+
+    const U8* getBuffAddr() const {
+      return m_buff;
+    }
+
+  private:
+
+    U8 m_buff[SERIALIZED_SIZE];
+
+};
+
 #if !FW_DIRECT_PORT_CALLS
 
 //! Input Primitive port

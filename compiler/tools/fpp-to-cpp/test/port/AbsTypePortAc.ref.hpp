@@ -25,6 +25,36 @@ struct AbsTypePortConstants {
     T::SERIALIZED_SIZE;
 };
 
+//! AbsType buffer
+//! A port with abstract type parameters
+class AbsTypePortBuffer : public Fw::LinearBufferBase {
+
+  public:
+
+    static constexpr FwSizeType SERIALIZED_SIZE =
+      T::SERIALIZED_SIZE +
+      T::SERIALIZED_SIZE;
+
+  public:
+
+    Fw::Serializable::SizeType getCapacity() const {
+      return SERIALIZED_SIZE;
+    }
+
+    U8* getBuffAddr() {
+      return m_buff;
+    }
+
+    const U8* getBuffAddr() const {
+      return m_buff;
+    }
+
+  private:
+
+    U8 m_buff[SERIALIZED_SIZE];
+
+};
+
 #if !FW_DIRECT_PORT_CALLS
 
 //! Input AbsType port

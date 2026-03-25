@@ -10,36 +10,6 @@
 
 #if !FW_DIRECT_PORT_CALLS
 
-namespace {
-
-  // ----------------------------------------------------------------------
-  // Port buffer class
-  // ----------------------------------------------------------------------
-
-  class FppTypePortBuffer : public Fw::LinearBufferBase {
-
-    public:
-
-      Fw::Serializable::SizeType getCapacity() const {
-        return InputFppTypePort::SERIALIZED_SIZE;
-      }
-
-      U8* getBuffAddr() {
-        return m_buff;
-      }
-
-      const U8* getBuffAddr() const {
-        return m_buff;
-      }
-
-    private:
-
-      U8 m_buff[InputFppTypePort::SERIALIZED_SIZE];
-
-  };
-
-}
-
 // ----------------------------------------------------------------------
 // Input Port Member functions
 // ----------------------------------------------------------------------

@@ -8,9 +8,9 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "StringReturnTypePortAc.hpp"
 
-#if !FW_DIRECT_PORT_CALLS
-
 namespace M {
+
+#if !FW_DIRECT_PORT_CALLS
 
   // ----------------------------------------------------------------------
   // Input Port Member functions
@@ -113,6 +113,6 @@ namespace M {
     return this->m_port->invoke();
   }
 
-}
-
 #endif
+
+}

@@ -27,6 +27,38 @@ struct StringPortConstants {
     Fw::StringBase::STATIC_SERIALIZED_SIZE(100);
 };
 
+//! String buffer
+//! A port with string parameters
+class StringPortBuffer : public Fw::LinearBufferBase {
+
+  public:
+
+    static constexpr FwSizeType SERIALIZED_SIZE =
+      Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
+      Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
+      Fw::StringBase::STATIC_SERIALIZED_SIZE(100) +
+      Fw::StringBase::STATIC_SERIALIZED_SIZE(100);
+
+  public:
+
+    Fw::Serializable::SizeType getCapacity() const {
+      return SERIALIZED_SIZE;
+    }
+
+    U8* getBuffAddr() {
+      return m_buff;
+    }
+
+    const U8* getBuffAddr() const {
+      return m_buff;
+    }
+
+  private:
+
+    U8 m_buff[SERIALIZED_SIZE];
+
+};
+
 #if !FW_DIRECT_PORT_CALLS
 
 //! Input String port

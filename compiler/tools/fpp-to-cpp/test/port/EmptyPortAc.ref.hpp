@@ -23,6 +23,31 @@ struct EmptyPortConstants {
     0;
 };
 
+//! Empty buffer
+//! An empty port
+class EmptyPortBuffer : public Fw::LinearBufferBase {
+
+  public:
+
+    static constexpr FwSizeType SERIALIZED_SIZE =
+      0;
+
+  public:
+
+    Fw::Serializable::SizeType getCapacity() const {
+      return SERIALIZED_SIZE;
+    }
+
+    U8* getBuffAddr() {
+      return nullptr;
+    }
+
+    const U8* getBuffAddr() const {
+      return nullptr;
+    }
+
+};
+
 #if !FW_DIRECT_PORT_CALLS
 
 //! Input Empty port

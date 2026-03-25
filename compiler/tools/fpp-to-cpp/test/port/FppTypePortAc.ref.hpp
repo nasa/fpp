@@ -31,6 +31,40 @@ struct FppTypePortConstants {
     S::SERIALIZED_SIZE;
 };
 
+//! FppType buffer
+//! A port with FPP type parameters
+class FppTypePortBuffer : public Fw::LinearBufferBase {
+
+  public:
+
+    static constexpr FwSizeType SERIALIZED_SIZE =
+      E::SERIALIZED_SIZE +
+      E::SERIALIZED_SIZE +
+      A::SERIALIZED_SIZE +
+      A::SERIALIZED_SIZE +
+      S::SERIALIZED_SIZE +
+      S::SERIALIZED_SIZE;
+
+  public:
+
+    Fw::Serializable::SizeType getCapacity() const {
+      return SERIALIZED_SIZE;
+    }
+
+    U8* getBuffAddr() {
+      return m_buff;
+    }
+
+    const U8* getBuffAddr() const {
+      return m_buff;
+    }
+
+  private:
+
+    U8 m_buff[SERIALIZED_SIZE];
+
+};
+
 #if !FW_DIRECT_PORT_CALLS
 
 //! Input FppType port

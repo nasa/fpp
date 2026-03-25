@@ -94,9 +94,13 @@ case class PortCppWriter (
   private def getClasses =
     List.concat(
       guardedList (!data.returnType.isDefined) (List(PortBufferClass.get)),
-      List(
-        InputPortClass.get,
-        OutputPortClass.get
+      wrapMembersInIfDirective(
+        "#if !FW_DIRECT_PORT_CALLS",
+        List(
+          InputPortClass.get,
+          OutputPortClass.get
+        ),
+        CppDoc.Lines.Both
       )
     )
 
@@ -106,20 +110,12 @@ case class PortCppWriter (
         getHppIncludes,
         getCppIncludes
       ),
-      wrapMembersInIfDirective(
-        "#if !FW_DIRECT_PORT_CALLS",
-        wrapInNamespaces(
-          namespaceIdentList,
-          List.concat(
-            getPortConstants,
-            wrapMembersInIfDirective(
-              "#if !FW_DIRECT_PORT_CALLS",
-              getClasses,
-              CppDoc.Lines.Hpp
-            )
-          )
-        ),
-        CppDoc.Lines.Cpp
+      wrapInNamespaces(
+        namespaceIdentList,
+        List.concat(
+          getPortConstants,
+          getClasses,
+        )
       )
     )
 
@@ -186,34 +182,36 @@ case class PortCppWriter (
   /** Object for constructing the port buffer class */
   private object PortBufferClass {
 
-    def get =
-      linesMember(
-        Line.blank :: wrapInAnonymousNamespace(write),
-        CppDoc.Lines.Cpp
-      )
-
-    private def write: List[Line] = {
+    def get = linesMember(
       List.concat(
-        CppDocWriter.writeBannerComment("Port buffer class"),
-        Line.blank :: lines(s"class ${portName}PortBuffer : public Fw::LinearBufferBase {"),
+        CppDocWriter.writeDoxygenComment(s"$portName buffer\n$annotation"),
+        lines(s"class ${portName}PortBuffer : public Fw::LinearBufferBase {"),
         List.concat(
+          writeConstants,
           writeMemberFunctions,
           writeMemberVariables
         ).map(indentIn).map(indentIn),
         Line.blank :: lines("};"),
-        List(Line.blank)
       )
-    }
+    )
+
+    private def writeConstants =
+      List.concat(
+        CppDocHppWriter.writeAccessTag("public"),
+        Line.blank ::
+        line(s"static constexpr FwSizeType SERIALIZED_SIZE =") ::
+        writeSerializedSize(paramList).map(indentIn)
+      )
 
     private def writeMemberFunctions = {
       val buffAddr =
         if params.isEmpty then "nullptr" else "m_buff"
       List.concat(
         CppDocHppWriter.writeAccessTag("public"),
-        List(Line.blank),
+        Line.blank ::
         lines(
           s"""|Fw::Serializable::SizeType getCapacity() const {
-              |  return ${PortCppWriter.inputPortName(portName)}::SERIALIZED_SIZE;
+              |  return SERIALIZED_SIZE;
               |}
               |
               |U8* getBuffAddr() {
@@ -233,7 +231,7 @@ case class PortCppWriter (
         List.concat(
           CppDocHppWriter.writeAccessTag("private"),
           List(Line.blank),
-          lines(s"U8 m_buff[${PortCppWriter.inputPortName(portName)}::SERIALIZED_SIZE];"
+          lines(s"U8 m_buff[SERIALIZED_SIZE];"
         )
       )
     )
