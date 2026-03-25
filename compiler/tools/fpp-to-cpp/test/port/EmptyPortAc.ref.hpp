@@ -18,17 +18,20 @@
 
 //! Empty buffer
 //! An empty port
-class EmptyPortBuffer : public Fw::LinearBufferBase {
+class EmptyPortBuffer :
+  public Fw::LinearBufferBase
+{
 
   public:
 
-    static constexpr FwSizeType SERIALIZED_SIZE =
+    //! The serialized size of the arguments
+    static constexpr FwSizeType SIZE =
       0;
 
   public:
 
     Fw::Serializable::SizeType getCapacity() const {
-      return SERIALIZED_SIZE;
+      return SIZE;
     }
 
     U8* getBuffAddr() {

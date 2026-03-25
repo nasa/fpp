@@ -18,17 +18,20 @@
 
 //! KwdName buffer
 //! A port with a keyword name
-class KwdNamePortBuffer : public Fw::LinearBufferBase {
+class KwdNamePortBuffer :
+  public Fw::LinearBufferBase
+{
 
   public:
 
-    static constexpr FwSizeType SERIALIZED_SIZE =
+    //! The serialized size of the arguments
+    static constexpr FwSizeType SIZE =
       sizeof(U32);
 
   public:
 
     Fw::Serializable::SizeType getCapacity() const {
-      return SERIALIZED_SIZE;
+      return SIZE;
     }
 
     U8* getBuffAddr() {
@@ -39,9 +42,13 @@ class KwdNamePortBuffer : public Fw::LinearBufferBase {
       return m_buff;
     }
 
+  public:
+
+    // TODO: Serialize and deserialize into buffer
+
   private:
 
-    U8 m_buff[SERIALIZED_SIZE];
+    U8 m_buff[SIZE];
 
 };
 

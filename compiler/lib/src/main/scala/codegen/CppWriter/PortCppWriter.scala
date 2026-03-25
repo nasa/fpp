@@ -157,7 +157,7 @@ case class PortCppWriter (
     )
   }
 
-  private def writeSerializedSize: List[Line] = writeSum(
+  private def writeBufferSize: List[Line] = writeSum(
     paramList.map(
       (n, tn, _) => writeStaticSerializedSizeExpr(s, paramTypeMap(n), tn)
     )
@@ -166,60 +166,86 @@ case class PortCppWriter (
   /** Object for constructing the port buffer class */
   private object PortBufferClass {
 
-    def get = linesMember(
+    def get = classMember(
+      Some(s"$portName buffer\n$annotation"),
+      portBufferName,
+      Some("public Fw::LinearBufferBase"),
       List.concat(
-        CppDocWriter.writeDoxygenComment(s"$portName buffer\n$annotation"),
-        lines(s"class $portBufferName : public Fw::LinearBufferBase {"),
-        List.concat(
-          writeConstants,
-          writeMemberFunctions,
-          writeMemberVariables
-        ).map(indentIn).map(indentIn),
-        Line.blank :: lines("};"),
+        getConstants,
+        getMemberFunctions,
+        getStaticFunctions,
+        getMemberVariables
       )
     )
 
-    private def writeConstants = {
-      List.concat(
-        CppDocHppWriter.writeAccessTag("public"),
-        Line.blank ::
-        line(s"static constexpr FwSizeType SERIALIZED_SIZE =") ::
-        writeSerializedSize.map(indentIn)
-      )
-    }
-
-    private def writeMemberFunctions = {
-      val buffAddr =
-        if params.isEmpty then "nullptr" else "m_buff"
-      List.concat(
-        CppDocHppWriter.writeAccessTag("public"),
-        Line.blank ::
-        lines(
-          s"""|Fw::Serializable::SizeType getCapacity() const {
-              |  return SERIALIZED_SIZE;
-              |}
-              |
-              |U8* getBuffAddr() {
-              |  return $buffAddr;
-              |}
-              |
-              |const U8* getBuffAddr() const {
-              |  return $buffAddr;
-              |}
-              |"""
-        )
-      )
-    }
-
-    def writeMemberVariables =
-      guardedList (!params.isEmpty) (
-        List.concat(
-          CppDocHppWriter.writeAccessTag("private"),
-          List(Line.blank),
-          lines(s"U8 m_buff[SERIALIZED_SIZE];"
+    private def getConstants = addAccessTag(
+      "public",
+      List(
+        linesClassMember(
+          List.concat(
+            lines(
+              s"""|
+                  |//! The serialized size of the arguments
+                  |static constexpr FwSizeType SIZE ="""
+            ),
+            writeBufferSize.map(indentIn)
+          )
         )
       )
     )
+
+    private def getMemberFunctions = addAccessTag(
+      "public",
+      List(
+        linesClassMember({
+          val buffAddr =
+            if params.isEmpty then "nullptr" else "m_buff"
+          lines(
+            s"""|
+                |Fw::Serializable::SizeType getCapacity() const {
+                |  return SIZE;
+                |}
+                |
+                |U8* getBuffAddr() {
+                |  return $buffAddr;
+                |}
+                |
+                |const U8* getBuffAddr() const {
+                |  return $buffAddr;
+                |}
+                |"""
+          )
+        })
+      )
+    )
+
+    private def getStaticFunctions =
+      addAccessTag(
+        "public",
+        guardedList (!params.isEmpty) (
+          List(
+            linesClassMember(
+              lines(
+                """|
+                   |// TODO: Serialize and deserialize into buffer"""
+              )
+            )
+          )
+        )
+      )
+
+    private def getMemberVariables =
+      addAccessTag(
+        "private",
+        guardedList (!params.isEmpty) (
+          List(
+            linesClassMember(
+              Line.blank ::
+              lines(s"U8 m_buff[SIZE];")
+            )
+          )
+        )
+      )
 
   }
 

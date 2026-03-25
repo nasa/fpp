@@ -19,11 +19,14 @@
 
 //! String buffer
 //! A port with string parameters
-class StringPortBuffer : public Fw::LinearBufferBase {
+class StringPortBuffer :
+  public Fw::LinearBufferBase
+{
 
   public:
 
-    static constexpr FwSizeType SERIALIZED_SIZE =
+    //! The serialized size of the arguments
+    static constexpr FwSizeType SIZE =
       Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
       Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
       Fw::StringBase::STATIC_SERIALIZED_SIZE(100) +
@@ -32,7 +35,7 @@ class StringPortBuffer : public Fw::LinearBufferBase {
   public:
 
     Fw::Serializable::SizeType getCapacity() const {
-      return SERIALIZED_SIZE;
+      return SIZE;
     }
 
     U8* getBuffAddr() {
@@ -43,9 +46,13 @@ class StringPortBuffer : public Fw::LinearBufferBase {
       return m_buff;
     }
 
+  public:
+
+    // TODO: Serialize and deserialize into buffer
+
   private:
 
-    U8 m_buff[SERIALIZED_SIZE];
+    U8 m_buff[SIZE];
 
 };
 

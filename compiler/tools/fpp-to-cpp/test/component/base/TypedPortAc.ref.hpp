@@ -24,11 +24,14 @@ namespace Ports {
 
   //! Typed buffer
   //! A typed port
-  class TypedPortBuffer : public Fw::LinearBufferBase {
+  class TypedPortBuffer :
+    public Fw::LinearBufferBase
+  {
 
     public:
 
-      static constexpr FwSizeType SERIALIZED_SIZE =
+      //! The serialized size of the arguments
+      static constexpr FwSizeType SIZE =
         sizeof(U32) +
         sizeof(F32) +
         sizeof(U8) +
@@ -40,7 +43,7 @@ namespace Ports {
     public:
 
       Fw::Serializable::SizeType getCapacity() const {
-        return SERIALIZED_SIZE;
+        return SIZE;
       }
 
       U8* getBuffAddr() {
@@ -51,9 +54,13 @@ namespace Ports {
         return m_buff;
       }
 
+    public:
+
+      // TODO: Serialize and deserialize into buffer
+
     private:
 
-      U8 m_buff[SERIALIZED_SIZE];
+      U8 m_buff[SIZE];
 
   };
 

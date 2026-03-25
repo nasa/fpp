@@ -20,17 +20,20 @@ namespace Ports {
 
   //! NoArgs buffer
   //! A typed port with no arguments
-  class NoArgsPortBuffer : public Fw::LinearBufferBase {
+  class NoArgsPortBuffer :
+    public Fw::LinearBufferBase
+  {
 
     public:
 
-      static constexpr FwSizeType SERIALIZED_SIZE =
+      //! The serialized size of the arguments
+      static constexpr FwSizeType SIZE =
         0;
 
     public:
 
       Fw::Serializable::SizeType getCapacity() const {
-        return SERIALIZED_SIZE;
+        return SIZE;
       }
 
       U8* getBuffAddr() {

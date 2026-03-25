@@ -19,18 +19,21 @@
 
 //! AbsType buffer
 //! A port with abstract type parameters
-class AbsTypePortBuffer : public Fw::LinearBufferBase {
+class AbsTypePortBuffer :
+  public Fw::LinearBufferBase
+{
 
   public:
 
-    static constexpr FwSizeType SERIALIZED_SIZE =
+    //! The serialized size of the arguments
+    static constexpr FwSizeType SIZE =
       T::SERIALIZED_SIZE +
       T::SERIALIZED_SIZE;
 
   public:
 
     Fw::Serializable::SizeType getCapacity() const {
-      return SERIALIZED_SIZE;
+      return SIZE;
     }
 
     U8* getBuffAddr() {
@@ -41,9 +44,13 @@ class AbsTypePortBuffer : public Fw::LinearBufferBase {
       return m_buff;
     }
 
+  public:
+
+    // TODO: Serialize and deserialize into buffer
+
   private:
 
-    U8 m_buff[SERIALIZED_SIZE];
+    U8 m_buff[SIZE];
 
 };
 

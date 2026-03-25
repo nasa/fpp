@@ -21,11 +21,14 @@
 
 //! FppType buffer
 //! A port with FPP type parameters
-class FppTypePortBuffer : public Fw::LinearBufferBase {
+class FppTypePortBuffer :
+  public Fw::LinearBufferBase
+{
 
   public:
 
-    static constexpr FwSizeType SERIALIZED_SIZE =
+    //! The serialized size of the arguments
+    static constexpr FwSizeType SIZE =
       E::SERIALIZED_SIZE +
       E::SERIALIZED_SIZE +
       A::SERIALIZED_SIZE +
@@ -36,7 +39,7 @@ class FppTypePortBuffer : public Fw::LinearBufferBase {
   public:
 
     Fw::Serializable::SizeType getCapacity() const {
-      return SERIALIZED_SIZE;
+      return SIZE;
     }
 
     U8* getBuffAddr() {
@@ -47,9 +50,13 @@ class FppTypePortBuffer : public Fw::LinearBufferBase {
       return m_buff;
     }
 
+  public:
+
+    // TODO: Serialize and deserialize into buffer
+
   private:
 
-    U8 m_buff[SERIALIZED_SIZE];
+    U8 m_buff[SIZE];
 
 };
 
