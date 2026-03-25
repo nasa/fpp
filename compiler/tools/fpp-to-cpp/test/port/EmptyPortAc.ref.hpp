@@ -16,22 +16,14 @@
 #include "Fw/Types/Serializable.hpp"
 #endif
 
-
-//! Empty port constants
-//! An empty port
-struct EmptyPortConstants {
-  //! The size of the serial representations of the port arguments
-  static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
-    0;
-};
-
 //! Empty buffer
 //! An empty port
 class EmptyPortBuffer : public Fw::LinearBufferBase {
 
   public:
 
-    static constexpr FwSizeType SERIALIZED_SIZE = EmptyPortConstants::INPUT_SERIALIZED_SIZE;
+    static constexpr FwSizeType SERIALIZED_SIZE =
+      0;
 
   public:
 
@@ -56,17 +48,6 @@ class EmptyPortBuffer : public Fw::LinearBufferBase {
 class InputEmptyPort :
   public Fw::InputPortBase
 {
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Constants
-    // ----------------------------------------------------------------------
-
-    enum {
-      //! The size of the serial representations of the port arguments
-      SERIALIZED_SIZE = EmptyPortConstants::INPUT_SERIALIZED_SIZE
-    };
 
   public:
 

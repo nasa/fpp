@@ -18,15 +18,6 @@
 
 namespace M {
 
-
-  //! StringReturnType port constants
-  //! A port with a string return type
-  struct StringReturnTypePortConstants {
-    //! The size of the serial representations of the port arguments
-    static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
-      0;
-  };
-
 #if !FW_DIRECT_PORT_CALLS
 
   //! Input StringReturnType port
@@ -34,17 +25,6 @@ namespace M {
   class InputStringReturnTypePort :
     public Fw::InputPortBase
   {
-
-    public:
-
-      // ----------------------------------------------------------------------
-      // Constants
-      // ----------------------------------------------------------------------
-
-      enum {
-        //! The size of the serial representations of the port arguments
-        SERIALIZED_SIZE = StringReturnTypePortConstants::INPUT_SERIALIZED_SIZE
-      };
 
     public:
 

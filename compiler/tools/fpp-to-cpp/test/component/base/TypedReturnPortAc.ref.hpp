@@ -21,21 +21,6 @@
 
 namespace Ports {
 
-
-  //! TypedReturn port constants
-  //! A typed port with a return type
-  struct TypedReturnPortConstants {
-    //! The size of the serial representations of the port arguments
-    static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
-      sizeof(U32) +
-      sizeof(F32) +
-      sizeof(U8) +
-      Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
-      E::SERIALIZED_SIZE +
-      A::SERIALIZED_SIZE +
-      S::SERIALIZED_SIZE;
-  };
-
 #if !FW_DIRECT_PORT_CALLS
 
   //! Input TypedReturn port
@@ -43,17 +28,6 @@ namespace Ports {
   class InputTypedReturnPort :
     public Fw::InputPortBase
   {
-
-    public:
-
-      // ----------------------------------------------------------------------
-      // Constants
-      // ----------------------------------------------------------------------
-
-      enum {
-        //! The size of the serial representations of the port arguments
-        SERIALIZED_SIZE = TypedReturnPortConstants::INPUT_SERIALIZED_SIZE
-      };
 
     public:
 

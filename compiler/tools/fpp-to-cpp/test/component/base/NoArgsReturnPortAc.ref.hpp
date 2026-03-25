@@ -17,15 +17,6 @@
 
 namespace Ports {
 
-
-  //! NoArgsReturn port constants
-  //! A typed port with no arguments and a return type
-  struct NoArgsReturnPortConstants {
-    //! The size of the serial representations of the port arguments
-    static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
-      0;
-  };
-
 #if !FW_DIRECT_PORT_CALLS
 
   //! Input NoArgsReturn port
@@ -33,17 +24,6 @@ namespace Ports {
   class InputNoArgsReturnPort :
     public Fw::InputPortBase
   {
-
-    public:
-
-      // ----------------------------------------------------------------------
-      // Constants
-      // ----------------------------------------------------------------------
-
-      enum {
-        //! The size of the serial representations of the port arguments
-        SERIALIZED_SIZE = NoArgsReturnPortConstants::INPUT_SERIALIZED_SIZE
-      };
 
     public:
 

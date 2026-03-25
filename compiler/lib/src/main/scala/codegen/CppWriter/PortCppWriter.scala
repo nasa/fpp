@@ -19,8 +19,6 @@ case class PortCppWriter (
 
   private val portName = s.getName(symbol)
 
-  private val portConstantsName = PortCppWriter.getPortConstantsName(portName)
-
   private val portBufferName = PortCppWriter.getPortBufferName(portName)
 
   private val fileName = ComputeCppFiles.FileNames.getPort(portName)
@@ -96,7 +94,6 @@ case class PortCppWriter (
   }
 
   private def getClasses =
-    getPortConstants ::
     List.concat(
       guardedList (!data.returnType.isDefined) (List(PortBufferClass.get)),
       wrapMembersInIfDirective(
@@ -160,27 +157,11 @@ case class PortCppWriter (
     )
   }
 
-  private def writeSerializedSize(
-    paramList: List[(String, String, Ast.FormalParam.Kind)],
-  ): List[Line] = writeSum(
+  private def writeSerializedSize: List[Line] = writeSum(
     paramList.map(
       (n, tn, _) => writeStaticSerializedSizeExpr(s, paramTypeMap(n), tn)
     )
   )
-
-  private def getPortConstants: CppDoc.Member =
-    linesMember(
-      Line.blank ::
-      List.concat(
-        CppDocWriter.writeDoxygenComment(s"$portName port constants\n$annotation"),
-        wrapInNamedStruct(
-          portConstantsName,
-          line("//! The size of the serial representations of the port arguments") ::
-          line(s"static constexpr FwSizeType INPUT_SERIALIZED_SIZE =") ::
-          writeSerializedSize(paramList).map(indentIn)
-        )
-      )
-    )
 
   /** Object for constructing the port buffer class */
   private object PortBufferClass {
@@ -202,7 +183,8 @@ case class PortCppWriter (
       List.concat(
         CppDocHppWriter.writeAccessTag("public"),
         Line.blank ::
-        lines(s"static constexpr FwSizeType SERIALIZED_SIZE = $portConstantsName::INPUT_SERIALIZED_SIZE;")
+        line(s"static constexpr FwSizeType SERIALIZED_SIZE =") ::
+        writeSerializedSize.map(indentIn)
       )
     }
 
@@ -249,7 +231,6 @@ case class PortCppWriter (
       PortCppWriter.inputPortName(portName),
       Some("public Fw::InputPortBase"),
       List.concat(
-        getConstantMembers,
         getTypeMembers,
         getFunctionMembers,
         getVariableMembers
@@ -311,14 +292,6 @@ case class PortCppWriter (
         lines(");")
       )
     )
-
-    private def getConstantMembers: List[CppDoc.Class.Member] =
-      addAccessTagAndComment(
-        "public",
-        "Constants",
-        List(getSerializedSizeConstant),
-        CppDoc.Lines.Hpp
-      )
 
     private def getConstructor = 
       constructorClassMember(
@@ -391,17 +364,6 @@ case class PortCppWriter (
           case None => writeInvokeSerialBodyVoid
         }
       )
-
-    private def getSerializedSizeConstant = linesClassMember(
-      addBlankPrefix(
-        wrapInEnum(
-          lines(
-            s"""|//! The size of the serial representations of the port arguments
-                |SERIALIZED_SIZE = $portConstantsName::INPUT_SERIALIZED_SIZE"""
-          )
-        )
-      )
-    )
 
     private def getTypeMembers: List[CppDoc.Class.Member] =
       addAccessTagAndComment(
@@ -636,9 +598,6 @@ object PortCppWriter {
   private def inputPortName(name: String) = s"Input${name}Port"
 
   private def outputPortName(name: String) = s"Output${name}Port"
-
-  /** Gets the name of the port constants struct */
-  def getPortConstantsName(name: String) = s"${name}PortConstants"
 
   /** Gets the name of the port buffer class */
   def getPortBufferName(name: String) = s"${name}PortBuffer"

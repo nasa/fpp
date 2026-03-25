@@ -18,22 +18,14 @@
 
 namespace Ports {
 
-
-  //! NoArgs port constants
-  //! A typed port with no arguments
-  struct NoArgsPortConstants {
-    //! The size of the serial representations of the port arguments
-    static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
-      0;
-  };
-
   //! NoArgs buffer
   //! A typed port with no arguments
   class NoArgsPortBuffer : public Fw::LinearBufferBase {
 
     public:
 
-      static constexpr FwSizeType SERIALIZED_SIZE = NoArgsPortConstants::INPUT_SERIALIZED_SIZE;
+      static constexpr FwSizeType SERIALIZED_SIZE =
+        0;
 
     public:
 
@@ -58,17 +50,6 @@ namespace Ports {
   class InputNoArgsPort :
     public Fw::InputPortBase
   {
-
-    public:
-
-      // ----------------------------------------------------------------------
-      // Constants
-      // ----------------------------------------------------------------------
-
-      enum {
-        //! The size of the serial representations of the port arguments
-        SERIALIZED_SIZE = NoArgsPortConstants::INPUT_SERIALIZED_SIZE
-      };
 
     public:
 

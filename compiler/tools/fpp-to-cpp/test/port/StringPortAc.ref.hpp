@@ -17,25 +17,17 @@
 #include "Fw/Types/Serializable.hpp"
 #endif
 
-
-//! String port constants
-//! A port with string parameters
-struct StringPortConstants {
-  //! The size of the serial representations of the port arguments
-  static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
-    Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
-    Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
-    Fw::StringBase::STATIC_SERIALIZED_SIZE(100) +
-    Fw::StringBase::STATIC_SERIALIZED_SIZE(100);
-};
-
 //! String buffer
 //! A port with string parameters
 class StringPortBuffer : public Fw::LinearBufferBase {
 
   public:
 
-    static constexpr FwSizeType SERIALIZED_SIZE = StringPortConstants::INPUT_SERIALIZED_SIZE;
+    static constexpr FwSizeType SERIALIZED_SIZE =
+      Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
+      Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
+      Fw::StringBase::STATIC_SERIALIZED_SIZE(100) +
+      Fw::StringBase::STATIC_SERIALIZED_SIZE(100);
 
   public:
 
@@ -64,17 +56,6 @@ class StringPortBuffer : public Fw::LinearBufferBase {
 class InputStringPort :
   public Fw::InputPortBase
 {
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Constants
-    // ----------------------------------------------------------------------
-
-    enum {
-      //! The size of the serial representations of the port arguments
-      SERIALIZED_SIZE = StringPortConstants::INPUT_SERIALIZED_SIZE
-    };
 
   public:
 

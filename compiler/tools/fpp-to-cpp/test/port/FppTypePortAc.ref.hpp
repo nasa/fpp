@@ -19,27 +19,19 @@
 #include "Fw/Types/Serializable.hpp"
 #endif
 
-
-//! FppType port constants
-//! A port with FPP type parameters
-struct FppTypePortConstants {
-  //! The size of the serial representations of the port arguments
-  static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
-    E::SERIALIZED_SIZE +
-    E::SERIALIZED_SIZE +
-    A::SERIALIZED_SIZE +
-    A::SERIALIZED_SIZE +
-    S::SERIALIZED_SIZE +
-    S::SERIALIZED_SIZE;
-};
-
 //! FppType buffer
 //! A port with FPP type parameters
 class FppTypePortBuffer : public Fw::LinearBufferBase {
 
   public:
 
-    static constexpr FwSizeType SERIALIZED_SIZE = FppTypePortConstants::INPUT_SERIALIZED_SIZE;
+    static constexpr FwSizeType SERIALIZED_SIZE =
+      E::SERIALIZED_SIZE +
+      E::SERIALIZED_SIZE +
+      A::SERIALIZED_SIZE +
+      A::SERIALIZED_SIZE +
+      S::SERIALIZED_SIZE +
+      S::SERIALIZED_SIZE;
 
   public:
 
@@ -68,17 +60,6 @@ class FppTypePortBuffer : public Fw::LinearBufferBase {
 class InputFppTypePort :
   public Fw::InputPortBase
 {
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Constants
-    // ----------------------------------------------------------------------
-
-    enum {
-      //! The size of the serial representations of the port arguments
-      SERIALIZED_SIZE = FppTypePortConstants::INPUT_SERIALIZED_SIZE
-    };
 
   public:
 

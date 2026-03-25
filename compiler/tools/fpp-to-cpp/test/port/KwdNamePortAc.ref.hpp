@@ -16,22 +16,14 @@
 #include "Fw/Types/Serializable.hpp"
 #endif
 
-
-//! KwdName port constants
-//! A port with a keyword name
-struct KwdNamePortConstants {
-  //! The size of the serial representations of the port arguments
-  static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
-    sizeof(U32);
-};
-
 //! KwdName buffer
 //! A port with a keyword name
 class KwdNamePortBuffer : public Fw::LinearBufferBase {
 
   public:
 
-    static constexpr FwSizeType SERIALIZED_SIZE = KwdNamePortConstants::INPUT_SERIALIZED_SIZE;
+    static constexpr FwSizeType SERIALIZED_SIZE =
+      sizeof(U32);
 
   public:
 
@@ -60,17 +52,6 @@ class KwdNamePortBuffer : public Fw::LinearBufferBase {
 class InputKwdNamePort :
   public Fw::InputPortBase
 {
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Constants
-    // ----------------------------------------------------------------------
-
-    enum {
-      //! The size of the serial representations of the port arguments
-      SERIALIZED_SIZE = KwdNamePortConstants::INPUT_SERIALIZED_SIZE
-    };
 
   public:
 
