@@ -7,69 +7,13 @@ import fpp.compiler.util._
 case class PortCppWriter (
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefPort]]
-) extends CppWriterUtils {
-
-  private val node = aNode._2
-
-  private val annotation = AnnotationCppWriter.asString(aNode)
-
-  private val data = node.data
-
-  private val symbol = Symbol.Port(aNode)
-
-  private val portName = s.getName(symbol)
-
-  private val portBufferName = PortCppWriter.getPortBufferName(portName)
-
-  private val fileName = ComputeCppFiles.FileNames.getPort(portName)
-
-  private val namespaceIdentList = s.getNamespaceIdentList(symbol)
-
-  private val typeCppWriter = TypeCppWriter(s, "Fw::StringBase")
-
-  private val returnTypeCppWriter = TypeCppWriter(s, "Fw::String")
-
-  private val formalParamsCppWriter = FormalParamsCppWriter(s)
-
-  private val params = data.params
-
-  private val bufferFunctionParam = CppDoc.Function.Param(
-    CppDoc.Type("Fw::LinearBufferBase&"),
-    "_buffer",
-    Some("The serial buffer")
-  )
-
-  // Param names in a comma-separated list
-  def writeParamNames = params.map(_._2.data.name).mkString(", ")
-
-  // Param names appended to a comma-separated list
-  def appendParamNames = writeParamNames match {
-    case "" => ""
-    case paramNames => s", $paramNames"
-  }
-
-  // Port params as CppDoc Function Params
-  private val portFunctionParams: List[CppDoc.Function.Param] =
-    formalParamsCppWriter.write(params, "Fw::StringBase")
-
-  // Return type as a C++ type
-  private val returnType = data.returnType match {
-    case Some(value) => returnTypeCppWriter.write(s.a.typeMap(value.id))
-    case None => "void"
-  }
-
-  private val hasReturnValue = data.returnType.isDefined
-
-  private def writeIncludeDirectives: List[String] = {
-    val Right(a) = UsedSymbols.defPortAnnotatedNode(s.a, aNode)
-    s.writeIncludeDirectives(a.usedSymbolSet)
-  }
+) extends PortCppWriterUtils(s, aNode) {
 
   def write: CppDoc = {
-    val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
+    val includeGuard = s.includeGuardFromQualifiedName(portSymbol, portFileName)
     CppWriter.createCppDoc(
       s"$portName port",
-      fileName,
+      portFileName,
       includeGuard,
       getMembers,
       s.toolName
@@ -132,7 +76,7 @@ case class PortCppWriter (
     val userHeaders = List(
       "Fw/Types/Assert.hpp",
       "Fw/Types/ExternalString.hpp",
-      s.getIncludePath(symbol, fileName)
+      s.getIncludePath(portSymbol, portFileName)
     ).sorted.map(CppWriter.headerString).map(line)
     linesMember(
       Line.blank :: userHeaders,
@@ -140,22 +84,16 @@ case class PortCppWriter (
     )
   }
 
-  private def writeBufferCapacity: List[Line] = writeSum(
-    params.map(
-      param => {
-        val data = param._2.data
-        val t = s.a.typeMap(data.typeName.id)
-        val tn = typeCppWriter.write(t)
-        writeStaticSerializedSizeExpr(s, t, tn)
-      }
-    )
-  )
+  private def writeIncludeDirectives: List[String] = {
+    val Right(a) = UsedSymbols.defPortAnnotatedNode(s.a, aNode)
+    s.writeIncludeDirectives(a.usedSymbolSet)
+  }
 
   /** Object for constructing the port buffer class */
   private object PortBufferClass {
 
     def get = classMember(
-      Some(s"Serialization buffer for $portName port\n$annotation"),
+      Some(s"Serialization buffer for $portName port\n$portAnnotation"),
       portBufferName,
       Some("public Fw::LinearBufferBase"),
       List.concat(
@@ -191,7 +129,7 @@ case class PortCppWriter (
       List(
         linesClassMember({
           val buffAddr =
-            if params.isEmpty then "nullptr" else "m_buff"
+            if !hasParams then "nullptr" else "m_buff"
           lines(
             s"""|
                 |//! Get the capacity of the buffer
@@ -222,7 +160,7 @@ case class PortCppWriter (
       addAccessTagAndComment(
         "public",
         "Public static functions",
-        guardedList (!params.isEmpty) (
+        guardedList (hasParams) (
           List(getSerializeFunction)
         )
       )
@@ -244,7 +182,7 @@ case class PortCppWriter (
         CppDoc.Type("Fw::SerializeStatus"),
         List.concat(
           lines("Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;"),
-          params.flatMap(writeSerializationForParam),
+          portParams.flatMap(writeSerializationForParam),
           lines("return _status;")
         ),
         CppDoc.Function.Static
@@ -254,7 +192,7 @@ case class PortCppWriter (
       addAccessTagAndComment(
         "private",
         "Private member variables",
-        guardedList (!params.isEmpty) (
+        guardedList (hasParams) (
           List(
             linesClassMember(
               Line.blank ::
@@ -265,13 +203,24 @@ case class PortCppWriter (
         CppDoc.Lines.Hpp
       )
 
+    private def writeBufferCapacity: List[Line] = writeSum(
+      portParams.map(
+        param => {
+          val data = param._2.data
+          val t = s.a.typeMap(data.typeName.id)
+          val tn = typeCppWriter.write(t)
+          writeStaticSerializedSizeExpr(s, t, tn)
+        }
+      )
+    )
+
   }
 
   /** Object for constructing the input port class */
   private object InputPortClass {
 
     def get = classMember(
-      Some(s"Input $portName port\n$annotation"),
+      Some(s"Input $portName port\n$portAnnotation"),
       PortCppWriter.inputPortName(portName),
       Some("public Fw::InputPortBase"),
       List.concat(
@@ -322,7 +271,7 @@ case class PortCppWriter (
       addSeparators (",") (
         line("Fw::PassiveComponentBase* callComp") ::
         line("FwIndexType portNum") ::
-        params.map(getCompFuncParam)
+        portParams.map(getCompFuncParam)
       )
 
     private def getCompFuncType = linesClassMember(
@@ -442,9 +391,9 @@ case class PortCppWriter (
 
     private def writeInvokeSerialBodyVoid = {
       val bufferUse =
-        if params.isEmpty
-        then line("(void) _buffer;")
-        else line("Fw::SerializeStatus _status;")
+        if hasParams
+        then line("Fw::SerializeStatus _status;")
+        else line("(void) _buffer;")
       bufferUse ::
       List.concat(
         lines(
@@ -457,7 +406,7 @@ case class PortCppWriter (
              |FW_ASSERT(this->m_func != nullptr);
              |"""
         ),
-        params.flatMap(param => {
+        portParams.flatMap(param => {
           val data = param._2.data
           val portName = data.name
           val t = s.a.typeMap(data.typeName.id)
@@ -489,7 +438,7 @@ case class PortCppWriter (
   private object OutputPortClass {
 
     def get = classMember(
-      Some(s"Output $portName port\n$annotation"),
+      Some(s"Output $portName port\n$portAnnotation"),
       PortCppWriter.outputPortName(portName),
       Some("public Fw::OutputPortBase"),
       List.concat(
@@ -618,7 +567,7 @@ case class PortCppWriter (
               |  $portBufferName _buffer;
               |"""
         ),
-        params.flatMap(param => {
+        portParams.flatMap(param => {
           val paramName = param._2.data.name
           lines(
             s"""|
