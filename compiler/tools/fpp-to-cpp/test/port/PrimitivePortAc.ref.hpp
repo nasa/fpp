@@ -16,7 +16,9 @@
 #include "Fw/Types/Serializable.hpp"
 #endif
 
+
 //! Primitive port constants
+//! A port with primitive parameters
 struct PrimitivePortConstants {
   //! The size of the serial representations of the port arguments
   static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
@@ -34,13 +36,7 @@ class PrimitivePortBuffer : public Fw::LinearBufferBase {
 
   public:
 
-    static constexpr FwSizeType SERIALIZED_SIZE =
-      sizeof(U32) +
-      sizeof(U32) +
-      sizeof(F32) +
-      sizeof(F32) +
-      sizeof(U8) +
-      sizeof(U8);
+    static constexpr FwSizeType SERIALIZED_SIZE = PrimitivePortConstants::INPUT_SERIALIZED_SIZE;
 
   public:
 

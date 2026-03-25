@@ -22,7 +22,9 @@
 
 namespace Ports {
 
+
   //! Typed port constants
+  //! A typed port
   struct TypedPortConstants {
     //! The size of the serial representations of the port arguments
     static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
@@ -33,6 +35,34 @@ namespace Ports {
       E::SERIALIZED_SIZE +
       A::SERIALIZED_SIZE +
       S::SERIALIZED_SIZE;
+  };
+
+  //! Typed buffer
+  //! A typed port
+  class TypedPortBuffer : public Fw::LinearBufferBase {
+
+    public:
+
+      static constexpr FwSizeType SERIALIZED_SIZE = TypedPortConstants::INPUT_SERIALIZED_SIZE;
+
+    public:
+
+      Fw::Serializable::SizeType getCapacity() const {
+        return SERIALIZED_SIZE;
+      }
+
+      U8* getBuffAddr() {
+        return m_buff;
+      }
+
+      const U8* getBuffAddr() const {
+        return m_buff;
+      }
+
+    private:
+
+      U8 m_buff[SERIALIZED_SIZE];
+
   };
 
 #if !FW_DIRECT_PORT_CALLS

@@ -18,7 +18,9 @@
 
 namespace M {
 
+
   //! StringReturnType port constants
+  //! A port with a string return type
   struct StringReturnTypePortConstants {
     //! The size of the serial representations of the port arguments
     static constexpr FwSizeType INPUT_SERIALIZED_SIZE =

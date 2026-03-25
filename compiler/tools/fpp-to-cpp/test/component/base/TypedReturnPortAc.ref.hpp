@@ -21,7 +21,9 @@
 
 namespace Ports {
 
+
   //! TypedReturn port constants
+  //! A typed port with a return type
   struct TypedReturnPortConstants {
     //! The size of the serial representations of the port arguments
     static constexpr FwSizeType INPUT_SERIALIZED_SIZE =

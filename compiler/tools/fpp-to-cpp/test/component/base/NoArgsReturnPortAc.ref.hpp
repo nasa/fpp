@@ -17,7 +17,9 @@
 
 namespace Ports {
 
+
   //! NoArgsReturn port constants
+  //! A typed port with no arguments and a return type
   struct NoArgsReturnPortConstants {
     //! The size of the serial representations of the port arguments
     static constexpr FwSizeType INPUT_SERIALIZED_SIZE =

@@ -8,35 +8,9 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "NoArgsPortAc.hpp"
 
-#if !FW_DIRECT_PORT_CALLS
-
 namespace Ports {
 
-  namespace {
-
-    // ----------------------------------------------------------------------
-    // Port buffer class
-    // ----------------------------------------------------------------------
-
-    class NoArgsPortBuffer : public Fw::LinearBufferBase {
-
-      public:
-
-        Fw::Serializable::SizeType getCapacity() const {
-          return InputNoArgsPort::SERIALIZED_SIZE;
-        }
-
-        U8* getBuffAddr() {
-          return nullptr;
-        }
-
-        const U8* getBuffAddr() const {
-          return nullptr;
-        }
-
-    };
-
-  }
+#if !FW_DIRECT_PORT_CALLS
 
   // ----------------------------------------------------------------------
   // Input Port Member functions
@@ -161,6 +135,6 @@ namespace Ports {
 #endif
   }
 
-}
-
 #endif
+
+}

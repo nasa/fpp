@@ -8,39 +8,9 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "TypedPortAc.hpp"
 
-#if !FW_DIRECT_PORT_CALLS
-
 namespace Ports {
 
-  namespace {
-
-    // ----------------------------------------------------------------------
-    // Port buffer class
-    // ----------------------------------------------------------------------
-
-    class TypedPortBuffer : public Fw::LinearBufferBase {
-
-      public:
-
-        Fw::Serializable::SizeType getCapacity() const {
-          return InputTypedPort::SERIALIZED_SIZE;
-        }
-
-        U8* getBuffAddr() {
-          return m_buff;
-        }
-
-        const U8* getBuffAddr() const {
-          return m_buff;
-        }
-
-      private:
-
-        U8 m_buff[InputTypedPort::SERIALIZED_SIZE];
-
-    };
-
-  }
+#if !FW_DIRECT_PORT_CALLS
 
   // ----------------------------------------------------------------------
   // Input Port Member functions
@@ -245,6 +215,6 @@ namespace Ports {
 #endif
   }
 
-}
-
 #endif
+
+}

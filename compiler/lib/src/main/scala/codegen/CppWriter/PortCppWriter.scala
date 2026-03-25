@@ -19,6 +19,10 @@ case class PortCppWriter (
 
   private val portName = s.getName(symbol)
 
+  private val portConstantsName = PortCppWriter.getPortConstantsName(portName)
+
+  private val portBufferName = PortCppWriter.getPortBufferName(portName)
+
   private val fileName = ComputeCppFiles.FileNames.getPort(portName)
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
@@ -92,6 +96,7 @@ case class PortCppWriter (
   }
 
   private def getClasses =
+    getPortConstants ::
     List.concat(
       guardedList (!data.returnType.isDefined) (List(PortBufferClass.get)),
       wrapMembersInIfDirective(
@@ -112,10 +117,7 @@ case class PortCppWriter (
       ),
       wrapInNamespaces(
         namespaceIdentList,
-        List.concat(
-          getPortConstants,
-          getClasses,
-        )
+        getClasses
       )
     )
 
@@ -166,18 +168,19 @@ case class PortCppWriter (
     )
   )
 
-  private def getPortConstants: List[CppDoc.Member] = List(
+  private def getPortConstants: CppDoc.Member =
     linesMember(
       Line.blank ::
-      line(s"//! $portName port constants") ::
-      wrapInNamedStruct(
-        PortCppWriter.getPortConstantsName(portName),
-        line("//! The size of the serial representations of the port arguments") ::
-        line(s"static constexpr FwSizeType INPUT_SERIALIZED_SIZE =") ::
-        writeSerializedSize(paramList).map(indentIn)
+      List.concat(
+        CppDocWriter.writeDoxygenComment(s"$portName port constants\n$annotation"),
+        wrapInNamedStruct(
+          portConstantsName,
+          line("//! The size of the serial representations of the port arguments") ::
+          line(s"static constexpr FwSizeType INPUT_SERIALIZED_SIZE =") ::
+          writeSerializedSize(paramList).map(indentIn)
+        )
       )
     )
-  )
 
   /** Object for constructing the port buffer class */
   private object PortBufferClass {
@@ -185,7 +188,7 @@ case class PortCppWriter (
     def get = linesMember(
       List.concat(
         CppDocWriter.writeDoxygenComment(s"$portName buffer\n$annotation"),
-        lines(s"class ${portName}PortBuffer : public Fw::LinearBufferBase {"),
+        lines(s"class $portBufferName : public Fw::LinearBufferBase {"),
         List.concat(
           writeConstants,
           writeMemberFunctions,
@@ -195,13 +198,13 @@ case class PortCppWriter (
       )
     )
 
-    private def writeConstants =
+    private def writeConstants = {
       List.concat(
         CppDocHppWriter.writeAccessTag("public"),
         Line.blank ::
-        line(s"static constexpr FwSizeType SERIALIZED_SIZE =") ::
-        writeSerializedSize(paramList).map(indentIn)
+        lines(s"static constexpr FwSizeType SERIALIZED_SIZE = $portConstantsName::INPUT_SERIALIZED_SIZE;")
       )
+    }
 
     private def writeMemberFunctions = {
       val buffAddr =
@@ -392,11 +395,10 @@ case class PortCppWriter (
     private def getSerializedSizeConstant = linesClassMember(
       addBlankPrefix(
         wrapInEnum(
-          lines({
-            val constantsName = PortCppWriter.getPortConstantsName(portName)
+          lines(
             s"""|//! The size of the serial representations of the port arguments
-                |SERIALIZED_SIZE = $constantsName::INPUT_SERIALIZED_SIZE"""
-          })
+                |SERIALIZED_SIZE = $portConstantsName::INPUT_SERIALIZED_SIZE"""
+          )
         )
       )
     )
@@ -601,7 +603,7 @@ case class PortCppWriter (
               |}
               |else {
               |  Fw::SerializeStatus _status;
-              |  ${portName}PortBuffer _buffer;
+              |  $portBufferName _buffer;
               |"""
         ),
         paramList.flatMap((n, _, _) => {
@@ -637,6 +639,9 @@ object PortCppWriter {
 
   /** Gets the name of the port constants struct */
   def getPortConstantsName(name: String) = s"${name}PortConstants"
+
+  /** Gets the name of the port buffer class */
+  def getPortBufferName(name: String) = s"${name}PortBuffer"
 
   /** Get the name of a port type */
   def getPortName(name: String, direction: PortInstance.Direction): String =

@@ -18,11 +18,37 @@
 
 namespace Ports {
 
+
   //! NoArgs port constants
+  //! A typed port with no arguments
   struct NoArgsPortConstants {
     //! The size of the serial representations of the port arguments
     static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
       0;
+  };
+
+  //! NoArgs buffer
+  //! A typed port with no arguments
+  class NoArgsPortBuffer : public Fw::LinearBufferBase {
+
+    public:
+
+      static constexpr FwSizeType SERIALIZED_SIZE = NoArgsPortConstants::INPUT_SERIALIZED_SIZE;
+
+    public:
+
+      Fw::Serializable::SizeType getCapacity() const {
+        return SERIALIZED_SIZE;
+      }
+
+      U8* getBuffAddr() {
+        return nullptr;
+      }
+
+      const U8* getBuffAddr() const {
+        return nullptr;
+      }
+
   };
 
 #if !FW_DIRECT_PORT_CALLS

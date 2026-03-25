@@ -17,7 +17,9 @@
 
 namespace M {
 
+
   //! ReturnType port constants
+  //! A port with a return type
   struct ReturnTypePortConstants {
     //! The size of the serial representations of the port arguments
     static constexpr FwSizeType INPUT_SERIALIZED_SIZE =

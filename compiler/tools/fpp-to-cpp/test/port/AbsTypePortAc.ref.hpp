@@ -17,7 +17,9 @@
 #include "Fw/Types/Serializable.hpp"
 #endif
 
+
 //! AbsType port constants
+//! A port with abstract type parameters
 struct AbsTypePortConstants {
   //! The size of the serial representations of the port arguments
   static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
@@ -31,9 +33,7 @@ class AbsTypePortBuffer : public Fw::LinearBufferBase {
 
   public:
 
-    static constexpr FwSizeType SERIALIZED_SIZE =
-      T::SERIALIZED_SIZE +
-      T::SERIALIZED_SIZE;
+    static constexpr FwSizeType SERIALIZED_SIZE = AbsTypePortConstants::INPUT_SERIALIZED_SIZE;
 
   public:
 
