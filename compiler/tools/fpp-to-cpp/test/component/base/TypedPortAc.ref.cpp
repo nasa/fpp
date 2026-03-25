@@ -10,6 +10,47 @@
 
 namespace Ports {
 
+  // ----------------------------------------------------------------------
+  // Public static functions
+  // ----------------------------------------------------------------------
+
+  Fw::SerializeStatus TypedPortBuffer ::
+    serializePortArgs(
+        U32 u32,
+        F32 f32,
+        bool b,
+        const Fw::StringBase& str1,
+        const E& e,
+        const A& a,
+        const S& s,
+        Fw::LinearBufferBase& _buffer
+    )
+  {
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.serializeFrom(u32);
+    }
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.serializeFrom(f32);
+    }
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.serializeFrom(b);
+    }
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.serializeFrom(str1);
+    }
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.serializeFrom(e);
+    }
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.serializeFrom(a);
+    }
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.serializeFrom(s);
+    }
+    return _status;
+  }
+
 #if !FW_DIRECT_PORT_CALLS
 
   // ----------------------------------------------------------------------

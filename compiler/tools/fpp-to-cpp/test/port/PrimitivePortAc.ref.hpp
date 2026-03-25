@@ -148,6 +148,7 @@ class InputPrimitivePort :
 #if FW_PORT_SERIALIZATION == 1
 
     //! Invoke the port with serialized arguments
+    //! \return The serialize status
     Fw::SerializeStatus invokeSerial(
         Fw::LinearBufferBase& _buffer //!< The serial buffer
     );
@@ -188,7 +189,7 @@ class OutputPrimitivePort :
         InputPrimitivePort* callPort //!< The input port
     );
 
-    //! Invoke a port interface
+    //! Invoke a port connection
     void invoke(
         U32 u32,
         U32& u32Ref,

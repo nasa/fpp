@@ -22,7 +22,7 @@
 
 namespace Ports {
 
-  //! Typed buffer
+  //! Serialization buffer for Typed port
   //! A typed port
   class TypedPortBuffer :
     public Fw::LinearBufferBase
@@ -30,7 +30,12 @@ namespace Ports {
 
     public:
 
-      //! The serialized size of the arguments
+      // ----------------------------------------------------------------------
+      // Public constants
+      // ----------------------------------------------------------------------
+
+      //! The buffer capacity. This is the sum of the static serialized
+      //! sizes of the port arguments.
       static constexpr FwSizeType CAPACITY =
         sizeof(U32) +
         sizeof(F32) +
@@ -42,23 +47,51 @@ namespace Ports {
 
     public:
 
-      Fw::Serializable::SizeType getCapacity() const {
+      // ----------------------------------------------------------------------
+      // Public member functions
+      // ----------------------------------------------------------------------
+
+      //! Get the capacity of the buffer
+      //! \return The capacity
+      Fw::Serializable::SizeType getCapacity() const override {
         return CAPACITY;
       }
 
-      U8* getBuffAddr() {
+      //! Get the buffer address (non-const)
+      //! \return The buffer address
+      U8* getBuffAddr() override {
         return m_buff;
       }
 
-      const U8* getBuffAddr() const {
+      //! Get the buffer address (const)
+      //! \return The buffer address
+      const U8* getBuffAddr() const override {
         return m_buff;
       }
 
     public:
 
-      // TODO: Serialize and deserialize into buffer
+      // ----------------------------------------------------------------------
+      // Public static functions
+      // ----------------------------------------------------------------------
+
+      //! Serialize port arguments into the buffer
+      static Fw::SerializeStatus serializePortArgs(
+          U32 u32, //!< A U32
+          F32 f32, //!< An F32
+          bool b, //!< A boolean
+          const Fw::StringBase& str1, //!< A string
+          const E& e, //!< An enum
+          const A& a, //!< An array
+          const S& s, //!< A struct
+          Fw::LinearBufferBase& _buffer //!< The serial buffer
+      );
 
     private:
+
+      // ----------------------------------------------------------------------
+      // Private member variables
+      // ----------------------------------------------------------------------
 
       U8 m_buff[CAPACITY];
 
@@ -125,7 +158,10 @@ namespace Ports {
 #if FW_PORT_SERIALIZATION == 1
 
       //! Invoke the port with serialized arguments
-      Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer);
+      //! \return The serialize status
+      Fw::SerializeStatus invokeSerial(
+          Fw::LinearBufferBase& _buffer //!< The serial buffer
+      );
 
 #endif
 
@@ -163,7 +199,7 @@ namespace Ports {
           InputTypedPort* callPort //!< The input port
       );
 
-      //! Invoke a port interface
+      //! Invoke a port connection
       void invoke(
           U32 u32, //!< A U32
           F32 f32, //!< An F32

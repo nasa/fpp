@@ -126,6 +126,7 @@ class InputKwdNamePort :
 #if FW_PORT_SERIALIZATION == 1
 
     //! Invoke the port with serialized arguments
+    //! \return The serialize status
     Fw::SerializeStatus invokeSerial(
         Fw::LinearBufferBase& _buffer //!< The serial buffer
     );
@@ -166,7 +167,7 @@ class OutputKwdNamePort :
         InputKwdNamePort* callPort //!< The input port
     );
 
-    //! Invoke a port interface
+    //! Invoke a port connection
     void invoke(U32& time) const;
 
   private:

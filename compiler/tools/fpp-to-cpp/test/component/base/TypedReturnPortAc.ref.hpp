@@ -82,7 +82,10 @@ namespace Ports {
 #if FW_PORT_SERIALIZATION == 1
 
       //! Invoke the port with serialized arguments
-      Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer);
+      //! \return The serialize status
+      Fw::SerializeStatus invokeSerial(
+          Fw::LinearBufferBase& _buffer //!< The serial buffer
+      );
 
 #endif
 
@@ -120,7 +123,8 @@ namespace Ports {
           InputTypedReturnPort* callPort //!< The input port
       );
 
-      //! Invoke a port interface
+      //! Invoke a port connection
+      //! \return The return value of the port handler
       F32 invoke(
           U32 u32, //!< A U32
           F32 f32, //!< An F32

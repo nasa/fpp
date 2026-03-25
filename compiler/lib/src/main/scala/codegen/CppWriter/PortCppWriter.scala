@@ -43,7 +43,7 @@ case class PortCppWriter (
   def writeParamNames = params.map(_._2.data.name).mkString(", ")
 
   // Param names appended to a comma-separated list
-  val appendParamNames = writeParamNames match {
+  def appendParamNames = writeParamNames match {
     case "" => ""
     case paramNames => s", $paramNames"
   }
@@ -58,7 +58,7 @@ case class PortCppWriter (
     case None => "void"
   }
 
-  private val hasReturnType = data.returnType.isDefined
+  private val hasReturnValue = data.returnType.isDefined
 
   private def writeIncludeDirectives: List[String] = {
     val Right(a) = UsedSymbols.defPortAnnotatedNode(s.a, aNode)
@@ -78,7 +78,7 @@ case class PortCppWriter (
 
   private def getClasses =
     List.concat(
-      guardedList (!hasReturnType) (List(PortBufferClass.get)),
+      guardedList (!hasReturnValue) (List(PortBufferClass.get)),
       wrapMembersInIfDirective(
         "#if !FW_DIRECT_PORT_CALLS",
         List(
@@ -110,7 +110,7 @@ case class PortCppWriter (
       writeIncludeDirectives
     ).sorted.map(line)
     val conditional = List.concat(
-      guardedList (!hasReturnType) (List("Fw/Types/Serializable.hpp")),
+      guardedList (!hasReturnValue) (List("Fw/Types/Serializable.hpp")),
       List(
         "Fw/Comp/PassiveComponentBase.hpp",
         "Fw/Port/InputPortBase.hpp",
@@ -394,11 +394,14 @@ case class PortCppWriter (
 
     private def getInvokeSerialFunction =
       functionClassMember(
-        Some("Invoke the port with serialized arguments"),
+        Some(
+          """|Invoke the port with serialized arguments
+             |\return The serialize status"""
+        ),
         "invokeSerial",
         List(bufferFunctionParam),
         CppDoc.Type("Fw::SerializeStatus"),
-        if hasReturnType
+        if hasReturnValue
         then writeInvokeSerialBodyNonVoid
         else writeInvokeSerialBodyVoid
       )
@@ -551,7 +554,13 @@ case class PortCppWriter (
 
     private def getInvokeFunction =
       functionClassMember(
-        Some("Invoke a port interface"),
+        {
+          val returnComment =
+            if hasReturnValue
+            then "\n\\return The return value of the port handler"
+            else ""
+          Some(s"Invoke a port connection$returnComment")
+        },
         "invoke",
         portFunctionParams,
         CppDoc.Type(returnType),
@@ -562,7 +571,7 @@ case class PortCppWriter (
                 |#endif
                 |"""
           ),
-          if hasReturnType
+          if hasReturnValue
           then writeInvokeBodyNonVoid
           else writeInvokeBodyVoid
         ),

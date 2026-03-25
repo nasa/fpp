@@ -18,7 +18,7 @@
 
 namespace Ports {
 
-  //! NoArgs buffer
+  //! Serialization buffer for NoArgs port
   //! A typed port with no arguments
   class NoArgsPortBuffer :
     public Fw::LinearBufferBase
@@ -26,21 +26,36 @@ namespace Ports {
 
     public:
 
-      //! The serialized size of the arguments
+      // ----------------------------------------------------------------------
+      // Public constants
+      // ----------------------------------------------------------------------
+
+      //! The buffer capacity. This is the sum of the static serialized
+      //! sizes of the port arguments.
       static constexpr FwSizeType CAPACITY =
         0;
 
     public:
 
-      Fw::Serializable::SizeType getCapacity() const {
+      // ----------------------------------------------------------------------
+      // Public member functions
+      // ----------------------------------------------------------------------
+
+      //! Get the capacity of the buffer
+      //! \return The capacity
+      Fw::Serializable::SizeType getCapacity() const override {
         return CAPACITY;
       }
 
-      U8* getBuffAddr() {
+      //! Get the buffer address (non-const)
+      //! \return The buffer address
+      U8* getBuffAddr() override {
         return nullptr;
       }
 
-      const U8* getBuffAddr() const {
+      //! Get the buffer address (const)
+      //! \return The buffer address
+      const U8* getBuffAddr() const override {
         return nullptr;
       }
 
@@ -92,7 +107,10 @@ namespace Ports {
 #if FW_PORT_SERIALIZATION == 1
 
       //! Invoke the port with serialized arguments
-      Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer);
+      //! \return The serialize status
+      Fw::SerializeStatus invokeSerial(
+          Fw::LinearBufferBase& _buffer //!< The serial buffer
+      );
 
 #endif
 
@@ -130,7 +148,7 @@ namespace Ports {
           InputNoArgsPort* callPort //!< The input port
       );
 
-      //! Invoke a port interface
+      //! Invoke a port connection
       void invoke() const;
 
     private:

@@ -133,6 +133,7 @@ class InputAbsTypePort :
 #if FW_PORT_SERIALIZATION == 1
 
     //! Invoke the port with serialized arguments
+    //! \return The serialize status
     Fw::SerializeStatus invokeSerial(
         Fw::LinearBufferBase& _buffer //!< The serial buffer
     );
@@ -173,7 +174,7 @@ class OutputAbsTypePort :
         InputAbsTypePort* callPort //!< The input port
     );
 
-    //! Invoke a port interface
+    //! Invoke a port connection
     void invoke(
         const T& t,
         T& tRef
