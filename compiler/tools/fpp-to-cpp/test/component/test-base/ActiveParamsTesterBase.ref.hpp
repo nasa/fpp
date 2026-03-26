@@ -9,11 +9,11 @@
 
 #include <cstdio>
 
+#include "ActiveParamsComponentAc.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/ActiveParamsComponentAc.hpp"
 
 //! \class ActiveParamsTesterBase
 //! \brief Auto-generated base for ActiveParams component test harness

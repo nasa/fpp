@@ -4,7 +4,7 @@
 // \brief  cpp file for QueuedParams component Google Test harness base class
 // ======================================================================
 
-#include "test-base/QueuedParamsGTestBase.hpp"
+#include "QueuedParamsGTestBase.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

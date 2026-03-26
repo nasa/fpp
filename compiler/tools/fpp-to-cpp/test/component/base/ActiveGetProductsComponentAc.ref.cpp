@@ -4,12 +4,12 @@
 // \brief  cpp file for ActiveGetProducts component base class
 // ======================================================================
 
+#include "ActiveGetProductsComponentAc.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
-#include "base/ActiveGetProductsComponentAc.hpp"
 
 namespace {
   enum MsgTypeEnum {

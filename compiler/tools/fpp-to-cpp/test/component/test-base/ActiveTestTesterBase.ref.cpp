@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test-base/ActiveTestTesterBase.hpp"
+#include "ActiveTestTesterBase.hpp"
 
 namespace M {
 
