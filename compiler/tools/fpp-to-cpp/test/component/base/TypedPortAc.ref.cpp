@@ -54,7 +54,7 @@ namespace Ports {
 #if !FW_DIRECT_PORT_CALLS
 
   // ----------------------------------------------------------------------
-  // Constructors for InputTypedPort
+  // Public constructors for InputTypedPort
   // ----------------------------------------------------------------------
 
   InputTypedPort ::
@@ -179,7 +179,7 @@ namespace Ports {
 #endif
 
   // ----------------------------------------------------------------------
-  // Output Port Member functions
+  // Public constructors for OutputTypedPort
   // ----------------------------------------------------------------------
 
   OutputTypedPort ::
@@ -189,6 +189,10 @@ namespace Ports {
   {
 
   }
+
+  // ----------------------------------------------------------------------
+  // Public member functions for OutputTypedPort
+  // ----------------------------------------------------------------------
 
   void OutputTypedPort ::
     init()

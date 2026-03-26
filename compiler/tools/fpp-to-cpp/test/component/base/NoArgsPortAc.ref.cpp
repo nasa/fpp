@@ -13,7 +13,7 @@ namespace Ports {
 #if !FW_DIRECT_PORT_CALLS
 
   // ----------------------------------------------------------------------
-  // Constructors for InputNoArgsPort
+  // Public constructors for InputNoArgsPort
   // ----------------------------------------------------------------------
 
   InputNoArgsPort ::
@@ -87,7 +87,7 @@ namespace Ports {
 #endif
 
   // ----------------------------------------------------------------------
-  // Output Port Member functions
+  // Public constructors for OutputNoArgsPort
   // ----------------------------------------------------------------------
 
   OutputNoArgsPort ::
@@ -97,6 +97,10 @@ namespace Ports {
   {
 
   }
+
+  // ----------------------------------------------------------------------
+  // Public member functions for OutputNoArgsPort
+  // ----------------------------------------------------------------------
 
   void OutputNoArgsPort ::
     init()

@@ -28,7 +28,7 @@ Fw::SerializeStatus KwdNamePortSerializer ::
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
-// Constructors for InputKwdNamePort
+// Public constructors for InputKwdNamePort
 // ----------------------------------------------------------------------
 
 InputKwdNamePort ::
@@ -108,7 +108,7 @@ Fw::SerializeStatus InputKwdNamePort ::
 #endif
 
 // ----------------------------------------------------------------------
-// Output Port Member functions
+// Public constructors for OutputKwdNamePort
 // ----------------------------------------------------------------------
 
 OutputKwdNamePort ::
@@ -118,6 +118,10 @@ OutputKwdNamePort ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Public member functions for OutputKwdNamePort
+// ----------------------------------------------------------------------
 
 void OutputKwdNamePort ::
   init()

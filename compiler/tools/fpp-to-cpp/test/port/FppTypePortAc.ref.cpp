@@ -48,7 +48,7 @@ Fw::SerializeStatus FppTypePortSerializer ::
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
-// Constructors for InputFppTypePort
+// Public constructors for InputFppTypePort
 // ----------------------------------------------------------------------
 
 InputFppTypePort ::
@@ -165,7 +165,7 @@ Fw::SerializeStatus InputFppTypePort ::
 #endif
 
 // ----------------------------------------------------------------------
-// Output Port Member functions
+// Public constructors for OutputFppTypePort
 // ----------------------------------------------------------------------
 
 OutputFppTypePort ::
@@ -175,6 +175,10 @@ OutputFppTypePort ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Public member functions for OutputFppTypePort
+// ----------------------------------------------------------------------
 
 void OutputFppTypePort ::
   init()

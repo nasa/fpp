@@ -28,7 +28,7 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Types for InputNoArgsReturnPort
+      // Public types for InputNoArgsReturnPort
       // ----------------------------------------------------------------------
 
       //! The port callback function type
@@ -40,7 +40,7 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Constructors for InputNoArgsReturnPort
+      // Public constructors for InputNoArgsReturnPort
       // ----------------------------------------------------------------------
 
       //! Constructor
@@ -83,7 +83,7 @@ namespace Ports {
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables for InputNoArgsReturnPort
+      // Private member variables for InputNoArgsReturnPort
       // ----------------------------------------------------------------------
 
       //! The pointer to the port callback function
@@ -100,11 +100,17 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Output Port Member functions
+      // Public constructors for OutputNoArgsReturnPort
       // ----------------------------------------------------------------------
 
       //! Constructor
       OutputNoArgsReturnPort();
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Public member functions for OutputNoArgsReturnPort
+      // ----------------------------------------------------------------------
 
       //! Initialization function
       void init();
@@ -121,7 +127,7 @@ namespace Ports {
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables
+      // Private member variables for OutputNoArgsReturnPort
       // ----------------------------------------------------------------------
 
       //! The pointer to the input port

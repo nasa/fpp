@@ -25,7 +25,7 @@ class EmptyPortBuffer :
   public:
 
     // ----------------------------------------------------------------------
-    // Public constants
+    // Public constants for EmptyPortBuffer
     // ----------------------------------------------------------------------
 
     //! The buffer capacity. This is the sum of the static serialized
@@ -36,7 +36,7 @@ class EmptyPortBuffer :
   public:
 
     // ----------------------------------------------------------------------
-    // Public member functions
+    // Public member functions for EmptyPortBuffer
     // ----------------------------------------------------------------------
 
     //! Get the capacity of the buffer
@@ -70,7 +70,7 @@ class InputEmptyPort :
   public:
 
     // ----------------------------------------------------------------------
-    // Types for InputEmptyPort
+    // Public types for InputEmptyPort
     // ----------------------------------------------------------------------
 
     //! The port callback function type
@@ -82,7 +82,7 @@ class InputEmptyPort :
   public:
 
     // ----------------------------------------------------------------------
-    // Constructors for InputEmptyPort
+    // Public constructors for InputEmptyPort
     // ----------------------------------------------------------------------
 
     //! Constructor
@@ -125,7 +125,7 @@ class InputEmptyPort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables for InputEmptyPort
+    // Private member variables for InputEmptyPort
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function
@@ -142,11 +142,17 @@ class OutputEmptyPort :
   public:
 
     // ----------------------------------------------------------------------
-    // Output Port Member functions
+    // Public constructors for OutputEmptyPort
     // ----------------------------------------------------------------------
 
     //! Constructor
     OutputEmptyPort();
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for OutputEmptyPort
+    // ----------------------------------------------------------------------
 
     //! Initialization function
     void init();
@@ -162,7 +168,7 @@ class OutputEmptyPort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables
+    // Private member variables for OutputEmptyPort
     // ----------------------------------------------------------------------
 
     //! The pointer to the input port

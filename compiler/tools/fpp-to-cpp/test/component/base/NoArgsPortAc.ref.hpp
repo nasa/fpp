@@ -27,7 +27,7 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Public constants
+      // Public constants for NoArgsPortBuffer
       // ----------------------------------------------------------------------
 
       //! The buffer capacity. This is the sum of the static serialized
@@ -38,7 +38,7 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Public member functions
+      // Public member functions for NoArgsPortBuffer
       // ----------------------------------------------------------------------
 
       //! Get the capacity of the buffer
@@ -72,7 +72,7 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Types for InputNoArgsPort
+      // Public types for InputNoArgsPort
       // ----------------------------------------------------------------------
 
       //! The port callback function type
@@ -84,7 +84,7 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Constructors for InputNoArgsPort
+      // Public constructors for InputNoArgsPort
       // ----------------------------------------------------------------------
 
       //! Constructor
@@ -127,7 +127,7 @@ namespace Ports {
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables for InputNoArgsPort
+      // Private member variables for InputNoArgsPort
       // ----------------------------------------------------------------------
 
       //! The pointer to the port callback function
@@ -144,11 +144,17 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Output Port Member functions
+      // Public constructors for OutputNoArgsPort
       // ----------------------------------------------------------------------
 
       //! Constructor
       OutputNoArgsPort();
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Public member functions for OutputNoArgsPort
+      // ----------------------------------------------------------------------
 
       //! Initialization function
       void init();
@@ -164,7 +170,7 @@ namespace Ports {
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables
+      // Private member variables for OutputNoArgsPort
       // ----------------------------------------------------------------------
 
       //! The pointer to the input port

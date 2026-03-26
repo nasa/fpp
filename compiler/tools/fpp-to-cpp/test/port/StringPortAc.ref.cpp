@@ -40,7 +40,7 @@ Fw::SerializeStatus StringPortSerializer ::
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
-// Constructors for InputStringPort
+// Public constructors for InputStringPort
 // ----------------------------------------------------------------------
 
 InputStringPort ::
@@ -147,7 +147,7 @@ Fw::SerializeStatus InputStringPort ::
 #endif
 
 // ----------------------------------------------------------------------
-// Output Port Member functions
+// Public constructors for OutputStringPort
 // ----------------------------------------------------------------------
 
 OutputStringPort ::
@@ -157,6 +157,10 @@ OutputStringPort ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Public member functions for OutputStringPort
+// ----------------------------------------------------------------------
 
 void OutputStringPort ::
   init()

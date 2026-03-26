@@ -25,7 +25,7 @@ class PrimitivePortBuffer :
   public:
 
     // ----------------------------------------------------------------------
-    // Public constants
+    // Public constants for PrimitivePortBuffer
     // ----------------------------------------------------------------------
 
     //! The buffer capacity. This is the sum of the static serialized
@@ -41,7 +41,7 @@ class PrimitivePortBuffer :
   public:
 
     // ----------------------------------------------------------------------
-    // Public member functions
+    // Public member functions for PrimitivePortBuffer
     // ----------------------------------------------------------------------
 
     //! Get the capacity of the buffer
@@ -106,7 +106,7 @@ class InputPrimitivePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Types for InputPrimitivePort
+    // Public types for InputPrimitivePort
     // ----------------------------------------------------------------------
 
     //! The port callback function type
@@ -124,7 +124,7 @@ class InputPrimitivePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Constructors for InputPrimitivePort
+    // Public constructors for InputPrimitivePort
     // ----------------------------------------------------------------------
 
     //! Constructor
@@ -174,7 +174,7 @@ class InputPrimitivePort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables for InputPrimitivePort
+    // Private member variables for InputPrimitivePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function
@@ -191,11 +191,17 @@ class OutputPrimitivePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Output Port Member functions
+    // Public constructors for OutputPrimitivePort
     // ----------------------------------------------------------------------
 
     //! Constructor
     OutputPrimitivePort();
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for OutputPrimitivePort
+    // ----------------------------------------------------------------------
 
     //! Initialization function
     void init();
@@ -218,7 +224,7 @@ class OutputPrimitivePort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables
+    // Private member variables for OutputPrimitivePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the input port

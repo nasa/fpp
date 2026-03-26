@@ -28,7 +28,7 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
-      // Types for InputReturnTypePort
+      // Public types for InputReturnTypePort
       // ----------------------------------------------------------------------
 
       //! The port callback function type
@@ -41,7 +41,7 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
-      // Constructors for InputReturnTypePort
+      // Public constructors for InputReturnTypePort
       // ----------------------------------------------------------------------
 
       //! Constructor
@@ -84,7 +84,7 @@ namespace M {
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables for InputReturnTypePort
+      // Private member variables for InputReturnTypePort
       // ----------------------------------------------------------------------
 
       //! The pointer to the port callback function
@@ -101,11 +101,17 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
-      // Output Port Member functions
+      // Public constructors for OutputReturnTypePort
       // ----------------------------------------------------------------------
 
       //! Constructor
       OutputReturnTypePort();
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Public member functions for OutputReturnTypePort
+      // ----------------------------------------------------------------------
 
       //! Initialization function
       void init();
@@ -122,7 +128,7 @@ namespace M {
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables
+      // Private member variables for OutputReturnTypePort
       // ----------------------------------------------------------------------
 
       //! The pointer to the input port

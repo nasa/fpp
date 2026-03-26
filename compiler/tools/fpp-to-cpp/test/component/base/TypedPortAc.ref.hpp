@@ -31,7 +31,7 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Public constants
+      // Public constants for TypedPortBuffer
       // ----------------------------------------------------------------------
 
       //! The buffer capacity. This is the sum of the static serialized
@@ -48,7 +48,7 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Public member functions
+      // Public member functions for TypedPortBuffer
       // ----------------------------------------------------------------------
 
       //! Get the capacity of the buffer
@@ -114,7 +114,7 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Types for InputTypedPort
+      // Public types for InputTypedPort
       // ----------------------------------------------------------------------
 
       //! The port callback function type
@@ -133,7 +133,7 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Constructors for InputTypedPort
+      // Public constructors for InputTypedPort
       // ----------------------------------------------------------------------
 
       //! Constructor
@@ -184,7 +184,7 @@ namespace Ports {
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables for InputTypedPort
+      // Private member variables for InputTypedPort
       // ----------------------------------------------------------------------
 
       //! The pointer to the port callback function
@@ -201,11 +201,17 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Output Port Member functions
+      // Public constructors for OutputTypedPort
       // ----------------------------------------------------------------------
 
       //! Constructor
       OutputTypedPort();
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Public member functions for OutputTypedPort
+      // ----------------------------------------------------------------------
 
       //! Initialization function
       void init();
@@ -229,7 +235,7 @@ namespace Ports {
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables
+      // Private member variables for OutputTypedPort
       // ----------------------------------------------------------------------
 
       //! The pointer to the input port

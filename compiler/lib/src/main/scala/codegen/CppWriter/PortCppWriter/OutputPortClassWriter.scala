@@ -15,8 +15,9 @@ case class OutputPortClassWriter(
     outputPortClassName,
     Some("public Fw::OutputPortBase"),
     List.concat(
-      getFunctionMembers,
-      getVariableMembers
+      getPublicConstructorMembers,
+      getPublicFunctionMembers,
+      getPrivateVariableMembers
     )
   )
 
@@ -42,26 +43,6 @@ case class OutputPortClassWriter(
            |this->m_serPort = nullptr;
            |#endif
            |"""
-      )
-    )
-
-  private def getConstructor =
-    constructorClassMember(
-      Some("Constructor"),
-      Nil,
-      List("Fw::OutputPortBase()", "m_port(nullptr)"),
-      Nil
-    )
-
-  private def getFunctionMembers: List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "public",
-      "Output Port Member functions",
-      List(
-        getConstructor,
-        getInitFunction,
-        getAddCallPortFunction,
-        getInvokeFunction
       )
     )
 
@@ -101,10 +82,10 @@ case class OutputPortClassWriter(
       CppDoc.Function.Const
     )
 
-  private def getVariableMembers: List[CppDoc.Class.Member] =
+  private def getPrivateVariableMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "private",
-      "Member variables",
+      s"Private member variables for $outputPortClassName",
       List(
         linesClassMember(
           lines(
@@ -115,6 +96,31 @@ case class OutputPortClassWriter(
         )
       ),
       CppDoc.Lines.Hpp
+    )
+
+  private def getPublicConstructorMembers =
+    addAccessTagAndComment(
+      "public",
+      s"Public constructors for $outputPortClassName",
+      List(
+        constructorClassMember(
+          Some("Constructor"),
+          Nil,
+          List("Fw::OutputPortBase()", "m_port(nullptr)"),
+          Nil
+        )
+      )
+    )
+
+  private def getPublicFunctionMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "public",
+      s"Public member functions for $outputPortClassName",
+      List(
+        getInitFunction,
+        getAddCallPortFunction,
+        getInvokeFunction
+      )
     )
 
   private def writeInvokeBodyNonVoid =

@@ -13,7 +13,7 @@ namespace M {
 #if !FW_DIRECT_PORT_CALLS
 
   // ----------------------------------------------------------------------
-  // Constructors for InputReturnTypePort
+  // Public constructors for InputReturnTypePort
   // ----------------------------------------------------------------------
 
   InputReturnTypePort ::
@@ -80,7 +80,7 @@ namespace M {
 #endif
 
   // ----------------------------------------------------------------------
-  // Output Port Member functions
+  // Public constructors for OutputReturnTypePort
   // ----------------------------------------------------------------------
 
   OutputReturnTypePort ::
@@ -90,6 +90,10 @@ namespace M {
   {
 
   }
+
+  // ----------------------------------------------------------------------
+  // Public member functions for OutputReturnTypePort
+  // ----------------------------------------------------------------------
 
   void OutputReturnTypePort ::
     init()

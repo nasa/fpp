@@ -26,7 +26,7 @@ class StringPortBuffer :
   public:
 
     // ----------------------------------------------------------------------
-    // Public constants
+    // Public constants for StringPortBuffer
     // ----------------------------------------------------------------------
 
     //! The buffer capacity. This is the sum of the static serialized
@@ -40,7 +40,7 @@ class StringPortBuffer :
   public:
 
     // ----------------------------------------------------------------------
-    // Public member functions
+    // Public member functions for StringPortBuffer
     // ----------------------------------------------------------------------
 
     //! Get the capacity of the buffer
@@ -103,7 +103,7 @@ class InputStringPort :
   public:
 
     // ----------------------------------------------------------------------
-    // Types for InputStringPort
+    // Public types for InputStringPort
     // ----------------------------------------------------------------------
 
     //! The port callback function type
@@ -119,7 +119,7 @@ class InputStringPort :
   public:
 
     // ----------------------------------------------------------------------
-    // Constructors for InputStringPort
+    // Public constructors for InputStringPort
     // ----------------------------------------------------------------------
 
     //! Constructor
@@ -167,7 +167,7 @@ class InputStringPort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables for InputStringPort
+    // Private member variables for InputStringPort
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function
@@ -184,11 +184,17 @@ class OutputStringPort :
   public:
 
     // ----------------------------------------------------------------------
-    // Output Port Member functions
+    // Public constructors for OutputStringPort
     // ----------------------------------------------------------------------
 
     //! Constructor
     OutputStringPort();
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for OutputStringPort
+    // ----------------------------------------------------------------------
 
     //! Initialization function
     void init();
@@ -209,7 +215,7 @@ class OutputStringPort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables
+    // Private member variables for OutputStringPort
     // ----------------------------------------------------------------------
 
     //! The pointer to the input port

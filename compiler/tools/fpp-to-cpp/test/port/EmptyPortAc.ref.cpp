@@ -11,7 +11,7 @@
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
-// Constructors for InputEmptyPort
+// Public constructors for InputEmptyPort
 // ----------------------------------------------------------------------
 
 InputEmptyPort ::
@@ -85,7 +85,7 @@ Fw::SerializeStatus InputEmptyPort ::
 #endif
 
 // ----------------------------------------------------------------------
-// Output Port Member functions
+// Public constructors for OutputEmptyPort
 // ----------------------------------------------------------------------
 
 OutputEmptyPort ::
@@ -95,6 +95,10 @@ OutputEmptyPort ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Public member functions for OutputEmptyPort
+// ----------------------------------------------------------------------
 
 void OutputEmptyPort ::
   init()

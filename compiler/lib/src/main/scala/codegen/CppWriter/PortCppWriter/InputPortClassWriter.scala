@@ -15,11 +15,11 @@ case class InputPortClassWriter(
     inputPortClassName,
     Some("public Fw::InputPortBase"),
     List.concat(
-      getTypeMembers,
-      getConstructorMembers,
+      getPublicTypeMembers,
+      getPublicConstructorMembers,
       getPublicFunctionMembers,
       getPrivateFunctionMembers,
-      getVariableMembers
+      getPrivateVariableMembers
     )
   )
 
@@ -79,41 +79,6 @@ case class InputPortClassWriter(
     )
   )
 
-  private def getConstructorMembers = 
-    addAccessTagAndComment(
-      "public",
-      s"Constructors for $inputPortClassName",
-      List(
-        constructorClassMember(
-          Some("Constructor"),
-          Nil,
-          List("Fw::InputPortBase()", "m_func(nullptr)"),
-          Nil
-        )
-      )
-    )
-
-  private def getPublicFunctionMembers: List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "public",
-      s"Public member functions for $inputPortClassName",
-      List(
-        getInitFunction,
-        getAddCallCompFunction,
-        getInvokeFunction
-      ),
-    )
-
-  private def getPrivateFunctionMembers: List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "private",
-      s"Private member functions for $inputPortClassName",
-      wrapClassMembersInIfDirective(
-        "#if FW_PORT_SERIALIZATION == 1",
-        List(getInvokeSerialFunction)
-      )
-    )
-
   private def getInitFunction =
     functionClassMember(
       Some("Initialization function"),
@@ -156,18 +121,20 @@ case class InputPortClassWriter(
       else writeInvokeSerialBodyVoid
     )
 
-  private def getTypeMembers: List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "public",
-      s"Types for $inputPortClassName",
-      List(getCompFuncType),
-      CppDoc.Lines.Hpp
-    )
-
-  private def getVariableMembers: List[CppDoc.Class.Member] =
+  private def getPrivateFunctionMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "private",
-      s"Member variables for $inputPortClassName",
+      s"Private member functions for $inputPortClassName",
+      wrapClassMembersInIfDirective(
+        "#if FW_PORT_SERIALIZATION == 1",
+        List(getInvokeSerialFunction)
+      )
+    )
+
+  private def getPrivateVariableMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "private",
+      s"Private member variables for $inputPortClassName",
       List(
         linesClassMember(
           lines(
@@ -177,6 +144,39 @@ case class InputPortClassWriter(
           )
         )
       ),
+      CppDoc.Lines.Hpp
+    )
+
+  private def getPublicConstructorMembers = 
+    addAccessTagAndComment(
+      "public",
+      s"Public constructors for $inputPortClassName",
+      List(
+        constructorClassMember(
+          Some("Constructor"),
+          Nil,
+          List("Fw::InputPortBase()", "m_func(nullptr)"),
+          Nil
+        )
+      )
+    )
+
+  private def getPublicFunctionMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "public",
+      s"Public member functions for $inputPortClassName",
+      List(
+        getInitFunction,
+        getAddCallCompFunction,
+        getInvokeFunction
+      ),
+    )
+
+  private def getPublicTypeMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "public",
+      s"Public types for $inputPortClassName",
+      List(getCompFuncType),
       CppDoc.Lines.Hpp
     )
 

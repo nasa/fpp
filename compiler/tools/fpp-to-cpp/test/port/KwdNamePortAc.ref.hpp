@@ -25,7 +25,7 @@ class KwdNamePortBuffer :
   public:
 
     // ----------------------------------------------------------------------
-    // Public constants
+    // Public constants for KwdNamePortBuffer
     // ----------------------------------------------------------------------
 
     //! The buffer capacity. This is the sum of the static serialized
@@ -36,7 +36,7 @@ class KwdNamePortBuffer :
   public:
 
     // ----------------------------------------------------------------------
-    // Public member functions
+    // Public member functions for KwdNamePortBuffer
     // ----------------------------------------------------------------------
 
     //! Get the capacity of the buffer
@@ -96,7 +96,7 @@ class InputKwdNamePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Types for InputKwdNamePort
+    // Public types for InputKwdNamePort
     // ----------------------------------------------------------------------
 
     //! The port callback function type
@@ -109,7 +109,7 @@ class InputKwdNamePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Constructors for InputKwdNamePort
+    // Public constructors for InputKwdNamePort
     // ----------------------------------------------------------------------
 
     //! Constructor
@@ -152,7 +152,7 @@ class InputKwdNamePort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables for InputKwdNamePort
+    // Private member variables for InputKwdNamePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function
@@ -169,11 +169,17 @@ class OutputKwdNamePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Output Port Member functions
+    // Public constructors for OutputKwdNamePort
     // ----------------------------------------------------------------------
 
     //! Constructor
     OutputKwdNamePort();
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for OutputKwdNamePort
+    // ----------------------------------------------------------------------
 
     //! Initialization function
     void init();
@@ -189,7 +195,7 @@ class OutputKwdNamePort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables
+    // Private member variables for OutputKwdNamePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the input port

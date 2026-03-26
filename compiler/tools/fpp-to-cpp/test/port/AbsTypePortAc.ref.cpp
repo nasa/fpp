@@ -32,7 +32,7 @@ Fw::SerializeStatus AbsTypePortSerializer ::
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
-// Constructors for InputAbsTypePort
+// Public constructors for InputAbsTypePort
 // ----------------------------------------------------------------------
 
 InputAbsTypePort ::
@@ -121,7 +121,7 @@ Fw::SerializeStatus InputAbsTypePort ::
 #endif
 
 // ----------------------------------------------------------------------
-// Output Port Member functions
+// Public constructors for OutputAbsTypePort
 // ----------------------------------------------------------------------
 
 OutputAbsTypePort ::
@@ -131,6 +131,10 @@ OutputAbsTypePort ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Public member functions for OutputAbsTypePort
+// ----------------------------------------------------------------------
 
 void OutputAbsTypePort ::
   init()

@@ -48,7 +48,7 @@ Fw::SerializeStatus PrimitivePortSerializer ::
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
-// Constructors for InputPrimitivePort
+// Public constructors for InputPrimitivePort
 // ----------------------------------------------------------------------
 
 InputPrimitivePort ::
@@ -165,7 +165,7 @@ Fw::SerializeStatus InputPrimitivePort ::
 #endif
 
 // ----------------------------------------------------------------------
-// Output Port Member functions
+// Public constructors for OutputPrimitivePort
 // ----------------------------------------------------------------------
 
 OutputPrimitivePort ::
@@ -175,6 +175,10 @@ OutputPrimitivePort ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Public member functions for OutputPrimitivePort
+// ----------------------------------------------------------------------
 
 void OutputPrimitivePort ::
   init()

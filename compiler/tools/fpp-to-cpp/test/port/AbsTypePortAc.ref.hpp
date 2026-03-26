@@ -26,7 +26,7 @@ class AbsTypePortBuffer :
   public:
 
     // ----------------------------------------------------------------------
-    // Public constants
+    // Public constants for AbsTypePortBuffer
     // ----------------------------------------------------------------------
 
     //! The buffer capacity. This is the sum of the static serialized
@@ -38,7 +38,7 @@ class AbsTypePortBuffer :
   public:
 
     // ----------------------------------------------------------------------
-    // Public member functions
+    // Public member functions for AbsTypePortBuffer
     // ----------------------------------------------------------------------
 
     //! Get the capacity of the buffer
@@ -99,7 +99,7 @@ class InputAbsTypePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Types for InputAbsTypePort
+    // Public types for InputAbsTypePort
     // ----------------------------------------------------------------------
 
     //! The port callback function type
@@ -113,7 +113,7 @@ class InputAbsTypePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Constructors for InputAbsTypePort
+    // Public constructors for InputAbsTypePort
     // ----------------------------------------------------------------------
 
     //! Constructor
@@ -159,7 +159,7 @@ class InputAbsTypePort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables for InputAbsTypePort
+    // Private member variables for InputAbsTypePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function
@@ -176,11 +176,17 @@ class OutputAbsTypePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Output Port Member functions
+    // Public constructors for OutputAbsTypePort
     // ----------------------------------------------------------------------
 
     //! Constructor
     OutputAbsTypePort();
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for OutputAbsTypePort
+    // ----------------------------------------------------------------------
 
     //! Initialization function
     void init();
@@ -199,7 +205,7 @@ class OutputAbsTypePort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables
+    // Private member variables for OutputAbsTypePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the input port

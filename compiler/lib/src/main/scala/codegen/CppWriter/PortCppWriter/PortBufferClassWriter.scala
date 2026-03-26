@@ -38,7 +38,7 @@ case class PortBufferClassWriter(
 
   private def getPublicConstants = addAccessTagAndComment(
     "public",
-    "Public constants",
+    s"Public constants for $portBufferName",
     List(
       linesClassMember(
         List.concat(
@@ -57,7 +57,7 @@ case class PortBufferClassWriter(
 
   private def getPublicMemberFunctions = addAccessTagAndComment(
     "public",
-    "Public member functions",
+    s"Public member functions for $portBufferName",
     List(
       linesClassMember({
         val buffAddr =

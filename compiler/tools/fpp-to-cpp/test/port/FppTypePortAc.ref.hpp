@@ -28,7 +28,7 @@ class FppTypePortBuffer :
   public:
 
     // ----------------------------------------------------------------------
-    // Public constants
+    // Public constants for FppTypePortBuffer
     // ----------------------------------------------------------------------
 
     //! The buffer capacity. This is the sum of the static serialized
@@ -44,7 +44,7 @@ class FppTypePortBuffer :
   public:
 
     // ----------------------------------------------------------------------
-    // Public member functions
+    // Public member functions for FppTypePortBuffer
     // ----------------------------------------------------------------------
 
     //! Get the capacity of the buffer
@@ -111,7 +111,7 @@ class InputFppTypePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Types for InputFppTypePort
+    // Public types for InputFppTypePort
     // ----------------------------------------------------------------------
 
     //! The port callback function type
@@ -129,7 +129,7 @@ class InputFppTypePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Constructors for InputFppTypePort
+    // Public constructors for InputFppTypePort
     // ----------------------------------------------------------------------
 
     //! Constructor
@@ -181,7 +181,7 @@ class InputFppTypePort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables for InputFppTypePort
+    // Private member variables for InputFppTypePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function
@@ -198,11 +198,17 @@ class OutputFppTypePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Output Port Member functions
+    // Public constructors for OutputFppTypePort
     // ----------------------------------------------------------------------
 
     //! Constructor
     OutputFppTypePort();
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for OutputFppTypePort
+    // ----------------------------------------------------------------------
 
     //! Initialization function
     void init();
@@ -227,7 +233,7 @@ class OutputFppTypePort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables
+    // Private member variables for OutputFppTypePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the input port

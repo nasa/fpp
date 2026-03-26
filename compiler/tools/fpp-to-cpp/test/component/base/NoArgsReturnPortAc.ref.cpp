@@ -13,7 +13,7 @@ namespace Ports {
 #if !FW_DIRECT_PORT_CALLS
 
   // ----------------------------------------------------------------------
-  // Constructors for InputNoArgsReturnPort
+  // Public constructors for InputNoArgsReturnPort
   // ----------------------------------------------------------------------
 
   InputNoArgsReturnPort ::
@@ -80,7 +80,7 @@ namespace Ports {
 #endif
 
   // ----------------------------------------------------------------------
-  // Output Port Member functions
+  // Public constructors for OutputNoArgsReturnPort
   // ----------------------------------------------------------------------
 
   OutputNoArgsReturnPort ::
@@ -90,6 +90,10 @@ namespace Ports {
   {
 
   }
+
+  // ----------------------------------------------------------------------
+  // Public member functions for OutputNoArgsReturnPort
+  // ----------------------------------------------------------------------
 
   void OutputNoArgsReturnPort ::
     init()

@@ -29,7 +29,7 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
-      // Types for InputStringReturnTypePort
+      // Public types for InputStringReturnTypePort
       // ----------------------------------------------------------------------
 
       //! The port callback function type
@@ -41,7 +41,7 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
-      // Constructors for InputStringReturnTypePort
+      // Public constructors for InputStringReturnTypePort
       // ----------------------------------------------------------------------
 
       //! Constructor
@@ -84,7 +84,7 @@ namespace M {
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables for InputStringReturnTypePort
+      // Private member variables for InputStringReturnTypePort
       // ----------------------------------------------------------------------
 
       //! The pointer to the port callback function
@@ -101,11 +101,17 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
-      // Output Port Member functions
+      // Public constructors for OutputStringReturnTypePort
       // ----------------------------------------------------------------------
 
       //! Constructor
       OutputStringReturnTypePort();
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Public member functions for OutputStringReturnTypePort
+      // ----------------------------------------------------------------------
 
       //! Initialization function
       void init();
@@ -122,7 +128,7 @@ namespace M {
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables
+      // Private member variables for OutputStringReturnTypePort
       // ----------------------------------------------------------------------
 
       //! The pointer to the input port
