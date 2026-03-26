@@ -9,6 +9,17 @@
 #include "KwdNamePortAc.hpp"
 
 // ----------------------------------------------------------------------
+// Public constructors for KwdNamePortSerializer
+// ----------------------------------------------------------------------
+
+KwdNamePortSerializer ::
+  KwdNamePortSerializer() :
+    m_time()
+{
+
+}
+
+// ----------------------------------------------------------------------
 // Public static functions for KwdNamePortSerializer
 // ----------------------------------------------------------------------
 

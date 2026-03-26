@@ -78,6 +78,15 @@ class StringPortSerializer {
   public:
 
     // ----------------------------------------------------------------------
+    // Public constructors for StringPortSerializer
+    // ----------------------------------------------------------------------
+
+    //! Constructor
+    StringPortSerializer();
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Public static functions for StringPortSerializer
     // ----------------------------------------------------------------------
 
@@ -89,6 +98,28 @@ class StringPortSerializer {
         Fw::StringBase& str100Ref,
         Fw::SerialBufferBase& _buffer //!< The serial buffer
     );
+
+  private:
+
+    // ----------------------------------------------------------------------
+    // Private member variables for StringPortSerializer
+    // ----------------------------------------------------------------------
+
+    char m___fprime_ac_str80_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
+    char m___fprime_ac_str80Ref_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
+    char m___fprime_ac_str100_buffer[Fw::StringBase::BUFFER_SIZE(100)];
+    char m___fprime_ac_str100Ref_buffer[Fw::StringBase::BUFFER_SIZE(100)];
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member variables for StringPortSerializer
+    // ----------------------------------------------------------------------
+
+    Fw::ExternalString m_str80;
+    Fw::ExternalString m_str80Ref;
+    Fw::ExternalString m_str100;
+    Fw::ExternalString m_str100Ref;
 
 };
 

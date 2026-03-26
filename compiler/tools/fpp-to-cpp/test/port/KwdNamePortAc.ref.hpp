@@ -74,6 +74,15 @@ class KwdNamePortSerializer {
   public:
 
     // ----------------------------------------------------------------------
+    // Public constructors for KwdNamePortSerializer
+    // ----------------------------------------------------------------------
+
+    //! Constructor
+    KwdNamePortSerializer();
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Public static functions for KwdNamePortSerializer
     // ----------------------------------------------------------------------
 
@@ -82,6 +91,14 @@ class KwdNamePortSerializer {
         U32& time,
         Fw::SerialBufferBase& _buffer //!< The serial buffer
     );
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member variables for KwdNamePortSerializer
+    // ----------------------------------------------------------------------
+
+    U32 m_time;
 
 };
 

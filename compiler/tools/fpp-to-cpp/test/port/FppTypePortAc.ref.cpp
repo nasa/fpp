@@ -9,6 +9,22 @@
 #include "Fw/Types/ExternalString.hpp"
 
 // ----------------------------------------------------------------------
+// Public constructors for FppTypePortSerializer
+// ----------------------------------------------------------------------
+
+FppTypePortSerializer ::
+  FppTypePortSerializer() :
+    m_e(),
+    m_eRef(),
+    m_a(),
+    m_aRef(),
+    m_s(),
+    m_sRef()
+{
+
+}
+
+// ----------------------------------------------------------------------
 // Public static functions for FppTypePortSerializer
 // ----------------------------------------------------------------------
 

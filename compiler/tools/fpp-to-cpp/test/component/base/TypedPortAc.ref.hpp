@@ -86,6 +86,15 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
+      // Public constructors for TypedPortSerializer
+      // ----------------------------------------------------------------------
+
+      //! Constructor
+      TypedPortSerializer();
+
+    public:
+
+      // ----------------------------------------------------------------------
       // Public static functions for TypedPortSerializer
       // ----------------------------------------------------------------------
 
@@ -100,6 +109,28 @@ namespace Ports {
           const S& s, //!< A struct
           Fw::SerialBufferBase& _buffer //!< The serial buffer
       );
+
+    private:
+
+      // ----------------------------------------------------------------------
+      // Private member variables for TypedPortSerializer
+      // ----------------------------------------------------------------------
+
+      char m___fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Public member variables for TypedPortSerializer
+      // ----------------------------------------------------------------------
+
+      U32 m_u32;
+      F32 m_f32;
+      bool m_b;
+      Fw::ExternalString m_str1;
+      E m_e;
+      A m_a;
+      S m_s;
 
   };
 

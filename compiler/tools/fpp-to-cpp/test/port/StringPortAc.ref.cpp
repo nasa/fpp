@@ -9,6 +9,20 @@
 #include "StringPortAc.hpp"
 
 // ----------------------------------------------------------------------
+// Public constructors for StringPortSerializer
+// ----------------------------------------------------------------------
+
+StringPortSerializer ::
+  StringPortSerializer() :
+    m_str80(m___fprime_ac_str80_buffer, sizeof m___fprime_ac_str80_buffer),
+    m_str80Ref(m___fprime_ac_str80Ref_buffer, sizeof m___fprime_ac_str80Ref_buffer),
+    m_str100(m___fprime_ac_str100_buffer, sizeof m___fprime_ac_str100_buffer),
+    m_str100Ref(m___fprime_ac_str100Ref_buffer, sizeof m___fprime_ac_str100Ref_buffer)
+{
+
+}
+
+// ----------------------------------------------------------------------
 // Public static functions for StringPortSerializer
 // ----------------------------------------------------------------------
 

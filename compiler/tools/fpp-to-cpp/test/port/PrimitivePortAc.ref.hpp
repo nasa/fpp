@@ -79,6 +79,15 @@ class PrimitivePortSerializer {
   public:
 
     // ----------------------------------------------------------------------
+    // Public constructors for PrimitivePortSerializer
+    // ----------------------------------------------------------------------
+
+    //! Constructor
+    PrimitivePortSerializer();
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Public static functions for PrimitivePortSerializer
     // ----------------------------------------------------------------------
 
@@ -92,6 +101,19 @@ class PrimitivePortSerializer {
         bool& bRef,
         Fw::SerialBufferBase& _buffer //!< The serial buffer
     );
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member variables for PrimitivePortSerializer
+    // ----------------------------------------------------------------------
+
+    U32 m_u32;
+    U32 m_u32Ref;
+    F32 m_f32;
+    F32 m_f32Ref;
+    bool m_b;
+    bool m_bRef;
 
 };
 

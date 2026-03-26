@@ -9,6 +9,22 @@
 #include "PrimitivePortAc.hpp"
 
 // ----------------------------------------------------------------------
+// Public constructors for PrimitivePortSerializer
+// ----------------------------------------------------------------------
+
+PrimitivePortSerializer ::
+  PrimitivePortSerializer() :
+    m_u32(),
+    m_u32Ref(),
+    m_f32(),
+    m_f32Ref(),
+    m_b(),
+    m_bRef()
+{
+
+}
+
+// ----------------------------------------------------------------------
 // Public static functions for PrimitivePortSerializer
 // ----------------------------------------------------------------------
 

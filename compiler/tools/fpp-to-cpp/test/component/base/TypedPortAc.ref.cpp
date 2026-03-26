@@ -11,6 +11,23 @@
 namespace Ports {
 
   // ----------------------------------------------------------------------
+  // Public constructors for TypedPortSerializer
+  // ----------------------------------------------------------------------
+
+  TypedPortSerializer ::
+    TypedPortSerializer() :
+      m_u32(),
+      m_f32(),
+      m_b(),
+      m_str1(m___fprime_ac_str1_buffer, sizeof m___fprime_ac_str1_buffer),
+      m_e(),
+      m_a(),
+      m_s()
+  {
+
+  }
+
+  // ----------------------------------------------------------------------
   // Public static functions for TypedPortSerializer
   // ----------------------------------------------------------------------
 

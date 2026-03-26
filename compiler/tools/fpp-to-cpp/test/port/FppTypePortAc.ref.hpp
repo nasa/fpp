@@ -82,6 +82,15 @@ class FppTypePortSerializer {
   public:
 
     // ----------------------------------------------------------------------
+    // Public constructors for FppTypePortSerializer
+    // ----------------------------------------------------------------------
+
+    //! Constructor
+    FppTypePortSerializer();
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Public static functions for FppTypePortSerializer
     // ----------------------------------------------------------------------
 
@@ -97,6 +106,19 @@ class FppTypePortSerializer {
         S& sRef, //!< A struct ref
         Fw::SerialBufferBase& _buffer //!< The serial buffer
     );
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member variables for FppTypePortSerializer
+    // ----------------------------------------------------------------------
+
+    E m_e;
+    E m_eRef;
+    A m_a;
+    A m_aRef;
+    S m_s;
+    S m_sRef;
 
 };
 

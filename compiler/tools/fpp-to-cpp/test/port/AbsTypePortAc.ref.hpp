@@ -76,6 +76,15 @@ class AbsTypePortSerializer {
   public:
 
     // ----------------------------------------------------------------------
+    // Public constructors for AbsTypePortSerializer
+    // ----------------------------------------------------------------------
+
+    //! Constructor
+    AbsTypePortSerializer();
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Public static functions for AbsTypePortSerializer
     // ----------------------------------------------------------------------
 
@@ -85,6 +94,15 @@ class AbsTypePortSerializer {
         T& tRef,
         Fw::SerialBufferBase& _buffer //!< The serial buffer
     );
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member variables for AbsTypePortSerializer
+    // ----------------------------------------------------------------------
+
+    T m_t;
+    T m_tRef;
 
 };
 

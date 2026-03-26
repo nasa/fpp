@@ -9,6 +9,18 @@
 #include "Fw/Types/ExternalString.hpp"
 
 // ----------------------------------------------------------------------
+// Public constructors for AbsTypePortSerializer
+// ----------------------------------------------------------------------
+
+AbsTypePortSerializer ::
+  AbsTypePortSerializer() :
+    m_t(),
+    m_tRef()
+{
+
+}
+
+// ----------------------------------------------------------------------
 // Public static functions for AbsTypePortSerializer
 // ----------------------------------------------------------------------
 
