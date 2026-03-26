@@ -28,6 +28,19 @@ namespace Ports {
   }
 
   // ----------------------------------------------------------------------
+  // Public member functions for TypedPortSerializer
+  // ----------------------------------------------------------------------
+
+  Fw::SerializeStatus TypedPortSerializer ::
+    deserializePortArgs(Fw::SerialBufferBase& _buffer)
+  {
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // TODO
+    (void) _buffer;
+    return _status;
+  }
+
+  // ----------------------------------------------------------------------
   // Public static functions for TypedPortSerializer
   // ----------------------------------------------------------------------
 

@@ -88,6 +88,17 @@ class PrimitivePortSerializer {
   public:
 
     // ----------------------------------------------------------------------
+    // Public member functions for PrimitivePortSerializer
+    // ----------------------------------------------------------------------
+
+    //! Deserialze port arguments into members
+    static Fw::SerializeStatus deserializePortArgs(
+        Fw::SerialBufferBase& _buffer //!< The serial buffer
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Public static functions for PrimitivePortSerializer
     // ----------------------------------------------------------------------
 

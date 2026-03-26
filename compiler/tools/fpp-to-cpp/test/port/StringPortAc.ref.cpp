@@ -23,6 +23,19 @@ StringPortSerializer ::
 }
 
 // ----------------------------------------------------------------------
+// Public member functions for StringPortSerializer
+// ----------------------------------------------------------------------
+
+Fw::SerializeStatus StringPortSerializer ::
+  deserializePortArgs(Fw::SerialBufferBase& _buffer)
+{
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+  // TODO
+  (void) _buffer;
+  return _status;
+}
+
+// ----------------------------------------------------------------------
 // Public static functions for StringPortSerializer
 // ----------------------------------------------------------------------
 

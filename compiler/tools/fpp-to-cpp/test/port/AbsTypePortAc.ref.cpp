@@ -21,6 +21,19 @@ AbsTypePortSerializer ::
 }
 
 // ----------------------------------------------------------------------
+// Public member functions for AbsTypePortSerializer
+// ----------------------------------------------------------------------
+
+Fw::SerializeStatus AbsTypePortSerializer ::
+  deserializePortArgs(Fw::SerialBufferBase& _buffer)
+{
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+  // TODO
+  (void) _buffer;
+  return _status;
+}
+
+// ----------------------------------------------------------------------
 // Public static functions for AbsTypePortSerializer
 // ----------------------------------------------------------------------
 

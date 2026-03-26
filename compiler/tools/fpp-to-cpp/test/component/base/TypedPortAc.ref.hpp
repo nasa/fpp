@@ -95,6 +95,17 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
+      // Public member functions for TypedPortSerializer
+      // ----------------------------------------------------------------------
+
+      //! Deserialze port arguments into members
+      static Fw::SerializeStatus deserializePortArgs(
+          Fw::SerialBufferBase& _buffer //!< The serial buffer
+      );
+
+    public:
+
+      // ----------------------------------------------------------------------
       // Public static functions for TypedPortSerializer
       // ----------------------------------------------------------------------
 

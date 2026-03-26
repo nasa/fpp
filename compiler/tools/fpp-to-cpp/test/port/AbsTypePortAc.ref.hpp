@@ -85,6 +85,17 @@ class AbsTypePortSerializer {
   public:
 
     // ----------------------------------------------------------------------
+    // Public member functions for AbsTypePortSerializer
+    // ----------------------------------------------------------------------
+
+    //! Deserialze port arguments into members
+    static Fw::SerializeStatus deserializePortArgs(
+        Fw::SerialBufferBase& _buffer //!< The serial buffer
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Public static functions for AbsTypePortSerializer
     // ----------------------------------------------------------------------
 

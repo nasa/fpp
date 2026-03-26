@@ -91,6 +91,17 @@ class FppTypePortSerializer {
   public:
 
     // ----------------------------------------------------------------------
+    // Public member functions for FppTypePortSerializer
+    // ----------------------------------------------------------------------
+
+    //! Deserialze port arguments into members
+    static Fw::SerializeStatus deserializePortArgs(
+        Fw::SerialBufferBase& _buffer //!< The serial buffer
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Public static functions for FppTypePortSerializer
     // ----------------------------------------------------------------------
 

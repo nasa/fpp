@@ -16,21 +16,28 @@ case class PortSerializerClassWriter(
     None,
     List.concat(
       getPublicConstructors,
+      getPublicMemberFunctions,
       getPublicStaticFunctions,
       getPrivateMemberVariables,
       getPublicMemberVariables
     )
   )
 
-  private val hasStringParams = portParams.exists(
-    param => {
-      val t = s.a.typeMap(param._2.data.typeName.id)
-      t.getUnderlyingType match {
-        case _: Type.String => true
-        case _ => false
-      }
-    }
-  )
+  private def getDeserializeFunction =
+    functionClassMember(
+      Some("Deserialze port arguments into members"),
+      "deserializePortArgs",
+      List(serialBufferFunctionParam),
+      CppDoc.Type("Fw::SerializeStatus"),
+      List.concat(
+        lines("Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;"),
+        //portParams.flatMap(writeSerializationForParam),
+        lines("// TODO"),
+        lines("(void) _buffer;"),
+        lines("return _status;")
+      ),
+      CppDoc.Function.Static
+    )
 
   private def getParamVariable(portParam: PortParamType): Line = {
     val data = portParam._2.data
@@ -72,6 +79,13 @@ case class PortSerializerClassWriter(
           Nil
         )
       )
+    )
+
+  private def getPublicMemberFunctions =
+    addAccessTagAndComment(
+      "public",
+      s"Public member functions for $portSerializerName",
+      List(getDeserializeFunction)
     )
 
   private def getPublicMemberVariables: List[CppDoc.Class.Member] =
@@ -140,5 +154,15 @@ case class PortSerializerClassWriter(
           |}"""
     )
   }
+
+  private val hasStringParams = portParams.exists(
+    param => {
+      val t = s.a.typeMap(param._2.data.typeName.id)
+      t.getUnderlyingType match {
+        case _: Type.String => true
+        case _ => false
+      }
+    }
+  )
 
 }
