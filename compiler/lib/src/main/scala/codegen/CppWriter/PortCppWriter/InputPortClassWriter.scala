@@ -180,14 +180,6 @@ case class InputPortClassWriter(
       CppDoc.Lines.Hpp
     )
 
-  // Generate param names from serializer in comma-separated list
-  private def writeSerializerParamNames = portParams.map(
-    p => s"_serializer.m_${p._2.data.name}"
-  ).mkString(", ")
-
-  // Append serializer param names to a comma-separated list
-  private def appendSerializerParamNames = commaPrefix(writeSerializerParamNames)
-
   private def writeInvokeSerialBodyNonVoid =
     lines(
       """|// For ports with a return type, invokeSerial is not used
@@ -199,37 +191,41 @@ case class InputPortClassWriter(
     )
 
   private def writeInvokeSerialBodyVoid = {
-    val bufferUse =
-      if hasParams
-      then line("Fw::SerializeStatus _status;")
-      else line("(void) _buffer;")
-    bufferUse ::
     List.concat(
       lines(
-        """|FW_ASSERT(this->m_comp != nullptr);
-           |FW_ASSERT(this->m_func != nullptr);
-           |
-           |#if FW_PORT_TRACING == 1
+        """|#if FW_PORT_TRACING == 1
            |this->trace();
            |#endif
-           |"""
+           |
+           |FW_ASSERT(this->m_comp != nullptr);
+           |FW_ASSERT(this->m_func != nullptr);"""
       ),
-      guardedList (hasParams) (
-        lines(
-          s"""|$portSerializerName _serializer;
-              |_status = _serializer.deserializePortArgs(_buffer);
-              |if (_status != Fw::FW_SERIALIZE_OK) {
-              |  return _status;
-              |}
-              |"""
-        )
+      if (hasParams)
+      then lines(
+        s"""|
+            |$portSerializerName _serializer;
+            |Fw::SerializeStatus _status = _serializer.deserializePortArgs(_buffer);
+            |if (_status != Fw::FW_SERIALIZE_OK) {
+            |  return _status;
+            |}"""
+      )
+      else lines(
+        """|
+           |(void) _buffer;"""
       ),
       lines(
         s"""|
-            |this->m_func(this->m_comp, this->m_portNum${appendSerializerParamNames});
+            |this->m_func("""
+      ),
+      addSeparators (",") (
+        line("this->m_comp") ::
+        line("this->m_portNum") ::
+        portParams.map(p => line(s"_serializer.m_${p._2.data.name}"))
+      ).map(indentIn),
+      lines(
+        s"""|);
             |
-            |return Fw::FW_SERIALIZE_OK;
-            |"""
+            |return Fw::FW_SERIALIZE_OK;"""
       )
     )
   }

@@ -156,20 +156,29 @@ void InputPrimitivePort ::
 Fw::SerializeStatus InputPrimitivePort ::
   invokeSerial(Fw::LinearBufferBase& _buffer)
 {
-  Fw::SerializeStatus _status;
-  FW_ASSERT(this->m_comp != nullptr);
-  FW_ASSERT(this->m_func != nullptr);
-
 #if FW_PORT_TRACING == 1
   this->trace();
 #endif
+
+  FW_ASSERT(this->m_comp != nullptr);
+  FW_ASSERT(this->m_func != nullptr);
+
   PrimitivePortSerializer _serializer;
-  _status = _serializer.deserializePortArgs(_buffer);
+  Fw::SerializeStatus _status = _serializer.deserializePortArgs(_buffer);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  this->m_func(this->m_comp, this->m_portNum, _serializer.m_u32, _serializer.m_u32Ref, _serializer.m_f32, _serializer.m_f32Ref, _serializer.m_b, _serializer.m_bRef);
+  this->m_func(
+    this->m_comp,
+    this->m_portNum,
+    _serializer.m_u32,
+    _serializer.m_u32Ref,
+    _serializer.m_f32,
+    _serializer.m_f32Ref,
+    _serializer.m_b,
+    _serializer.m_bRef
+  );
 
   return Fw::FW_SERIALIZE_OK;
 }

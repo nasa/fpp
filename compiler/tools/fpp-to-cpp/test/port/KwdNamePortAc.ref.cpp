@@ -109,20 +109,24 @@ void InputKwdNamePort ::
 Fw::SerializeStatus InputKwdNamePort ::
   invokeSerial(Fw::LinearBufferBase& _buffer)
 {
-  Fw::SerializeStatus _status;
-  FW_ASSERT(this->m_comp != nullptr);
-  FW_ASSERT(this->m_func != nullptr);
-
 #if FW_PORT_TRACING == 1
   this->trace();
 #endif
+
+  FW_ASSERT(this->m_comp != nullptr);
+  FW_ASSERT(this->m_func != nullptr);
+
   KwdNamePortSerializer _serializer;
-  _status = _serializer.deserializePortArgs(_buffer);
+  Fw::SerializeStatus _status = _serializer.deserializePortArgs(_buffer);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  this->m_func(this->m_comp, this->m_portNum, _serializer.m_time);
+  this->m_func(
+    this->m_comp,
+    this->m_portNum,
+    _serializer.m_time
+  );
 
   return Fw::FW_SERIALIZE_OK;
 }
