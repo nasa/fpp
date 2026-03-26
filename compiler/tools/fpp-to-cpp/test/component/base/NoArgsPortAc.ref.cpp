@@ -136,7 +136,10 @@ namespace Ports {
     else {
       Fw::SerializeStatus _status;
       NoArgsPortBuffer _buffer;
-
+#if 0
+#endif
+      _status = NoArgsPortSerializer::serializePortArgs(, _buffer);
+      FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
       _status = this->m_serPort->invokeSerial(_buffer);
       FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
     }

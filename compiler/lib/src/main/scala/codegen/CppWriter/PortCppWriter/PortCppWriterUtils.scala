@@ -67,11 +67,22 @@ abstract class PortCppWriterUtils(
   // Param names in a comma-separated list
   def writeParamNames = portParams.map(_._2.data.name).mkString(", ")
 
-  // Param names appended to a comma-separated list
-  def appendParamNames = writeParamNames match {
+  // Param buffer names in comma-separated list
+  def writeParamBufferNames = portParams.map(
+    p => s"_buffer.m_${p._2.data.name}"
+  ).mkString(", ")
+
+  // Add a comma prefix if string is nonempty
+  def commaPrefix(s: String) = s match {
     case "" => ""
-    case paramNames => s", $paramNames"
+    case s => s", $s"
   }
+
+  // Param names appended to a comma-separated list
+  def appendParamNames = commaPrefix(writeParamNames)
+
+  // Param buffer names appended to a comma-separated list
+  def appendParamBufferNames = commaPrefix(writeParamBufferNames)
 
   // Port params as CppDoc Function Params
   val portFunctionParams: List[CppDoc.Function.Param] =

@@ -285,6 +285,7 @@ namespace Ports {
     else {
       Fw::SerializeStatus _status;
       TypedPortBuffer _buffer;
+#if 0
 
       _status = _buffer.serializeFrom(u32);
       FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
@@ -306,7 +307,9 @@ namespace Ports {
 
       _status = _buffer.serializeFrom(s);
       FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-
+#endif
+      _status = TypedPortSerializer::serializePortArgs(u32, f32, b, str1, e, a, s, _buffer);
+      FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
       _status = this->m_serPort->invokeSerial(_buffer);
       FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
     }
