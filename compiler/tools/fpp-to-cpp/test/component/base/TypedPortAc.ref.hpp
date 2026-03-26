@@ -10,14 +10,14 @@
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
-#include "Fw/Types/String.hpp"
+#include "Fw/Types/ExternalString.hpp"
+#include "Fw/Types/Serializable.hpp"
 #include "SSerializableAc.hpp"
 #include "config/FwSizeStoreTypeAliasAc.hpp"
 #if !FW_DIRECT_PORT_CALLS
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
-#include "Fw/Types/Serializable.hpp"
 #endif
 
 namespace Ports {

@@ -89,6 +89,19 @@ abstract class PortCppWriterUtils(
   // Whether the port has a return type
   val hasReturnType = portData.returnType.isDefined
 
+  // Whether the port needs serialization
+  val needsSerialization = !hasReturnType
+
+  // Whether the port has a string return type
+  val hasStringReturnType = portData.returnType match {
+    case Some(typeName) =>
+      s.a.typeMap(typeName.id) match {
+        case _: Type.String => true
+        case _ => false
+      }
+    case _ => false
+  }
+
 }
 
 object PortCppWriterUtils {

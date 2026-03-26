@@ -8,7 +8,6 @@
 #define M_ReturnTypePortAc_HPP
 
 #include "Fw/FPrimeBasicTypes.hpp"
-#include "Fw/Types/String.hpp"
 #if !FW_DIRECT_PORT_CALLS
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"

@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/ExternalString.hpp"
 #include "NoArgsPortAc.hpp"
 
 namespace Ports {

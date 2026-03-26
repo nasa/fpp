@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/ExternalString.hpp"
 #include "StringReturnTypePortAc.hpp"
 
 namespace M {

@@ -10,7 +10,7 @@
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
-#include "Fw/Types/String.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "SSerializableAc.hpp"
 #include "config/FwSizeStoreTypeAliasAc.hpp"
 #if !FW_DIRECT_PORT_CALLS

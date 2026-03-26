@@ -6,7 +6,6 @@
 
 #include "FppTypePortAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/ExternalString.hpp"
 
 // ----------------------------------------------------------------------
 // Public constructors for FppTypePortSerializer

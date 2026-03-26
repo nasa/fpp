@@ -8,13 +8,12 @@
 #define AbsTypePortAc_HPP
 
 #include "Fw/FPrimeBasicTypes.hpp"
-#include "Fw/Types/String.hpp"
+#include "Fw/Types/Serializable.hpp"
 #include "include/T.hpp"
 #if !FW_DIRECT_PORT_CALLS
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
-#include "Fw/Types/Serializable.hpp"
 #endif
 
 //! Serialization buffer for AbsType port
