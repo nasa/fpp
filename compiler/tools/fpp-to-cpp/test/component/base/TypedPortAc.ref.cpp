@@ -168,58 +168,19 @@ namespace Ports {
     invokeSerial(Fw::LinearBufferBase& _buffer)
   {
     Fw::SerializeStatus _status;
+    FW_ASSERT(this->m_comp != nullptr);
+    FW_ASSERT(this->m_func != nullptr);
 
 #if FW_PORT_TRACING == 1
     this->trace();
 #endif
-
-    FW_ASSERT(this->m_comp != nullptr);
-    FW_ASSERT(this->m_func != nullptr);
-
-    U32 u32;
-    _status = _buffer.deserializeTo(u32);
+    TypedPortSerializer _serializer;
+    _status = _serializer.deserializePortArgs(_buffer);
     if (_status != Fw::FW_SERIALIZE_OK) {
       return _status;
     }
 
-    F32 f32;
-    _status = _buffer.deserializeTo(f32);
-    if (_status != Fw::FW_SERIALIZE_OK) {
-      return _status;
-    }
-
-    bool b;
-    _status = _buffer.deserializeTo(b);
-    if (_status != Fw::FW_SERIALIZE_OK) {
-      return _status;
-    }
-
-    char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
-    Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
-    _status = _buffer.deserializeTo(str1);
-    if (_status != Fw::FW_SERIALIZE_OK) {
-      return _status;
-    }
-
-    E e;
-    _status = _buffer.deserializeTo(e);
-    if (_status != Fw::FW_SERIALIZE_OK) {
-      return _status;
-    }
-
-    A a;
-    _status = _buffer.deserializeTo(a);
-    if (_status != Fw::FW_SERIALIZE_OK) {
-      return _status;
-    }
-
-    S s;
-    _status = _buffer.deserializeTo(s);
-    if (_status != Fw::FW_SERIALIZE_OK) {
-      return _status;
-    }
-
-    this->m_func(this->m_comp, this->m_portNum, u32, f32, b, str1, e, a, s);
+    this->m_func(this->m_comp, this->m_portNum, _serializer.m_u32, _serializer.m_f32, _serializer.m_b, _serializer.m_str1, _serializer.m_e, _serializer.m_a, _serializer.m_s);
 
     return Fw::FW_SERIALIZE_OK;
   }

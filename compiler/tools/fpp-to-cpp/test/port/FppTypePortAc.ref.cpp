@@ -157,51 +157,19 @@ Fw::SerializeStatus InputFppTypePort ::
   invokeSerial(Fw::LinearBufferBase& _buffer)
 {
   Fw::SerializeStatus _status;
+  FW_ASSERT(this->m_comp != nullptr);
+  FW_ASSERT(this->m_func != nullptr);
 
 #if FW_PORT_TRACING == 1
   this->trace();
 #endif
-
-  FW_ASSERT(this->m_comp != nullptr);
-  FW_ASSERT(this->m_func != nullptr);
-
-  E e;
-  _status = _buffer.deserializeTo(e);
+  FppTypePortSerializer _serializer;
+  _status = _serializer.deserializePortArgs(_buffer);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  E eRef;
-  _status = _buffer.deserializeTo(eRef);
-  if (_status != Fw::FW_SERIALIZE_OK) {
-    return _status;
-  }
-
-  A a;
-  _status = _buffer.deserializeTo(a);
-  if (_status != Fw::FW_SERIALIZE_OK) {
-    return _status;
-  }
-
-  A aRef;
-  _status = _buffer.deserializeTo(aRef);
-  if (_status != Fw::FW_SERIALIZE_OK) {
-    return _status;
-  }
-
-  S s;
-  _status = _buffer.deserializeTo(s);
-  if (_status != Fw::FW_SERIALIZE_OK) {
-    return _status;
-  }
-
-  S sRef;
-  _status = _buffer.deserializeTo(sRef);
-  if (_status != Fw::FW_SERIALIZE_OK) {
-    return _status;
-  }
-
-  this->m_func(this->m_comp, this->m_portNum, e, eRef, a, aRef, s, sRef);
+  this->m_func(this->m_comp, this->m_portNum, _serializer.m_e, _serializer.m_eRef, _serializer.m_a, _serializer.m_aRef, _serializer.m_s, _serializer.m_sRef);
 
   return Fw::FW_SERIALIZE_OK;
 }

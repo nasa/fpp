@@ -157,51 +157,19 @@ Fw::SerializeStatus InputPrimitivePort ::
   invokeSerial(Fw::LinearBufferBase& _buffer)
 {
   Fw::SerializeStatus _status;
+  FW_ASSERT(this->m_comp != nullptr);
+  FW_ASSERT(this->m_func != nullptr);
 
 #if FW_PORT_TRACING == 1
   this->trace();
 #endif
-
-  FW_ASSERT(this->m_comp != nullptr);
-  FW_ASSERT(this->m_func != nullptr);
-
-  U32 u32;
-  _status = _buffer.deserializeTo(u32);
+  PrimitivePortSerializer _serializer;
+  _status = _serializer.deserializePortArgs(_buffer);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  U32 u32Ref;
-  _status = _buffer.deserializeTo(u32Ref);
-  if (_status != Fw::FW_SERIALIZE_OK) {
-    return _status;
-  }
-
-  F32 f32;
-  _status = _buffer.deserializeTo(f32);
-  if (_status != Fw::FW_SERIALIZE_OK) {
-    return _status;
-  }
-
-  F32 f32Ref;
-  _status = _buffer.deserializeTo(f32Ref);
-  if (_status != Fw::FW_SERIALIZE_OK) {
-    return _status;
-  }
-
-  bool b;
-  _status = _buffer.deserializeTo(b);
-  if (_status != Fw::FW_SERIALIZE_OK) {
-    return _status;
-  }
-
-  bool bRef;
-  _status = _buffer.deserializeTo(bRef);
-  if (_status != Fw::FW_SERIALIZE_OK) {
-    return _status;
-  }
-
-  this->m_func(this->m_comp, this->m_portNum, u32, u32Ref, f32, f32Ref, b, bRef);
+  this->m_func(this->m_comp, this->m_portNum, _serializer.m_u32, _serializer.m_u32Ref, _serializer.m_f32, _serializer.m_f32Ref, _serializer.m_b, _serializer.m_bRef);
 
   return Fw::FW_SERIALIZE_OK;
 }

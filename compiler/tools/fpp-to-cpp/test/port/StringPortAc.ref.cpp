@@ -139,43 +139,19 @@ Fw::SerializeStatus InputStringPort ::
   invokeSerial(Fw::LinearBufferBase& _buffer)
 {
   Fw::SerializeStatus _status;
+  FW_ASSERT(this->m_comp != nullptr);
+  FW_ASSERT(this->m_func != nullptr);
 
 #if FW_PORT_TRACING == 1
   this->trace();
 #endif
-
-  FW_ASSERT(this->m_comp != nullptr);
-  FW_ASSERT(this->m_func != nullptr);
-
-  char __fprime_ac_str80_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
-  Fw::ExternalString str80(__fprime_ac_str80_buffer, sizeof __fprime_ac_str80_buffer);
-  _status = _buffer.deserializeTo(str80);
+  StringPortSerializer _serializer;
+  _status = _serializer.deserializePortArgs(_buffer);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  char __fprime_ac_str80Ref_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
-  Fw::ExternalString str80Ref(__fprime_ac_str80Ref_buffer, sizeof __fprime_ac_str80Ref_buffer);
-  _status = _buffer.deserializeTo(str80Ref);
-  if (_status != Fw::FW_SERIALIZE_OK) {
-    return _status;
-  }
-
-  char __fprime_ac_str100_buffer[Fw::StringBase::BUFFER_SIZE(100)];
-  Fw::ExternalString str100(__fprime_ac_str100_buffer, sizeof __fprime_ac_str100_buffer);
-  _status = _buffer.deserializeTo(str100);
-  if (_status != Fw::FW_SERIALIZE_OK) {
-    return _status;
-  }
-
-  char __fprime_ac_str100Ref_buffer[Fw::StringBase::BUFFER_SIZE(100)];
-  Fw::ExternalString str100Ref(__fprime_ac_str100Ref_buffer, sizeof __fprime_ac_str100Ref_buffer);
-  _status = _buffer.deserializeTo(str100Ref);
-  if (_status != Fw::FW_SERIALIZE_OK) {
-    return _status;
-  }
-
-  this->m_func(this->m_comp, this->m_portNum, str80, str80Ref, str100, str100Ref);
+  this->m_func(this->m_comp, this->m_portNum, _serializer.m_str80, _serializer.m_str80Ref, _serializer.m_str100, _serializer.m_str100Ref);
 
   return Fw::FW_SERIALIZE_OK;
 }

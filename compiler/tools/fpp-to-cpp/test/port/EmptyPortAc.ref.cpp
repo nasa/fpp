@@ -68,13 +68,12 @@ Fw::SerializeStatus InputEmptyPort ::
   invokeSerial(Fw::LinearBufferBase& _buffer)
 {
   (void) _buffer;
+  FW_ASSERT(this->m_comp != nullptr);
+  FW_ASSERT(this->m_func != nullptr);
 
 #if FW_PORT_TRACING == 1
   this->trace();
 #endif
-
-  FW_ASSERT(this->m_comp != nullptr);
-  FW_ASSERT(this->m_func != nullptr);
 
   this->m_func(this->m_comp, this->m_portNum);
 

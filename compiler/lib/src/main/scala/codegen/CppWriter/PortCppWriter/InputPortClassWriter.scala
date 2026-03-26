@@ -180,6 +180,14 @@ case class InputPortClassWriter(
       CppDoc.Lines.Hpp
     )
 
+  // Generate param names from serializer in comma-separated list
+  private def writeSerializerParamNames = portParams.map(
+    p => s"_serializer.m_${p._2.data.name}"
+  ).mkString(", ")
+
+  // Append serializer param names to a comma-separated list
+  private def appendSerializerParamNames = commaPrefix(writeSerializerParamNames)
+
   private def writeInvokeSerialBodyNonVoid =
     lines(
       """|// For ports with a return type, invokeSerial is not used
@@ -198,34 +206,27 @@ case class InputPortClassWriter(
     bufferUse ::
     List.concat(
       lines(
-        """|
+        """|FW_ASSERT(this->m_comp != nullptr);
+           |FW_ASSERT(this->m_func != nullptr);
+           |
            |#if FW_PORT_TRACING == 1
            |this->trace();
            |#endif
-           |
-           |FW_ASSERT(this->m_comp != nullptr);
-           |FW_ASSERT(this->m_func != nullptr);
            |"""
       ),
-      portParams.flatMap(param => {
-        val data = param._2.data
-        val portName = data.name
-        val t = s.a.typeMap(data.typeName.id)
-        val tn = typeCppWriter.write(t)
-        val varDecl = writeVarDecl(s, tn, portName, t)
+      guardedList (hasParams) (
         lines(
-          s"""|
-              |$varDecl
-              |_status = _buffer.deserializeTo($portName);
+          s"""|$portSerializerName _serializer;
+              |_status = _serializer.deserializePortArgs(_buffer);
               |if (_status != Fw::FW_SERIALIZE_OK) {
               |  return _status;
               |}
               |"""
         )
-      }),
+      ),
       lines(
         s"""|
-            |this->m_func(this->m_comp, this->m_portNum${appendParamNames});
+            |this->m_func(this->m_comp, this->m_portNum${appendSerializerParamNames});
             |
             |return Fw::FW_SERIALIZE_OK;
             |"""
