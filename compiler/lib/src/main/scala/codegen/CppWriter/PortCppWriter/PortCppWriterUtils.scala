@@ -118,6 +118,14 @@ abstract class PortCppWriterUtils(
     case _ => false
   }
 
+  // Write port invocation arguments
+  def writeInvocationArgs(args: List[String]) =
+    addSeparators (",") (
+      line("this->m_comp") ::
+      line("this->m_portNum") ::
+      args.map(line)
+    ).map(indentIn)
+
 }
 
 object PortCppWriterUtils {

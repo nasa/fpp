@@ -217,11 +217,9 @@ case class InputPortClassWriter(
         s"""|
             |this->m_func("""
       ),
-      addSeparators (",") (
-        line("this->m_comp") ::
-        line("this->m_portNum") ::
-        portParams.map(p => line(s"_serializer.m_${p._2.data.name}"))
-      ).map(indentIn),
+      writeInvocationArgs(
+        portParams.map(p => s"_serializer.m_${p._2.data.name}")
+      ),
       lines(
         s"""|);
             |
