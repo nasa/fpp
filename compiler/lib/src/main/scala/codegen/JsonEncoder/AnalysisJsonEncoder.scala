@@ -47,14 +47,15 @@ object AnalysisJsonEncoder extends JsonEncoder{
   )
 
   // JSON encoder for interface instances
-  // Report the interface instance kind and the info in the InterfaceInstance trait
-  private def interfaceInstanceAsJson(instance: InterfaceInstance) = addTypeNameKey(
-    instance,
-    Json.obj(
-      "qualifiedName" -> instance.getQualifiedName.asJson,
-      "unqualifiedName" -> instance.getUnqualifiedName.asJson
-    )
-  )
+  // Replace component instance/topology with its AST node
+  private implicit val interfaceInstanceEncoder: Encoder[InterfaceInstance] =
+    Encoder.instance { instance =>
+      val nodeJson = instance match {
+        case InterfaceInstance.InterfaceComponentInstance(ci) => ci.aNode.asJson
+        case InterfaceInstance.InterfaceTopology(t) => t.aNode.asJson
+      }
+      addTypeNameKey(instance, nodeJson)
+  }
 
   // JSON encoder for component instances
   // Use the default Circe encoding, but replace the component instance
@@ -79,9 +80,6 @@ object AnalysisJsonEncoder extends JsonEncoder{
 
   private implicit val endpointEncoder: Encoder[Connection.Endpoint] =
     io.circe.generic.semiauto.deriveEncoder[Connection.Endpoint]
-
-  private implicit val interfaceInstanceEncoder: Encoder[InterfaceInstance] =
-    Encoder.instance(interfaceInstanceAsJson)
 
   private implicit val portInstanceEncoder: Encoder[PortInstance] =
     io.circe.generic.semiauto.deriveEncoder[PortInstance]
