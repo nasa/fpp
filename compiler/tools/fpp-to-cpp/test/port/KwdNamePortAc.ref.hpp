@@ -96,7 +96,7 @@ class InputKwdNamePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Types
+    // Types for InputKwdNamePort
     // ----------------------------------------------------------------------
 
     //! The port callback function type
@@ -109,11 +109,17 @@ class InputKwdNamePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Input Port Member functions
+    // Constructors for InputKwdNamePort
     // ----------------------------------------------------------------------
 
     //! Constructor
     InputKwdNamePort();
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for InputKwdNamePort
+    // ----------------------------------------------------------------------
 
     //! Initialization function
     void init();
@@ -129,6 +135,10 @@ class InputKwdNamePort :
 
   private:
 
+    // ----------------------------------------------------------------------
+    // Private member functions for InputKwdNamePort
+    // ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
     //! Invoke the port with serialized arguments
@@ -142,7 +152,7 @@ class InputKwdNamePort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables
+    // Member variables for InputKwdNamePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function

@@ -48,7 +48,7 @@ Fw::SerializeStatus FppTypePortSerializer ::
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
-// Input Port Member functions
+// Constructors for InputFppTypePort
 // ----------------------------------------------------------------------
 
 InputFppTypePort ::
@@ -58,6 +58,10 @@ InputFppTypePort ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Public member functions for InputFppTypePort
+// ----------------------------------------------------------------------
 
 void InputFppTypePort ::
   init()
@@ -98,6 +102,10 @@ void InputFppTypePort ::
 
   return this->m_func(this->m_comp, this->m_portNum, e, eRef, a, aRef, s, sRef);
 }
+
+// ----------------------------------------------------------------------
+// Private member functions for InputFppTypePort
+// ----------------------------------------------------------------------
 
 #if FW_PORT_SERIALIZATION == 1
 

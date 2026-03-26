@@ -103,7 +103,7 @@ class InputStringPort :
   public:
 
     // ----------------------------------------------------------------------
-    // Types
+    // Types for InputStringPort
     // ----------------------------------------------------------------------
 
     //! The port callback function type
@@ -119,11 +119,17 @@ class InputStringPort :
   public:
 
     // ----------------------------------------------------------------------
-    // Input Port Member functions
+    // Constructors for InputStringPort
     // ----------------------------------------------------------------------
 
     //! Constructor
     InputStringPort();
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for InputStringPort
+    // ----------------------------------------------------------------------
 
     //! Initialization function
     void init();
@@ -144,6 +150,10 @@ class InputStringPort :
 
   private:
 
+    // ----------------------------------------------------------------------
+    // Private member functions for InputStringPort
+    // ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
     //! Invoke the port with serialized arguments
@@ -157,7 +167,7 @@ class InputStringPort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables
+    // Member variables for InputStringPort
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function

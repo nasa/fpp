@@ -28,7 +28,7 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Types
+      // Types for InputNoArgsReturnPort
       // ----------------------------------------------------------------------
 
       //! The port callback function type
@@ -40,11 +40,17 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Input Port Member functions
+      // Constructors for InputNoArgsReturnPort
       // ----------------------------------------------------------------------
 
       //! Constructor
       InputNoArgsReturnPort();
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Public member functions for InputNoArgsReturnPort
+      // ----------------------------------------------------------------------
 
       //! Initialization function
       void init();
@@ -60,6 +66,10 @@ namespace Ports {
 
     private:
 
+      // ----------------------------------------------------------------------
+      // Private member functions for InputNoArgsReturnPort
+      // ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
       //! Invoke the port with serialized arguments
@@ -73,7 +83,7 @@ namespace Ports {
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables
+      // Member variables for InputNoArgsReturnPort
       // ----------------------------------------------------------------------
 
       //! The pointer to the port callback function

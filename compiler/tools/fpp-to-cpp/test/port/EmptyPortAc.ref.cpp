@@ -11,7 +11,7 @@
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
-// Input Port Member functions
+// Constructors for InputEmptyPort
 // ----------------------------------------------------------------------
 
 InputEmptyPort ::
@@ -21,6 +21,10 @@ InputEmptyPort ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Public member functions for InputEmptyPort
+// ----------------------------------------------------------------------
 
 void InputEmptyPort ::
   init()
@@ -54,6 +58,10 @@ void InputEmptyPort ::
 
   return this->m_func(this->m_comp, this->m_portNum);
 }
+
+// ----------------------------------------------------------------------
+// Private member functions for InputEmptyPort
+// ----------------------------------------------------------------------
 
 #if FW_PORT_SERIALIZATION == 1
 

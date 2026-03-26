@@ -106,7 +106,7 @@ class InputPrimitivePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Types
+    // Types for InputPrimitivePort
     // ----------------------------------------------------------------------
 
     //! The port callback function type
@@ -124,11 +124,17 @@ class InputPrimitivePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Input Port Member functions
+    // Constructors for InputPrimitivePort
     // ----------------------------------------------------------------------
 
     //! Constructor
     InputPrimitivePort();
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for InputPrimitivePort
+    // ----------------------------------------------------------------------
 
     //! Initialization function
     void init();
@@ -151,6 +157,10 @@ class InputPrimitivePort :
 
   private:
 
+    // ----------------------------------------------------------------------
+    // Private member functions for InputPrimitivePort
+    // ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
     //! Invoke the port with serialized arguments
@@ -164,7 +174,7 @@ class InputPrimitivePort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables
+    // Member variables for InputPrimitivePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function

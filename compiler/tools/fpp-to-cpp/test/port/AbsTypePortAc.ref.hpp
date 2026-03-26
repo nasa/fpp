@@ -99,7 +99,7 @@ class InputAbsTypePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Types
+    // Types for InputAbsTypePort
     // ----------------------------------------------------------------------
 
     //! The port callback function type
@@ -113,11 +113,17 @@ class InputAbsTypePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Input Port Member functions
+    // Constructors for InputAbsTypePort
     // ----------------------------------------------------------------------
 
     //! Constructor
     InputAbsTypePort();
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for InputAbsTypePort
+    // ----------------------------------------------------------------------
 
     //! Initialization function
     void init();
@@ -136,6 +142,10 @@ class InputAbsTypePort :
 
   private:
 
+    // ----------------------------------------------------------------------
+    // Private member functions for InputAbsTypePort
+    // ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
     //! Invoke the port with serialized arguments
@@ -149,7 +159,7 @@ class InputAbsTypePort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables
+    // Member variables for InputAbsTypePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function

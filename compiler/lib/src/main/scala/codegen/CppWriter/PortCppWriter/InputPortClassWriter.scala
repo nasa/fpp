@@ -16,7 +16,9 @@ case class InputPortClassWriter(
     Some("public Fw::InputPortBase"),
     List.concat(
       getTypeMembers,
-      getFunctionMembers,
+      getConstructorMembers,
+      getPublicFunctionMembers,
+      getPrivateFunctionMembers,
       getVariableMembers
     )
   )
@@ -77,30 +79,38 @@ case class InputPortClassWriter(
     )
   )
 
-  private def getConstructor = 
-    constructorClassMember(
-      Some("Constructor"),
-      Nil,
-      List("Fw::InputPortBase()", "m_func(nullptr)"),
-      Nil
-    )
-
-  private def getFunctionMembers: List[CppDoc.Class.Member] =
+  private def getConstructorMembers = 
     addAccessTagAndComment(
       "public",
-      "Input Port Member functions",
-      List.concat(
-        List(
-          getConstructor,
-          getInitFunction,
-          getAddCallCompFunction,
-          getInvokeFunction,
-          linesClassMember(CppDocHppWriter.writeAccessTag("private")),
-        ),
-        wrapClassMembersInIfDirective(
-          "#if FW_PORT_SERIALIZATION == 1",
-          List(getInvokeSerialFunction)
+      s"Constructors for $inputPortClassName",
+      List(
+        constructorClassMember(
+          Some("Constructor"),
+          Nil,
+          List("Fw::InputPortBase()", "m_func(nullptr)"),
+          Nil
         )
+      )
+    )
+
+  private def getPublicFunctionMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "public",
+      s"Public member functions for $inputPortClassName",
+      List(
+        getInitFunction,
+        getAddCallCompFunction,
+        getInvokeFunction
+      ),
+    )
+
+  private def getPrivateFunctionMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "private",
+      s"Private member functions for $inputPortClassName",
+      wrapClassMembersInIfDirective(
+        "#if FW_PORT_SERIALIZATION == 1",
+        List(getInvokeSerialFunction)
       )
     )
 
@@ -149,7 +159,7 @@ case class InputPortClassWriter(
   private def getTypeMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "public",
-      "Types",
+      s"Types for $inputPortClassName",
       List(getCompFuncType),
       CppDoc.Lines.Hpp
     )
@@ -157,7 +167,7 @@ case class InputPortClassWriter(
   private def getVariableMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "private",
-      "Member variables",
+      s"Member variables for $inputPortClassName",
       List(
         linesClassMember(
           lines(

@@ -28,7 +28,7 @@ Fw::SerializeStatus KwdNamePortSerializer ::
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
-// Input Port Member functions
+// Constructors for InputKwdNamePort
 // ----------------------------------------------------------------------
 
 InputKwdNamePort ::
@@ -38,6 +38,10 @@ InputKwdNamePort ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Public member functions for InputKwdNamePort
+// ----------------------------------------------------------------------
 
 void InputKwdNamePort ::
   init()
@@ -71,6 +75,10 @@ void InputKwdNamePort ::
 
   return this->m_func(this->m_comp, this->m_portNum, time);
 }
+
+// ----------------------------------------------------------------------
+// Private member functions for InputKwdNamePort
+// ----------------------------------------------------------------------
 
 #if FW_PORT_SERIALIZATION == 1
 

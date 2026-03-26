@@ -32,7 +32,7 @@ Fw::SerializeStatus AbsTypePortSerializer ::
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
-// Input Port Member functions
+// Constructors for InputAbsTypePort
 // ----------------------------------------------------------------------
 
 InputAbsTypePort ::
@@ -42,6 +42,10 @@ InputAbsTypePort ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Public member functions for InputAbsTypePort
+// ----------------------------------------------------------------------
 
 void InputAbsTypePort ::
   init()
@@ -78,6 +82,10 @@ void InputAbsTypePort ::
 
   return this->m_func(this->m_comp, this->m_portNum, t, tRef);
 }
+
+// ----------------------------------------------------------------------
+// Private member functions for InputAbsTypePort
+// ----------------------------------------------------------------------
 
 #if FW_PORT_SERIALIZATION == 1
 

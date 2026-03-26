@@ -54,7 +54,7 @@ namespace Ports {
 #if !FW_DIRECT_PORT_CALLS
 
   // ----------------------------------------------------------------------
-  // Input Port Member functions
+  // Constructors for InputTypedPort
   // ----------------------------------------------------------------------
 
   InputTypedPort ::
@@ -64,6 +64,10 @@ namespace Ports {
   {
 
   }
+
+  // ----------------------------------------------------------------------
+  // Public member functions for InputTypedPort
+  // ----------------------------------------------------------------------
 
   void InputTypedPort ::
     init()
@@ -105,6 +109,10 @@ namespace Ports {
 
     return this->m_func(this->m_comp, this->m_portNum, u32, f32, b, str1, e, a, s);
   }
+
+  // ----------------------------------------------------------------------
+  // Private member functions for InputTypedPort
+  // ----------------------------------------------------------------------
 
 #if FW_PORT_SERIALIZATION == 1
 

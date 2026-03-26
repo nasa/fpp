@@ -13,7 +13,7 @@ namespace Ports {
 #if !FW_DIRECT_PORT_CALLS
 
   // ----------------------------------------------------------------------
-  // Input Port Member functions
+  // Constructors for InputNoArgsReturnPort
   // ----------------------------------------------------------------------
 
   InputNoArgsReturnPort ::
@@ -23,6 +23,10 @@ namespace Ports {
   {
 
   }
+
+  // ----------------------------------------------------------------------
+  // Public member functions for InputNoArgsReturnPort
+  // ----------------------------------------------------------------------
 
   void InputNoArgsReturnPort ::
     init()
@@ -56,6 +60,10 @@ namespace Ports {
 
     return this->m_func(this->m_comp, this->m_portNum);
   }
+
+  // ----------------------------------------------------------------------
+  // Private member functions for InputNoArgsReturnPort
+  // ----------------------------------------------------------------------
 
 #if FW_PORT_SERIALIZATION == 1
 

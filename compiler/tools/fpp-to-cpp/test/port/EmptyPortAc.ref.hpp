@@ -70,7 +70,7 @@ class InputEmptyPort :
   public:
 
     // ----------------------------------------------------------------------
-    // Types
+    // Types for InputEmptyPort
     // ----------------------------------------------------------------------
 
     //! The port callback function type
@@ -82,11 +82,17 @@ class InputEmptyPort :
   public:
 
     // ----------------------------------------------------------------------
-    // Input Port Member functions
+    // Constructors for InputEmptyPort
     // ----------------------------------------------------------------------
 
     //! Constructor
     InputEmptyPort();
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for InputEmptyPort
+    // ----------------------------------------------------------------------
 
     //! Initialization function
     void init();
@@ -102,6 +108,10 @@ class InputEmptyPort :
 
   private:
 
+    // ----------------------------------------------------------------------
+    // Private member functions for InputEmptyPort
+    // ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
     //! Invoke the port with serialized arguments
@@ -115,7 +125,7 @@ class InputEmptyPort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables
+    // Member variables for InputEmptyPort
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function

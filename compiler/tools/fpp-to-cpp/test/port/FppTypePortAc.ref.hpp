@@ -111,7 +111,7 @@ class InputFppTypePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Types
+    // Types for InputFppTypePort
     // ----------------------------------------------------------------------
 
     //! The port callback function type
@@ -129,11 +129,17 @@ class InputFppTypePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Input Port Member functions
+    // Constructors for InputFppTypePort
     // ----------------------------------------------------------------------
 
     //! Constructor
     InputFppTypePort();
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for InputFppTypePort
+    // ----------------------------------------------------------------------
 
     //! Initialization function
     void init();
@@ -158,6 +164,10 @@ class InputFppTypePort :
 
   private:
 
+    // ----------------------------------------------------------------------
+    // Private member functions for InputFppTypePort
+    // ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
     //! Invoke the port with serialized arguments
@@ -171,7 +181,7 @@ class InputFppTypePort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables
+    // Member variables for InputFppTypePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function

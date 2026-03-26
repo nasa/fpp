@@ -40,7 +40,7 @@ Fw::SerializeStatus StringPortSerializer ::
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
-// Input Port Member functions
+// Constructors for InputStringPort
 // ----------------------------------------------------------------------
 
 InputStringPort ::
@@ -50,6 +50,10 @@ InputStringPort ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Public member functions for InputStringPort
+// ----------------------------------------------------------------------
 
 void InputStringPort ::
   init()
@@ -88,6 +92,10 @@ void InputStringPort ::
 
   return this->m_func(this->m_comp, this->m_portNum, str80, str80Ref, str100, str100Ref);
 }
+
+// ----------------------------------------------------------------------
+// Private member functions for InputStringPort
+// ----------------------------------------------------------------------
 
 #if FW_PORT_SERIALIZATION == 1
 

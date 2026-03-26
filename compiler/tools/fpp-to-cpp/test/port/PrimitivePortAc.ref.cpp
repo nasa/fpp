@@ -48,7 +48,7 @@ Fw::SerializeStatus PrimitivePortSerializer ::
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
-// Input Port Member functions
+// Constructors for InputPrimitivePort
 // ----------------------------------------------------------------------
 
 InputPrimitivePort ::
@@ -58,6 +58,10 @@ InputPrimitivePort ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Public member functions for InputPrimitivePort
+// ----------------------------------------------------------------------
 
 void InputPrimitivePort ::
   init()
@@ -98,6 +102,10 @@ void InputPrimitivePort ::
 
   return this->m_func(this->m_comp, this->m_portNum, u32, u32Ref, f32, f32Ref, b, bRef);
 }
+
+// ----------------------------------------------------------------------
+// Private member functions for InputPrimitivePort
+// ----------------------------------------------------------------------
 
 #if FW_PORT_SERIALIZATION == 1
 

@@ -29,7 +29,7 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
-      // Types
+      // Types for InputStringReturnTypePort
       // ----------------------------------------------------------------------
 
       //! The port callback function type
@@ -41,11 +41,17 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
-      // Input Port Member functions
+      // Constructors for InputStringReturnTypePort
       // ----------------------------------------------------------------------
 
       //! Constructor
       InputStringReturnTypePort();
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Public member functions for InputStringReturnTypePort
+      // ----------------------------------------------------------------------
 
       //! Initialization function
       void init();
@@ -61,6 +67,10 @@ namespace M {
 
     private:
 
+      // ----------------------------------------------------------------------
+      // Private member functions for InputStringReturnTypePort
+      // ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
       //! Invoke the port with serialized arguments
@@ -74,7 +84,7 @@ namespace M {
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables
+      // Member variables for InputStringReturnTypePort
       // ----------------------------------------------------------------------
 
       //! The pointer to the port callback function
