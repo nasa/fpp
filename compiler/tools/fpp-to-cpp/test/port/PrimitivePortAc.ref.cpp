@@ -32,8 +32,24 @@ Fw::SerializeStatus PrimitivePortSerializer ::
   deserializePortArgs(Fw::SerialBufferBase& _buffer)
 {
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
-  // TODO
-  (void) _buffer;
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_u32);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_u32Ref);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_f32);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_f32Ref);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_b);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_bRef);
+  }
   return _status;
 }
 

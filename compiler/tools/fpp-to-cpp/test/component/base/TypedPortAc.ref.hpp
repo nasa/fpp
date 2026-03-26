@@ -99,7 +99,7 @@ namespace Ports {
       // ----------------------------------------------------------------------
 
       //! Deserialze port arguments into members
-      static Fw::SerializeStatus deserializePortArgs(
+      Fw::SerializeStatus deserializePortArgs(
           Fw::SerialBufferBase& _buffer //!< The serial buffer
       );
 

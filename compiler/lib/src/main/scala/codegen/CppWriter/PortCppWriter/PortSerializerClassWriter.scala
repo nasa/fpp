@@ -31,12 +31,9 @@ case class PortSerializerClassWriter(
       CppDoc.Type("Fw::SerializeStatus"),
       List.concat(
         lines("Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;"),
-        //portParams.flatMap(writeSerializationForParam),
-        lines("// TODO"),
-        lines("(void) _buffer;"),
+        portParams.flatMap(writeDeserializationForParam),
         lines("return _status;")
-      ),
-      CppDoc.Function.Static
+      )
     )
 
   private def getParamVariable(portParam: PortParamType): Line = {
@@ -135,6 +132,15 @@ case class PortSerializerClassWriter(
     }
   }
 
+  private def writeDeserializationForParam(param: PortParamType) = {
+    val paramName = param._2.data.name
+    lines(
+      s"""|if (_status == Fw::FW_SERIALIZE_OK) {
+          |  _status = _buffer.deserializeTo(m_$paramName);
+          |}"""
+    )
+  }
+
   private def writeInitializer(portParam: PortParamType) = {
     val data = portParam._2.data
     val paramName = data.name
@@ -154,15 +160,5 @@ case class PortSerializerClassWriter(
           |}"""
     )
   }
-
-  private val hasStringParams = portParams.exists(
-    param => {
-      val t = s.a.typeMap(param._2.data.typeName.id)
-      t.getUnderlyingType match {
-        case _: Type.String => true
-        case _ => false
-      }
-    }
-  )
 
 }

@@ -32,8 +32,24 @@ Fw::SerializeStatus FppTypePortSerializer ::
   deserializePortArgs(Fw::SerialBufferBase& _buffer)
 {
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
-  // TODO
-  (void) _buffer;
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_e);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_eRef);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_a);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_aRef);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_s);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_sRef);
+  }
   return _status;
 }
 

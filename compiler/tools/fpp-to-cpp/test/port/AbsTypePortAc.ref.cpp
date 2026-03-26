@@ -28,8 +28,12 @@ Fw::SerializeStatus AbsTypePortSerializer ::
   deserializePortArgs(Fw::SerialBufferBase& _buffer)
 {
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
-  // TODO
-  (void) _buffer;
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_t);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_tRef);
+  }
   return _status;
 }
 

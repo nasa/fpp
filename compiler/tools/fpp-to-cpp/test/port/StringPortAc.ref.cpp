@@ -30,8 +30,18 @@ Fw::SerializeStatus StringPortSerializer ::
   deserializePortArgs(Fw::SerialBufferBase& _buffer)
 {
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
-  // TODO
-  (void) _buffer;
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_str80);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_str80Ref);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_str100);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_str100Ref);
+  }
   return _status;
 }
 

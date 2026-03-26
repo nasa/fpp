@@ -38,6 +38,16 @@ abstract class PortCppWriterUtils(
 
   val portParams = portData.params
 
+  val hasStringParams = portParams.exists(
+    param => {
+      val t = s.a.typeMap(param._2.data.typeName.id)
+      t.getUnderlyingType match {
+        case _: Type.String => true
+        case _ => false
+      }
+    }
+  )
+
   val linearBufferFunctionParam = CppDoc.Function.Param(
     CppDoc.Type("Fw::LinearBufferBase&"),
     "_buffer",
