@@ -203,16 +203,6 @@ void OutputAbsTypePort ::
     Fw::SerializeStatus _status;
     AbsTypePortBuffer _buffer;
 
-#if 0
-    _status = _buffer.serializeFrom(t);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
-#if 0
-    _status = _buffer.serializeFrom(tRef);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
     _status = AbsTypePortSerializer::serializePortArgs(t, tRef, _buffer);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 

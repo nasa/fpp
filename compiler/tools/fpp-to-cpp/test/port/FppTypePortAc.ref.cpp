@@ -267,36 +267,6 @@ void OutputFppTypePort ::
     Fw::SerializeStatus _status;
     FppTypePortBuffer _buffer;
 
-#if 0
-    _status = _buffer.serializeFrom(e);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
-#if 0
-    _status = _buffer.serializeFrom(eRef);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
-#if 0
-    _status = _buffer.serializeFrom(a);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
-#if 0
-    _status = _buffer.serializeFrom(aRef);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
-#if 0
-    _status = _buffer.serializeFrom(s);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
-#if 0
-    _status = _buffer.serializeFrom(sRef);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
     _status = FppTypePortSerializer::serializePortArgs(e, eRef, a, aRef, s, sRef, _buffer);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 

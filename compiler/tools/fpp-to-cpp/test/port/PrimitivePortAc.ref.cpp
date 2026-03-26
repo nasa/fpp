@@ -267,36 +267,6 @@ void OutputPrimitivePort ::
     Fw::SerializeStatus _status;
     PrimitivePortBuffer _buffer;
 
-#if 0
-    _status = _buffer.serializeFrom(u32);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
-#if 0
-    _status = _buffer.serializeFrom(u32Ref);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
-#if 0
-    _status = _buffer.serializeFrom(f32);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
-#if 0
-    _status = _buffer.serializeFrom(f32Ref);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
-#if 0
-    _status = _buffer.serializeFrom(b);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
-#if 0
-    _status = _buffer.serializeFrom(bRef);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
     _status = PrimitivePortSerializer::serializePortArgs(u32, u32Ref, f32, f32Ref, b, bRef, _buffer);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 

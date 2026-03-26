@@ -183,11 +183,6 @@ void OutputKwdNamePort ::
     Fw::SerializeStatus _status;
     KwdNamePortBuffer _buffer;
 
-#if 0
-    _status = _buffer.serializeFrom(time);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
     _status = KwdNamePortSerializer::serializePortArgs(time, _buffer);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 

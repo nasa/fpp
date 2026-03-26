@@ -239,26 +239,6 @@ void OutputStringPort ::
     Fw::SerializeStatus _status;
     StringPortBuffer _buffer;
 
-#if 0
-    _status = _buffer.serializeFrom(str80);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
-#if 0
-    _status = _buffer.serializeFrom(str80Ref);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
-#if 0
-    _status = _buffer.serializeFrom(str100);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
-#if 0
-    _status = _buffer.serializeFrom(str100Ref);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-#endif
-
     _status = StringPortSerializer::serializePortArgs(str80, str80Ref, str100, str100Ref, _buffer);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 

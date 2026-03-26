@@ -146,17 +146,6 @@ case class OutputPortClassWriter(
             |  $portBufferName _buffer;
             |"""
       ),
-      portParams.flatMap(param => {
-        val paramName = param._2.data.name
-        lines(
-          s"""|
-              |#if 0
-              |  _status = _buffer.serializeFrom($paramName);
-              |  FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-              |#endif
-              |"""
-        )
-      }),
       guardedList (hasParams) (
         lines(
           s"""|
