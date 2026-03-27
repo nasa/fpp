@@ -6,61 +6,42 @@
 
 #include "AbsTypePortAc.hpp"
 #include "Fw/Types/Assert.hpp"
-
-// ----------------------------------------------------------------------
-// Public constructors for AbsTypePortSerializer
-// ----------------------------------------------------------------------
-
-AbsTypePortSerializer ::
-  AbsTypePortSerializer() :
-    m_t(),
-    m_tRef()
-{
-
-}
-
-// ----------------------------------------------------------------------
-// Public member functions for AbsTypePortSerializer
-// ----------------------------------------------------------------------
-
-Fw::SerializeStatus AbsTypePortSerializer ::
-  deserializePortArgs(Fw::SerialBufferBase& _buffer)
-{
-  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
-  if (_status == Fw::FW_SERIALIZE_OK) {
-    _status = _buffer.deserializeTo(m_t);
-  }
-  if (_status == Fw::FW_SERIALIZE_OK) {
-    _status = _buffer.deserializeTo(m_tRef);
-  }
-  return _status;
-}
-
-// ----------------------------------------------------------------------
-// Public static functions for AbsTypePortSerializer
-// ----------------------------------------------------------------------
-
-Fw::SerializeStatus AbsTypePortSerializer ::
-  serializePortArgs(
-      const T& t,
-      T& tRef,
-      Fw::SerialBufferBase& _buffer
-  )
-{
-  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
-  if (_status == Fw::FW_SERIALIZE_OK) {
-    _status = _buffer.serializeFrom(t);
-  }
-  if (_status == Fw::FW_SERIALIZE_OK) {
-    _status = _buffer.serializeFrom(tRef);
-  }
-  return _status;
-}
+#include "Fw/Types/ExternalString.hpp"
 
 #if !FW_DIRECT_PORT_CALLS
 
+namespace {
+
+  // ----------------------------------------------------------------------
+  // Port buffer class
+  // ----------------------------------------------------------------------
+
+  class AbsTypePortBuffer : public Fw::LinearBufferBase {
+
+    public:
+
+      Fw::Serializable::SizeType getCapacity() const {
+        return InputAbsTypePort::SERIALIZED_SIZE;
+      }
+
+      U8* getBuffAddr() {
+        return m_buff;
+      }
+
+      const U8* getBuffAddr() const {
+        return m_buff;
+      }
+
+    private:
+
+      U8 m_buff[InputAbsTypePort::SERIALIZED_SIZE];
+
+  };
+
+}
+
 // ----------------------------------------------------------------------
-// Public constructors for InputAbsTypePort
+// Input Port Member functions
 // ----------------------------------------------------------------------
 
 InputAbsTypePort ::
@@ -70,10 +51,6 @@ InputAbsTypePort ::
 {
 
 }
-
-// ----------------------------------------------------------------------
-// Public member functions for InputAbsTypePort
-// ----------------------------------------------------------------------
 
 void InputAbsTypePort ::
   init()
@@ -111,15 +88,13 @@ void InputAbsTypePort ::
   return this->m_func(this->m_comp, this->m_portNum, t, tRef);
 }
 
-// ----------------------------------------------------------------------
-// Private member functions for InputAbsTypePort
-// ----------------------------------------------------------------------
-
 #if FW_PORT_SERIALIZATION == 1
 
 Fw::SerializeStatus InputAbsTypePort ::
   invokeSerial(Fw::LinearBufferBase& _buffer)
 {
+  Fw::SerializeStatus _status;
+
 #if FW_PORT_TRACING == 1
   this->trace();
 #endif
@@ -127,13 +102,19 @@ Fw::SerializeStatus InputAbsTypePort ::
   FW_ASSERT(this->m_comp != nullptr);
   FW_ASSERT(this->m_func != nullptr);
 
-  AbsTypePortSerializer _serializer;
-  Fw::SerializeStatus _status = _serializer.deserializePortArgs(_buffer);
+  T t;
+  _status = _buffer.deserializeTo(t);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  this->m_func(this->m_comp, this->m_portNum, _serializer.m_t, _serializer.m_tRef);
+  T tRef;
+  _status = _buffer.deserializeTo(tRef);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    return _status;
+  }
+
+  this->m_func(this->m_comp, this->m_portNum, t, tRef);
 
   return Fw::FW_SERIALIZE_OK;
 }
@@ -141,7 +122,7 @@ Fw::SerializeStatus InputAbsTypePort ::
 #endif
 
 // ----------------------------------------------------------------------
-// Public constructors for OutputAbsTypePort
+// Output Port Member functions
 // ----------------------------------------------------------------------
 
 OutputAbsTypePort ::
@@ -151,10 +132,6 @@ OutputAbsTypePort ::
 {
 
 }
-
-// ----------------------------------------------------------------------
-// Public member functions for OutputAbsTypePort
-// ----------------------------------------------------------------------
 
 void OutputAbsTypePort ::
   init()
@@ -195,7 +172,10 @@ void OutputAbsTypePort ::
     Fw::SerializeStatus _status;
     AbsTypePortBuffer _buffer;
 
-    _status = AbsTypePortSerializer::serializePortArgs(t, tRef, _buffer);
+    _status = _buffer.serializeFrom(t);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+
+    _status = _buffer.serializeFrom(tRef);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
     _status = this->m_serPort->invokeSerial(_buffer);

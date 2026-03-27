@@ -5,78 +5,43 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "StringPortAc.hpp"
-
-// ----------------------------------------------------------------------
-// Public constructors for StringPortSerializer
-// ----------------------------------------------------------------------
-
-StringPortSerializer ::
-  StringPortSerializer() :
-    m_str80(m___fprime_ac_str80_buffer, sizeof m___fprime_ac_str80_buffer),
-    m_str80Ref(m___fprime_ac_str80Ref_buffer, sizeof m___fprime_ac_str80Ref_buffer),
-    m_str100(m___fprime_ac_str100_buffer, sizeof m___fprime_ac_str100_buffer),
-    m_str100Ref(m___fprime_ac_str100Ref_buffer, sizeof m___fprime_ac_str100Ref_buffer)
-{
-
-}
-
-// ----------------------------------------------------------------------
-// Public member functions for StringPortSerializer
-// ----------------------------------------------------------------------
-
-Fw::SerializeStatus StringPortSerializer ::
-  deserializePortArgs(Fw::SerialBufferBase& _buffer)
-{
-  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
-  if (_status == Fw::FW_SERIALIZE_OK) {
-    _status = _buffer.deserializeTo(m_str80);
-  }
-  if (_status == Fw::FW_SERIALIZE_OK) {
-    _status = _buffer.deserializeTo(m_str80Ref);
-  }
-  if (_status == Fw::FW_SERIALIZE_OK) {
-    _status = _buffer.deserializeTo(m_str100);
-  }
-  if (_status == Fw::FW_SERIALIZE_OK) {
-    _status = _buffer.deserializeTo(m_str100Ref);
-  }
-  return _status;
-}
-
-// ----------------------------------------------------------------------
-// Public static functions for StringPortSerializer
-// ----------------------------------------------------------------------
-
-Fw::SerializeStatus StringPortSerializer ::
-  serializePortArgs(
-      const Fw::StringBase& str80,
-      Fw::StringBase& str80Ref,
-      const Fw::StringBase& str100,
-      Fw::StringBase& str100Ref,
-      Fw::SerialBufferBase& _buffer
-  )
-{
-  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
-  if (_status == Fw::FW_SERIALIZE_OK) {
-    _status = _buffer.serializeFrom(str80);
-  }
-  if (_status == Fw::FW_SERIALIZE_OK) {
-    _status = _buffer.serializeFrom(str80Ref);
-  }
-  if (_status == Fw::FW_SERIALIZE_OK) {
-    _status = _buffer.serializeFrom(str100);
-  }
-  if (_status == Fw::FW_SERIALIZE_OK) {
-    _status = _buffer.serializeFrom(str100Ref);
-  }
-  return _status;
-}
 
 #if !FW_DIRECT_PORT_CALLS
 
+namespace {
+
+  // ----------------------------------------------------------------------
+  // Port buffer class
+  // ----------------------------------------------------------------------
+
+  class StringPortBuffer : public Fw::LinearBufferBase {
+
+    public:
+
+      Fw::Serializable::SizeType getCapacity() const {
+        return InputStringPort::SERIALIZED_SIZE;
+      }
+
+      U8* getBuffAddr() {
+        return m_buff;
+      }
+
+      const U8* getBuffAddr() const {
+        return m_buff;
+      }
+
+    private:
+
+      U8 m_buff[InputStringPort::SERIALIZED_SIZE];
+
+  };
+
+}
+
 // ----------------------------------------------------------------------
-// Public constructors for InputStringPort
+// Input Port Member functions
 // ----------------------------------------------------------------------
 
 InputStringPort ::
@@ -86,10 +51,6 @@ InputStringPort ::
 {
 
 }
-
-// ----------------------------------------------------------------------
-// Public member functions for InputStringPort
-// ----------------------------------------------------------------------
 
 void InputStringPort ::
   init()
@@ -129,15 +90,13 @@ void InputStringPort ::
   return this->m_func(this->m_comp, this->m_portNum, str80, str80Ref, str100, str100Ref);
 }
 
-// ----------------------------------------------------------------------
-// Private member functions for InputStringPort
-// ----------------------------------------------------------------------
-
 #if FW_PORT_SERIALIZATION == 1
 
 Fw::SerializeStatus InputStringPort ::
   invokeSerial(Fw::LinearBufferBase& _buffer)
 {
+  Fw::SerializeStatus _status;
+
 #if FW_PORT_TRACING == 1
   this->trace();
 #endif
@@ -145,13 +104,35 @@ Fw::SerializeStatus InputStringPort ::
   FW_ASSERT(this->m_comp != nullptr);
   FW_ASSERT(this->m_func != nullptr);
 
-  StringPortSerializer _serializer;
-  Fw::SerializeStatus _status = _serializer.deserializePortArgs(_buffer);
+  char __fprime_ac_str80_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
+  Fw::ExternalString str80(__fprime_ac_str80_buffer, sizeof __fprime_ac_str80_buffer);
+  _status = _buffer.deserializeTo(str80);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  this->m_func(this->m_comp, this->m_portNum, _serializer.m_str80, _serializer.m_str80Ref, _serializer.m_str100, _serializer.m_str100Ref);
+  char __fprime_ac_str80Ref_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
+  Fw::ExternalString str80Ref(__fprime_ac_str80Ref_buffer, sizeof __fprime_ac_str80Ref_buffer);
+  _status = _buffer.deserializeTo(str80Ref);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    return _status;
+  }
+
+  char __fprime_ac_str100_buffer[Fw::StringBase::BUFFER_SIZE(100)];
+  Fw::ExternalString str100(__fprime_ac_str100_buffer, sizeof __fprime_ac_str100_buffer);
+  _status = _buffer.deserializeTo(str100);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    return _status;
+  }
+
+  char __fprime_ac_str100Ref_buffer[Fw::StringBase::BUFFER_SIZE(100)];
+  Fw::ExternalString str100Ref(__fprime_ac_str100Ref_buffer, sizeof __fprime_ac_str100Ref_buffer);
+  _status = _buffer.deserializeTo(str100Ref);
+  if (_status != Fw::FW_SERIALIZE_OK) {
+    return _status;
+  }
+
+  this->m_func(this->m_comp, this->m_portNum, str80, str80Ref, str100, str100Ref);
 
   return Fw::FW_SERIALIZE_OK;
 }
@@ -159,7 +140,7 @@ Fw::SerializeStatus InputStringPort ::
 #endif
 
 // ----------------------------------------------------------------------
-// Public constructors for OutputStringPort
+// Output Port Member functions
 // ----------------------------------------------------------------------
 
 OutputStringPort ::
@@ -169,10 +150,6 @@ OutputStringPort ::
 {
 
 }
-
-// ----------------------------------------------------------------------
-// Public member functions for OutputStringPort
-// ----------------------------------------------------------------------
 
 void OutputStringPort ::
   init()
@@ -215,7 +192,16 @@ void OutputStringPort ::
     Fw::SerializeStatus _status;
     StringPortBuffer _buffer;
 
-    _status = StringPortSerializer::serializePortArgs(str80, str80Ref, str100, str100Ref, _buffer);
+    _status = _buffer.serializeFrom(str80);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+
+    _status = _buffer.serializeFrom(str80Ref);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+
+    _status = _buffer.serializeFrom(str100);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+
+    _status = _buffer.serializeFrom(str100Ref);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
     _status = this->m_serPort->invokeSerial(_buffer);

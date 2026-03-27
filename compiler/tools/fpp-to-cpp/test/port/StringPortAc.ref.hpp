@@ -8,130 +8,23 @@
 #define StringPortAc_HPP
 
 #include "Fw/FPrimeBasicTypes.hpp"
-#include "Fw/Types/ExternalString.hpp"
-#include "Fw/Types/Serializable.hpp"
+#include "Fw/Types/String.hpp"
 #include "config/FwSizeStoreTypeAliasAc.hpp"
 #if !FW_DIRECT_PORT_CALLS
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
+#include "Fw/Types/Serializable.hpp"
 #endif
 
-//! Serialization buffer for String port
-//! A port with string parameters
-class StringPortBuffer :
-  public Fw::LinearBufferBase
-{
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Public constants for StringPortBuffer
-    // ----------------------------------------------------------------------
-
-    //! The buffer capacity. This is the sum of the static serialized
-    //! sizes of the port arguments.
-    static constexpr FwSizeType CAPACITY =
-      Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
-      Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
-      Fw::StringBase::STATIC_SERIALIZED_SIZE(100) +
-      Fw::StringBase::STATIC_SERIALIZED_SIZE(100);
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Public member functions for StringPortBuffer
-    // ----------------------------------------------------------------------
-
-    //! Get the capacity of the buffer
-    //! \return The capacity
-    Fw::Serializable::SizeType getCapacity() const override {
-      return CAPACITY;
-    }
-
-    //! Get the buffer address (non-const)
-    //! \return The buffer address
-    U8* getBuffAddr() override {
-      return m_buff;
-    }
-
-    //! Get the buffer address (const)
-    //! \return The buffer address
-    const U8* getBuffAddr() const override {
-      return m_buff;
-    }
-
-  private:
-
-    // ----------------------------------------------------------------------
-    // Private member variables
-    // ----------------------------------------------------------------------
-
-    U8 m_buff[CAPACITY];
-
-};
-
-//! Serializer for String port
-//! A port with string parameters
-class StringPortSerializer {
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Public constructors for StringPortSerializer
-    // ----------------------------------------------------------------------
-
-    //! Constructor
-    StringPortSerializer();
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Public member functions for StringPortSerializer
-    // ----------------------------------------------------------------------
-
-    //! Deserialze port arguments into members
-    Fw::SerializeStatus deserializePortArgs(
-        Fw::SerialBufferBase& _buffer //!< The serial buffer
-    );
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Public static functions for StringPortSerializer
-    // ----------------------------------------------------------------------
-
-    //! Serialize port arguments into a buffer
-    static Fw::SerializeStatus serializePortArgs(
-        const Fw::StringBase& str80, //!< A string of size 80
-        Fw::StringBase& str80Ref,
-        const Fw::StringBase& str100, //!< A string of size 100
-        Fw::StringBase& str100Ref,
-        Fw::SerialBufferBase& _buffer //!< The serial buffer
-    );
-
-  private:
-
-    // ----------------------------------------------------------------------
-    // Private member variables for StringPortSerializer
-    // ----------------------------------------------------------------------
-
-    char m___fprime_ac_str80_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
-    char m___fprime_ac_str80Ref_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
-    char m___fprime_ac_str100_buffer[Fw::StringBase::BUFFER_SIZE(100)];
-    char m___fprime_ac_str100Ref_buffer[Fw::StringBase::BUFFER_SIZE(100)];
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Public member variables for StringPortSerializer
-    // ----------------------------------------------------------------------
-
-    Fw::ExternalString m_str80;
-    Fw::ExternalString m_str80Ref;
-    Fw::ExternalString m_str100;
-    Fw::ExternalString m_str100Ref;
-
+//! String port constants
+struct StringPortConstants {
+  //! The size of the serial representations of the port arguments
+  static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
+    Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
+    Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
+    Fw::StringBase::STATIC_SERIALIZED_SIZE(100) +
+    Fw::StringBase::STATIC_SERIALIZED_SIZE(100);
 };
 
 #if !FW_DIRECT_PORT_CALLS
@@ -145,7 +38,18 @@ class InputStringPort :
   public:
 
     // ----------------------------------------------------------------------
-    // Public types for InputStringPort
+    // Constants
+    // ----------------------------------------------------------------------
+
+    enum {
+      //! The size of the serial representations of the port arguments
+      SERIALIZED_SIZE = StringPortConstants::INPUT_SERIALIZED_SIZE
+    };
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Types
     // ----------------------------------------------------------------------
 
     //! The port callback function type
@@ -161,17 +65,11 @@ class InputStringPort :
   public:
 
     // ----------------------------------------------------------------------
-    // Public constructors for InputStringPort
+    // Input Port Member functions
     // ----------------------------------------------------------------------
 
     //! Constructor
     InputStringPort();
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Public member functions for InputStringPort
-    // ----------------------------------------------------------------------
 
     //! Initialization function
     void init();
@@ -192,24 +90,17 @@ class InputStringPort :
 
   private:
 
-    // ----------------------------------------------------------------------
-    // Private member functions for InputStringPort
-    // ----------------------------------------------------------------------
-
 #if FW_PORT_SERIALIZATION == 1
 
     //! Invoke the port with serialized arguments
-    //! \return The serialize status
-    Fw::SerializeStatus invokeSerial(
-        Fw::LinearBufferBase& _buffer //!< The serial buffer
-    );
+    Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer);
 
 #endif
 
   private:
 
     // ----------------------------------------------------------------------
-    // Private member variables for InputStringPort
+    // Member variables
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function
@@ -226,17 +117,11 @@ class OutputStringPort :
   public:
 
     // ----------------------------------------------------------------------
-    // Public constructors for OutputStringPort
+    // Output Port Member functions
     // ----------------------------------------------------------------------
 
     //! Constructor
     OutputStringPort();
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Public member functions for OutputStringPort
-    // ----------------------------------------------------------------------
 
     //! Initialization function
     void init();
@@ -246,7 +131,7 @@ class OutputStringPort :
         InputStringPort* callPort //!< The input port
     );
 
-    //! Invoke a port connection
+    //! Invoke a port interface
     void invoke(
         const Fw::StringBase& str80, //!< A string of size 80
         Fw::StringBase& str80Ref,
@@ -257,7 +142,7 @@ class OutputStringPort :
   private:
 
     // ----------------------------------------------------------------------
-    // Private member variables for OutputStringPort
+    // Member variables
     // ----------------------------------------------------------------------
 
     //! The pointer to the input port

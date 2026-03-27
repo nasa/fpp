@@ -5,14 +5,15 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "TypedReturnPortAc.hpp"
-
-namespace Ports {
 
 #if !FW_DIRECT_PORT_CALLS
 
+namespace Ports {
+
   // ----------------------------------------------------------------------
-  // Public constructors for InputTypedReturnPort
+  // Input Port Member functions
   // ----------------------------------------------------------------------
 
   InputTypedReturnPort ::
@@ -22,10 +23,6 @@ namespace Ports {
   {
 
   }
-
-  // ----------------------------------------------------------------------
-  // Public member functions for InputTypedReturnPort
-  // ----------------------------------------------------------------------
 
   void InputTypedReturnPort ::
     init()
@@ -68,10 +65,6 @@ namespace Ports {
     return this->m_func(this->m_comp, this->m_portNum, u32, f32, b, str2, e, a, s);
   }
 
-  // ----------------------------------------------------------------------
-  // Private member functions for InputTypedReturnPort
-  // ----------------------------------------------------------------------
-
 #if FW_PORT_SERIALIZATION == 1
 
   Fw::SerializeStatus InputTypedReturnPort ::
@@ -87,7 +80,7 @@ namespace Ports {
 #endif
 
   // ----------------------------------------------------------------------
-  // Public constructors for OutputTypedReturnPort
+  // Output Port Member functions
   // ----------------------------------------------------------------------
 
   OutputTypedReturnPort ::
@@ -97,10 +90,6 @@ namespace Ports {
   {
 
   }
-
-  // ----------------------------------------------------------------------
-  // Public member functions for OutputTypedReturnPort
-  // ----------------------------------------------------------------------
 
   void OutputTypedReturnPort ::
     init()
@@ -140,6 +129,6 @@ namespace Ports {
     return this->m_port->invoke(u32, f32, b, str2, e, a, s);
   }
 
-#endif
-
 }
+
+#endif

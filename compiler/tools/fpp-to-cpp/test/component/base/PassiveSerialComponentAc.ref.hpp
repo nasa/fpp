@@ -589,7 +589,7 @@ class PassiveSerialComponentBase :
   public:
 
     // ----------------------------------------------------------------------
-    // Connect typed and serial input ports to serial output ports
+    // Connect serial input ports to serial output ports
     // ----------------------------------------------------------------------
 
     //! Connect port to serialOut[portNum]

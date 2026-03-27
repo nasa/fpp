@@ -8,56 +8,21 @@
 #define Ports_NoArgsPortAc_HPP
 
 #include "Fw/FPrimeBasicTypes.hpp"
-#include "Fw/Types/Serializable.hpp"
+#include "Fw/Types/String.hpp"
 #if !FW_DIRECT_PORT_CALLS
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
+#include "Fw/Types/Serializable.hpp"
 #endif
 
 namespace Ports {
 
-  //! Serialization buffer for NoArgs port
-  //! A typed port with no arguments
-  class NoArgsPortBuffer :
-    public Fw::LinearBufferBase
-  {
-
-    public:
-
-      // ----------------------------------------------------------------------
-      // Public constants for NoArgsPortBuffer
-      // ----------------------------------------------------------------------
-
-      //! The buffer capacity. This is the sum of the static serialized
-      //! sizes of the port arguments.
-      static constexpr FwSizeType CAPACITY =
-        0;
-
-    public:
-
-      // ----------------------------------------------------------------------
-      // Public member functions for NoArgsPortBuffer
-      // ----------------------------------------------------------------------
-
-      //! Get the capacity of the buffer
-      //! \return The capacity
-      Fw::Serializable::SizeType getCapacity() const override {
-        return CAPACITY;
-      }
-
-      //! Get the buffer address (non-const)
-      //! \return The buffer address
-      U8* getBuffAddr() override {
-        return nullptr;
-      }
-
-      //! Get the buffer address (const)
-      //! \return The buffer address
-      const U8* getBuffAddr() const override {
-        return nullptr;
-      }
-
+  //! NoArgs port constants
+  struct NoArgsPortConstants {
+    //! The size of the serial representations of the port arguments
+    static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
+      0;
   };
 
 #if !FW_DIRECT_PORT_CALLS
@@ -71,7 +36,18 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Public types for InputNoArgsPort
+      // Constants
+      // ----------------------------------------------------------------------
+
+      enum {
+        //! The size of the serial representations of the port arguments
+        SERIALIZED_SIZE = NoArgsPortConstants::INPUT_SERIALIZED_SIZE
+      };
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Types
       // ----------------------------------------------------------------------
 
       //! The port callback function type
@@ -83,17 +59,11 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Public constructors for InputNoArgsPort
+      // Input Port Member functions
       // ----------------------------------------------------------------------
 
       //! Constructor
       InputNoArgsPort();
-
-    public:
-
-      // ----------------------------------------------------------------------
-      // Public member functions for InputNoArgsPort
-      // ----------------------------------------------------------------------
 
       //! Initialization function
       void init();
@@ -109,24 +79,17 @@ namespace Ports {
 
     private:
 
-      // ----------------------------------------------------------------------
-      // Private member functions for InputNoArgsPort
-      // ----------------------------------------------------------------------
-
 #if FW_PORT_SERIALIZATION == 1
 
       //! Invoke the port with serialized arguments
-      //! \return The serialize status
-      Fw::SerializeStatus invokeSerial(
-          Fw::LinearBufferBase& _buffer //!< The serial buffer
-      );
+      Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer);
 
 #endif
 
     private:
 
       // ----------------------------------------------------------------------
-      // Private member variables for InputNoArgsPort
+      // Member variables
       // ----------------------------------------------------------------------
 
       //! The pointer to the port callback function
@@ -143,17 +106,11 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Public constructors for OutputNoArgsPort
+      // Output Port Member functions
       // ----------------------------------------------------------------------
 
       //! Constructor
       OutputNoArgsPort();
-
-    public:
-
-      // ----------------------------------------------------------------------
-      // Public member functions for OutputNoArgsPort
-      // ----------------------------------------------------------------------
 
       //! Initialization function
       void init();
@@ -163,13 +120,13 @@ namespace Ports {
           InputNoArgsPort* callPort //!< The input port
       );
 
-      //! Invoke a port connection
+      //! Invoke a port interface
       void invoke() const;
 
     private:
 
       // ----------------------------------------------------------------------
-      // Private member variables for OutputNoArgsPort
+      // Member variables
       // ----------------------------------------------------------------------
 
       //! The pointer to the input port

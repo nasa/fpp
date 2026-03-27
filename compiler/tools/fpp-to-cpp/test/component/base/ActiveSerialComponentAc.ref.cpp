@@ -40,12 +40,12 @@ namespace {
   // Get the max size by constructing a union of the async input, command, and
   // internal port serialization sizes
   union BuffUnion {
-    BYTE aliasTypedAsyncPortSize[Ports::AliasTypedPortBuffer::CAPACITY];
-    BYTE typedAsyncPortSize[Ports::TypedPortBuffer::CAPACITY];
-    BYTE typedAsyncAssertPortSize[Ports::TypedPortBuffer::CAPACITY];
-    BYTE typedAsyncBlockPriorityPortSize[Ports::TypedPortBuffer::CAPACITY];
-    BYTE typedAsyncDropPriorityPortSize[Ports::TypedPortBuffer::CAPACITY];
-    BYTE cmdPortSize[Fw::CmdPortBuffer::CAPACITY];
+    BYTE aliasTypedAsyncPortSize[Ports::AliasTypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE typedAsyncPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE typedAsyncAssertPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE typedAsyncBlockPriorityPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE typedAsyncDropPriorityPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE cmdPortSize[Fw::CmdPortConstants::INPUT_SERIALIZED_SIZE];
     // Size of internalArray argument list
     BYTE internalArrayIntIfSize[
       A::SERIALIZED_SIZE
@@ -1887,7 +1887,7 @@ void ActiveSerialComponentBase ::
 #if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
-// Connect typed and serial input ports to serial output ports
+// Connect serial input ports to serial output ports
 // ----------------------------------------------------------------------
 
 void ActiveSerialComponentBase ::

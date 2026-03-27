@@ -144,29 +144,27 @@ case class TopComponentCppWriter (
     val portName = toPortInstance.getUnqualifiedName
     val handlerBaseName = inputPortHandlerBaseName(portName)
     val fnName = s"$componentInstanceName.$handlerBaseName"
-    val returnType = getInvokerReturnTypeAsString(toPortInstance)
+    val returnType = getHandlerReturnTypeAsString(toPortInstance)
     val addResultPrefix = addConditionalPrefix (returnType != "void") ("_result =")
     (fromPortInstance.getType.get, toPortInstance.getType.get) match {
-      case (_: PortInstance.Type.DefPort, _: PortInstance.Type.DefPort) =>
-        writeFunctionCall(
-          addResultPrefix(fnName),
-          List(toPortNum.toString),
-          getPortParams(fromPort.portInstance).map(_._1)
-        )
-      case (_: PortInstance.Type.DefPort, _) =>
+      case (_: PortInstance.Type.DefPort, PortInstance.Type.Serial) =>
+        // Typed to serial connection
         lines(
           """|// TODO: Typed to serial connection
              |FW_ASSERT(0);"""
         )
-      case (_, _: PortInstance.Type.DefPort) =>
+      case (PortInstance.Type.Serial, _: PortInstance.Type.DefPort) =>
+        // Serial to typed connection
         lines(
           """|// TODO: Serial to typed connection
              |FW_ASSERT(0);"""
         )
       case _ =>
-        lines(
-          """|// TODO: Serial to serial connection
-             |FW_ASSERT(0);"""
+        // Typed to typed connection or serial to serial connection
+        writeFunctionCall(
+          addResultPrefix(fnName),
+          List(toPortNum.toString),
+          getPortParams(fromPort.portInstance).map(_._1)
         )
     }
   }
@@ -184,7 +182,10 @@ case class TopComponentCppWriter (
         s"$returnType $name",
         portNumParam :: getPortFunctionParams(portInstance)
       )
-      Line.addSuffix(ll, " const")
+      portInstance.getType.get match {
+        case PortInstance.Type.DefPort(_) => Line.addSuffix(ll, " const")
+        case PortInstance.Type.Serial => ll
+      }
     }
     addGuardForPort(
       portInstance,

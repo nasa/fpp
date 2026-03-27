@@ -5,14 +5,41 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "NoArgsPortAc.hpp"
-
-namespace Ports {
 
 #if !FW_DIRECT_PORT_CALLS
 
+namespace Ports {
+
+  namespace {
+
+    // ----------------------------------------------------------------------
+    // Port buffer class
+    // ----------------------------------------------------------------------
+
+    class NoArgsPortBuffer : public Fw::LinearBufferBase {
+
+      public:
+
+        Fw::Serializable::SizeType getCapacity() const {
+          return InputNoArgsPort::SERIALIZED_SIZE;
+        }
+
+        U8* getBuffAddr() {
+          return nullptr;
+        }
+
+        const U8* getBuffAddr() const {
+          return nullptr;
+        }
+
+    };
+
+  }
+
   // ----------------------------------------------------------------------
-  // Public constructors for InputNoArgsPort
+  // Input Port Member functions
   // ----------------------------------------------------------------------
 
   InputNoArgsPort ::
@@ -22,10 +49,6 @@ namespace Ports {
   {
 
   }
-
-  // ----------------------------------------------------------------------
-  // Public member functions for InputNoArgsPort
-  // ----------------------------------------------------------------------
 
   void InputNoArgsPort ::
     init()
@@ -60,23 +83,19 @@ namespace Ports {
     return this->m_func(this->m_comp, this->m_portNum);
   }
 
-  // ----------------------------------------------------------------------
-  // Private member functions for InputNoArgsPort
-  // ----------------------------------------------------------------------
-
 #if FW_PORT_SERIALIZATION == 1
 
   Fw::SerializeStatus InputNoArgsPort ::
     invokeSerial(Fw::LinearBufferBase& _buffer)
   {
+    (void) _buffer;
+
 #if FW_PORT_TRACING == 1
     this->trace();
 #endif
 
     FW_ASSERT(this->m_comp != nullptr);
     FW_ASSERT(this->m_func != nullptr);
-
-    (void) _buffer;
 
     this->m_func(this->m_comp, this->m_portNum);
 
@@ -86,7 +105,7 @@ namespace Ports {
 #endif
 
   // ----------------------------------------------------------------------
-  // Public constructors for OutputNoArgsPort
+  // Output Port Member functions
   // ----------------------------------------------------------------------
 
   OutputNoArgsPort ::
@@ -96,10 +115,6 @@ namespace Ports {
   {
 
   }
-
-  // ----------------------------------------------------------------------
-  // Public member functions for OutputNoArgsPort
-  // ----------------------------------------------------------------------
 
   void OutputNoArgsPort ::
     init()
@@ -146,6 +161,6 @@ namespace Ports {
 #endif
   }
 
-#endif
-
 }
+
+#endif
