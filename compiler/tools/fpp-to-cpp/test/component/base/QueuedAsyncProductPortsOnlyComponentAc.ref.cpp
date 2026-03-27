@@ -20,7 +20,7 @@ namespace {
   // Get the max size by constructing a union of the async input, command, and
   // internal port serialization sizes
   union BuffUnion {
-    BYTE productRecvInPortSize[Fw::DpResponsePortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE productRecvInPortSize[Fw::DpResponsePortBuffer::CAPACITY];
   };
 
   // Define a message buffer class large enough to handle all the

@@ -5,43 +5,94 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/ExternalString.hpp"
 #include "PrimitivePortAc.hpp"
 
-#if !FW_DIRECT_PORT_CALLS
+// ----------------------------------------------------------------------
+// Public constructors for PrimitivePortSerializer
+// ----------------------------------------------------------------------
 
-namespace {
-
-  // ----------------------------------------------------------------------
-  // Port buffer class
-  // ----------------------------------------------------------------------
-
-  class PrimitivePortBuffer : public Fw::LinearBufferBase {
-
-    public:
-
-      Fw::Serializable::SizeType getCapacity() const {
-        return InputPrimitivePort::SERIALIZED_SIZE;
-      }
-
-      U8* getBuffAddr() {
-        return m_buff;
-      }
-
-      const U8* getBuffAddr() const {
-        return m_buff;
-      }
-
-    private:
-
-      U8 m_buff[InputPrimitivePort::SERIALIZED_SIZE];
-
-  };
+PrimitivePortSerializer ::
+  PrimitivePortSerializer() :
+    m_u32(),
+    m_u32Ref(),
+    m_f32(),
+    m_f32Ref(),
+    m_b(),
+    m_bRef()
+{
 
 }
 
 // ----------------------------------------------------------------------
-// Input Port Member functions
+// Public member functions for PrimitivePortSerializer
+// ----------------------------------------------------------------------
+
+Fw::SerializeStatus PrimitivePortSerializer ::
+  deserializePortArgs(Fw::SerialBufferBase& _buffer)
+{
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_u32);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_u32Ref);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_f32);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_f32Ref);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_b);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_bRef);
+  }
+  return _status;
+}
+
+// ----------------------------------------------------------------------
+// Public static functions for PrimitivePortSerializer
+// ----------------------------------------------------------------------
+
+Fw::SerializeStatus PrimitivePortSerializer ::
+  serializePortArgs(
+      U32 u32,
+      U32& u32Ref,
+      F32 f32,
+      F32& f32Ref,
+      bool b,
+      bool& bRef,
+      Fw::SerialBufferBase& _buffer
+  )
+{
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(u32);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(u32Ref);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(f32);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(f32Ref);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(b);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(bRef);
+  }
+  return _status;
+}
+
+#if !FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Public constructors for InputPrimitivePort
 // ----------------------------------------------------------------------
 
 InputPrimitivePort ::
@@ -51,6 +102,10 @@ InputPrimitivePort ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Public member functions for InputPrimitivePort
+// ----------------------------------------------------------------------
 
 void InputPrimitivePort ::
   init()
@@ -92,13 +147,15 @@ void InputPrimitivePort ::
   return this->m_func(this->m_comp, this->m_portNum, u32, u32Ref, f32, f32Ref, b, bRef);
 }
 
+// ----------------------------------------------------------------------
+// Private member functions for InputPrimitivePort
+// ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
 Fw::SerializeStatus InputPrimitivePort ::
   invokeSerial(Fw::LinearBufferBase& _buffer)
 {
-  Fw::SerializeStatus _status;
-
 #if FW_PORT_TRACING == 1
   this->trace();
 #endif
@@ -106,43 +163,13 @@ Fw::SerializeStatus InputPrimitivePort ::
   FW_ASSERT(this->m_comp != nullptr);
   FW_ASSERT(this->m_func != nullptr);
 
-  U32 u32;
-  _status = _buffer.deserializeTo(u32);
+  PrimitivePortSerializer _serializer;
+  Fw::SerializeStatus _status = _serializer.deserializePortArgs(_buffer);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  U32 u32Ref;
-  _status = _buffer.deserializeTo(u32Ref);
-  if (_status != Fw::FW_SERIALIZE_OK) {
-    return _status;
-  }
-
-  F32 f32;
-  _status = _buffer.deserializeTo(f32);
-  if (_status != Fw::FW_SERIALIZE_OK) {
-    return _status;
-  }
-
-  F32 f32Ref;
-  _status = _buffer.deserializeTo(f32Ref);
-  if (_status != Fw::FW_SERIALIZE_OK) {
-    return _status;
-  }
-
-  bool b;
-  _status = _buffer.deserializeTo(b);
-  if (_status != Fw::FW_SERIALIZE_OK) {
-    return _status;
-  }
-
-  bool bRef;
-  _status = _buffer.deserializeTo(bRef);
-  if (_status != Fw::FW_SERIALIZE_OK) {
-    return _status;
-  }
-
-  this->m_func(this->m_comp, this->m_portNum, u32, u32Ref, f32, f32Ref, b, bRef);
+  this->m_func(this->m_comp, this->m_portNum, _serializer.m_u32, _serializer.m_u32Ref, _serializer.m_f32, _serializer.m_f32Ref, _serializer.m_b, _serializer.m_bRef);
 
   return Fw::FW_SERIALIZE_OK;
 }
@@ -150,7 +177,7 @@ Fw::SerializeStatus InputPrimitivePort ::
 #endif
 
 // ----------------------------------------------------------------------
-// Output Port Member functions
+// Public constructors for OutputPrimitivePort
 // ----------------------------------------------------------------------
 
 OutputPrimitivePort ::
@@ -160,6 +187,10 @@ OutputPrimitivePort ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Public member functions for OutputPrimitivePort
+// ----------------------------------------------------------------------
 
 void OutputPrimitivePort ::
   init()
@@ -204,22 +235,7 @@ void OutputPrimitivePort ::
     Fw::SerializeStatus _status;
     PrimitivePortBuffer _buffer;
 
-    _status = _buffer.serializeFrom(u32);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-
-    _status = _buffer.serializeFrom(u32Ref);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-
-    _status = _buffer.serializeFrom(f32);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-
-    _status = _buffer.serializeFrom(f32Ref);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-
-    _status = _buffer.serializeFrom(b);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-
-    _status = _buffer.serializeFrom(bRef);
+    _status = PrimitivePortSerializer::serializePortArgs(u32, u32Ref, f32, f32Ref, b, bRef, _buffer);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
     _status = this->m_serPort->invokeSerial(_buffer);

@@ -53,12 +53,14 @@ case class ComponentOutputPorts(
 
   /** Gets component base-class connectors for a list of serial (untyped) ports */
   def getSerialConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    val typeString = getPortListTypeString(ports)
+    val outputPortKind = getPortListTypeString(ports)
+    val inputPortKind =
+      if outputPortKind == "serial" then "typed and serial" else "serial"
     wrapClassMembersInIfDirective(
       "#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION",
       addAccessTagAndComment(
         "public",
-        s"Connect serial input ports to $typeString output ports",
+        s"Connect $inputPortKind input ports to $outputPortKind output ports",
         getPortMembersWithGuard(ports, getSerialConnectorForPort)
       )
     )

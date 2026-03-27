@@ -10,7 +10,7 @@
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
-#include "Fw/Types/String.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "SSerializableAc.hpp"
 #include "config/FwSizeStoreTypeAliasAc.hpp"
 #if !FW_DIRECT_PORT_CALLS
@@ -20,19 +20,6 @@
 #endif
 
 namespace Ports {
-
-  //! TypedReturn port constants
-  struct TypedReturnPortConstants {
-    //! The size of the serial representations of the port arguments
-    static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
-      sizeof(U32) +
-      sizeof(F32) +
-      sizeof(U8) +
-      Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
-      E::SERIALIZED_SIZE +
-      A::SERIALIZED_SIZE +
-      S::SERIALIZED_SIZE;
-  };
 
 #if !FW_DIRECT_PORT_CALLS
 
@@ -45,18 +32,7 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Constants
-      // ----------------------------------------------------------------------
-
-      enum {
-        //! The size of the serial representations of the port arguments
-        SERIALIZED_SIZE = TypedReturnPortConstants::INPUT_SERIALIZED_SIZE
-      };
-
-    public:
-
-      // ----------------------------------------------------------------------
-      // Types
+      // Public types for InputTypedReturnPort
       // ----------------------------------------------------------------------
 
       //! The port callback function type
@@ -75,11 +51,17 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Input Port Member functions
+      // Public constructors for InputTypedReturnPort
       // ----------------------------------------------------------------------
 
       //! Constructor
       InputTypedReturnPort();
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Public member functions for InputTypedReturnPort
+      // ----------------------------------------------------------------------
 
       //! Initialization function
       void init();
@@ -103,17 +85,24 @@ namespace Ports {
 
     private:
 
+      // ----------------------------------------------------------------------
+      // Private member functions for InputTypedReturnPort
+      // ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
       //! Invoke the port with serialized arguments
-      Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer);
+      //! \return The serialize status
+      Fw::SerializeStatus invokeSerial(
+          Fw::LinearBufferBase& _buffer //!< The serial buffer
+      );
 
 #endif
 
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables
+      // Private member variables for InputTypedReturnPort
       // ----------------------------------------------------------------------
 
       //! The pointer to the port callback function
@@ -130,11 +119,17 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Output Port Member functions
+      // Public constructors for OutputTypedReturnPort
       // ----------------------------------------------------------------------
 
       //! Constructor
       OutputTypedReturnPort();
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Public member functions for OutputTypedReturnPort
+      // ----------------------------------------------------------------------
 
       //! Initialization function
       void init();
@@ -144,7 +139,8 @@ namespace Ports {
           InputTypedReturnPort* callPort //!< The input port
       );
 
-      //! Invoke a port interface
+      //! Invoke a port connection
+      //! \return The return value of the port handler
       F32 invoke(
           U32 u32, //!< A U32
           F32 f32, //!< An F32
@@ -158,7 +154,7 @@ namespace Ports {
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables
+      // Private member variables for OutputTypedReturnPort
       // ----------------------------------------------------------------------
 
       //! The pointer to the input port
