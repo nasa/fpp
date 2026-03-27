@@ -939,6 +939,12 @@ abstract class ComponentCppWriterUtils(
       case PortInstance.Type.Serial => "Fw::SerializeStatus"
     }
 
+  def getHandlerReturnTypeAsString(p: PortInstance): String =
+    p.getType.get match {
+      case PortInstance.Type.DefPort(_) => getPortReturnTypeAsString(p)
+      case PortInstance.Type.Serial => "void"
+    }
+
   def getVirtualOverflowHook(
     name: String,
     msgType: MessageType,

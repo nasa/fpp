@@ -63,6 +63,30 @@ params()
   cd $TOP_DIR
 }
 
+serial_ports_active()
+{
+  cd $TOP_DIR/serial_ports_active
+  update "-p $PWD,$FPRIME_DIR components.fpp -i $FPRIME_DEPS" topology
+  move_cpp SerialPortsActiveTopology
+  cd $TOP_DIR
+}
+
+serial_ports_passive()
+{
+  cd $TOP_DIR/serial_ports_passive
+  update "-p $PWD,$FPRIME_DIR components.fpp -i $FPRIME_DEPS" topology
+  move_cpp SerialPortsPassiveTopology
+  cd $TOP_DIR
+}
+
+serial_ports_queued()
+{
+  cd $TOP_DIR/serial_ports_queued
+  update "-p $PWD,$FPRIME_DIR components.fpp -i $FPRIME_DEPS" topology
+  move_cpp SerialPortsQueuedTopology
+  cd $TOP_DIR
+}
+
 tlm()
 {
   cd $TOP_DIR/tlm
