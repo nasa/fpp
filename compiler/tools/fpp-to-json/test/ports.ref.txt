@@ -1927,12 +1927,7 @@
           [
             {
               "InterfaceComponentInstance" : {
-                "qualifiedName" : {
-                  "qualifier" : [
-                  ],
-                  "base" : "i"
-                },
-                "unqualifiedName" : "i"
+                "astNodeId" : 92
               }
             },
             {
@@ -1977,12 +1972,7 @@
           {
             "interfaceInstance" : {
               "InterfaceComponentInstance" : {
-                "qualifiedName" : {
-                  "qualifier" : [
-                  ],
-                  "base" : "i"
-                },
-                "unqualifiedName" : "i"
+                "astNodeId" : 92
               }
             },
             "portInstance" : {

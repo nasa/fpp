@@ -1994,12 +1994,7 @@
           [
             {
               "InterfaceComponentInstance" : {
-                "qualifiedName" : {
-                  "qualifier" : [
-                  ],
-                  "base" : "i"
-                },
-                "unqualifiedName" : "i"
+                "astNodeId" : 67
               }
             },
             {
@@ -2044,12 +2039,7 @@
           {
             "interfaceInstance" : {
               "InterfaceComponentInstance" : {
-                "qualifiedName" : {
-                  "qualifier" : [
-                  ],
-                  "base" : "i"
-                },
-                "unqualifiedName" : "i"
+                "astNodeId" : 67
               }
             },
             "portInstance" : {
@@ -2084,12 +2074,7 @@
           {
             "interfaceInstance" : {
               "InterfaceComponentInstance" : {
-                "qualifiedName" : {
-                  "qualifier" : [
-                  ],
-                  "base" : "i"
-                },
-                "unqualifiedName" : "i"
+                "astNodeId" : 67
               }
             },
             "portInstance" : {
