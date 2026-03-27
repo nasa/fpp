@@ -8,7 +8,6 @@
 #define M_ReturnTypePortAc_HPP
 
 #include "Fw/FPrimeBasicTypes.hpp"
-#include "Fw/Types/String.hpp"
 #if !FW_DIRECT_PORT_CALLS
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
@@ -16,13 +15,6 @@
 #endif
 
 namespace M {
-
-  //! ReturnType port constants
-  struct ReturnTypePortConstants {
-    //! The size of the serial representations of the port arguments
-    static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
-      sizeof(U32);
-  };
 
 #if !FW_DIRECT_PORT_CALLS
 
@@ -35,18 +27,7 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
-      // Constants
-      // ----------------------------------------------------------------------
-
-      enum {
-        //! The size of the serial representations of the port arguments
-        SERIALIZED_SIZE = ReturnTypePortConstants::INPUT_SERIALIZED_SIZE
-      };
-
-    public:
-
-      // ----------------------------------------------------------------------
-      // Types
+      // Public types for InputReturnTypePort
       // ----------------------------------------------------------------------
 
       //! The port callback function type
@@ -59,11 +40,17 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
-      // Input Port Member functions
+      // Public constructors for InputReturnTypePort
       // ----------------------------------------------------------------------
 
       //! Constructor
       InputReturnTypePort();
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Public member functions for InputReturnTypePort
+      // ----------------------------------------------------------------------
 
       //! Initialization function
       void init();
@@ -79,17 +66,24 @@ namespace M {
 
     private:
 
+      // ----------------------------------------------------------------------
+      // Private member functions for InputReturnTypePort
+      // ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
       //! Invoke the port with serialized arguments
-      Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer);
+      //! \return The serialize status
+      Fw::SerializeStatus invokeSerial(
+          Fw::LinearBufferBase& _buffer //!< The serial buffer
+      );
 
 #endif
 
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables
+      // Private member variables for InputReturnTypePort
       // ----------------------------------------------------------------------
 
       //! The pointer to the port callback function
@@ -106,11 +100,17 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
-      // Output Port Member functions
+      // Public constructors for OutputReturnTypePort
       // ----------------------------------------------------------------------
 
       //! Constructor
       OutputReturnTypePort();
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Public member functions for OutputReturnTypePort
+      // ----------------------------------------------------------------------
 
       //! Initialization function
       void init();
@@ -120,13 +120,14 @@ namespace M {
           InputReturnTypePort* callPort //!< The input port
       );
 
-      //! Invoke a port interface
+      //! Invoke a port connection
+      //! \return The return value of the port handler
       U32 invoke(U32 u) const;
 
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables
+      // Private member variables for OutputReturnTypePort
       // ----------------------------------------------------------------------
 
       //! The pointer to the input port
