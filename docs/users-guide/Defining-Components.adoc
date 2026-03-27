@@ -403,7 +403,7 @@ By using serial ports, you can send several unrelated types
 of data over the same port connection.
 This technique is useful when communicating across
 a network: on each side of the network connection, a single component
-can act as a hub that routs all data to and from components
+can act as a hub that routes all data to and from components
 on that side.
 This flexibility comes at the cost that you lose the type
 compile-time type checking provided by port connections with named types.
