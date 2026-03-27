@@ -64,7 +64,7 @@ case class PortSerializerClassWriter(
       CppDoc.Lines.Hpp
     )
 
-  private def getPublicConstructors = 
+  private def getPublicConstructors =
     addAccessTagAndComment(
       "public",
       s"Public constructors for $portSerializerName",
