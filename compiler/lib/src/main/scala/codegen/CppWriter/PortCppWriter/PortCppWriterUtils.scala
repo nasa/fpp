@@ -64,30 +64,11 @@ abstract class PortCppWriterUtils(
 
   val outputPortClassName = PortCppWriterUtils.getOutputPortClassName(portName)
 
-  // Param names in a comma-separated list
+  // Write param names as a comma-separated list
   def writeParamNames = portParams.map(_._2.data.name).mkString(", ")
 
-  // Param serializer names in a comma-separated list
-  def writeSerializerParamNames = portParams.map(
-    p => s"_serializer.m_${p._2.data.name}"
-  ).mkString(", ")
-
-  // Get serializer param names
-  def getSerializerParamNames = portParams.map(
-    p => s"_serializer.m_${p._2.data.name}"
-  )
-
-  // Add a comma prefix if string is nonempty
-  def commaPrefix(s: String) = s match {
-    case "" => ""
-    case s => s", $s"
-  }
-
-  // Param names appended to a comma-separated list
+  // Write param names appended to a comma-separated list
   def appendParamNames = commaPrefix(writeParamNames)
-
-  // Serializer param names appended to a comma-separated list
-  def appendSerializerParamNames = commaPrefix(writeSerializerParamNames)
 
   // Port params as CppDoc Function Params
   val portFunctionParams: List[CppDoc.Function.Param] =

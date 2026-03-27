@@ -133,12 +133,7 @@ Fw::SerializeStatus InputAbsTypePort ::
     return _status;
   }
 
-  this->m_func(
-    this->m_comp,
-    this->m_portNum,
-    _serializer.m_t,
-    _serializer.m_tRef
-  );
+  this->m_func(this->m_comp, this->m_portNum, _serializer.m_t, _serializer.m_tRef);
 
   return Fw::FW_SERIALIZE_OK;
 }

@@ -151,14 +151,7 @@ Fw::SerializeStatus InputStringPort ::
     return _status;
   }
 
-  this->m_func(
-    this->m_comp,
-    this->m_portNum,
-    _serializer.m_str80,
-    _serializer.m_str80Ref,
-    _serializer.m_str100,
-    _serializer.m_str100Ref
-  );
+  this->m_func(this->m_comp, this->m_portNum, _serializer.m_str80, _serializer.m_str80Ref, _serializer.m_str100, _serializer.m_str100Ref);
 
   return Fw::FW_SERIALIZE_OK;
 }

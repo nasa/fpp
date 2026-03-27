@@ -180,17 +180,7 @@ namespace Ports {
       return _status;
     }
 
-    this->m_func(
-      this->m_comp,
-      this->m_portNum,
-      _serializer.m_u32,
-      _serializer.m_f32,
-      _serializer.m_b,
-      _serializer.m_str1,
-      _serializer.m_e,
-      _serializer.m_a,
-      _serializer.m_s
-    );
+    this->m_func(this->m_comp, this->m_portNum, _serializer.m_u32, _serializer.m_f32, _serializer.m_b, _serializer.m_str1, _serializer.m_e, _serializer.m_a, _serializer.m_s);
 
     return Fw::FW_SERIALIZE_OK;
   }

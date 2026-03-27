@@ -169,16 +169,7 @@ Fw::SerializeStatus InputPrimitivePort ::
     return _status;
   }
 
-  this->m_func(
-    this->m_comp,
-    this->m_portNum,
-    _serializer.m_u32,
-    _serializer.m_u32Ref,
-    _serializer.m_f32,
-    _serializer.m_f32Ref,
-    _serializer.m_b,
-    _serializer.m_bRef
-  );
+  this->m_func(this->m_comp, this->m_portNum, _serializer.m_u32, _serializer.m_u32Ref, _serializer.m_f32, _serializer.m_f32Ref, _serializer.m_b, _serializer.m_bRef);
 
   return Fw::FW_SERIALIZE_OK;
 }

@@ -169,16 +169,7 @@ Fw::SerializeStatus InputFppTypePort ::
     return _status;
   }
 
-  this->m_func(
-    this->m_comp,
-    this->m_portNum,
-    _serializer.m_e,
-    _serializer.m_eRef,
-    _serializer.m_a,
-    _serializer.m_aRef,
-    _serializer.m_s,
-    _serializer.m_sRef
-  );
+  this->m_func(this->m_comp, this->m_portNum, _serializer.m_e, _serializer.m_eRef, _serializer.m_a, _serializer.m_aRef, _serializer.m_s, _serializer.m_sRef);
 
   return Fw::FW_SERIALIZE_OK;
 }

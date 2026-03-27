@@ -122,11 +122,7 @@ Fw::SerializeStatus InputKwdNamePort ::
     return _status;
   }
 
-  this->m_func(
-    this->m_comp,
-    this->m_portNum,
-    _serializer.m_time
-  );
+  this->m_func(this->m_comp, this->m_portNum, _serializer.m_time);
 
   return Fw::FW_SERIALIZE_OK;
 }

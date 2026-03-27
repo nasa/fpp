@@ -104,6 +104,12 @@ trait CppWriterUtils extends LineUtils {
     }
   }
 
+  // Add a comma prefix if string is nonempty
+  def commaPrefix(s: String) = s match {
+    case "" => ""
+    case s => s", $s"
+  }
+
   def wrapInScope(
     s1: String,
     ll: List[Line],

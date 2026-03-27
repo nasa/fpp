@@ -76,10 +76,7 @@ Fw::SerializeStatus InputEmptyPort ::
 
   (void) _buffer;
 
-  this->m_func(
-    this->m_comp,
-    this->m_portNum
-  );
+  this->m_func(this->m_comp, this->m_portNum);
 
   return Fw::FW_SERIALIZE_OK;
 }

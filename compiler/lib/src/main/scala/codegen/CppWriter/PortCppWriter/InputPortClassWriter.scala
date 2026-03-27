@@ -23,6 +23,14 @@ case class InputPortClassWriter(
     )
   )
 
+  // Write serializer param names as a comma-separated list
+  private def writeSerializerParamNames =
+    portParams.map(p => s"_serializer.m_${p._2.data.name}").mkString(", ")
+
+  // Write serializer param names appended to a comma-separated list
+  private def appendSerializerParamNames =
+    commaPrefix(writeSerializerParamNames)
+
   private def getAddCallCompFunction =
     functionClassMember(
       Some("Register a component"),
@@ -102,7 +110,7 @@ case class InputPortClassWriter(
             |FW_ASSERT(this->m_comp != nullptr);
             |FW_ASSERT(this->m_func != nullptr);
             |
-            |return this->m_func(this->m_comp, this->m_portNum${appendParamNames});
+            |return this->m_func(this->m_comp, this->m_portNum$appendParamNames);
             |"""
       )
     )
@@ -215,13 +223,7 @@ case class InputPortClassWriter(
       ),
       lines(
         s"""|
-            |this->m_func("""
-      ),
-      writeInvocationArgs(
-        portParams.map(p => s"_serializer.m_${p._2.data.name}")
-      ),
-      lines(
-        s"""|);
+            |this->m_func(this->m_comp, this->m_portNum$appendSerializerParamNames);
             |
             |return Fw::FW_SERIALIZE_OK;"""
       )
