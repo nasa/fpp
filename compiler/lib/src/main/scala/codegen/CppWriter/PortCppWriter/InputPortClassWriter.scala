@@ -68,7 +68,7 @@ case class InputPortClassWriter(
     line(s"${t.hppType} ${paramData.name}")
   }
 
-  private def getCompFuncParams = 
+  private def getCompFuncParams =
     addSeparators (",") (
       line("Fw::PassiveComponentBase* callComp") ::
       line("FwIndexType portNum") ::
@@ -155,7 +155,7 @@ case class InputPortClassWriter(
       CppDoc.Lines.Hpp
     )
 
-  private def getPublicConstructorMembers = 
+  private def getPublicConstructorMembers =
     addAccessTagAndComment(
       "public",
       s"Public constructors for $inputPortClassName",
