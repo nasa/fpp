@@ -880,14 +880,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Expressions_String-Literals_Multiline-String-Literals">10.11.2. Multiline String Literals</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Struct-Expressions">10.12. Struct Expressions</a>
+<li><a href="#Expressions_String-Concatenation-Expressions">10.12. String Concatenation Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Struct-Expressions_Syntax">10.12.1. Syntax</a></li>
-<li><a href="#Expressions_Struct-Expressions_Semantics">10.12.2. Semantics</a></li>
-<li><a href="#Expressions_Struct-Expressions_Example">10.12.3. Example</a></li>
+<li><a href="#Expressions_String-Concatenation-Expressions_Syntax">10.12.1. Syntax</a></li>
+<li><a href="#Expressions_String-Concatenation-Expressions_Semantics">10.12.2. Semantics</a></li>
+<li><a href="#Expressions_String-Concatenation-Expressions_Example">10.12.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Precedence-and-Associativity">10.13. Precedence and Associativity</a></li>
+<li><a href="#Expressions_Struct-Expressions">10.13. Struct Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Expressions_Struct-Expressions_Syntax">10.13.1. Syntax</a></li>
+<li><a href="#Expressions_Struct-Expressions_Semantics">10.13.2. Semantics</a></li>
+<li><a href="#Expressions_Struct-Expressions_Example">10.13.3. Example</a></li>
+</ul>
+</li>
+<li><a href="#Expressions_Precedence-and-Associativity">10.14. Precedence and Associativity</a></li>
 </ul>
 </li>
 <li><a href="#Formal-Parameter-Lists">11. Formal Parameter Lists</a>
@@ -9156,7 +9163,9 @@ It names the
 <p>Each subexpression of an arithmetic expression must have
 <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.  Evaluation is by either
 standard integer arithmetic or standard floating-point arithmetic, depending on
-the <a href="#Type-Checking">type of the expression</a>.</p>
+the <a href="#Type-Checking">type of the expression</a>.
+For the use of <code>+</code> with operands of <a href="#Type-Names_String-Type-Names">string type</a>, see
+<a href="#Expressions_String-Concatenation-Expressions">String Concatenation Expressions</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Example:</strong></p>
@@ -9723,12 +9732,48 @@ The value of the string constant <code>s</code> is <code>"""</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Struct-Expressions">10.12. Struct Expressions</h3>
+<h3 id="Expressions_String-Concatenation-Expressions">10.12. String Concatenation Expressions</h3>
+<div class="paragraph">
+<p>A <strong>string concatenation expression</strong> concatenates two string values.</p>
+</div>
+<div class="sect3">
+<h4 id="Expressions_String-Concatenation-Expressions_Syntax">10.12.1. Syntax</h4>
+<div class="paragraph">
+<p><em>s</em><sub>1</sub> <code>+</code> <em>s</em><sub>2</sub></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_String-Concatenation-Expressions_Semantics">10.12.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Both <em>s</em><sub>1</sub> and <em>s</em><sub>2</sub> must have
+<a href="#Type-Names_String-Type-Names">string type</a>.</p>
+</li>
+<li>
+<p>The value of the expression is the string formed by appending
+the characters of <em>s</em><sub>2</sub> to the characters of <em>s</em><sub>1</sub>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_String-Concatenation-Expressions_Example">10.12.3. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant c = "a" + "b" + "c"    # value is "abc"
+constant a = "hello " + c + "!" # value is "hello abc!"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Struct-Expressions">10.13. Struct Expressions</h3>
 <div class="paragraph">
 <p>An <strong>struct expression</strong> is an expression that represents a struct value.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Syntax">10.12.1. Syntax</h4>
+<h4 id="Expressions_Struct-Expressions_Syntax">10.13.1. Syntax</h4>
 <div class="paragraph">
 <p><code>{</code> <em>struct-element-sequence</em> <code>}</code></p>
 </div>
@@ -9743,7 +9788,7 @@ A <strong>struct element</strong> has the following syntax:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Semantics">10.12.2. Semantics</h4>
+<h4 id="Expressions_Struct-Expressions_Semantics">10.13.2. Semantics</h4>
 <div class="paragraph">
 <p>The following must be true of the struct element sequence <em>S</em>:</p>
 </div>
@@ -9764,7 +9809,7 @@ corresponding member names and values.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Example">10.12.3. Example</h4>
+<h4 id="Expressions_Struct-Expressions_Example">10.13.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># s is a struct value with members x = 0, y = 1
@@ -9777,7 +9822,7 @@ constant s = {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Precedence-and-Associativity">10.13. Precedence and Associativity</h3>
+<h3 id="Expressions_Precedence-and-Associativity">10.14. Precedence and Associativity</h3>
 <div class="paragraph">
 <p>Ambiguity in parsing expressions is resolved with the following
 precedence table. Expressions appearing earlier in the table
@@ -9810,7 +9855,7 @@ associativity for resolving expressions with equal precedence.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Left</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Addition expressions \$e_1\$ <code>+</code> \$e_2\$ and subtraction expressions \$e_1\$ <code>-</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Addition expressions \$e_1\$ <code>+</code> \$e_2\$ (<a href="#Expressions_Arithmetic-Expressions">arithmetic addition</a> or <a href="#Expressions_String-Concatenation-Expressions">string concatenation</a>) and subtraction expressions \$e_1\$ <code>-</code> \$e_2\$</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Left</p></td>
 </tr>
 </tbody>
@@ -11642,7 +11687,13 @@ the following:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Compute the common type \$T\$ of \$e_1\$ and \$e_2\$.</p>
+<p>If <em>op</em> is <code>+</code> and both \$e_1\$ and \$e_2\$ have
+<a href="#Type-Names_String-Type-Names">string type</a>, then the expression has
+string type and denotes
+<a href="#Expressions_String-Concatenation-Expressions">string concatenation</a>.</p>
+</li>
+<li>
+<p>Otherwise compute the common type \$T\$ of \$e_1\$ and \$e_2\$.</p>
 </li>
 <li>
 <p>If \$T\$ is a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, then use \$T\$.</p>
@@ -11666,7 +11717,8 @@ constant b = 3 + 4 # Type is Integer
 constant c = -0xFFFFFFFF # Type is Integer
 enum E { X = 1, Y = 2 }
 constant d = X + Y # Type is Integer
-constant e = true + "abcd" # Error</code></pre>
+constant e = true + "abcd" # Error
+constant f = "ab" + "cd" # Type is String</code></pre>
 </div>
 </div>
 </div>
@@ -12305,6 +12357,12 @@ can hold a maximum string length of <em>n</em>.
 If this happens, the framework will <strong>truncate</strong> the value <em>v</em>
 to <em>n</em> characters before storing it.
 That means that the first <em>n</em> characters of <em>v</em> are stored in the buffer.</p>
+</div>
+<div class="paragraph">
+<p>A string value may be denoted by a
+<a href="#Expressions_String-Literals">string literal expression</a>
+or produced by a
+<a href="#Expressions_String-Concatenation-Expressions">string concatenation expression</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -12993,7 +13051,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-27 09:54:07 -0700
+Last updated 2026-03-30 09:16:47 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -51,6 +51,7 @@ class ValueSpec extends AnyWordSpec {
       (createI32(1), array, None),
       (createI32(1), anonStruct, None),
       (createI32(1), struct, None),
+      (String("abc"), String("def"), Some(String("abcdef")))
     )
     triples.foreach { 
       triple => s"sum ${triple._1} and ${triple._2} to ${triple._3}" in 

@@ -279,6 +279,11 @@ object Value {
 
     override def toString = "\"" + value.toString + "\""
 
+    override private[analysis] def binop(op: Binop)(v: Value) = v match {
+      case String(value2) => Some(String(value + value2))
+      case _ => None
+    }
+
   }
 
   /** Anonymous array values */

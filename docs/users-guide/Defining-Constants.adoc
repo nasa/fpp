@@ -577,8 +577,27 @@ evaluated using 64-bit floating-point arithmetic.
 * Otherwise the expression is evaluated using arbitrary-precision integer 
 arithmetic.
 
-* In a division operation, the second operand may not be zero or (for 
+* In a division operation, the second operand may not be zero or (for
 floating-point values) very close to zero.
+
+For the use of `+` with string operands, see
+<<Defining-Constants_Expressions_String-Concatenation,String Concatenation>> below.
+
+[[Defining-Constants_Expressions_String-Concatenation]]
+==== String Concatenation
+
+You can use the `+` operator to concatenate two string values.
+Both operands must have string type. The result is a string formed
+by appending the second operand to the first. For example:
+
+[source,fpp]
+----
+constant c = "a" + "b" + "c" # value is "abc"
+constant a = "hello " + c + "!" # value is "hello abc!"
+----
+
+Since `+` is left-associative, `"a" + "b" + "c"` is evaluated as
+`("a" + "b") + "c"`.
 
 ==== Compound Expressions
 
