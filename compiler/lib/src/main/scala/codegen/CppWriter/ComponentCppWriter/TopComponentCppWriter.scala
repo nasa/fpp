@@ -133,26 +133,26 @@ case class TopComponentCppWriter (
 
   private def writeOutFnCase(fromPortNum: Int, connection: Connection) = {
     val fromPort = connection.from.port
-    val fromPortInstance = connection.from.port.portInstance
+    val fromPortInstance = fromPort.portInstance
     val toPort = connection.to.port
-    val toPortInstance = connection.to.port.portInstance
+    val toPortInstance = toPort.portInstance
     val toPortNum = topology.toPortNumberMap(connection)
-    // Connections must be flattened at this point
-    val _ @ InterfaceInstance.InterfaceComponentInstance(toComponentInstance) =
-      toPort.interfaceInstance
-    val componentInstanceName = CppWriter.writeQualifiedName(toComponentInstance.qualifiedName)
-    val portName = toPortInstance.getUnqualifiedName
-    val handlerBaseName = inputPortHandlerBaseName(portName)
-    val fnName = s"$componentInstanceName.$handlerBaseName"
-    val returnType = getHandlerReturnTypeAsString(toPortInstance)
-    val addResultPrefix = addConditionalPrefix (returnType != "void") ("_result =")
+    val fnName = {
+      // Connections must be flattened at this point
+      val _ @ InterfaceInstance.InterfaceComponentInstance(toComponentInstance) =
+        toPort.interfaceInstance
+      val componentInstanceName = CppWriter.writeQualifiedName(toComponentInstance.qualifiedName)
+      val toPortName = toPortInstance.getUnqualifiedName
+      val handlerBaseName = inputPortHandlerBaseName(toPortName)
+      s"$componentInstanceName.$handlerBaseName"
+    }
     (fromPortInstance.getType.get, toPortInstance.getType.get) match {
-      case (_: PortInstance.Type.DefPort, PortInstance.Type.Serial) =>
+      case (
+        PortInstance.Type.DefPort(portSymbol),
+        PortInstance.Type.Serial
+      ) =>
         // Typed to serial connection
-        lines(
-          """|// TODO: Typed to serial connection
-             |FW_ASSERT(0);"""
-        )
+        writeTypedToSerialConnection(portSymbol, fnName, toPortNum)
       case (PortInstance.Type.Serial, _: PortInstance.Type.DefPort) =>
         // Serial to typed connection
         lines(
@@ -161,10 +161,12 @@ case class TopComponentCppWriter (
         )
       case _ =>
         // Typed to typed connection or serial to serial connection
+        val returnType = getHandlerReturnTypeAsString(toPortInstance)
+        val addResultPrefix = addConditionalPrefix (returnType != "void") ("_result =")
         writeFunctionCall(
           addResultPrefix(fnName),
           List(toPortNum.toString),
-          getPortParams(fromPort.portInstance).map(_._1)
+          getPortParams(fromPortInstance).map(_._1)
         )
     }
   }
@@ -232,6 +234,34 @@ case class TopComponentCppWriter (
         lines("default:"),
         defaultLines.map(indentIn),
         lines("  break;")
+      )
+    )
+  }
+
+  private def writeTypedToSerialConnection(
+    fromPortSymbol: Symbol.Port,
+    fnName: String,
+    toPortNum: Int
+  ) = {
+    val params = fromPortSymbol.node._2.data.params
+    val portName = s.getName(fromPortSymbol)
+    val portBufferName = PortCppWriterUtils.getPortBufferName(portName)
+    val portSerializerName = PortCppWriterUtils.getPortSerializerName(portName)
+    val portParamNames = PortCppWriterUtils.writeParamNames(params)
+    wrapInBlock(
+      List.concat(
+        lines(s"$portBufferName _buffer;"),
+        guardedList (!params.isEmpty) (
+          lines(
+            s"""|Fw::SerializeStatus _status = $portSerializerName::serializePortArgs($portParamNames, _buffer);
+                |FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));"""
+          )
+        ),
+        writeFunctionCall(
+          fnName,
+          List(toPortNum.toString),
+          List("_buffer")
+        )
       )
     )
   }

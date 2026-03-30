@@ -25,7 +25,7 @@ case class InputPortClassWriter(
 
   // Write serializer param names as a comma-separated list
   private def writeSerializerParamNames =
-    portParams.map(p => s"_serializer.m_${p._2.data.name}").mkString(", ")
+    PortCppWriterUtils.writeParamNamesWithPrefix ("_serializer.m_") (portParams)
 
   // Write serializer param names appended to a comma-separated list
   private def appendSerializerParamNames =

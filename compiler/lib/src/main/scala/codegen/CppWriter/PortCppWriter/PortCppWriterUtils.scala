@@ -65,7 +65,7 @@ abstract class PortCppWriterUtils(
   val outputPortClassName = PortCppWriterUtils.getOutputPortClassName(portName)
 
   // Write param names as a comma-separated list
-  def writeParamNames = PortCppWriterUtils.writeParamNamesWithPrefix ("") (portParams)
+  def writeParamNames = PortCppWriterUtils.writeParamNames (portParams)
 
   // Write param names appended to a comma-separated list
   def appendParamNames = commaPrefix(writeParamNames)
@@ -130,8 +130,11 @@ object PortCppWriterUtils {
       case PortInstance.Direction.Output => getOutputPortClassName(name)
     }
 
-  /** Write parameter names with prefix into a list */
+  /** Write parameter names with prefix into a comma-separated list */
   def writeParamNamesWithPrefix (prefix: String) (portParams: List[PortParamType]) =
     portParams.map(p => s"${prefix}${p._2.data.name}").mkString(", ")
+
+  /** Write param names into a comma-separated list */
+  val writeParamNames = writeParamNamesWithPrefix ("")
 
 }
