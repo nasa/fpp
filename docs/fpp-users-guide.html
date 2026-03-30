@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.16">
-<title>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v3.1.0</title>
+<meta name="generator" content="Asciidoctor 2.0.26">
+<title>The F Prime Prime (FPP) User&#8217;s Guide, v3.2.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -84,10 +84,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -116,7 +116,6 @@ h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title str
 :not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
 pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
-pre>code{display:block}
 pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
 em em{font-style:normal}
 strong strong{font-weight:400}
@@ -140,7 +139,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,6 +161,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -193,7 +193,8 @@ body.toc2.toc-right{padding-left:0;padding-right:20em}}
 #content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
 details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
 details{margin-left:1.25rem}
-details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;-webkit-tap-highlight-color:transparent}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
 details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
 details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
 details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
@@ -207,19 +208,17 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
 .literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
 .literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
 .listingblock>.content{position:relative}
+.listingblock pre>code{display:block}
 .listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
 .listingblock:hover code[data-lang]::before{display:block}
 .listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
@@ -235,9 +234,8 @@ pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
 table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
 table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
 table.linenotable td.code{padding-left:.75em}
-table.linenotable td.linenos{border-right:1px solid;opacity:.35;padding-right:.5em}
-pre.pygments .lineno{border-right:1px solid;opacity:.35;display:inline-block;margin-right:.75em}
-pre.pygments .lineno::before{content:"";margin-right:-.125em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
 .quoteblock{margin:0 1em 1.25em 1.5em;display:table}
 .quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
 .quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
@@ -274,7 +272,7 @@ table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-c
 table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
 table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
 table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
-table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
 th.halign-left,td.halign-left{text-align:left}
 th.halign-right,td.halign-right{text-align:right}
 th.halign-center,td.halign-center{text-align:center}
@@ -290,10 +288,11 @@ ol{margin-left:1.75em}
 ul li ol{margin-left:1.5em}
 dl dd{margin-left:1.125em}
 dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
-ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
 ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
 ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
 ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
 ul.checklist>li>p:first-child{margin-left:-1em}
 ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
 ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
@@ -329,15 +328,13 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
 #footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
 #footnotes .footnote:last-of-type{margin-bottom:0}
 #content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
-.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
-.gist .file-data>table td.line-data{width:99%}
 div.unbreakable{page-break-inside:avoid}
 .big{font-size:larger}
 .small{font-size:smaller}
@@ -394,7 +391,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -440,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v3.1.0</h1>
+<h1>The F Prime Prime (FPP) User&#8217;s Guide, v3.2.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -640,6 +637,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces">12.1. Defining Port Interfaces</a></li>
 <li><a href="#Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Component-Definitions">12.2. Using Port Interfaces in Component Definitions</a></li>
 <li><a href="#Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Interface-Definitions">12.3. Using Port Interfaces in Interface Definitions</a></li>
+<li><a href="#Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Topology-Definitions">12.4. Using Port Interfaces in Topology Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Component-Instances">13. Defining Component Instances</a>
@@ -684,14 +682,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Topologies_Importing-Topologies_Transitive-Imports">14.4.3. Transitive Imports</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Topologies_Include-Specifiers">14.5. Include Specifiers</a></li>
-<li><a href="#Defining-Topologies_Telemetry-Packets">14.6. Telemetry Packets</a>
+<li><a href="#Defining-Topologies_Topology-Ports">14.5. Topology Ports</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Sets">14.6.1. Telemetry Packet Sets</a></li>
-<li><a href="#Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Identifiers">14.6.2. Telemetry Packet Identifiers</a></li>
-<li><a href="#Defining-Topologies_Telemetry-Packets_Omitting-Channels">14.6.3. Omitting Channels</a></li>
-<li><a href="#Defining-Topologies_Telemetry-Packets_Specifying-Multiple-Telemetry-Packet-Sets">14.6.4. Specifying Multiple Telemetry Packet Sets</a></li>
-<li><a href="#Defining-Topologies_Telemetry-Packets_Include-Specifiers">14.6.5. Include Specifiers</a></li>
+<li><a href="#Defining-Topologies_Topology-Ports_Specifying-Topology-Ports">14.5.1. Specifying Topology Ports</a></li>
+<li><a href="#Defining-Topologies_Topology-Ports_Implementing-Port-Interfaces">14.5.2. Implementing Port Interfaces</a></li>
+<li><a href="#Defining-Topologies_Topology-Ports_Port-Interface-Instances">14.5.3. Port Interface Instances</a></li>
+</ul>
+</li>
+<li><a href="#Defining-Topologies_Include-Specifiers">14.6. Include Specifiers</a></li>
+<li><a href="#Defining-Topologies_Telemetry-Packets">14.7. Telemetry Packets</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Sets">14.7.1. Telemetry Packet Sets</a></li>
+<li><a href="#Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Identifiers">14.7.2. Telemetry Packet Identifiers</a></li>
+<li><a href="#Defining-Topologies_Telemetry-Packets_Omitting-Channels">14.7.3. Omitting Channels</a></li>
+<li><a href="#Defining-Topologies_Telemetry-Packets_Specifying-Multiple-Telemetry-Packet-Sets">14.7.4. Specifying Multiple Telemetry Packet Sets</a></li>
+<li><a href="#Defining-Topologies_Telemetry-Packets_Include-Specifiers">14.7.5. Include Specifiers</a></li>
 </ul>
 </li>
 </ul>
@@ -1260,16 +1265,6 @@ Here is an example:</p>
 <p>This code associates the name <code>a</code> with the array of
 integers
 <code>[ 1, 2, 3 ]</code>.</p>
-</div>
-<div class="paragraph">
-<p>As mentioned in the introduction, an FPP model describes the structure of a FSW
-application; the computations are specified in a target
-language such as C&#43;&#43;.
-As a result, FPP does not provide an array indexing operation.
-In particular, it does not specify the index of the leftmost array element;
-that is up to the target language.
-For example, if the target language is C&#43;&#43;, then array indices start
-at zero.</p>
 </div>
 <div class="paragraph">
 <p>Here are some rules for writing array values:</p>
@@ -6556,7 +6551,7 @@ The members of a component form an
 terminating punctuation.
 The following sections describe the available component members
 except for importing port interfaces, which we describe in
-<a href="#Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Interface-Definitions">a separate section</a>.</p>
+<a href="#Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Component-Definitions">a separate section</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -6958,7 +6953,7 @@ passive component SerialSplitter {
 of data over the same port connection.
 This technique is useful when communicating across
 a network: on each side of the network connection, a single component
-can act as a hub that routs all data to and from components
+can act as a hub that routes all data to and from components
 on that side.
 This flexibility comes at the cost that you lose the type
 compile-time type checking provided by port connections with named types.
@@ -9990,6 +9985,15 @@ interface I2 {
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Topology-Definitions">12.4. Using Port Interfaces in Topology Definitions</h3>
+<div class="paragraph">
+<p>You can use a port interface to specify the
+interface of a topology.
+We will explain how to do this in the section on
+<a href="#Defining-Topologies_Topology-Ports_Implementing-Port-Interfaces">defining topologies</a>.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -12155,7 +12159,487 @@ and <code>C</code> imports <code>A</code>, you will get an error.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Topologies_Include-Specifiers">14.5. Include Specifiers</h3>
+<h3 id="Defining-Topologies_Topology-Ports">14.5. Topology Ports</h3>
+<div class="paragraph">
+<p>In the previous section, we explained the most basic way to import a topology
+<code>B</code> into a topology <code>A</code>.
+This method of importing topologies erases or flattens the structure implied
+by the separate topologies <code>A</code> and <code>B</code>.
+In particular, when <code>B</code> is imported into <code>A</code>,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>All component instances that are part of <code>B</code> (directly or by import) are visible in <code>A</code>.</p>
+</li>
+<li>
+<p>Connections that span <code>A</code> and <code>B</code> go directly between
+component instances that are part of <code>A</code> and component instances that are
+part of <code>B</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This approach is simple and flexible.
+It also aligns well with the C&#43;&#43; implementation, which is flattened in this
+way.
+However, when specifying connections in the model,
+it is often useful to preserve the separation between
+an importing topology <code>A</code> and an imported topology <code>B</code>.
+To do that, FPP has a feature called <strong>topology ports</strong>,
+which we explain in this section.</p>
+</div>
+<div class="paragraph">
+<p>With topology ports, the code generator still flattens the
+hierarchy of imported topologies into a single topology, as
+described in the previous section.
+However, before this flattening occurs, you can specify
+connections <em>to and from subtopologies</em>.
+For example, you can specify a connection from a component instance
+<code>a</code> of <code>A</code> to a <em>port</em> of topology <code>B</code>, and this connection is automatically
+flattened to a connection between <code>a</code> and a component instance <code>b</code> of <code>B</code>.
+In this way, you can think of imported topologies as
+units of function that have their own interfaces and connections.</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-Topologies_Topology-Ports_Specifying-Topology-Ports">14.5.1. Specifying Topology Ports</h4>
+<div class="paragraph">
+<p><strong>Connections to subtopologies:</strong>
+Consider the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  instance a
+
+  import B
+
+  connections C {
+    a.p -&gt; b.p
+  }
+
+}
+
+topology B {
+
+  instance b
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As discussed in the previous section, import resolution produces this
+flattened topology:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  instance a
+  instance b
+
+  connections C {
+    a.p -&gt; b.p
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that in both the original topology and the flattened topology,
+the connection goes directly from <code>a.p</code> to <code>b.p</code>.</p>
+</div>
+<div class="paragraph">
+<p>Now let us rewrite this example using topology ports.
+First, we need a way to specify a port of topology <code>B</code> and to map it to
+a port of an instance of <code>B</code>, so the flattening can occur.
+To do that, we write <code>port</code> followed by a name, and equals sign,
+and a port of a component instance, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology B {
+
+  instance b
+
+  port p = b.p
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here the FPP analyzer checks that <code>b.p</code> is a port of instance <code>b</code>;
+if not, an error will occur.
+It is also an error to specify multiple ports with
+the same name in the same topology.</p>
+</div>
+<div class="paragraph">
+<p>Now in topology <code>A</code>, we can write a connection to port <code>B.p</code> instead
+of directly to component instance <code>b.p</code>, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  instance a
+
+  import B
+
+  connections C {
+    a.p -&gt; B.p
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As usual, the FPP analyzer checks that <code>a.p</code> is an output port,
+that <code>B.p</code> is a input port, and that the types of the ports
+are compatible.
+Here <code>B.p</code> has the direction and type of <code>b.p</code>, the actual port to which the
+topology port <code>B.p</code> is mapped.
+If these requirements aren&#8217;t met, then an error occurs.</p>
+</div>
+<div class="paragraph">
+<p>After import resolution, the result is the same as before:
+<code>A</code> has two instances <code>a</code> and <code>b</code> and one connection
+from <code>a.p</code> to <code>b.p</code>.
+However, the source model respects the hierarchical structure
+of <code>A</code> and <code>B</code>:
+the connection goes to the interface
+of <code>B</code>, instead of going directly to an instance of <code>B</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Connections from subtopologies:</strong>
+Connections from subtopologies work in the same way,
+with the arrow reversed.
+For example, if we assume that <code>B.p</code> is an output port
+and <code>a.p</code> is an input port, then we could write this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  instance a
+
+  import B
+
+  connections C {
+    B.p -&gt; a.p
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Connections between subtopologies:</strong>
+Another useful pattern is to have a topology <code>A</code> import
+two subtopologies <code>B1</code> and <code>B2</code> and to specify a connection
+from <code>B1</code> to <code>B2</code>.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology B1 {
+
+  instance b1
+
+  port p = b1.p
+
+}
+
+topology B2 {
+
+  instance b2
+
+  port p = b2.p
+
+}
+
+topology A {
+
+  import B1
+  import B2
+
+  connections C {
+    B1.p -&gt; B2.p
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After flattening, topology <code>A</code> looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  instance b1
+  instance b2
+
+  connections {
+    b1.p -&gt; b2.p
+  }
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Topologies_Topology-Ports_Implementing-Port-Interfaces">14.5.2. Implementing Port Interfaces</h4>
+<div class="paragraph">
+<p>A topology is like a component instance, in that it provides
+a port interface.
+We will have more to say about this similarity in the
+<a href="#Defining-Topologies_Topology-Ports_Port-Interface-Instances">next section</a>.</p>
+</div>
+<div class="paragraph">
+<p>In the case of an instance of a component <em>C</em>, we can
+<a href="#Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces">define a port interface <em>I</em></a> and make <em>I</em> part of the
+interface of <em>C</em>.
+We do that by
+<a href="#Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Component-Definitions">importing</a> <em>I</em> into the definition of <em>C</em>.
+In the case of a topology <em>T</em>, we can&#8217;t import an interface <em>I</em> in this way,
+because we have to specify a mapping for each of the ports
+in the interface of <em>T</em> to a port of a component instance or an imported
+topology of <em>T</em>.
+However, we can use one or more port interface definitions to specify and check
+that the actual interface of <em>T</em> provides all the ports that it should.
+To do this, we write the keyword <code>implements</code> followed by list of names
+that refer to port interface definitions.
+The FPP analyzer will then check that the topology provides
+all the ports required by each of the interfaces in the definitions.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">port P
+
+interface I {
+  sync input port p: P
+}
+
+passive component C {
+  import I
+}
+
+instance a: C base id 0x100
+
+@ Specify and check that topology T provides the ports of interface I
+topology T implements I {
+
+  instance a
+
+  port p = a.p
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This code is correct because topology <code>T</code> provides the port <code>p</code> of interface <code>I</code>,
+via the line <code>port p = a.p</code>.
+An error would result in each of the following cases:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We delete <code>port p = a.p</code> from the model.
+In this case, the <code>implements</code> clause is violated, because
+topology <code>T</code> provides no port <code>p</code>.</p>
+</li>
+<li>
+<p>We remove <code>import I</code> from the definition of <code>C</code> and replace it with <code>output port p: P</code>.
+In this case, topology <code>T</code> does provide a port <code>p</code>, but the port does
+not conform to the interface <code>I</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Try these examples in <code>fpp-check</code>, and make sure you understand what is
+happening in each case.</p>
+</div>
+<div class="paragraph">
+<p>You can also write more than one interface name in an <code>implements</code> clause.
+In general the interface names form an
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element
+sequence</a>
+in which the optional terminating punctuation is a comma.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">port P
+
+port Q
+
+interface I {
+  sync input port p: P
+}
+
+interface J {
+  output port q: Q
+}
+
+passive component C {
+  import I
+  import J
+}
+
+instance a: C base id 0x100
+
+@ Specify and check that topology T provides the ports of interfaces I and J
+topology T implements I, J {
+
+  instance a
+
+  port p = a.p
+
+  port q = a.q
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Implements clauses are not strictly required: any correct model
+containing an implements clause will also be correct if
+that clause is deleted.
+However, implements clauses are useful for documenting and checking intended
+behavior.
+For example, suppose the intent of topology <code>T</code> in the previous example
+is to provide interfaces <code>I</code> and <code>J</code>.
+If there were no <code>implements</code> clause,
+then a developer could inadvertently change the contract of <code>T</code> by removing or
+modifying ports <code>p</code> or <code>q</code> of <code>T</code>.
+Because of the implements clause, this can&#8217;t happen.
+Instead an error will occur,
+alerting the developer to the fact that an interface contract is
+being changed.</p>
+</div>
+<div class="paragraph">
+<p>Finally, an implements clause does not require that a topology implement
+<em>only</em> what is in the clause.
+For example, in the code shown above, we could add any number
+of ports to <code>T</code> that are not specified in the interfaces <code>I</code> and <code>J</code>.
+The only requirement is that all the ports specified in <code>I</code> and <code>J</code>
+are present in the interface.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Topologies_Topology-Ports_Port-Interface-Instances">14.5.3. Port Interface Instances</h4>
+<div class="paragraph">
+<p>As noted in the previous section, both topologies and component
+instances provide port interfaces.
+Therefore we refer to both topologies and component instances as <strong>port
+interface instances</strong>.
+The motivation for this name is as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A port interface instance is a concrete implementation (an instance)
+of a unit of function that has a port interface.</p>
+</li>
+<li>
+<p>The units of function with port interfaces are component
+instances and topologies.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Thus the concept of a port interface instance generalizes
+the concept of a component instance in a way that includes
+the concept of a topology.</p>
+</div>
+<div class="paragraph">
+<p>The concept of a port interface instance will become more obviously useful
+in a future version of FPP, where we will introduce the following
+features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Module templates</strong> that you can expand several times to generate
+different sections of of FPP code (for example, different topologies) that are
+largely the same, but that differ in particular ways that you specify.</p>
+</li>
+<li>
+<p><strong>Template parameters</strong> that let you bind concrete values to parameters
+when instantiating templates.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When instantiating templates, it will be useful to treat component
+instances and topologies in the same way, so that a single <code>instance</code>
+parameter can be bound to either a component instance or a topology,
+as long as the constraints of the parameter are satisfied.</p>
+</div>
+<div class="paragraph">
+<p>For now, we note that the concept of a port interface instance exists.
+We also note that imported topologies are port interface instances.
+For this reason, you can use the keyword <code>instance</code> to import a topology.
+For example, instead of writing <code>import A</code> to import topology <code>A</code>,
+you can write <code>instance A</code>.
+Here is one of the  FPP models from
+<a href="#Defining-Topologies_Topology-Ports_Specifying-Topology-Ports">the section on
+specifying topology ports</a>,
+written using <code>instance</code> instead of <code>import</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology B {
+
+  instance b
+
+  port p = b.p
+
+}
+
+topology A {
+
+  instance a
+
+  # Here we write instance B to import topology B into A
+  # Previously we wrote import B
+  # Both are valid syntax as of FPP v3.2.0
+  instance B
+
+  connections C {
+    a.p -&gt; B.p
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice how this syntax emphasizes that both the component instance <code>a</code>
+and the imported topology <code>B</code> provide port interfaces
+that can participate in connections.</p>
+</div>
+<div class="paragraph">
+<p>The concept of a port interface instance is new as of v3.2.0 of FPP.
+In previous versions, there were no topology ports, so topologies
+were not port interface instances.
+Further, the only way to import a topology was to
+use the <code>import</code> keyword, as discussed in the previous sections.
+For backwards compatibility, we do not require you to use <code>instance</code>
+when importing a topology; you may still use <code>import</code>.
+However, it may be useful to use <code>instance</code> in cases where you specify
+connections to and from the ports of an imported topology <code>T</code>, without
+specifying any connections directly to or from the instances
+of <code>T</code>.
+In this case, you may wish to think of <code>T</code> as a pure port interface,
+with the details of its implementation (its component instances,
+imported subtopologies, and connections) abstracted away.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Topologies_Include-Specifiers">14.6. Include Specifiers</h3>
 <div class="paragraph">
 <p>You can include code from another file in a topology definition.
 You do this by writing an <strong>include specifier</strong>.
@@ -12179,7 +12663,7 @@ below.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Topologies_Telemetry-Packets">14.6. Telemetry Packets</h3>
+<h3 id="Defining-Topologies_Telemetry-Packets">14.7. Telemetry Packets</h3>
 <div class="paragraph">
 <p>When defining a topology, you may (but are not required to)
 specify how the <a href="#Defining-Components_Telemetry">telemetry channels</a>
@@ -12192,7 +12676,7 @@ individual channels.
 In this section we explain how to specify telemetry packets in FPP.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Sets">14.6.1. Telemetry Packet Sets</h4>
+<h4 id="Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Sets">14.7.1. Telemetry Packet Sets</h4>
 <div class="paragraph">
 <p>To group the channels of a topology <em>T</em> into packets, you write a
 <strong>telemetry packet set</strong> as part of the definition of <em>T</em>.
@@ -12347,7 +12831,7 @@ channel <code>M.c1.T</code> instead of channel <code>c1.T</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Identifiers">14.6.2. Telemetry Packet Identifiers</h4>
+<h4 id="Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Identifiers">14.7.2. Telemetry Packet Identifiers</h4>
 <div class="paragraph">
 <p>Within a telemetry packet set, every packet has a unique numeric identifier.
 Typically the identifiers start at zero and count up by one.
@@ -12383,7 +12867,7 @@ packet P2 id 1 group 1 {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Telemetry-Packets_Omitting-Channels">14.6.3. Omitting Channels</h4>
+<h4 id="Defining-Topologies_Telemetry-Packets_Omitting-Channels">14.7.3. Omitting Channels</h4>
 <div class="paragraph">
 <p>By default, every telemetry channel in the topology must appear
 in at least one telemetry packet.
@@ -12448,7 +12932,7 @@ packet and also to appear in the omitted list.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Telemetry-Packets_Specifying-Multiple-Telemetry-Packet-Sets">14.6.4. Specifying Multiple Telemetry Packet Sets</h4>
+<h4 id="Defining-Topologies_Telemetry-Packets_Specifying-Multiple-Telemetry-Packet-Sets">14.7.4. Specifying Multiple Telemetry Packet Sets</h4>
 <div class="paragraph">
 <p>You may specify more than one telemetry packet set in a topology.
 Each telemetry packet set must have a distinct name.
@@ -12507,7 +12991,7 @@ telemetry packet set to use to decode the packets.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Telemetry-Packets_Include-Specifiers">14.6.5. Include Specifiers</h4>
+<h4 id="Defining-Topologies_Telemetry-Packets_Include-Specifiers">14.7.5. Include Specifiers</h4>
 <div class="paragraph">
 <p>When writing a telemetry packet set, you can
 <a href="#Defining-Topologies_Include-Specifiers">include code
@@ -16628,7 +17112,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-26 00:39:18 +0530
+Last updated 2026-03-30 09:18:53 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
@@ -16655,6 +17139,6 @@ MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
   })
 })
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

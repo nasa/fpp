@@ -447,6 +447,7 @@ var IN_GLOBAL_SCOPE = false;
           "hook," +
           "id," +
           "if," +
+          "implements," +
           "import," +
           "include," +
           "initial," +

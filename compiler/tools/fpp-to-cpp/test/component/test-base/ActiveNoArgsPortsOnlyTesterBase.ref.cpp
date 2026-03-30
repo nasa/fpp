@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test-base/ActiveNoArgsPortsOnlyTesterBase.hpp"
+#include "ActiveNoArgsPortsOnlyTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization

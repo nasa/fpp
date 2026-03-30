@@ -20,7 +20,7 @@ case class Topology(
   /** List of the ports in the topology to resolve later */
   ports: List[Ast.Annotated[AstNode[Ast.SpecTopPort]]] = List(),
   /** The ports in the topology resolved to their port instance identifiers */
-  portMap: Map[Name.Unqualified, (PortInstanceIdentifier, Location)] = Map(),
+  portMap: Map[Name.Unqualified, TopologyPort] = Map(),
   /** Resolved port interface of the topology */
   portInterface: PortInterface = PortInterface("topology"),
   /** The connection patterns of this topology */
@@ -53,17 +53,17 @@ case class Topology(
 
   /** Add a port to the topology */
   def addPort(
-    node: Ast.Annotated[AstNode[Ast.SpecTopPort]],
+    aNode: Ast.Annotated[AstNode[Ast.SpecTopPort]],
     underlyingPort: PortInstanceIdentifier,
-    loc: Location,
   ) = {
-    val name = node._2.data.name
+    val (_, node, _) = aNode
+    val name = node.data.name
 
     for {
       // Check that the topology port for a general port
       pi <- underlyingPort.portInstance match {
         case _: PortInstance.Internal => Left(SemanticError.InvalidPortInstance(
-          loc,
+          Locations.get(node.id),
           "topology port cannot point to an internal port",
           Locations.get(underlyingPort.portInstance.getNodeId)
         ))
@@ -72,7 +72,7 @@ case class Topology(
           for {
             iface <- this.portInterface.addPortInstance(
               PortInstance.Topology(
-                node,
+                aNode,
                 underlyingPort.portInstance
               )
             )
@@ -81,17 +81,20 @@ case class Topology(
       }
 
       t <- portMap.get(name) match {
-        case Some((_, prevPortLoc)) =>
+        case Some(prevPort) =>
           Left(SemanticError.DuplicatePortInstance(
             name,
-            loc,
+            Locations.get(node.id),
             List(),
-            prevPortLoc,
+            prevPort.getLoc,
             List()
           ))
         case None =>
           Right(this.copy(
-            portMap = portMap + (name -> (underlyingPort, loc)),
+            portMap = portMap + (name -> TopologyPort(
+              aNode,
+              underlyingPort
+            )),
             portInterface = pi
           ))
       }

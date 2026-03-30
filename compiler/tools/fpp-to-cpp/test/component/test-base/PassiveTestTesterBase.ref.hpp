@@ -15,7 +15,7 @@
 #include "Fw/Prm/PrmExternalTypes.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/PassiveTestComponentAc.hpp"
+#include "PassiveTestComponentAc.hpp"
 
 //! \class PassiveTestTesterBase
 //! \brief Auto-generated base for PassiveTest component test harness

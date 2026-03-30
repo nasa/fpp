@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test-base/PassiveCommandsTesterBase.hpp"
+#include "PassiveCommandsTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization

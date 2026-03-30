@@ -14,7 +14,7 @@
 #include "Fw/Prm/PrmExternalTypes.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/QueuedExternalParamsComponentAc.hpp"
+#include "QueuedExternalParamsComponentAc.hpp"
 
 //! \class QueuedExternalParamsTesterBase
 //! \brief Auto-generated base for QueuedExternalParams component test harness
