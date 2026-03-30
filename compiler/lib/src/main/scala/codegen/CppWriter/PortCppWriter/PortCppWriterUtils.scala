@@ -130,11 +130,19 @@ object PortCppWriterUtils {
       case PortInstance.Direction.Output => getOutputPortClassName(name)
     }
 
+  /** Get a list of parameter names with the specified prefix */
+  def getParamNamesWithPrefix (prefix: String) (portParams: List[PortParamType]) =
+    portParams.map(p => s"${prefix}${p._2.data.name}")
+
   /** Write parameter names with prefix into a comma-separated list */
   def writeParamNamesWithPrefix (prefix: String) (portParams: List[PortParamType]) =
-    portParams.map(p => s"${prefix}${p._2.data.name}").mkString(", ")
+    (getParamNamesWithPrefix (prefix) (portParams)).mkString(", ")
 
   /** Write param names into a comma-separated list */
   val writeParamNames = writeParamNamesWithPrefix ("")
+
+  /** Get a list of serializer parameter names */
+  def getSerializerParamNames (portParams: List[PortParamType]) =
+    getParamNamesWithPrefix ("_serializer.m_") (portParams)
 
 }
