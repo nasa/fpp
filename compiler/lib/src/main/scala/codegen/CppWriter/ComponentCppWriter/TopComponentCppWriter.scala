@@ -148,17 +148,17 @@ case class TopComponentCppWriter (
     }
     (fromPortInstance.getType.get, toPortInstance.getType.get) match {
       case (
-        PortInstance.Type.DefPort(portSymbol),
+        PortInstance.Type.DefPort(fromPortSymbol),
         PortInstance.Type.Serial
       ) =>
         // Typed to serial connection
-        writeTypedToSerialConnection(portSymbol, fnName, toPortNum)
-      case (PortInstance.Type.Serial, _: PortInstance.Type.DefPort) =>
+        writeTypedToSerialConnection(fromPortSymbol, fnName, toPortNum)
+      case (
+        PortInstance.Type.Serial,
+        PortInstance.Type.DefPort(toPortSymbol)
+      ) =>
         // Serial to typed connection
-        lines(
-          """|// TODO: Serial to typed connection
-             |FW_ASSERT(0);"""
-        )
+        writeSerialToTypedConnection(toPortSymbol, fnName, toPortNum)
       case _ =>
         // Typed to typed connection or serial to serial connection
         val returnType = getHandlerReturnTypeAsString(toPortInstance)
@@ -235,6 +235,17 @@ case class TopComponentCppWriter (
         defaultLines.map(indentIn),
         lines("  break;")
       )
+    )
+  }
+
+  private def writeSerialToTypedConnection(
+    fromPortSymbol: Symbol.Port,
+    fnName: String,
+    toPortNum: Int
+  ) = {
+    lines(
+      """|// TODO: Serial to typed connection
+         |FW_ASSERT(0);"""
     )
   }
 
