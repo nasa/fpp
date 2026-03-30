@@ -43,6 +43,21 @@ case class TopComponentCppWriter (
       ci1.qualifiedName.toString < ci2.qualifiedName.toString
   }
 
+  private def writeInstanceCase
+    (writeInnerCaseLines: (Int, Connection) => List[Line])
+    (innerDefaultLines: List[Line])
+    (pair: (ComponentInstance, TopComponents.PortNumberMap)) =
+  {
+    val (componentInstance, portNumberMap) = pair
+    val ident = CppWriterState.identFromQualifiedName(componentInstance.qualifiedName)
+    val instanceIds = s"${topologyQualifierPrefix}InstanceIds"
+    List.concat(
+      line(s"case $instanceIds::$ident:") ::
+      (writePortNumSwitch (writeInnerCaseLines, innerDefaultLines, portNumberMap)).map(indentIn),
+      lines("  break;")
+    )
+  }
+
   private def writeInstanceSwitch(
     componentInstanceMap: TopComponents.ComponentInstanceMap,
     writeInnerCaseLines: (Int, Connection) => List[Line],
@@ -61,15 +76,6 @@ case class TopComponentCppWriter (
       )
     )
   }
-
-  private def writePortNumAssertion(numPorts: String) =
-    lines(
-      s"""|FW_ASSERT(
-          |  (0 <= portNum) && (portNum < $numPorts),
-          |  static_cast<FwAssertArgType>(portNum),
-          |  static_cast<FwAssertArgType>($numPorts)
-          |);"""
-    )
 
   private def writeIsConnectedFnBody(
     portName: Name.Unqualified,
@@ -200,20 +206,14 @@ case class TopComponentCppWriter (
     )
   }
 
-  private def writeInstanceCase
-    (writeInnerCaseLines: (Int, Connection) => List[Line])
-    (innerDefaultLines: List[Line])
-    (pair: (ComponentInstance, TopComponents.PortNumberMap)) =
-  {
-    val (componentInstance, portNumberMap) = pair
-    val ident = CppWriterState.identFromQualifiedName(componentInstance.qualifiedName)
-    val instanceIds = s"${topologyQualifierPrefix}InstanceIds"
-    List.concat(
-      line(s"case $instanceIds::$ident:") ::
-      (writePortNumSwitch (writeInnerCaseLines, innerDefaultLines, portNumberMap)).map(indentIn),
-      lines("  break;")
+  private def writePortNumAssertion(numPorts: String) =
+    lines(
+      s"""|FW_ASSERT(
+          |  (0 <= portNum) && (portNum < $numPorts),
+          |  static_cast<FwAssertArgType>(portNum),
+          |  static_cast<FwAssertArgType>($numPorts)
+          |);"""
     )
-  }
 
   private def writePortNumSwitch(
     writeCaseLines: (Int, Connection) => List[Line],
