@@ -239,13 +239,30 @@ case class TopComponentCppWriter (
   }
 
   private def writeSerialToTypedConnection(
-    fromPortSymbol: Symbol.Port,
+    toPortSymbol: Symbol.Port,
     fnName: String,
     toPortNum: Int
   ) = {
-    lines(
-      """|// TODO: Serial to typed connection
-         |FW_ASSERT(0);"""
+    val toPortParams = toPortSymbol.node._2.data.params
+    val bufferParamName = "buffer" // TODO
+    val toPortName = s.getName(toPortSymbol)
+    val portSerializerName = PortCppWriterUtils.getPortSerializerName(toPortName)
+    val serializerParamNames = PortCppWriterUtils.getSerializerParamNames(toPortParams)
+    wrapInBlock(
+      List.concat(
+        if (!toPortParams.isEmpty)
+        then lines(
+          s"""|$portSerializerName _serializer;
+              |Fw::SerializeStatus _status = _serializer.deserializePortArgs($bufferParamName);
+              |FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));"""
+        )
+        else lines(s"|(void) $bufferParamName;"),
+        writeFunctionCall(
+          fnName,
+          List(toPortNum.toString),
+          serializerParamNames
+        )
+      )
     )
   }
 

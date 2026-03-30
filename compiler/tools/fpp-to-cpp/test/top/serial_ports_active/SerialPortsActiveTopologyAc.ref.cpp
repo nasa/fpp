@@ -269,20 +269,72 @@ namespace SerialPortsActive {
       case ::SerialPortsActive::InstanceIds::SerialPortsActive_sender:
         switch (portNum) {
           case 0:
-            // TODO: Serial to typed connection
-            FW_ASSERT(0);
+            {
+              PTypedPortSerializer _serializer;
+              Fw::SerializeStatus _status = _serializer.deserializePortArgs(buffer);
+              FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+              SerialPortsActive::receiver.pTypedSync_handlerBase(
+                0,
+                _serializer.m_x1,
+                _serializer.m_x2,
+                _serializer.m_x3,
+                _serializer.m_x4,
+                _serializer.m_x5,
+                _serializer.m_x6,
+                _serializer.m_x7
+              );
+            }
             break;
           case 1:
-            // TODO: Serial to typed connection
-            FW_ASSERT(0);
+            {
+              PTypedPortSerializer _serializer;
+              Fw::SerializeStatus _status = _serializer.deserializePortArgs(buffer);
+              FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+              SerialPortsActive::receiver.pTypedSync_handlerBase(
+                1,
+                _serializer.m_x1,
+                _serializer.m_x2,
+                _serializer.m_x3,
+                _serializer.m_x4,
+                _serializer.m_x5,
+                _serializer.m_x6,
+                _serializer.m_x7
+              );
+            }
             break;
           case 2:
-            // TODO: Serial to typed connection
-            FW_ASSERT(0);
+            {
+              PTypedPortSerializer _serializer;
+              Fw::SerializeStatus _status = _serializer.deserializePortArgs(buffer);
+              FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+              SerialPortsActive::receiver.pTypedAsync_handlerBase(
+                0,
+                _serializer.m_x1,
+                _serializer.m_x2,
+                _serializer.m_x3,
+                _serializer.m_x4,
+                _serializer.m_x5,
+                _serializer.m_x6,
+                _serializer.m_x7
+              );
+            }
             break;
           case 3:
-            // TODO: Serial to typed connection
-            FW_ASSERT(0);
+            {
+              PTypedPortSerializer _serializer;
+              Fw::SerializeStatus _status = _serializer.deserializePortArgs(buffer);
+              FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+              SerialPortsActive::receiver.pTypedAsync_handlerBase(
+                1,
+                _serializer.m_x1,
+                _serializer.m_x2,
+                _serializer.m_x3,
+                _serializer.m_x4,
+                _serializer.m_x5,
+                _serializer.m_x6,
+                _serializer.m_x7
+              );
+            }
             break;
           case 4:
             SerialPortsActive::receiver.pSerialSync_handlerBase(
