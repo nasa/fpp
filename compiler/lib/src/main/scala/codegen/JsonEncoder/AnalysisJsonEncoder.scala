@@ -68,6 +68,26 @@ object AnalysisJsonEncoder extends JsonEncoder{
         add("component", compInstance.component.aNode.asJson).asJson
     }
 
+  // Dictionary encoder that omits the reverseTlmChannelEntryMap
+  implicit val dictionaryEncoder: Encoder[Dictionary] = 
+      Encoder.instance { d =>
+        io.circe.Json.obj(
+          "usedSymbolSet" -> d.usedSymbolSet.asJson,
+          "commandEntryMap" -> d.commandEntryMap.asJson,
+          "tlmChannelEntryMap" -> d.tlmChannelEntryMap.asJson,
+          "eventEntryMap" -> d.eventEntryMap.asJson,
+          "paramEntryMap" -> d.paramEntryMap.asJson,
+          "recordEntryMap" -> d.recordEntryMap.asJson,
+          "containerEntryMap" -> d.containerEntryMap.asJson,
+          "tlmPacketSetMap" -> d.tlmPacketSetMap.asJson
+        )
+      }
+
+  // Encoder for converting BigInt keys to strings
+  implicit val bigIntKeyEncoder: KeyEncoder[BigInt] = 
+    KeyEncoder.instance(_.toString)
+
+
   // ----------------------------------------------------------------------
   // Encoders for helping Circe with recursive types
   // ----------------------------------------------------------------------
@@ -177,6 +197,13 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder[Map[Symbol.Interface, Interface]] =
   {
     def f2(i: Interface): Json = i.asJson
+    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
+  }
+
+  private implicit val dictionaryMapEncoder:
+    Encoder[Map[Symbol.Topology, Dictionary]] =
+  {
+    def f2(d: Dictionary): Json = d.asJson
     Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
   }
 
@@ -405,7 +432,8 @@ object AnalysisJsonEncoder extends JsonEncoder{
         "valueMap" -> a.valueMap.asJson,
         "stateMachineMap" -> a.stateMachineMap.asJson,
         "dictionarySymbolSet" -> a.dictionarySymbolSet.asJson,
-        "interfaceMap" -> a.interfaceMap.asJson
+        "interfaceMap" -> a.interfaceMap.asJson,
+        "dictionaryMap" -> a.dictionaryMap.asJson
       )
     )
   }

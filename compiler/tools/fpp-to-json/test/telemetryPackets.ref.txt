@@ -2075,6 +2075,171 @@
     ],
     "interfaceMap" : {
       
+    },
+    "dictionaryMap" : {
+      "113" : {
+        "usedSymbolSet" : [
+        ],
+        "commandEntryMap" : {
+          
+        },
+        "tlmChannelEntryMap" : {
+          "256" : {
+            "instance" : {
+              "aNode" : {
+                "astNodeId" : 24
+              },
+              "qualifiedName" : {
+                "qualifier" : [
+                ],
+                "base" : "c1"
+              },
+              "component" : {
+                "astNodeId" : 20
+              },
+              "baseId" : 256,
+              "maxId" : 256,
+              "file" : "None",
+              "queueSize" : "None",
+              "stackSize" : "None",
+              "priority" : "None",
+              "cpu" : "None",
+              "initSpecifierMap" : {
+                
+              }
+            },
+            "tlmChannel" : {
+              "aNode" : {
+                "astNodeId" : 19
+              },
+              "channelType" : {
+                "Int" : {
+                  "PrimitiveInt" : {
+                    "kind" : {
+                      "U32" : {
+                        
+                      }
+                    }
+                  }
+                }
+              },
+              "update" : {
+                "Always" : {
+                  
+                }
+              },
+              "format" : "None",
+              "lowLimits" : {
+                
+              },
+              "highLimits" : {
+                
+              }
+            }
+          },
+          "512" : {
+            "instance" : {
+              "aNode" : {
+                "astNodeId" : 28
+              },
+              "qualifiedName" : {
+                "qualifier" : [
+                ],
+                "base" : "c2"
+              },
+              "component" : {
+                "astNodeId" : 20
+              },
+              "baseId" : 512,
+              "maxId" : 512,
+              "file" : "None",
+              "queueSize" : "None",
+              "stackSize" : "None",
+              "priority" : "None",
+              "cpu" : "None",
+              "initSpecifierMap" : {
+                
+              }
+            },
+            "tlmChannel" : {
+              "aNode" : {
+                "astNodeId" : 19
+              },
+              "channelType" : {
+                "Int" : {
+                  "PrimitiveInt" : {
+                    "kind" : {
+                      "U32" : {
+                        
+                      }
+                    }
+                  }
+                }
+              },
+              "update" : {
+                "Always" : {
+                  
+                }
+              },
+              "format" : "None",
+              "lowLimits" : {
+                
+              },
+              "highLimits" : {
+                
+              }
+            }
+          }
+        },
+        "eventEntryMap" : {
+          
+        },
+        "paramEntryMap" : {
+          
+        },
+        "recordEntryMap" : {
+          
+        },
+        "containerEntryMap" : {
+          
+        },
+        "tlmPacketSetMap" : {
+          "P" : {
+            "aNode" : {
+              "astNodeId" : 112
+            },
+            "packetMap" : {
+              "0" : {
+                "aNode" : {
+                  "astNodeId" : 107
+                },
+                "group" : 0,
+                "memberIdList" : [
+                  256
+                ],
+                "memberLocationMap" : {
+                  "256" : {
+                    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+                    "pos" : "28.7",
+                    "includingLoc" : "None"
+                  }
+                }
+              }
+            },
+            "defaultPacketId" : 1,
+            "omittedIdSet" : [
+              512
+            ],
+            "omittedLocationMap" : {
+              "512" : {
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+                "pos" : "32.5",
+                "includingLoc" : "None"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
