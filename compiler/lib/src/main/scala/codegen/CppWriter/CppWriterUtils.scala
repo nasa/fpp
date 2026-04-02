@@ -125,6 +125,9 @@ trait CppWriterUtils extends LineUtils {
   def wrapInAnonymousNamespace(ll: List[Line]): List[Line] =
     wrapInScope("namespace {", ll, "}")
 
+  def wrapInBlock(ll: List[Line]) =
+    wrapInScope("{", ll, "}")
+
   def wrapInNamespace(namespace: String, ll: List[Line]): List[Line] =
     wrapInScope(s"namespace $namespace {", ll, "}")
 

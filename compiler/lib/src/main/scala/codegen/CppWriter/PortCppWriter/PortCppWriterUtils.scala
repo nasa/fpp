@@ -10,7 +10,7 @@ abstract class PortCppWriterUtils(
   aNode: Ast.Annotated[AstNode[Ast.DefPort]]
 ) extends CppWriterUtils {
 
-  type PortParamType = Ast.Annotated[AstNode[Ast.FormalParam]]
+  type PortParamType = PortCppWriterUtils.PortParamType
 
   val portNode = aNode._2
 
@@ -65,7 +65,7 @@ abstract class PortCppWriterUtils(
   val outputPortClassName = PortCppWriterUtils.getOutputPortClassName(portName)
 
   // Write param names as a comma-separated list
-  def writeParamNames = portParams.map(_._2.data.name).mkString(", ")
+  def writeParamNames = PortCppWriterUtils.writeParamNames (portParams)
 
   // Write param names appended to a comma-separated list
   def appendParamNames = commaPrefix(writeParamNames)
@@ -111,6 +111,8 @@ abstract class PortCppWriterUtils(
 
 object PortCppWriterUtils {
 
+  type PortParamType = Ast.Annotated[AstNode[Ast.FormalParam]]
+
   def getInputPortClassName(name: String) = s"Input${name}Port"
 
   def getOutputPortClassName(name: String) = s"Output${name}Port"
@@ -127,5 +129,20 @@ object PortCppWriterUtils {
       case PortInstance.Direction.Input => getInputPortClassName(name)
       case PortInstance.Direction.Output => getOutputPortClassName(name)
     }
+
+  /** Get a list of parameter names with the specified prefix */
+  def getParamNamesWithPrefix (prefix: String) (portParams: List[PortParamType]) =
+    portParams.map(p => s"${prefix}${p._2.data.name}")
+
+  /** Write parameter names with prefix into a comma-separated list */
+  def writeParamNamesWithPrefix (prefix: String) (portParams: List[PortParamType]) =
+    (getParamNamesWithPrefix (prefix) (portParams)).mkString(", ")
+
+  /** Write param names into a comma-separated list */
+  val writeParamNames = writeParamNamesWithPrefix ("")
+
+  /** Get a list of serializer parameter names */
+  def getSerializerParamNames (portParams: List[PortParamType]) =
+    getParamNamesWithPrefix ("_serializer.m_") (portParams)
 
 }

@@ -530,11 +530,17 @@ abstract class ComponentCppWriterUtils(
     AnnotationCppWriter.asStringOpt(aNode)
   }
 
+  // The parameter name for a serial port
+  val serialPortParamName = "buffer"
+
+  // The parameter type for a serial port
+  val serialPortParamType = "Fw::LinearBufferBase"
+
   /** Get port params as a list of tuples containing the name and typename for each param */
   def getPortParams(p: PortInstance): List[(String, String, Option[Type])] =
     p.getType match {
       case Some(PortInstance.Type.Serial) => List(
-        ("buffer", "Fw::LinearBufferBase", None)
+        (serialPortParamName, serialPortParamType, None)
       )
       case _ => portParamTypeMap(p.getUnqualifiedName).map((n, tn, t) => (n, tn, Some(t)))
     }
