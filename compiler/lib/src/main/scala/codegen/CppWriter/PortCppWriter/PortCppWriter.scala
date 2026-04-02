@@ -1,0 +1,108 @@
+package fpp.compiler.codegen
+
+import fpp.compiler.analysis._
+import fpp.compiler.ast._
+import fpp.compiler.util._
+
+/** Writes C++ port definitions */
+case class PortCppWriter (
+  s: CppWriterState,
+  aNode: Ast.Annotated[AstNode[Ast.DefPort]]
+) extends PortCppWriterUtils(s, aNode) {
+
+  private val portBufferClassWriter = PortBufferClassWriter(s, aNode)
+
+  private val portSerializerClassWriter = PortSerializerClassWriter(s, aNode)
+
+  private val inputPortClassWriter = InputPortClassWriter(s, aNode)
+
+  private val outputPortClassWriter = OutputPortClassWriter(s, aNode)
+
+  def write: CppDoc = {
+    val includeGuard = s.includeGuardFromQualifiedName(portSymbol, portFileName)
+    CppWriter.createCppDoc(
+      s"$portName port",
+      portFileName,
+      includeGuard,
+      getMembers,
+      s.toolName
+    )
+  }
+
+  private def getClasses =
+    List.concat(
+      guardedList (needsSerialization)
+        (List(portBufferClassWriter.write)),
+      guardedList (needsSerialization && hasParams)
+        (List(portSerializerClassWriter.write)),
+      wrapMembersInIfDirective(
+        "#if !FW_DIRECT_PORT_CALLS",
+        List(
+          inputPortClassWriter.write,
+          outputPortClassWriter.write
+        ),
+        CppDoc.Lines.Both
+      )
+    )
+
+  private def getMembers: List[CppDoc.Member] =
+    List.concat(
+      List(
+        getHppIncludes,
+        getCppIncludes
+      ),
+      wrapInNamespaces(
+        namespaceIdentList,
+        getClasses
+      )
+    )
+
+  private def getHppIncludes: CppDoc.Member = {
+    val unconditional = List.concat(
+      List.concat(
+        List("Fw/FPrimeBasicTypes.hpp"),
+        guardedList (hasStringParams) (
+          List("Fw/Types/ExternalString.hpp")
+        ),
+        guardedList (needsSerialization) (
+          List("Fw/Types/Serializable.hpp")
+        ),
+        guardedList (hasStringReturnType) (
+          List("Fw/Types/String.hpp")
+        )
+      ).map(CppWriter.headerString),
+      writeIncludeDirectives
+    ).sorted.map(line)
+    val conditional = List(
+      "Fw/Comp/PassiveComponentBase.hpp",
+      "Fw/Port/InputPortBase.hpp",
+      "Fw/Port/OutputPortBase.hpp",
+    ).map(CppWriter.headerString).sorted.map(line)
+    linesMember(
+      Line.blank ::
+      List.concat(
+        unconditional,
+        lines("#if !FW_DIRECT_PORT_CALLS"),
+        conditional,
+        lines("#endif")
+      )
+    )
+  }
+
+  private def getCppIncludes: CppDoc.Member = {
+    val userHeaders = List(
+      "Fw/Types/Assert.hpp",
+      s.getIncludePath(portSymbol, portFileName)
+    ).sorted.map(CppWriter.headerString).map(line)
+    linesMember(
+      Line.blank :: userHeaders,
+      CppDoc.Lines.Cpp
+    )
+  }
+
+  private def writeIncludeDirectives: List[String] = {
+    val Right(a) = UsedSymbols.defPortAnnotatedNode(s.a, aNode)
+    s.writeIncludeDirectives(a.usedSymbolSet)
+  }
+
+}

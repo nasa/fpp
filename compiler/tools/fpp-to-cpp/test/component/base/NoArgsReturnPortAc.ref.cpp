@@ -5,15 +5,14 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/ExternalString.hpp"
 #include "NoArgsReturnPortAc.hpp"
-
-#if !FW_DIRECT_PORT_CALLS
 
 namespace Ports {
 
+#if !FW_DIRECT_PORT_CALLS
+
   // ----------------------------------------------------------------------
-  // Input Port Member functions
+  // Public constructors for InputNoArgsReturnPort
   // ----------------------------------------------------------------------
 
   InputNoArgsReturnPort ::
@@ -23,6 +22,10 @@ namespace Ports {
   {
 
   }
+
+  // ----------------------------------------------------------------------
+  // Public member functions for InputNoArgsReturnPort
+  // ----------------------------------------------------------------------
 
   void InputNoArgsReturnPort ::
     init()
@@ -57,6 +60,10 @@ namespace Ports {
     return this->m_func(this->m_comp, this->m_portNum);
   }
 
+  // ----------------------------------------------------------------------
+  // Private member functions for InputNoArgsReturnPort
+  // ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
   Fw::SerializeStatus InputNoArgsReturnPort ::
@@ -72,7 +79,7 @@ namespace Ports {
 #endif
 
   // ----------------------------------------------------------------------
-  // Output Port Member functions
+  // Public constructors for OutputNoArgsReturnPort
   // ----------------------------------------------------------------------
 
   OutputNoArgsReturnPort ::
@@ -82,6 +89,10 @@ namespace Ports {
   {
 
   }
+
+  // ----------------------------------------------------------------------
+  // Public member functions for OutputNoArgsReturnPort
+  // ----------------------------------------------------------------------
 
   void OutputNoArgsReturnPort ::
     init()
@@ -113,6 +124,6 @@ namespace Ports {
     return this->m_port->invoke();
   }
 
-}
-
 #endif
+
+}

@@ -476,7 +476,7 @@ abstract class ComponentCppWriterUtils(
           case Nil => ""
           case _ => qualifiers.mkString("::") + "::"
         }
-        val name = PortCppWriter.getPortName(symbol.getUnqualifiedName, direction)
+        val name = PortCppWriterUtils.getPortName(symbol.getUnqualifiedName)(direction)
 
         cppQualifier + name
       case Some(PortInstance.Type.Serial) =>
