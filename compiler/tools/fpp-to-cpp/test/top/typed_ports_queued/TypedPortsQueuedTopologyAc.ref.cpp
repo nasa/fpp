@@ -44,6 +44,8 @@ namespace TypedPortsQueued {
 
   void connectComponents() {
 
+#if !FW_DIRECT_PORT_CALLS
+
     // C
     TypedPortsQueued::sender.set_p1_OutputPort(
         0,
@@ -109,6 +111,9 @@ namespace TypedPortsQueued {
         1,
         TypedPortsQueued::receiver.get_p8_InputPort(0)
     );
+
+#endif
+
   }
 
   void regCommands() {
@@ -167,3 +172,559 @@ namespace TypedPortsQueued {
   }
 
 }
+
+#if FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Topology-dependent component implementation
+// ----------------------------------------------------------------------
+
+namespace TypedPortsQueued {
+
+  bool SenderComponentBase::isConnected_p1_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P1_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P1_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::TypedPortsQueued::InstanceIds::TypedPortsQueued_sender:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          case 1:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+  bool SenderComponentBase::isConnected_p2_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P2_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P2_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::TypedPortsQueued::InstanceIds::TypedPortsQueued_sender:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          case 1:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+  bool SenderComponentBase::isConnected_p3_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P3_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P3_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::TypedPortsQueued::InstanceIds::TypedPortsQueued_sender:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          case 1:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+  bool SenderComponentBase::isConnected_p4_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P4_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P4_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::TypedPortsQueued::InstanceIds::TypedPortsQueued_sender:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          case 1:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+  bool SenderComponentBase::isConnected_p5_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P5_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P5_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::TypedPortsQueued::InstanceIds::TypedPortsQueued_sender:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          case 1:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+  bool SenderComponentBase::isConnected_p6_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P6_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P6_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::TypedPortsQueued::InstanceIds::TypedPortsQueued_sender:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          case 1:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+  bool SenderComponentBase::isConnected_p7_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P7_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P7_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::TypedPortsQueued::InstanceIds::TypedPortsQueued_sender:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          case 1:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+  bool SenderComponentBase::isConnected_p8_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P8_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P8_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::TypedPortsQueued::InstanceIds::TypedPortsQueued_sender:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          case 1:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+  void SenderComponentBase::p1_out(
+      FwIndexType portNum,
+      U32 x1,
+      F32 x2,
+      bool x3,
+      const Fw::StringBase& x4,
+      const TypedPortsQueued::A& x5,
+      const TypedPortsQueued::E& x6,
+      const TypedPortsQueued::S& x7
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P1_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P1_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::TypedPortsQueued::InstanceIds::TypedPortsQueued_sender:
+        switch (portNum) {
+          case 0:
+            TypedPortsQueued::receiver.p1_handlerBase(
+              1,
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7
+            );
+            break;
+          case 1:
+            TypedPortsQueued::receiver.p1_handlerBase(
+              0,
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+  }
+
+  U32 SenderComponentBase::p2_out(
+      FwIndexType portNum,
+      U32 x
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P2_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P2_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    U32 _result = {};
+    switch (instance) {
+      case ::TypedPortsQueued::InstanceIds::TypedPortsQueued_sender:
+        switch (portNum) {
+          case 0:
+            _result = TypedPortsQueued::receiver.p2_handlerBase(
+              1,
+              x
+            );
+            break;
+          case 1:
+            _result = TypedPortsQueued::receiver.p2_handlerBase(
+              0,
+              x
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return _result;
+  }
+
+  F32 SenderComponentBase::p3_out(
+      FwIndexType portNum,
+      F32 x
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P3_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P3_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    F32 _result = {};
+    switch (instance) {
+      case ::TypedPortsQueued::InstanceIds::TypedPortsQueued_sender:
+        switch (portNum) {
+          case 0:
+            _result = TypedPortsQueued::receiver.p3_handlerBase(
+              0,
+              x
+            );
+            break;
+          case 1:
+            _result = TypedPortsQueued::receiver.p3_handlerBase(
+              1,
+              x
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return _result;
+  }
+
+  bool SenderComponentBase::p4_out(
+      FwIndexType portNum,
+      bool x
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P4_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P4_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    bool _result = {};
+    switch (instance) {
+      case ::TypedPortsQueued::InstanceIds::TypedPortsQueued_sender:
+        switch (portNum) {
+          case 0:
+            _result = TypedPortsQueued::receiver.p4_handlerBase(
+              0,
+              x
+            );
+            break;
+          case 1:
+            _result = TypedPortsQueued::receiver.p4_handlerBase(
+              0,
+              x
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return _result;
+  }
+
+  Fw::String SenderComponentBase::p5_out(
+      FwIndexType portNum,
+      const Fw::StringBase& x
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P5_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P5_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    Fw::String _result = {};
+    switch (instance) {
+      case ::TypedPortsQueued::InstanceIds::TypedPortsQueued_sender:
+        switch (portNum) {
+          case 0:
+            _result = TypedPortsQueued::receiver.p5_handlerBase(
+              0,
+              x
+            );
+            break;
+          case 1:
+            _result = TypedPortsQueued::receiver.p5_handlerBase(
+              0,
+              x
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return _result;
+  }
+
+  TypedPortsQueued::A SenderComponentBase::p6_out(
+      FwIndexType portNum,
+      const TypedPortsQueued::A& x
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P6_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P6_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    TypedPortsQueued::A _result = {};
+    switch (instance) {
+      case ::TypedPortsQueued::InstanceIds::TypedPortsQueued_sender:
+        switch (portNum) {
+          case 0:
+            _result = TypedPortsQueued::receiver.p6_handlerBase(
+              0,
+              x
+            );
+            break;
+          case 1:
+            _result = TypedPortsQueued::receiver.p6_handlerBase(
+              0,
+              x
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return _result;
+  }
+
+  TypedPortsQueued::E SenderComponentBase::p7_out(
+      FwIndexType portNum,
+      const TypedPortsQueued::E& x
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P7_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P7_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    TypedPortsQueued::E _result = {};
+    switch (instance) {
+      case ::TypedPortsQueued::InstanceIds::TypedPortsQueued_sender:
+        switch (portNum) {
+          case 0:
+            _result = TypedPortsQueued::receiver.p7_handlerBase(
+              0,
+              x
+            );
+            break;
+          case 1:
+            _result = TypedPortsQueued::receiver.p7_handlerBase(
+              0,
+              x
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return _result;
+  }
+
+  TypedPortsQueued::S SenderComponentBase::p8_out(
+      FwIndexType portNum,
+      const TypedPortsQueued::S& x
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P8_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P8_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    TypedPortsQueued::S _result = {};
+    switch (instance) {
+      case ::TypedPortsQueued::InstanceIds::TypedPortsQueued_sender:
+        switch (portNum) {
+          case 0:
+            _result = TypedPortsQueued::receiver.p8_handlerBase(
+              0,
+              x
+            );
+            break;
+          case 1:
+            _result = TypedPortsQueued::receiver.p8_handlerBase(
+              0,
+              x
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return _result;
+  }
+
+}
+
+#endif

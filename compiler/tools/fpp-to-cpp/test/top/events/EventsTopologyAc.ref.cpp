@@ -60,11 +60,16 @@ namespace M {
 
   void connectComponents() {
 
+#if !FW_DIRECT_PORT_CALLS
+
     // Events
     M::c1.set_eventOut_OutputPort(
         0,
         M::eventManager.get_eventIn_InputPort(0)
     );
+
+#endif
+
   }
 
   void regCommands() {
@@ -125,3 +130,316 @@ namespace M {
   }
 
 }
+
+#if FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Topology-dependent component implementation
+// ----------------------------------------------------------------------
+
+namespace M {
+
+  bool CComponentBase::isConnected_eventOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_EVENTOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_EVENTOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+  bool CComponentBase::isConnected_textEventOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_TEXTEVENTOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_TEXTEVENTOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+#endif
+
+  bool CComponentBase::isConnected_timeGetOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_TIMEGETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_TIMEGETOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+  void CComponentBase::eventOut_out(
+      FwIndexType portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::LogBuffer& args
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_EVENTOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_EVENTOUT_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          case 0:
+            M::eventManager.eventIn_handlerBase(
+              0,
+              id,
+              timeTag,
+              severity,
+              args
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+  }
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+  void CComponentBase::textEventOut_out(
+      FwIndexType portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::TextLogString& text
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_TEXTEVENTOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_TEXTEVENTOUT_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+  }
+
+#endif
+
+  void CComponentBase::timeGetOut_out(
+      FwIndexType portNum,
+      Fw::Time& time
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_TIMEGETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_TIMEGETOUT_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+  }
+
+}
+
+namespace M {
+
+  bool NoEventsComponentBase::isConnected_eventOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_EVENTOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_EVENTOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_noEvents:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+#if FW_ENABLE_TEXT_LOGGING == 1
+
+  bool NoEventsComponentBase::isConnected_textEventOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_TEXTEVENTOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_TEXTEVENTOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_noEvents:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+#endif
+
+  bool NoEventsComponentBase::isConnected_timeGetOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_TIMEGETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_TIMEGETOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_noEvents:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+  void NoEventsComponentBase::timeGetOut_out(
+      FwIndexType portNum,
+      Fw::Time& time
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_TIMEGETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_TIMEGETOUT_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_noEvents:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+  }
+
+}
+
+#endif

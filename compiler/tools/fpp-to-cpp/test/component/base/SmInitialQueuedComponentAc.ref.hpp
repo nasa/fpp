@@ -9,8 +9,12 @@
 
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
+#endif
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/OutputSerializePort.hpp"
+#endif
 #include "SmInitialQueued_BasicStateMachineAc.hpp"
 #include "SmInitialQueued_Basic_StateEnumAc.hpp"
 #include "SmInitialQueued_ChoiceStateMachineAc.hpp"
@@ -376,6 +380,8 @@ namespace FppTest {
           FwEnumStoreType instance = 0 //!< The instance number
       );
 
+#if !FW_DIRECT_PORT_CALLS
+
     public:
 
       // ----------------------------------------------------------------------
@@ -388,6 +394,8 @@ namespace FppTest {
       Svc::InputSchedPort* get_schedIn_InputPort(
           FwIndexType portNum //!< The port number
       );
+
+#endif
 
     protected:
 
@@ -428,7 +436,11 @@ namespace FppTest {
           U32 context //!< The call order
       ) = 0;
 
+#if FW_DIRECT_PORT_CALLS
+    public:
+#else
     protected:
+#endif
 
       // ----------------------------------------------------------------------
       // Port handler base-class functions for typed input ports
@@ -656,6 +668,8 @@ namespace FppTest {
           FppTest_SmInitialQueued_Nested::Signal signal //!< The signal
       );
 
+#if !FW_DIRECT_PORT_CALLS
+
     private:
 
       // ----------------------------------------------------------------------
@@ -664,6 +678,8 @@ namespace FppTest {
 
       //! Input port schedIn
       Svc::InputSchedPort m_schedIn_InputPort[NUM_SCHEDIN_INPUT_PORTS];
+
+#endif
 
     private:
 

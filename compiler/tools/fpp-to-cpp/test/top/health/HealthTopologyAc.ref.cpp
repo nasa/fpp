@@ -75,6 +75,8 @@ namespace M {
 
   void connectComponents() {
 
+#if !FW_DIRECT_PORT_CALLS
+
     // Health
     M::c1.set_pingOut_OutputPort(
         0,
@@ -92,6 +94,9 @@ namespace M {
         1,
         M::c2.get_pingIn_InputPort(0)
     );
+
+#endif
+
   }
 
   void regCommands() {
@@ -151,3 +156,160 @@ namespace M {
   }
 
 }
+
+#if FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Topology-dependent component implementation
+// ----------------------------------------------------------------------
+
+namespace M {
+
+  bool CComponentBase::isConnected_pingOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+  void CComponentBase::pingOut_out(
+      FwIndexType portNum,
+      U32 key
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          case 0:
+            M::health.pingIn_handlerBase(
+              0,
+              key
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          case 0:
+            M::health.pingIn_handlerBase(
+              1,
+              key
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+  }
+
+}
+
+namespace Svc {
+
+  bool HealthComponentBase::isConnected_pingOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_health:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          case 1:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+  void HealthComponentBase::pingOut_out(
+      FwIndexType portNum,
+      U32 key
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_health:
+        switch (portNum) {
+          case 0:
+            M::c1.pingIn_handlerBase(
+              0,
+              key
+            );
+            break;
+          case 1:
+            M::c2.pingIn_handlerBase(
+              0,
+              key
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+  }
+
+}
+
+#endif

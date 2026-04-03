@@ -29,8 +29,12 @@
 #if FW_ENABLE_TEXT_LOGGING == 1
 #include "Fw/Log/LogTextPortAc.hpp"
 #endif
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
+#endif
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/OutputSerializePort.hpp"
+#endif
 #include "Fw/Prm/PrmExternalTypes.hpp"
 #include "Fw/Prm/PrmGetPortAc.hpp"
 #include "Fw/Prm/PrmSetPortAc.hpp"
@@ -376,6 +380,8 @@ class QueuedTestComponentBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -395,6 +401,10 @@ class QueuedTestComponentBase :
     Fw::InputDpResponsePort* get_productRecvIn_InputPort(
         FwIndexType portNum //!< The port number
     );
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   public:
 
@@ -535,6 +545,10 @@ class QueuedTestComponentBase :
         FwIndexType portNum //!< The port number
     );
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -605,6 +619,10 @@ class QueuedTestComponentBase :
         Fw::InputTlmPort* port //!< The input port
     );
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -659,7 +677,9 @@ class QueuedTestComponentBase :
         Ports::InputTypedReturnPort* port //!< The input port
     );
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
   public:
 
@@ -727,7 +747,7 @@ class QueuedTestComponentBase :
 
 #endif
 
-#if FW_PORT_SERIALIZATION
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
   public:
 
@@ -1103,49 +1123,49 @@ class QueuedTestComponentBase :
     //! \return Whether port cmdRegOut is connected
     bool isConnected_cmdRegOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port cmdResponseOut is connected
     //!
     //! \return Whether port cmdResponseOut is connected
     bool isConnected_cmdResponseOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port eventOut is connected
     //!
     //! \return Whether port eventOut is connected
     bool isConnected_eventOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port prmGetOut is connected
     //!
     //! \return Whether port prmGetOut is connected
     bool isConnected_prmGetOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port prmSetOut is connected
     //!
     //! \return Whether port prmSetOut is connected
     bool isConnected_prmSetOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port productRequestOut is connected
     //!
     //! \return Whether port productRequestOut is connected
     bool isConnected_productRequestOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port productSendOut is connected
     //!
     //! \return Whether port productSendOut is connected
     bool isConnected_productSendOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
@@ -1154,7 +1174,7 @@ class QueuedTestComponentBase :
     //! \return Whether port textEventOut is connected
     bool isConnected_textEventOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
 #endif
 
@@ -1163,14 +1183,14 @@ class QueuedTestComponentBase :
     //! \return Whether port timeGetOut is connected
     bool isConnected_timeGetOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port tlmOut is connected
     //!
     //! \return Whether port tlmOut is connected
     bool isConnected_tlmOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
   protected:
 
@@ -1183,64 +1203,76 @@ class QueuedTestComponentBase :
     //! \return Whether port noArgsOut is connected
     bool isConnected_noArgsOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port noArgsReturnOut is connected
     //!
     //! \return Whether port noArgsReturnOut is connected
     bool isConnected_noArgsReturnOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port noArgsStringReturnOut is connected
     //!
     //! \return Whether port noArgsStringReturnOut is connected
     bool isConnected_noArgsStringReturnOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port typedAliasOut is connected
     //!
     //! \return Whether port typedAliasOut is connected
     bool isConnected_typedAliasOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port typedAliasReturnOut is connected
     //!
     //! \return Whether port typedAliasReturnOut is connected
     bool isConnected_typedAliasReturnOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port typedAliasReturnStringOut is connected
     //!
     //! \return Whether port typedAliasReturnStringOut is connected
     bool isConnected_typedAliasReturnStringOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port typedOut is connected
     //!
     //! \return Whether port typedOut is connected
     bool isConnected_typedOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port typedReturnOut is connected
     //!
     //! \return Whether port typedReturnOut is connected
     bool isConnected_typedReturnOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
+#if FW_DIRECT_PORT_CALLS
+  public:
+#else
   protected:
+#endif
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for special input ports
     //
     // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
+
+    //! Handler base-class function for input port cmdIn
+    void cmdIn_handlerBase(
+        FwIndexType portNum, //!< The port number
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        Fw::CmdArgBuffer& args //!< The command argument buffer
+    );
 
     //! Handler base-class function for input port productRecvIn
     void productRecvIn_handlerBase(
@@ -1435,7 +1467,11 @@ class QueuedTestComponentBase :
         const S& s //!< A struct
     ) = 0;
 
+#if FW_DIRECT_PORT_CALLS
+  public:
+#else
   protected:
+#endif
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
@@ -1718,43 +1754,23 @@ class QueuedTestComponentBase :
   protected:
 
     // ----------------------------------------------------------------------
-    // Invocation functions for special output ports
-    // ----------------------------------------------------------------------
-
-    //! Invoke output port productRequestOut
-    void productRequestOut_out(
-        FwIndexType portNum, //!< The port number
-        FwDpIdType id, //!< The container ID
-        FwSizeType dataSize //!< The data size of the requested buffer
-    );
-
-    //! Invoke output port productSendOut
-    void productSendOut_out(
-        FwIndexType portNum, //!< The port number
-        FwDpIdType id, //!< The container ID
-        const Fw::Buffer& buffer //!< The buffer
-    );
-
-  protected:
-
-    // ----------------------------------------------------------------------
     // Invocation functions for typed output ports
     // ----------------------------------------------------------------------
 
     //! Invoke output port noArgsOut
     void noArgsOut_out(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Invoke output port noArgsReturnOut
     U32 noArgsReturnOut_out(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Invoke output port noArgsStringReturnOut
     Fw::String noArgsStringReturnOut_out(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Invoke output port typedAliasOut
     void typedAliasOut_out(
@@ -1766,7 +1782,7 @@ class QueuedTestComponentBase :
         const AliasEnum& e, //!< An enum
         const AliasArray& a, //!< An array
         const AliasStruct& s //!< A struct
-    );
+    ) const;
 
     //! Invoke output port typedAliasReturnOut
     AliasPrim2 typedAliasReturnOut_out(
@@ -1778,7 +1794,7 @@ class QueuedTestComponentBase :
         const AliasEnum& e, //!< An enum
         const AliasArray& a, //!< An array
         const AliasStruct& s //!< A struct
-    );
+    ) const;
 
     //! Invoke output port typedAliasReturnStringOut
     Fw::String typedAliasReturnStringOut_out(
@@ -1790,7 +1806,7 @@ class QueuedTestComponentBase :
         const AliasEnum& e, //!< An enum
         const AliasArray& a, //!< An array
         const AnotherAliasStruct& s //!< A struct
-    );
+    ) const;
 
     //! Invoke output port typedOut
     void typedOut_out(
@@ -1802,7 +1818,7 @@ class QueuedTestComponentBase :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) const;
 
     //! Invoke output port typedReturnOut
     F32 typedReturnOut_out(
@@ -1814,7 +1830,7 @@ class QueuedTestComponentBase :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) const;
 
   protected:
 
@@ -2446,7 +2462,7 @@ class QueuedTestComponentBase :
   protected:
 
     // ----------------------------------------------------------------------
-    // Parameter update hook
+    // Parameter hook functions
     // ----------------------------------------------------------------------
 
     //! \brief Called whenever a parameter is updated
@@ -2455,10 +2471,6 @@ class QueuedTestComponentBase :
     virtual void parameterUpdated(
         FwPrmIdType id //!< The parameter ID
     );
-
-    // ----------------------------------------------------------------------
-    // Parameter load hook
-    // ----------------------------------------------------------------------
 
     //! \brief Called whenever parameters are loaded
     //!
@@ -2950,6 +2962,90 @@ class QueuedTestComponentBase :
   private:
 
     // ----------------------------------------------------------------------
+    // Invocation functions for special output ports
+    // ----------------------------------------------------------------------
+
+    //! Invoke output port cmdRegOut
+    void cmdRegOut_out(
+        FwIndexType portNum, //!< The port number
+        FwOpcodeType opCode //!< Command Op Code
+    ) const;
+
+    //! Invoke output port cmdResponseOut
+    void cmdResponseOut_out(
+        FwIndexType portNum, //!< The port number
+        FwOpcodeType opCode, //!< Command Op Code
+        U32 cmdSeq, //!< Command Sequence
+        const Fw::CmdResponse& response //!< The command response argument
+    ) const;
+
+    //! Invoke output port eventOut
+    void eventOut_out(
+        FwIndexType portNum, //!< The port number
+        FwEventIdType id, //!< Log ID
+        Fw::Time& timeTag, //!< Time Tag
+        const Fw::LogSeverity& severity, //!< The severity argument
+        Fw::LogBuffer& args //!< Buffer containing serialized log entry
+    ) const;
+
+    //! Invoke output port prmGetOut
+    Fw::ParamValid prmGetOut_out(
+        FwIndexType portNum, //!< The port number
+        FwPrmIdType id, //!< Parameter ID
+        Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
+    ) const;
+
+    //! Invoke output port prmSetOut
+    void prmSetOut_out(
+        FwIndexType portNum, //!< The port number
+        FwPrmIdType id, //!< Parameter ID
+        Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
+    ) const;
+
+    //! Invoke output port productRequestOut
+    void productRequestOut_out(
+        FwIndexType portNum, //!< The port number
+        FwDpIdType id, //!< The container ID
+        FwSizeType dataSize //!< The data size of the requested buffer
+    ) const;
+
+    //! Invoke output port productSendOut
+    void productSendOut_out(
+        FwIndexType portNum, //!< The port number
+        FwDpIdType id, //!< The container ID
+        const Fw::Buffer& buffer //!< The buffer
+    ) const;
+
+#if FW_ENABLE_TEXT_LOGGING
+
+    //! Invoke output port textEventOut
+    void textEventOut_out(
+        FwIndexType portNum, //!< The port number
+        FwEventIdType id, //!< Log ID
+        Fw::Time& timeTag, //!< Time Tag
+        const Fw::LogSeverity& severity, //!< The severity argument
+        Fw::TextLogString& text //!< Text of log message
+    ) const;
+
+#endif
+
+    //! Invoke output port timeGetOut
+    void timeGetOut_out(
+        FwIndexType portNum, //!< The port number
+        Fw::Time& time //!< Reference to Time object
+    ) const;
+
+    //! Invoke output port tlmOut
+    void tlmOut_out(
+        FwIndexType portNum, //!< The port number
+        FwChanIdType id, //!< Telemetry Channel ID
+        Fw::Time& timeTag, //!< Time Tag
+        Fw::TlmBuffer& val //!< Buffer containing serialized telemetry value
+    ) const;
+
+  private:
+
+    // ----------------------------------------------------------------------
     // Parameter set functions
     // ----------------------------------------------------------------------
 
@@ -3123,6 +3219,8 @@ class QueuedTestComponentBase :
         const Fw::Success& status //!< The buffer status
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -3134,6 +3232,10 @@ class QueuedTestComponentBase :
 
     //! Input port productRecvIn
     Fw::InputDpResponsePort m_productRecvIn_InputPort[NUM_PRODUCTRECVIN_INPUT_PORTS];
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   private:
 
@@ -3198,6 +3300,10 @@ class QueuedTestComponentBase :
     //! Input port typedSync
     Ports::InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -3238,6 +3344,10 @@ class QueuedTestComponentBase :
     //! Output port tlmOut
     Fw::OutputTlmPort m_tlmOut_OutputPort[NUM_TLMOUT_OUTPUT_PORTS];
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -3267,6 +3377,8 @@ class QueuedTestComponentBase :
 
     //! Output port typedReturnOut
     Ports::OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
+
+#endif
 
   private:
 
@@ -3383,7 +3495,7 @@ class QueuedTestComponentBase :
   private:
 
     // ----------------------------------------------------------------------
-    // Parameter delegates
+    // Parameter delegate
     // ----------------------------------------------------------------------
 
     //! Delegate to serialize/deserialize an externally stored parameter
