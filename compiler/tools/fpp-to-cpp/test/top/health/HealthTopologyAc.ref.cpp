@@ -253,22 +253,14 @@ namespace Svc {
       static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS)
     );
     bool result = false;
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::M::InstanceIds::M_health:
-        switch (portNum) {
-          case 0:
-            result = true;
-            break;
-          case 1:
-            result = true;
-            break;
-          default:
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        result = true;
+        break;
+      case 1:
+        result = true;
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
     return result;
@@ -283,29 +275,21 @@ namespace Svc {
       static_cast<FwAssertArgType>(portNum),
       static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS)
     );
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::M::InstanceIds::M_health:
-        switch (portNum) {
-          case 0:
-            M::c1.pingIn_handlerBase(
-              0,
-              key
-            );
-            break;
-          case 1:
-            M::c2.pingIn_handlerBase(
-              0,
-              key
-            );
-            break;
-          default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        M::c1.pingIn_handlerBase(
+          0,
+          key
+        );
+        break;
+      case 1:
+        M::c2.pingIn_handlerBase(
+          0,
+          key
+        );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
         break;
     }
   }

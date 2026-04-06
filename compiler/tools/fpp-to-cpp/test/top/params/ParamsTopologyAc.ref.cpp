@@ -308,8 +308,8 @@ namespace M {
       static_cast<FwAssertArgType>(portNum),
       static_cast<FwAssertArgType>(NUM_PRMGETOUT_OUTPUT_PORTS)
     );
-    const auto instance = this->getInstance();
     Fw::ParamValid _result = {};
+    const auto instance = this->getInstance();
     switch (instance) {
       case ::M::InstanceIds::M_c1:
         switch (portNum) {
@@ -375,16 +375,8 @@ namespace M {
       static_cast<FwAssertArgType>(NUM_CMDREGOUT_OUTPUT_PORTS)
     );
     bool result = false;
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::M::InstanceIds::M_c3:
-        switch (portNum) {
-          default:
-            break;
-        }
-        break;
+    switch (portNum) {
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
     return result;
@@ -397,16 +389,8 @@ namespace M {
       static_cast<FwAssertArgType>(NUM_CMDRESPONSEIN_OUTPUT_PORTS)
     );
     bool result = false;
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::M::InstanceIds::M_c3:
-        switch (portNum) {
-          default:
-            break;
-        }
-        break;
+    switch (portNum) {
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
     return result;
@@ -419,16 +403,8 @@ namespace M {
       static_cast<FwAssertArgType>(NUM_PRMGETOUT_OUTPUT_PORTS)
     );
     bool result = false;
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::M::InstanceIds::M_c3:
-        switch (portNum) {
-          default:
-            break;
-        }
-        break;
+    switch (portNum) {
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
     return result;
@@ -441,16 +417,8 @@ namespace M {
       static_cast<FwAssertArgType>(NUM_PRMSETOUT_OUTPUT_PORTS)
     );
     bool result = false;
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::M::InstanceIds::M_c3:
-        switch (portNum) {
-          default:
-            break;
-        }
-        break;
+    switch (portNum) {
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
     return result;

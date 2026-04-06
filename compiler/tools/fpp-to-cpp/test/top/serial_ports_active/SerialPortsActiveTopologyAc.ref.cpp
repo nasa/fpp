@@ -181,40 +181,32 @@ namespace SerialPortsActive {
       static_cast<FwAssertArgType>(NUM_PSERIAL_OUTPUT_PORTS)
     );
     bool result = false;
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::SerialPortsActive::InstanceIds::SerialPortsActive_sender:
-        switch (portNum) {
-          case 0:
-            result = true;
-            break;
-          case 1:
-            result = true;
-            break;
-          case 2:
-            result = true;
-            break;
-          case 3:
-            result = true;
-            break;
-          case 4:
-            result = true;
-            break;
-          case 5:
-            result = true;
-            break;
-          case 6:
-            result = true;
-            break;
-          case 7:
-            result = true;
-            break;
-          default:
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        result = true;
+        break;
+      case 1:
+        result = true;
+        break;
+      case 2:
+        result = true;
+        break;
+      case 3:
+        result = true;
+        break;
+      case 4:
+        result = true;
+        break;
+      case 5:
+        result = true;
+        break;
+      case 6:
+        result = true;
+        break;
+      case 7:
+        result = true;
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
     return result;
@@ -227,28 +219,20 @@ namespace SerialPortsActive {
       static_cast<FwAssertArgType>(NUM_PTYPED_OUTPUT_PORTS)
     );
     bool result = false;
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::SerialPortsActive::InstanceIds::SerialPortsActive_sender:
-        switch (portNum) {
-          case 0:
-            result = true;
-            break;
-          case 1:
-            result = true;
-            break;
-          case 2:
-            result = true;
-            break;
-          case 3:
-            result = true;
-            break;
-          default:
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        result = true;
+        break;
+      case 1:
+        result = true;
+        break;
+      case 2:
+        result = true;
+        break;
+      case 3:
+        result = true;
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
     return result;
@@ -263,110 +247,102 @@ namespace SerialPortsActive {
       static_cast<FwAssertArgType>(portNum),
       static_cast<FwAssertArgType>(NUM_PSERIAL_OUTPUT_PORTS)
     );
-    const auto instance = this->getInstance();
     Fw::SerializeStatus _result = {};
-    switch (instance) {
-      case ::SerialPortsActive::InstanceIds::SerialPortsActive_sender:
-        switch (portNum) {
-          case 0:
-            {
-              PTypedPortSerializer _serializer;
-              Fw::SerializeStatus _status = _serializer.deserializePortArgs(buffer);
-              FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-              SerialPortsActive::receiver.pTypedSync_handlerBase(
-                0,
-                _serializer.m_x1,
-                _serializer.m_x2,
-                _serializer.m_x3,
-                _serializer.m_x4,
-                _serializer.m_x5,
-                _serializer.m_x6,
-                _serializer.m_x7
-              );
-            }
-            break;
-          case 1:
-            {
-              PTypedPortSerializer _serializer;
-              Fw::SerializeStatus _status = _serializer.deserializePortArgs(buffer);
-              FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-              SerialPortsActive::receiver.pTypedSync_handlerBase(
-                1,
-                _serializer.m_x1,
-                _serializer.m_x2,
-                _serializer.m_x3,
-                _serializer.m_x4,
-                _serializer.m_x5,
-                _serializer.m_x6,
-                _serializer.m_x7
-              );
-            }
-            break;
-          case 2:
-            {
-              PTypedPortSerializer _serializer;
-              Fw::SerializeStatus _status = _serializer.deserializePortArgs(buffer);
-              FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-              SerialPortsActive::receiver.pTypedAsync_handlerBase(
-                0,
-                _serializer.m_x1,
-                _serializer.m_x2,
-                _serializer.m_x3,
-                _serializer.m_x4,
-                _serializer.m_x5,
-                _serializer.m_x6,
-                _serializer.m_x7
-              );
-            }
-            break;
-          case 3:
-            {
-              PTypedPortSerializer _serializer;
-              Fw::SerializeStatus _status = _serializer.deserializePortArgs(buffer);
-              FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-              SerialPortsActive::receiver.pTypedAsync_handlerBase(
-                1,
-                _serializer.m_x1,
-                _serializer.m_x2,
-                _serializer.m_x3,
-                _serializer.m_x4,
-                _serializer.m_x5,
-                _serializer.m_x6,
-                _serializer.m_x7
-              );
-            }
-            break;
-          case 4:
-            SerialPortsActive::receiver.pSerialSync_handlerBase(
-              2,
-              buffer
-            );
-            break;
-          case 5:
-            SerialPortsActive::receiver.pSerialSync_handlerBase(
-              3,
-              buffer
-            );
-            break;
-          case 6:
-            SerialPortsActive::receiver.pSerialAsync_handlerBase(
-              2,
-              buffer
-            );
-            break;
-          case 7:
-            SerialPortsActive::receiver.pSerialAsync_handlerBase(
-              3,
-              buffer
-            );
-            break;
-          default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
-            break;
+    switch (portNum) {
+      case 0:
+        {
+          PTypedPortSerializer _serializer;
+          Fw::SerializeStatus _status = _serializer.deserializePortArgs(buffer);
+          FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+          SerialPortsActive::receiver.pTypedSync_handlerBase(
+            0,
+            _serializer.m_x1,
+            _serializer.m_x2,
+            _serializer.m_x3,
+            _serializer.m_x4,
+            _serializer.m_x5,
+            _serializer.m_x6,
+            _serializer.m_x7
+          );
         }
         break;
+      case 1:
+        {
+          PTypedPortSerializer _serializer;
+          Fw::SerializeStatus _status = _serializer.deserializePortArgs(buffer);
+          FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+          SerialPortsActive::receiver.pTypedSync_handlerBase(
+            1,
+            _serializer.m_x1,
+            _serializer.m_x2,
+            _serializer.m_x3,
+            _serializer.m_x4,
+            _serializer.m_x5,
+            _serializer.m_x6,
+            _serializer.m_x7
+          );
+        }
+        break;
+      case 2:
+        {
+          PTypedPortSerializer _serializer;
+          Fw::SerializeStatus _status = _serializer.deserializePortArgs(buffer);
+          FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+          SerialPortsActive::receiver.pTypedAsync_handlerBase(
+            0,
+            _serializer.m_x1,
+            _serializer.m_x2,
+            _serializer.m_x3,
+            _serializer.m_x4,
+            _serializer.m_x5,
+            _serializer.m_x6,
+            _serializer.m_x7
+          );
+        }
+        break;
+      case 3:
+        {
+          PTypedPortSerializer _serializer;
+          Fw::SerializeStatus _status = _serializer.deserializePortArgs(buffer);
+          FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+          SerialPortsActive::receiver.pTypedAsync_handlerBase(
+            1,
+            _serializer.m_x1,
+            _serializer.m_x2,
+            _serializer.m_x3,
+            _serializer.m_x4,
+            _serializer.m_x5,
+            _serializer.m_x6,
+            _serializer.m_x7
+          );
+        }
+        break;
+      case 4:
+        SerialPortsActive::receiver.pSerialSync_handlerBase(
+          2,
+          buffer
+        );
+        break;
+      case 5:
+        SerialPortsActive::receiver.pSerialSync_handlerBase(
+          3,
+          buffer
+        );
+        break;
+      case 6:
+        SerialPortsActive::receiver.pSerialAsync_handlerBase(
+          2,
+          buffer
+        );
+        break;
+      case 7:
+        SerialPortsActive::receiver.pSerialAsync_handlerBase(
+          3,
+          buffer
+        );
+        break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -387,61 +363,53 @@ namespace SerialPortsActive {
       static_cast<FwAssertArgType>(portNum),
       static_cast<FwAssertArgType>(NUM_PTYPED_OUTPUT_PORTS)
     );
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::SerialPortsActive::InstanceIds::SerialPortsActive_sender:
-        switch (portNum) {
-          case 0:
-            {
-              PTypedPortBuffer _buffer;
-              Fw::SerializeStatus _status = PTypedPortSerializer::serializePortArgs(x1, x2, x3, x4, x5, x6, x7, _buffer);
-              FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-              SerialPortsActive::receiver.pSerialSync_handlerBase(
-                0,
-                _buffer
-              );
-            }
-            break;
-          case 1:
-            {
-              PTypedPortBuffer _buffer;
-              Fw::SerializeStatus _status = PTypedPortSerializer::serializePortArgs(x1, x2, x3, x4, x5, x6, x7, _buffer);
-              FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-              SerialPortsActive::receiver.pSerialSync_handlerBase(
-                1,
-                _buffer
-              );
-            }
-            break;
-          case 2:
-            {
-              PTypedPortBuffer _buffer;
-              Fw::SerializeStatus _status = PTypedPortSerializer::serializePortArgs(x1, x2, x3, x4, x5, x6, x7, _buffer);
-              FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-              SerialPortsActive::receiver.pSerialAsync_handlerBase(
-                0,
-                _buffer
-              );
-            }
-            break;
-          case 3:
-            {
-              PTypedPortBuffer _buffer;
-              Fw::SerializeStatus _status = PTypedPortSerializer::serializePortArgs(x1, x2, x3, x4, x5, x6, x7, _buffer);
-              FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-              SerialPortsActive::receiver.pSerialAsync_handlerBase(
-                1,
-                _buffer
-              );
-            }
-            break;
-          default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
-            break;
+    switch (portNum) {
+      case 0:
+        {
+          PTypedPortBuffer _buffer;
+          Fw::SerializeStatus _status = PTypedPortSerializer::serializePortArgs(x1, x2, x3, x4, x5, x6, x7, _buffer);
+          FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+          SerialPortsActive::receiver.pSerialSync_handlerBase(
+            0,
+            _buffer
+          );
+        }
+        break;
+      case 1:
+        {
+          PTypedPortBuffer _buffer;
+          Fw::SerializeStatus _status = PTypedPortSerializer::serializePortArgs(x1, x2, x3, x4, x5, x6, x7, _buffer);
+          FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+          SerialPortsActive::receiver.pSerialSync_handlerBase(
+            1,
+            _buffer
+          );
+        }
+        break;
+      case 2:
+        {
+          PTypedPortBuffer _buffer;
+          Fw::SerializeStatus _status = PTypedPortSerializer::serializePortArgs(x1, x2, x3, x4, x5, x6, x7, _buffer);
+          FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+          SerialPortsActive::receiver.pSerialAsync_handlerBase(
+            0,
+            _buffer
+          );
+        }
+        break;
+      case 3:
+        {
+          PTypedPortBuffer _buffer;
+          Fw::SerializeStatus _status = PTypedPortSerializer::serializePortArgs(x1, x2, x3, x4, x5, x6, x7, _buffer);
+          FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+          SerialPortsActive::receiver.pSerialAsync_handlerBase(
+            1,
+            _buffer
+          );
         }
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
         break;
     }
   }

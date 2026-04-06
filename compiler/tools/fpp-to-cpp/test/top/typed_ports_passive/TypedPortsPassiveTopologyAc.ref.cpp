@@ -188,22 +188,14 @@ namespace TypedPortsPassive {
       static_cast<FwAssertArgType>(NUM_P1_OUTPUT_PORTS)
     );
     bool result = false;
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
-        switch (portNum) {
-          case 0:
-            result = true;
-            break;
-          case 1:
-            result = true;
-            break;
-          default:
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        result = true;
+        break;
+      case 1:
+        result = true;
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
     return result;
@@ -216,22 +208,14 @@ namespace TypedPortsPassive {
       static_cast<FwAssertArgType>(NUM_P2_OUTPUT_PORTS)
     );
     bool result = false;
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
-        switch (portNum) {
-          case 0:
-            result = true;
-            break;
-          case 1:
-            result = true;
-            break;
-          default:
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        result = true;
+        break;
+      case 1:
+        result = true;
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
     return result;
@@ -244,22 +228,14 @@ namespace TypedPortsPassive {
       static_cast<FwAssertArgType>(NUM_P3_OUTPUT_PORTS)
     );
     bool result = false;
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
-        switch (portNum) {
-          case 0:
-            result = true;
-            break;
-          case 1:
-            result = true;
-            break;
-          default:
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        result = true;
+        break;
+      case 1:
+        result = true;
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
     return result;
@@ -272,22 +248,14 @@ namespace TypedPortsPassive {
       static_cast<FwAssertArgType>(NUM_P4_OUTPUT_PORTS)
     );
     bool result = false;
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
-        switch (portNum) {
-          case 0:
-            result = true;
-            break;
-          case 1:
-            result = true;
-            break;
-          default:
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        result = true;
+        break;
+      case 1:
+        result = true;
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
     return result;
@@ -300,22 +268,14 @@ namespace TypedPortsPassive {
       static_cast<FwAssertArgType>(NUM_P5_OUTPUT_PORTS)
     );
     bool result = false;
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
-        switch (portNum) {
-          case 0:
-            result = true;
-            break;
-          case 1:
-            result = true;
-            break;
-          default:
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        result = true;
+        break;
+      case 1:
+        result = true;
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
     return result;
@@ -328,22 +288,14 @@ namespace TypedPortsPassive {
       static_cast<FwAssertArgType>(NUM_P6_OUTPUT_PORTS)
     );
     bool result = false;
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
-        switch (portNum) {
-          case 0:
-            result = true;
-            break;
-          case 1:
-            result = true;
-            break;
-          default:
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        result = true;
+        break;
+      case 1:
+        result = true;
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
     return result;
@@ -356,22 +308,14 @@ namespace TypedPortsPassive {
       static_cast<FwAssertArgType>(NUM_P7_OUTPUT_PORTS)
     );
     bool result = false;
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
-        switch (portNum) {
-          case 0:
-            result = true;
-            break;
-          case 1:
-            result = true;
-            break;
-          default:
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        result = true;
+        break;
+      case 1:
+        result = true;
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
     return result;
@@ -384,22 +328,14 @@ namespace TypedPortsPassive {
       static_cast<FwAssertArgType>(NUM_P8_OUTPUT_PORTS)
     );
     bool result = false;
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
-        switch (portNum) {
-          case 0:
-            result = true;
-            break;
-          case 1:
-            result = true;
-            break;
-          default:
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        result = true;
+        break;
+      case 1:
+        result = true;
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
     return result;
@@ -420,41 +356,33 @@ namespace TypedPortsPassive {
       static_cast<FwAssertArgType>(portNum),
       static_cast<FwAssertArgType>(NUM_P1_OUTPUT_PORTS)
     );
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
-        switch (portNum) {
-          case 0:
-            TypedPortsPassive::receiver.p1_handlerBase(
-              1,
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7
-            );
-            break;
-          case 1:
-            TypedPortsPassive::receiver.p1_handlerBase(
-              0,
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7
-            );
-            break;
-          default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        TypedPortsPassive::receiver.p1_handlerBase(
+          1,
+          x1,
+          x2,
+          x3,
+          x4,
+          x5,
+          x6,
+          x7
+        );
+        break;
+      case 1:
+        TypedPortsPassive::receiver.p1_handlerBase(
+          0,
+          x1,
+          x2,
+          x3,
+          x4,
+          x5,
+          x6,
+          x7
+        );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
         break;
     }
   }
@@ -468,30 +396,22 @@ namespace TypedPortsPassive {
       static_cast<FwAssertArgType>(portNum),
       static_cast<FwAssertArgType>(NUM_P2_OUTPUT_PORTS)
     );
-    const auto instance = this->getInstance();
     U32 _result = {};
-    switch (instance) {
-      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
-        switch (portNum) {
-          case 0:
-            _result = TypedPortsPassive::receiver.p2_handlerBase(
-              1,
-              x
-            );
-            break;
-          case 1:
-            _result = TypedPortsPassive::receiver.p2_handlerBase(
-              0,
-              x
-            );
-            break;
-          default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        _result = TypedPortsPassive::receiver.p2_handlerBase(
+          1,
+          x
+        );
+        break;
+      case 1:
+        _result = TypedPortsPassive::receiver.p2_handlerBase(
+          0,
+          x
+        );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -506,30 +426,22 @@ namespace TypedPortsPassive {
       static_cast<FwAssertArgType>(portNum),
       static_cast<FwAssertArgType>(NUM_P3_OUTPUT_PORTS)
     );
-    const auto instance = this->getInstance();
     F32 _result = {};
-    switch (instance) {
-      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
-        switch (portNum) {
-          case 0:
-            _result = TypedPortsPassive::receiver.p3_handlerBase(
-              0,
-              x
-            );
-            break;
-          case 1:
-            _result = TypedPortsPassive::receiver.p3_handlerBase(
-              1,
-              x
-            );
-            break;
-          default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        _result = TypedPortsPassive::receiver.p3_handlerBase(
+          0,
+          x
+        );
+        break;
+      case 1:
+        _result = TypedPortsPassive::receiver.p3_handlerBase(
+          1,
+          x
+        );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -544,30 +456,22 @@ namespace TypedPortsPassive {
       static_cast<FwAssertArgType>(portNum),
       static_cast<FwAssertArgType>(NUM_P4_OUTPUT_PORTS)
     );
-    const auto instance = this->getInstance();
     bool _result = {};
-    switch (instance) {
-      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
-        switch (portNum) {
-          case 0:
-            _result = TypedPortsPassive::receiver.p4_handlerBase(
-              0,
-              x
-            );
-            break;
-          case 1:
-            _result = TypedPortsPassive::receiver.p4_handlerBase(
-              0,
-              x
-            );
-            break;
-          default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        _result = TypedPortsPassive::receiver.p4_handlerBase(
+          0,
+          x
+        );
+        break;
+      case 1:
+        _result = TypedPortsPassive::receiver.p4_handlerBase(
+          0,
+          x
+        );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -582,30 +486,22 @@ namespace TypedPortsPassive {
       static_cast<FwAssertArgType>(portNum),
       static_cast<FwAssertArgType>(NUM_P5_OUTPUT_PORTS)
     );
-    const auto instance = this->getInstance();
     Fw::String _result = {};
-    switch (instance) {
-      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
-        switch (portNum) {
-          case 0:
-            _result = TypedPortsPassive::receiver.p5_handlerBase(
-              0,
-              x
-            );
-            break;
-          case 1:
-            _result = TypedPortsPassive::receiver.p5_handlerBase(
-              0,
-              x
-            );
-            break;
-          default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        _result = TypedPortsPassive::receiver.p5_handlerBase(
+          0,
+          x
+        );
+        break;
+      case 1:
+        _result = TypedPortsPassive::receiver.p5_handlerBase(
+          0,
+          x
+        );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -620,30 +516,22 @@ namespace TypedPortsPassive {
       static_cast<FwAssertArgType>(portNum),
       static_cast<FwAssertArgType>(NUM_P6_OUTPUT_PORTS)
     );
-    const auto instance = this->getInstance();
     TypedPortsPassive::A _result = {};
-    switch (instance) {
-      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
-        switch (portNum) {
-          case 0:
-            _result = TypedPortsPassive::receiver.p6_handlerBase(
-              0,
-              x
-            );
-            break;
-          case 1:
-            _result = TypedPortsPassive::receiver.p6_handlerBase(
-              0,
-              x
-            );
-            break;
-          default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        _result = TypedPortsPassive::receiver.p6_handlerBase(
+          0,
+          x
+        );
+        break;
+      case 1:
+        _result = TypedPortsPassive::receiver.p6_handlerBase(
+          0,
+          x
+        );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -658,30 +546,22 @@ namespace TypedPortsPassive {
       static_cast<FwAssertArgType>(portNum),
       static_cast<FwAssertArgType>(NUM_P7_OUTPUT_PORTS)
     );
-    const auto instance = this->getInstance();
     TypedPortsPassive::E _result = {};
-    switch (instance) {
-      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
-        switch (portNum) {
-          case 0:
-            _result = TypedPortsPassive::receiver.p7_handlerBase(
-              0,
-              x
-            );
-            break;
-          case 1:
-            _result = TypedPortsPassive::receiver.p7_handlerBase(
-              0,
-              x
-            );
-            break;
-          default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        _result = TypedPortsPassive::receiver.p7_handlerBase(
+          0,
+          x
+        );
+        break;
+      case 1:
+        _result = TypedPortsPassive::receiver.p7_handlerBase(
+          0,
+          x
+        );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -696,30 +576,22 @@ namespace TypedPortsPassive {
       static_cast<FwAssertArgType>(portNum),
       static_cast<FwAssertArgType>(NUM_P8_OUTPUT_PORTS)
     );
-    const auto instance = this->getInstance();
     TypedPortsPassive::S _result = {};
-    switch (instance) {
-      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
-        switch (portNum) {
-          case 0:
-            _result = TypedPortsPassive::receiver.p8_handlerBase(
-              0,
-              x
-            );
-            break;
-          case 1:
-            _result = TypedPortsPassive::receiver.p8_handlerBase(
-              0,
-              x
-            );
-            break;
-          default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
-            break;
-        }
+    switch (portNum) {
+      case 0:
+        _result = TypedPortsPassive::receiver.p8_handlerBase(
+          0,
+          x
+        );
+        break;
+      case 1:
+        _result = TypedPortsPassive::receiver.p8_handlerBase(
+          0,
+          x
+        );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
