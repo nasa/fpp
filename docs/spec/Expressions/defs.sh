@@ -19,7 +19,6 @@ Integer-Literals.adoc
 Parenthesis-Expressions.adoc
 Sizeof-Expressions.adoc
 String-Literals.adoc
-String-Concatenation-Expression.adoc
 Struct-Expressions.adoc
 Precedence-and-Associativity.adoc
 "

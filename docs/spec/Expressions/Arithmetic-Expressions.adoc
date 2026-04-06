@@ -1,6 +1,9 @@
-=== Arithmetic Expressions
+[[Expressions_Binary-Expressions]]
+[[Expressions_Arithmetic-Expressions]]
+[[Expressions_String-Concatenation-Expressions]]
+=== Binary Expressions
 
-FPP includes the following *arithmetic expressions*:
+FPP includes the following *binary expressions*:
 
 [cols=",",options="header",]
 |======================================
@@ -11,7 +14,7 @@ FPP includes the following *arithmetic expressions*:
 |Negate stem:[e]
 
 |stem:[e_1] `+` stem:[e_2]
-|Add stem:[e_1] and stem:[e_2]
+|Add stem:[e_1] and stem:[e_2], or concatenate strings
 
 |stem:[e_1] `-` stem:[e_2]
 |Subtract stem:[e_2] from stem:[e_1]
@@ -24,18 +27,28 @@ FPP includes the following *arithmetic expressions*:
 
 |======================================
 
-Each subexpression of an arithmetic expression must have
-<<Types_Internal-Types_Numeric-Types,numeric type>>.  Evaluation is by either
+==== Arithmetic Expressions
+
+For `-`, `+`, `-`, `*`, and `/`, each subexpression must have
+<<Types_Internal-Types_Numeric-Types,numeric type>>. Evaluation is by either
 standard integer arithmetic or standard floating-point arithmetic, depending on
 the <<Type-Checking,type of the expression>>.
-For the use of `+` with operands of <<Type-Names_String-Type-Names, string type>>, see
-<<Expressions_String-Concatenation-Expressions, String Concatenation Expressions>>.
 
-*Example:*
+==== String Concatenation
+
+For `+` with operands of <<Type-Names_String-Type-Names,string type>>,
+both stem:[e_1] and stem:[e_2] must have string type. The value of the expression
+is the string formed by appending the characters of stem:[e_2] to the characters
+of stem:[e_1].
+
+==== Examples
 
 [source,fpp]
 ----
 constant a = -1
 constant b = 2 + 3
 constant c = a * b
+
+constant s1 = "a" + "b" + "c"     # value is "abc"
+constant s2 = "hello " + s1 + "!" # value is "hello abc!"
 ----
