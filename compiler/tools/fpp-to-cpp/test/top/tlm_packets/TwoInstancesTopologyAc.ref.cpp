@@ -119,6 +119,13 @@ bool CComponentBase::isConnected_timeGetOut_OutputPort(FwIndexType portNum) cons
   bool result = false;
   const auto instance = this->getInstance();
   switch (instance) {
+    default:
+#ifdef FW_STRICT_ASSERTIONS
+      FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+      break;
+#else
+      // Fall through
+#endif
     case ::N::InstanceIds::M_c1:
       switch (portNum) {
         default:
@@ -130,9 +137,6 @@ bool CComponentBase::isConnected_timeGetOut_OutputPort(FwIndexType portNum) cons
         default:
           break;
       }
-      break;
-    default:
-      FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
       break;
   }
   return result;
@@ -147,6 +151,13 @@ bool CComponentBase::isConnected_tlmOut_OutputPort(FwIndexType portNum) const {
   bool result = false;
   const auto instance = this->getInstance();
   switch (instance) {
+    default:
+#ifdef FW_STRICT_ASSERTIONS
+      FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+      break;
+#else
+      // Fall through
+#endif
     case ::N::InstanceIds::M_c1:
       switch (portNum) {
         default:
@@ -158,9 +169,6 @@ bool CComponentBase::isConnected_tlmOut_OutputPort(FwIndexType portNum) const {
         default:
           break;
       }
-      break;
-    default:
-      FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
       break;
   }
   return result;
@@ -177,6 +185,13 @@ void CComponentBase::timeGetOut_out(
   );
   const auto instance = this->getInstance();
   switch (instance) {
+    default:
+#ifdef FW_STRICT_ASSERTIONS
+      FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+      break;
+#else
+      // Fall through
+#endif
     case ::N::InstanceIds::M_c1:
       switch (portNum) {
         default:
@@ -190,9 +205,6 @@ void CComponentBase::timeGetOut_out(
           FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
           break;
       }
-      break;
-    default:
-      FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
       break;
   }
 }
@@ -210,6 +222,13 @@ void CComponentBase::tlmOut_out(
   );
   const auto instance = this->getInstance();
   switch (instance) {
+    default:
+#ifdef FW_STRICT_ASSERTIONS
+      FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+      break;
+#else
+      // Fall through
+#endif
     case ::N::InstanceIds::M_c1:
       switch (portNum) {
         default:
@@ -223,9 +242,6 @@ void CComponentBase::tlmOut_out(
           FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
           break;
       }
-      break;
-    default:
-      FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
       break;
   }
 }

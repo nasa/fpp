@@ -74,12 +74,17 @@ case class TopComponentCppWriter (
         wrapInSwitch(
           "instance",
           List.concat(
-            sortedList.flatMap(writeInstanceCase (writeInnerCaseLines) (innerDefaultLines)),
             lines(
               """|default:
+                 |#ifdef FW_STRICT_ASSERTIONS
                  |  FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
-                 |  break;"""
-            )
+                 |  break;
+                 |#else
+                 |  // Fall through
+                 |#endif"""
+
+            ),
+            sortedList.flatMap(writeInstanceCase (writeInnerCaseLines) (innerDefaultLines)),
           )
         )
     }

@@ -157,6 +157,13 @@ namespace M {
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
       case ::M::InstanceIds::M_c1:
         switch (portNum) {
           case 0:
@@ -171,9 +178,6 @@ namespace M {
           default:
             break;
         }
-        break;
-      default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
     return result;
@@ -188,6 +192,13 @@ namespace M {
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
       case ::M::InstanceIds::M_c1:
         switch (portNum) {
           case 0:
@@ -202,9 +213,6 @@ namespace M {
           default:
             break;
         }
-        break;
-      default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
     return result;
@@ -221,6 +229,13 @@ namespace M {
     );
     const auto instance = this->getInstance();
     switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
       case ::M::InstanceIds::M_c1:
         switch (portNum) {
           case 0:
@@ -241,9 +256,6 @@ namespace M {
             break;
         }
         break;
-      default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
-        break;
     }
   }
 
@@ -260,6 +272,13 @@ namespace M {
     );
     const auto instance = this->getInstance();
     switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
       case ::M::InstanceIds::M_c1:
         switch (portNum) {
           case 0:
@@ -281,9 +300,6 @@ namespace M {
             FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
             break;
         }
-        break;
-      default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
   }
