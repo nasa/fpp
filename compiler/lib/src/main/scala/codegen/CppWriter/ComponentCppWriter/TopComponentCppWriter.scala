@@ -64,17 +64,30 @@ case class TopComponentCppWriter (
     innerDefaultLines: List[Line] = Nil
   ) = {
     val sortedList = componentInstanceMapToSortedList(componentInstanceMap)
-    wrapInSwitch(
-      "instance",
-      List.concat(
-        sortedList.flatMap(writeInstanceCase (writeInnerCaseLines) (innerDefaultLines)),
-        lines(
-          """|default:
-             |  FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
-             |  break;"""
+    sortedList match {
+      case head :: Nil =>
+        // In the case of one instance, omit the instance switch
+        val (_, portNumberMap) = head
+        writePortNumSwitch (writeInnerCaseLines, innerDefaultLines, portNumberMap)
+      case _ =>
+        line("const auto instance = this->getInstance();") ::
+        wrapInSwitch(
+          "instance",
+          List.concat(
+            lines(
+              """|default:
+                 |#ifdef FW_STRICT_ASSERTIONS
+                 |  FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+                 |  break;
+                 |#else
+                 |  // Fall through
+                 |#endif"""
+
+            ),
+            sortedList.flatMap(writeInstanceCase (writeInnerCaseLines) (innerDefaultLines)),
+          )
         )
-      )
-    )
+    }
   }
 
   private def writeIsConnectedFnBody(
@@ -85,10 +98,7 @@ case class TopComponentCppWriter (
     val numPorts = numPortsConstantName(portInstance)
     List.concat(
       writePortNumAssertion(numPorts),
-      lines(
-        """|bool result = false;
-           |const auto instance = this->getInstance();"""
-      ),
+      lines("bool result = false;"),
       writeInstanceSwitch(
         componentInstanceMap,
         { case _ => lines("result = true;") }
@@ -126,7 +136,6 @@ case class TopComponentCppWriter (
     val nonVoidReturn = returnType != "void"
     List.concat(
       writePortNumAssertion(numPorts),
-      lines("const auto instance = this->getInstance();"),
       guardedList (nonVoidReturn) (lines(s"$returnType _result = {};")),
       writeInstanceSwitch(
         componentInstanceMap,
