@@ -3,6 +3,7 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 import java.lang
+import java.lang.InternalError
 
 /** An FPP value */
 sealed trait Value {
@@ -11,7 +12,8 @@ sealed trait Value {
   final def +(v: Value): Option[Value] = {
     def intOp(v1: BigInt, v2: BigInt) = v1 + v2
     def doubleOp(v1: Double, v2: Double) = v1 + v2
-    binop(Value.Binop(intOp, doubleOp))(v)
+    def stringOp(v1: java.lang.String, v2: java.lang.String) = v1.concat(v2)
+    binop(Value.Binop(intOp, doubleOp, Some(stringOp)))(v)
   }
 
   /** Check whether a value is zero for purposes of division */
@@ -280,7 +282,13 @@ object Value {
     override def toString = "\"" + value.toString + "\""
 
     override private[analysis] def binop(op: Binop)(v: Value) = v match {
-      case String(value2) => Some(String(value + value2))
+      case String(value1) => op.stringOp match {
+        case Some(stringOp) => {
+          val result = stringOp(value, value1)
+          Some(String(result))
+        }
+        case None => throw InternalError("Attempted to apply a string binary operator to strings, but no string operator was defined")
+      }
       case _ => None
     }
 
@@ -477,7 +485,9 @@ object Value {
     /** The integer operation */
     intOp: Binop.Op[BigInt], 
     /** The double-precision floating point operation */
-    doubleOp: Binop.Op[Double]
+    doubleOp: Binop.Op[Double],
+    /** The string operation */
+    stringOp: Option[Binop.Op[java.lang.String]] = None
   )
 
   private[analysis] object Binop {
