@@ -1142,10 +1142,14 @@
       
     },
     "typeMap" : {
-      "45" : {
+      "0" : {
         "Int" : {
-          "Integer" : {
-            
+          "PrimitiveInt" : {
+            "kind" : {
+              "U16" : {
+                
+              }
+            }
           }
         }
       },
@@ -1164,25 +1168,6 @@
                 }
               }
             }
-          }
-        }
-      },
-      "46" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "43" : {
-        "String" : {
-          "size" : "None"
-        }
-      },
-      "57" : {
-        "Int" : {
-          "Integer" : {
-            
           }
         }
       },
@@ -1204,18 +1189,11 @@
           }
         }
       },
-      "17" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "0" : {
+      "9" : {
         "Int" : {
           "PrimitiveInt" : {
             "kind" : {
-              "U16" : {
+              "U32" : {
                 
               }
             }
@@ -1241,6 +1219,11 @@
           "Integer" : {
             
           }
+        }
+      },
+      "43" : {
+        "String" : {
+          "size" : "None"
         }
       },
       "15" : {
@@ -1254,35 +1237,46 @@
           }
         }
       },
-      "9" : {
+      "46" : {
         "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U32" : {
-                
-              }
-            }
+          "Integer" : {
+            
+          }
+        }
+      },
+      "57" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "45" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "17" : {
+        "Int" : {
+          "Integer" : {
+            
           }
         }
       }
     },
     "useDefMap" : {
-      "4" : {
+      "5" : {
         "Port" : {
-          "nodeId" : 51,
-          "unqualifiedName" : "CmdReg"
+          "nodeId" : 50,
+          "unqualifiedName" : "Cmd"
         }
       },
       "56" : {
         "AliasType" : {
           "nodeId" : 1,
           "unqualifiedName" : "FwSizeStoreType"
-        }
-      },
-      "5" : {
-        "Port" : {
-          "nodeId" : 50,
-          "unqualifiedName" : "Cmd"
         }
       },
       "57" : {
@@ -1296,29 +1290,15 @@
           "nodeId" : 54,
           "unqualifiedName" : "CmdResponse"
         }
+      },
+      "4" : {
+        "Port" : {
+          "nodeId" : 51,
+          "unqualifiedName" : "CmdReg"
+        }
       }
     },
     "valueMap" : {
-      "45" : {
-        "Integer" : {
-          "value" : 16
-        }
-      },
-      "46" : {
-        "Integer" : {
-          "value" : 30
-        }
-      },
-      "57" : {
-        "Integer" : {
-          "value" : 256
-        }
-      },
-      "17" : {
-        "Integer" : {
-          "value" : 20
-        }
-      },
       "2" : {
         "Integer" : {
           "value" : 256
@@ -1332,6 +1312,26 @@
       "3" : {
         "Integer" : {
           "value" : 256
+        }
+      },
+      "46" : {
+        "Integer" : {
+          "value" : 30
+        }
+      },
+      "57" : {
+        "Integer" : {
+          "value" : 256
+        }
+      },
+      "45" : {
+        "Integer" : {
+          "value" : 16
+        }
+      },
+      "17" : {
+        "Integer" : {
+          "value" : 20
         }
       }
     },

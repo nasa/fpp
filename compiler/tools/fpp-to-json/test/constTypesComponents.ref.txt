@@ -790,7 +790,7 @@
     "locationSpecifierMap" : [
     ],
     "parentSymbolMap" : {
-      "37" : {
+      "36" : {
         "Module" : {
           "nodeId" : 41,
           "unqualifiedName" : "Fw"
@@ -800,6 +800,18 @@
         "Enum" : {
           "nodeId" : 4,
           "unqualifiedName" : "State"
+        }
+      },
+      "1" : {
+        "Enum" : {
+          "nodeId" : 4,
+          "unqualifiedName" : "State"
+        }
+      },
+      "37" : {
+        "Module" : {
+          "nodeId" : 41,
+          "unqualifiedName" : "Fw"
         }
       },
       "4" : {
@@ -812,18 +824,6 @@
         "Module" : {
           "nodeId" : 41,
           "unqualifiedName" : "Fw"
-        }
-      },
-      "36" : {
-        "Module" : {
-          "nodeId" : 41,
-          "unqualifiedName" : "Fw"
-        }
-      },
-      "1" : {
-        "Enum" : {
-          "nodeId" : 4,
-          "unqualifiedName" : "State"
         }
       }
     },
@@ -1011,19 +1011,13 @@
           "unqualifiedName" : "CmdReg"
         }
       },
-      "32" : {
-        "Enum" : {
-          "nodeId" : 4,
-          "unqualifiedName" : "State"
-        }
-      },
       "6" : {
         "Port" : {
           "nodeId" : 36,
           "unqualifiedName" : "Cmd"
         }
       },
-      "31" : {
+      "32" : {
         "Enum" : {
           "nodeId" : 4,
           "unqualifiedName" : "State"
@@ -1033,6 +1027,12 @@
         "Port" : {
           "nodeId" : 40,
           "unqualifiedName" : "CmdResponse"
+        }
+      },
+      "31" : {
+        "Enum" : {
+          "nodeId" : 4,
+          "unqualifiedName" : "State"
         }
       }
     },

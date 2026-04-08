@@ -2657,67 +2657,14 @@
       
     },
     "typeMap" : {
-      "141" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "166" : {
-        "Primitive" : {
-          "Float" : {
-            "kind" : {
-              "F32" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "155" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "152" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "10" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "148" : {
+      "170" : {
         "Int" : {
           "PrimitiveInt" : {
             "kind" : {
-              "I32" : {
+              "U8" : {
                 
               }
             }
-          }
-        }
-      },
-      "143" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "172" : {
-        "Int" : {
-          "Integer" : {
-            
           }
         }
       },
@@ -2741,6 +2688,20 @@
           }
         }
       },
+      "152" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "141" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
       "193" : {
         "Int" : {
           "Integer" : {
@@ -2748,7 +2709,57 @@
           }
         }
       },
-      "153" : {
+      "191" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "172" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "155" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "3" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "162" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "150" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "143" : {
         "Int" : {
           "Integer" : {
             
@@ -2766,18 +2777,32 @@
           }
         }
       },
-      "170" : {
+      "10" : {
         "Int" : {
-          "PrimitiveInt" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "153" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "166" : {
+        "Primitive" : {
+          "Float" : {
             "kind" : {
-              "U8" : {
+              "F32" : {
                 
               }
             }
           }
         }
       },
-      "162" : {
+      "148" : {
         "Int" : {
           "PrimitiveInt" : {
             "kind" : {
@@ -2787,34 +2812,27 @@
             }
           }
         }
-      },
-      "191" : {
-        "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U32" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "150" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "3" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
       }
     },
     "useDefMap" : {
+      "1" : {
+        "Port" : {
+          "nodeId" : 199,
+          "unqualifiedName" : "LogText"
+        }
+      },
+      "2" : {
+        "Port" : {
+          "nodeId" : 202,
+          "unqualifiedName" : "Time"
+        }
+      },
+      "140" : {
+        "Port" : {
+          "nodeId" : 202,
+          "unqualifiedName" : "Time"
+        }
+      },
       "139" : {
         "Port" : {
           "nodeId" : 199,
@@ -2827,62 +2845,14 @@
           "unqualifiedName" : "Log"
         }
       },
-      "1" : {
-        "Port" : {
-          "nodeId" : 199,
-          "unqualifiedName" : "LogText"
-        }
-      },
-      "140" : {
-        "Port" : {
-          "nodeId" : 202,
-          "unqualifiedName" : "Time"
-        }
-      },
       "0" : {
         "Port" : {
           "nodeId" : 198,
           "unqualifiedName" : "Log"
         }
-      },
-      "2" : {
-        "Port" : {
-          "nodeId" : 202,
-          "unqualifiedName" : "Time"
-        }
       }
     },
     "valueMap" : {
-      "141" : {
-        "Integer" : {
-          "value" : 16
-        }
-      },
-      "155" : {
-        "Integer" : {
-          "value" : 10
-        }
-      },
-      "152" : {
-        "Integer" : {
-          "value" : 10
-        }
-      },
-      "10" : {
-        "Integer" : {
-          "value" : 17
-        }
-      },
-      "143" : {
-        "Integer" : {
-          "value" : 10
-        }
-      },
-      "172" : {
-        "Integer" : {
-          "value" : 9
-        }
-      },
       "157" : {
         "AnonStruct" : {
           "members" : {
@@ -2899,14 +2869,34 @@
           }
         }
       },
+      "152" : {
+        "Integer" : {
+          "value" : 10
+        }
+      },
+      "141" : {
+        "Integer" : {
+          "value" : 16
+        }
+      },
       "193" : {
         "Integer" : {
           "value" : 6
         }
       },
-      "153" : {
+      "172" : {
+        "Integer" : {
+          "value" : 9
+        }
+      },
+      "155" : {
         "Integer" : {
           "value" : 10
+        }
+      },
+      "3" : {
+        "Integer" : {
+          "value" : 16
         }
       },
       "150" : {
@@ -2914,9 +2904,19 @@
           "value" : 2
         }
       },
-      "3" : {
+      "143" : {
         "Integer" : {
-          "value" : 16
+          "value" : 10
+        }
+      },
+      "10" : {
+        "Integer" : {
+          "value" : 17
+        }
+      },
+      "153" : {
+        "Integer" : {
+          "value" : 10
         }
       }
     },

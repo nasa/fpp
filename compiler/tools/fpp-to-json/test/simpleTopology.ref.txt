@@ -2629,22 +2629,28 @@
       }
     },
     "useDefMap" : {
+      "24" : {
+        "ComponentInstance" : {
+          "nodeId" : 18,
+          "unqualifiedName" : "c1"
+        }
+      },
+      "20" : {
+        "Component" : {
+          "nodeId" : 14,
+          "unqualifiedName" : "C"
+        }
+      },
+      "27" : {
+        "ComponentInstance" : {
+          "nodeId" : 22,
+          "unqualifiedName" : "c2"
+        }
+      },
       "12" : {
         "Port" : {
           "nodeId" : 0,
           "unqualifiedName" : "P"
-        }
-      },
-      "62" : {
-        "ComponentInstance" : {
-          "nodeId" : 18,
-          "unqualifiedName" : "c1"
-        }
-      },
-      "31" : {
-        "ComponentInstance" : {
-          "nodeId" : 18,
-          "unqualifiedName" : "c1"
         }
       },
       "58" : {
@@ -2653,16 +2659,16 @@
           "unqualifiedName" : "c2"
         }
       },
+      "62" : {
+        "ComponentInstance" : {
+          "nodeId" : 18,
+          "unqualifiedName" : "c1"
+        }
+      },
       "3" : {
         "Port" : {
           "nodeId" : 0,
           "unqualifiedName" : "P"
-        }
-      },
-      "24" : {
-        "ComponentInstance" : {
-          "nodeId" : 18,
-          "unqualifiedName" : "c1"
         }
       },
       "35" : {
@@ -2677,16 +2683,10 @@
           "unqualifiedName" : "C"
         }
       },
-      "20" : {
-        "Component" : {
-          "nodeId" : 14,
-          "unqualifiedName" : "C"
-        }
-      },
-      "27" : {
+      "31" : {
         "ComponentInstance" : {
-          "nodeId" : 22,
-          "unqualifiedName" : "c2"
+          "nodeId" : 18,
+          "unqualifiedName" : "c1"
         }
       }
     },
