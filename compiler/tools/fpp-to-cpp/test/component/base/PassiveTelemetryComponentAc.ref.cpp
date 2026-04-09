@@ -2000,7 +2000,7 @@ F32 PassiveTelemetryComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Telemetry write functions
+// Telemetry serialized write
 // ----------------------------------------------------------------------
 
 void PassiveTelemetryComponentBase ::
@@ -2028,6 +2028,10 @@ void PassiveTelemetryComponentBase ::
     );
   }
 }
+
+// ----------------------------------------------------------------------
+// Telemetry write functions
+// ----------------------------------------------------------------------
 
 void PassiveTelemetryComponentBase ::
   tlmWrite_ChannelU32Format(

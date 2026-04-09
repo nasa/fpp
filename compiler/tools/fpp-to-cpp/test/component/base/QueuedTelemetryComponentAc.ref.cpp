@@ -2950,7 +2950,7 @@ F32 QueuedTelemetryComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Telemetry write functions
+// Telemetry serialized write
 // ----------------------------------------------------------------------
 
 void QueuedTelemetryComponentBase ::
@@ -2978,6 +2978,10 @@ void QueuedTelemetryComponentBase ::
     );
   }
 }
+
+// ----------------------------------------------------------------------
+// Telemetry write functions
+// ----------------------------------------------------------------------
 
 void QueuedTelemetryComponentBase ::
   tlmWrite_ChannelU32Format(

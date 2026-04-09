@@ -2950,7 +2950,7 @@ F32 ActiveTelemetryComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Telemetry write functions
+// Telemetry serialized write
 // ----------------------------------------------------------------------
 
 void ActiveTelemetryComponentBase ::
@@ -2978,6 +2978,10 @@ void ActiveTelemetryComponentBase ::
     );
   }
 }
+
+// ----------------------------------------------------------------------
+// Telemetry write functions
+// ----------------------------------------------------------------------
 
 void ActiveTelemetryComponentBase ::
   tlmWrite_ChannelU32Format(

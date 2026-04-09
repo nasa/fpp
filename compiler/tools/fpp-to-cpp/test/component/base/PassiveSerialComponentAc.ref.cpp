@@ -4099,7 +4099,7 @@ void PassiveSerialComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Telemetry write functions
+// Telemetry serialized write
 // ----------------------------------------------------------------------
 
 void PassiveSerialComponentBase ::
@@ -4127,6 +4127,10 @@ void PassiveSerialComponentBase ::
     );
   }
 }
+
+// ----------------------------------------------------------------------
+// Telemetry write functions
+// ----------------------------------------------------------------------
 
 void PassiveSerialComponentBase ::
   tlmWrite_ChannelU32Format(

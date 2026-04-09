@@ -6037,7 +6037,7 @@ namespace M {
   }
 
   // ----------------------------------------------------------------------
-  // Telemetry write functions
+  // Telemetry serialized write
   // ----------------------------------------------------------------------
 
   void ActiveTestComponentBase ::
@@ -6065,6 +6065,10 @@ namespace M {
       );
     }
   }
+
+  // ----------------------------------------------------------------------
+  // Telemetry write functions
+  // ----------------------------------------------------------------------
 
   void ActiveTestComponentBase ::
     tlmWrite_ChannelU32Format(

@@ -32,8 +32,11 @@ case class ComponentTelemetry (
   }
 
   def getFunctionMembers: List[CppDoc.Class.Member] = {
-    if sortedChannels.nonEmpty then getWriteFunctions
-    else Nil
+    if !hasChannels then Nil
+    else List(
+      getSerializedWriteFunction,
+      getWriteFunctions,
+    ).flatten
   }
 
   def getVariableMembers: List[CppDoc.Class.Member] = {
@@ -74,7 +77,7 @@ case class ComponentTelemetry (
     )
   }
 
-  private def getSerializedWriteFunction: CppDoc.Class.Member = {
+  private def getSerializedWriteFunction: List[CppDoc.Class.Member] = {
     val body = intersperseBlankLines(
       List(
         wrapInIf(
@@ -106,7 +109,7 @@ case class ComponentTelemetry (
       )
     )
 
-    functionClassMember(
+    val writeTelemetrySerial = functionClassMember(
       Some(
         "Write telemetry channel given its local id and serialized value.\n" +
         "On change telemetry channel semantics are ignored",
@@ -134,6 +137,12 @@ case class ComponentTelemetry (
       body,
       CppDoc.Function.NonSV,
       CppDoc.Function.Const
+    )
+
+    addAccessTagAndComment(
+      "protected",
+      "Telemetry serialized write",
+      if !hasChannels then Nil else List(writeTelemetrySerial)
     )
   }
 
@@ -208,7 +217,7 @@ case class ComponentTelemetry (
     addAccessTagAndComment(
       "protected",
       "Telemetry write functions",
-      getSerializedWriteFunction :: sortedChannels.map((_, channel) =>
+      sortedChannels.map((_, channel) =>
         functionClassMember(
           Some(
             addSeparatedString(

@@ -4345,7 +4345,7 @@ void PassiveTestComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Telemetry write functions
+// Telemetry serialized write
 // ----------------------------------------------------------------------
 
 void PassiveTestComponentBase ::
@@ -4373,6 +4373,10 @@ void PassiveTestComponentBase ::
     );
   }
 }
+
+// ----------------------------------------------------------------------
+// Telemetry write functions
+// ----------------------------------------------------------------------
 
 void PassiveTestComponentBase ::
   tlmWrite_ChannelU32Format(

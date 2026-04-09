@@ -1823,7 +1823,7 @@ class PassiveTestComponentBase :
   protected:
 
     // ----------------------------------------------------------------------
-    // Telemetry write functions
+    // Telemetry serialized write
     // ----------------------------------------------------------------------
 
     //! Write telemetry channel given its local id and serialized value.
@@ -1833,6 +1833,12 @@ class PassiveTestComponentBase :
         Fw::TlmBuffer& value, //!< The serialized telemetry value
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
     ) const;
+
+  protected:
+
+    // ----------------------------------------------------------------------
+    // Telemetry write functions
+    // ----------------------------------------------------------------------
 
     //! Write telemetry channel ChannelU32Format
     //!

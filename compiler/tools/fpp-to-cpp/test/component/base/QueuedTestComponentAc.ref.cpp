@@ -6035,7 +6035,7 @@ void QueuedTestComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Telemetry write functions
+// Telemetry serialized write
 // ----------------------------------------------------------------------
 
 void QueuedTestComponentBase ::
@@ -6063,6 +6063,10 @@ void QueuedTestComponentBase ::
     );
   }
 }
+
+// ----------------------------------------------------------------------
+// Telemetry write functions
+// ----------------------------------------------------------------------
 
 void QueuedTestComponentBase ::
   tlmWrite_ChannelU32Format(

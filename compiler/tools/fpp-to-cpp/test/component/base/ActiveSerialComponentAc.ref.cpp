@@ -6131,7 +6131,7 @@ void ActiveSerialComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Telemetry write functions
+// Telemetry serialized write
 // ----------------------------------------------------------------------
 
 void ActiveSerialComponentBase ::
@@ -6159,6 +6159,10 @@ void ActiveSerialComponentBase ::
     );
   }
 }
+
+// ----------------------------------------------------------------------
+// Telemetry write functions
+// ----------------------------------------------------------------------
 
 void ActiveSerialComponentBase ::
   tlmWrite_ChannelU32Format(
