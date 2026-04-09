@@ -32,7 +32,8 @@ case class ComponentTelemetry (
   }
 
   def getFunctionMembers: List[CppDoc.Class.Member] = {
-    getWriteFunctions
+    if sortedChannels.nonEmpty then getWriteFunctions
+    else Nil
   }
 
   def getVariableMembers: List[CppDoc.Class.Member] = {
@@ -70,6 +71,69 @@ case class ComponentTelemetry (
         }),
         CppDoc.Lines.Hpp
       )
+    )
+  }
+
+  private def getSerializedWriteFunction: CppDoc.Class.Member = {
+    val body = intersperseBlankLines(
+      List(
+        wrapInIf(
+          s"this->${portVariableName(tlmPort.get)}[0].isConnected()",
+          List.concat(
+            lines(
+              s"""|if (
+                  |  this->${portVariableName(timeGetPort.get)}[0].isConnected() &&
+                  |  (_tlmTime ==  Fw::ZERO_TIME)
+                  |) {
+                  |  this->${portVariableName(timeGetPort.get)}[0].invoke(_tlmTime);
+                  |}
+                  |"""
+            ),
+            lines(
+              s"""|FwChanIdType _id;
+                  |
+                  |_id = this->getIdBase() + id;
+                  |
+                  |this->${portVariableName(tlmPort.get)}[0].invoke(
+                  |  _id,
+                  |  _tlmTime,
+                  |  value
+                  |);
+                  |"""
+            )
+          )
+        )
+      )
+    )
+
+    functionClassMember(
+      Some(
+        "Write telemetry channel given its local id and serialized value.\n" +
+        "On change telemetry channel semantics are ignored",
+      ),
+      "tlmWrite",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("FwChanIdType"),
+          "id",
+          Some("The channel id")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::TlmBuffer&"),
+          "value",
+          Some("The serialized telemetry value")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::Time"),
+          "_tlmTime",
+          Some("Timestamp. Default: unspecified, request from getTime port"),
+          Some("Fw::Time()")
+        )
+      ),
+      CppDoc.Type("void"),
+      body,
+      CppDoc.Function.NonSV,
+      CppDoc.Function.Const
     )
   }
 
@@ -144,7 +208,7 @@ case class ComponentTelemetry (
     addAccessTagAndComment(
       "protected",
       "Telemetry write functions",
-      sortedChannels.map((_, channel) =>
+      getSerializedWriteFunction :: sortedChannels.map((_, channel) =>
         functionClassMember(
           Some(
             addSeparatedString(

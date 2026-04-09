@@ -2004,6 +2004,32 @@ F32 PassiveTelemetryComponentBase ::
 // ----------------------------------------------------------------------
 
 void PassiveTelemetryComponentBase ::
+  tlmWrite(
+      FwChanIdType id,
+      Fw::TlmBuffer& value,
+      Fw::Time _tlmTime
+  ) const
+{
+  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+    if (
+      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      (_tlmTime ==  Fw::ZERO_TIME)
+    ) {
+      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+    }
+    FwChanIdType _id;
+
+    _id = this->getIdBase() + id;
+
+    this->m_tlmOut_OutputPort[0].invoke(
+      _id,
+      _tlmTime,
+      value
+    );
+  }
+}
+
+void PassiveTelemetryComponentBase ::
   tlmWrite_ChannelU32Format(
       U32 arg,
       Fw::Time _tlmTime

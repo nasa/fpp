@@ -1445,6 +1445,14 @@ class QueuedTelemetryComponentBase :
     // Telemetry write functions
     // ----------------------------------------------------------------------
 
+    //! Write telemetry channel given its local id and serialized value.
+    //! On change telemetry channel semantics are ignored
+    void tlmWrite(
+        FwChanIdType id, //!< The channel id
+        Fw::TlmBuffer& value, //!< The serialized telemetry value
+        Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
+    ) const;
+
     //! Write telemetry channel ChannelU32Format
     //!
     //! A telemetry channel with U32 data and format string
