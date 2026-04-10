@@ -180,11 +180,10 @@ constant a = { x = 1, y = 2.0 } # Type is { x: Integer, y: F64 }
 constant b = { x = 1, x = 2 } # Error
 ----
 
-
 === Unary Negation Expressions
 
 To type a
-<<Expressions_Unary-Expressions,unary
+<<Expressions_Unary-Negation-Expressions,unary
 negation expression>> `-` stem:[e], the semantic analyzer does the following:
 
 . Compute the type stem:[T] of stem:[e].

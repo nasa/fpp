@@ -25,9 +25,9 @@ stem:[e_1] and stem:[e_2] (strings)
 A binary expression must have a valid 
 <<Type-Checking_Binary-Expressions,type>>.
 
-A binary expression stem:[e = e_1] _op_ stem:[e_2] is evaluated as follows:
+A binary expression stem:[e_1] _op_ stem:[e_2] is evaluated as follows:
 
-. Let _T_ be the type of stem:[e].
+. Let _T_ be the type of the expression.
 
 . Evaluate stem:[e_1] to a value stem:[v_1].
 <<Type-Checking_Type-Conversion,Convert>>
@@ -48,15 +48,15 @@ to compute the result of stem:[v'_1] _op_ stem:[v'_2].
 Form the string consisting of the characters
 of stem:[v'_1] followed by the characters of stem:[v'_2].
 
-==== Examples
+*Examples:*
 
 [source,fpp]
 ----
-constant a = 2 + 3  # a has the value 5
-constant b = a * -1 # b has the value -5
+constant a = 2 + 3  # a has value 5
+constant b = a * -1 # b has value -5
 
-constant s1 = "a" + "b" + "c"     # s1 has the value "abc"
-constant s2 = "hello " + s1 + "!" # s2 has the value "hello abc!"
+constant s1 = "a" + "b" + "c"     # s1 has value "abc"
+constant s2 = "hello " + s1 + "!" # s2 has value "hello abc!"
 
 constant c = 1 + "2" # Error: cannot add number and string
 ----

@@ -1,25 +1,22 @@
-=== Unary Expressions
+=== Unary Negation Expressions
 
-FPP includes the following *unary expression*:
+A *unary negation expression* is an expression that negates
+a numeric value.
 
-[cols=",",options="header",]
-|======================================
-|Syntax
-|Meaning
+==== Syntax
 
-|`-` stem:[e]
-|Negate stem:[e]
+`-` <<Expressions,_expression_>>
 
-|======================================
+==== Semantics
 
-The expression stem:[e] must have
-<<Types_Internal-Types_Numeric-Types,numeric type>>.
+The entire expression must have a valid
+<<Type-Checking_Unary-Negation-Expressions,type>>.
 Evaluation is by integer or floating-point negation, depending on the
-<<Type-Checking,type of _e_>>.
+type of the expression.
 
 ==== Example
 
 [source,fpp]
 ----
-constant a = -1
+constant a = -1 # a has value -1
 ----

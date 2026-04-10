@@ -848,11 +848,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Expressions_Array-Subscript-Expressions_Example">10.2.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Binary-Expressions">10.3. Binary Expressions</a>
-<ul class="sectlevel3">
-<li><a href="#Expressions_Binary-Expressions_Examples">10.3.1. Examples</a></li>
-</ul>
-</li>
+<li><a href="#Expressions_Binary-Expressions">10.3. Binary Expressions</a></li>
 <li><a href="#Expressions_Boolean-Literals">10.4. Boolean Literals</a></li>
 <li><a href="#Expressions_Dot-Expressions">10.5. Dot Expressions</a>
 <ul class="sectlevel3">
@@ -891,9 +887,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Expressions_Struct-Expressions_Example">10.12.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Unary-Expressions">10.13. Unary Expressions</a>
+<li><a href="#Expressions_Unary-Negation-Expressions">10.13. Unary Negation Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Unary-Expressions_Example">10.13.1. Example</a></li>
+<li><a href="#Expressions_Unary-Negation-Expressions_Syntax">10.13.1. Syntax</a></li>
+<li><a href="#Expressions_Unary-Negation-Expressions_Semantics">10.13.2. Semantics</a></li>
+<li><a href="#Expressions_Unary-Negation-Expressions_Example">10.13.3. Example</a></li>
 </ul>
 </li>
 <li><a href="#Expressions_Precedence-and-Associativity">10.14. Precedence and Associativity</a></li>
@@ -9275,12 +9273,12 @@ constant e = [ 0, 1, 2 ][3] # error, index is out of bounds (past end)</code></p
 <a href="#Type-Checking_Binary-Expressions">type</a>.</p>
 </div>
 <div class="paragraph">
-<p>A binary expression \$e = e_1\$ <em>op</em> \$e_2\$ is evaluated as follows:</p>
+<p>A binary expression \$e_1\$ <em>op</em> \$e_2\$ is evaluated as follows:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Let <em>T</em> be the type of \$e\$.</p>
+<p>Let <em>T</em> be the type of the expression.</p>
 </li>
 <li>
 <p>Evaluate \$e_1\$ to a value \$v_1\$.
@@ -9308,18 +9306,18 @@ of \$v'_1\$ followed by the characters of \$v'_2\$.</p>
 </li>
 </ol>
 </div>
-<div class="sect3">
-<h4 id="Expressions_Binary-Expressions_Examples">10.3.1. Examples</h4>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 2 + 3  # a has the value 5
-constant b = a * -1 # b has the value -5
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 2 + 3  # a has value 5
+constant b = a * -1 # b has value -5
 
-constant s1 = "a" + "b" + "c"     # s1 has the value "abc"
-constant s2 = "hello " + s1 + "!" # s2 has the value "hello abc!"
+constant s1 = "a" + "b" + "c"     # s1 has value "abc"
+constant s2 = "hello " + s1 + "!" # s2 has value "hello abc!"
 
 constant c = 1 + "2" # Error: cannot add number and string</code></pre>
-</div>
 </div>
 </div>
 </div>
@@ -9819,39 +9817,31 @@ constant s = {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Unary-Expressions">10.13. Unary Expressions</h3>
+<h3 id="Expressions_Unary-Negation-Expressions">10.13. Unary Negation Expressions</h3>
 <div class="paragraph">
-<p>FPP includes the following <strong>unary expression</strong>:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Syntax</th>
-<th class="tableblock halign-left valign-top">Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-</code> \$e\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Negate \$e\$</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>The expression \$e\$ must have
-<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
-Evaluation is by integer or floating-point negation, depending on the
-<a href="#Type-Checking">type of <em>e</em></a>.</p>
+<p>A <strong>unary negation expression</strong> is an expression that negates
+a numeric value.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Unary-Expressions_Example">10.13.1. Example</h4>
+<h4 id="Expressions_Unary-Negation-Expressions_Syntax">10.13.1. Syntax</h4>
+<div class="paragraph">
+<p><code>-</code> <a href="#Expressions"><em>expression</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Unary-Negation-Expressions_Semantics">10.13.2. Semantics</h4>
+<div class="paragraph">
+<p>The entire expression must have a valid
+<a href="#Type-Checking_Unary-Negation-Expressions">type</a>.
+Evaluation is by integer or floating-point negation, depending on the
+type of the expression.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Unary-Negation-Expressions_Example">10.13.3. Example</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant a = -1</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = -1 # a has value -1</code></pre>
 </div>
 </div>
 </div>
@@ -11679,7 +11669,7 @@ constant b = { x = 1, x = 2 } # Error</code></pre>
 <h3 id="Type-Checking_Unary-Negation-Expressions">18.11. Unary Negation Expressions</h3>
 <div class="paragraph">
 <p>To type a
-<a href="#Expressions_Unary-Expressions">unary
+<a href="#Expressions_Unary-Negation-Expressions">unary
 negation expression</a> <code>-</code> \$e\$, the semantic analyzer does the following:</p>
 </div>
 <div class="olist arabic">
@@ -13077,7 +13067,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-10 16:09:30 -0700
+Last updated 2026-04-10 16:19:33 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
