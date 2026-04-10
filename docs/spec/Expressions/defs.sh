@@ -20,5 +20,6 @@ Parenthesis-Expressions.adoc
 Sizeof-Expressions.adoc
 String-Literals.adoc
 Struct-Expressions.adoc
+Unary-Expressions.adoc
 Precedence-and-Associativity.adoc
 "

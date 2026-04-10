@@ -850,9 +850,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#Expressions_Binary-Expressions">10.3. Binary Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Binary-Expressions_Arithmetic-Expressions">10.3.1. Arithmetic Expressions</a></li>
-<li><a href="#Expressions_Binary-Expressions_String-Concatenation">10.3.2. String Concatenation</a></li>
-<li><a href="#Expressions_Binary-Expressions_Examples">10.3.3. Examples</a></li>
+<li><a href="#Expressions_Binary-Expressions_Examples">10.3.1. Examples</a></li>
 </ul>
 </li>
 <li><a href="#Expressions_Boolean-Literals">10.4. Boolean Literals</a></li>
@@ -893,7 +891,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Expressions_Struct-Expressions_Example">10.12.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Precedence-and-Associativity">10.13. Precedence and Associativity</a></li>
+<li><a href="#Expressions_Unary-Expressions">10.13. Unary Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Expressions_Unary-Expressions_Example">10.13.1. Example</a></li>
+</ul>
+</li>
+<li><a href="#Expressions_Precedence-and-Associativity">10.14. Precedence and Associativity</a></li>
 </ul>
 </li>
 <li><a href="#Formal-Parameter-Lists">11. Formal Parameter Lists</a>
@@ -996,7 +999,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Type-Checking_Sizeof-Expressions">18.9. Sizeof Expressions</a></li>
 <li><a href="#Type-Checking_Struct-Expressions">18.10. Struct Expressions</a></li>
 <li><a href="#Type-Checking_Unary-Negation-Expressions">18.11. Unary Negation Expressions</a></li>
-<li><a href="#Type-Checking_Binary-Arithmetic-Expressions">18.12. Binary Arithmetic Expressions</a></li>
+<li><a href="#Type-Checking_Binary-Expressions">18.12. Binary Expressions</a></li>
 <li><a href="#Type-Checking_Parenthesis-Expressions">18.13. Parenthesis Expressions</a></li>
 <li><a href="#Type-Checking_Identical-Types">18.14. Identical Types</a></li>
 <li><a href="#Type-Checking_Type-Conversion">18.15. Type Conversion</a></li>
@@ -9249,12 +9252,9 @@ constant e = [ 0, 1, 2 ][3] # error, index is out of bounds (past end)</code></p
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-</code> \$e\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Negate \$e\$</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>+</code> \$e_2\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Add \$e_1\$ and \$e_2\$, or concatenate strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add \$e_1\$ and \$e_2\$ (numbers) or concatenate
+\$e_1\$ and \$e_2\$ (strings)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>-</code> \$e_2\$</p></td>
@@ -9270,34 +9270,55 @@ constant e = [ 0, 1, 2 ][3] # error, index is out of bounds (past end)</code></p
 </tr>
 </tbody>
 </table>
-<div class="sect3">
-<h4 id="Expressions_Binary-Expressions_Arithmetic-Expressions">10.3.1. Arithmetic Expressions</h4>
 <div class="paragraph">
-<p>For <code>-</code>, <code>+</code>, <code>-</code>, <code>*</code>, and <code>/</code>, each subexpression must have
-<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>. Evaluation is by either
-standard integer arithmetic or standard floating-point arithmetic, depending on
-the <a href="#Type-Checking">type of the expression</a>.</p>
+<p>A binary expression must have a valid
+<a href="#Type-Checking_Binary-Expressions">type</a>.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Binary-Expressions_String-Concatenation">10.3.2. String Concatenation</h4>
 <div class="paragraph">
-<p>For <code>+</code> with operands of <a href="#Type-Names_String-Type-Names">string type</a>,
-both \$e_1\$ and \$e_2\$ must have string type. The value of the expression
-is the string formed by appending the characters of \$e_2\$ to the characters
-of \$e_1\$.</p>
+<p>A binary expression \$e = e_1\$ <em>op</em> \$e_2\$ is evaluated as follows:</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let <em>T</em> be the type of \$e\$.</p>
+</li>
+<li>
+<p>Evaluate \$e_1\$ to a value \$v_1\$.
+<a href="#Type-Checking_Type-Conversion">Convert</a>
+\$v_1\$ to a value \$v'_1\$ of type <em>T</em>.</p>
+</li>
+<li>
+<p>Evaluate \$e_2\$ to a value \$v_2\$.
+<a href="#Type-Checking_Type-Conversion">Convert</a>
+\$v_2\$ to a value \$v'_2\$ of type <em>T</em>.</p>
+</li>
+<li>
+<p>If <em>T</em> is an <a href="#Types_Internal-Types_Integer-Types">integer type</a>, then use
+integer arithmetic to compute the result of \$v'_1\$ <em>op</em> \$v'_2\$.</p>
+</li>
+<li>
+<p>Otherwise if <em>T</em> is a <a href="#Types_Floating-Point-Types">floating-point type</a>,
+then use floating-point arithmetic
+to compute the result of \$v'_1\$ <em>op</em> \$v'_2\$.</p>
+</li>
+<li>
+<p>Otherwise <em>op</em> is <code>+</code>, and <em>T</em> is a string type.
+Form the string consisting of the characters
+of \$v'_1\$ followed by the characters of \$v'_2\$.</p>
+</li>
+</ol>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Binary-Expressions_Examples">10.3.3. Examples</h4>
+<h4 id="Expressions_Binary-Expressions_Examples">10.3.1. Examples</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant a = -1
-constant b = 2 + 3
-constant c = a * b
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 2 + 3  # a has the value 5
+constant b = a * -1 # b has the value -5
 
-constant s1 = "a" + "b" + "c"     # value is "abc"
-constant s2 = "hello " + s1 + "!" # value is "hello abc!"</code></pre>
+constant s1 = "a" + "b" + "c"     # s1 has the value "abc"
+constant s2 = "hello " + s1 + "!" # s2 has the value "hello abc!"
+
+constant c = 1 + "2" # Error: cannot add number and string</code></pre>
 </div>
 </div>
 </div>
@@ -9798,7 +9819,45 @@ constant s = {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Precedence-and-Associativity">10.13. Precedence and Associativity</h3>
+<h3 id="Expressions_Unary-Expressions">10.13. Unary Expressions</h3>
+<div class="paragraph">
+<p>FPP includes the following <strong>unary expression</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Syntax</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-</code> \$e\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Negate \$e\$</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The expression \$e\$ must have
+<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
+Evaluation is by integer or floating-point negation, depending on the
+<a href="#Type-Checking">type of <em>e</em></a>.</p>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Unary-Expressions_Example">10.13.1. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = -1</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Precedence-and-Associativity">10.14. Precedence and Associativity</h3>
 <div class="paragraph">
 <p>Ambiguity in parsing expressions is resolved with the following
 precedence table. Expressions appearing earlier in the table
@@ -11620,7 +11679,7 @@ constant b = { x = 1, x = 2 } # Error</code></pre>
 <h3 id="Type-Checking_Unary-Negation-Expressions">18.11. Unary Negation Expressions</h3>
 <div class="paragraph">
 <p>To type a
-<a href="#Expressions_Binary-Expressions">unary
+<a href="#Expressions_Unary-Expressions">unary
 negation expression</a> <code>-</code> \$e\$, the semantic analyzer does the following:</p>
 </div>
 <div class="olist arabic">
@@ -11656,26 +11715,20 @@ constant f = -true # Error</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Binary-Arithmetic-Expressions">18.12. Binary Arithmetic Expressions</h3>
+<h3 id="Type-Checking_Binary-Expressions">18.12. Binary Expressions</h3>
 <div class="paragraph">
-<p>To type a
-<a href="#Expressions_Binary-Expressions">binary
-arithmetic expression</a> \$e_1\$ <em>op</em> \$e_2\$, the semantic analyzer does
-the following:</p>
+<p>To type a <a href="#Expressions_Binary-Expressions">binary expression</a> \$e_1\$ <em>op</em>
+\$e_2\$, the semantic analyzer does the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If <em>op</em> is <code>+</code> and both \$e_1\$ and \$e_2\$ have
-<a href="#Type-Names_String-Type-Names">string type</a>, then the expression has
-string type and denotes
-<a href="#Expressions_Binary-Expressions">string concatenation</a>.</p>
+<p>Compute the <a href="#Type-Checking_Computing-a-Common-Type">common type</a> \$T\$ of
+\$e_1\$ and \$e_2\$.</p>
 </li>
 <li>
-<p>Otherwise compute the common type \$T\$ of \$e_1\$ and \$e_2\$.</p>
-</li>
-<li>
-<p>If \$T\$ is a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, then use \$T\$.</p>
+<p>If \$T\$ is a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>
+or a <a href="#Types_String-Types">string type</a>, then use \$T\$.</p>
 </li>
 <li>
 <p>Otherwise if \$T\$ <a href="#Type-Checking_Type-Conversion">may be converted to</a>
@@ -12336,12 +12389,6 @@ can hold a maximum string length of <em>n</em>.
 If this happens, the framework will <strong>truncate</strong> the value <em>v</em>
 to <em>n</em> characters before storing it.
 That means that the first <em>n</em> characters of <em>v</em> are stored in the buffer.</p>
-</div>
-<div class="paragraph">
-<p>A string value may be denoted by a
-<a href="#Expressions_String-Literals">string literal expression</a>
-or produced by a
-<a href="#Expressions_Binary-Expressions">string concatenation expression</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -13030,7 +13077,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-10 13:48:09 -0700
+Last updated 2026-04-10 16:09:30 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

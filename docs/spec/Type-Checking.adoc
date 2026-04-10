@@ -184,7 +184,7 @@ constant b = { x = 1, x = 2 } # Error
 === Unary Negation Expressions
 
 To type a
-<<Expressions_Binary-Expressions,unary
+<<Expressions_Unary-Expressions,unary
 negation expression>> `-` stem:[e], the semantic analyzer does the following:
 
 . Compute the type stem:[T] of stem:[e].
@@ -209,21 +209,16 @@ constant e = -E.X # Type is Integer
 constant f = -true # Error
 ----
 
-=== Binary Arithmetic Expressions
+=== Binary Expressions
 
-To type a
-<<Expressions_Binary-Expressions,binary
-arithmetic expression>> stem:[e_1] _op_ stem:[e_2], the semantic analyzer does
-the following:
+To type a <<Expressions_Binary-Expressions,binary expression>> stem:[e_1] _op_
+stem:[e_2], the semantic analyzer does the following:
 
-. If _op_ is `+` and both stem:[e_1] and stem:[e_2] have
-<<Type-Names_String-Type-Names,string type>>, then the expression has
-string type and denotes
-<<Expressions_Binary-Expressions,string concatenation>>.
+. Compute the <<Type-Checking_Computing-a-Common-Type,common type>> stem:[T] of 
+  stem:[e_1] and stem:[e_2].
 
-. Otherwise compute the common type stem:[T] of stem:[e_1] and stem:[e_2].
-
-. If stem:[T] is a <<Types_Internal-Types_Numeric-Types,numeric type>>, then use stem:[T].
+. If stem:[T] is a <<Types_Internal-Types_Numeric-Types,numeric type>>
+or a <<Types_String-Types,string type>>, then use stem:[T].
 
 . Otherwise if stem:[T] <<Type-Checking_Type-Conversion,may be converted to>>
 _Integer_, then use _Integer_.

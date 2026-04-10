@@ -7,11 +7,9 @@ FPP includes the following *binary expressions*:
 |Syntax
 |Meaning
 
-|`-` stem:[e]
-|Negate stem:[e]
-
 |stem:[e_1] `+` stem:[e_2]
-|Add stem:[e_1] and stem:[e_2], or concatenate strings
+|Add stem:[e_1] and stem:[e_2] (numbers) or concatenate
+stem:[e_1] and stem:[e_2] (strings)
 
 |stem:[e_1] `-` stem:[e_2]
 |Subtract stem:[e_2] from stem:[e_1]
@@ -24,28 +22,41 @@ FPP includes the following *binary expressions*:
 
 |======================================
 
-==== Arithmetic Expressions
+A binary expression must have a valid 
+<<Type-Checking_Binary-Expressions,type>>.
 
-For `-`, `+`, `-`, `*`, and `/`, each subexpression must have
-<<Types_Internal-Types_Numeric-Types,numeric type>>. Evaluation is by either
-standard integer arithmetic or standard floating-point arithmetic, depending on
-the <<Type-Checking,type of the expression>>.
+A binary expression stem:[e = e_1] _op_ stem:[e_2] is evaluated as follows:
 
-==== String Concatenation
+. Let _T_ be the type of stem:[e].
 
-For `+` with operands of <<Type-Names_String-Type-Names,string type>>,
-both stem:[e_1] and stem:[e_2] must have string type. The value of the expression
-is the string formed by appending the characters of stem:[e_2] to the characters
-of stem:[e_1].
+. Evaluate stem:[e_1] to a value stem:[v_1].
+<<Type-Checking_Type-Conversion,Convert>>
+stem:[v_1] to a value stem:[v'_1] of type _T_.
+
+. Evaluate stem:[e_2] to a value stem:[v_2].
+<<Type-Checking_Type-Conversion,Convert>>
+stem:[v_2] to a value stem:[v'_2] of type _T_.
+
+. If _T_ is an <<Types_Internal-Types_Integer-Types,integer type>>, then use 
+integer arithmetic to compute the result of stem:[v'_1] _op_ stem:[v'_2].
+
+. Otherwise if _T_ is a <<Types_Floating-Point-Types,floating-point type>>, 
+then use floating-point arithmetic
+to compute the result of stem:[v'_1] _op_ stem:[v'_2].
+
+. Otherwise _op_ is `pass:[+]`, and _T_ is a string type.
+Form the string consisting of the characters
+of stem:[v'_1] followed by the characters of stem:[v'_2].
 
 ==== Examples
 
 [source,fpp]
 ----
-constant a = -1
-constant b = 2 + 3
-constant c = a * b
+constant a = 2 + 3  # a has the value 5
+constant b = a * -1 # b has the value -5
 
-constant s1 = "a" + "b" + "c"     # value is "abc"
-constant s2 = "hello " + s1 + "!" # value is "hello abc!"
+constant s1 = "a" + "b" + "c"     # s1 has the value "abc"
+constant s2 = "hello " + s1 + "!" # s2 has the value "hello abc!"
+
+constant c = 1 + "2" # Error: cannot add number and string
 ----

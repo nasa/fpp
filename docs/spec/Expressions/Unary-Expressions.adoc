@@ -1,0 +1,25 @@
+=== Unary Expressions
+
+FPP includes the following *unary expression*:
+
+[cols=",",options="header",]
+|======================================
+|Syntax
+|Meaning
+
+|`-` stem:[e]
+|Negate stem:[e]
+
+|======================================
+
+The expression stem:[e] must have
+<<Types_Internal-Types_Numeric-Types,numeric type>>.
+Evaluation is by integer or floating-point negation, depending on the
+<<Type-Checking,type of _e_>>.
+
+==== Example
+
+[source,fpp]
+----
+constant a = -1
+----
