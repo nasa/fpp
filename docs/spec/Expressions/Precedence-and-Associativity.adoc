@@ -21,7 +21,10 @@ associativity for resolving expressions with equal precedence.
 |Multiplication expressions stem:[e_1] `*` stem:[e_2] and division expressions stem:[e_1] `/` stem:[e_2]
 |Left
 
-|Addition expressions stem:[e_1] `+` stem:[e_2] (<<Expressions_Arithmetic-Expressions, arithmetic addition>> or <<Expressions_String-Concatenation-Expressions, string concatenation>>) and subtraction expressions stem:[e_1] `-` stem:[e_2]
+|Addition expressions stem:[e_1] `+` stem:[e_2] 
+(<<Expressions_Binary-Expressions,arithmetic addition>> or 
+<<Expressions_Binary-Expressions, string concatenation>>) and subtraction 
+expressions stem:[e_1] `-` stem:[e_2]
 |Left
 
 |======================================

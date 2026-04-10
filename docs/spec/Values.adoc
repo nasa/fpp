@@ -109,7 +109,7 @@ That means that the first _n_ characters of _v_ are stored in the buffer.
 A string value may be denoted by a
 <<Expressions_String-Literals, string literal expression>>
 or produced by a
-<<Expressions_String-Concatenation-Expressions, string concatenation expression>>.
+<<Expressions_Binary-Expressions, string concatenation expression>>.
 
 === Abstract Type Values
 

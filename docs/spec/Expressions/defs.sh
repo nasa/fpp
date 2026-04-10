@@ -8,9 +8,9 @@ redo-ifchange defs.sh
 
 export FILES="
 Introduction.adoc
-Arithmetic-Expressions.adoc
 Array-Expressions.adoc
 Array-Subscript-Expressions.adoc
+Binary-Expressions.adoc
 Boolean-Literals.adoc
 Dot-Expressions.adoc
 Floating-Point-Literals.adoc

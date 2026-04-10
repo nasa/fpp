@@ -184,7 +184,7 @@ constant b = { x = 1, x = 2 } # Error
 === Unary Negation Expressions
 
 To type a
-<<Expressions_Arithmetic-Expressions,unary
+<<Expressions_Binary-Expressions,unary
 negation expression>> `-` stem:[e], the semantic analyzer does the following:
 
 . Compute the type stem:[T] of stem:[e].
@@ -212,14 +212,14 @@ constant f = -true # Error
 === Binary Arithmetic Expressions
 
 To type a
-<<Expressions_Arithmetic-Expressions,binary
+<<Expressions_Binary-Expressions,binary
 arithmetic expression>> stem:[e_1] _op_ stem:[e_2], the semantic analyzer does
 the following:
 
 . If _op_ is `+` and both stem:[e_1] and stem:[e_2] have
 <<Type-Names_String-Type-Names,string type>>, then the expression has
 string type and denotes
-<<Expressions_String-Concatenation-Expressions,string concatenation>>.
+<<Expressions_Binary-Expressions,string concatenation>>.
 
 . Otherwise compute the common type stem:[T] of stem:[e_1] and stem:[e_2].
 

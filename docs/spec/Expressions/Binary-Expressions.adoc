@@ -1,6 +1,3 @@
-[[Expressions_Binary-Expressions]]
-[[Expressions_Arithmetic-Expressions]]
-[[Expressions_String-Concatenation-Expressions]]
 === Binary Expressions
 
 FPP includes the following *binary expressions*:
