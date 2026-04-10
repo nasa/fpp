@@ -112,7 +112,9 @@ case class ComponentTelemetry (
     val writeTelemetrySerial = functionClassMember(
       Some(
         "Write telemetry channel given its local id and serialized value.\n" +
-        "On change telemetry channel semantics are ignored",
+        "Warning: This is a low level telemetry interface that does not guarentee channel type safety.\n" +
+        "         It is up to the caller to make sure the serialized data matches the definition in the model.\n" +
+        "         Update on change semantics are ignored, this telemetry is always written"
       ),
       "tlmWrite",
       List(
