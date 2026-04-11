@@ -462,7 +462,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Constants_Expressions_Struct-Members">3.3.6. Struct Members</a></li>
 <li><a href="#Defining-Constants_Expressions_Name-Expressions">3.3.7. Name Expressions</a></li>
 <li><a href="#Defining-Constants_Expressions_Value-Arithmetic-Expressions">3.3.8. Value Arithmetic Expressions</a></li>
-<li><a href="#Defining-Constants_Expressions_String-Concatenation">3.3.9. String Concatenation</a></li>
+<li><a href="#Defining-Constants_Expressions_String-Concatenation-Expressions">3.3.9. String Concatenation Expressions</a></li>
 <li><a href="#Defining-Constants_Expressions_Compound-Expressions">3.3.10. Compound Expressions</a></li>
 </ul>
 </li>
@@ -1615,14 +1615,6 @@ It is one of the following:</p>
 </div>
 </div>
 </li>
-<li>
-<p>A parenthesis expression, for example:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant a = (1)</code></pre>
-</div>
-</div>
-</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -1631,7 +1623,7 @@ It is one of the following:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The subexpressions must be integer or floating-point values.</p>
+<p>The subexpressions must evaluate to integer or floating-point values.</p>
 </li>
 <li>
 <p>If there are any floating-point subexpressions, then the entire expression is
@@ -1647,27 +1639,21 @@ floating-point values) very close to zero.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>For the use of <code>+</code> with string operands, see
-<a href="#Defining-Constants_Expressions_String-Concatenation">String Concatenation</a> below.</p>
-</div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Constants_Expressions_String-Concatenation">3.3.9. String Concatenation</h4>
+<h4 id="Defining-Constants_Expressions_String-Concatenation-Expressions">3.3.9. String Concatenation Expressions</h4>
 <div class="paragraph">
-<p>You can use the <code>+</code> operator to concatenate two string values.
-Both operands must have string type. The result is a string formed
-by appending the second operand to the first. For example:</p>
+<p>A <strong>string concatenation expression</strong> concatenates strings.
+To write a string concatenation expression, you use the symbol <code>+</code>.
+This is the same symbol as for
+<a href="#Defining-Constants_Expressions_Value-Arithmetic-Expressions">addition</a>,
+except that it operates on strings instead of numbers.
+For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant c = "a" + "b" + "c" # value is "abc"
-constant a = "hello " + c + "!" # value is "hello abc!"</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = "hello " + "there!" # value of a is "hello there!"</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>Since <code>+</code> is left-associative, <code>"a" + "b" + "c"</code> is evaluated as
-<code>("a" + "b") + "c"</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1675,6 +1661,7 @@ constant a = "hello " + c + "!" # value is "hello abc!"</code></pre>
 <div class="paragraph">
 <p>Wherever you can write a value inside an expression, you can write
 a more complex expression there, so long as the types work out.
+You can also use parentheses in the usual way to group subexpressions.
 For example, these expressions are valid:</p>
 </div>
 <div class="listingblock">
@@ -17112,7 +17099,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-11 14:11:48 -0700
+Last updated 2026-04-11 15:26:26 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
