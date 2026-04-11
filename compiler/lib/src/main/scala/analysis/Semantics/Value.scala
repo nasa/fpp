@@ -2,8 +2,6 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
-import java.lang
-import java.lang.InternalError
 
 /** An FPP value */
 sealed trait Value {
@@ -271,6 +269,11 @@ object Value {
   /** String values */
   case class String(value: java.lang.String) extends Value {
 
+    override private[analysis] def binop(op: Binop)(v: Value) = v match {
+      case String(value1) => op.stringOpOpt.map(_(value, value1)).map(String(_))
+      case _ => None
+    }
+
     override def convertToDistinctType(t: Type) =
       t.getUnderlyingType match {
         case Type.String(_) => Some(this)
@@ -280,17 +283,6 @@ object Value {
     override def getType = Type.String(None)
 
     override def toString = "\"" + value.toString + "\""
-
-    override private[analysis] def binop(op: Binop)(v: Value) = v match {
-      case String(value1) => op.stringOp match {
-        case Some(stringOp) => {
-          val result = stringOp(value, value1)
-          Some(String(result))
-        }
-        case None => throw InternalError("Attempted to apply a string binary operator to strings, but no string operator was defined")
-      }
-      case _ => None
-    }
 
   }
 
@@ -486,8 +478,8 @@ object Value {
     intOp: Binop.Op[BigInt], 
     /** The double-precision floating point operation */
     doubleOp: Binop.Op[Double],
-    /** The string operation */
-    stringOp: Option[Binop.Op[java.lang.String]] = None
+    /** The optional string operation */
+    stringOpOpt: Option[Binop.Op[java.lang.String]] = None
   )
 
   private[analysis] object Binop {
