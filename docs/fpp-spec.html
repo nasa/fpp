@@ -848,7 +848,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Expressions_Array-Subscript-Expressions_Example">10.2.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Binary-Expressions">10.3. Binary Expressions</a></li>
+<li><a href="#Expressions_Binary-Expressions">10.3. Binary Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Expressions_Binary-Expressions_Syntax">10.3.1. Syntax</a></li>
+<li><a href="#Expressions_Binary-Expressions_Semantics">10.3.2. Semantics</a></li>
+<li><a href="#Expressions_Binary-Expressions_Examples">10.3.3. Examples</a></li>
+</ul>
+</li>
 <li><a href="#Expressions_Boolean-Literals">10.4. Boolean Literals</a></li>
 <li><a href="#Expressions_Dot-Expressions">10.5. Dot Expressions</a>
 <ul class="sectlevel3">
@@ -9235,7 +9241,18 @@ constant e = [ 0, 1, 2 ][3] # error, index is out of bounds (past end)</code></p
 <div class="sect2">
 <h3 id="Expressions_Binary-Expressions">10.3. Binary Expressions</h3>
 <div class="paragraph">
-<p>FPP includes the following <strong>binary expressions</strong>:</p>
+<p>A <strong>binary expression</strong> is an expression that performs arithmetic
+on numbers or concatenates strings.</p>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Binary-Expressions_Syntax">10.3.1. Syntax</h4>
+<div class="paragraph">
+<p><a href="#Expressions"><em>expression</em></a>
+<em>op</em>
+<a href="#Expressions"><em>expression</em></a></p>
+</div>
+<div class="paragraph">
+<p><em>op</em> is one of the following:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -9250,24 +9267,26 @@ constant e = [ 0, 1, 2 ][3] # error, index is out of bounds (past end)</code></p
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>+</code> \$e_2\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Add \$e_1\$ and \$e_2\$ (numbers) or concatenate
-\$e_1\$ and \$e_2\$ (strings)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>+</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Addition (numbers) or concatenation (strings)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>-</code> \$e_2\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Subtract \$e_2\$ from \$e_1\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Subtraction</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>*</code> \$e_2\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Multiply \$e_1\$ by \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Multiplication</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>/</code> \$e_2\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Divide \$e_1\$ by \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Division</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Binary-Expressions_Semantics">10.3.2. Semantics</h4>
 <div class="paragraph">
 <p>A binary expression must have a valid
 <a href="#Type-Checking_Binary-Expressions">type</a>.</p>
@@ -9300,15 +9319,17 @@ then use floating-point arithmetic
 to compute the result of \$v'_1\$ <em>op</em> \$v'_2\$.</p>
 </li>
 <li>
-<p>Otherwise <em>op</em> is <code>+</code>, and <em>T</em> is a string type.
-Form the string consisting of the characters
+<p>Otherwise <em>op</em> is <code>+</code>, and <em>T</em> is a <a href="#Types_String-Types">string
+type</a>.
+Form the <a href="#Values_String-Values">string value</a>
+consisting of the characters
 of \$v'_1\$ followed by the characters of \$v'_2\$.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p><strong>Examples:</strong></p>
 </div>
+<div class="sect3">
+<h4 id="Expressions_Binary-Expressions_Examples">10.3.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = 2 + 3  # a has value 5
@@ -9317,7 +9338,8 @@ constant b = a * -1 # b has value -5
 constant s1 = "a" + "b" + "c"     # s1 has value "abc"
 constant s2 = "hello " + s1 + "!" # s2 has value "hello abc!"
 
-constant c = 1 + "2" # Error: cannot add number and string</code></pre>
+constant c = 1 + "2" # Error: cannot add Integer and string</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -13067,7 +13089,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-11 14:11:05 -0700
+Last updated 2026-04-11 14:33:00 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

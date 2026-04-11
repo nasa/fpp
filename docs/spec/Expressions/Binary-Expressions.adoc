@@ -1,26 +1,37 @@
 === Binary Expressions
 
-FPP includes the following *binary expressions*:
+A *binary expression* is an expression that performs arithmetic
+on numbers or concatenates strings.
+
+==== Syntax
+
+<<Expressions,_expression_>>
+_op_
+<<Expressions,_expression_>>
+
+
+_op_ is one of the following:
 
 [cols=",",options="header",]
 |======================================
 |Syntax
 |Meaning
 
-|stem:[e_1] `+` stem:[e_2]
-|Add stem:[e_1] and stem:[e_2] (numbers) or concatenate
-stem:[e_1] and stem:[e_2] (strings)
+|`+`
+|Addition (numbers) or concatenation (strings)
 
-|stem:[e_1] `-` stem:[e_2]
-|Subtract stem:[e_2] from stem:[e_1]
+|`-`
+|Subtraction
 
-|stem:[e_1] `*` stem:[e_2]
-|Multiply stem:[e_1] by stem:[e_2]
+|`*`
+|Multiplication
 
-|stem:[e_1] `/` stem:[e_2]
-|Divide stem:[e_1] by stem:[e_2]
+|`/`
+|Division
 
 |======================================
+
+==== Semantics
 
 A binary expression must have a valid 
 <<Type-Checking_Binary-Expressions,type>>.
@@ -44,11 +55,13 @@ integer arithmetic to compute the result of stem:[v'_1] _op_ stem:[v'_2].
 then use floating-point arithmetic
 to compute the result of stem:[v'_1] _op_ stem:[v'_2].
 
-. Otherwise _op_ is `pass:[+]`, and _T_ is a string type.
-Form the string consisting of the characters
+. Otherwise _op_ is `pass:[+]`, and _T_ is a <<Types_String-Types,string 
+type>>.
+Form the <<Values_String-Values,string value>>
+consisting of the characters
 of stem:[v'_1] followed by the characters of stem:[v'_2].
 
-*Examples:*
+==== Examples
 
 [source,fpp]
 ----
@@ -58,5 +71,5 @@ constant b = a * -1 # b has value -5
 constant s1 = "a" + "b" + "c"     # s1 has value "abc"
 constant s2 = "hello " + s1 + "!" # s2 has value "hello abc!"
 
-constant c = 1 + "2" # Error: cannot add number and string
+constant c = 1 + "2" # Error: cannot add Integer and string
 ----
