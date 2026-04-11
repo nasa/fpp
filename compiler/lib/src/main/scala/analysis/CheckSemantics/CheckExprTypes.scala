@@ -485,12 +485,16 @@ object CheckExprTypes extends UseAnalyzer {
     }
   }
   
-  private def convertToNumericOrString(loc: Location, t: Type): Result.Result[Type] = {
-    t match {
-      case _: Type.String => Right(t)
-      case _ if t.isNumeric => Right(t)
-      case _ if t.isConvertibleTo(Type.Integer) => Right(Type.Integer)
-      case _ => Left(SemanticError.InvalidType(loc, s"cannot convert $t to a numeric or string type"))
+  private def convertToNumericOrString(loc: Location, t: Type): Result.Result[Type] =
+    (t, convertToNumeric(loc, t)) match {
+      case (_, Right(t1)) => Right(t1)
+      case (_: Type.String, _) => Right(t)
+      case _ =>
+        val error = SemanticError.InvalidType(
+          loc,
+          s"cannot convert $t to a numeric or string type"
+        )
+        Left(error)
     }
-  }
+
 }

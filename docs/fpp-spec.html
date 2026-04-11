@@ -11739,12 +11739,16 @@ constant f = -true # Error</code></pre>
 \$e_1\$ and \$e_2\$.</p>
 </li>
 <li>
-<p>If \$T\$ is a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>
-or a <a href="#Types_String-Types">string type</a>, then use \$T\$.</p>
+<p>If \$T\$ is a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>,
+then use \$T\$.</p>
 </li>
 <li>
 <p>Otherwise if \$T\$ <a href="#Type-Checking_Type-Conversion">may be converted to</a>
 <em>Integer</em>, then use <em>Integer</em>.</p>
+</li>
+<li>
+<p>Otherwise if <em>op</em> is <code>+</code> and \$T\$ is a
+<a href="#Types_String-Types">string type</a>, then use \$T\$.</p>
 </li>
 <li>
 <p>Otherwise throw an error.</p>
@@ -13089,7 +13093,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-11 14:33:00 -0700
+Last updated 2026-04-11 14:39:13 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
