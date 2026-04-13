@@ -77,7 +77,7 @@ Definitions inside expanded templates will be entered using the following algori
 i.e., a component instance definition, topology definition,
 or template interface parameter.
 
-.... Add an interface template parameter refering to _P~V~_ to _S~P~_.
+.... Add an interface template parameter referring to _P~V~_ to _S~P~_.
 
 .. Create a new scope _S~D~_.
 
@@ -123,7 +123,7 @@ template MT(
     instance comStub: Svc.ComStub base id \
         base_id + 0x0800
 
-    toplogy T {
+    topology T {
         instance comStub
 
         # TODO(tumbar) What is this? Do we need it

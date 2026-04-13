@@ -4,25 +4,21 @@
 
 A *qualified identifier* is one of the following:
 
-* _relative-qualident_
-
-* _absolute-qualident_
-
-
-_relative-qualident_ is one of the following:
-
 * _<<Lexical-Elements_Identifiers,identifier>>_
 
-* _relative-qualident_ `.` _<<Lexical-Elements_Identifiers,identifier>>_
+* `.` _<<Lexical-Elements_Identifiers,identifier>>_
 
-_absolute-qualident_ is the following:
+* _qualified-identifier_ `.` _<<Lexical-Elements_Identifiers,identifier>>_
 
-* `.` _relative-qualident_
+Therefore every qualified identifier consists of an optional dot `.` followed
+by a nonempty list of identifiers separated by dots.
 
-The form _relative-qualident_ is called a *relative qualified identifier*.
+A qualified identifier that begins with an identifier is called a *relative 
+qualified identifier*.
 It specifies a qualified name relative to an enclosing scope.
 
-The form _absolute-qualident_ is called an *absolute qualified identifier*.
+A qualified identifier that begins with a dot is called an *absolute qualified 
+identifier*.
 It specifies a qualified name without reference to an enclosing scope.
 
 *Examples of relative qualified identifiers:*
@@ -296,27 +292,25 @@ module M {
 
 The following rules govern the resolution of
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifiers>>, i.e.,
-associating qualified identifiers with definitions:
+associating qualified identifiers _Q_ with definitions:
 
-. If a qualified identifier is an identifier, then resolve it as
-stated in the
+. If _Q_ is an identifier _I_, then resolve _I_ as stated in the
 <<Scoping-of-Names_Resolution-of-Identifiers,previous section>>.
 
-. If a qualified identifier is of the form `.` _I_, then resolve it as
-stated in the
-<<Scoping-of-Names_Resolution-of-Identifiers,previous section>> as if _I_ were
-appearing at the top level.
+. Otherwise if _Q_ has the form `.` _I_, then resolve _Q_ as
+if it were _I_ appearing at the top level.
 
-. If a qualified identifier is of the form _Q_ `.` _I_, where
-_Q_ is a qualified identifier and _I_ is an identifier. Do the
+. Otherwise _Q_ has the form _Q'_ `.` _I_, where
+_Q'_ is a qualified identifier and _I_ is an identifier. Do the
 following:
 
-.. Recursively resolve _Q_.
+.. Recursively resolve _Q'_.
 
-.. If _Q_ refers to a <<Definitions,definition>> _D_
+.. If _Q'_ refers to a <<Definitions,definition>> _D_
 with a brace-delimited body, then do the following:
 
-... Determine the <<Scoping-of-Names_Name-Groups,name group>> _S_ of _Q_ `.`
+... Determine the <<Scoping-of-Names_Name-Groups,name group>> _S_ of _Q'_ 
+`.`
 _I_.
 
 ... Look in _D_ for a definition with identifier _I_ in name group _S_.
@@ -324,11 +318,11 @@ _I_.
 
 .. Otherwise the qualified identifier is invalid. Issue an error.
 
-
 *Example:*
 
 [source,fpp]
 ----
+constant a = 0
 module M {
   constant a = 0
   enum E {
@@ -341,5 +335,6 @@ module M {
   constant g = M.a # Refers to M.a
   constant h = E.b # Refers to M.E.b
   constant i = M.E.b # Refers to M.E.b
+  constant j = .a # Refers to a
 }
 ----
