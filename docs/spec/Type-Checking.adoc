@@ -180,11 +180,10 @@ constant a = { x = 1, y = 2.0 } # Type is { x: Integer, y: F64 }
 constant b = { x = 1, x = 2 } # Error
 ----
 
-
 === Unary Negation Expressions
 
 To type a
-<<Expressions_Arithmetic-Expressions,unary
+<<Expressions_Unary-Negation-Expressions,unary
 negation expression>> `-` stem:[e], the semantic analyzer does the following:
 
 . Compute the type stem:[T] of stem:[e].
@@ -209,19 +208,22 @@ constant e = -E.X # Type is Integer
 constant f = -true # Error
 ----
 
-=== Binary Arithmetic Expressions
+=== Binary Expressions
 
-To type a
-<<Expressions_Arithmetic-Expressions,binary
-arithmetic expression>> stem:[e_1] _op_ stem:[e_2], the semantic analyzer does
-the following:
+To type a <<Expressions_Binary-Expressions,binary expression>> stem:[e_1] _op_
+stem:[e_2], the semantic analyzer does the following:
 
-. Compute the common type stem:[T] of stem:[e_1] and stem:[e_2].
+. Compute the <<Type-Checking_Computing-a-Common-Type,common type>> stem:[T] of 
+  stem:[e_1] and stem:[e_2].
 
-. If stem:[T] is a <<Types_Internal-Types_Numeric-Types,numeric type>>, then use stem:[T].
+. If stem:[T] is a <<Types_Internal-Types_Numeric-Types,numeric type>>,
+then use stem:[T].
 
 . Otherwise if stem:[T] <<Type-Checking_Type-Conversion,may be converted to>>
 _Integer_, then use _Integer_.
+
+. Otherwise if _op_ is `pass:[+]` and stem:[T] is a
+<<Types_String-Types,string type>>, then use stem:[T].
 
 . Otherwise throw an error.
 
@@ -235,6 +237,7 @@ constant c = -0xFFFFFFFF # Type is Integer
 enum E { X = 1, Y = 2 }
 constant d = X + Y # Type is Integer
 constant e = true + "abcd" # Error
+constant f = "ab" + "cd" # Type is String
 ----
 
 === Parenthesis Expressions
