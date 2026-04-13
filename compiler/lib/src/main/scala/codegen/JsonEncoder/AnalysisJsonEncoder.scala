@@ -95,8 +95,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
       Json.obj(
         map.toList
           .map { case (k, v) => (ke(k), ve(v)) }
-          .sortBy(_._1)
-          .map { case (k, v) => (k, v) }: _*
+          .sortBy(_._1): _*
       )
     }
   
