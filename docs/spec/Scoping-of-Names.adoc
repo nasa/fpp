@@ -4,27 +4,42 @@
 
 A *qualified identifier* is one of the following:
 
-1. _Q_
+* _relative-qualident_
 
-2. `.` _Q_
+* _absolute-qualident_
 
-where _Q_ is one of the following:
 
-1.  An
-<<Lexical-Elements_Identifiers,identifier>>.
+_relative-qualident_ is one of the following:
 
-2.  _Q_ `.` _I_.
+* _<<Lexical-Elements_Identifiers,identifier>>_
 
-A qualified identifier _Q_ is *scope relative*.
-A qualified identifier `.` _Q_ is *absolute*.
+* _relative-qualident_ `.` _<<Lexical-Elements_Identifiers,identifier>>_
 
-Examples:
+_absolute-qualident_ is the following:
+
+* `.` _relative-qualident_
+
+The form _relative-qualident_ is called a *relative qualified identifier*.
+It specifies a qualified name relative to an enclosing scope.
+
+The form _absolute-qualident_ is called an *absolute qualified identifier*.
+It specifies a qualified name without reference to an enclosing scope.
+
+*Examples of relative qualified identifiers:*
 
 [source,fpp]
 ----
 a
 a.b
 a.b.c
+----
+
+*Examples of absolute qualified identifiers:*
+
+[source,fpp]
+----
+.a
+.a.b
 .a.b.c
 ----
 

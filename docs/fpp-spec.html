@@ -10701,42 +10701,64 @@ directory in the environment where the analysis occurs.</p>
 <div class="paragraph">
 <p>A <strong>qualified identifier</strong> is one of the following:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="ulist">
+<ul>
 <li>
-<p><em>Q</em></p>
+<p><em>relative-qualident</em></p>
 </li>
 <li>
-<p><code>.</code> <em>Q</em></p>
+<p><em>absolute-qualident</em></p>
 </li>
-</ol>
+</ul>
 </div>
 <div class="paragraph">
-<p>where <em>Q</em> is one of the following:</p>
+<p><em>relative-qualident</em> is one of the following:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="ulist">
+<ul>
 <li>
-<p>An
-<a href="#Lexical-Elements_Identifiers">identifier</a>.</p>
+<p><em><a href="#Lexical-Elements_Identifiers">identifier</a></em></p>
 </li>
 <li>
-<p><em>Q</em> <code>.</code> <em>I</em>.</p>
+<p><em>relative-qualident</em> <code>.</code> <em><a href="#Lexical-Elements_Identifiers">identifier</a></em></p>
 </li>
-</ol>
+</ul>
 </div>
 <div class="paragraph">
-<p>A qualified identifier <em>Q</em> is <strong>scope relative</strong>.
-A qualified identifier <code>.</code> <em>Q</em> is <strong>absolute</strong>.</p>
+<p><em>absolute-qualident</em> is the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>.</code> <em>relative-qualident</em></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Examples:</p>
+<p>The form <em>relative-qualident</em> is called a <strong>relative qualified identifier</strong>.
+It specifies a qualified name relative to an enclosing scope.</p>
+</div>
+<div class="paragraph">
+<p>The form <em>absolute-qualident</em> is called an <strong>absolute qualified identifier</strong>.
+It specifies a qualified name without reference to an enclosing scope.</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples of relative qualified identifiers:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">a
 a.b
-a.b.c
+a.b.c</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Examples of absolute qualified identifiers:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">.a
+.a.b
 .a.b.c</code></pre>
 </div>
 </div>
@@ -13463,7 +13485,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-13 11:29:06 -0700
+Last updated 2026-04-13 11:55:56 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
