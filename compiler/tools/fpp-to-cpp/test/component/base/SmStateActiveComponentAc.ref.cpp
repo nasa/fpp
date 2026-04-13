@@ -9,7 +9,7 @@
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
-#include "base/SmStateActiveComponentAc.hpp"
+#include "SmStateActiveComponentAc.hpp"
 
 namespace FppTest {
 

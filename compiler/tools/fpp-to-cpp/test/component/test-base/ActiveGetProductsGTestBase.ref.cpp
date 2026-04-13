@@ -4,7 +4,7 @@
 // \brief  cpp file for ActiveGetProducts component Google Test harness base class
 // ======================================================================
 
-#include "test-base/ActiveGetProductsGTestBase.hpp"
+#include "ActiveGetProductsGTestBase.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

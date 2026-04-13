@@ -296,7 +296,13 @@ representation type of _T_.
 
 * If _T_ is a
 <<Types_Struct-Types,struct type>>, then _s_
-the sum of the serialized sizes of the types in the members of _T_
+the sum of the serialized sizes of the members of _T_.
+For each member _m_ with type stem:[T_m]:
+
+** If _m_ has size _n_, then the serialized size of
+   _m_ is _n_ times the serialized size of stem:[T_m].
+
+** Otherwise the serialized size of _m_ is the serialized size of stem:[T_m].
 
 * If _T_ is an
 <<Types_Alias-Types,alias type>>, then _s_ is the serialized size of the

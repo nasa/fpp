@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>The F Prime Prime (FPP) Language Specification, Unreleased, after v3.1.0</title>
+<title>The F Prime Prime (FPP) Language Specification, v3.2.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) Language Specification, Unreleased, after v3.1.0</h1>
+<h1>The F Prime Prime (FPP) Language Specification, v3.2.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -11767,7 +11767,19 @@ representation type of <em>T</em>.</p>
 <li>
 <p>If <em>T</em> is a
 <a href="#Types_Struct-Types">struct type</a>, then <em>s</em>
-the sum of the serialized sizes of the types in the members of <em>T</em></p>
+the sum of the serialized sizes of the members of <em>T</em>.
+For each member <em>m</em> with type \$T_m\$:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If <em>m</em> has size <em>n</em>, then the serialized size of
+<em>m</em> is <em>n</em> times the serialized size of \$T_m\$.</p>
+</li>
+<li>
+<p>Otherwise the serialized size of <em>m</em> is the serialized size of \$T_m\$.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>If <em>T</em> is an
@@ -13451,7 +13463,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-18 13:08:58 -0700
+Last updated 2026-04-13 11:15:22 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

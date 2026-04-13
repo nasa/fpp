@@ -7,8 +7,8 @@
 #ifndef PassiveGetProductPortsOnlyGTestBase_HPP
 #define PassiveGetProductPortsOnlyGTestBase_HPP
 
+#include "PassiveGetProductPortsOnlyTesterBase.hpp"
 #include "gtest/gtest.h"
-#include "test-base/PassiveGetProductPortsOnlyTesterBase.hpp"
 
 //! \class PassiveGetProductPortsOnlyGTestBase
 //! \brief Auto-generated base for PassiveGetProductPortsOnly component Google Test harness

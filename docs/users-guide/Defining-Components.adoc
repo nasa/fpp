@@ -49,7 +49,7 @@ element sequence>> with a semicolon as the optional
 terminating punctuation.
 The following sections describe the available component members
 except for importing port interfaces, which we describe in 
-<<Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Interface-Definitions,
+<<Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Component-Definitions,
 a separate section>>.
 
 === Port Instances
@@ -403,7 +403,7 @@ By using serial ports, you can send several unrelated types
 of data over the same port connection.
 This technique is useful when communicating across
 a network: on each side of the network connection, a single component
-can act as a hub that routs all data to and from components
+can act as a hub that routes all data to and from components
 on that side.
 This flexibility comes at the cost that you lose the type
 compile-time type checking provided by port connections with named types.

@@ -4,7 +4,7 @@
 // \brief  cpp file for ActiveNoArgsPortsOnly component Google Test harness base class
 // ======================================================================
 
-#include "test-base/ActiveNoArgsPortsOnlyGTestBase.hpp"
+#include "ActiveNoArgsPortsOnlyGTestBase.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

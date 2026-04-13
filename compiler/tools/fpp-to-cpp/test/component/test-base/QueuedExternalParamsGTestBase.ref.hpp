@@ -7,8 +7,8 @@
 #ifndef QueuedExternalParamsGTestBase_HPP
 #define QueuedExternalParamsGTestBase_HPP
 
+#include "QueuedExternalParamsTesterBase.hpp"
 #include "gtest/gtest.h"
-#include "test-base/QueuedExternalParamsTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Macros for typed user from port history assertions

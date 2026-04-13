@@ -13,7 +13,7 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/QueuedNoArgsPortsOnlyComponentAc.hpp"
+#include "QueuedNoArgsPortsOnlyComponentAc.hpp"
 
 //! \class QueuedNoArgsPortsOnlyTesterBase
 //! \brief Auto-generated base for QueuedNoArgsPortsOnly component test harness

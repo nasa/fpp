@@ -9,12 +9,12 @@
 
 #include <cstdio>
 
+#include "ActiveAsyncProductsComponentAc.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Dp/test/util/DpContainerHeader.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/ActiveAsyncProductsComponentAc.hpp"
 
 //! \class ActiveAsyncProductsTesterBase
 //! \brief Auto-generated base for ActiveAsyncProducts component test harness

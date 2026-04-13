@@ -7,8 +7,8 @@
 #ifndef ActiveTelemetryGTestBase_HPP
 #define ActiveTelemetryGTestBase_HPP
 
+#include "ActiveTelemetryTesterBase.hpp"
 #include "gtest/gtest.h"
-#include "test-base/ActiveTelemetryTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Macros for typed user from port history assertions

@@ -13,7 +13,7 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/PassiveSyncProductPortsOnlyComponentAc.hpp"
+#include "PassiveSyncProductPortsOnlyComponentAc.hpp"
 
 //! \class PassiveSyncProductPortsOnlyTesterBase
 //! \brief Auto-generated base for PassiveSyncProductPortsOnly component test harness
