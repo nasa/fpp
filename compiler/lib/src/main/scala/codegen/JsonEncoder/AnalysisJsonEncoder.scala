@@ -61,7 +61,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
   }
 
   // Sorts maps with symbol keys by node ID before encoding as JSON
-  implicit def symbolMapEncoder[K <: Symbol, V](implicit
+  private implicit def symbolMapEncoder[K <: Symbol, V](implicit
     ke: KeyEncoder[K],
     ve: Encoder[V]
   ): Encoder[Map[K, V]] =
@@ -74,7 +74,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
     }
 
   // Sorts maps with AST node ID keys before encoding as JSON
-  implicit def astNodeIdMapEncoder[V](implicit
+  private implicit def astNodeIdMapEncoder[V](implicit
     ke: KeyEncoder[AstNode.Id],
     ve: Encoder[V]
   ): Encoder[Map[AstNode.Id, V]] =
@@ -98,7 +98,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
           .sortBy(_._1): _*
       )
     }
-  
+
   // JSON encoder for component instances
   // Use the default Circe encoding, but replace the component instance
   // with its AST node. We can use the ID to look up the component
@@ -111,7 +111,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
     }
 
   // Dictionary encoder that omits the reverseTlmChannelEntryMap
-  implicit val dictionaryEncoder: Encoder[Dictionary] = 
+  private implicit val dictionaryEncoder: Encoder[Dictionary] =
       Encoder.instance { d =>
         io.circe.Json.obj(
           "usedSymbolSet" -> d.usedSymbolSet.asJson,
@@ -126,19 +126,19 @@ object AnalysisJsonEncoder extends JsonEncoder{
       }
 
   // Encoder for converting node ID keys to strings
-  implicit val astNodeIdKeyEncoder: KeyEncoder[AstNode.Id] =
+  private implicit val astNodeIdKeyEncoder: KeyEncoder[AstNode.Id] =
     KeyEncoder.instance(_.toString)
 
   // Encoder for converting BigInt keys to strings
-  implicit val bigIntKeyEncoder: KeyEncoder[BigInt] = 
+  private implicit val bigIntKeyEncoder: KeyEncoder[BigInt] =
     KeyEncoder.instance(_.toString)
 
   // Encoder for converting node ID keys to strings
-  implicit def stateMachineSymbolKeyEncoder[A <: StateMachineSymbol]: KeyEncoder[A]=
+  private implicit def stateMachineSymbolKeyEncoder[A <: StateMachineSymbol]: KeyEncoder[A]=
     KeyEncoder.instance(_.getNodeId.toString)
 
   // Encoder for converting symbol keys to node ID strings
-  implicit def symbolKeyEncoder[A <: Symbol]: KeyEncoder[A] =
+  private implicit def symbolKeyEncoder[A <: Symbol]: KeyEncoder[A] =
     KeyEncoder.instance(_.getNodeId.toString)
 
   // ----------------------------------------------------------------------
@@ -257,7 +257,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
   // We use this conversion when the keys cannot be converted to strings
   // ----------------------------------------------------------------------
 
-  implicit val locationComparator: java.util.Comparator[Location] =
+  private implicit val locationComparator: java.util.Comparator[Location] =
     new java.util.Comparator[Location] {
       override def compare(o1: Location, o2: Location): Int =
         o1.compare(o2)
