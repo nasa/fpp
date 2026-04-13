@@ -7,15 +7,127 @@
 #ifndef PrimitivePortAc_HPP
 #define PrimitivePortAc_HPP
 
-#include <cstdio>
-#include <cstring>
-
-#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#include "Fw/Types/Serializable.hpp"
+#if !FW_DIRECT_PORT_CALLS
+#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
-#include "Fw/Types/Serializable.hpp"
-#include "Fw/Types/String.hpp"
+#endif
+
+//! Serialization buffer for Primitive port
+//! A port with primitive parameters
+class PrimitivePortBuffer :
+  public Fw::LinearBufferBase
+{
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public constants for PrimitivePortBuffer
+    // ----------------------------------------------------------------------
+
+    //! The buffer capacity. This is the sum of the static serialized
+    //! sizes of the port arguments.
+    static constexpr FwSizeType CAPACITY =
+      sizeof(U32) +
+      sizeof(U32) +
+      sizeof(F32) +
+      sizeof(F32) +
+      sizeof(U8) +
+      sizeof(U8);
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for PrimitivePortBuffer
+    // ----------------------------------------------------------------------
+
+    //! Get the capacity of the buffer
+    //! \return The capacity
+    Fw::Serializable::SizeType getCapacity() const override {
+      return CAPACITY;
+    }
+
+    //! Get the buffer address (non-const)
+    //! \return The buffer address
+    U8* getBuffAddr() override {
+      return m_buff;
+    }
+
+    //! Get the buffer address (const)
+    //! \return The buffer address
+    const U8* getBuffAddr() const override {
+      return m_buff;
+    }
+
+  private:
+
+    // ----------------------------------------------------------------------
+    // Private member variables
+    // ----------------------------------------------------------------------
+
+    U8 m_buff[CAPACITY];
+
+};
+
+//! Serializer for Primitive port
+//! A port with primitive parameters
+class PrimitivePortSerializer {
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public constructors for PrimitivePortSerializer
+    // ----------------------------------------------------------------------
+
+    //! Constructor
+    PrimitivePortSerializer();
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for PrimitivePortSerializer
+    // ----------------------------------------------------------------------
+
+    //! Deserialze port arguments into members
+    Fw::SerializeStatus deserializePortArgs(
+        Fw::SerialBufferBase& _buffer //!< The serial buffer
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public static functions for PrimitivePortSerializer
+    // ----------------------------------------------------------------------
+
+    //! Serialize port arguments into a buffer
+    static Fw::SerializeStatus serializePortArgs(
+        U32 u32,
+        U32& u32Ref,
+        F32 f32,
+        F32& f32Ref,
+        bool b,
+        bool& bRef,
+        Fw::SerialBufferBase& _buffer //!< The serial buffer
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member variables for PrimitivePortSerializer
+    // ----------------------------------------------------------------------
+
+    U32 m_u32;
+    U32 m_u32Ref;
+    F32 m_f32;
+    F32 m_f32Ref;
+    bool m_b;
+    bool m_bRef;
+
+};
+
+#if !FW_DIRECT_PORT_CALLS
 
 //! Input Primitive port
 //! A port with primitive parameters
@@ -26,24 +138,7 @@ class InputPrimitivePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Constants
-    // ----------------------------------------------------------------------
-
-    enum {
-      //! The size of the serial representations of the port arguments
-      SERIALIZED_SIZE =
-        sizeof(U32) +
-        sizeof(U32) +
-        sizeof(F32) +
-        sizeof(F32) +
-        sizeof(U8) +
-        sizeof(U8)
-    };
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Types
+    // Public types for InputPrimitivePort
     // ----------------------------------------------------------------------
 
     //! The port callback function type
@@ -61,11 +156,17 @@ class InputPrimitivePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Input Port Member functions
+    // Public constructors for InputPrimitivePort
     // ----------------------------------------------------------------------
 
     //! Constructor
     InputPrimitivePort();
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for InputPrimitivePort
+    // ----------------------------------------------------------------------
 
     //! Initialization function
     void init();
@@ -88,17 +189,24 @@ class InputPrimitivePort :
 
   private:
 
+    // ----------------------------------------------------------------------
+    // Private member functions for InputPrimitivePort
+    // ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
     //! Invoke the port with serialized arguments
-    Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer);
+    //! \return The serialize status
+    Fw::SerializeStatus invokeSerial(
+        Fw::LinearBufferBase& _buffer //!< The serial buffer
+    );
 
 #endif
 
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables
+    // Private member variables for InputPrimitivePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function
@@ -115,11 +223,17 @@ class OutputPrimitivePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Output Port Member functions
+    // Public constructors for OutputPrimitivePort
     // ----------------------------------------------------------------------
 
     //! Constructor
     OutputPrimitivePort();
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for OutputPrimitivePort
+    // ----------------------------------------------------------------------
 
     //! Initialization function
     void init();
@@ -129,7 +243,7 @@ class OutputPrimitivePort :
         InputPrimitivePort* callPort //!< The input port
     );
 
-    //! Invoke a port interface
+    //! Invoke a port connection
     void invoke(
         U32 u32,
         U32& u32Ref,
@@ -142,12 +256,14 @@ class OutputPrimitivePort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables
+    // Private member variables for OutputPrimitivePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the input port
     InputPrimitivePort* m_port;
 
 };
+
+#endif
 
 #endif
