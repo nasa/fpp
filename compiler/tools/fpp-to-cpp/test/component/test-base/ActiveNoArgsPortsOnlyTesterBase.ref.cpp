@@ -350,7 +350,7 @@ U32 ActiveNoArgsPortsOnlyTesterBase ::
 // ----------------------------------------------------------------------
 
 bool ActiveNoArgsPortsOnlyTesterBase ::
-  isConnected_to_noArgsAsync(FwIndexType portNum)
+  isConnected_to_noArgsAsync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsAsync()),
@@ -361,7 +361,7 @@ bool ActiveNoArgsPortsOnlyTesterBase ::
 }
 
 bool ActiveNoArgsPortsOnlyTesterBase ::
-  isConnected_to_noArgsGuarded(FwIndexType portNum)
+  isConnected_to_noArgsGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsGuarded()),
@@ -372,7 +372,7 @@ bool ActiveNoArgsPortsOnlyTesterBase ::
 }
 
 bool ActiveNoArgsPortsOnlyTesterBase ::
-  isConnected_to_noArgsReturnGuarded(FwIndexType portNum)
+  isConnected_to_noArgsReturnGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnGuarded()),
@@ -383,7 +383,7 @@ bool ActiveNoArgsPortsOnlyTesterBase ::
 }
 
 bool ActiveNoArgsPortsOnlyTesterBase ::
-  isConnected_to_noArgsReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnSync()),
