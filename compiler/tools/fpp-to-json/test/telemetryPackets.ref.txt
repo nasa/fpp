@@ -1281,34 +1281,6 @@
                 ]
               }
             },
-            "tlmOut" : {
-              "Special" : {
-                "aNode" : {
-                  "astNodeId" : 12
-                },
-                "specifier" : {
-                  "inputKind" : "None",
-                  "kind" : {
-                    "Telemetry" : {
-                      
-                    }
-                  },
-                  "name" : "tlmOut",
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 0,
-                    "unqualifiedName" : "Tlm"
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None",
-                "importNodeIds" : [
-                ]
-              }
-            },
             "timeGetOut" : {
               "Special" : {
                 "aNode" : {
@@ -1329,6 +1301,34 @@
                   "Port" : {
                     "nodeId" : 3,
                     "unqualifiedName" : "Time"
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None",
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "tlmOut" : {
+              "Special" : {
+                "aNode" : {
+                  "astNodeId" : 12
+                },
+                "specifier" : {
+                  "inputKind" : "None",
+                  "kind" : {
+                    "Telemetry" : {
+                      
+                    }
+                  },
+                  "name" : "tlmOut",
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 0,
+                    "unqualifiedName" : "Tlm"
                   }
                 },
                 "priority" : "None",
@@ -1517,16 +1517,16 @@
         "map" : {
           "Port" : {
             "map" : {
-              "Tlm" : {
-                "Port" : {
-                  "nodeId" : 0,
-                  "unqualifiedName" : "Tlm"
-                }
-              },
               "Time" : {
                 "Port" : {
                   "nodeId" : 3,
                   "unqualifiedName" : "Time"
+                }
+              },
+              "Tlm" : {
+                "Port" : {
+                  "nodeId" : 0,
+                  "unqualifiedName" : "Tlm"
                 }
               }
             }
@@ -1944,27 +1944,6 @@
       }
     },
     "typeMap" : {
-      "101" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "102" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "27" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
       "18" : {
         "Int" : {
           "PrimitiveInt" : {
@@ -1982,43 +1961,40 @@
             
           }
         }
+      },
+      "27" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "101" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "102" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
       }
     },
     "useDefMap" : {
-      "10" : {
+      "7" : {
         "Port" : {
           "nodeId" : 5,
           "unqualifiedName" : "P"
         }
       },
-      "110" : {
-        "ComponentInstance" : {
-          "nodeId" : 28,
-          "unqualifiedName" : "c2"
-        }
-      },
-      "33" : {
-        "ComponentInstance" : {
-          "nodeId" : 28,
-          "unqualifiedName" : "c2"
-        }
-      },
-      "13" : {
+      "10" : {
         "Port" : {
-          "nodeId" : 3,
-          "unqualifiedName" : "Time"
-        }
-      },
-      "105" : {
-        "ComponentInstance" : {
-          "nodeId" : 24,
-          "unqualifiedName" : "c1"
-        }
-      },
-      "22" : {
-        "Component" : {
-          "nodeId" : 20,
-          "unqualifiedName" : "C"
+          "nodeId" : 5,
+          "unqualifiedName" : "P"
         }
       },
       "12" : {
@@ -2027,10 +2003,16 @@
           "unqualifiedName" : "Tlm"
         }
       },
-      "7" : {
+      "13" : {
         "Port" : {
-          "nodeId" : 5,
-          "unqualifiedName" : "P"
+          "nodeId" : 3,
+          "unqualifiedName" : "Time"
+        }
+      },
+      "22" : {
+        "Component" : {
+          "nodeId" : 20,
+          "unqualifiedName" : "C"
         }
       },
       "26" : {
@@ -2043,6 +2025,24 @@
         "ComponentInstance" : {
           "nodeId" : 24,
           "unqualifiedName" : "c1"
+        }
+      },
+      "33" : {
+        "ComponentInstance" : {
+          "nodeId" : 28,
+          "unqualifiedName" : "c2"
+        }
+      },
+      "105" : {
+        "ComponentInstance" : {
+          "nodeId" : 24,
+          "unqualifiedName" : "c1"
+        }
+      },
+      "110" : {
+        "ComponentInstance" : {
+          "nodeId" : 28,
+          "unqualifiedName" : "c2"
         }
       }
     },

@@ -1680,21 +1680,25 @@
       
     },
     "typeMap" : {
-      "46" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "60" : {
-        "Int" : {
-          "Integer" : {
-            
+      "4" : {
+        "Primitive" : {
+          "Float" : {
+            "kind" : {
+              "F32" : {
+                
+              }
+            }
           }
         }
       },
       "41" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "46" : {
         "Int" : {
           "Integer" : {
             
@@ -1708,33 +1712,29 @@
           }
         }
       },
-      "66" : {
+      "60" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "4" : {
-        "Primitive" : {
-          "Float" : {
-            "kind" : {
-              "F32" : {
-                
-              }
-            }
+      "66" : {
+        "Int" : {
+          "Integer" : {
+            
           }
         }
       }
     },
     "useDefMap" : {
-      "56" : {
+      "8" : {
         "Port" : {
           "nodeId" : 6,
           "unqualifiedName" : "F32Value"
         }
       },
-      "24" : {
+      "11" : {
         "Port" : {
           "nodeId" : 6,
           "unqualifiedName" : "F32Value"
@@ -1746,7 +1746,7 @@
           "unqualifiedName" : "F32Value"
         }
       },
-      "45" : {
+      "24" : {
         "Port" : {
           "nodeId" : 6,
           "unqualifiedName" : "F32Value"
@@ -1758,13 +1758,7 @@
           "unqualifiedName" : "F32Value"
         }
       },
-      "66" : {
-        "Constant" : {
-          "nodeId" : 60,
-          "unqualifiedName" : "splitFactor"
-        }
-      },
-      "11" : {
+      "36" : {
         "Port" : {
           "nodeId" : 6,
           "unqualifiedName" : "F32Value"
@@ -1776,36 +1770,42 @@
           "unqualifiedName" : "F32Value"
         }
       },
-      "8" : {
+      "45" : {
         "Port" : {
           "nodeId" : 6,
           "unqualifiedName" : "F32Value"
         }
       },
-      "36" : {
+      "56" : {
         "Port" : {
           "nodeId" : 6,
           "unqualifiedName" : "F32Value"
+        }
+      },
+      "66" : {
+        "Constant" : {
+          "nodeId" : 60,
+          "unqualifiedName" : "splitFactor"
         }
       }
     },
     "valueMap" : {
-      "46" : {
-        "Integer" : {
-          "value" : 20
-        }
-      },
-      "60" : {
-        "Integer" : {
-          "value" : 10
-        }
-      },
       "41" : {
         "Integer" : {
           "value" : 10
         }
       },
+      "46" : {
+        "Integer" : {
+          "value" : 20
+        }
+      },
       "59" : {
+        "Integer" : {
+          "value" : 10
+        }
+      },
+      "60" : {
         "Integer" : {
           "value" : 10
         }

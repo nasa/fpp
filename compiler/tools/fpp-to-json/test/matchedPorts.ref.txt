@@ -416,47 +416,6 @@
         "portInterface" : {
           "instanceType" : "component",
           "portMap" : {
-            "pingOut" : {
-              "General" : {
-                "aNode" : {
-                  "astNodeId" : 6
-                },
-                "specifier" : {
-                  "kind" : {
-                    "Output" : {
-                      
-                    }
-                  },
-                  "name" : "pingOut",
-                  "size" : {
-                    "Some" : {
-                      "astNodeId" : 2
-                    }
-                  },
-                  "port" : {
-                    "Some" : {
-                      "astNodeId" : 5
-                    }
-                  },
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "kind" : "Output",
-                "size" : 10,
-                "ty" : {
-                  "DefPort" : {
-                    "symbol" : {
-                      "Port" : {
-                        "nodeId" : 24,
-                        "unqualifiedName" : "Ping"
-                      }
-                    }
-                  }
-                },
-                "importNodeIds" : [
-                ]
-              }
-            },
             "pingIn" : {
               "General" : {
                 "aNode" : {
@@ -483,6 +442,47 @@
                   "queueFull" : "None"
                 },
                 "kind" : "AsyncInput",
+                "size" : 10,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 24,
+                        "unqualifiedName" : "Ping"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "pingOut" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 6
+                },
+                "specifier" : {
+                  "kind" : {
+                    "Output" : {
+                      
+                    }
+                  },
+                  "name" : "pingOut",
+                  "size" : {
+                    "Some" : {
+                      "astNodeId" : 2
+                    }
+                  },
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 5
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "Output",
                 "size" : 10,
                 "ty" : {
                   "DefPort" : {
@@ -703,25 +703,7 @@
       }
     },
     "useDefMap" : {
-      "5" : {
-        "Port" : {
-          "nodeId" : 24,
-          "unqualifiedName" : "Ping"
-        }
-      },
-      "10" : {
-        "Port" : {
-          "nodeId" : 24,
-          "unqualifiedName" : "Ping"
-        }
-      },
       "2" : {
-        "Constant" : {
-          "nodeId" : 1,
-          "unqualifiedName" : "numPingPorts"
-        }
-      },
-      "7" : {
         "Constant" : {
           "nodeId" : 1,
           "unqualifiedName" : "numPingPorts"
@@ -733,10 +715,28 @@
           "unqualifiedName" : "Svc"
         }
       },
+      "5" : {
+        "Port" : {
+          "nodeId" : 24,
+          "unqualifiedName" : "Ping"
+        }
+      },
+      "7" : {
+        "Constant" : {
+          "nodeId" : 1,
+          "unqualifiedName" : "numPingPorts"
+        }
+      },
       "8" : {
         "Module" : {
           "nodeId" : 25,
           "unqualifiedName" : "Svc"
+        }
+      },
+      "10" : {
+        "Port" : {
+          "nodeId" : 24,
+          "unqualifiedName" : "Ping"
         }
       }
     },

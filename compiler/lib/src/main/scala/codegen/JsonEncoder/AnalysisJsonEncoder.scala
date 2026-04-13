@@ -60,6 +60,46 @@ object AnalysisJsonEncoder extends JsonEncoder{
       addTypeNameKey(instance, nodeJson)
   }
 
+  // Sorts maps with symbol keys by node ID before encoding as JSON
+  implicit def symbolMapEncoder[K <: Symbol, V](implicit
+    ke: KeyEncoder[K],
+    ve: Encoder[V]
+  ): Encoder[Map[K, V]] =
+    Encoder.instance { map =>
+      Json.obj(
+        map.toList
+          .sortBy(_._1.getNodeId)
+          .map { case (k, v) => (ke(k), v.asJson) }: _*
+      )
+    }
+
+  // Sorts maps with AST node ID keys before encoding as JSON
+  implicit def astNodeIdMapEncoder[V](implicit
+    ke: KeyEncoder[AstNode.Id],
+    ve: Encoder[V]
+  ): Encoder[Map[AstNode.Id, V]] =
+    Encoder.instance { map =>
+      Json.obj(
+        map.toList
+          .sortBy(_._1)
+          .map { case (k, v) => (ke(k), v.asJson) }: _*
+      )
+    }
+
+  // Generic map sorting
+  implicit def genericMapEncoder[K, V](implicit
+    ke: KeyEncoder[K],
+    ve: Encoder[V],
+  ): Encoder[Map[K, V]] =
+    Encoder.instance { map =>
+      Json.obj(
+        map.toList
+          .map { case (k, v) => (ke(k), ve(v)) }
+          .sortBy(_._1)
+          .map { case (k, v) => (k, v) }: _*
+      )
+    }
+  
   // JSON encoder for component instances
   // Use the default Circe encoding, but replace the component instance
   // with its AST node. We can use the ID to look up the component

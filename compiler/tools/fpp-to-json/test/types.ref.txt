@@ -1809,16 +1809,10 @@
         "map" : {
           "Value" : {
             "map" : {
-              "TRIANGLE" : {
+              "NOISE" : {
                 "EnumConstant" : {
-                  "nodeId" : 113,
-                  "unqualifiedName" : "TRIANGLE"
-                }
-              },
-              "SQUARE" : {
-                "EnumConstant" : {
-                  "nodeId" : 114,
-                  "unqualifiedName" : "SQUARE"
+                  "nodeId" : 118,
+                  "unqualifiedName" : "NOISE"
                 }
               },
               "SINE" : {
@@ -1827,10 +1821,16 @@
                   "unqualifiedName" : "SINE"
                 }
               },
-              "NOISE" : {
+              "SQUARE" : {
                 "EnumConstant" : {
-                  "nodeId" : 118,
-                  "unqualifiedName" : "NOISE"
+                  "nodeId" : 114,
+                  "unqualifiedName" : "SQUARE"
+                }
+              },
+              "TRIANGLE" : {
+                "EnumConstant" : {
+                  "nodeId" : 113,
+                  "unqualifiedName" : "TRIANGLE"
                 }
               }
             }
@@ -1842,24 +1842,12 @@
       
     },
     "typeMap" : {
-      "10" : {
-        "String" : {
-          "size" : "None"
-        }
-      },
-      "121" : {
-        "AliasType" : {
-          "node" : {
-            "astNodeId" : 121
-          },
-          "aliasType" : {
-            "Int" : {
-              "PrimitiveInt" : {
-                "kind" : {
-                  "U32" : {
-                    
-                  }
-                }
+      "0" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U16" : {
+                
               }
             }
           }
@@ -1883,50 +1871,190 @@
           }
         }
       },
-      "38" : {
+      "2" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "65" : {
+      "3" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "129" : {
-        "AliasType" : {
-          "node" : {
-            "astNodeId" : 1
-          },
-          "aliasType" : {
-            "Int" : {
-              "PrimitiveInt" : {
-                "kind" : {
-                  "U16" : {
-                    
-                  }
-                }
-              }
+      "4" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "5" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "6" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "7" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "8" : {
+        "String" : {
+          "size" : {
+            "Some" : {
+              "astNodeId" : 7
             }
           }
         }
       },
-      "64" : {
-        "AbsType" : {
-          "node" : {
-            "astNodeId" : 64
+      "9" : {
+        "String" : {
+          "size" : "None"
+        }
+      },
+      "10" : {
+        "String" : {
+          "size" : "None"
+        }
+      },
+      "11" : {
+        "String" : {
+          "size" : "None"
+        }
+      },
+      "12" : {
+        "AnonArray" : {
+          "size" : {
+            "Some" : 3
+          },
+          "eltType" : {
+            "String" : {
+              "size" : "None"
+            }
           }
         }
       },
-      "104" : {
+      "14" : {
+        "Array" : {
+          "node" : {
+            "astNodeId" : 14
+          },
+          "anonArray" : {
+            "size" : {
+              "Some" : 3
+            },
+            "eltType" : {
+              "String" : {
+                "size" : {
+                  "Some" : {
+                    "astNodeId" : 7
+                  }
+                }
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "anonArray" : {
+                "elements" : [
+                  {
+                    "String" : {
+                      "value" : "1"
+                    }
+                  },
+                  {
+                    "String" : {
+                      "value" : "2"
+                    }
+                  },
+                  {
+                    "String" : {
+                      "value" : "3"
+                    }
+                  }
+                ]
+              },
+              "t" : {
+                "node" : {
+                  "astNodeId" : 14
+                },
+                "anonArray" : {
+                  "size" : {
+                    "Some" : 3
+                  },
+                  "eltType" : {
+                    "String" : {
+                      "size" : {
+                        "Some" : {
+                          "astNodeId" : 7
+                        }
+                      }
+                    }
+                  }
+                },
+                "default" : "None",
+                "format" : "None"
+              }
+            }
+          },
+          "format" : {
+            "Some" : {
+              "prefix" : "",
+              "fields" : [
+                [
+                  {
+                    "Default" : {
+                      
+                    }
+                  },
+                  " RPM"
+                ]
+              ]
+            }
+          }
+        }
+      },
+      "15" : {
         "Int" : {
           "Integer" : {
             
           }
+        }
+      },
+      "18" : {
+        "Array" : {
+          "node" : {
+            "astNodeId" : 14
+          },
+          "anonArray" : {
+            "size" : "None",
+            "eltType" : {
+              "String" : {
+                "size" : {
+                  "Some" : {
+                    "astNodeId" : 7
+                  }
+                }
+              }
+            }
+          },
+          "default" : "None",
+          "format" : "None"
         }
       },
       "19" : {
@@ -2254,166 +2382,7 @@
           "format" : "None"
         }
       },
-      "69" : {
-        "Array" : {
-          "node" : {
-            "astNodeId" : 69
-          },
-          "anonArray" : {
-            "size" : {
-              "Some" : 3
-            },
-            "eltType" : {
-              "AbsType" : {
-                "node" : {
-                  "astNodeId" : 64
-                }
-              }
-            }
-          },
-          "default" : {
-            "Some" : {
-              "anonArray" : {
-                "elements" : [
-                  {
-                    "AbsType" : {
-                      "t" : {
-                        "node" : {
-                          "astNodeId" : 64
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "AbsType" : {
-                      "t" : {
-                        "node" : {
-                          "astNodeId" : 64
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "AbsType" : {
-                      "t" : {
-                        "node" : {
-                          "astNodeId" : 64
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
-              "t" : {
-                "node" : {
-                  "astNodeId" : 69
-                },
-                "anonArray" : {
-                  "size" : {
-                    "Some" : 3
-                  },
-                  "eltType" : {
-                    "AbsType" : {
-                      "node" : {
-                        "astNodeId" : 64
-                      }
-                    }
-                  }
-                },
-                "default" : "None",
-                "format" : "None"
-              }
-            }
-          },
-          "format" : "None"
-        }
-      },
-      "0" : {
-        "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U16" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "88" : {
-        "Array" : {
-          "node" : {
-            "astNodeId" : 108
-          },
-          "anonArray" : {
-            "size" : "None",
-            "eltType" : {
-              "Struct" : {
-                "node" : {
-                  "astNodeId" : 103
-                },
-                "anonStruct" : {
-                  "members" : {
-                    "time" : {
-                      "Primitive" : {
-                        "Float" : {
-                          "kind" : {
-                            "F32" : {
-                              
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "value" : {
-                      "Primitive" : {
-                        "Float" : {
-                          "kind" : {
-                            "F32" : {
-                              
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "default" : "None",
-                "sizes" : {
-                  
-                },
-                "formats" : {
-                  
-                }
-              }
-            }
-          },
-          "default" : "None",
-          "format" : "None"
-        }
-      },
-      "115" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 119
-          },
-          "repType" : {
-            "kind" : {
-              "I32" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
-      },
-      "5" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "120" : {
+      "31" : {
         "Int" : {
           "PrimitiveInt" : {
             "kind" : {
@@ -2424,22 +2393,9 @@
           }
         }
       },
-      "42" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Int" : {
-                "Integer" : {
-                  
-                }
-              }
-            },
-            "y" : {
-              "String" : {
-                "size" : "None"
-              }
-            }
-          }
+      "35" : {
+        "String" : {
+          "size" : "None"
         }
       },
       "37" : {
@@ -2530,7 +2486,19 @@
           }
         }
       },
-      "52" : {
+      "38" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "40" : {
+        "String" : {
+          "size" : "None"
+        }
+      },
+      "42" : {
         "AnonStruct" : {
           "members" : {
             "x" : {
@@ -2548,130 +2516,56 @@
           }
         }
       },
-      "14" : {
-        "Array" : {
-          "node" : {
-            "astNodeId" : 14
-          },
-          "anonArray" : {
-            "size" : {
-              "Some" : 3
-            },
-            "eltType" : {
-              "String" : {
-                "size" : {
-                  "Some" : {
-                    "astNodeId" : 7
-                  }
+      "43" : {
+        "AnonStruct" : {
+          "members" : {
+            "x" : {
+              "Int" : {
+                "Integer" : {
+                  
                 }
               }
-            }
-          },
-          "default" : {
-            "Some" : {
-              "anonArray" : {
-                "elements" : [
-                  {
-                    "String" : {
-                      "value" : "1"
-                    }
-                  },
-                  {
-                    "String" : {
-                      "value" : "2"
-                    }
-                  },
-                  {
-                    "String" : {
-                      "value" : "3"
-                    }
-                  }
-                ]
-              },
-              "t" : {
-                "node" : {
-                  "astNodeId" : 14
-                },
-                "anonArray" : {
-                  "size" : {
-                    "Some" : 3
-                  },
-                  "eltType" : {
-                    "String" : {
-                      "size" : {
-                        "Some" : {
-                          "astNodeId" : 7
-                        }
-                      }
-                    }
-                  }
-                },
-                "default" : "None",
-                "format" : "None"
+            },
+            "y" : {
+              "String" : {
+                "size" : "None"
               }
-            }
-          },
-          "format" : {
-            "Some" : {
-              "prefix" : "",
-              "fields" : [
-                [
-                  {
-                    "Default" : {
-                      
-                    }
-                  },
-                  " RPM"
-                ]
-              ]
             }
           }
         }
       },
-      "110" : {
-        "Primitive" : {
-          "Float" : {
+      "44" : {
+        "Int" : {
+          "PrimitiveInt" : {
             "kind" : {
-              "F32" : {
+              "U8" : {
                 
               }
             }
           }
         }
       },
-      "125" : {
-        "AliasType" : {
-          "node" : {
-            "astNodeId" : 1
-          },
-          "aliasType" : {
-            "Int" : {
-              "PrimitiveInt" : {
-                "kind" : {
-                  "U16" : {
-                    
-                  }
+      "50" : {
+        "String" : {
+          "size" : "None"
+        }
+      },
+      "52" : {
+        "AnonStruct" : {
+          "members" : {
+            "x" : {
+              "Int" : {
+                "Integer" : {
+                  
                 }
+              }
+            },
+            "y" : {
+              "String" : {
+                "size" : "None"
               }
             }
           }
-        }
-      },
-      "6" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "60" : {
-        "String" : {
-          "size" : "None"
-        }
-      },
-      "9" : {
-        "String" : {
-          "size" : "None"
         }
       },
       "53" : {
@@ -2762,83 +2656,6 @@
           }
         }
       },
-      "109" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "124" : {
-        "AliasType" : {
-          "node" : {
-            "astNodeId" : 1
-          },
-          "aliasType" : {
-            "Int" : {
-              "PrimitiveInt" : {
-                "kind" : {
-                  "U16" : {
-                    
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "128" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "2" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "44" : {
-        "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U8" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "118" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 119
-          },
-          "repType" : {
-            "kind" : {
-              "I32" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
-      },
-      "12" : {
-        "AnonArray" : {
-          "size" : {
-            "Some" : 3
-          },
-          "eltType" : {
-            "String" : {
-              "size" : "None"
-            }
-          }
-        }
-      },
       "54" : {
         "Int" : {
           "PrimitiveInt" : {
@@ -2850,925 +2667,24 @@
           }
         }
       },
-      "113" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 119
-          },
-          "repType" : {
-            "kind" : {
-              "I32" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
-      },
-      "76" : {
-        "Array" : {
-          "node" : {
-            "astNodeId" : 112
-          },
-          "anonArray" : {
-            "size" : "None",
-            "eltType" : {
-              "Primitive" : {
-                "Float" : {
-                  "kind" : {
-                    "F32" : {
-                      
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "default" : "None",
-          "format" : "None"
-        }
-      },
-      "7" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "103" : {
-        "Struct" : {
-          "node" : {
-            "astNodeId" : 103
-          },
-          "anonStruct" : {
-            "members" : {
-              "time" : {
-                "Primitive" : {
-                  "Float" : {
-                    "kind" : {
-                      "F32" : {
-                        
-                      }
-                    }
-                  }
-                }
-              },
-              "value" : {
-                "Primitive" : {
-                  "Float" : {
-                    "kind" : {
-                      "F32" : {
-                        
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "default" : {
-            "Some" : {
-              "anonStruct" : {
-                "members" : {
-                  "time" : {
-                    "Float" : {
-                      "value" : 0.0,
-                      "kind" : {
-                        "F32" : {
-                          
-                        }
-                      }
-                    }
-                  },
-                  "value" : {
-                    "Float" : {
-                      "value" : 0.0,
-                      "kind" : {
-                        "F32" : {
-                          
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "t" : {
-                "node" : {
-                  "astNodeId" : 103
-                },
-                "anonStruct" : {
-                  "members" : {
-                    "time" : {
-                      "Primitive" : {
-                        "Float" : {
-                          "kind" : {
-                            "F32" : {
-                              
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "value" : {
-                      "Primitive" : {
-                        "Float" : {
-                          "kind" : {
-                            "F32" : {
-                              
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "default" : "None",
-                "sizes" : {
-                  
-                },
-                "formats" : {
-                  
-                }
-              }
-            }
-          },
-          "sizes" : {
-            
-          },
-          "formats" : {
-            "time" : {
-              "prefix" : "",
-              "fields" : [
-                [
-                  {
-                    "Rational" : {
-                      "precision" : "None",
-                      "t" : {
-                        "Fixed" : {
-                          
-                        }
-                      }
-                    }
-                  },
-                  ""
-                ]
-              ]
-            },
-            "value" : {
-              "prefix" : "",
-              "fields" : [
-                [
-                  {
-                    "Rational" : {
-                      "precision" : "None",
-                      "t" : {
-                        "Fixed" : {
-                          
-                        }
-                      }
-                    }
-                  },
-                  ""
-                ]
-              ]
-            }
-          }
-        }
-      },
-      "91" : {
-        "Primitive" : {
-          "Float" : {
-            "kind" : {
-              "F32" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "108" : {
-        "Array" : {
-          "node" : {
-            "astNodeId" : 108
-          },
-          "anonArray" : {
-            "size" : {
-              "Some" : 4
-            },
-            "eltType" : {
-              "Struct" : {
-                "node" : {
-                  "astNodeId" : 103
-                },
-                "anonStruct" : {
-                  "members" : {
-                    "time" : {
-                      "Primitive" : {
-                        "Float" : {
-                          "kind" : {
-                            "F32" : {
-                              
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "value" : {
-                      "Primitive" : {
-                        "Float" : {
-                          "kind" : {
-                            "F32" : {
-                              
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "default" : {
-                  "Some" : {
-                    "anonStruct" : {
-                      "members" : {
-                        "time" : {
-                          "Float" : {
-                            "value" : 0.0,
-                            "kind" : {
-                              "F32" : {
-                                
-                              }
-                            }
-                          }
-                        },
-                        "value" : {
-                          "Float" : {
-                            "value" : 0.0,
-                            "kind" : {
-                              "F32" : {
-                                
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "t" : {
-                      "node" : {
-                        "astNodeId" : 103
-                      },
-                      "anonStruct" : {
-                        "members" : {
-                          "time" : {
-                            "Primitive" : {
-                              "Float" : {
-                                "kind" : {
-                                  "F32" : {
-                                    
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "value" : {
-                            "Primitive" : {
-                              "Float" : {
-                                "kind" : {
-                                  "F32" : {
-                                    
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "default" : "None",
-                      "sizes" : {
-                        
-                      },
-                      "formats" : {
-                        
-                      }
-                    }
-                  }
-                },
-                "sizes" : {
-                  
-                },
-                "formats" : {
-                  "time" : {
-                    "prefix" : "",
-                    "fields" : [
-                      [
-                        {
-                          "Rational" : {
-                            "precision" : "None",
-                            "t" : {
-                              "Fixed" : {
-                                
-                              }
-                            }
-                          }
-                        },
-                        ""
-                      ]
-                    ]
-                  },
-                  "value" : {
-                    "prefix" : "",
-                    "fields" : [
-                      [
-                        {
-                          "Rational" : {
-                            "precision" : "None",
-                            "t" : {
-                              "Fixed" : {
-                                
-                              }
-                            }
-                          }
-                        },
-                        ""
-                      ]
-                    ]
-                  }
-                }
-              }
-            }
-          },
-          "default" : {
-            "Some" : {
-              "anonArray" : {
-                "elements" : [
-                  {
-                    "Struct" : {
-                      "anonStruct" : {
-                        "members" : {
-                          "time" : {
-                            "Float" : {
-                              "value" : 0.0,
-                              "kind" : {
-                                "F32" : {
-                                  
-                                }
-                              }
-                            }
-                          },
-                          "value" : {
-                            "Float" : {
-                              "value" : 0.0,
-                              "kind" : {
-                                "F32" : {
-                                  
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "t" : {
-                        "node" : {
-                          "astNodeId" : 103
-                        },
-                        "anonStruct" : {
-                          "members" : {
-                            "time" : {
-                              "Primitive" : {
-                                "Float" : {
-                                  "kind" : {
-                                    "F32" : {
-                                      
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            "value" : {
-                              "Primitive" : {
-                                "Float" : {
-                                  "kind" : {
-                                    "F32" : {
-                                      
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
-                        "default" : "None",
-                        "sizes" : {
-                          
-                        },
-                        "formats" : {
-                          
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "Struct" : {
-                      "anonStruct" : {
-                        "members" : {
-                          "time" : {
-                            "Float" : {
-                              "value" : 0.0,
-                              "kind" : {
-                                "F32" : {
-                                  
-                                }
-                              }
-                            }
-                          },
-                          "value" : {
-                            "Float" : {
-                              "value" : 0.0,
-                              "kind" : {
-                                "F32" : {
-                                  
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "t" : {
-                        "node" : {
-                          "astNodeId" : 103
-                        },
-                        "anonStruct" : {
-                          "members" : {
-                            "time" : {
-                              "Primitive" : {
-                                "Float" : {
-                                  "kind" : {
-                                    "F32" : {
-                                      
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            "value" : {
-                              "Primitive" : {
-                                "Float" : {
-                                  "kind" : {
-                                    "F32" : {
-                                      
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
-                        "default" : "None",
-                        "sizes" : {
-                          
-                        },
-                        "formats" : {
-                          
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "Struct" : {
-                      "anonStruct" : {
-                        "members" : {
-                          "time" : {
-                            "Float" : {
-                              "value" : 0.0,
-                              "kind" : {
-                                "F32" : {
-                                  
-                                }
-                              }
-                            }
-                          },
-                          "value" : {
-                            "Float" : {
-                              "value" : 0.0,
-                              "kind" : {
-                                "F32" : {
-                                  
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "t" : {
-                        "node" : {
-                          "astNodeId" : 103
-                        },
-                        "anonStruct" : {
-                          "members" : {
-                            "time" : {
-                              "Primitive" : {
-                                "Float" : {
-                                  "kind" : {
-                                    "F32" : {
-                                      
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            "value" : {
-                              "Primitive" : {
-                                "Float" : {
-                                  "kind" : {
-                                    "F32" : {
-                                      
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
-                        "default" : "None",
-                        "sizes" : {
-                          
-                        },
-                        "formats" : {
-                          
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "Struct" : {
-                      "anonStruct" : {
-                        "members" : {
-                          "time" : {
-                            "Float" : {
-                              "value" : 0.0,
-                              "kind" : {
-                                "F32" : {
-                                  
-                                }
-                              }
-                            }
-                          },
-                          "value" : {
-                            "Float" : {
-                              "value" : 0.0,
-                              "kind" : {
-                                "F32" : {
-                                  
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "t" : {
-                        "node" : {
-                          "astNodeId" : 103
-                        },
-                        "anonStruct" : {
-                          "members" : {
-                            "time" : {
-                              "Primitive" : {
-                                "Float" : {
-                                  "kind" : {
-                                    "F32" : {
-                                      
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            "value" : {
-                              "Primitive" : {
-                                "Float" : {
-                                  "kind" : {
-                                    "F32" : {
-                                      
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
-                        "default" : "None",
-                        "sizes" : {
-                          
-                        },
-                        "formats" : {
-                          
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
-              "t" : {
-                "node" : {
-                  "astNodeId" : 108
-                },
-                "anonArray" : {
-                  "size" : {
-                    "Some" : 4
-                  },
-                  "eltType" : {
-                    "Struct" : {
-                      "node" : {
-                        "astNodeId" : 103
-                      },
-                      "anonStruct" : {
-                        "members" : {
-                          "time" : {
-                            "Primitive" : {
-                              "Float" : {
-                                "kind" : {
-                                  "F32" : {
-                                    
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "value" : {
-                            "Primitive" : {
-                              "Float" : {
-                                "kind" : {
-                                  "F32" : {
-                                    
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "default" : {
-                        "Some" : {
-                          "anonStruct" : {
-                            "members" : {
-                              "time" : {
-                                "Float" : {
-                                  "value" : 0.0,
-                                  "kind" : {
-                                    "F32" : {
-                                      
-                                    }
-                                  }
-                                }
-                              },
-                              "value" : {
-                                "Float" : {
-                                  "value" : 0.0,
-                                  "kind" : {
-                                    "F32" : {
-                                      
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "t" : {
-                            "node" : {
-                              "astNodeId" : 103
-                            },
-                            "anonStruct" : {
-                              "members" : {
-                                "time" : {
-                                  "Primitive" : {
-                                    "Float" : {
-                                      "kind" : {
-                                        "F32" : {
-                                          
-                                        }
-                                      }
-                                    }
-                                  }
-                                },
-                                "value" : {
-                                  "Primitive" : {
-                                    "Float" : {
-                                      "kind" : {
-                                        "F32" : {
-                                          
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            "default" : "None",
-                            "sizes" : {
-                              
-                            },
-                            "formats" : {
-                              
-                            }
-                          }
-                        }
-                      },
-                      "sizes" : {
-                        
-                      },
-                      "formats" : {
-                        "time" : {
-                          "prefix" : "",
-                          "fields" : [
-                            [
-                              {
-                                "Rational" : {
-                                  "precision" : "None",
-                                  "t" : {
-                                    "Fixed" : {
-                                      
-                                    }
-                                  }
-                                }
-                              },
-                              ""
-                            ]
-                          ]
-                        },
-                        "value" : {
-                          "prefix" : "",
-                          "fields" : [
-                            [
-                              {
-                                "Rational" : {
-                                  "precision" : "None",
-                                  "t" : {
-                                    "Fixed" : {
-                                      
-                                    }
-                                  }
-                                }
-                              },
-                              ""
-                            ]
-                          ]
-                        }
-                      }
-                    }
-                  }
-                },
-                "default" : "None",
-                "format" : "None"
-              }
-            }
-          },
-          "format" : "None"
-        }
-      },
-      "130" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "3" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "35" : {
+      "60" : {
         "String" : {
           "size" : "None"
         }
       },
-      "112" : {
-        "Array" : {
-          "node" : {
-            "astNodeId" : 112
-          },
-          "anonArray" : {
-            "size" : {
-              "Some" : 4
+      "62" : {
+        "AnonStruct" : {
+          "members" : {
+            "x" : {
+              "Int" : {
+                "Integer" : {
+                  
+                }
+              }
             },
-            "eltType" : {
-              "Primitive" : {
-                "Float" : {
-                  "kind" : {
-                    "F32" : {
-                      
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "default" : {
-            "Some" : {
-              "anonArray" : {
-                "elements" : [
-                  {
-                    "Float" : {
-                      "value" : 0.0,
-                      "kind" : {
-                        "F32" : {
-                          
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "Float" : {
-                      "value" : 0.0,
-                      "kind" : {
-                        "F32" : {
-                          
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "Float" : {
-                      "value" : 0.0,
-                      "kind" : {
-                        "F32" : {
-                          
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "Float" : {
-                      "value" : 0.0,
-                      "kind" : {
-                        "F32" : {
-                          
-                        }
-                      }
-                    }
-                  }
-                ]
-              },
-              "t" : {
-                "node" : {
-                  "astNodeId" : 112
-                },
-                "anonArray" : {
-                  "size" : {
-                    "Some" : 4
-                  },
-                  "eltType" : {
-                    "Primitive" : {
-                      "Float" : {
-                        "kind" : {
-                          "F32" : {
-                            
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "default" : "None",
-                "format" : "None"
-              }
-            }
-          },
-          "format" : {
-            "Some" : {
-              "prefix" : "",
-              "fields" : [
-                [
-                  {
-                    "Rational" : {
-                      "precision" : "None",
-                      "t" : {
-                        "Fixed" : {
-                          
-                        }
-                      }
-                    }
-                  },
-                  ""
-                ]
-              ]
-            }
-          }
-        }
-      },
-      "123" : {
-        "AliasType" : {
-          "node" : {
-            "astNodeId" : 123
-          },
-          "aliasType" : {
-            "Int" : {
-              "PrimitiveInt" : {
-                "kind" : {
-                  "U32" : {
-                    
-                  }
-                }
+            "y" : {
+              "String" : {
+                "size" : "None"
               }
             }
           }
@@ -3862,64 +2778,99 @@
           }
         }
       },
-      "18" : {
+      "64" : {
+        "AbsType" : {
+          "node" : {
+            "astNodeId" : 64
+          }
+        }
+      },
+      "65" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "68" : {
+        "AbsType" : {
+          "node" : {
+            "astNodeId" : 64
+          }
+        }
+      },
+      "69" : {
         "Array" : {
           "node" : {
-            "astNodeId" : 14
+            "astNodeId" : 69
           },
           "anonArray" : {
-            "size" : "None",
+            "size" : {
+              "Some" : 3
+            },
             "eltType" : {
-              "String" : {
-                "size" : {
-                  "Some" : {
-                    "astNodeId" : 7
-                  }
+              "AbsType" : {
+                "node" : {
+                  "astNodeId" : 64
                 }
               }
             }
           },
-          "default" : "None",
+          "default" : {
+            "Some" : {
+              "anonArray" : {
+                "elements" : [
+                  {
+                    "AbsType" : {
+                      "t" : {
+                        "node" : {
+                          "astNodeId" : 64
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "AbsType" : {
+                      "t" : {
+                        "node" : {
+                          "astNodeId" : 64
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "AbsType" : {
+                      "t" : {
+                        "node" : {
+                          "astNodeId" : 64
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "t" : {
+                "node" : {
+                  "astNodeId" : 69
+                },
+                "anonArray" : {
+                  "size" : {
+                    "Some" : 3
+                  },
+                  "eltType" : {
+                    "AbsType" : {
+                      "node" : {
+                        "astNodeId" : 64
+                      }
+                    }
+                  }
+                },
+                "default" : "None",
+                "format" : "None"
+              }
+            }
+          },
           "format" : "None"
-        }
-      },
-      "50" : {
-        "String" : {
-          "size" : "None"
-        }
-      },
-      "127" : {
-        "AliasType" : {
-          "node" : {
-            "astNodeId" : 1
-          },
-          "aliasType" : {
-            "Int" : {
-              "PrimitiveInt" : {
-                "kind" : {
-                  "U16" : {
-                    
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "31" : {
-        "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U32" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "11" : {
-        "String" : {
-          "size" : "None"
         }
       },
       "72" : {
@@ -3937,113 +2888,19 @@
           "default" : "None"
         }
       },
-      "43" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Int" : {
-                "Integer" : {
-                  
-                }
-              }
-            },
-            "y" : {
-              "String" : {
-                "size" : "None"
-              }
-            }
-          }
-        }
-      },
-      "40" : {
-        "String" : {
-          "size" : "None"
-        }
-      },
-      "114" : {
-        "Enum" : {
+      "76" : {
+        "Array" : {
           "node" : {
-            "astNodeId" : 119
+            "astNodeId" : 112
           },
-          "repType" : {
-            "kind" : {
-              "I32" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
-      },
-      "8" : {
-        "String" : {
-          "size" : {
-            "Some" : {
-              "astNodeId" : 7
-            }
-          }
-        }
-      },
-      "119" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 119
-          },
-          "repType" : {
-            "kind" : {
-              "I32" : {
-                
-              }
-            }
-          },
-          "default" : {
-            "Some" : {
-              "value" : [
-                "TRIANGLE",
-                0
-              ],
-              "t" : {
-                "node" : {
-                  "astNodeId" : 119
-                },
-                "repType" : {
+          "anonArray" : {
+            "size" : "None",
+            "eltType" : {
+              "Primitive" : {
+                "Float" : {
                   "kind" : {
-                    "I32" : {
+                    "F32" : {
                       
-                    }
-                  }
-                },
-                "default" : "None"
-              }
-            }
-          }
-        }
-      },
-      "107" : {
-        "Struct" : {
-          "node" : {
-            "astNodeId" : 103
-          },
-          "anonStruct" : {
-            "members" : {
-              "time" : {
-                "Primitive" : {
-                  "Float" : {
-                    "kind" : {
-                      "F32" : {
-                        
-                      }
-                    }
-                  }
-                }
-              },
-              "value" : {
-                "Primitive" : {
-                  "Float" : {
-                    "kind" : {
-                      "F32" : {
-                        
-                      }
                     }
                   }
                 }
@@ -4051,58 +2908,59 @@
             }
           },
           "default" : "None",
-          "sizes" : {
-            
-          },
-          "formats" : {
-            
-          }
+          "format" : "None"
         }
       },
-      "4" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "126" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "15" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "68" : {
-        "AbsType" : {
+      "88" : {
+        "Array" : {
           "node" : {
-            "astNodeId" : 64
-          }
-        }
-      },
-      "62" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Int" : {
-                "Integer" : {
+            "astNodeId" : 108
+          },
+          "anonArray" : {
+            "size" : "None",
+            "eltType" : {
+              "Struct" : {
+                "node" : {
+                  "astNodeId" : 103
+                },
+                "anonStruct" : {
+                  "members" : {
+                    "time" : {
+                      "Primitive" : {
+                        "Float" : {
+                          "kind" : {
+                            "F32" : {
+                              
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "value" : {
+                      "Primitive" : {
+                        "Float" : {
+                          "kind" : {
+                            "F32" : {
+                              
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "default" : "None",
+                "sizes" : {
+                  
+                },
+                "formats" : {
                   
                 }
               }
-            },
-            "y" : {
-              "String" : {
-                "size" : "None"
-              }
             }
-          }
+          },
+          "default" : "None",
+          "format" : "None"
         }
       },
       "90" : {
@@ -4112,41 +2970,6 @@
           },
           "anonStruct" : {
             "members" : {
-              "type" : {
-                "Enum" : {
-                  "node" : {
-                    "astNodeId" : 119
-                  },
-                  "repType" : {
-                    "kind" : {
-                      "I32" : {
-                        
-                      }
-                    }
-                  },
-                  "default" : {
-                    "Some" : {
-                      "value" : [
-                        "TRIANGLE",
-                        0
-                      ],
-                      "t" : {
-                        "node" : {
-                          "astNodeId" : 119
-                        },
-                        "repType" : {
-                          "kind" : {
-                            "I32" : {
-                              
-                            }
-                          }
-                        },
-                        "default" : "None"
-                      }
-                    }
-                  }
-                }
-              },
               "history" : {
                 "Array" : {
                   "node" : {
@@ -4837,15 +3660,21 @@
                   },
                   "format" : "None"
                 }
-              }
-            }
-          },
-          "default" : {
-            "Some" : {
-              "anonStruct" : {
-                "members" : {
-                  "type" : {
-                    "EnumConstant" : {
+              },
+              "type" : {
+                "Enum" : {
+                  "node" : {
+                    "astNodeId" : 119
+                  },
+                  "repType" : {
+                    "kind" : {
+                      "I32" : {
+                        
+                      }
+                    }
+                  },
+                  "default" : {
+                    "Some" : {
                       "value" : [
                         "TRIANGLE",
                         0
@@ -4864,7 +3693,15 @@
                         "default" : "None"
                       }
                     }
-                  },
+                  }
+                }
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "anonStruct" : {
+                "members" : {
                   "history" : {
                     "Array" : {
                       "anonArray" : {
@@ -5359,17 +4196,14 @@
                         "format" : "None"
                       }
                     }
-                  }
-                }
-              },
-              "t" : {
-                "node" : {
-                  "astNodeId" : 90
-                },
-                "anonStruct" : {
-                  "members" : {
-                    "type" : {
-                      "Enum" : {
+                  },
+                  "type" : {
+                    "EnumConstant" : {
+                      "value" : [
+                        "TRIANGLE",
+                        0
+                      ],
+                      "t" : {
                         "node" : {
                           "astNodeId" : 119
                         },
@@ -5380,29 +4214,18 @@
                             }
                           }
                         },
-                        "default" : {
-                          "Some" : {
-                            "value" : [
-                              "TRIANGLE",
-                              0
-                            ],
-                            "t" : {
-                              "node" : {
-                                "astNodeId" : 119
-                              },
-                              "repType" : {
-                                "kind" : {
-                                  "I32" : {
-                                    
-                                  }
-                                }
-                              },
-                              "default" : "None"
-                            }
-                          }
-                        }
+                        "default" : "None"
                       }
-                    },
+                    }
+                  }
+                }
+              },
+              "t" : {
+                "node" : {
+                  "astNodeId" : 90
+                },
+                "anonStruct" : {
+                  "members" : {
                     "history" : {
                       "Array" : {
                         "node" : {
@@ -6093,6 +4916,41 @@
                         },
                         "format" : "None"
                       }
+                    },
+                    "type" : {
+                      "Enum" : {
+                        "node" : {
+                          "astNodeId" : 119
+                        },
+                        "repType" : {
+                          "kind" : {
+                            "I32" : {
+                              
+                            }
+                          }
+                        },
+                        "default" : {
+                          "Some" : {
+                            "value" : [
+                              "TRIANGLE",
+                              0
+                            ],
+                            "t" : {
+                              "node" : {
+                                "astNodeId" : 119
+                              },
+                              "repType" : {
+                                "kind" : {
+                                  "I32" : {
+                                    
+                                  }
+                                }
+                              },
+                              "default" : "None"
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -6114,11 +4972,11 @@
           }
         }
       },
-      "122" : {
-        "Int" : {
-          "PrimitiveInt" : {
+      "91" : {
+        "Primitive" : {
+          "Float" : {
             "kind" : {
-              "U32" : {
+              "F32" : {
                 
               }
             }
@@ -6135,9 +4993,1223 @@
             }
           }
         }
+      },
+      "103" : {
+        "Struct" : {
+          "node" : {
+            "astNodeId" : 103
+          },
+          "anonStruct" : {
+            "members" : {
+              "time" : {
+                "Primitive" : {
+                  "Float" : {
+                    "kind" : {
+                      "F32" : {
+                        
+                      }
+                    }
+                  }
+                }
+              },
+              "value" : {
+                "Primitive" : {
+                  "Float" : {
+                    "kind" : {
+                      "F32" : {
+                        
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "anonStruct" : {
+                "members" : {
+                  "time" : {
+                    "Float" : {
+                      "value" : 0.0,
+                      "kind" : {
+                        "F32" : {
+                          
+                        }
+                      }
+                    }
+                  },
+                  "value" : {
+                    "Float" : {
+                      "value" : 0.0,
+                      "kind" : {
+                        "F32" : {
+                          
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "t" : {
+                "node" : {
+                  "astNodeId" : 103
+                },
+                "anonStruct" : {
+                  "members" : {
+                    "time" : {
+                      "Primitive" : {
+                        "Float" : {
+                          "kind" : {
+                            "F32" : {
+                              
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "value" : {
+                      "Primitive" : {
+                        "Float" : {
+                          "kind" : {
+                            "F32" : {
+                              
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "default" : "None",
+                "sizes" : {
+                  
+                },
+                "formats" : {
+                  
+                }
+              }
+            }
+          },
+          "sizes" : {
+            
+          },
+          "formats" : {
+            "time" : {
+              "prefix" : "",
+              "fields" : [
+                [
+                  {
+                    "Rational" : {
+                      "precision" : "None",
+                      "t" : {
+                        "Fixed" : {
+                          
+                        }
+                      }
+                    }
+                  },
+                  ""
+                ]
+              ]
+            },
+            "value" : {
+              "prefix" : "",
+              "fields" : [
+                [
+                  {
+                    "Rational" : {
+                      "precision" : "None",
+                      "t" : {
+                        "Fixed" : {
+                          
+                        }
+                      }
+                    }
+                  },
+                  ""
+                ]
+              ]
+            }
+          }
+        }
+      },
+      "104" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "107" : {
+        "Struct" : {
+          "node" : {
+            "astNodeId" : 103
+          },
+          "anonStruct" : {
+            "members" : {
+              "time" : {
+                "Primitive" : {
+                  "Float" : {
+                    "kind" : {
+                      "F32" : {
+                        
+                      }
+                    }
+                  }
+                }
+              },
+              "value" : {
+                "Primitive" : {
+                  "Float" : {
+                    "kind" : {
+                      "F32" : {
+                        
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default" : "None",
+          "sizes" : {
+            
+          },
+          "formats" : {
+            
+          }
+        }
+      },
+      "108" : {
+        "Array" : {
+          "node" : {
+            "astNodeId" : 108
+          },
+          "anonArray" : {
+            "size" : {
+              "Some" : 4
+            },
+            "eltType" : {
+              "Struct" : {
+                "node" : {
+                  "astNodeId" : 103
+                },
+                "anonStruct" : {
+                  "members" : {
+                    "time" : {
+                      "Primitive" : {
+                        "Float" : {
+                          "kind" : {
+                            "F32" : {
+                              
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "value" : {
+                      "Primitive" : {
+                        "Float" : {
+                          "kind" : {
+                            "F32" : {
+                              
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "default" : {
+                  "Some" : {
+                    "anonStruct" : {
+                      "members" : {
+                        "time" : {
+                          "Float" : {
+                            "value" : 0.0,
+                            "kind" : {
+                              "F32" : {
+                                
+                              }
+                            }
+                          }
+                        },
+                        "value" : {
+                          "Float" : {
+                            "value" : 0.0,
+                            "kind" : {
+                              "F32" : {
+                                
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "t" : {
+                      "node" : {
+                        "astNodeId" : 103
+                      },
+                      "anonStruct" : {
+                        "members" : {
+                          "time" : {
+                            "Primitive" : {
+                              "Float" : {
+                                "kind" : {
+                                  "F32" : {
+                                    
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "value" : {
+                            "Primitive" : {
+                              "Float" : {
+                                "kind" : {
+                                  "F32" : {
+                                    
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "default" : "None",
+                      "sizes" : {
+                        
+                      },
+                      "formats" : {
+                        
+                      }
+                    }
+                  }
+                },
+                "sizes" : {
+                  
+                },
+                "formats" : {
+                  "time" : {
+                    "prefix" : "",
+                    "fields" : [
+                      [
+                        {
+                          "Rational" : {
+                            "precision" : "None",
+                            "t" : {
+                              "Fixed" : {
+                                
+                              }
+                            }
+                          }
+                        },
+                        ""
+                      ]
+                    ]
+                  },
+                  "value" : {
+                    "prefix" : "",
+                    "fields" : [
+                      [
+                        {
+                          "Rational" : {
+                            "precision" : "None",
+                            "t" : {
+                              "Fixed" : {
+                                
+                              }
+                            }
+                          }
+                        },
+                        ""
+                      ]
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "anonArray" : {
+                "elements" : [
+                  {
+                    "Struct" : {
+                      "anonStruct" : {
+                        "members" : {
+                          "time" : {
+                            "Float" : {
+                              "value" : 0.0,
+                              "kind" : {
+                                "F32" : {
+                                  
+                                }
+                              }
+                            }
+                          },
+                          "value" : {
+                            "Float" : {
+                              "value" : 0.0,
+                              "kind" : {
+                                "F32" : {
+                                  
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "t" : {
+                        "node" : {
+                          "astNodeId" : 103
+                        },
+                        "anonStruct" : {
+                          "members" : {
+                            "time" : {
+                              "Primitive" : {
+                                "Float" : {
+                                  "kind" : {
+                                    "F32" : {
+                                      
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "value" : {
+                              "Primitive" : {
+                                "Float" : {
+                                  "kind" : {
+                                    "F32" : {
+                                      
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "default" : "None",
+                        "sizes" : {
+                          
+                        },
+                        "formats" : {
+                          
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Struct" : {
+                      "anonStruct" : {
+                        "members" : {
+                          "time" : {
+                            "Float" : {
+                              "value" : 0.0,
+                              "kind" : {
+                                "F32" : {
+                                  
+                                }
+                              }
+                            }
+                          },
+                          "value" : {
+                            "Float" : {
+                              "value" : 0.0,
+                              "kind" : {
+                                "F32" : {
+                                  
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "t" : {
+                        "node" : {
+                          "astNodeId" : 103
+                        },
+                        "anonStruct" : {
+                          "members" : {
+                            "time" : {
+                              "Primitive" : {
+                                "Float" : {
+                                  "kind" : {
+                                    "F32" : {
+                                      
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "value" : {
+                              "Primitive" : {
+                                "Float" : {
+                                  "kind" : {
+                                    "F32" : {
+                                      
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "default" : "None",
+                        "sizes" : {
+                          
+                        },
+                        "formats" : {
+                          
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Struct" : {
+                      "anonStruct" : {
+                        "members" : {
+                          "time" : {
+                            "Float" : {
+                              "value" : 0.0,
+                              "kind" : {
+                                "F32" : {
+                                  
+                                }
+                              }
+                            }
+                          },
+                          "value" : {
+                            "Float" : {
+                              "value" : 0.0,
+                              "kind" : {
+                                "F32" : {
+                                  
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "t" : {
+                        "node" : {
+                          "astNodeId" : 103
+                        },
+                        "anonStruct" : {
+                          "members" : {
+                            "time" : {
+                              "Primitive" : {
+                                "Float" : {
+                                  "kind" : {
+                                    "F32" : {
+                                      
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "value" : {
+                              "Primitive" : {
+                                "Float" : {
+                                  "kind" : {
+                                    "F32" : {
+                                      
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "default" : "None",
+                        "sizes" : {
+                          
+                        },
+                        "formats" : {
+                          
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Struct" : {
+                      "anonStruct" : {
+                        "members" : {
+                          "time" : {
+                            "Float" : {
+                              "value" : 0.0,
+                              "kind" : {
+                                "F32" : {
+                                  
+                                }
+                              }
+                            }
+                          },
+                          "value" : {
+                            "Float" : {
+                              "value" : 0.0,
+                              "kind" : {
+                                "F32" : {
+                                  
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "t" : {
+                        "node" : {
+                          "astNodeId" : 103
+                        },
+                        "anonStruct" : {
+                          "members" : {
+                            "time" : {
+                              "Primitive" : {
+                                "Float" : {
+                                  "kind" : {
+                                    "F32" : {
+                                      
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "value" : {
+                              "Primitive" : {
+                                "Float" : {
+                                  "kind" : {
+                                    "F32" : {
+                                      
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "default" : "None",
+                        "sizes" : {
+                          
+                        },
+                        "formats" : {
+                          
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "t" : {
+                "node" : {
+                  "astNodeId" : 108
+                },
+                "anonArray" : {
+                  "size" : {
+                    "Some" : 4
+                  },
+                  "eltType" : {
+                    "Struct" : {
+                      "node" : {
+                        "astNodeId" : 103
+                      },
+                      "anonStruct" : {
+                        "members" : {
+                          "time" : {
+                            "Primitive" : {
+                              "Float" : {
+                                "kind" : {
+                                  "F32" : {
+                                    
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "value" : {
+                            "Primitive" : {
+                              "Float" : {
+                                "kind" : {
+                                  "F32" : {
+                                    
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "default" : {
+                        "Some" : {
+                          "anonStruct" : {
+                            "members" : {
+                              "time" : {
+                                "Float" : {
+                                  "value" : 0.0,
+                                  "kind" : {
+                                    "F32" : {
+                                      
+                                    }
+                                  }
+                                }
+                              },
+                              "value" : {
+                                "Float" : {
+                                  "value" : 0.0,
+                                  "kind" : {
+                                    "F32" : {
+                                      
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "t" : {
+                            "node" : {
+                              "astNodeId" : 103
+                            },
+                            "anonStruct" : {
+                              "members" : {
+                                "time" : {
+                                  "Primitive" : {
+                                    "Float" : {
+                                      "kind" : {
+                                        "F32" : {
+                                          
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "value" : {
+                                  "Primitive" : {
+                                    "Float" : {
+                                      "kind" : {
+                                        "F32" : {
+                                          
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "default" : "None",
+                            "sizes" : {
+                              
+                            },
+                            "formats" : {
+                              
+                            }
+                          }
+                        }
+                      },
+                      "sizes" : {
+                        
+                      },
+                      "formats" : {
+                        "time" : {
+                          "prefix" : "",
+                          "fields" : [
+                            [
+                              {
+                                "Rational" : {
+                                  "precision" : "None",
+                                  "t" : {
+                                    "Fixed" : {
+                                      
+                                    }
+                                  }
+                                }
+                              },
+                              ""
+                            ]
+                          ]
+                        },
+                        "value" : {
+                          "prefix" : "",
+                          "fields" : [
+                            [
+                              {
+                                "Rational" : {
+                                  "precision" : "None",
+                                  "t" : {
+                                    "Fixed" : {
+                                      
+                                    }
+                                  }
+                                }
+                              },
+                              ""
+                            ]
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "default" : "None",
+                "format" : "None"
+              }
+            }
+          },
+          "format" : "None"
+        }
+      },
+      "109" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "110" : {
+        "Primitive" : {
+          "Float" : {
+            "kind" : {
+              "F32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "112" : {
+        "Array" : {
+          "node" : {
+            "astNodeId" : 112
+          },
+          "anonArray" : {
+            "size" : {
+              "Some" : 4
+            },
+            "eltType" : {
+              "Primitive" : {
+                "Float" : {
+                  "kind" : {
+                    "F32" : {
+                      
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "anonArray" : {
+                "elements" : [
+                  {
+                    "Float" : {
+                      "value" : 0.0,
+                      "kind" : {
+                        "F32" : {
+                          
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Float" : {
+                      "value" : 0.0,
+                      "kind" : {
+                        "F32" : {
+                          
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Float" : {
+                      "value" : 0.0,
+                      "kind" : {
+                        "F32" : {
+                          
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Float" : {
+                      "value" : 0.0,
+                      "kind" : {
+                        "F32" : {
+                          
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "t" : {
+                "node" : {
+                  "astNodeId" : 112
+                },
+                "anonArray" : {
+                  "size" : {
+                    "Some" : 4
+                  },
+                  "eltType" : {
+                    "Primitive" : {
+                      "Float" : {
+                        "kind" : {
+                          "F32" : {
+                            
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "default" : "None",
+                "format" : "None"
+              }
+            }
+          },
+          "format" : {
+            "Some" : {
+              "prefix" : "",
+              "fields" : [
+                [
+                  {
+                    "Rational" : {
+                      "precision" : "None",
+                      "t" : {
+                        "Fixed" : {
+                          
+                        }
+                      }
+                    }
+                  },
+                  ""
+                ]
+              ]
+            }
+          }
+        }
+      },
+      "113" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 119
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
+      "114" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 119
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
+      "115" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 119
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
+      "118" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 119
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
+      "119" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 119
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "value" : [
+                "TRIANGLE",
+                0
+              ],
+              "t" : {
+                "node" : {
+                  "astNodeId" : 119
+                },
+                "repType" : {
+                  "kind" : {
+                    "I32" : {
+                      
+                    }
+                  }
+                },
+                "default" : "None"
+              }
+            }
+          }
+        }
+      },
+      "120" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "121" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 121
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U32" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "122" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "123" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 123
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U32" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "124" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 1
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U16" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "125" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 1
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U16" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "126" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "127" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 1
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U16" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "128" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "129" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 1
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U16" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "130" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
       }
     },
     "useDefMap" : {
+      "6" : {
+        "Constant" : {
+          "nodeId" : 5,
+          "unqualifiedName" : "numElements"
+        }
+      },
+      "17" : {
+        "Array" : {
+          "nodeId" : 14,
+          "unqualifiedName" : "A"
+        }
+      },
+      "18" : {
+        "Array" : {
+          "nodeId" : 14,
+          "unqualifiedName" : "A"
+        }
+      },
+      "52" : {
+        "Constant" : {
+          "nodeId" : 43,
+          "unqualifiedName" : "s"
+        }
+      },
+      "62" : {
+        "Constant" : {
+          "nodeId" : 43,
+          "unqualifiedName" : "s"
+        }
+      },
+      "67" : {
+        "AbsType" : {
+          "nodeId" : 64,
+          "unqualifiedName" : "T"
+        }
+      },
+      "68" : {
+        "AbsType" : {
+          "nodeId" : 64,
+          "unqualifiedName" : "T"
+        }
+      },
+      "71" : {
+        "Enum" : {
+          "nodeId" : 119,
+          "unqualifiedName" : "SignalType"
+        }
+      },
+      "72" : {
+        "Enum" : {
+          "nodeId" : 119,
+          "unqualifiedName" : "SignalType"
+        }
+      },
+      "75" : {
+        "Array" : {
+          "nodeId" : 112,
+          "unqualifiedName" : "SignalSet"
+        }
+      },
+      "76" : {
+        "Array" : {
+          "nodeId" : 112,
+          "unqualifiedName" : "SignalSet"
+        }
+      },
+      "87" : {
+        "Array" : {
+          "nodeId" : 108,
+          "unqualifiedName" : "SignalPairSet"
+        }
+      },
       "88" : {
         "Array" : {
           "nodeId" : 108,
@@ -6150,10 +6222,10 @@
           "unqualifiedName" : "SignalPair"
         }
       },
-      "6" : {
-        "Constant" : {
-          "nodeId" : 5,
-          "unqualifiedName" : "numElements"
+      "107" : {
+        "Struct" : {
+          "nodeId" : 103,
+          "unqualifiedName" : "SignalPair"
         }
       },
       "124" : {
@@ -6162,7 +6234,19 @@
           "unqualifiedName" : "FwSizeStoreType"
         }
       },
-      "129" : {
+      "125" : {
+        "AliasType" : {
+          "nodeId" : 1,
+          "unqualifiedName" : "FwSizeStoreType"
+        }
+      },
+      "126" : {
+        "Constant" : {
+          "nodeId" : 3,
+          "unqualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE"
+        }
+      },
+      "127" : {
         "AliasType" : {
           "nodeId" : 1,
           "unqualifiedName" : "FwSizeStoreType"
@@ -6174,22 +6258,10 @@
           "unqualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE"
         }
       },
-      "17" : {
-        "Array" : {
-          "nodeId" : 14,
-          "unqualifiedName" : "A"
-        }
-      },
-      "71" : {
-        "Enum" : {
-          "nodeId" : 119,
-          "unqualifiedName" : "SignalType"
-        }
-      },
-      "76" : {
-        "Array" : {
-          "nodeId" : 112,
-          "unqualifiedName" : "SignalSet"
+      "129" : {
+        "AliasType" : {
+          "nodeId" : 1,
+          "unqualifiedName" : "FwSizeStoreType"
         }
       },
       "130" : {
@@ -6197,116 +6269,27 @@
           "nodeId" : 3,
           "unqualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE"
         }
-      },
-      "18" : {
-        "Array" : {
-          "nodeId" : 14,
-          "unqualifiedName" : "A"
-        }
-      },
-      "72" : {
-        "Enum" : {
-          "nodeId" : 119,
-          "unqualifiedName" : "SignalType"
-        }
-      },
-      "87" : {
-        "Array" : {
-          "nodeId" : 108,
-          "unqualifiedName" : "SignalPairSet"
-        }
-      },
-      "75" : {
-        "Array" : {
-          "nodeId" : 112,
-          "unqualifiedName" : "SignalSet"
-        }
-      },
-      "52" : {
-        "Constant" : {
-          "nodeId" : 43,
-          "unqualifiedName" : "s"
-        }
-      },
-      "125" : {
-        "AliasType" : {
-          "nodeId" : 1,
-          "unqualifiedName" : "FwSizeStoreType"
-        }
-      },
-      "67" : {
-        "AbsType" : {
-          "nodeId" : 64,
-          "unqualifiedName" : "T"
-        }
-      },
-      "127" : {
-        "AliasType" : {
-          "nodeId" : 1,
-          "unqualifiedName" : "FwSizeStoreType"
-        }
-      },
-      "107" : {
-        "Struct" : {
-          "nodeId" : 103,
-          "unqualifiedName" : "SignalPair"
-        }
-      },
-      "126" : {
-        "Constant" : {
-          "nodeId" : 3,
-          "unqualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE"
-        }
-      },
-      "68" : {
-        "AbsType" : {
-          "nodeId" : 64,
-          "unqualifiedName" : "T"
-        }
-      },
-      "62" : {
-        "Constant" : {
-          "nodeId" : 43,
-          "unqualifiedName" : "s"
-        }
       }
     },
     "valueMap" : {
-      "10" : {
-        "String" : {
-          "value" : "2"
+      "2" : {
+        "Integer" : {
+          "value" : 256
         }
       },
-      "42" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Integer" : {
-                "value" : 1
-              }
-            },
-            "y" : {
-              "String" : {
-                "value" : "abc"
-              }
-            }
-          }
+      "3" : {
+        "Integer" : {
+          "value" : 256
         }
       },
-      "52" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Integer" : {
-                "value" : 1
-              }
-            },
-            "y" : {
-              "String" : {
-                "value" : "abc"
-              }
-            }
-          }
+      "4" : {
+        "Integer" : {
+          "value" : 3
+        }
+      },
+      "5" : {
+        "Integer" : {
+          "value" : 3
         }
       },
       "6" : {
@@ -6314,14 +6297,9 @@
           "value" : 3
         }
       },
-      "38" : {
+      "7" : {
         "Integer" : {
-          "value" : 1
-        }
-      },
-      "65" : {
-        "Integer" : {
-          "value" : 3
+          "value" : 40
         }
       },
       "9" : {
@@ -6329,30 +6307,14 @@
           "value" : "1"
         }
       },
-      "109" : {
-        "Integer" : {
-          "value" : 4
+      "10" : {
+        "String" : {
+          "value" : "2"
         }
       },
-      "118" : {
-        "EnumConstant" : {
-          "value" : [
-            "NOISE",
-            3
-          ],
-          "t" : {
-            "node" : {
-              "astNodeId" : 119
-            },
-            "repType" : {
-              "kind" : {
-                "I32" : {
-                  
-                }
-              }
-            },
-            "default" : "None"
-          }
+      "11" : {
+        "String" : {
+          "value" : "3"
         }
       },
       "12" : {
@@ -6376,45 +6338,98 @@
           ]
         }
       },
+      "15" : {
+        "Integer" : {
+          "value" : 3
+        }
+      },
+      "38" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "40" : {
+        "String" : {
+          "value" : "abc"
+        }
+      },
+      "42" : {
+        "AnonStruct" : {
+          "members" : {
+            "x" : {
+              "Integer" : {
+                "value" : 1
+              }
+            },
+            "y" : {
+              "String" : {
+                "value" : "abc"
+              }
+            }
+          }
+        }
+      },
+      "43" : {
+        "AnonStruct" : {
+          "members" : {
+            "x" : {
+              "Integer" : {
+                "value" : 1
+              }
+            },
+            "y" : {
+              "String" : {
+                "value" : "abc"
+              }
+            }
+          }
+        }
+      },
+      "52" : {
+        "AnonStruct" : {
+          "members" : {
+            "x" : {
+              "Integer" : {
+                "value" : 1
+              }
+            },
+            "y" : {
+              "String" : {
+                "value" : "abc"
+              }
+            }
+          }
+        }
+      },
+      "62" : {
+        "AnonStruct" : {
+          "members" : {
+            "x" : {
+              "Integer" : {
+                "value" : 1
+              }
+            },
+            "y" : {
+              "String" : {
+                "value" : "abc"
+              }
+            }
+          }
+        }
+      },
+      "65" : {
+        "Integer" : {
+          "value" : 3
+        }
+      },
       "104" : {
         "Integer" : {
           "value" : 4
         }
       },
-      "115" : {
-        "EnumConstant" : {
-          "value" : [
-            "SINE",
-            2
-          ],
-          "t" : {
-            "node" : {
-              "astNodeId" : 119
-            },
-            "repType" : {
-              "kind" : {
-                "I32" : {
-                  
-                }
-              }
-            },
-            "default" : "None"
-          }
-        }
-      },
-      "5" : {
+      "109" : {
         "Integer" : {
-          "value" : 3
-        }
-      },
-      "128" : {
-        "Integer" : {
-          "value" : 256
-        }
-      },
-      "2" : {
-        "Integer" : {
-          "value" : 256
+          "value" : 4
         }
       },
       "113" : {
@@ -6438,47 +6453,6 @@
           }
         }
       },
-      "7" : {
-        "Integer" : {
-          "value" : 40
-        }
-      },
-      "130" : {
-        "Integer" : {
-          "value" : 256
-        }
-      },
-      "3" : {
-        "Integer" : {
-          "value" : 256
-        }
-      },
-      "11" : {
-        "String" : {
-          "value" : "3"
-        }
-      },
-      "43" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Integer" : {
-                "value" : 1
-              }
-            },
-            "y" : {
-              "String" : {
-                "value" : "abc"
-              }
-            }
-          }
-        }
-      },
-      "40" : {
-        "String" : {
-          "value" : "abc"
-        }
-      },
       "114" : {
         "EnumConstant" : {
           "value" : [
@@ -6500,9 +6474,46 @@
           }
         }
       },
-      "4" : {
-        "Integer" : {
-          "value" : 3
+      "115" : {
+        "EnumConstant" : {
+          "value" : [
+            "SINE",
+            2
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 119
+            },
+            "repType" : {
+              "kind" : {
+                "I32" : {
+                  
+                }
+              }
+            },
+            "default" : "None"
+          }
+        }
+      },
+      "118" : {
+        "EnumConstant" : {
+          "value" : [
+            "NOISE",
+            3
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 119
+            },
+            "repType" : {
+              "kind" : {
+                "I32" : {
+                  
+                }
+              }
+            },
+            "default" : "None"
+          }
         }
       },
       "126" : {
@@ -6510,25 +6521,14 @@
           "value" : 256
         }
       },
-      "15" : {
+      "128" : {
         "Integer" : {
-          "value" : 3
+          "value" : 256
         }
       },
-      "62" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Integer" : {
-                "value" : 1
-              }
-            },
-            "y" : {
-              "String" : {
-                "value" : "abc"
-              }
-            }
-          }
+      "130" : {
+        "Integer" : {
+          "value" : 256
         }
       }
     },

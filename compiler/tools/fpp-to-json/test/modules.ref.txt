@@ -745,25 +745,19 @@
     "locationSpecifierMap" : [
     ],
     "parentSymbolMap" : {
-      "55" : {
-        "Module" : {
-          "nodeId" : 56,
-          "unqualifiedName" : "A"
-        }
-      },
-      "15" : {
+      "1" : {
         "Module" : {
           "nodeId" : 16,
           "unqualifiedName" : "M1"
         }
       },
-      "33" : {
+      "3" : {
         "Module" : {
-          "nodeId" : 27,
-          "unqualifiedName" : "M2"
+          "nodeId" : 16,
+          "unqualifiedName" : "M1"
         }
       },
-      "1" : {
+      "15" : {
         "Module" : {
           "nodeId" : 16,
           "unqualifiedName" : "M1"
@@ -775,16 +769,22 @@
           "unqualifiedName" : "M2"
         }
       },
+      "33" : {
+        "Module" : {
+          "nodeId" : 27,
+          "unqualifiedName" : "M2"
+        }
+      },
       "54" : {
         "Module" : {
           "nodeId" : 55,
           "unqualifiedName" : "B"
         }
       },
-      "3" : {
+      "55" : {
         "Module" : {
-          "nodeId" : 16,
-          "unqualifiedName" : "M1"
+          "nodeId" : 56,
+          "unqualifiedName" : "A"
         }
       }
     },
@@ -851,27 +851,7 @@
       },
       "56" : {
         "map" : {
-          "StateMachine" : {
-            "map" : {
-              "B" : {
-                "Module" : {
-                  "nodeId" : 55,
-                  "unqualifiedName" : "B"
-                }
-              }
-            }
-          },
-          "PortInterfaceInstance" : {
-            "map" : {
-              "B" : {
-                "Module" : {
-                  "nodeId" : 55,
-                  "unqualifiedName" : "B"
-                }
-              }
-            }
-          },
-          "Value" : {
+          "Component" : {
             "map" : {
               "B" : {
                 "Module" : {
@@ -901,7 +881,17 @@
               }
             }
           },
-          "Component" : {
+          "PortInterfaceInstance" : {
+            "map" : {
+              "B" : {
+                "Module" : {
+                  "nodeId" : 55,
+                  "unqualifiedName" : "B"
+                }
+              }
+            }
+          },
+          "StateMachine" : {
             "map" : {
               "B" : {
                 "Module" : {
@@ -912,6 +902,16 @@
             }
           },
           "Type" : {
+            "map" : {
+              "B" : {
+                "Module" : {
+                  "nodeId" : 55,
+                  "unqualifiedName" : "B"
+                }
+              }
+            }
+          },
+          "Value" : {
             "map" : {
               "B" : {
                 "Module" : {
@@ -935,7 +935,21 @@
           }
         }
       },
-      "25" : {
+      "1" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "2" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "3" : {
         "Int" : {
           "Integer" : {
             
@@ -949,7 +963,42 @@
           }
         }
       },
+      "15" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "19" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
       "20" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "25" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "26" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "32" : {
         "Int" : {
           "Integer" : {
             
@@ -970,20 +1019,6 @@
           }
         }
       },
-      "2" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "32" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
       "54" : {
         "Int" : {
           "Integer" : {
@@ -991,42 +1026,7 @@
           }
         }
       },
-      "3" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "26" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "19" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
       "61" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "1" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "15" : {
         "Int" : {
           "Integer" : {
             
@@ -1042,43 +1042,25 @@
       }
     },
     "useDefMap" : {
-      "14" : {
-        "Constant" : {
-          "nodeId" : 3,
-          "unqualifiedName" : "b"
-        }
-      },
-      "57" : {
-        "Module" : {
-          "nodeId" : 56,
-          "unqualifiedName" : "A"
-        }
-      },
-      "61" : {
-        "Constant" : {
-          "nodeId" : 54,
-          "unqualifiedName" : "c"
-        }
-      },
-      "60" : {
-        "Module" : {
-          "nodeId" : 55,
-          "unqualifiedName" : "B"
-        }
-      },
       "2" : {
         "Constant" : {
           "nodeId" : 1,
           "unqualifiedName" : "a"
         }
       },
-      "17" : {
+      "12" : {
         "Module" : {
           "nodeId" : 16,
           "unqualifiedName" : "M1"
         }
       },
-      "12" : {
+      "14" : {
+        "Constant" : {
+          "nodeId" : 3,
+          "unqualifiedName" : "b"
+        }
+      },
+      "17" : {
         "Module" : {
           "nodeId" : 16,
           "unqualifiedName" : "M1"
@@ -1089,10 +1071,63 @@
           "nodeId" : 1,
           "unqualifiedName" : "a"
         }
+      },
+      "57" : {
+        "Module" : {
+          "nodeId" : 56,
+          "unqualifiedName" : "A"
+        }
+      },
+      "60" : {
+        "Module" : {
+          "nodeId" : 55,
+          "unqualifiedName" : "B"
+        }
+      },
+      "61" : {
+        "Constant" : {
+          "nodeId" : 54,
+          "unqualifiedName" : "c"
+        }
       }
     },
     "valueMap" : {
       "0" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "1" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "2" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "3" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "14" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "15" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "19" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "20" : {
         "Integer" : {
           "value" : 1
         }
@@ -1102,12 +1137,12 @@
           "value" : 0
         }
       },
-      "14" : {
+      "26" : {
         "Integer" : {
-          "value" : 1
+          "value" : 0
         }
       },
-      "20" : {
+      "32" : {
         "Integer" : {
           "value" : 1
         }
@@ -1122,49 +1157,14 @@
           "value" : 0
         }
       },
-      "2" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "32" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
       "54" : {
         "Integer" : {
           "value" : 0
         }
       },
-      "3" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "26" : {
-        "Integer" : {
-          "value" : 0
-        }
-      },
-      "19" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
       "61" : {
         "Integer" : {
           "value" : 0
-        }
-      },
-      "1" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "15" : {
-        "Integer" : {
-          "value" : 1
         }
       },
       "62" : {

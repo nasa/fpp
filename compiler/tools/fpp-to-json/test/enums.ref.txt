@@ -587,13 +587,7 @@
     "locationSpecifierMap" : [
     ],
     "parentSymbolMap" : {
-      "11" : {
-        "Enum" : {
-          "nodeId" : 20,
-          "unqualifiedName" : "E"
-        }
-      },
-      "4" : {
+      "0" : {
         "Enum" : {
           "nodeId" : 5,
           "unqualifiedName" : "Decision"
@@ -605,10 +599,16 @@
           "unqualifiedName" : "Decision"
         }
       },
-      "32" : {
+      "4" : {
         "Enum" : {
-          "nodeId" : 34,
-          "unqualifiedName" : "Small"
+          "nodeId" : 5,
+          "unqualifiedName" : "Decision"
+        }
+      },
+      "11" : {
+        "Enum" : {
+          "nodeId" : 20,
+          "unqualifiedName" : "E"
         }
       },
       "13" : {
@@ -629,13 +629,13 @@
           "unqualifiedName" : "Small"
         }
       },
-      "0" : {
+      "29" : {
         "Enum" : {
-          "nodeId" : 5,
-          "unqualifiedName" : "Decision"
+          "nodeId" : 34,
+          "unqualifiedName" : "Small"
         }
       },
-      "29" : {
+      "32" : {
         "Enum" : {
           "nodeId" : 34,
           "unqualifiedName" : "Small"
@@ -647,10 +647,10 @@
         "map" : {
           "Value" : {
             "map" : {
-              "YES" : {
+              "MAYBE" : {
                 "EnumConstant" : {
-                  "nodeId" : 0,
-                  "unqualifiedName" : "YES"
+                  "nodeId" : 4,
+                  "unqualifiedName" : "MAYBE"
                 }
               },
               "NO" : {
@@ -659,10 +659,10 @@
                   "unqualifiedName" : "NO"
                 }
               },
-              "MAYBE" : {
+              "YES" : {
                 "EnumConstant" : {
-                  "nodeId" : 4,
-                  "unqualifiedName" : "MAYBE"
+                  "nodeId" : 0,
+                  "unqualifiedName" : "YES"
                 }
               }
             }
@@ -741,6 +741,36 @@
           "default" : "None"
         }
       },
+      "1" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 5
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
+      "4" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 5
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
       "5" : {
         "Enum" : {
           "node" : {
@@ -776,14 +806,7 @@
           }
         }
       },
-      "10" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "1" : {
+      "8" : {
         "Enum" : {
           "node" : {
             "astNodeId" : 5
@@ -813,40 +836,7 @@
           "default" : "None"
         }
       },
-      "13" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 20
-          },
-          "repType" : {
-            "kind" : {
-              "I32" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
-      },
-      "27" : {
-        "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U8" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "12" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "18" : {
+      "10" : {
         "Int" : {
           "Integer" : {
             
@@ -868,10 +858,17 @@
           "default" : "None"
         }
       },
-      "8" : {
+      "12" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "13" : {
         "Enum" : {
           "node" : {
-            "astNodeId" : 5
+            "astNodeId" : 20
           },
           "repType" : {
             "kind" : {
@@ -881,6 +878,13 @@
             }
           },
           "default" : "None"
+        }
+      },
+      "18" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
         }
       },
       "19" : {
@@ -896,35 +900,6 @@
             }
           },
           "default" : "None"
-        }
-      },
-      "4" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 5
-          },
-          "repType" : {
-            "kind" : {
-              "I32" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
-      },
-      "24" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "25" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
         }
       },
       "20" : {
@@ -962,19 +937,51 @@
           }
         }
       },
-      "29" : {
+      "23" : {
         "Enum" : {
           "node" : {
-            "astNodeId" : 34
+            "astNodeId" : 20
           },
           "repType" : {
             "kind" : {
-              "U8" : {
+              "I32" : {
                 
               }
             }
           },
           "default" : "None"
+        }
+      },
+      "24" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "25" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "26" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "27" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          }
         }
       },
       "28" : {
@@ -992,7 +999,7 @@
           "default" : "None"
         }
       },
-      "33" : {
+      "29" : {
         "Enum" : {
           "node" : {
             "astNodeId" : 34
@@ -1008,6 +1015,21 @@
         }
       },
       "32" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 34
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
+      "33" : {
         "Enum" : {
           "node" : {
             "astNodeId" : 34
@@ -1056,28 +1078,6 @@
             }
           }
         }
-      },
-      "26" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "23" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 20
-          },
-          "repType" : {
-            "kind" : {
-              "I32" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
       }
     },
     "useDefMap" : {
@@ -1085,12 +1085,6 @@
         "Enum" : {
           "nodeId" : 5,
           "unqualifiedName" : "Decision"
-        }
-      },
-      "23" : {
-        "EnumConstant" : {
-          "nodeId" : 11,
-          "unqualifiedName" : "A"
         }
       },
       "8" : {
@@ -1103,6 +1097,12 @@
         "Enum" : {
           "nodeId" : 20,
           "unqualifiedName" : "E"
+        }
+      },
+      "23" : {
+        "EnumConstant" : {
+          "nodeId" : 11,
+          "unqualifiedName" : "A"
         }
       },
       "33" : {
@@ -1134,24 +1134,19 @@
           }
         }
       },
-      "10" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "29" : {
+      "1" : {
         "EnumConstant" : {
           "value" : [
-            "B",
+            "NO",
             1
           ],
           "t" : {
             "node" : {
-              "astNodeId" : 34
+              "astNodeId" : 5
             },
             "repType" : {
               "kind" : {
-                "U8" : {
+                "I32" : {
                   
                 }
               }
@@ -1160,11 +1155,32 @@
           }
         }
       },
-      "1" : {
+      "4" : {
         "EnumConstant" : {
           "value" : [
-            "NO",
-            1
+            "MAYBE",
+            2
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 5
+            },
+            "repType" : {
+              "kind" : {
+                "I32" : {
+                  
+                }
+              }
+            },
+            "default" : "None"
+          }
+        }
+      },
+      "8" : {
+        "EnumConstant" : {
+          "value" : [
+            "MAYBE",
+            2
           ],
           "t" : {
             "node" : {
@@ -1202,6 +1218,37 @@
           }
         }
       },
+      "10" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "11" : {
+        "EnumConstant" : {
+          "value" : [
+            "A",
+            1
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 20
+            },
+            "repType" : {
+              "kind" : {
+                "I32" : {
+                  
+                }
+              }
+            },
+            "default" : "None"
+          }
+        }
+      },
+      "12" : {
+        "Integer" : {
+          "value" : 2
+        }
+      },
       "13" : {
         "EnumConstant" : {
           "value" : [
@@ -1215,6 +1262,110 @@
             "repType" : {
               "kind" : {
                 "I32" : {
+                  
+                }
+              }
+            },
+            "default" : "None"
+          }
+        }
+      },
+      "18" : {
+        "Integer" : {
+          "value" : 3
+        }
+      },
+      "19" : {
+        "EnumConstant" : {
+          "value" : [
+            "C",
+            3
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 20
+            },
+            "repType" : {
+              "kind" : {
+                "I32" : {
+                  
+                }
+              }
+            },
+            "default" : "None"
+          }
+        }
+      },
+      "23" : {
+        "EnumConstant" : {
+          "value" : [
+            "A",
+            1
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 20
+            },
+            "repType" : {
+              "kind" : {
+                "I32" : {
+                  
+                }
+              }
+            },
+            "default" : "None"
+          }
+        }
+      },
+      "24" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "25" : {
+        "Integer" : {
+          "value" : 2
+        }
+      },
+      "26" : {
+        "Integer" : {
+          "value" : 2
+        }
+      },
+      "28" : {
+        "EnumConstant" : {
+          "value" : [
+            "A",
+            0
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 34
+            },
+            "repType" : {
+              "kind" : {
+                "U8" : {
+                  
+                }
+              }
+            },
+            "default" : "None"
+          }
+        }
+      },
+      "29" : {
+        "EnumConstant" : {
+          "value" : [
+            "B",
+            1
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 34
+            },
+            "repType" : {
+              "kind" : {
+                "U8" : {
                   
                 }
               }
@@ -1244,131 +1395,6 @@
           }
         }
       },
-      "12" : {
-        "Integer" : {
-          "value" : 2
-        }
-      },
-      "18" : {
-        "Integer" : {
-          "value" : 3
-        }
-      },
-      "11" : {
-        "EnumConstant" : {
-          "value" : [
-            "A",
-            1
-          ],
-          "t" : {
-            "node" : {
-              "astNodeId" : 20
-            },
-            "repType" : {
-              "kind" : {
-                "I32" : {
-                  
-                }
-              }
-            },
-            "default" : "None"
-          }
-        }
-      },
-      "8" : {
-        "EnumConstant" : {
-          "value" : [
-            "MAYBE",
-            2
-          ],
-          "t" : {
-            "node" : {
-              "astNodeId" : 5
-            },
-            "repType" : {
-              "kind" : {
-                "I32" : {
-                  
-                }
-              }
-            },
-            "default" : "None"
-          }
-        }
-      },
-      "19" : {
-        "EnumConstant" : {
-          "value" : [
-            "C",
-            3
-          ],
-          "t" : {
-            "node" : {
-              "astNodeId" : 20
-            },
-            "repType" : {
-              "kind" : {
-                "I32" : {
-                  
-                }
-              }
-            },
-            "default" : "None"
-          }
-        }
-      },
-      "4" : {
-        "EnumConstant" : {
-          "value" : [
-            "MAYBE",
-            2
-          ],
-          "t" : {
-            "node" : {
-              "astNodeId" : 5
-            },
-            "repType" : {
-              "kind" : {
-                "I32" : {
-                  
-                }
-              }
-            },
-            "default" : "None"
-          }
-        }
-      },
-      "24" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "25" : {
-        "Integer" : {
-          "value" : 2
-        }
-      },
-      "28" : {
-        "EnumConstant" : {
-          "value" : [
-            "A",
-            0
-          ],
-          "t" : {
-            "node" : {
-              "astNodeId" : 34
-            },
-            "repType" : {
-              "kind" : {
-                "U8" : {
-                  
-                }
-              }
-            },
-            "default" : "None"
-          }
-        }
-      },
       "33" : {
         "EnumConstant" : {
           "value" : [
@@ -1382,32 +1408,6 @@
             "repType" : {
               "kind" : {
                 "U8" : {
-                  
-                }
-              }
-            },
-            "default" : "None"
-          }
-        }
-      },
-      "26" : {
-        "Integer" : {
-          "value" : 2
-        }
-      },
-      "23" : {
-        "EnumConstant" : {
-          "value" : [
-            "A",
-            1
-          ],
-          "t" : {
-            "node" : {
-              "astNodeId" : 20
-            },
-            "repType" : {
-              "kind" : {
-                "I32" : {
                   
                 }
               }

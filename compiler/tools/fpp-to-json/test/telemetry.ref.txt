@@ -1285,34 +1285,6 @@
         "portInterface" : {
           "instanceType" : "component",
           "portMap" : {
-            "tlmOut" : {
-              "Special" : {
-                "aNode" : {
-                  "astNodeId" : 0
-                },
-                "specifier" : {
-                  "inputKind" : "None",
-                  "kind" : {
-                    "Telemetry" : {
-                      
-                    }
-                  },
-                  "name" : "tlmOut",
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 59,
-                    "unqualifiedName" : "Tlm"
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None",
-                "importNodeIds" : [
-                ]
-              }
-            },
             "timeGetOut" : {
               "Special" : {
                 "aNode" : {
@@ -1333,6 +1305,34 @@
                   "Port" : {
                     "nodeId" : 62,
                     "unqualifiedName" : "Time"
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None",
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "tlmOut" : {
+              "Special" : {
+                "aNode" : {
+                  "astNodeId" : 0
+                },
+                "specifier" : {
+                  "inputKind" : "None",
+                  "kind" : {
+                    "Telemetry" : {
+                      
+                    }
+                  },
+                  "name" : "tlmOut",
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 59,
+                    "unqualifiedName" : "Tlm"
                   }
                 },
                 "priority" : "None",
@@ -1438,19 +1438,19 @@
               }
             },
             "lowLimits" : {
-              "red" : [
-                5,
-                {
-                  "Integer" : {
-                    "value" : 0
-                  }
-                }
-              ],
               "orange" : [
                 7,
                 {
                   "Integer" : {
                     "value" : 1
+                  }
+                }
+              ],
+              "red" : [
+                5,
+                {
+                  "Integer" : {
+                    "value" : 0
                   }
                 }
               ],
@@ -1510,19 +1510,19 @@
               }
             },
             "lowLimits" : {
-              "red" : [
-                15,
-                {
-                  "Integer" : {
-                    "value" : -3
-                  }
-                }
-              ],
               "orange" : [
                 18,
                 {
                   "Integer" : {
                     "value" : -2
+                  }
+                }
+              ],
+              "red" : [
+                15,
+                {
+                  "Integer" : {
+                    "value" : -3
                   }
                 }
               ],
@@ -1536,19 +1536,19 @@
               ]
             },
             "highLimits" : {
-              "red" : [
-                24,
-                {
-                  "Integer" : {
-                    "value" : 3
-                  }
-                }
-              ],
               "orange" : [
                 26,
                 {
                   "Integer" : {
                     "value" : 2
+                  }
+                }
+              ],
+              "red" : [
+                24,
+                {
+                  "Integer" : {
+                    "value" : 3
                   }
                 }
               ],
@@ -1606,19 +1606,19 @@
               
             },
             "highLimits" : {
-              "red" : [
-                51,
-                {
-                  "Integer" : {
-                    "value" : 3
-                  }
-                }
-              ],
               "orange" : [
                 53,
                 {
                   "Integer" : {
                     "value" : 2
+                  }
+                }
+              ],
+              "red" : [
+                51,
+                {
+                  "Integer" : {
+                    "value" : 3
                   }
                 }
               ],
@@ -1670,19 +1670,19 @@
               }
             },
             "lowLimits" : {
-              "red" : [
-                5,
-                {
-                  "Integer" : {
-                    "value" : 0
-                  }
-                }
-              ],
               "orange" : [
                 7,
                 {
                   "Integer" : {
                     "value" : 1
+                  }
+                }
+              ],
+              "red" : [
+                5,
+                {
+                  "Integer" : {
+                    "value" : 0
                   }
                 }
               ],
@@ -1742,19 +1742,19 @@
               }
             },
             "lowLimits" : {
-              "red" : [
-                15,
-                {
-                  "Integer" : {
-                    "value" : -3
-                  }
-                }
-              ],
               "orange" : [
                 18,
                 {
                   "Integer" : {
                     "value" : -2
+                  }
+                }
+              ],
+              "red" : [
+                15,
+                {
+                  "Integer" : {
+                    "value" : -3
                   }
                 }
               ],
@@ -1768,19 +1768,19 @@
               ]
             },
             "highLimits" : {
-              "red" : [
-                24,
-                {
-                  "Integer" : {
-                    "value" : 3
-                  }
-                }
-              ],
               "orange" : [
                 26,
                 {
                   "Integer" : {
                     "value" : 2
+                  }
+                }
+              ],
+              "red" : [
+                24,
+                {
+                  "Integer" : {
+                    "value" : 3
                   }
                 }
               ],
@@ -1838,19 +1838,19 @@
               
             },
             "highLimits" : {
-              "red" : [
-                51,
-                {
-                  "Integer" : {
-                    "value" : 3
-                  }
-                }
-              ],
               "orange" : [
                 53,
                 {
                   "Integer" : {
                     "value" : 2
+                  }
+                }
+              ],
+              "red" : [
+                51,
+                {
+                  "Integer" : {
+                    "value" : 3
                   }
                 }
               ],
@@ -1936,16 +1936,16 @@
         "map" : {
           "Port" : {
             "map" : {
-              "Tlm" : {
-                "Port" : {
-                  "nodeId" : 59,
-                  "unqualifiedName" : "Tlm"
-                }
-              },
               "Time" : {
                 "Port" : {
                   "nodeId" : 62,
                   "unqualifiedName" : "Time"
+                }
+              },
+              "Tlm" : {
+                "Port" : {
+                  "nodeId" : 59,
+                  "unqualifiedName" : "Tlm"
                 }
               }
             }
@@ -2110,14 +2110,18 @@
       }
     },
     "typeMap" : {
-      "25" : {
+      "2" : {
         "Int" : {
-          "Integer" : {
-            
+          "PrimitiveInt" : {
+            "kind" : {
+              "U32" : {
+                
+              }
+            }
           }
         }
       },
-      "52" : {
+      "3" : {
         "Int" : {
           "Integer" : {
             
@@ -2131,59 +2135,6 @@
           }
         }
       },
-      "13" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "2" : {
-        "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U32" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "17" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "66" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "3" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "16" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "23" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
       "8" : {
         "Int" : {
           "Integer" : {
@@ -2191,49 +2142,7 @@
           }
         }
       },
-      "19" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
       "10" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "56" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "20" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "29" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "22" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "27" : {
         "Int" : {
           "Integer" : {
             
@@ -2251,7 +2160,70 @@
           }
         }
       },
-      "54" : {
+      "13" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "16" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "17" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "19" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "20" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "22" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "23" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "25" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "27" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "29" : {
         "Int" : {
           "Integer" : {
             
@@ -2266,6 +2238,34 @@
                 
               }
             }
+          }
+        }
+      },
+      "52" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "54" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "56" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "66" : {
+        "Int" : {
+          "Integer" : {
+            
           }
         }
       }
@@ -2297,14 +2297,9 @@
       }
     },
     "valueMap" : {
-      "25" : {
+      "3" : {
         "Integer" : {
-          "value" : 3
-        }
-      },
-      "52" : {
-        "Integer" : {
-          "value" : 3
+          "value" : 0
         }
       },
       "6" : {
@@ -2312,29 +2307,19 @@
           "value" : 0
         }
       },
-      "13" : {
+      "8" : {
         "Integer" : {
-          "value" : 16
+          "value" : 1
         }
       },
-      "17" : {
-        "Integer" : {
-          "value" : -3
-        }
-      },
-      "54" : {
+      "10" : {
         "Integer" : {
           "value" : 2
         }
       },
-      "66" : {
+      "13" : {
         "Integer" : {
-          "value" : 18944
-        }
-      },
-      "3" : {
-        "Integer" : {
-          "value" : 0
+          "value" : 16
         }
       },
       "16" : {
@@ -2342,14 +2327,9 @@
           "value" : 3
         }
       },
-      "23" : {
+      "17" : {
         "Integer" : {
-          "value" : -1
-        }
-      },
-      "8" : {
-        "Integer" : {
-          "value" : 1
+          "value" : -3
         }
       },
       "19" : {
@@ -2357,7 +2337,42 @@
           "value" : 2
         }
       },
-      "10" : {
+      "20" : {
+        "Integer" : {
+          "value" : -2
+        }
+      },
+      "22" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "23" : {
+        "Integer" : {
+          "value" : -1
+        }
+      },
+      "25" : {
+        "Integer" : {
+          "value" : 3
+        }
+      },
+      "27" : {
+        "Integer" : {
+          "value" : 2
+        }
+      },
+      "29" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "52" : {
+        "Integer" : {
+          "value" : 3
+        }
+      },
+      "54" : {
         "Integer" : {
           "value" : 2
         }
@@ -2367,24 +2382,9 @@
           "value" : 1
         }
       },
-      "20" : {
+      "66" : {
         "Integer" : {
-          "value" : -2
-        }
-      },
-      "29" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "22" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "27" : {
-        "Integer" : {
-          "value" : 2
+          "value" : 18944
         }
       }
     },
@@ -2464,19 +2464,19 @@
                 }
               },
               "lowLimits" : {
-                "red" : [
-                  5,
-                  {
-                    "Integer" : {
-                      "value" : 0
-                    }
-                  }
-                ],
                 "orange" : [
                   7,
                   {
                     "Integer" : {
                       "value" : 1
+                    }
+                  }
+                ],
+                "red" : [
+                  5,
+                  {
+                    "Integer" : {
+                      "value" : 0
                     }
                   }
                 ],
@@ -2561,19 +2561,19 @@
                 }
               },
               "lowLimits" : {
-                "red" : [
-                  15,
-                  {
-                    "Integer" : {
-                      "value" : -3
-                    }
-                  }
-                ],
                 "orange" : [
                   18,
                   {
                     "Integer" : {
                       "value" : -2
+                    }
+                  }
+                ],
+                "red" : [
+                  15,
+                  {
+                    "Integer" : {
+                      "value" : -3
                     }
                   }
                 ],
@@ -2587,19 +2587,19 @@
                 ]
               },
               "highLimits" : {
-                "red" : [
-                  24,
-                  {
-                    "Integer" : {
-                      "value" : 3
-                    }
-                  }
-                ],
                 "orange" : [
                   26,
                   {
                     "Integer" : {
                       "value" : 2
+                    }
+                  }
+                ],
+                "red" : [
+                  24,
+                  {
+                    "Integer" : {
+                      "value" : 3
                     }
                   }
                 ],
@@ -2682,19 +2682,19 @@
                 
               },
               "highLimits" : {
-                "red" : [
-                  51,
-                  {
-                    "Integer" : {
-                      "value" : 3
-                    }
-                  }
-                ],
                 "orange" : [
                   53,
                   {
                     "Integer" : {
                       "value" : 2
+                    }
+                  }
+                ],
+                "red" : [
+                  51,
+                  {
+                    "Integer" : {
+                      "value" : 3
                     }
                   }
                 ],
