@@ -3426,6 +3426,121 @@
   "fppVersion" : "[ fpp version ]",
   "analysis" : {
     "componentInstanceMap" : {
+      "114" : {
+        "aNode" : {
+          "astNodeId" : 114
+        },
+        "qualifiedName" : {
+          "qualifier" : [
+          ],
+          "base" : "c1"
+        },
+        "component" : {
+          "astNodeId" : 12
+        },
+        "baseId" : 256,
+        "maxId" : 255,
+        "file" : "None",
+        "queueSize" : "None",
+        "stackSize" : "None",
+        "priority" : "None",
+        "cpu" : "None",
+        "initSpecifierMap" : {
+          
+        }
+      },
+      "118" : {
+        "aNode" : {
+          "astNodeId" : 118
+        },
+        "qualifiedName" : {
+          "qualifier" : [
+          ],
+          "base" : "c2"
+        },
+        "component" : {
+          "astNodeId" : 37
+        },
+        "baseId" : 512,
+        "maxId" : 511,
+        "file" : "None",
+        "queueSize" : "None",
+        "stackSize" : "None",
+        "priority" : "None",
+        "cpu" : "None",
+        "initSpecifierMap" : {
+          
+        }
+      },
+      "122" : {
+        "aNode" : {
+          "astNodeId" : 122
+        },
+        "qualifiedName" : {
+          "qualifier" : [
+          ],
+          "base" : "c3"
+        },
+        "component" : {
+          "astNodeId" : 50
+        },
+        "baseId" : 768,
+        "maxId" : 767,
+        "file" : "None",
+        "queueSize" : "None",
+        "stackSize" : "None",
+        "priority" : "None",
+        "cpu" : "None",
+        "initSpecifierMap" : {
+          
+        }
+      },
+      "126" : {
+        "aNode" : {
+          "astNodeId" : 126
+        },
+        "qualifiedName" : {
+          "qualifier" : [
+          ],
+          "base" : "c4"
+        },
+        "component" : {
+          "astNodeId" : 67
+        },
+        "baseId" : 1024,
+        "maxId" : 1023,
+        "file" : "None",
+        "queueSize" : "None",
+        "stackSize" : "None",
+        "priority" : "None",
+        "cpu" : "None",
+        "initSpecifierMap" : {
+          
+        }
+      },
+      "130" : {
+        "aNode" : {
+          "astNodeId" : 130
+        },
+        "qualifiedName" : {
+          "qualifier" : [
+          ],
+          "base" : "c5"
+        },
+        "component" : {
+          "astNodeId" : 84
+        },
+        "baseId" : 1280,
+        "maxId" : 1279,
+        "file" : "None",
+        "queueSize" : "None",
+        "stackSize" : "None",
+        "priority" : "None",
+        "cpu" : "None",
+        "initSpecifierMap" : {
+          
+        }
+      },
       "134" : {
         "aNode" : {
           "astNodeId" : 134
@@ -3471,245 +3586,9 @@
         "initSpecifierMap" : {
           
         }
-      },
-      "126" : {
-        "aNode" : {
-          "astNodeId" : 126
-        },
-        "qualifiedName" : {
-          "qualifier" : [
-          ],
-          "base" : "c4"
-        },
-        "component" : {
-          "astNodeId" : 67
-        },
-        "baseId" : 1024,
-        "maxId" : 1023,
-        "file" : "None",
-        "queueSize" : "None",
-        "stackSize" : "None",
-        "priority" : "None",
-        "cpu" : "None",
-        "initSpecifierMap" : {
-          
-        }
-      },
-      "122" : {
-        "aNode" : {
-          "astNodeId" : 122
-        },
-        "qualifiedName" : {
-          "qualifier" : [
-          ],
-          "base" : "c3"
-        },
-        "component" : {
-          "astNodeId" : 50
-        },
-        "baseId" : 768,
-        "maxId" : 767,
-        "file" : "None",
-        "queueSize" : "None",
-        "stackSize" : "None",
-        "priority" : "None",
-        "cpu" : "None",
-        "initSpecifierMap" : {
-          
-        }
-      },
-      "118" : {
-        "aNode" : {
-          "astNodeId" : 118
-        },
-        "qualifiedName" : {
-          "qualifier" : [
-          ],
-          "base" : "c2"
-        },
-        "component" : {
-          "astNodeId" : 37
-        },
-        "baseId" : 512,
-        "maxId" : 511,
-        "file" : "None",
-        "queueSize" : "None",
-        "stackSize" : "None",
-        "priority" : "None",
-        "cpu" : "None",
-        "initSpecifierMap" : {
-          
-        }
-      },
-      "130" : {
-        "aNode" : {
-          "astNodeId" : 130
-        },
-        "qualifiedName" : {
-          "qualifier" : [
-          ],
-          "base" : "c5"
-        },
-        "component" : {
-          "astNodeId" : 84
-        },
-        "baseId" : 1280,
-        "maxId" : 1279,
-        "file" : "None",
-        "queueSize" : "None",
-        "stackSize" : "None",
-        "priority" : "None",
-        "cpu" : "None",
-        "initSpecifierMap" : {
-          
-        }
-      },
-      "114" : {
-        "aNode" : {
-          "astNodeId" : 114
-        },
-        "qualifiedName" : {
-          "qualifier" : [
-          ],
-          "base" : "c1"
-        },
-        "component" : {
-          "astNodeId" : 12
-        },
-        "baseId" : 256,
-        "maxId" : 255,
-        "file" : "None",
-        "queueSize" : "None",
-        "stackSize" : "None",
-        "priority" : "None",
-        "cpu" : "None",
-        "initSpecifierMap" : {
-          
-        }
       }
     },
     "componentMap" : {
-      "67" : {
-        "aNode" : {
-          "astNodeId" : 67
-        },
-        "portInterface" : {
-          "instanceType" : "component",
-          "portMap" : {
-            "PingSend" : {
-              "General" : {
-                "aNode" : {
-                  "astNodeId" : 54
-                },
-                "specifier" : {
-                  "kind" : {
-                    "Output" : {
-                      
-                    }
-                  },
-                  "name" : "PingSend",
-                  "size" : "None",
-                  "port" : {
-                    "Some" : {
-                      "astNodeId" : 53
-                    }
-                  },
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "kind" : "Output",
-                "size" : 1,
-                "ty" : {
-                  "DefPort" : {
-                    "symbol" : {
-                      "Port" : {
-                        "nodeId" : 301,
-                        "unqualifiedName" : "Ping"
-                      }
-                    }
-                  }
-                },
-                "importNodeIds" : [
-                ]
-              }
-            },
-            "PingReturn" : {
-              "General" : {
-                "aNode" : {
-                  "astNodeId" : 66
-                },
-                "specifier" : {
-                  "kind" : {
-                    "SyncInput" : {
-                      
-                    }
-                  },
-                  "name" : "PingReturn",
-                  "size" : "None",
-                  "port" : {
-                    "Some" : {
-                      "astNodeId" : 65
-                    }
-                  },
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "kind" : "SyncInput",
-                "size" : 1,
-                "ty" : {
-                  "DefPort" : {
-                    "symbol" : {
-                      "Port" : {
-                        "nodeId" : 301,
-                        "unqualifiedName" : "Ping"
-                      }
-                    }
-                  }
-                },
-                "importNodeIds" : [
-                ]
-              }
-            }
-          },
-          "specialPortMap" : {
-            
-          }
-        },
-        "commandMap" : {
-          
-        },
-        "defaultOpcode" : 0,
-        "tlmChannelMap" : {
-          
-        },
-        "tlmChannelNameMap" : {
-          
-        },
-        "defaultTlmChannelId" : 0,
-        "eventMap" : {
-          
-        },
-        "defaultEventId" : 0,
-        "paramMap" : {
-          
-        },
-        "specPortMatchingList" : [
-        ],
-        "stateMachineInstanceMap" : {
-          
-        },
-        "portMatchingList" : [
-        ],
-        "defaultParamId" : 0,
-        "containerMap" : {
-          
-        },
-        "defaultContainerId" : 0,
-        "recordMap" : {
-          
-        },
-        "defaultRecordId" : 0
-      },
       "12" : {
         "aNode" : {
           "astNodeId" : 12
@@ -3746,379 +3625,6 @@
                       "Port" : {
                         "nodeId" : 293,
                         "unqualifiedName" : "Time"
-                      }
-                    }
-                  }
-                },
-                "importNodeIds" : [
-                ]
-              }
-            }
-          },
-          "specialPortMap" : {
-            
-          }
-        },
-        "commandMap" : {
-          
-        },
-        "defaultOpcode" : 0,
-        "tlmChannelMap" : {
-          
-        },
-        "tlmChannelNameMap" : {
-          
-        },
-        "defaultTlmChannelId" : 0,
-        "eventMap" : {
-          
-        },
-        "defaultEventId" : 0,
-        "paramMap" : {
-          
-        },
-        "specPortMatchingList" : [
-        ],
-        "stateMachineInstanceMap" : {
-          
-        },
-        "portMatchingList" : [
-        ],
-        "defaultParamId" : 0,
-        "containerMap" : {
-          
-        },
-        "defaultContainerId" : 0,
-        "recordMap" : {
-          
-        },
-        "defaultRecordId" : 0
-      },
-      "84" : {
-        "aNode" : {
-          "astNodeId" : 84
-        },
-        "portInterface" : {
-          "instanceType" : "component",
-          "portMap" : {
-            "paramGet" : {
-              "General" : {
-                "aNode" : {
-                  "astNodeId" : 71
-                },
-                "specifier" : {
-                  "kind" : {
-                    "SyncInput" : {
-                      
-                    }
-                  },
-                  "name" : "paramGet",
-                  "size" : "None",
-                  "port" : {
-                    "Some" : {
-                      "astNodeId" : 70
-                    }
-                  },
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "kind" : "SyncInput",
-                "size" : 1,
-                "ty" : {
-                  "DefPort" : {
-                    "symbol" : {
-                      "Port" : {
-                        "nodeId" : 291,
-                        "unqualifiedName" : "PrmGet"
-                      }
-                    }
-                  }
-                },
-                "importNodeIds" : [
-                ]
-              }
-            },
-            "paramSet" : {
-              "General" : {
-                "aNode" : {
-                  "astNodeId" : 83
-                },
-                "specifier" : {
-                  "kind" : {
-                    "SyncInput" : {
-                      
-                    }
-                  },
-                  "name" : "paramSet",
-                  "size" : "None",
-                  "port" : {
-                    "Some" : {
-                      "astNodeId" : 82
-                    }
-                  },
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "kind" : "SyncInput",
-                "size" : 1,
-                "ty" : {
-                  "DefPort" : {
-                    "symbol" : {
-                      "Port" : {
-                        "nodeId" : 292,
-                        "unqualifiedName" : "PrmSet"
-                      }
-                    }
-                  }
-                },
-                "importNodeIds" : [
-                ]
-              }
-            }
-          },
-          "specialPortMap" : {
-            
-          }
-        },
-        "commandMap" : {
-          
-        },
-        "defaultOpcode" : 0,
-        "tlmChannelMap" : {
-          
-        },
-        "tlmChannelNameMap" : {
-          
-        },
-        "defaultTlmChannelId" : 0,
-        "eventMap" : {
-          
-        },
-        "defaultEventId" : 0,
-        "paramMap" : {
-          
-        },
-        "specPortMatchingList" : [
-        ],
-        "stateMachineInstanceMap" : {
-          
-        },
-        "portMatchingList" : [
-        ],
-        "defaultParamId" : 0,
-        "containerMap" : {
-          
-        },
-        "defaultContainerId" : 0,
-        "recordMap" : {
-          
-        },
-        "defaultRecordId" : 0
-      },
-      "110" : {
-        "aNode" : {
-          "astNodeId" : 110
-        },
-        "portInterface" : {
-          "instanceType" : "component",
-          "portMap" : {
-            "textEventLog" : {
-              "General" : {
-                "aNode" : {
-                  "astNodeId" : 109
-                },
-                "specifier" : {
-                  "kind" : {
-                    "SyncInput" : {
-                      
-                    }
-                  },
-                  "name" : "textEventLog",
-                  "size" : "None",
-                  "port" : {
-                    "Some" : {
-                      "astNodeId" : 108
-                    }
-                  },
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "kind" : "SyncInput",
-                "size" : 1,
-                "ty" : {
-                  "DefPort" : {
-                    "symbol" : {
-                      "Port" : {
-                        "nodeId" : 290,
-                        "unqualifiedName" : "LogText"
-                      }
-                    }
-                  }
-                },
-                "importNodeIds" : [
-                ]
-              }
-            }
-          },
-          "specialPortMap" : {
-            
-          }
-        },
-        "commandMap" : {
-          
-        },
-        "defaultOpcode" : 0,
-        "tlmChannelMap" : {
-          
-        },
-        "tlmChannelNameMap" : {
-          
-        },
-        "defaultTlmChannelId" : 0,
-        "eventMap" : {
-          
-        },
-        "defaultEventId" : 0,
-        "paramMap" : {
-          
-        },
-        "specPortMatchingList" : [
-        ],
-        "stateMachineInstanceMap" : {
-          
-        },
-        "portMatchingList" : [
-        ],
-        "defaultParamId" : 0,
-        "containerMap" : {
-          
-        },
-        "defaultContainerId" : 0,
-        "recordMap" : {
-          
-        },
-        "defaultRecordId" : 0
-      },
-      "97" : {
-        "aNode" : {
-          "astNodeId" : 97
-        },
-        "portInterface" : {
-          "instanceType" : "component",
-          "portMap" : {
-            "tlm" : {
-              "General" : {
-                "aNode" : {
-                  "astNodeId" : 96
-                },
-                "specifier" : {
-                  "kind" : {
-                    "SyncInput" : {
-                      
-                    }
-                  },
-                  "name" : "tlm",
-                  "size" : "None",
-                  "port" : {
-                    "Some" : {
-                      "astNodeId" : 95
-                    }
-                  },
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "kind" : "SyncInput",
-                "size" : 1,
-                "ty" : {
-                  "DefPort" : {
-                    "symbol" : {
-                      "Port" : {
-                        "nodeId" : 294,
-                        "unqualifiedName" : "Tlm"
-                      }
-                    }
-                  }
-                },
-                "importNodeIds" : [
-                ]
-              }
-            }
-          },
-          "specialPortMap" : {
-            
-          }
-        },
-        "commandMap" : {
-          
-        },
-        "defaultOpcode" : 0,
-        "tlmChannelMap" : {
-          
-        },
-        "tlmChannelNameMap" : {
-          
-        },
-        "defaultTlmChannelId" : 0,
-        "eventMap" : {
-          
-        },
-        "defaultEventId" : 0,
-        "paramMap" : {
-          
-        },
-        "specPortMatchingList" : [
-        ],
-        "stateMachineInstanceMap" : {
-          
-        },
-        "portMatchingList" : [
-        ],
-        "defaultParamId" : 0,
-        "containerMap" : {
-          
-        },
-        "defaultContainerId" : 0,
-        "recordMap" : {
-          
-        },
-        "defaultRecordId" : 0
-      },
-      "50" : {
-        "aNode" : {
-          "astNodeId" : 50
-        },
-        "portInterface" : {
-          "instanceType" : "component",
-          "portMap" : {
-            "eventLog" : {
-              "General" : {
-                "aNode" : {
-                  "astNodeId" : 49
-                },
-                "specifier" : {
-                  "kind" : {
-                    "SyncInput" : {
-                      
-                    }
-                  },
-                  "name" : "eventLog",
-                  "size" : "None",
-                  "port" : {
-                    "Some" : {
-                      "astNodeId" : 48
-                    }
-                  },
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "kind" : "SyncInput",
-                "size" : 1,
-                "ty" : {
-                  "DefPort" : {
-                    "symbol" : {
-                      "Port" : {
-                        "nodeId" : 289,
-                        "unqualifiedName" : "Log"
                       }
                     }
                   }
@@ -4361,6 +3867,500 @@
           
         },
         "defaultRecordId" : 0
+      },
+      "50" : {
+        "aNode" : {
+          "astNodeId" : 50
+        },
+        "portInterface" : {
+          "instanceType" : "component",
+          "portMap" : {
+            "eventLog" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 49
+                },
+                "specifier" : {
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "eventLog",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 48
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 289,
+                        "unqualifiedName" : "Log"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            }
+          },
+          "specialPortMap" : {
+            
+          }
+        },
+        "commandMap" : {
+          
+        },
+        "defaultOpcode" : 0,
+        "tlmChannelMap" : {
+          
+        },
+        "tlmChannelNameMap" : {
+          
+        },
+        "defaultTlmChannelId" : 0,
+        "eventMap" : {
+          
+        },
+        "defaultEventId" : 0,
+        "paramMap" : {
+          
+        },
+        "specPortMatchingList" : [
+        ],
+        "stateMachineInstanceMap" : {
+          
+        },
+        "portMatchingList" : [
+        ],
+        "defaultParamId" : 0,
+        "containerMap" : {
+          
+        },
+        "defaultContainerId" : 0,
+        "recordMap" : {
+          
+        },
+        "defaultRecordId" : 0
+      },
+      "67" : {
+        "aNode" : {
+          "astNodeId" : 67
+        },
+        "portInterface" : {
+          "instanceType" : "component",
+          "portMap" : {
+            "PingReturn" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 66
+                },
+                "specifier" : {
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "PingReturn",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 65
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 301,
+                        "unqualifiedName" : "Ping"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "PingSend" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 54
+                },
+                "specifier" : {
+                  "kind" : {
+                    "Output" : {
+                      
+                    }
+                  },
+                  "name" : "PingSend",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 53
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "Output",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 301,
+                        "unqualifiedName" : "Ping"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            }
+          },
+          "specialPortMap" : {
+            
+          }
+        },
+        "commandMap" : {
+          
+        },
+        "defaultOpcode" : 0,
+        "tlmChannelMap" : {
+          
+        },
+        "tlmChannelNameMap" : {
+          
+        },
+        "defaultTlmChannelId" : 0,
+        "eventMap" : {
+          
+        },
+        "defaultEventId" : 0,
+        "paramMap" : {
+          
+        },
+        "specPortMatchingList" : [
+        ],
+        "stateMachineInstanceMap" : {
+          
+        },
+        "portMatchingList" : [
+        ],
+        "defaultParamId" : 0,
+        "containerMap" : {
+          
+        },
+        "defaultContainerId" : 0,
+        "recordMap" : {
+          
+        },
+        "defaultRecordId" : 0
+      },
+      "84" : {
+        "aNode" : {
+          "astNodeId" : 84
+        },
+        "portInterface" : {
+          "instanceType" : "component",
+          "portMap" : {
+            "paramGet" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 71
+                },
+                "specifier" : {
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "paramGet",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 70
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 291,
+                        "unqualifiedName" : "PrmGet"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "paramSet" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 83
+                },
+                "specifier" : {
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "paramSet",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 82
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 292,
+                        "unqualifiedName" : "PrmSet"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            }
+          },
+          "specialPortMap" : {
+            
+          }
+        },
+        "commandMap" : {
+          
+        },
+        "defaultOpcode" : 0,
+        "tlmChannelMap" : {
+          
+        },
+        "tlmChannelNameMap" : {
+          
+        },
+        "defaultTlmChannelId" : 0,
+        "eventMap" : {
+          
+        },
+        "defaultEventId" : 0,
+        "paramMap" : {
+          
+        },
+        "specPortMatchingList" : [
+        ],
+        "stateMachineInstanceMap" : {
+          
+        },
+        "portMatchingList" : [
+        ],
+        "defaultParamId" : 0,
+        "containerMap" : {
+          
+        },
+        "defaultContainerId" : 0,
+        "recordMap" : {
+          
+        },
+        "defaultRecordId" : 0
+      },
+      "97" : {
+        "aNode" : {
+          "astNodeId" : 97
+        },
+        "portInterface" : {
+          "instanceType" : "component",
+          "portMap" : {
+            "tlm" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 96
+                },
+                "specifier" : {
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "tlm",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 95
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 294,
+                        "unqualifiedName" : "Tlm"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            }
+          },
+          "specialPortMap" : {
+            
+          }
+        },
+        "commandMap" : {
+          
+        },
+        "defaultOpcode" : 0,
+        "tlmChannelMap" : {
+          
+        },
+        "tlmChannelNameMap" : {
+          
+        },
+        "defaultTlmChannelId" : 0,
+        "eventMap" : {
+          
+        },
+        "defaultEventId" : 0,
+        "paramMap" : {
+          
+        },
+        "specPortMatchingList" : [
+        ],
+        "stateMachineInstanceMap" : {
+          
+        },
+        "portMatchingList" : [
+        ],
+        "defaultParamId" : 0,
+        "containerMap" : {
+          
+        },
+        "defaultContainerId" : 0,
+        "recordMap" : {
+          
+        },
+        "defaultRecordId" : 0
+      },
+      "110" : {
+        "aNode" : {
+          "astNodeId" : 110
+        },
+        "portInterface" : {
+          "instanceType" : "component",
+          "portMap" : {
+            "textEventLog" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 109
+                },
+                "specifier" : {
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "textEventLog",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 108
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 290,
+                        "unqualifiedName" : "LogText"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            }
+          },
+          "specialPortMap" : {
+            
+          }
+        },
+        "commandMap" : {
+          
+        },
+        "defaultOpcode" : 0,
+        "tlmChannelMap" : {
+          
+        },
+        "tlmChannelNameMap" : {
+          
+        },
+        "defaultTlmChannelId" : 0,
+        "eventMap" : {
+          
+        },
+        "defaultEventId" : 0,
+        "paramMap" : {
+          
+        },
+        "specPortMatchingList" : [
+        ],
+        "stateMachineInstanceMap" : {
+          
+        },
+        "portMatchingList" : [
+        ],
+        "defaultParamId" : 0,
+        "containerMap" : {
+          
+        },
+        "defaultContainerId" : 0,
+        "recordMap" : {
+          
+        },
+        "defaultRecordId" : 0
       }
     },
     "frameworkDefinitions" : {
@@ -4380,7 +4380,31 @@
     "locationSpecifierMap" : [
     ],
     "parentSymbolMap" : {
+      "286" : {
+        "Module" : {
+          "nodeId" : 298,
+          "unqualifiedName" : "Fw"
+        }
+      },
       "287" : {
+        "Module" : {
+          "nodeId" : 298,
+          "unqualifiedName" : "Fw"
+        }
+      },
+      "288" : {
+        "Module" : {
+          "nodeId" : 298,
+          "unqualifiedName" : "Fw"
+        }
+      },
+      "289" : {
+        "Module" : {
+          "nodeId" : 298,
+          "unqualifiedName" : "Fw"
+        }
+      },
+      "290" : {
         "Module" : {
           "nodeId" : 298,
           "unqualifiedName" : "Fw"
@@ -4398,18 +4422,6 @@
           "unqualifiedName" : "Fw"
         }
       },
-      "297" : {
-        "Module" : {
-          "nodeId" : 298,
-          "unqualifiedName" : "Fw"
-        }
-      },
-      "290" : {
-        "Module" : {
-          "nodeId" : 298,
-          "unqualifiedName" : "Fw"
-        }
-      },
       "293" : {
         "Module" : {
           "nodeId" : 298,
@@ -4422,7 +4434,7 @@
           "unqualifiedName" : "Fw"
         }
       },
-      "288" : {
+      "297" : {
         "Module" : {
           "nodeId" : 298,
           "unqualifiedName" : "Fw"
@@ -4433,18 +4445,6 @@
           "nodeId" : 302,
           "unqualifiedName" : "Svc"
         }
-      },
-      "286" : {
-        "Module" : {
-          "nodeId" : 298,
-          "unqualifiedName" : "Fw"
-        }
-      },
-      "289" : {
-        "Module" : {
-          "nodeId" : 298,
-          "unqualifiedName" : "Fw"
-        }
       }
     },
     "symbolScopeMap" : {
@@ -4453,7 +4453,27 @@
           
         }
       },
+      "37" : {
+        "map" : {
+          
+        }
+      },
+      "50" : {
+        "map" : {
+          
+        }
+      },
+      "67" : {
+        "map" : {
+          
+        }
+      },
       "84" : {
+        "map" : {
+          
+        }
+      },
+      "97" : {
         "map" : {
           
         }
@@ -4467,40 +4487,16 @@
         "map" : {
           "Port" : {
             "map" : {
-              "CmdReg" : {
-                "Port" : {
-                  "nodeId" : 287,
-                  "unqualifiedName" : "CmdReg"
-                }
-              },
-              "Tlm" : {
-                "Port" : {
-                  "nodeId" : 294,
-                  "unqualifiedName" : "Tlm"
-                }
-              },
-              "PrmGet" : {
-                "Port" : {
-                  "nodeId" : 291,
-                  "unqualifiedName" : "PrmGet"
-                }
-              },
-              "LogText" : {
-                "Port" : {
-                  "nodeId" : 290,
-                  "unqualifiedName" : "LogText"
-                }
-              },
               "Cmd" : {
                 "Port" : {
                   "nodeId" : 286,
                   "unqualifiedName" : "Cmd"
                 }
               },
-              "Log" : {
+              "CmdReg" : {
                 "Port" : {
-                  "nodeId" : 289,
-                  "unqualifiedName" : "Log"
+                  "nodeId" : 287,
+                  "unqualifiedName" : "CmdReg"
                 }
               },
               "CmdResponse" : {
@@ -4509,16 +4505,40 @@
                   "unqualifiedName" : "CmdResponse"
                 }
               },
-              "Time" : {
+              "Log" : {
                 "Port" : {
-                  "nodeId" : 293,
-                  "unqualifiedName" : "Time"
+                  "nodeId" : 289,
+                  "unqualifiedName" : "Log"
+                }
+              },
+              "LogText" : {
+                "Port" : {
+                  "nodeId" : 290,
+                  "unqualifiedName" : "LogText"
+                }
+              },
+              "PrmGet" : {
+                "Port" : {
+                  "nodeId" : 291,
+                  "unqualifiedName" : "PrmGet"
                 }
               },
               "PrmSet" : {
                 "Port" : {
                   "nodeId" : 292,
                   "unqualifiedName" : "PrmSet"
+                }
+              },
+              "Time" : {
+                "Port" : {
+                  "nodeId" : 293,
+                  "unqualifiedName" : "Time"
+                }
+              },
+              "Tlm" : {
+                "Port" : {
+                  "nodeId" : 294,
+                  "unqualifiedName" : "Tlm"
                 }
               },
               "TlmGet" : {
@@ -4529,16 +4549,6 @@
               }
             }
           }
-        }
-      },
-      "97" : {
-        "map" : {
-          
-        }
-      },
-      "67" : {
-        "map" : {
-          
         }
       },
       "302" : {
@@ -4553,16 +4563,6 @@
               }
             }
           }
-        }
-      },
-      "50" : {
-        "map" : {
-          
-        }
-      },
-      "37" : {
-        "map" : {
-          
         }
       }
     },
@@ -4580,6 +4580,31 @@
           
         },
         "directComponentInstances" : {
+          "114" : {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+            "pos" : "43.5",
+            "includingLoc" : "None"
+          },
+          "118" : {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+            "pos" : "44.5",
+            "includingLoc" : "None"
+          },
+          "122" : {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+            "pos" : "45.5",
+            "includingLoc" : "None"
+          },
+          "126" : {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+            "pos" : "46.5",
+            "includingLoc" : "None"
+          },
+          "130" : {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+            "pos" : "47.5",
+            "includingLoc" : "None"
+          },
           "134" : {
             "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
             "pos" : "48.5",
@@ -4588,31 +4613,6 @@
           "138" : {
             "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
             "pos" : "49.5",
-            "includingLoc" : "None"
-          },
-          "126" : {
-            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
-            "pos" : "46.5",
-            "includingLoc" : "None"
-          },
-          "122" : {
-            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
-            "pos" : "45.5",
-            "includingLoc" : "None"
-          },
-          "118" : {
-            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
-            "pos" : "44.5",
-            "includingLoc" : "None"
-          },
-          "130" : {
-            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
-            "pos" : "47.5",
-            "includingLoc" : "None"
-          },
-          "114" : {
-            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
-            "pos" : "43.5",
             "includingLoc" : "None"
           }
         },
@@ -4719,6 +4719,55 @@
           }
         },
         "patternMap" : {
+          "Command" : {
+            "aNode" : {
+              "astNodeId" : 263
+            },
+            "ast" : {
+              "kind" : {
+                "Command" : {
+                  
+                }
+              },
+              "source" : {
+                "astNodeId" : 262
+              },
+              "targets" : [
+              ]
+            },
+            "source" : [
+              {
+                "aNode" : {
+                  "astNodeId" : 118
+                },
+                "qualifiedName" : {
+                  "qualifier" : [
+                  ],
+                  "base" : "c2"
+                },
+                "component" : {
+                  "astNodeId" : 37
+                },
+                "baseId" : 512,
+                "maxId" : 511,
+                "file" : "None",
+                "queueSize" : "None",
+                "stackSize" : "None",
+                "priority" : "None",
+                "cpu" : "None",
+                "initSpecifierMap" : {
+                  
+                }
+              },
+              {
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+                "pos" : "52.34",
+                "includingLoc" : "None"
+              }
+            ],
+            "targets" : [
+            ]
+          },
           "Event" : {
             "aNode" : {
               "astNodeId" : 266
@@ -4768,18 +4817,18 @@
             "targets" : [
             ]
           },
-          "Command" : {
+          "Health" : {
             "aNode" : {
-              "astNodeId" : 263
+              "astNodeId" : 269
             },
             "ast" : {
               "kind" : {
-                "Command" : {
+                "Health" : {
                   
                 }
               },
               "source" : {
-                "astNodeId" : 262
+                "astNodeId" : 268
               },
               "targets" : [
               ]
@@ -4787,18 +4836,18 @@
             "source" : [
               {
                 "aNode" : {
-                  "astNodeId" : 118
+                  "astNodeId" : 126
                 },
                 "qualifiedName" : {
                   "qualifier" : [
                   ],
-                  "base" : "c2"
+                  "base" : "c4"
                 },
                 "component" : {
-                  "astNodeId" : 37
+                  "astNodeId" : 67
                 },
-                "baseId" : 512,
-                "maxId" : 511,
+                "baseId" : 1024,
+                "maxId" : 1023,
                 "file" : "None",
                 "queueSize" : "None",
                 "stackSize" : "None",
@@ -4810,7 +4859,7 @@
               },
               {
                 "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
-                "pos" : "52.34",
+                "pos" : "54.33",
                 "includingLoc" : "None"
               }
             ],
@@ -4915,55 +4964,6 @@
             "targets" : [
             ]
           },
-          "Time" : {
-            "aNode" : {
-              "astNodeId" : 260
-            },
-            "ast" : {
-              "kind" : {
-                "Time" : {
-                  
-                }
-              },
-              "source" : {
-                "astNodeId" : 259
-              },
-              "targets" : [
-              ]
-            },
-            "source" : [
-              {
-                "aNode" : {
-                  "astNodeId" : 114
-                },
-                "qualifiedName" : {
-                  "qualifier" : [
-                  ],
-                  "base" : "c1"
-                },
-                "component" : {
-                  "astNodeId" : 12
-                },
-                "baseId" : 256,
-                "maxId" : 255,
-                "file" : "None",
-                "queueSize" : "None",
-                "stackSize" : "None",
-                "priority" : "None",
-                "cpu" : "None",
-                "initSpecifierMap" : {
-                  
-                }
-              },
-              {
-                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
-                "pos" : "51.31",
-                "includingLoc" : "None"
-              }
-            ],
-            "targets" : [
-            ]
-          },
           "TextEvent" : {
             "aNode" : {
               "astNodeId" : 284
@@ -5013,18 +5013,18 @@
             "targets" : [
             ]
           },
-          "Health" : {
+          "Time" : {
             "aNode" : {
-              "astNodeId" : 269
+              "astNodeId" : 260
             },
             "ast" : {
               "kind" : {
-                "Health" : {
+                "Time" : {
                   
                 }
               },
               "source" : {
-                "astNodeId" : 268
+                "astNodeId" : 259
               },
               "targets" : [
               ]
@@ -5032,18 +5032,18 @@
             "source" : [
               {
                 "aNode" : {
-                  "astNodeId" : 126
+                  "astNodeId" : 114
                 },
                 "qualifiedName" : {
                   "qualifier" : [
                   ],
-                  "base" : "c4"
+                  "base" : "c1"
                 },
                 "component" : {
-                  "astNodeId" : 67
+                  "astNodeId" : 12
                 },
-                "baseId" : 1024,
-                "maxId" : 1023,
+                "baseId" : 256,
+                "maxId" : 255,
                 "file" : "None",
                 "queueSize" : "None",
                 "stackSize" : "None",
@@ -5055,7 +5055,7 @@
               },
               {
                 "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
-                "pos" : "54.33",
+                "pos" : "51.31",
                 "includingLoc" : "None"
               }
             ],
@@ -5617,13 +5617,6 @@
           }
         }
       },
-      "121" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
       "117" : {
         "Int" : {
           "Integer" : {
@@ -5631,14 +5624,7 @@
           }
         }
       },
-      "137" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "133" : {
+      "121" : {
         "Int" : {
           "Integer" : {
             
@@ -5658,94 +5644,48 @@
             
           }
         }
+      },
+      "133" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "137" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
       }
     },
     "useDefMap" : {
-      "51" : {
-        "Module" : {
-          "nodeId" : 302,
-          "unqualifiedName" : "Svc"
-        }
-      },
-      "128" : {
-        "Component" : {
-          "nodeId" : 84,
-          "unqualifiedName" : "Param"
-        }
-      },
-      "33" : {
+      "8" : {
         "Module" : {
           "nodeId" : 298,
           "unqualifiedName" : "Fw"
+        }
+      },
+      "10" : {
+        "Port" : {
+          "nodeId" : 293,
+          "unqualifiedName" : "Time"
+        }
+      },
+      "13" : {
+        "Module" : {
+          "nodeId" : 298,
+          "unqualifiedName" : "Fw"
+        }
+      },
+      "15" : {
+        "Port" : {
+          "nodeId" : 286,
+          "unqualifiedName" : "Cmd"
         }
       },
       "17" : {
-        "Module" : {
-          "nodeId" : 298,
-          "unqualifiedName" : "Fw"
-        }
-      },
-      "95" : {
-        "Port" : {
-          "nodeId" : 294,
-          "unqualifiedName" : "Tlm"
-        }
-      },
-      "53" : {
-        "Port" : {
-          "nodeId" : 301,
-          "unqualifiedName" : "Ping"
-        }
-      },
-      "70" : {
-        "Port" : {
-          "nodeId" : 291,
-          "unqualifiedName" : "PrmGet"
-        }
-      },
-      "283" : {
-        "ComponentInstance" : {
-          "nodeId" : 138,
-          "unqualifiedName" : "c7"
-        }
-      },
-      "247" : {
-        "ComponentInstance" : {
-          "nodeId" : 126,
-          "unqualifiedName" : "c4"
-        }
-      },
-      "63" : {
-        "Module" : {
-          "nodeId" : 302,
-          "unqualifiedName" : "Svc"
-        }
-      },
-      "136" : {
-        "Component" : {
-          "nodeId" : 110,
-          "unqualifiedName" : "TextEvent"
-        }
-      },
-      "120" : {
-        "Component" : {
-          "nodeId" : 50,
-          "unqualifiedName" : "Event"
-        }
-      },
-      "93" : {
-        "Module" : {
-          "nodeId" : 298,
-          "unqualifiedName" : "Fw"
-        }
-      },
-      "124" : {
-        "Component" : {
-          "nodeId" : 67,
-          "unqualifiedName" : "Health"
-        }
-      },
-      "8" : {
         "Module" : {
           "nodeId" : 298,
           "unqualifiedName" : "Fw"
@@ -5757,10 +5697,10 @@
           "unqualifiedName" : "CmdReg"
         }
       },
-      "265" : {
-        "ComponentInstance" : {
-          "nodeId" : 122,
-          "unqualifiedName" : "c3"
+      "21" : {
+        "Module" : {
+          "nodeId" : 298,
+          "unqualifiedName" : "Fw"
         }
       },
       "23" : {
@@ -5769,58 +5709,10 @@
           "unqualifiedName" : "CmdResponse"
         }
       },
-      "15" : {
-        "Port" : {
-          "nodeId" : 286,
-          "unqualifiedName" : "Cmd"
-        }
-      },
-      "132" : {
-        "Component" : {
-          "nodeId" : 97,
-          "unqualifiedName" : "Telemetry"
-        }
-      },
-      "262" : {
-        "ComponentInstance" : {
-          "nodeId" : 118,
-          "unqualifiedName" : "c2"
-        }
-      },
-      "250" : {
-        "ComponentInstance" : {
-          "nodeId" : 130,
-          "unqualifiedName" : "c5"
-        }
-      },
-      "244" : {
-        "ComponentInstance" : {
-          "nodeId" : 122,
-          "unqualifiedName" : "c3"
-        }
-      },
-      "68" : {
+      "33" : {
         "Module" : {
           "nodeId" : 298,
           "unqualifiedName" : "Fw"
-        }
-      },
-      "13" : {
-        "Module" : {
-          "nodeId" : 298,
-          "unqualifiedName" : "Fw"
-        }
-      },
-      "46" : {
-        "Module" : {
-          "nodeId" : 298,
-          "unqualifiedName" : "Fw"
-        }
-      },
-      "253" : {
-        "ComponentInstance" : {
-          "nodeId" : 134,
-          "unqualifiedName" : "c6"
         }
       },
       "35" : {
@@ -5829,34 +5721,10 @@
           "unqualifiedName" : "Cmd"
         }
       },
-      "112" : {
-        "Component" : {
-          "nodeId" : 12,
-          "unqualifiedName" : "Time"
-        }
-      },
-      "268" : {
-        "ComponentInstance" : {
-          "nodeId" : 126,
-          "unqualifiedName" : "c4"
-        }
-      },
-      "10" : {
-        "Port" : {
-          "nodeId" : 293,
-          "unqualifiedName" : "Time"
-        }
-      },
-      "274" : {
-        "ComponentInstance" : {
-          "nodeId" : 134,
-          "unqualifiedName" : "c6"
-        }
-      },
-      "256" : {
-        "ComponentInstance" : {
-          "nodeId" : 138,
-          "unqualifiedName" : "c7"
+      "46" : {
+        "Module" : {
+          "nodeId" : 298,
+          "unqualifiedName" : "Fw"
         }
       },
       "48" : {
@@ -5865,16 +5733,22 @@
           "unqualifiedName" : "Log"
         }
       },
-      "21" : {
+      "51" : {
         "Module" : {
-          "nodeId" : 298,
-          "unqualifiedName" : "Fw"
+          "nodeId" : 302,
+          "unqualifiedName" : "Svc"
         }
       },
-      "116" : {
-        "Component" : {
-          "nodeId" : 37,
-          "unqualifiedName" : "Command"
+      "53" : {
+        "Port" : {
+          "nodeId" : 301,
+          "unqualifiedName" : "Ping"
+        }
+      },
+      "63" : {
+        "Module" : {
+          "nodeId" : 302,
+          "unqualifiedName" : "Svc"
         }
       },
       "65" : {
@@ -5883,25 +5757,19 @@
           "unqualifiedName" : "Ping"
         }
       },
-      "108" : {
-        "Port" : {
-          "nodeId" : 290,
-          "unqualifiedName" : "LogText"
-        }
-      },
-      "259" : {
-        "ComponentInstance" : {
-          "nodeId" : 114,
-          "unqualifiedName" : "c1"
-        }
-      },
-      "80" : {
+      "68" : {
         "Module" : {
           "nodeId" : 298,
           "unqualifiedName" : "Fw"
         }
       },
-      "106" : {
+      "70" : {
+        "Port" : {
+          "nodeId" : 291,
+          "unqualifiedName" : "PrmGet"
+        }
+      },
+      "80" : {
         "Module" : {
           "nodeId" : 298,
           "unqualifiedName" : "Fw"
@@ -5913,10 +5781,70 @@
           "unqualifiedName" : "PrmSet"
         }
       },
-      "241" : {
-        "ComponentInstance" : {
-          "nodeId" : 118,
-          "unqualifiedName" : "c2"
+      "93" : {
+        "Module" : {
+          "nodeId" : 298,
+          "unqualifiedName" : "Fw"
+        }
+      },
+      "95" : {
+        "Port" : {
+          "nodeId" : 294,
+          "unqualifiedName" : "Tlm"
+        }
+      },
+      "106" : {
+        "Module" : {
+          "nodeId" : 298,
+          "unqualifiedName" : "Fw"
+        }
+      },
+      "108" : {
+        "Port" : {
+          "nodeId" : 290,
+          "unqualifiedName" : "LogText"
+        }
+      },
+      "112" : {
+        "Component" : {
+          "nodeId" : 12,
+          "unqualifiedName" : "Time"
+        }
+      },
+      "116" : {
+        "Component" : {
+          "nodeId" : 37,
+          "unqualifiedName" : "Command"
+        }
+      },
+      "120" : {
+        "Component" : {
+          "nodeId" : 50,
+          "unqualifiedName" : "Event"
+        }
+      },
+      "124" : {
+        "Component" : {
+          "nodeId" : 67,
+          "unqualifiedName" : "Health"
+        }
+      },
+      "128" : {
+        "Component" : {
+          "nodeId" : 84,
+          "unqualifiedName" : "Param"
+        }
+      },
+      "132" : {
+        "Component" : {
+          "nodeId" : 97,
+          "unqualifiedName" : "Telemetry"
+        }
+      },
+      "136" : {
+        "Component" : {
+          "nodeId" : 110,
+          "unqualifiedName" : "TextEvent"
         }
       },
       "238" : {
@@ -5925,10 +5853,82 @@
           "unqualifiedName" : "c1"
         }
       },
+      "241" : {
+        "ComponentInstance" : {
+          "nodeId" : 118,
+          "unqualifiedName" : "c2"
+        }
+      },
+      "244" : {
+        "ComponentInstance" : {
+          "nodeId" : 122,
+          "unqualifiedName" : "c3"
+        }
+      },
+      "247" : {
+        "ComponentInstance" : {
+          "nodeId" : 126,
+          "unqualifiedName" : "c4"
+        }
+      },
+      "250" : {
+        "ComponentInstance" : {
+          "nodeId" : 130,
+          "unqualifiedName" : "c5"
+        }
+      },
+      "253" : {
+        "ComponentInstance" : {
+          "nodeId" : 134,
+          "unqualifiedName" : "c6"
+        }
+      },
+      "256" : {
+        "ComponentInstance" : {
+          "nodeId" : 138,
+          "unqualifiedName" : "c7"
+        }
+      },
+      "259" : {
+        "ComponentInstance" : {
+          "nodeId" : 114,
+          "unqualifiedName" : "c1"
+        }
+      },
+      "262" : {
+        "ComponentInstance" : {
+          "nodeId" : 118,
+          "unqualifiedName" : "c2"
+        }
+      },
+      "265" : {
+        "ComponentInstance" : {
+          "nodeId" : 122,
+          "unqualifiedName" : "c3"
+        }
+      },
+      "268" : {
+        "ComponentInstance" : {
+          "nodeId" : 126,
+          "unqualifiedName" : "c4"
+        }
+      },
       "271" : {
         "ComponentInstance" : {
           "nodeId" : 130,
           "unqualifiedName" : "c5"
+        }
+      },
+      "274" : {
+        "ComponentInstance" : {
+          "nodeId" : 134,
+          "unqualifiedName" : "c6"
+        }
+      },
+      "283" : {
+        "ComponentInstance" : {
+          "nodeId" : 138,
+          "unqualifiedName" : "c7"
         }
       }
     },
@@ -5938,24 +5938,14 @@
           "value" : 256
         }
       },
-      "121" : {
-        "Integer" : {
-          "value" : 768
-        }
-      },
       "117" : {
         "Integer" : {
           "value" : 512
         }
       },
-      "137" : {
+      "121" : {
         "Integer" : {
-          "value" : 1792
-        }
-      },
-      "133" : {
-        "Integer" : {
-          "value" : 1536
+          "value" : 768
         }
       },
       "125" : {
@@ -5967,6 +5957,16 @@
         "Integer" : {
           "value" : 1280
         }
+      },
+      "133" : {
+        "Integer" : {
+          "value" : 1536
+        }
+      },
+      "137" : {
+        "Integer" : {
+          "value" : 1792
+        }
       }
     },
     "stateMachineMap" : {
@@ -5976,6 +5976,33 @@
     ],
     "interfaceMap" : {
       
+    },
+    "dictionaryMap" : {
+      "285" : {
+        "usedSymbolSet" : [
+        ],
+        "commandEntryMap" : {
+          
+        },
+        "tlmChannelEntryMap" : {
+          
+        },
+        "eventEntryMap" : {
+          
+        },
+        "paramEntryMap" : {
+          
+        },
+        "recordEntryMap" : {
+          
+        },
+        "containerEntryMap" : {
+          
+        },
+        "tlmPacketSetMap" : {
+          
+        }
+      }
     }
   }
 }

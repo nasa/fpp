@@ -2312,37 +2312,31 @@
     "locationSpecifierMap" : [
     ],
     "parentSymbolMap" : {
-      "153" : {
+      "2" : {
         "Module" : {
-          "nodeId" : 202,
-          "unqualifiedName" : "FSW"
+          "nodeId" : 3,
+          "unqualifiedName" : "Fw"
         }
       },
-      "124" : {
+      "6" : {
+        "Module" : {
+          "nodeId" : 7,
+          "unqualifiedName" : "Svc"
+        }
+      },
+      "58" : {
+        "Module" : {
+          "nodeId" : 59,
+          "unqualifiedName" : "Utils"
+        }
+      },
+      "116" : {
         "Component" : {
           "nodeId" : 137,
           "unqualifiedName" : "StateMachines"
         }
       },
-      "201" : {
-        "Module" : {
-          "nodeId" : 202,
-          "unqualifiedName" : "FSW"
-        }
-      },
-      "206" : {
-        "StateMachine" : {
-          "nodeId" : 124,
-          "unqualifiedName" : "S2"
-        }
-      },
-      "152" : {
-        "Module" : {
-          "nodeId" : 153,
-          "unqualifiedName" : "Default"
-        }
-      },
-      "116" : {
+      "124" : {
         "Component" : {
           "nodeId" : 137,
           "unqualifiedName" : "StateMachines"
@@ -2354,34 +2348,22 @@
           "unqualifiedName" : "M"
         }
       },
-      "6" : {
-        "Module" : {
-          "nodeId" : 7,
-          "unqualifiedName" : "Svc"
-        }
-      },
       "140" : {
         "Module" : {
           "nodeId" : 153,
           "unqualifiedName" : "Default"
         }
       },
-      "58" : {
+      "152" : {
         "Module" : {
-          "nodeId" : 59,
-          "unqualifiedName" : "Utils"
+          "nodeId" : 153,
+          "unqualifiedName" : "Default"
         }
       },
-      "203" : {
-        "Enum" : {
-          "nodeId" : 206,
-          "unqualifiedName" : "State"
-        }
-      },
-      "2" : {
+      "153" : {
         "Module" : {
-          "nodeId" : 3,
-          "unqualifiedName" : "Fw"
+          "nodeId" : 202,
+          "unqualifiedName" : "FSW"
         }
       },
       "165" : {
@@ -2390,76 +2372,63 @@
           "unqualifiedName" : "FSW"
         }
       },
+      "201" : {
+        "Module" : {
+          "nodeId" : 202,
+          "unqualifiedName" : "FSW"
+        }
+      },
+      "203" : {
+        "Enum" : {
+          "nodeId" : 206,
+          "unqualifiedName" : "State"
+        }
+      },
       "204" : {
         "Enum" : {
           "nodeId" : 206,
           "unqualifiedName" : "State"
         }
+      },
+      "206" : {
+        "StateMachine" : {
+          "nodeId" : 124,
+          "unqualifiedName" : "S2"
+        }
       }
     },
     "symbolScopeMap" : {
-      "153" : {
+      "3" : {
         "map" : {
-          "Value" : {
+          "Port" : {
             "map" : {
-              "queueSize" : {
-                "Constant" : {
-                  "nodeId" : 140,
-                  "unqualifiedName" : "queueSize"
-                }
-              },
-              "stackSize" : {
-                "Constant" : {
-                  "nodeId" : 152,
-                  "unqualifiedName" : "stackSize"
+              "BufferSend" : {
+                "Port" : {
+                  "nodeId" : 2,
+                  "unqualifiedName" : "BufferSend"
                 }
               }
             }
           }
         }
       },
-      "124" : {
+      "7" : {
         "map" : {
-          "Type" : {
+          "Port" : {
             "map" : {
-              "State" : {
-                "Enum" : {
-                  "nodeId" : 206,
-                  "unqualifiedName" : "State"
-                }
-              }
-            }
-          },
-          "Value" : {
-            "map" : {
-              "State" : {
-                "Enum" : {
-                  "nodeId" : 206,
-                  "unqualifiedName" : "State"
+              "Sched" : {
+                "Port" : {
+                  "nodeId" : 6,
+                  "unqualifiedName" : "Sched"
                 }
               }
             }
           }
         }
       },
-      "206" : {
+      "58" : {
         "map" : {
-          "Value" : {
-            "map" : {
-              "__FPRIME_UNINITIALIZED" : {
-                "EnumConstant" : {
-                  "nodeId" : 203,
-                  "unqualifiedName" : "__FPRIME_UNINITIALIZED"
-                }
-              },
-              "IDLE" : {
-                "EnumConstant" : {
-                  "nodeId" : 204,
-                  "unqualifiedName" : "IDLE"
-                }
-              }
-            }
-          }
+          
         }
       },
       "59" : {
@@ -2511,130 +2480,24 @@
           
         }
       },
-      "138" : {
+      "124" : {
         "map" : {
-          "Component" : {
-            "map" : {
-              "StateMachines" : {
-                "Component" : {
-                  "nodeId" : 137,
-                  "unqualifiedName" : "StateMachines"
-                }
-              }
-            }
-          },
-          "StateMachine" : {
-            "map" : {
-              "StateMachines" : {
-                "Component" : {
-                  "nodeId" : 137,
-                  "unqualifiedName" : "StateMachines"
-                }
-              }
-            }
-          },
           "Type" : {
             "map" : {
-              "StateMachines" : {
-                "Component" : {
-                  "nodeId" : 137,
-                  "unqualifiedName" : "StateMachines"
+              "State" : {
+                "Enum" : {
+                  "nodeId" : 206,
+                  "unqualifiedName" : "State"
                 }
               }
             }
           },
           "Value" : {
             "map" : {
-              "StateMachines" : {
-                "Component" : {
-                  "nodeId" : 137,
-                  "unqualifiedName" : "StateMachines"
-                }
-              }
-            }
-          }
-        }
-      },
-      "202" : {
-        "map" : {
-          "StateMachine" : {
-            "map" : {
-              "Default" : {
-                "Module" : {
-                  "nodeId" : 153,
-                  "unqualifiedName" : "Default"
-                }
-              }
-            }
-          },
-          "PortInterfaceInstance" : {
-            "map" : {
-              "Default" : {
-                "Module" : {
-                  "nodeId" : 153,
-                  "unqualifiedName" : "Default"
-                }
-              },
-              "dataCompressor" : {
-                "ComponentInstance" : {
-                  "nodeId" : 165,
-                  "unqualifiedName" : "dataCompressor"
-                }
-              },
-              "stateMachines" : {
-                "ComponentInstance" : {
-                  "nodeId" : 201,
-                  "unqualifiedName" : "stateMachines"
-                }
-              }
-            }
-          },
-          "Value" : {
-            "map" : {
-              "Default" : {
-                "Module" : {
-                  "nodeId" : 153,
-                  "unqualifiedName" : "Default"
-                }
-              }
-            }
-          },
-          "Port" : {
-            "map" : {
-              "Default" : {
-                "Module" : {
-                  "nodeId" : 153,
-                  "unqualifiedName" : "Default"
-                }
-              }
-            }
-          },
-          "PortInterface" : {
-            "map" : {
-              "Default" : {
-                "Module" : {
-                  "nodeId" : 153,
-                  "unqualifiedName" : "Default"
-                }
-              }
-            }
-          },
-          "Component" : {
-            "map" : {
-              "Default" : {
-                "Module" : {
-                  "nodeId" : 153,
-                  "unqualifiedName" : "Default"
-                }
-              }
-            }
-          },
-          "Type" : {
-            "map" : {
-              "Default" : {
-                "Module" : {
-                  "nodeId" : 153,
-                  "unqualifiedName" : "Default"
+              "State" : {
+                "Enum" : {
+                  "nodeId" : 206,
+                  "unqualifiedName" : "State"
                 }
               }
             }
@@ -2693,33 +2556,170 @@
           }
         }
       },
-      "58" : {
+      "138" : {
         "map" : {
-          
-        }
-      },
-      "7" : {
-        "map" : {
-          "Port" : {
+          "Component" : {
             "map" : {
-              "Sched" : {
-                "Port" : {
-                  "nodeId" : 6,
-                  "unqualifiedName" : "Sched"
+              "StateMachines" : {
+                "Component" : {
+                  "nodeId" : 137,
+                  "unqualifiedName" : "StateMachines"
+                }
+              }
+            }
+          },
+          "StateMachine" : {
+            "map" : {
+              "StateMachines" : {
+                "Component" : {
+                  "nodeId" : 137,
+                  "unqualifiedName" : "StateMachines"
+                }
+              }
+            }
+          },
+          "Type" : {
+            "map" : {
+              "StateMachines" : {
+                "Component" : {
+                  "nodeId" : 137,
+                  "unqualifiedName" : "StateMachines"
+                }
+              }
+            }
+          },
+          "Value" : {
+            "map" : {
+              "StateMachines" : {
+                "Component" : {
+                  "nodeId" : 137,
+                  "unqualifiedName" : "StateMachines"
                 }
               }
             }
           }
         }
       },
-      "3" : {
+      "153" : {
         "map" : {
+          "Value" : {
+            "map" : {
+              "queueSize" : {
+                "Constant" : {
+                  "nodeId" : 140,
+                  "unqualifiedName" : "queueSize"
+                }
+              },
+              "stackSize" : {
+                "Constant" : {
+                  "nodeId" : 152,
+                  "unqualifiedName" : "stackSize"
+                }
+              }
+            }
+          }
+        }
+      },
+      "202" : {
+        "map" : {
+          "Component" : {
+            "map" : {
+              "Default" : {
+                "Module" : {
+                  "nodeId" : 153,
+                  "unqualifiedName" : "Default"
+                }
+              }
+            }
+          },
           "Port" : {
             "map" : {
-              "BufferSend" : {
-                "Port" : {
-                  "nodeId" : 2,
-                  "unqualifiedName" : "BufferSend"
+              "Default" : {
+                "Module" : {
+                  "nodeId" : 153,
+                  "unqualifiedName" : "Default"
+                }
+              }
+            }
+          },
+          "PortInterface" : {
+            "map" : {
+              "Default" : {
+                "Module" : {
+                  "nodeId" : 153,
+                  "unqualifiedName" : "Default"
+                }
+              }
+            }
+          },
+          "PortInterfaceInstance" : {
+            "map" : {
+              "Default" : {
+                "Module" : {
+                  "nodeId" : 153,
+                  "unqualifiedName" : "Default"
+                }
+              },
+              "dataCompressor" : {
+                "ComponentInstance" : {
+                  "nodeId" : 165,
+                  "unqualifiedName" : "dataCompressor"
+                }
+              },
+              "stateMachines" : {
+                "ComponentInstance" : {
+                  "nodeId" : 201,
+                  "unqualifiedName" : "stateMachines"
+                }
+              }
+            }
+          },
+          "StateMachine" : {
+            "map" : {
+              "Default" : {
+                "Module" : {
+                  "nodeId" : 153,
+                  "unqualifiedName" : "Default"
+                }
+              }
+            }
+          },
+          "Type" : {
+            "map" : {
+              "Default" : {
+                "Module" : {
+                  "nodeId" : 153,
+                  "unqualifiedName" : "Default"
+                }
+              }
+            }
+          },
+          "Value" : {
+            "map" : {
+              "Default" : {
+                "Module" : {
+                  "nodeId" : 153,
+                  "unqualifiedName" : "Default"
+                }
+              }
+            }
+          }
+        }
+      },
+      "206" : {
+        "map" : {
+          "Value" : {
+            "map" : {
+              "IDLE" : {
+                "EnumConstant" : {
+                  "nodeId" : 204,
+                  "unqualifiedName" : "IDLE"
+                }
+              },
+              "__FPRIME_UNINITIALIZED" : {
+                "EnumConstant" : {
+                  "nodeId" : 203,
+                  "unqualifiedName" : "__FPRIME_UNINITIALIZED"
                 }
               }
             }
@@ -2731,7 +2731,71 @@
       
     },
     "typeMap" : {
+      "124" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 206
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
       "139" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "140" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "149" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "150" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "151" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "152" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "157" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "160" : {
         "Int" : {
           "Integer" : {
             
@@ -2742,6 +2806,82 @@
         "Int" : {
           "Integer" : {
             
+          }
+        }
+      },
+      "164" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "193" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "196" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "199" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "200" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "203" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 206
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
+      "204" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 206
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
+      "205" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
           }
         }
       },
@@ -2779,189 +2919,19 @@
             }
           }
         }
-      },
-      "152" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "199" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "196" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "140" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "151" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "203" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 206
-          },
-          "repType" : {
-            "kind" : {
-              "U8" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
-      },
-      "149" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "160" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "200" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "157" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "205" : {
-        "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U8" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "193" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "124" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 206
-          },
-          "repType" : {
-            "kind" : {
-              "U8" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
-      },
-      "164" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "150" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "204" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 206
-          },
-          "repType" : {
-            "kind" : {
-              "U8" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
       }
     },
     "useDefMap" : {
-      "158" : {
+      "42" : {
         "Module" : {
-          "nodeId" : 153,
-          "unqualifiedName" : "Default"
+          "nodeId" : 3,
+          "unqualifiedName" : "Fw"
         }
       },
-      "124" : {
-        "Enum" : {
-          "nodeId" : 206,
-          "unqualifiedName" : "State"
-        }
-      },
-      "135" : {
-        "StateMachine" : {
-          "nodeId" : 124,
-          "unqualifiedName" : "S2"
-        }
-      },
-      "56" : {
+      "44" : {
         "Port" : {
           "nodeId" : 2,
           "unqualifiedName" : "BufferSend"
-        }
-      },
-      "163" : {
-        "Constant" : {
-          "nodeId" : 152,
-          "unqualifiedName" : "stackSize"
-        }
-      },
-      "199" : {
-        "Constant" : {
-          "nodeId" : 152,
-          "unqualifiedName" : "stackSize"
-        }
-      },
-      "196" : {
-        "Constant" : {
-          "nodeId" : 140,
-          "unqualifiedName" : "queueSize"
         }
       },
       "54" : {
@@ -2970,16 +2940,58 @@
           "unqualifiedName" : "Fw"
         }
       },
+      "56" : {
+        "Port" : {
+          "nodeId" : 2,
+          "unqualifiedName" : "BufferSend"
+        }
+      },
+      "112" : {
+        "Module" : {
+          "nodeId" : 7,
+          "unqualifiedName" : "Svc"
+        }
+      },
+      "114" : {
+        "Port" : {
+          "nodeId" : 6,
+          "unqualifiedName" : "Sched"
+        }
+      },
+      "124" : {
+        "Enum" : {
+          "nodeId" : 206,
+          "unqualifiedName" : "State"
+        }
+      },
       "126" : {
         "StateMachine" : {
           "nodeId" : 116,
           "unqualifiedName" : "S1"
         }
       },
-      "190" : {
+      "135" : {
+        "StateMachine" : {
+          "nodeId" : 124,
+          "unqualifiedName" : "S2"
+        }
+      },
+      "154" : {
         "Module" : {
-          "nodeId" : 138,
-          "unqualifiedName" : "M"
+          "nodeId" : 59,
+          "unqualifiedName" : "Utils"
+        }
+      },
+      "156" : {
+        "Component" : {
+          "nodeId" : 58,
+          "unqualifiedName" : "DataCompressor"
+        }
+      },
+      "158" : {
+        "Module" : {
+          "nodeId" : 153,
+          "unqualifiedName" : "Default"
         }
       },
       "160" : {
@@ -2994,16 +3006,16 @@
           "unqualifiedName" : "Default"
         }
       },
-      "44" : {
-        "Port" : {
-          "nodeId" : 2,
-          "unqualifiedName" : "BufferSend"
+      "163" : {
+        "Constant" : {
+          "nodeId" : 152,
+          "unqualifiedName" : "stackSize"
         }
       },
-      "197" : {
+      "190" : {
         "Module" : {
-          "nodeId" : 153,
-          "unqualifiedName" : "Default"
+          "nodeId" : 138,
+          "unqualifiedName" : "M"
         }
       },
       "192" : {
@@ -3012,75 +3024,33 @@
           "unqualifiedName" : "StateMachines"
         }
       },
-      "112" : {
-        "Module" : {
-          "nodeId" : 7,
-          "unqualifiedName" : "Svc"
-        }
-      },
-      "42" : {
-        "Module" : {
-          "nodeId" : 3,
-          "unqualifiedName" : "Fw"
-        }
-      },
-      "156" : {
-        "Component" : {
-          "nodeId" : 58,
-          "unqualifiedName" : "DataCompressor"
-        }
-      },
       "194" : {
         "Module" : {
           "nodeId" : 153,
           "unqualifiedName" : "Default"
         }
       },
-      "154" : {
-        "Module" : {
-          "nodeId" : 59,
-          "unqualifiedName" : "Utils"
+      "196" : {
+        "Constant" : {
+          "nodeId" : 140,
+          "unqualifiedName" : "queueSize"
         }
       },
-      "114" : {
-        "Port" : {
-          "nodeId" : 6,
-          "unqualifiedName" : "Sched"
+      "197" : {
+        "Module" : {
+          "nodeId" : 153,
+          "unqualifiedName" : "Default"
+        }
+      },
+      "199" : {
+        "Constant" : {
+          "nodeId" : 152,
+          "unqualifiedName" : "stackSize"
         }
       }
     },
     "valueMap" : {
-      "193" : {
-        "Integer" : {
-          "value" : 512
-        }
-      },
-      "164" : {
-        "Integer" : {
-          "value" : 30
-        }
-      },
       "139" : {
-        "Integer" : {
-          "value" : 10
-        }
-      },
-      "163" : {
-        "Integer" : {
-          "value" : 10240
-        }
-      },
-      "152" : {
-        "Integer" : {
-          "value" : 10240
-        }
-      },
-      "199" : {
-        "Integer" : {
-          "value" : 10240
-        }
-      },
-      "196" : {
         "Integer" : {
           "value" : 10
         }
@@ -3090,9 +3060,64 @@
           "value" : 10
         }
       },
+      "149" : {
+        "Integer" : {
+          "value" : 10
+        }
+      },
+      "150" : {
+        "Integer" : {
+          "value" : 1024
+        }
+      },
       "151" : {
         "Integer" : {
           "value" : 10240
+        }
+      },
+      "152" : {
+        "Integer" : {
+          "value" : 10240
+        }
+      },
+      "157" : {
+        "Integer" : {
+          "value" : 256
+        }
+      },
+      "160" : {
+        "Integer" : {
+          "value" : 10
+        }
+      },
+      "163" : {
+        "Integer" : {
+          "value" : 10240
+        }
+      },
+      "164" : {
+        "Integer" : {
+          "value" : 30
+        }
+      },
+      "193" : {
+        "Integer" : {
+          "value" : 512
+        }
+      },
+      "196" : {
+        "Integer" : {
+          "value" : 10
+        }
+      },
+      "199" : {
+        "Integer" : {
+          "value" : 10240
+        }
+      },
+      "200" : {
+        "Integer" : {
+          "value" : 40
         }
       },
       "203" : {
@@ -3114,31 +3139,6 @@
             },
             "default" : "None"
           }
-        }
-      },
-      "149" : {
-        "Integer" : {
-          "value" : 10
-        }
-      },
-      "160" : {
-        "Integer" : {
-          "value" : 10
-        }
-      },
-      "200" : {
-        "Integer" : {
-          "value" : 40
-        }
-      },
-      "157" : {
-        "Integer" : {
-          "value" : 256
-        }
-      },
-      "150" : {
-        "Integer" : {
-          "value" : 1024
         }
       },
       "204" : {
@@ -3281,6 +3281,9 @@
     "dictionarySymbolSet" : [
     ],
     "interfaceMap" : {
+      
+    },
+    "dictionaryMap" : {
       
     }
   }
