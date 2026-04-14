@@ -1,8 +1,12 @@
 === Identifier Expressions
 
-An *identifier expression* is an
-<<Lexical-Elements_Identifiers,identifier>>
-that refers to a
+==== Syntax
+
+_<<Lexical-Elements_Identifiers,identifier>>_
+
+==== Semantics
+
+The identifier must refer to a
 <<Definitions_Constant-Definitions,constant definition>>,
 <<Definitions_Enumerated-Constant-Definitions,enumerated constant definition>>,
 or <<Definitions,bound parameter definition>>
@@ -23,7 +27,7 @@ An identifier expression is evaluated as follows:
   _A_ is `constant` _e_ for some expression _e_.
   In this case the value is provided by evaluating the expression _e_.
 
-**Example:**
+==== Example
 
 [source,fpp]
 ----

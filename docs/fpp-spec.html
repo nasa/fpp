@@ -872,7 +872,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#Expressions_Floating-Point-Literals">10.6. Floating-Point Literals</a></li>
-<li><a href="#Expressions_Identifier-Expressions">10.7. Identifier Expressions</a></li>
+<li><a href="#Expressions_Identifier-Expressions">10.7. Identifier Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Expressions_Identifier-Expressions_Syntax">10.7.1. Syntax</a></li>
+<li><a href="#Expressions_Identifier-Expressions_Semantics">10.7.2. Semantics</a></li>
+<li><a href="#Expressions_Identifier-Expressions_Example">10.7.3. Example</a></li>
+</ul>
+</li>
 <li><a href="#Expressions_Integer-Literals">10.8. Integer Literals</a></li>
 <li><a href="#Expressions_Parenthesis-Expressions">10.9. Parenthesis Expressions</a>
 <ul class="sectlevel3">
@@ -1756,11 +1762,23 @@ template expansion</a>.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>Within an expanded template, each bound parameter definition <strong>represents</strong>
+<p>Within an expanded template, a bound parameter definition may <strong>represent</strong>
 a global definition, either directly or indirectly.
 A bound parameter definition \$B = (p, A)\$ represents
 a global definition <em>D</em> if (1) <em>A</em> refers to <em>D</em> or (2)
 <em>A</em> refers to a bound parameter definition <em>B'</em> that represents <em>D</em>.</p>
+</div>
+<div class="paragraph">
+<p>Not all bound parameter definitions represent global definitions.
+For example, the bound parameter definition</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">( constant x : U32 , 0 )</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>does not represent any definition.</p>
 </div>
 <div class="paragraph">
 <p>The rest of this section discusses the global definitions.</p>
@@ -9723,10 +9741,16 @@ IEEE floating-point number.</p>
 </div>
 <div class="sect2">
 <h3 id="Expressions_Identifier-Expressions">10.7. Identifier Expressions</h3>
+<div class="sect3">
+<h4 id="Expressions_Identifier-Expressions_Syntax">10.7.1. Syntax</h4>
 <div class="paragraph">
-<p>An <strong>identifier expression</strong> is an
-<a href="#Lexical-Elements_Identifiers">identifier</a>
-that refers to a
+<p><em><a href="#Lexical-Elements_Identifiers">identifier</a></em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Identifier-Expressions_Semantics">10.7.2. Semantics</h4>
+<div class="paragraph">
+<p>The identifier must refer to a
 <a href="#Definitions_Constant-Definitions">constant definition</a>,
 <a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>,
 or <a href="#Definitions">bound parameter definition</a>
@@ -9754,13 +9778,14 @@ In this case the value is provided by evaluating the expression <em>e</em>.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p><strong>Example:</strong></p>
 </div>
+<div class="sect3">
+<h4 id="Expressions_Identifier-Expressions_Example">10.7.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = 42
 constant b = a # a is an identifier expression</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -13848,7 +13873,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-14 14:04:35 -0700
+Last updated 2026-04-14 14:27:05 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
