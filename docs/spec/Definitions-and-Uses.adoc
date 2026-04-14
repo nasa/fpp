@@ -6,6 +6,8 @@ A *use* is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>>
 that refers to a
 <<Definitions,definition>>
+or a
+<<Template-Parameter-Lists,template parameter>>
 according to the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,scoping rules for names>>.
 
@@ -152,7 +154,7 @@ module M {
 
 An error also occurs if the rules
 for resolving <<Expressions_Dot-Expressions_Semantics,dot expressions>>
-causes an implied constant use to be resolved to a member
+cause an implied constant use to be resolved to a member
 of a struct value instead of a constant definition. For example, suppose this 
 definition exists in the model:
 

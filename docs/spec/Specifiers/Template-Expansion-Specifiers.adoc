@@ -1,14 +1,15 @@
 === Template Expansion Specifiers
 
-A *template expansion specifier* takes a
-<<Definitions_Module-Template-Definitions,template>> and
-applies a set of values to its parameters
-to generate concrete definitions.
+A *template expansion specifier* names a 
+<<Definitions_Module-Template-Definitions,template>>
+and specifies arguments for the parameters of the templtae.
+It generates the definitions specified by the template
+and the arguments.
 
 === Syntax
 
 `expand`
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident>>
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 `(` _parameter-sequence_ `)`
 
 _parameter-sequence_ is an

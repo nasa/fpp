@@ -7,7 +7,10 @@ It usually involves the following steps:
 
 . Lexing and parsing to generate an abstract syntax tree (AST).
 
-. If step (1) succeeded, semantic analysis of the AST.
+. If step (1), succeeded, <<Analysis-and-Expansion-of-Templates,analysis and expansion of 
+  templates>> to generate a new AST.
+
+. If step (2) succeeded, semantic analysis of the AST generated in step (2).
 
 === Analysis Tools
 

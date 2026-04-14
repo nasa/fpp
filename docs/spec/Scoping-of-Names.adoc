@@ -2,13 +2,13 @@
 
 === Qualified Identifiers
 
-A *qualified identifier* is one of the following:
+A *qualified identifier* _qual-ident_ is one of the following:
 
 * _<<Lexical-Elements_Identifiers,identifier>>_
 
 * `.` _<<Lexical-Elements_Identifiers,identifier>>_
 
-* _qualified-identifier_ `.` _<<Lexical-Elements_Identifiers,identifier>>_
+* _qual-ident `.` _<<Lexical-Elements_Identifiers,identifier>>_
 
 Therefore every qualified identifier consists of an optional dot `.` followed
 by a nonempty list of identifiers separated by dots.
@@ -122,8 +122,10 @@ the value name group, and the type name group.
 * Module template definitions reside in all name groups.
 
 * Template parameters in expanded templates reside in all name groups.
+_TODO: It seems that a template parameter should reside in the name
+groups of the definition that it represents._
 
-* Topology definitions reside in the topology name group.
+* Topology definitions reside in the port interface instance name group.
 
 Notice that elements with scopes reside in the name groups of items
 that they may enclose.
@@ -208,12 +210,14 @@ module M {
 
 === Resolution of Identifiers
 
+_TODO: Add the rules for resolution within an expanded template._
+
 The following rules govern the resolution of identifiers, i.e.,
 associating identifiers with definitions:
 
 If the identifier we are resolving resides in a
 <<Specifiers_Template-Expansion-Specifiers,template expansion>>, see
-<<Definitions_Module-Template-Definitions_Semantics_Identifier-Resolution,
+<<Analysis-and-Expansion-of-Templates_Resolution-of-Identifiers,
 rules for resolving identifiers in template>>
 instead of these rules.
 
