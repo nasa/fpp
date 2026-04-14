@@ -4119,7 +4119,8 @@ refers to one of the port interface instances computed in the previous step.</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
-<p>Check that the component instance&#8217;s included port interface <em>P<sub>I</sub></em> has the port instance <em>I</em></p>
+<p>Check that the associated port interface of the component instance contains
+the port instance <em>I</em></p>
 </li>
 </ol>
 </div>
@@ -4132,7 +4133,8 @@ refers to one of the port interface instances computed in the previous step.</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
-<p>Check that the topology&#8217;s included port interface <em>P<sub>I</sub></em> has the port instance <em>I</em></p>
+<p>Check that the associated port interface of the topology contains the port
+instance <em>I</em></p>
 </li>
 <li>
 <p>Find the <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifier</a> <code>port</code> <em>I</em> <code>=</code> <em>P'</em> in <em>T'</em>.</p>
@@ -11120,7 +11122,7 @@ as if it appeared in <em>D</em>.</p>
 }
 module N {
   # Inside the expansion of T, names are resolved
-  # in the scope at the point of the definition of T.
+  # in a new scope at the point of the definition of T.
   # So a refers to M.a, even though the expansion
   # occurs inside N.
   expand T
@@ -13589,10 +13591,9 @@ that can serve as the endpoints of topology connections.
 A port interface instance has an associated port interface <em>I</em>;
 this is the port interface associated with the
 <a href="#Ports_Port-Interfaces_Component-Instance-Definitions">component instance
-definition</a> or
-<a href="#Ports_Port-Interfaces_Topology-Definitions">topology definition</a>.
-An port interface instance template parameter&#8217;s port interface will be named in the template
-definition&#8217;s parameter list.</p>
+definition</a>,
+<a href="#Ports_Port-Interfaces_Topology-Definitions">topology definition</a>,
+or <a href="#Template-Parameter-Lists">template parameter</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -13723,7 +13724,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-14 00:23:49 -0700
+Last updated 2026-04-14 00:37:52 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

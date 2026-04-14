@@ -361,7 +361,7 @@ module M {
 }
 module N {
   # Inside the expansion of T, names are resolved
-  # in the scope at the point of the definition of T.
+  # in a new scope at the point of the definition of T.
   # So a refers to M.a, even though the expansion
   # occurs inside N.
   expand T

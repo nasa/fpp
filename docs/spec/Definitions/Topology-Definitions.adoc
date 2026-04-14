@@ -161,14 +161,16 @@ _E_ of a connection computed in step 3, do the following:
 
 .. If _E_ is a <<Specifiers_Connection-Graph-Specifiers_Semantics,component instance endpoint>> with the form _Q_ `.` _I_:
 
-... Check that the component instance's included port interface _P~I~_ has the port instance _I_
+... Check that the associated port interface of the component instance contains 
+    the port instance _I_
 
 .. Otherwise the <<Instance-Member-Identifiers_Port-Instance-Identifiers,port instance identifier>>
 _P_ appearing in _E_ has the form _Q_ 
 `.` _I_, where _Q_ refers to a topology _T'_, and
 _I_ names a port of _T'_.
 
-... Check that the topology's included port interface _P~I~_ has the port instance _I_
+... Check that the associated port interface of the topology contains the port 
+    instance _I_
 
 ... Find the <<Specifiers_Topology-Port-Instance-Specifiers,
 topology port instance specifier>> `port` _I_ `=` _P'_ in _T'_.

@@ -108,10 +108,9 @@ that can serve as the endpoints of topology connections.
 A port interface instance has an associated port interface _I_;
 this is the port interface associated with the 
 <<Ports_Port-Interfaces_Component-Instance-Definitions,component instance 
-definition>> or
-<<Ports_Port-Interfaces_Topology-Definitions,topology definition>>.
-An port interface instance template parameter's port interface will be named in the template
-definition's parameter list.
+definition>>,
+<<Ports_Port-Interfaces_Topology-Definitions,topology definition>>,
+or <<Template-Parameter-Lists,template parameter>>.
 
 === Sub-Interfaces
 
