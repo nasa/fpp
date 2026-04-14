@@ -1,0 +1,62 @@
+== Templates
+
+The analyzer uses the following algorithm to analyze
+<<Definitions_Module-Template-Definitions,module template definitions>>
+and to resolve
+<<Specifiers_Template-Expansion-Specifiers,template expansion specifiers>>:
+
+_TODO: This should say while there are unanalyzed templates or
+unexpanded specifiers, analyze all the templates and expand
+all the specifiers. Expansion can produce new templates
+that need analysis and new specifiers that need expansion._
+
+. While there are unexpanded template expansion specifiers, for each template expansion specifier _E_:
+
+.. Resolve the module template definition _T_ which _E_
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refers to>>.
+
+.. Duplicate the syntax contained in _T_ into syntax _X_ contained under _E_.
+
+.. For each template expansion specifier in _X_, re-apply these rules until all template expansions are expanded.
+
+=== Example
+
+[source,fpp]
+----
+template MT(
+    constant base_id: U32,
+    interface comDriver: ByteStreamDriver
+) {
+
+    instance comStub: Svc.ComStub base id \
+        base_id + 0x0800
+
+    topology T {
+
+        instance comStub
+
+        # Connect to the driver from the parameter list
+        connections Downlink {
+            # ComStub <-> ComDriver
+            comStub.drvSendOut      -> comDriver.$send
+            comDriver.sendReturnOut -> comStub.drvSendReturnIn
+            comDriver.ready         -> comStub.drvConnected
+        }
+
+    }
+
+}
+
+module M {
+    # Instantiate template with topology inside
+    # Pass an external component into the topology
+    expand MT(constant 0x100, interface comDriver)
+}
+
+topology T {
+    import M.T # Imports the instantiated template topology
+    import MT.T # Error: Cannot reference definitions inside a _template_
+
+    instance comDriver
+}
+----

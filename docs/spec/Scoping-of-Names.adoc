@@ -41,8 +41,8 @@ a.b.c
 
 === Names of Definitions
 
-Every
-<<Definitions,definition>>
+*Global definitions:*
+Every <<Definitions,global definition>>
  _D_ appearing in an FPP model has a unique *qualified
 name*. The qualified name is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> formed as follows:
@@ -69,9 +69,13 @@ module M { # Qualified name is M
 }
 ----
 
+*Bound parameter definitions:*
+Every bound parameter definition is referred to by an identifier
+in the scope of an <<Templates,expanded template>>.
+
 === Name Groups
 
-The qualified names of definitions and
+The qualified names of definitions
 reside in the following *name groups*:
 
 . The *component name group*
@@ -104,39 +108,37 @@ state machine name group.
 
 * Constant definitions reside in the value name group.
 
+* Constant template parameters reside in the value name group.
+
 * Enum definitions reside in both the value name group and the type name group.
 
 * Enumerated constant definitions reside in the value name group.
 
 * Module definitions reside in all the name groups.
 
+* Module template definitions reside in all name groups.
+
 * Port definitions reside in the port name group.
 
 * Port interface definitions reside in the port interface name group.
+
+* Port interface instance template parameters reside in the
+  port interface instance name group.
 
 * State machine definitions reside in the state machine name group,
 the value name group, and the type name group.
 
 * Struct type definitions reside in the type name group.
 
-* Module template definitions reside in all name groups.
-
-* Template parameters in expanded templates reside in all name groups.
-_TODO: It seems that a template parameter should reside in the name
-groups of the definition that it represents._
-
 * Topology definitions reside in the port interface instance name group.
 
-Notice that elements with scopes reside in the name groups of items
-that they may enclose.
-For example, enums reside in the value name group because they
-enclose constant definitions.
+* Type template parameters reside in the type name group.
 
-=== Multiple Definitions with the Same Qualified Name
+=== Multiple Global Definitions with the Same Qualified Name
 
 ==== Different Name Groups
 
-Two definitions with the same qualified name are allowed if they are in
+Two global definitions with the same qualified name are allowed if they are in
 different name groups. For example:
 
 [source,fpp]
@@ -208,88 +210,155 @@ module M {
 }
 ----
 
-=== Resolution of Identifiers
+=== Conflicting Parameter Names
 
-_TODO: Add the rules for resolution within an expanded template._
+Within the scope of a single <<Templates,expanded template>> _T_,
+the following rules apply:
+
+. No two <<Template-Parameter-Lists,template parameters>> of _T_
+  in the same group may have the same name.
+
+. No template parameter of _T_ may have the same name as
+  the unqualified name of any definition in the same name group
+  appearing in the expansion of _T_.
+
+For example, the following code violates these rules:
+
+[source,fpp]
+----
+module template T(constant x: U32, constant x: I32) { } # Reuse of the parameter name x
+module template T(constant x: U32) {
+  constant x = 0 # constant x conflicts with parameter x
+}
+----
+
+On the other hand, this code is allowed:
+
+[source,fpp]
+----
+module template T(constant x: U32, type x) { } # OK: constant x, type x
+module template T(constant x: U32) {
+  type x = U32  # OK: constant x, type x
+}
+----
+
+=== Resolution of Identifiers
 
 The following rules govern the resolution of identifiers, i.e.,
 associating identifiers with definitions:
 
-If the identifier we are resolving resides in a
-<<Specifiers_Template-Expansion-Specifiers,template expansion>>, see
-<<Analysis-and-Expansion-of-Templates_Resolution-of-Identifiers,
-rules for resolving identifiers in template>>
-instead of these rules.
+==== Outside Any Expanded Template
+
+To resolve an identifier _I_ outside of any
+<<Templates,expanded template>>, do the following:
 
 . Use the context to determine which
 <<Scoping-of-Names_Name-Groups,name group>>
-_S_ to use. For example, if we are expecting a type name, then use the
+_G_ to use. For example, if we are expecting a type name, then use the
 type name group.
 
-. At the top level (outside the brace-delimited body of any definition), the
+. At the top level scope (outside the brace-delimited body of any definition), the
 identifier _I_ refers to the unique definition with qualified name _I_ if it
-exists in name group _S_. Otherwise an error results.
+exists in name group _G_. Otherwise an error results.
 
-. Inside the brace-delimited body of a <<Definitions,definition>> with
+. Inside the brace-delimited scope of a <<Definitions,definition>> with
 qualified name _N_ appearing at the top level:
 
   .. The identifier _I_ refers to the definition with qualified name
-_N_ `.` _I_ if it exists in name group _S_.
+_N_ `.` _I_ if it exists in name group _G_.
 
   .. Otherwise _I_ refers to the definition with qualified name _I_ if it
 exists in name group _S_.
 
   .. Otherwise an error results.
 
-. Inside the brace-delimited body of a definition with qualified name
+. Inside the brace-delimited scope of a definition with qualified name
 _N_ appearing inside the body of a  definition _D_:
 
   ..  The identifier _I_ refers to the definition with qualified name
-_N_ `.` _I_ if it exists in name group _S_.
+_N_ `.` _I_ if it exists in name group _G_.
 
   ..  Otherwise proceed as if _I_ were appearing inside _D_.
 
 *Example:*
 
-_S_ refers to the value name group.
+_G_ refers to the value name group.
 
 [source,fpp]
 ----
-# Identifier M is in scope in S and refers to the qualified name M
-# Identifier a is in scope in S and refers to qualified name a
+# Identifier M is in scope in G and refers to the qualified name M
+# Identifier a is in scope in G and refers to qualified name a
 
-constant a = 1 # Unique definition in S with qualified name a
+constant a = 1 # Unique definition in G with qualified name a
 
 module M {
-  # Identifier M is in scope in S and refers to the qualified name M
-  # Identifier N is in scope in S and refers to the qualified name N
-  # Identifier a is in scope in S and refers to qualified name a
-  # Identifier b is in scope in S and refers to qualified name M.b
-  constant b = 2 # Unique definition in S with qualified name M.b
+  # Identifier M is in scope in G and refers to the qualified name M
+  # Identifier N is in scope in G and refers to the qualified name N
+  # Identifier a is in scope in G and refers to qualified name a
+  # Identifier b is in scope in G and refers to qualified name M.b
+  constant b = 2 # Unique definition in G with qualified name M.b
 }
 
-# Identifier M is in scope in S and refers to the qualified name M
-# Identifier a is in scope in S and refers to qualified name a
+# Identifier M is in scope in G and refers to the qualified name M
+# Identifier a is in scope in G and refers to qualified name a
 
 module M {
 
-  # Identifier M is in scope in S and refers to the qualified name M
-  # Identifier N is in scope in S and refers to the qualified name M.N
+  # Identifier M is in scope in G and refers to the qualified name M
+  # Identifier N is in scope in G and refers to the qualified name M.N
   # Identifier a is in scope and refers to qualified name a
   # Identifier b is in scope and refers to qualified name M.b
 
   module N {
-    # Identifier M is in scope in S and refers to the qualified name M
-    # Identifier N is in scope in S and refers to the qualified name M.N
-    # Identifier a is in scope in S and refers to qualified name a
-    # Identifier b is in scope in S and refers to qualified name M.N.b
-    constant b = 3 # Unique definition in S with qualified name M.N.b
+    # Identifier M is in scope in G and refers to the qualified name M
+    # Identifier N is in scope in G and refers to the qualified name M.N
+    # Identifier a is in scope in G and refers to qualified name a
+    # Identifier b is in scope in G and refers to qualified name M.N.b
+    constant b = 3 # Unique definition in G with qualified name M.N.b
   }
 
 }
 
-# Identifier M is in scope in S and refers to the qualified name M
-# Identifier a is in scope in S and refers to qualified name a
+# Identifier M is in scope in G and refers to the qualified name M
+# Identifier a is in scope in G and refers to qualified name a
+----
+
+==== Inside an Expanded Template
+
+To resolve an identifier _I_ inside an
+<<Templates,expanded template>> _E_, do the following:
+
+. Construct a scope _S_ at the point of _D_ that contains
+  the following definitions: (a) all the <<Definitions,bound parameter 
+  definitions>> of _E_ and (b) all the <<Definitions,global definitions>> 
+  introduced in the expansion _E_.
+
+. Use the rules stated in the previous section to resolve _I_
+  in the scope _S_.
+
+*Example:*
+
+_G_ refers to the type name group.
+
+[source,fpp]
+----
+module M {
+  constant a = 0
+  module template T {
+    constant b = a
+  }
+}
+module N {
+  # Inside the expansion of T, names are resolved
+  # in the scope at the point of the definition of T.
+  # So a refers to M.a, even though the expansion
+  # occurs inside N.
+  expand T
+}
+# The expansion introduces a definition b in module N,
+# so N.b is in scope here. Definitions introduced by
+# template expansion follow the standard rules for scoping.
+constant c = N.b
 ----
 
 === Resolution of Qualified Identifiers

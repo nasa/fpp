@@ -5,9 +5,10 @@ A *template parameter list* is an
 in which the elements are template parameters,
 and the terminating punctuation is a comma.
 
-A *template parameter* is a name to which a constant
-value, a port interface instance, or a type becomes
-bound when a <<Analysis-and-Expansion-of-Templates,template is expanded>>.
+A *template parameter* is a name to which a constant value, a port interface
+instance, or a type becomes bound when a <<Templates,template is expanded>>.
+Within the scope of an expanded template, a template parameter is a kind of
+<<Definitions,definition>>.
 
 === Syntax
 

@@ -2,3 +2,19 @@
 
 A *definition* is a unit of syntax that introduces a name _N_
 and associates some code with _N_.
+
+In FPP, there are two kinds of definitions:
+
+. *Global definitions* that introduce globally visible 
+  <<Scoping-of-Names_Names-of-Definitions,qualified names>>.
+
+. *Bound parameter definitions* introduced by binding
+template parameter arguments to
+<<Template-Parameter-Lists,template parameters>> within
+the scope of an <<Templates,expanded template>>.
+A bound parameter definition is a pair consisting of
+a template parameter and a template parameter argument.
+Bound parameter definitions have simple identifiers as names.
+They are in scope in the top level of an expanded template.
+
+The rest of this section discusses the global definitions.

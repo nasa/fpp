@@ -6,8 +6,7 @@ A module template is a set of syntactic elements, each of which
 becomes a member of a <<Translation-Units-and-Models_Translation-Units,
 translation unit>> or a
 <<Definitions_Module-Definitions,module definition>>
-at the point where the template is
-<<Analysis-and-Expansion-of-Templates,expanded>>.
+at the point where the template is <<Templates,expanded>>.
 Each template may be expanded any number of times, and
 each expansion creates a distinct set of translation unit
 or module members.

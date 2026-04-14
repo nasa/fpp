@@ -87,7 +87,7 @@ if _E_ has a port number  expression _e_ in the FPP source, then
 _Integer_, and assign the port number _n_ at endpoint _E_ of connection _C_.
 Check that _n_ is in bounds for the port instance being numbered.
 
-. Let _S_ be the set of all topologies or template interface parameters that
+. Let _S_ be the set of all topologies or port interface instance template parameters that
 refer to topologies that are named as
 <<Specifiers_Port-Interface-Instance-Specifiers,instances>>
 in _D_.
@@ -137,7 +137,7 @@ imported by the definition of _T'_.
 
 .. If _I_ refers to a <<Definitions_Topology-Definitions,topology>>, _P~I~_ is the port interface of the topology
 
-.. If _I_ refers to a <<Definitions_Module-Template-Definitions,template interface parameter>> _T~P~_ inside template _T~D~_ where _T_ is found in expansion _T~E~_:
+.. If _I_ refers to a <<Definitions_Module-Template-Definitions,port interface instance template parameter>> _T~P~_ inside template _T~D~_ where _T_ is found in expansion _T~E~_:
 
 ... The corresponding template parameter value _T~V~_ in _T~E~_ must refer to a port interface instance
 
@@ -148,7 +148,7 @@ imported by the definition of _T'_.
 . If an instance _I_ is named twice in _S_ with differing port interfaces _P~I1~_ and _P~I2~_, the set union will be
 used to compute _P~I~_.
 
-. Replace all instances <<Definitions_Module-Template-Definitions,template interface parameter>> with the
+. Replace all instances <<Definitions_Module-Template-Definitions,port interface instance template parameter>> with the
 component instance or topology specified in the template expansion.
 
 . For each connection _C_ discovered in step 3, check that each

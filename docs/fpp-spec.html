@@ -803,21 +803,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifiers_Telemetry-Packet-Specifiers_Examples">7.18.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Topology-Port-Instance-Specifiers">7.19. Topology Port Instance Specifiers</a>
+<li><a href="#Specifiers_Template-Expansion-Specifiers">7.19. Template Expansion Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Topology-Port-Instance-Specifiers_Syntax">7.19.1. Syntax</a></li>
-<li><a href="#Specifiers_Topology-Port-Instance-Specifiers_Semantics">7.19.2. Semantics</a></li>
-<li><a href="#Specifiers_Topology-Port-Instance-Specifiers_Example">7.19.3. Example</a></li>
+<li><a href="#Specifiers_Template-Expansion-Specifiers_Syntax">7.19.1. Syntax</a></li>
+<li><a href="#Specifiers_Template-Expansion-Specifiers_Semantics">7.19.2. Semantics</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Template-Expansion-Specifiers">7.20. Template Expansion Specifiers</a></li>
-<li><a href="#Specifiers_Syntax">7.21. Syntax</a></li>
-<li><a href="#Specifiers_Semantics">7.22. Semantics</a>
+<li><a href="#Specifiers_Examples">7.20. Examples</a></li>
+<li><a href="#Specifiers_Topology-Port-Instance-Specifiers">7.21. Topology Port Instance Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Semantics_Checking-parameter-types">7.22.1. Checking parameter types</a></li>
+<li><a href="#Specifiers_Topology-Port-Instance-Specifiers_Syntax">7.21.1. Syntax</a></li>
+<li><a href="#Specifiers_Topology-Port-Instance-Specifiers_Semantics">7.21.2. Semantics</a></li>
+<li><a href="#Specifiers_Topology-Port-Instance-Specifiers_Example">7.21.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Examples">7.23. Examples</a></li>
 </ul>
 </li>
 <li><a href="#Instance-Member-Identifiers">8. Instance Member Identifiers</a>
@@ -949,15 +948,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Scoping-of-Names_Qualified-Identifiers">16.1. Qualified Identifiers</a></li>
 <li><a href="#Scoping-of-Names_Names-of-Definitions">16.2. Names of Definitions</a></li>
 <li><a href="#Scoping-of-Names_Name-Groups">16.3. Name Groups</a></li>
-<li><a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name">16.4. Multiple Definitions with the Same Qualified Name</a>
+<li><a href="#Scoping-of-Names_Multiple-Global-Definitions-with-the-Same-Qualified-Name">16.4. Multiple Global Definitions with the Same Qualified Name</a>
 <ul class="sectlevel3">
-<li><a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Different-Name-Groups">16.4.1. Different Name Groups</a></li>
-<li><a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Module-Definitions">16.4.2. Module Definitions</a></li>
-<li><a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions">16.4.3. Conflicting Definitions</a></li>
+<li><a href="#Scoping-of-Names_Multiple-Global-Definitions-with-the-Same-Qualified-Name_Different-Name-Groups">16.4.1. Different Name Groups</a></li>
+<li><a href="#Scoping-of-Names_Multiple-Global-Definitions-with-the-Same-Qualified-Name_Module-Definitions">16.4.2. Module Definitions</a></li>
+<li><a href="#Scoping-of-Names_Multiple-Global-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions">16.4.3. Conflicting Definitions</a></li>
 </ul>
 </li>
-<li><a href="#Scoping-of-Names_Resolution-of-Identifiers">16.5. Resolution of Identifiers</a></li>
-<li><a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">16.6. Resolution of Qualified Identifiers</a></li>
+<li><a href="#Scoping-of-Names_Conflicting-Parameter-Names">16.5. Conflicting Parameter Names</a></li>
+<li><a href="#Scoping-of-Names_Resolution-of-Identifiers">16.6. Resolution of Identifiers</a>
+<ul class="sectlevel3">
+<li><a href="#Scoping-of-Names_Resolution-of-Identifiers_Outside-Any-Expanded-Template">16.6.1. Outside Any Expanded Template</a></li>
+<li><a href="#Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template">16.6.2. Inside an Expanded Template</a></li>
+</ul>
+</li>
+<li><a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">16.7. Resolution of Qualified Identifiers</a></li>
 </ul>
 </li>
 <li><a href="#Definitions-and-Uses">17. Definitions and Uses</a>
@@ -968,11 +973,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions-and-Uses_Implied-Uses">17.4. Implied Uses</a></li>
 </ul>
 </li>
-<li><a href="#Analysis-and-Expansion-of-Templates">18. Analysis and Expansion of Templates</a>
+<li><a href="#Templates">18. Templates</a>
 <ul class="sectlevel2">
-<li><a href="#Analysis-and-Expansion-of-Templates_Entering-Definitions">18.1. Entering Definitions</a></li>
-<li><a href="#Analysis-and-Expansion-of-Templates_Resolution-of-Identifiers">18.2. Resolution of Identifiers</a></li>
-<li><a href="#Analysis-and-Expansion-of-Templates_Example">18.3. Example</a></li>
+<li><a href="#Templates_Example">18.1. Example</a></li>
 </ul>
 </li>
 <li><a href="#Types">19. Types</a>
@@ -1725,6 +1728,30 @@ enum E { X = 0, Y = 1 }</code></pre>
 <div class="paragraph">
 <p>A <strong>definition</strong> is a unit of syntax that introduces a name <em>N</em>
 and associates some code with <em>N</em>.</p>
+</div>
+<div class="paragraph">
+<p>In FPP, there are two kinds of definitions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Global definitions</strong> that introduce globally visible
+<a href="#Scoping-of-Names_Names-of-Definitions">qualified names</a>.</p>
+</li>
+<li>
+<p><strong>Bound parameter definitions</strong> introduced by binding
+template parameter arguments to
+<a href="#Template-Parameter-Lists">template parameters</a> within
+the scope of an <a href="#Templates">expanded template</a>.
+A bound parameter definition is a pair consisting of
+a template parameter and a template parameter argument.
+Bound parameter definitions have simple identifiers as names.
+They are in scope in the top level of an expanded template.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The rest of this section discusses the global definitions.</p>
 </div>
 <div class="sect2">
 <h3 id="Definitions_Abstract-Type-Definitions">5.1. Abstract Type Definitions</h3>
@@ -2958,8 +2985,7 @@ with a <strong>module template</strong>.
 A module template is a set of syntactic elements, each of which
 becomes a member of a <a href="#Translation-Units-and-Models_Translation-Units">translation unit</a> or a
 <a href="#Definitions_Module-Definitions">module definition</a>
-at the point where the template is
-<a href="#Analysis-and-Expansion-of-Templates">expanded</a>.
+at the point where the template is <a href="#Templates">expanded</a>.
 Each template may be expanded any number of times, and
 each expansion creates a distinct set of translation unit
 or module members.
@@ -3991,7 +4017,7 @@ if <em>E</em> has a port number  expression <em>e</em> in the FPP source, then
 Check that <em>n</em> is in bounds for the port instance being numbered.</p>
 </li>
 <li>
-<p>Let <em>S</em> be the set of all topologies or template interface parameters that
+<p>Let <em>S</em> be the set of all topologies or port interface instance template parameters that
 refer to topologies that are named as
 <a href="#Specifiers_Port-Interface-Instance-Specifiers">instances</a>
 in <em>D</em>.
@@ -4049,7 +4075,7 @@ imported by the definition of <em>T'</em>.</p>
 <p>If <em>I</em> refers to a <a href="#Definitions_Topology-Definitions">topology</a>, <em>P<sub>I</sub></em> is the port interface of the topology</p>
 </li>
 <li>
-<p>If <em>I</em> refers to a <a href="#Definitions_Module-Template-Definitions">template interface parameter</a> <em>T<sub>P</sub></em> inside template <em>T<sub>D</sub></em> where <em>T</em> is found in expansion <em>T<sub>E</sub></em>:</p>
+<p>If <em>I</em> refers to a <a href="#Definitions_Module-Template-Definitions">port interface instance template parameter</a> <em>T<sub>P</sub></em> inside template <em>T<sub>D</sub></em> where <em>T</em> is found in expansion <em>T<sub>E</sub></em>:</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
@@ -4072,7 +4098,7 @@ imported by the definition of <em>T'</em>.</p>
 used to compute <em>P<sub>I</sub></em>.</p>
 </li>
 <li>
-<p>Replace all instances <a href="#Definitions_Module-Template-Definitions">template interface parameter</a> with the
+<p>Replace all instances <a href="#Definitions_Module-Template-Definitions">port interface instance template parameter</a> with the
 component instance or topology specified in the template expansion.</p>
 </li>
 <li>
@@ -8190,7 +8216,7 @@ product send port productSendOut</code></pre>
 specifies that a
 <a href="#Definitions_Component-Instance-Definitions">component instance</a>
 <em>I</em>, <a href="#Definitions_Topology-Definitions">topology</a> <em>T'</em>, or a
-<a href="#Definitions_Module-Template-Definitions">template interface parameter</a> <em>P</em>
+<a href="#Template-Parameter-Lists">port interface instance template parameter</a> <em>P</em>
 is part of a topology <em>T</em>.
 <em>I</em>, <em>T'</em> or <em>P</em> provides a <a href="#Ports_Port-Interfaces">port interface</a>
 that can be used in connections in <em>T</em>.</p>
@@ -8216,7 +8242,7 @@ of FPP.</p>
 a
 <a href="#Ports_Port-Interface-Instances">port interface instance</a>,
 i.e., a component instance definition, topology definition,
-or template interface parameter.</p>
+or port interface instance template parameter.</p>
 </div>
 </div>
 <div class="sect3">
@@ -8870,7 +8896,122 @@ packet ADCS group 2 {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Topology-Port-Instance-Specifiers">7.19. Topology Port Instance Specifiers</h3>
+<h3 id="Specifiers_Template-Expansion-Specifiers">7.19. Template Expansion Specifiers</h3>
+<div class="paragraph">
+<p>A <strong>template expansion specifier</strong> names a
+<a href="#Definitions_Module-Template-Definitions">template</a>
+and specifies arguments for the parameters of the template.
+During <a href="#Templates">template expansion</a>, it generates the definitions specified
+by the template and the arguments.</p>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Template-Expansion-Specifiers_Syntax">7.19.1. Syntax</h4>
+<div class="paragraph">
+<p><code>expand</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
+<em>[</em>
+<code>(</code> <em>template-arg-list</em> <code>)</code>
+<em>]</em></p>
+</div>
+<div class="paragraph">
+<p><em>template-arg-list</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which the elements are template arguments, and
+the terminating punctuation is a comma.</p>
+</div>
+<div class="paragraph">
+<p>Each template argument is one of the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A <strong>constant template argument</strong> <code>constant</code> <a href="#Expressions"><em>expression</em></a></p>
+</li>
+<li>
+<p>A <strong>port interface instance template argument</strong>
+<code>instance</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
+</li>
+<li>
+<p>A <strong>type template argument</strong> <code>type</code> <a href="#Type-Names"><em>type-name</em></a></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Template-Expansion-Specifiers_Semantics">7.19.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The qualified identifier must
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
+the definition of a
+<a href="#Definitions_Module-Template-Definitions">module template <em>T</em></a>.</p>
+</li>
+<li>
+<p>The number of template arguments must match the number of template
+parameters in <em>T</em>.
+If there are no parameters, then the argument list may be omitted.</p>
+</li>
+<li>
+<p>For each template parameter <em>P</em>, let <em>A</em> be the corresponding argument.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If <em>P</em> is a constant template parameter, then <em>A</em> must be a constant
+template argument. The type of the expression in <em>A</em> must be
+<a href="#Type-Checking_Type-Conversion">converible to</a> the type specified in <em>P</em>.</p>
+</li>
+<li>
+<p>If <em>P</em> is an interface instance template parameter, then <em>A</em>
+must be an interface instance template argument.
+The qualified identifier in <em>A</em> must
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
+a <a href="#Ports_Port-Interface-Instances">port interface instance</a> <em>N</em>.
+The port interface of referred to in <em>P</em> must be a
+<a href="#Ports_Sub-Interfaces">sub-interface</a> of the <a href="#Ports_Port-Interfaces">port
+interface of <em>N</em></a>.</p>
+</li>
+<li>
+<p>If <em>P</em> is a type template parameter, then <em>A</em> must be a type
+template argument.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Specifiers_Examples">7.20. Examples</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">port P
+
+@ A basic template parameterizing an interface port count
+template Templ(
+  constant numPorts: U32
+) {
+  interface I {
+    output port N[numPorts]: P
+  }
+
+  passive component C {
+    import I
+  }
+}
+
+@ Instantiate the template giving the parameters concrete values
+module M {
+  expand Templ(constant 30)
+}
+# M.I =&gt; interface { output port N[30]: P }
+# M.C =&gt; passive component { output port N[30]: P }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Specifiers_Topology-Port-Instance-Specifiers">7.21. Topology Port Instance Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>topology port instance specifier</strong> specifies a
 port instance in a <a href="#Definitions_Topology-Definitions">topology definition</a>
@@ -8882,7 +9023,7 @@ Such a specifier can be the endpoint of a
 <a href="#Specifiers_Connection-Graph-Specifiers">connection</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Port-Instance-Specifiers_Syntax">7.19.1. Syntax</h4>
+<h4 id="Specifiers_Topology-Port-Instance-Specifiers_Syntax">7.21.1. Syntax</h4>
 <div class="paragraph">
 <p><code>port</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -8891,7 +9032,7 @@ Such a specifier can be the endpoint of a
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Port-Instance-Specifiers_Semantics">7.19.2. Semantics</h4>
+<h4 id="Specifiers_Topology-Port-Instance-Specifiers_Semantics">7.21.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -8909,7 +9050,7 @@ topology</a>, after renaming it with name <em>N</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Port-Instance-Specifiers_Example">7.19.3. Example</h4>
+<h4 id="Specifiers_Topology-Port-Instance-Specifiers_Example">7.21.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">topology T {
@@ -8939,110 +9080,6 @@ topology Y {
 <div class="paragraph">
 <p>See also the <a href="#Definitions_Topology-Definitions_Examples">examples for topology
 definitions</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Specifiers_Template-Expansion-Specifiers">7.20. Template Expansion Specifiers</h3>
-<div class="paragraph">
-<p>A <strong>template expansion specifier</strong> names a
-<a href="#Definitions_Module-Template-Definitions">template</a>
-and specifies arguments for the parameters of the templtae.
-It generates the definitions specified by the template
-and the arguments.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Specifiers_Syntax">7.21. Syntax</h3>
-<div class="paragraph">
-<p><code>expand</code>
-<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
-<code>(</code> <em>parameter-sequence</em> <code>)</code></p>
-</div>
-<div class="paragraph">
-<p><em>parameter-sequence</em> is an
-<a href="#Element-Sequences">element sequence</a> in
-which each element is one of the following:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><code>constant</code> <a href="#Expressions"><em>expression</em></a></p>
-</li>
-<li>
-<p><code>type</code> <a href="#Type-Names"><em>type-name</em></a></p>
-</li>
-<li>
-<p><code>interface</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Specifiers_Semantics">7.22. Semantics</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The qualified identifier must
-<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
-a
-<a href="#Definitions_Module-Template-Definitions">module template definition <em>T</em></a>.</p>
-</li>
-<li>
-<p>The parameter sequence is the set of parameters that map to
-the template parameters of the template <em>T</em>.</p>
-</li>
-</ol>
-</div>
-<div class="sect3">
-<h4 id="Specifiers_Semantics_Checking-parameter-types">7.22.1. Checking parameter types</h4>
-<div class="paragraph">
-<p>For each template parameter <em>P</em> and its corresponding parameter definition <em>D</em> in <em>T</em>:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If <em>P</em> is <code>constant</code>, <em>D</em> must be `constant and the expression is
-<a href="#Type-Checking_Type-Conversion">converted to</a> the type specified in <em>D</em>.</p>
-</li>
-<li>
-<p>If <em>P</em> is <code>type</code>, <em>D</em> must also be a <code>type</code> parameter.</p>
-</li>
-<li>
-<p>If <em>P</em> is <code>interface</code>, <em>D</em> must also be `interface and the value must be a
-<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qualified-identifier</em></a> of a
-<a href="#Ports_Port-Interface-Instances">port interface instance</a>
-which is a <a href="#Ports_Sub-Interfaces">sub-interface</a> to <em>I</em></p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Specifiers_Examples">7.23. Examples</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">port P
-
-@ A basic template parameterizing an interface port count
-template Templ(
-  constant numPorts: U32
-) {
-  interface I {
-    output port N[numPorts]: P
-  }
-
-  passive component C {
-    import I
-  }
-}
-
-@ Instantiate the template giving the parameters concrete values
-module M {
-  expand Templ(constant 30)
-}
-# M.I =&gt; interface { output port N[30]: P }
-# M.C =&gt; passive component { output port N[30]: P }</code></pre>
 </div>
 </div>
 </div>
@@ -10144,9 +10181,10 @@ in which the elements are template parameters,
 and the terminating punctuation is a comma.</p>
 </div>
 <div class="paragraph">
-<p>A <strong>template parameter</strong> is a name to which a constant
-value, a port interface instance, or a type becomes
-bound when a <a href="#Analysis-and-Expansion-of-Templates">template is expanded</a>.</p>
+<p>A <strong>template parameter</strong> is a name to which a constant value, a port interface
+instance, or a type becomes bound when a <a href="#Templates">template is expanded</a>.
+Within the scope of an expanded template, a template parameter is a kind of
+<a href="#Definitions">definition</a>.</p>
 </div>
 <div class="sect2">
 <h3 id="Template-Parameter-Lists_Syntax">12.1. Syntax</h3>
@@ -10542,7 +10580,7 @@ module M2 {
 </div>
 <div class="paragraph">
 <p>According to the
-<a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Module-Definitions">semantics
+<a href="#Scoping-of-Names_Multiple-Global-Definitions-with-the-Same-Qualified-Name_Module-Definitions">semantics
 of module definitions</a>,
 this is also equivalent:</p>
 </div>
@@ -10649,8 +10687,8 @@ a.b.c</code></pre>
 <div class="sect2">
 <h3 id="Scoping-of-Names_Names-of-Definitions">16.2. Names of Definitions</h3>
 <div class="paragraph">
-<p>Every
-<a href="#Definitions">definition</a>
+<p><strong>Global definitions:</strong>
+Every <a href="#Definitions">global definition</a>
  <em>D</em> appearing in an FPP model has a unique <strong>qualified
 name</strong>. The qualified name is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a> formed as follows:</p>
@@ -10684,11 +10722,16 @@ the identifier appearing in <em>D</em>.</p>
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>Bound parameter definitions:</strong>
+Every bound parameter definition is referred to by an identifier
+in the scope of an <a href="#Templates">expanded template</a>.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Scoping-of-Names_Name-Groups">16.3. Name Groups</h3>
 <div class="paragraph">
-<p>The qualified names of definitions and
+<p>The qualified names of definitions
 reside in the following <strong>name groups</strong>:</p>
 </div>
 <div class="olist arabic">
@@ -10742,6 +10785,9 @@ state machine name group.</p>
 <p>Constant definitions reside in the value name group.</p>
 </li>
 <li>
+<p>Constant template parameters reside in the value name group.</p>
+</li>
+<li>
 <p>Enum definitions reside in both the value name group and the type name group.</p>
 </li>
 <li>
@@ -10751,10 +10797,17 @@ state machine name group.</p>
 <p>Module definitions reside in all the name groups.</p>
 </li>
 <li>
+<p>Module template definitions reside in all name groups.</p>
+</li>
+<li>
 <p>Port definitions reside in the port name group.</p>
 </li>
 <li>
 <p>Port interface definitions reside in the port interface name group.</p>
+</li>
+<li>
+<p>Port interface instance template parameters reside in the
+port interface instance name group.</p>
 </li>
 <li>
 <p>State machine definitions reside in the state machine name group,
@@ -10764,31 +10817,20 @@ the value name group, and the type name group.</p>
 <p>Struct type definitions reside in the type name group.</p>
 </li>
 <li>
-<p>Module template definitions reside in all name groups.</p>
-</li>
-<li>
-<p>Template parameters in expanded templates reside in all name groups.
-<em>TODO: It seems that a template parameter should reside in the name
-groups of the definition that it represents.</em></p>
-</li>
-<li>
 <p>Topology definitions reside in the port interface instance name group.</p>
+</li>
+<li>
+<p>Type template parameters reside in the type name group.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Notice that elements with scopes reside in the name groups of items
-that they may enclose.
-For example, enums reside in the value name group because they
-enclose constant definitions.</p>
-</div>
 </div>
 <div class="sect2">
-<h3 id="Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name">16.4. Multiple Definitions with the Same Qualified Name</h3>
+<h3 id="Scoping-of-Names_Multiple-Global-Definitions-with-the-Same-Qualified-Name">16.4. Multiple Global Definitions with the Same Qualified Name</h3>
 <div class="sect3">
-<h4 id="Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Different-Name-Groups">16.4.1. Different Name Groups</h4>
+<h4 id="Scoping-of-Names_Multiple-Global-Definitions-with-the-Same-Qualified-Name_Different-Name-Groups">16.4.1. Different Name Groups</h4>
 <div class="paragraph">
-<p>Two definitions with the same qualified name are allowed if they are in
+<p>Two global definitions with the same qualified name are allowed if they are in
 different name groups. For example:</p>
 </div>
 <div class="listingblock">
@@ -10799,7 +10841,7 @@ constant s = 0 # Defines s in the value name group</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Module-Definitions">16.4.2. Module Definitions</h4>
+<h4 id="Scoping-of-Names_Multiple-Global-Definitions-with-the-Same-Qualified-Name_Module-Definitions">16.4.2. Module Definitions</h4>
 <div class="paragraph">
 <p>Multiple syntactic module definitions with the same qualified name are
 allowed. The semantic analysis combines all such definitions into a
@@ -10841,7 +10883,7 @@ module M { constant b = 1 }</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions">16.4.3. Conflicting Definitions</h4>
+<h4 id="Scoping-of-Names_Multiple-Global-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions">16.4.3. Conflicting Definitions</h4>
 <div class="paragraph">
 <p>Within the same name group, two definitions with the same
 qualified name are not allowed, unless they are both module definitions
@@ -10870,41 +10912,80 @@ module M {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Scoping-of-Names_Resolution-of-Identifiers">16.5. Resolution of Identifiers</h3>
+<h3 id="Scoping-of-Names_Conflicting-Parameter-Names">16.5. Conflicting Parameter Names</h3>
 <div class="paragraph">
-<p><em>TODO: Add the rules for resolution within an expanded template.</em></p>
+<p>Within the scope of a single <a href="#Templates">expanded template</a> <em>T</em>,
+the following rules apply:</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>No two <a href="#Template-Parameter-Lists">template parameters</a> of <em>T</em>
+in the same group may have the same name.</p>
+</li>
+<li>
+<p>No template parameter of <em>T</em> may have the same name as
+the unqualified name of any definition in the same name group
+appearing in the expansion of <em>T</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example, the following code violates these rules:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T(constant x: U32, constant x: I32) { } # Reuse of the parameter name x
+module template T(constant x: U32) {
+  constant x = 0 # constant x conflicts with parameter x
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On the other hand, this code is allowed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T(constant x: U32, type x) { } # OK: constant x, type x
+module template T(constant x: U32) {
+  type x = U32  # OK: constant x, type x
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Scoping-of-Names_Resolution-of-Identifiers">16.6. Resolution of Identifiers</h3>
 <div class="paragraph">
 <p>The following rules govern the resolution of identifiers, i.e.,
 associating identifiers with definitions:</p>
 </div>
+<div class="sect3">
+<h4 id="Scoping-of-Names_Resolution-of-Identifiers_Outside-Any-Expanded-Template">16.6.1. Outside Any Expanded Template</h4>
 <div class="paragraph">
-<p>If the identifier we are resolving resides in a
-<a href="#Specifiers_Template-Expansion-Specifiers">template expansion</a>, see
-<a href="#Analysis-and-Expansion-of-Templates_Resolution-of-Identifiers">rules for resolving identifiers in template</a>
-instead of these rules.</p>
+<p>To resolve an identifier <em>I</em> outside of any
+<a href="#Templates">expanded template</a>, do the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>Use the context to determine which
 <a href="#Scoping-of-Names_Name-Groups">name group</a>
-<em>S</em> to use. For example, if we are expecting a type name, then use the
+<em>G</em> to use. For example, if we are expecting a type name, then use the
 type name group.</p>
 </li>
 <li>
-<p>At the top level (outside the brace-delimited body of any definition), the
+<p>At the top level scope (outside the brace-delimited body of any definition), the
 identifier <em>I</em> refers to the unique definition with qualified name <em>I</em> if it
-exists in name group <em>S</em>. Otherwise an error results.</p>
+exists in name group <em>G</em>. Otherwise an error results.</p>
 </li>
 <li>
-<p>Inside the brace-delimited body of a <a href="#Definitions">definition</a> with
+<p>Inside the brace-delimited scope of a <a href="#Definitions">definition</a> with
 qualified name <em>N</em> appearing at the top level:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
 <p>The identifier <em>I</em> refers to the definition with qualified name
-<em>N</em> <code>.</code> <em>I</em> if it exists in name group <em>S</em>.</p>
+<em>N</em> <code>.</code> <em>I</em> if it exists in name group <em>G</em>.</p>
 </li>
 <li>
 <p>Otherwise <em>I</em> refers to the definition with qualified name <em>I</em> if it
@@ -10917,13 +10998,13 @@ exists in name group <em>S</em>.</p>
 </div>
 </li>
 <li>
-<p>Inside the brace-delimited body of a definition with qualified name
+<p>Inside the brace-delimited scope of a definition with qualified name
 <em>N</em> appearing inside the body of a  definition <em>D</em>:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
 <p>The identifier <em>I</em> refers to the definition with qualified name
-<em>N</em> <code>.</code> <em>I</em> if it exists in name group <em>S</em>.</p>
+<em>N</em> <code>.</code> <em>I</em> if it exists in name group <em>G</em>.</p>
 </li>
 <li>
 <p>Otherwise proceed as if <em>I</em> were appearing inside <em>D</em>.</p>
@@ -10937,50 +11018,99 @@ exists in name group <em>S</em>.</p>
 <p><strong>Example:</strong></p>
 </div>
 <div class="paragraph">
-<p><em>S</em> refers to the value name group.</p>
+<p><em>G</em> refers to the value name group.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># Identifier M is in scope in S and refers to the qualified name M
-# Identifier a is in scope in S and refers to qualified name a
+<pre class="prettyprint highlight"><code data-lang="fpp"># Identifier M is in scope in G and refers to the qualified name M
+# Identifier a is in scope in G and refers to qualified name a
 
-constant a = 1 # Unique definition in S with qualified name a
+constant a = 1 # Unique definition in G with qualified name a
 
 module M {
-  # Identifier M is in scope in S and refers to the qualified name M
-  # Identifier N is in scope in S and refers to the qualified name N
-  # Identifier a is in scope in S and refers to qualified name a
-  # Identifier b is in scope in S and refers to qualified name M.b
-  constant b = 2 # Unique definition in S with qualified name M.b
+  # Identifier M is in scope in G and refers to the qualified name M
+  # Identifier N is in scope in G and refers to the qualified name N
+  # Identifier a is in scope in G and refers to qualified name a
+  # Identifier b is in scope in G and refers to qualified name M.b
+  constant b = 2 # Unique definition in G with qualified name M.b
 }
 
-# Identifier M is in scope in S and refers to the qualified name M
-# Identifier a is in scope in S and refers to qualified name a
+# Identifier M is in scope in G and refers to the qualified name M
+# Identifier a is in scope in G and refers to qualified name a
 
 module M {
 
-  # Identifier M is in scope in S and refers to the qualified name M
-  # Identifier N is in scope in S and refers to the qualified name M.N
+  # Identifier M is in scope in G and refers to the qualified name M
+  # Identifier N is in scope in G and refers to the qualified name M.N
   # Identifier a is in scope and refers to qualified name a
   # Identifier b is in scope and refers to qualified name M.b
 
   module N {
-    # Identifier M is in scope in S and refers to the qualified name M
-    # Identifier N is in scope in S and refers to the qualified name M.N
-    # Identifier a is in scope in S and refers to qualified name a
-    # Identifier b is in scope in S and refers to qualified name M.N.b
-    constant b = 3 # Unique definition in S with qualified name M.N.b
+    # Identifier M is in scope in G and refers to the qualified name M
+    # Identifier N is in scope in G and refers to the qualified name M.N
+    # Identifier a is in scope in G and refers to qualified name a
+    # Identifier b is in scope in G and refers to qualified name M.N.b
+    constant b = 3 # Unique definition in G with qualified name M.N.b
   }
 
 }
 
-# Identifier M is in scope in S and refers to the qualified name M
-# Identifier a is in scope in S and refers to qualified name a</code></pre>
+# Identifier M is in scope in G and refers to the qualified name M
+# Identifier a is in scope in G and refers to qualified name a</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template">16.6.2. Inside an Expanded Template</h4>
+<div class="paragraph">
+<p>To resolve an identifier <em>I</em> inside an
+<a href="#Templates">expanded template</a> <em>E</em>, do the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Construct a scope <em>S</em> at the point of <em>D</em> that contains
+the following definitions: (a) all the <a href="#Definitions">bound parameter
+definitions</a> of <em>E</em> and (b) all the <a href="#Definitions">global definitions</a>
+introduced in the expansion <em>E</em>.</p>
+</li>
+<li>
+<p>Use the rules stated in the previous section to resolve <em>I</em>
+in the scope <em>S</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p><em>G</em> refers to the type name group.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  constant a = 0
+  module template T {
+    constant b = a
+  }
+}
+module N {
+  # Inside the expansion of T, names are resolved
+  # in the scope at the point of the definition of T.
+  # So a refers to M.a, even though the expansion
+  # occurs inside N.
+  expand T
+}
+# The expansion introduces a definition b in module N,
+# so N.b is in scope here. Definitions introduced by
+# template expansion follow the standard rules for scoping.
+constant c = N.b</code></pre>
+</div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Scoping-of-Names_Resolution-of-Qualified-Identifiers">16.6. Resolution of Qualified Identifiers</h3>
+<h3 id="Scoping-of-Names_Resolution-of-Qualified-Identifiers">16.7. Resolution of Qualified Identifiers</h3>
 <div class="paragraph">
 <p>The following rules govern the resolution of
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifiers</a>, i.e.,
@@ -11063,11 +11193,7 @@ module M {
 <div class="paragraph">
 <p>A <strong>use</strong> is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a>
-that refers to a
-<a href="#Definitions">definition</a>
-or a
-<a href="#Template-Parameter-Lists">template parameter</a>
-according to the
+that refers to a <a href="#Definitions">definition</a> according to the
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">scoping rules for names</a>.</p>
 </div>
 <div class="paragraph">
@@ -11265,7 +11391,7 @@ to mean both qualification and member selection.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Analysis-and-Expansion-of-Templates">18. Analysis and Expansion of Templates</h2>
+<h2 id="Templates">18. Templates</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The analyzer uses the following algorithm to analyze
@@ -11301,144 +11427,7 @@ that need analysis and new specifiers that need expansion.</em></p>
 </ol>
 </div>
 <div class="sect2">
-<h3 id="Analysis-and-Expansion-of-Templates_Entering-Definitions">18.1. Entering Definitions</h3>
-<div class="paragraph">
-<p>Definitions inside expanded templates will be entered using the following algorithm:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>For each template expansion specifier <em>E</em> appearing in in scope <em>S</em>
-and referring to template <em>T</em>:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Create a new scope <em>S<sub>P</sub></em>.</p>
-</li>
-<li>
-<p>For each template parameter <em>P<sub>D</sub></em> specified in <em>T</em> with corresponding template parameter argument <em>P<sub>V</sub></em> in <em>E</em>:</p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
-<li>
-<p>If <em>P<sub>D</sub></em> is a <code>constant</code> parameter:</p>
-<div class="olist upperalpha">
-<ol class="upperalpha" type="A">
-<li>
-<p><em>P<sub>V</sub></em> must be an <a href="#Expressions">expression</a></p>
-</li>
-<li>
-<p>Add a constant template parameter with expression <em>P<sub>V</sub></em> to <em>S<sub>P</sub></em>.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>If <em>P<sub>D</sub></em> is a <code>type</code> parameter:</p>
-<div class="olist upperalpha">
-<ol class="upperalpha" type="A">
-<li>
-<p><em>P<sub>V</sub></em> must be a <a href="#Type-Names">type name</a></p>
-</li>
-<li>
-<p>Add a type template parameter with aliased type name <em>P<sub>V</sub></em> to <em>S<sub>P</sub></em>.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>If <em>P<sub>D</sub></em> is an <code>interface</code> parameter:</p>
-<div class="olist upperalpha">
-<ol class="upperalpha" type="A">
-<li>
-<p><em>P<sub>V</sub></em> must refer to a <a href="#Ports_Port-Interface-Instances">port interface instance</a>,
-i.e., a component instance definition, topology definition,
-or template interface parameter.</p>
-</li>
-<li>
-<p>Add an interface template parameter referring to <em>P<sub>V</sub></em> to <em>S<sub>P</sub></em>.</p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Create a new scope <em>S<sub>D</sub></em>.</p>
-</li>
-<li>
-<p>For each definition <em>D</em> in expanded members of <em>E</em>:</p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
-<li>
-<p>Add <em>D</em> to <em>S<sub>D</sub></em>.</p>
-</li>
-<li>
-<p>Add <em>D</em> to <em>S</em>.</p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Analysis-and-Expansion-of-Templates_Resolution-of-Identifiers">18.2. Resolution of Identifiers</h3>
-<div class="paragraph">
-<p><em>TODO: Integrate these rules with the section on scoping of names.
-There should be one set of rules for resolving names.</em></p>
-</div>
-<div class="paragraph">
-<p>The following rules govern the resolution of identifiers, i.e.,
-associating identifiers with definitions <em>inside</em> a template expansion <em>E</em>:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Use the context to determine which
-<a href="#Scoping-of-Names_Name-Groups">name group</a>
-<em>G</em> to use. For example, if we are expecting a type name, then use the
-type name group.</p>
-</li>
-<li>
-<p>Look up the scopes <em>S<sub>P</sub></em> and <em>S<sub>D</sub></em> for <em>E</em>.</p>
-</li>
-<li>
-<p>Inside the template expansion referring to a template definition <em>T</em>
-with qualified name <em>N</em>:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>The identifier <em>I</em> refers to a template parameter in <em>S<sub>P</sub></em></p>
-</li>
-<li>
-<p>Otherwise <em>I</em> refers to a definition inside <em>S<sub>D</sub></em> in the name group <em>G</em>.</p>
-</li>
-<li>
-<p>Otherwise <em>I</em> refers to the definition with qualified name
-<em>N</em> <code>.</code> <em>I</em> if it exists in name group <em>S</em>.
-<em>TODO: I think this should say scope S. However, it&#8217;s not enough
-to look in S; we have to look in the stack of scopes that exists
-at the point of the template defintion. Also, I&#8217;m not sure why
-we are calling out the name N.I here. We should just look for
-I in the stack of scopes.</em></p>
-</li>
-<li>
-<p>Otherwise <em>I</em> refers to the definition with qualified name <em>I</em> if it
-exists in name group <em>S</em>.
-<em>TODO: Same note as above. It&#8217;s a stack of scopes.</em></p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Analysis-and-Expansion-of-Templates_Example">18.3. Example</h3>
+<h3 id="Templates_Example">18.1. Example</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">template MT(
@@ -13363,7 +13352,7 @@ Each of the following FPP elements has an associated port interface:</p>
 <p>A <a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </li>
 <li>
-<p>A <a href="#Definitions_Module-Template-Definitions">template interface parameter</a>.</p>
+<p>A <a href="#Definitions_Module-Template-Definitions">port interface instance template parameter</a>.</p>
 </li>
 </ul>
 </div>
@@ -13446,8 +13435,10 @@ with the port name in <em>n</em>.</p>
 <div class="sect3">
 <h4 id="Ports_Port-Interfaces_Template-Parameter-Definitions">24.2.5. Template Parameter Definitions</h4>
 <div class="paragraph">
-<p>For every template parameter definition <em>D</em>, this is an associated port interface <em>I</em>.
-This port interface is named in the definition.</p>
+<p>For every <a href="#Template-Parameter-Lists">port interface instance template
+parameter</a> <em>P</em>, there
+is an associated port interface <em>I</em>.
+It is given by the port interface definition referred to in <em>P</em>.</p>
 </div>
 </div>
 </div>
@@ -13457,7 +13448,7 @@ This port interface is named in the definition.</p>
 <p>A <strong>port interface instance</strong> is a
 <a href="#Definitions_Component-Instance-Definitions">component instance definition</a>,
 <a href="#Definitions_Topology-Definitions">topology definition</a> or a
-<a href="#Definitions_Module-Template-Definitions">template interface parameter</a>.
+<a href="#Template-Parameter-Lists">port interface instance template parameter</a>.
 Each of these elements provides concrete port instances
 that can serve as the endpoints of topology connections.
 A port interface instance has an associated port interface <em>I</em>;
@@ -13465,7 +13456,7 @@ this is the port interface associated with the
 <a href="#Ports_Port-Interfaces_Component-Instance-Definitions">component instance
 definition</a> or
 <a href="#Ports_Port-Interfaces_Topology-Definitions">topology definition</a>.
-An template interface parameter&#8217;s port interface will be named in the template
+An port interface instance template parameter&#8217;s port interface will be named in the template
 definition&#8217;s parameter list.</p>
 </div>
 </div>
@@ -13499,7 +13490,7 @@ It usually involves the following steps:</p>
 <p>Lexing and parsing to generate an abstract syntax tree (AST).</p>
 </li>
 <li>
-<p>If step (1), succeeded, <a href="#Analysis-and-Expansion-of-Templates">analysis and expansion of
+<p>If step (1), succeeded, <a href="#Templates">analysis and expansion of
 templates</a> to generate a new AST.</p>
 </li>
 <li>
@@ -13597,7 +13588,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-13 18:06:42 -0700
+Last updated 2026-04-13 22:12:34 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
