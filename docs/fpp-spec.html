@@ -4076,21 +4076,27 @@ all topologies transitively
 imported by the definition of <em>T'</em>.</p>
 </li>
 <li>
-<p>For each instance <em>I</em> in set <em>S</em>, compute the <strong>included port interface</strong> <em>P<sub>I</sub></em> of <em>I</em> accessible in <em>T</em>:</p>
+<p>For each instance <em>I</em> in set <em>S</em>, compute the <strong>included port interface</strong>
+<em>P<sub>I</sub></em> of <em>I</em> accessible in <em>T</em>:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>If <em>I</em> refers to a <a href="#Definitions_Component-Instance-Definitions">component instance</a>, <em>P<sub>I</sub></em> is the port interface of the component instance</p>
+<p>If <em>I</em> refers to a <a href="#Definitions_Component-Instance-Definitions">component
+instance</a>, <em>P<sub>I</sub></em> is the port interface of the component instance</p>
 </li>
 <li>
-<p>If <em>I</em> refers to a <a href="#Definitions_Topology-Definitions">topology</a>, <em>P<sub>I</sub></em> is the port interface of the topology</p>
+<p>If <em>I</em> refers to a <a href="#Definitions_Topology-Definitions">topology</a>, <em>P<sub>I</sub></em> is
+the port interface of the topology</p>
 </li>
 <li>
-<p>If <em>I</em> refers to a <a href="#Definitions_Module-Template-Definitions">port interface instance template parameter</a> <em>T<sub>P</sub></em> inside template <em>T<sub>D</sub></em> where <em>T</em> is found in expansion <em>T<sub>E</sub></em>:</p>
+<p>If <em>I</em> refers to a <a href="#Definitions_Module-Template-Definitions">port interface
+   instance template parameter</a> <em>T<sub>P</sub></em> inside template <em>T<sub>D</sub></em> where <em>T</em> is
+found in expansion <em>T<sub>E</sub></em>:</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
-<p>The corresponding template parameter value <em>T<sub>V</sub></em> in <em>T<sub>E</sub></em> must refer to a port interface instance</p>
+<p>The corresponding template parameter value <em>T<sub>V</sub></em> in <em>T<sub>E</sub></em> must refer to a
+port interface instance</p>
 </li>
 <li>
 <p><em>P<sub>I</sub></em> is the port interface specified in <em>T<sub>P</sub></em></p>
@@ -4105,11 +4111,13 @@ imported by the definition of <em>T'</em>.</p>
 </div>
 </li>
 <li>
-<p>If an instance <em>I</em> is named twice in <em>S</em> with differing port interfaces <em>P<sub>I1</sub></em> and <em>P<sub>I2</sub></em>, the set union will be
+<p>If an instance <em>I</em> is named twice in <em>S</em> with differing port interfaces
+<em>P<sub>I1</sub></em> and <em>P<sub>I2</sub></em>, the set union will be
 used to compute <em>P<sub>I</sub></em>.</p>
 </li>
 <li>
-<p>Replace all instances <a href="#Definitions_Module-Template-Definitions">port interface instance template parameter</a> with the
+<p>Replace all instances <a href="#Definitions_Module-Template-Definitions">port
+interface instance template parameter</a> with the
 component instance or topology specified in the template expansion.</p>
 </li>
 <li>
@@ -13842,7 +13850,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-14 11:19:59 -0700
+Last updated 2026-04-14 11:23:52 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
