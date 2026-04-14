@@ -342,7 +342,7 @@ To resolve an identifier _I_ inside an
 .. The name of _D_ is different from any name appearing as a qualifier in the 
    model.
    Therefore the model uses only simple identifiers to refer to the 
-   definitions in _D_,
+   definitions in _D_.
 
 . Use the rules stated in the previous section to resolve _I_
   as if it appeared in _D_.
@@ -397,17 +397,44 @@ describes the expansion algorithm.
 ==== Implementation Note
 
 The standard way to implement the resolution semantics described in the
-previous two sections is with a stack of scopes.
-Each brace-delimited definition has a scope that maps names to definitions.
-At each point in the model, there is a stack describing how that point is
-nested enclosing definitions.
-Resolving an identifier works by searching upwards in the stack
-from the current scope, stopping if the identifier is found
-or if we have reached the top and the identifier is not found.
-In particular, it is possible to implement the temporary definition _D_ with an 
-inaccessible name,
-as described in the previous section, by creating a scope and adding it to the 
-stack without mapping it to any name.
+previous two sections is with stacks of scopes.
+In this implementation, a *scope* is a map from identifiers to definitions.
+At each point _P_ in the model, there are two logical stacks for each name 
+group _G_:
+
+. A *definition stack* describing how definitions at _P_ in name group _G_ are 
+nested in
+enclosing definitions.
+
+. A *resolution stack* describing how identifiers at _P_ in name group _G_ are 
+  to be resolved.
+
+At each point at the top level of the model (outside of any definition), the 
+definition stack has one scope, the top-level scope.
+At each point inside a definition, we construct the definition stack
+by (1) starting with the definition stack at the point of the definition
+and (2) pushing a new scope containing the global definitions in the body of 
+the definition.
+
+Outside of any expanded template, the definition stack and the resolution
+stack are the same.
+Inside an expanded template _E_ that refers to a template definition _T_,
+we construct the resolution stack by
+(1) starting with the definition stack at the point of _T_ and (2)
+pushing a new scope containing the bound parameter definitions and
+global definitions of _E_.
+
+In all cases, to resolve an identifier _I_ in name group _G_ at point _P_, we 
+search
+upwards in the resolution stack for name group _G_ at _P_ until one of two 
+things happens:
+
+. We find _I_ as a key in some scope _S_. In this case _I_
+  refers to the definition to which _I_ is mapped in _S_.
+
+. We reach the top level scope _S_ and find that _I_ does
+  not exist as a key in this scope.
+  In this case we report an undefined symbol error.
 
 === Resolution of Qualified Identifiers
 

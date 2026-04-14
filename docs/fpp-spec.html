@@ -11098,7 +11098,7 @@ with a brace-delimited scope and with the following properties:</p>
 <p>The name of <em>D</em> is different from any name appearing as a qualifier in the
 model.
 Therefore the model uses only simple identifiers to refer to the
-definitions in <em>D</em>,</p>
+definitions in <em>D</em>.</p>
 </li>
 </ol>
 </div>
@@ -11164,17 +11164,59 @@ describes the expansion algorithm.</p>
 <h4 id="Scoping-of-Names_Resolution-of-Identifiers_Implementation-Note">16.6.3. Implementation Note</h4>
 <div class="paragraph">
 <p>The standard way to implement the resolution semantics described in the
-previous two sections is with a stack of scopes.
-Each brace-delimited definition has a scope that maps names to definitions.
-At each point in the model, there is a stack describing how that point is
-nested enclosing definitions.
-Resolving an identifier works by searching upwards in the stack
-from the current scope, stopping if the identifier is found
-or if we have reached the top and the identifier is not found.
-In particular, it is possible to implement the temporary definition <em>D</em> with an
-inaccessible name,
-as described in the previous section, by creating a scope and adding it to the
-stack without mapping it to any name.</p>
+previous two sections is with stacks of scopes.
+In this implementation, a <strong>scope</strong> is a map from identifiers to definitions.
+At each point <em>P</em> in the model, there are two logical stacks for each name
+group <em>G</em>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A <strong>definition stack</strong> describing how definitions at <em>P</em> in name group <em>G</em> are
+nested in
+enclosing definitions.</p>
+</li>
+<li>
+<p>A <strong>resolution stack</strong> describing how identifiers at <em>P</em> in name group <em>G</em> are
+to be resolved.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>At each point at the top level of the model (outside of any definition), the
+definition stack has one scope, the top-level scope.
+At each point inside a definition, we construct the definition stack
+by (1) starting with the definition stack at the point of the definition
+and (2) pushing a new scope containing the global definitions in the body of
+the definition.</p>
+</div>
+<div class="paragraph">
+<p>Outside of any expanded template, the definition stack and the resolution
+stack are the same.
+Inside an expanded template <em>E</em> that refers to a template definition <em>T</em>,
+we construct the resolution stack by
+(1) starting with the definition stack at the point of <em>T</em> and (2)
+pushing a new scope containing the bound parameter definitions and
+global definitions of <em>E</em>.</p>
+</div>
+<div class="paragraph">
+<p>In all cases, to resolve an identifier <em>I</em> in name group <em>G</em> at point <em>P</em>, we
+search
+upwards in the resolution stack for name group <em>G</em> at <em>P</em> until one of two
+things happens:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>We find <em>I</em> as a key in some scope <em>S</em>. In this case <em>I</em>
+refers to the definition to which <em>I</em> is mapped in <em>S</em>.</p>
+</li>
+<li>
+<p>We reach the top level scope <em>S</em> and find that <em>I</em> does
+not exist as a key in this scope.
+In this case we report an undefined symbol error.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -13744,7 +13786,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-14 08:55:03 -0700
+Last updated 2026-04-14 09:15:11 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
