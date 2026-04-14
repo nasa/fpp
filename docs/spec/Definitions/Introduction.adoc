@@ -15,6 +15,8 @@ the scope of an <<Expansion-of-Templates,expanded template>>.
 A bound parameter definition is a pair consisting of
 a template parameter and a template argument.
 Bound parameter definitions have simple identifiers as names.
-Each one is in scope in the top level of an expanded template.
+They come into scope
+<<Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template,during 
+template expansion>>.
 
 The rest of this section discusses the global definitions.

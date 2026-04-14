@@ -134,4 +134,4 @@ module N {
 }
 ----
 
-stem:[M_2] is the final model presented to full analysis.
+stem:[M_2] is the final model presented to the full analysis.
