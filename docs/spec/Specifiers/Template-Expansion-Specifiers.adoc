@@ -3,7 +3,7 @@
 A *template expansion specifier* names a 
 <<Definitions_Module-Template-Definitions,template>>
 and specifies arguments for the parameters of the template.
-During <<Templates,template expansion>>, it generates the definitions specified 
+During <<Expansion-of-Templates,template expansion>>, it generates the definitions specified 
 by the template and the arguments.
 
 ==== Syntax
@@ -43,7 +43,7 @@ If there are no parameters, then the argument list may be omitted.
 
 .. If _P_ is a constant template parameter, then _A_ must be a constant
 template argument. The type of the expression in _A_ must be 
-<<Type-Checking_Type-Conversion,converible to>> the type specified in _P_.
+<<Type-Checking_Type-Conversion,convertible to>> the type specified in _P_.
 
 .. If _P_ is an interface instance template parameter, then _A_
 must be an interface instance template argument.

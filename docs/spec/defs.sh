@@ -27,7 +27,7 @@ Comments-and-Annotations.adoc
 Translation-Units-and-Models.adoc
 Scoping-of-Names.adoc
 Definitions-and-Uses.adoc
-Templates.adoc
+Expansion-of-Templates.adoc
 Types.adoc
 Type-Checking.adoc
 Type-Options.adoc

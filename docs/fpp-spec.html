@@ -973,9 +973,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions-and-Uses_Implied-Uses">17.4. Implied Uses</a></li>
 </ul>
 </li>
-<li><a href="#Templates">18. Templates</a>
+<li><a href="#Expansion-of-Templates">18. Expansion of Templates</a>
 <ul class="sectlevel2">
-<li><a href="#Templates_Example">18.1. Example</a></li>
+<li><a href="#Expansion-of-Templates_Algorithm">18.1. Algorithm</a></li>
+<li><a href="#Expansion-of-Templates_Example">18.2. Example</a></li>
 </ul>
 </li>
 <li><a href="#Types">19. Types</a>
@@ -1740,13 +1741,13 @@ and associates some code with <em>N</em>.</p>
 </li>
 <li>
 <p><strong>Bound parameter definitions</strong> introduced by binding
-template parameter arguments to
+<a href="#Specifiers_Template-Expansion-Specifiers">template parameter arguments</a> to
 <a href="#Template-Parameter-Lists">template parameters</a> within
-the scope of an <a href="#Templates">expanded template</a>.
+the scope of an <a href="#Expansion-of-Templates">expanded template</a>.
 A bound parameter definition is a pair consisting of
 a template parameter and a template parameter argument.
 Bound parameter definitions have simple identifiers as names.
-They are in scope in the top level of an expanded template.</p>
+Each one is in scope in the top level of an expanded template.</p>
 </li>
 </ol>
 </div>
@@ -2985,11 +2986,12 @@ with a <strong>module template</strong>.
 A module template is a set of syntactic elements, each of which
 becomes a member of a <a href="#Translation-Units-and-Models_Translation-Units">translation unit</a> or a
 <a href="#Definitions_Module-Definitions">module definition</a>
-at the point where the template is <a href="#Templates">expanded</a>.
+at the point where the template is <a href="#Expansion-of-Templates">expanded</a>.
 Each template may be expanded any number of times, and
 each expansion creates a distinct set of translation unit
 or module members.
 Templates may have parameters that become bound
+to <a href="#Specifiers_Template-Expansion-Specifiers">arguments</a>
 at the point of expansion.</p>
 </div>
 <div class="sect3">
@@ -3025,12 +3027,12 @@ the constants, types, and interface instances bound to the parameters.</em></p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">template MT(
-    constant base_id: U32
+    constant baseId: U32
     instance comDriver: ByteStreamDriver
 ) {
 
     instance comStub: Svc.ComStub base id \
-        base_id + 0x0800
+        baseId + 0x0800
 
     topology T {
         instance comStub
@@ -8901,7 +8903,7 @@ packet ADCS group 2 {
 <p>A <strong>template expansion specifier</strong> names a
 <a href="#Definitions_Module-Template-Definitions">template</a>
 and specifies arguments for the parameters of the template.
-During <a href="#Templates">template expansion</a>, it generates the definitions specified
+During <a href="#Expansion-of-Templates">template expansion</a>, it generates the definitions specified
 by the template and the arguments.</p>
 </div>
 <div class="sect3">
@@ -8959,7 +8961,7 @@ If there are no parameters, then the argument list may be omitted.</p>
 <li>
 <p>If <em>P</em> is a constant template parameter, then <em>A</em> must be a constant
 template argument. The type of the expression in <em>A</em> must be
-<a href="#Type-Checking_Type-Conversion">converible to</a> the type specified in <em>P</em>.</p>
+<a href="#Type-Checking_Type-Conversion">convertible to</a> the type specified in <em>P</em>.</p>
 </li>
 <li>
 <p>If <em>P</em> is an interface instance template parameter, then <em>A</em>
@@ -10181,9 +10183,10 @@ in which the elements are template parameters,
 and the terminating punctuation is a comma.</p>
 </div>
 <div class="paragraph">
-<p>A <strong>template parameter</strong> is a name to which a constant value, a port interface
-instance, or a type becomes bound when a <a href="#Templates">template is expanded</a>.
-Within the scope of an expanded template, a template parameter is a kind of
+<p>A <strong>template parameter</strong> is a name to which a
+<a href="#Specifiers_Template-Expansion-Specifiers">template parameter argument</a>
+becomes bound when a <a href="#Expansion-of-Templates">template is expanded</a>.
+Within the scope of an expanded template, a the bound parameter is a
 <a href="#Definitions">definition</a>.</p>
 </div>
 <div class="sect2">
@@ -10724,8 +10727,8 @@ the identifier appearing in <em>D</em>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Bound parameter definitions:</strong>
-Every bound parameter definition is referred to by an identifier
-in the scope of an <a href="#Templates">expanded template</a>.</p>
+Every <a href="#Definitions">bound parameter definition</a> is referred to by an
+identifier in the scope of an <a href="#Expansion-of-Templates">expanded template</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -10785,7 +10788,7 @@ state machine name group.</p>
 <p>Constant definitions reside in the value name group.</p>
 </li>
 <li>
-<p>Constant template parameters reside in the value name group.</p>
+<p>Constant template parameter definitions reside in the value name group.</p>
 </li>
 <li>
 <p>Enum definitions reside in both the value name group and the type name group.</p>
@@ -10806,7 +10809,7 @@ state machine name group.</p>
 <p>Port interface definitions reside in the port interface name group.</p>
 </li>
 <li>
-<p>Port interface instance template parameters reside in the
+<p>Port interface instance template parameter definitions reside in the
 port interface instance name group.</p>
 </li>
 <li>
@@ -10820,7 +10823,7 @@ the value name group, and the type name group.</p>
 <p>Topology definitions reside in the port interface instance name group.</p>
 </li>
 <li>
-<p>Type template parameters reside in the type name group.</p>
+<p>Type template parameter definitions reside in the type name group.</p>
 </li>
 </ul>
 </div>
@@ -10914,7 +10917,7 @@ module M {
 <div class="sect2">
 <h3 id="Scoping-of-Names_Conflicting-Parameter-Names">16.5. Conflicting Parameter Names</h3>
 <div class="paragraph">
-<p>Within the scope of a single <a href="#Templates">expanded template</a> <em>T</em>,
+<p>Within the scope of a single <a href="#Expansion-of-Templates">expanded template</a> <em>T</em>,
 the following rules apply:</p>
 </div>
 <div class="olist arabic">
@@ -10963,7 +10966,7 @@ associating identifiers with definitions:</p>
 <h4 id="Scoping-of-Names_Resolution-of-Identifiers_Outside-Any-Expanded-Template">16.6.1. Outside Any Expanded Template</h4>
 <div class="paragraph">
 <p>To resolve an identifier <em>I</em> outside of any
-<a href="#Templates">expanded template</a>, do the following:</p>
+<a href="#Expansion-of-Templates">expanded template</a>, do the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -11064,12 +11067,18 @@ module M {
 <h4 id="Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template">16.6.2. Inside an Expanded Template</h4>
 <div class="paragraph">
 <p>To resolve an identifier <em>I</em> inside an
-<a href="#Templates">expanded template</a> <em>E</em>, do the following:</p>
+<a href="#Expansion-of-Templates">expanded template</a>, do the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Construct a scope <em>S</em> at the point of <em>D</em> that contains
+<p>Let <em>E</em> be the innermost expanded template containing <em>I</em>.</p>
+</li>
+<li>
+<p>Let <em>T</em> be the template definition referred to by <em>E</em>.</p>
+</li>
+<li>
+<p>Construct a scope <em>S</em> at the point of <em>T</em> that contains
 the following definitions: (a) all the <a href="#Definitions">bound parameter
 definitions</a> of <em>E</em> and (b) all the <a href="#Definitions">global definitions</a>
 introduced in the expansion <em>E</em>.</p>
@@ -11391,82 +11400,191 @@ to mean both qualification and member selection.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Templates">18. Templates</h2>
+<h2 id="Expansion-of-Templates">18. Expansion of Templates</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The analyzer uses the following algorithm to analyze
-<a href="#Definitions_Module-Template-Definitions">module template definitions</a>
-and to resolve
-<a href="#Specifiers_Template-Expansion-Specifiers">template expansion specifiers</a>:</p>
+<p>Expansion of templates is an iterative process.
+It interleaves partial analysis and syntactic expansion
+to produce a sequence of incrementally expanded models.
+When no more expansion is possible, the resulting model
+is presented to the full semantic analysis.</p>
 </div>
+<div class="sect2">
+<h3 id="Expansion-of-Templates_Algorithm">18.1. Algorithm</h3>
 <div class="paragraph">
-<p><em>TODO: This should say while there are unanalyzed templates or
-unexpanded specifiers, analyze all the templates and expand
-all the specifiers. Expansion can produce new templates
-that need analysis and new specifiers that need expansion.</em></p>
+<p>Let \$M_0\$ be the model initially presented to the analyzer,
+with <a href="#Specifiers_Include-Specifiers">include specifiers</a> resolved.
+To construct \$M_{i+1}\$ from \$M_i\$, do the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>While there are unexpanded template expansion specifiers, for each template expansion specifier <em>E</em>:</p>
+<p>If all <a href="#Definitions_Module-Template-Definitions">template definitions</a>
+in \$M_i\$ have been analyzed and all
+<a href="#Specifiers_Template-Expansion-Specifiers">template expansion specifiers</a> in \$M_i\$
+have been expanded, then do nothing. Let \$M_i\$ be the final
+result of template expansion.</p>
+</li>
+<li>
+<p>Otherwise do the following:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Resolve the module template definition <em>T</em> which <em>E</em>
-<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refers to</a>.</p>
+<p>Perform enough analysis on \$M_i\$ to
+<a href="#Definitions_Module-Template-Definitions_Semantics">check all the template definitions</a>
+that have not yet been checked and to match all template expansion
+specifiers with the template definitions to which they refer.</p>
 </li>
 <li>
-<p>Duplicate the syntax contained in <em>T</em> into syntax <em>X</em> contained under <em>E</em>.</p>
+<p>For each template expansion specifier <em>E</em> in \$M_i\$ that has not yet been
+expanded, do the following:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Let <em>T</em> be the template definition referred to in <em>E</em>.</p>
 </li>
 <li>
-<p>For each template expansion specifier in <em>X</em>, re-apply these rules until all template expansions are expanded.</p>
+<p>Replicate the syntax <em>X</em> in the body of <em>T</em> at the point of <em>E</em>, noting
+    that definitions in <em>X</em> are to be added at the point of <em>E</em> but
+    uses in <em>X</em> are to be
+    <a href="#Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template">resolved
+at the point of <em>T</em></a>.
+    At this point, do not expand any template expansion specifiers
+    appearing in <em>X</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>If any templates were expanded in step 2(b), then resolve
+<a href="#Specifiers_Include-Specifiers">include specifiers</a>.</p>
+</li>
+<li>
+<p>Run the algorithm on \$M_{i+1}\$.</p>
 </li>
 </ol>
 </div>
 </li>
 </ol>
+</div>
 </div>
 <div class="sect2">
-<h3 id="Templates_Example">18.1. Example</h3>
+<h3 id="Expansion-of-Templates_Example">18.2. Example</h3>
+<div class="paragraph">
+<p><strong>Model \$M_0\$:</strong></p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">template MT(
-    constant base_id: U32,
-    interface comDriver: ByteStreamDriver
-) {
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
 
-    instance comStub: Svc.ComStub base id \
-        base_id + 0x0800
+  constant a = 0
 
-    topology T {
+  module template T1(constant b: U32) {
 
-        instance comStub
+    constant c = b
 
-        # Connect to the driver from the parameter list
-        connections Downlink {
-            # ComStub &lt;-&gt; ComDriver
-            comStub.drvSendOut      -&gt; comDriver.$send
-            comDriver.sendReturnOut -&gt; comStub.drvSendReturnIn
-            comDriver.ready         -&gt; comStub.drvConnected
-        }
+    module template T2 { constant d = a + c }
 
-    }
+    expand T2
+
+  }
 
 }
 
-module M {
-    # Instantiate template with topology inside
-    # Pass an external component into the topology
-    expand MT(constant 0x100, interface comDriver)
-}
+module N {
 
-topology T {
-    import M.T # Imports the instantiated template topology
-    import MT.T # Error: Cannot reference definitions inside a _template_
+  expand T1(constant 1)
 
-    instance comDriver
 }</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p><strong>Model \$M_1\$:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+
+  constant a = 0
+
+  ...
+
+}
+
+module N {
+
+  expand T1(constant 1)
+  # ----------------------------------------------------------------------
+  # Syntax of T1 is replicated here.
+  # Definition of c is introduced in scope N
+  # Uses are resolved in a scope containing the bound parameter
+  # definition (b, 1) and the module template definition T2,
+  # inside the scope of M.
+  # ----------------------------------------------------------------------
+  # constant c = b
+  #
+  # module template T2 { constant d = a + c }
+  #
+  # expand T2
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Model \$M_2\$:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+
+  constant a = 0
+
+  ...
+
+}
+
+module N {
+
+  expand T1(constant 1)
+  # ----------------------------------------------------------------------
+  # constant c = b
+  #
+  # module template T2 { constant d = a + c }
+  #
+  # expand T2
+  # ----------------------------------------------------------------------
+  # Syntax of T2 is replicated here.
+  # Definition of d is introduced in scope N.
+  # Uses are resolved in scope N.
+  # ----------------------------------------------------------------------
+  # constant d = a + c
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>\$M_2\$ is the final model presented to full analysis.</p>
+</div>
+<div class="paragraph">
+<p>Note that if we replaced</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant d = a + c</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>with</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant d = a + b</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>in the original model, then \$M_2\$ would not pass the semantic
+analyzer, because the scope in which the <code>expand T2</code>
+is resolved does not include the parameter <code>b</code> of <code>T1</code>.</p>
 </div>
 </div>
 </div>
@@ -13490,7 +13608,7 @@ It usually involves the following steps:</p>
 <p>Lexing and parsing to generate an abstract syntax tree (AST).</p>
 </li>
 <li>
-<p>If step (1), succeeded, <a href="#Templates">analysis and expansion of
+<p>If step (1), succeeded, <a href="#Expansion-of-Templates">analysis and expansion of
 templates</a> to generate a new AST.</p>
 </li>
 <li>
@@ -13588,7 +13706,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-13 22:12:34 -0700
+Last updated 2026-04-13 23:53:04 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

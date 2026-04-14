@@ -6,11 +6,12 @@ A module template is a set of syntactic elements, each of which
 becomes a member of a <<Translation-Units-and-Models_Translation-Units,
 translation unit>> or a
 <<Definitions_Module-Definitions,module definition>>
-at the point where the template is <<Templates,expanded>>.
+at the point where the template is <<Expansion-of-Templates,expanded>>.
 Each template may be expanded any number of times, and
 each expansion creates a distinct set of translation unit
 or module members.
 Templates may have parameters that become bound
+to <<Specifiers_Template-Expansion-Specifiers,arguments>>
 at the point of expansion.
 
 ==== Syntax
@@ -40,12 +41,12 @@ the constants, types, and interface instances bound to the parameters._
 [source,fpp]
 ----
 template MT(
-    constant base_id: U32
+    constant baseId: U32
     instance comDriver: ByteStreamDriver
 ) {
 
     instance comStub: Svc.ComStub base id \
-        base_id + 0x0800
+        baseId + 0x0800
 
     topology T {
         instance comStub

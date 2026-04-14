@@ -9,12 +9,12 @@ In FPP, there are two kinds of definitions:
   <<Scoping-of-Names_Names-of-Definitions,qualified names>>.
 
 . *Bound parameter definitions* introduced by binding
-template parameter arguments to
+<<Specifiers_Template-Expansion-Specifiers,template parameter arguments>> to
 <<Template-Parameter-Lists,template parameters>> within
-the scope of an <<Templates,expanded template>>.
+the scope of an <<Expansion-of-Templates,expanded template>>.
 A bound parameter definition is a pair consisting of
 a template parameter and a template parameter argument.
 Bound parameter definitions have simple identifiers as names.
-They are in scope in the top level of an expanded template.
+Each one is in scope in the top level of an expanded template.
 
 The rest of this section discusses the global definitions.

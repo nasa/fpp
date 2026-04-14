@@ -1,0 +1,155 @@
+== Expansion of Templates
+
+Expansion of templates is an iterative process.
+It interleaves partial analysis and syntactic expansion
+to produce a sequence of incrementally expanded models.
+When no more expansion is possible, the resulting model
+is presented to the full semantic analysis.
+
+=== Algorithm
+
+Let stem:[M_0] be the model initially presented to the analyzer,
+with <<Specifiers_Include-Specifiers,include specifiers>> resolved.
+To construct stem:[M_{i+1}] from stem:[M_i], do the following:
+
+. If all <<Definitions_Module-Template-Definitions,template definitions>>
+  in stem:[M_i] have been analyzed and all 
+  <<Specifiers_Template-Expansion-Specifiers,template expansion specifiers>> in stem:[M_i]
+  have been expanded, then do nothing. Let stem:[M_i] be the final
+  result of template expansion.
+
+. Otherwise do the following:
+
+.. Perform enough analysis on stem:[M_i] to 
+   <<Definitions_Module-Template-Definitions_Semantics,check all the template definitions>>
+   that have not yet been checked and to match all template expansion
+   specifiers with the template definitions to which they refer.
+
+.. For each template expansion specifier _E_ in stem:[M_i] that has not yet been
+   expanded, do the following:
+
+... Let _T_ be the template definition referred to in _E_.
+
+... Replicate the syntax _X_ in the body of _T_ at the point of _E_, noting 
+    that definitions in _X_ are to be added at the point of _E_ but
+    uses in _X_ are to be 
+    <<Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template,resolved 
+at the point of _T_>>.
+    At this point, do not expand any template expansion specifiers
+    appearing in _X_.
+
+.. If any templates were expanded in step 2(b), then resolve
+   <<Specifiers_Include-Specifiers,include specifiers>>.
+
+.. Run the algorithm on stem:[M_{i+1}].
+  
+=== Example
+
+*Model stem:[M_0]:*
+
+[source,fpp]
+----
+module M {
+
+  constant a = 0
+
+  module template T1(constant b: U32) {
+
+    constant c = b
+
+    module template T2 { constant d = a + c }
+
+    expand T2
+
+  }
+
+}
+
+module N {
+
+  expand T1(constant 1)
+
+}
+----
+
+*Model stem:[M_1]:*
+
+[source,fpp]
+----
+module M {
+
+  constant a = 0
+
+  ...
+
+}
+
+module N {
+
+  expand T1(constant 1)
+  # ---------------------------------------------------------------------- 
+  # Syntax of T1 is replicated here.
+  # Definition of c is introduced in scope N
+  # Uses are resolved in a scope containing the bound parameter
+  # definition (b, 1) and the module template definition T2,
+  # inside the scope of M.
+  # ---------------------------------------------------------------------- 
+  # constant c = b
+  #
+  # module template T2 { constant d = a + c }
+  #
+  # expand T2
+
+}
+----
+
+*Model stem:[M_2]:*
+
+[source,fpp]
+----
+module M {
+
+  constant a = 0
+
+  ...
+
+}
+
+module N {
+
+  expand T1(constant 1)
+  # ---------------------------------------------------------------------- 
+  # constant c = b
+  #
+  # module template T2 { constant d = a + c }
+  #
+  # expand T2
+  # ---------------------------------------------------------------------- 
+  # Syntax of T2 is replicated here.
+  # Definition of d is introduced in scope N.
+  # Uses are resolved in scope N.
+  # ---------------------------------------------------------------------- 
+  # constant d = a + c
+
+}
+----
+
+stem:[M_2] is the final model presented to full analysis.
+
+Note that if we replaced
+
+[source,fpp]
+----
+constant d = a + c
+----
+
+with 
+
+[source,fpp]
+----
+constant d = a + b
+----
+
+in the original model, then stem:[M_2] would not pass the semantic
+analyzer, because the scope in which the `expand T2`
+is resolved does not include the parameter `b` of `T1`.
