@@ -218,11 +218,15 @@ Within the scope of a single <<Expansion-of-Templates,expanded template>> _T_,
 the following rules apply:
 
 . No two <<Template-Parameter-Lists,template parameters>> of _T_
-  in the same group may have the same name.
+  in the same name group may have the same name.
 
 . No template parameter of _T_ may have the same name as
   the unqualified name of any definition in the same name group
   appearing in the expansion of _T_.
+
+The purpose of these rules is to ensure that all the template parameters
+and all the definitions in the body of the template can coexist
+in the same scope.
 
 For example, the following code violates these rules:
 

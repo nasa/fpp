@@ -11023,7 +11023,7 @@ the following rules apply:</p>
 <ol class="arabic">
 <li>
 <p>No two <a href="#Template-Parameter-Lists">template parameters</a> of <em>T</em>
-in the same group may have the same name.</p>
+in the same name group may have the same name.</p>
 </li>
 <li>
 <p>No template parameter of <em>T</em> may have the same name as
@@ -11031,6 +11031,11 @@ the unqualified name of any definition in the same name group
 appearing in the expansion of <em>T</em>.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>The purpose of these rules is to ensure that all the template parameters
+and all the definitions in the body of the template can coexist
+in the same scope.</p>
 </div>
 <div class="paragraph">
 <p>For example, the following code violates these rules:</p>
@@ -13918,7 +13923,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-14 15:26:03 -0700
+Last updated 2026-04-14 15:37:19 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
