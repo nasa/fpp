@@ -87,14 +87,9 @@ if _E_ has a port number  expression _e_ in the FPP source, then
 _Integer_, and assign the port number _n_ at endpoint _E_ of connection _C_.
 Check that _n_ is in bounds for the port instance being numbered.
 
-. Let _S_ be the set of all topologies named in 
-<<Specifiers_Port-Interface-Instance-Specifiers,port interface instance 
-specifiers>> in _D_.
-A port interface instance specifier _s_ names a topology _T_ if
-(a) _s_ refers to the definition _D'_ of _T_ or (b) _s_ refers to
-a <<Definitions,bound parameter definition>> stem:[(p, D')], where _p_
-is a <<Template-Parameter-Lists,port interface instance template parameter>>,
-and _D'_ is the definition of _T_.
+. Let _S_ be the set of all topologies 
+<<Specifiers_Port-Interface-Instance-Specifiers_Semantics,represented by port 
+interface instance specifiers>> in _D_.
 Recursively resolve all the topologies in _S_.
 
 . Construct the connection graphs of _T_ given by the

@@ -105,20 +105,26 @@ A *port interface instance* is one of the following:
 
 . A <<Definitions_Topology-Definitions,topology definition>>.
 
-. A <<Definitions,bound parameter definition>> stem:[(p, T)], where
+. A <<Definitions,bound parameter definition>> stem:[(p, A)], where
 _p_ is a <<Template-Parameter-Lists,port interface instance template 
-parameter>>, and _T_ is a topology definition.
+parameter>>.
 
-Each of these elements provides concrete port instances
-that can serve as the endpoints of topology connections.
-A port interface instance has an associated port interface _I_;
+Each of these elements has an *associated port interface* _I_:
 
 . For a component instance definition or a topology definition, the port 
   interface is given by the definition.
 
-. For a bound parameter definition stem:[(p, T)], the port interface is specified
-  in the parameter _p_. In general it is a subset of the port interface
-  of _T_.
+. For a bound parameter definition stem:[(p, A)], the port interface is specified
+  in the parameter _p_.
+
+Each port interface instance *represents* a component instance definition
+or topology definition _D_:
+
+. A component instance definition _D_ or topology definition _D_ represents 
+  _D_.
+
+. A bound parameter definition _B_ represents a definition _D_ as
+  described in the <<Definitions,section on definitions>>.
 
 === Sub-Interfaces
 

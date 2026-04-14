@@ -1755,6 +1755,13 @@ template expansion</a>.</p>
 </ol>
 </div>
 <div class="paragraph">
+<p>Within an expanded template, each bound parameter definition <strong>represents</strong>
+a global definition, either directly or indirectly.
+A bound parameter definition \$B = (p, A)\$ represents
+a global definition <em>D</em> if (1) <em>A</em> refers to <em>D</em> or (2)
+<em>A</em> refers to a bound parameter definition <em>B'</em> that represents <em>D</em>.</p>
+</div>
+<div class="paragraph">
 <p>The rest of this section discusses the global definitions.</p>
 </div>
 <div class="sect2">
@@ -4022,14 +4029,9 @@ if <em>E</em> has a port number  expression <em>e</em> in the FPP source, then
 Check that <em>n</em> is in bounds for the port instance being numbered.</p>
 </li>
 <li>
-<p>Let <em>S</em> be the set of all topologies named in
-<a href="#Specifiers_Port-Interface-Instance-Specifiers">port interface instance
-specifiers</a> in <em>D</em>.
-A port interface instance specifier <em>s</em> names a topology <em>T</em> if
-(a) <em>s</em> refers to the definition <em>D'</em> of <em>T</em> or (b) <em>s</em> refers to
-a <a href="#Definitions">bound parameter definition</a> \$(p, D')\$, where <em>p</em>
-is a <a href="#Template-Parameter-Lists">port interface instance template parameter</a>,
-and <em>D'</em> is the definition of <em>T</em>.
+<p>Let <em>S</em> be the set of all topologies
+<a href="#Specifiers_Port-Interface-Instance-Specifiers_Semantics">represented by port
+interface instance specifiers</a> in <em>D</em>.
 Recursively resolve all the topologies in <em>S</em>.</p>
 </li>
 <li>
@@ -8234,11 +8236,9 @@ product send port productSendOut</code></pre>
 <div class="paragraph">
 <p>A <strong>port interface instance specifier</strong>
 specifies that a
-<a href="#Definitions_Component-Instance-Definitions">component instance</a>
-<em>I</em>, <a href="#Definitions_Topology-Definitions">topology</a> <em>T'</em>, or a
-<a href="#Template-Parameter-Lists">port interface instance template parameter</a> <em>P</em>
+<a href="#Ports_Port-Interface-Instances">port interface instance</a> <em>I</em>
 is part of a topology <em>T</em>.
-<em>I</em>, <em>T'</em> or <em>P</em> provides a <a href="#Ports_Port-Interfaces">port interface</a>
+<em>I</em> provides a <a href="#Ports_Port-Interfaces">port interface</a>
 that can be used in connections in <em>T</em>.</p>
 </div>
 <div class="sect3">
@@ -8261,6 +8261,13 @@ of FPP.</p>
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
 a
 <a href="#Ports_Port-Interface-Instances">port interface instance</a>.</p>
+</div>
+<div class="paragraph">
+<p>Every port interface instance specifier <strong>represents</strong> a component instance
+definition or topology definition <em>D</em>.
+A port interface instance specifier <em>S</em> represents <em>D</em>
+if the port interface instance <em>I</em> to which <em>S</em> refers
+<a href="#Ports_Port-Interface-Instances">represents <em>D</em></a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -13669,16 +13676,14 @@ It is given by the port interface definition referred to in <em>P</em>.</p>
 <p>A <a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </li>
 <li>
-<p>A <a href="#Definitions">bound parameter definition</a> \$(p, T)\$, where
+<p>A <a href="#Definitions">bound parameter definition</a> \$(p, A)\$, where
 <em>p</em> is a <a href="#Template-Parameter-Lists">port interface instance template
-parameter</a>, and <em>T</em> is a topology definition.</p>
+parameter</a>.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Each of these elements provides concrete port instances
-that can serve as the endpoints of topology connections.
-A port interface instance has an associated port interface <em>I</em>;</p>
+<p>Each of these elements has an <strong>associated port interface</strong> <em>I</em>:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -13687,9 +13692,24 @@ A port interface instance has an associated port interface <em>I</em>;</p>
 interface is given by the definition.</p>
 </li>
 <li>
-<p>For a bound parameter definition \$(p, T)\$, the port interface is specified
-in the parameter <em>p</em>. In general it is a subset of the port interface
-of <em>T</em>.</p>
+<p>For a bound parameter definition \$(p, A)\$, the port interface is specified
+in the parameter <em>p</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Each port interface instance <strong>represents</strong> a component instance definition
+or topology definition <em>D</em>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A component instance definition <em>D</em> or topology definition <em>D</em> represents
+<em>D</em>.</p>
+</li>
+<li>
+<p>A bound parameter definition <em>B</em> represents a definition <em>D</em> as
+described in the <a href="#Definitions">section on definitions</a>.</p>
 </li>
 </ol>
 </div>
@@ -13822,7 +13842,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-14 10:51:22 -0700
+Last updated 2026-04-14 11:19:59 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
