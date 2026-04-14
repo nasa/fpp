@@ -960,6 +960,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Scoping-of-Names_Resolution-of-Identifiers_Outside-Any-Expanded-Template">16.6.1. Outside Any Expanded Template</a></li>
 <li><a href="#Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template">16.6.2. Inside an Expanded Template</a></li>
+<li><a href="#Scoping-of-Names_Resolution-of-Identifiers_Implementation-Note">16.6.3. Implementation Note</a></li>
 </ul>
 </li>
 <li><a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">16.7. Resolution of Qualified Identifiers</a></li>
@@ -11084,14 +11085,14 @@ module M {
 <p>Let <em>T</em> be the template definition referred to by <em>E</em>.</p>
 </li>
 <li>
-<p>At the point of <em>T</em>, temporarily insert a new definition <em>D</em> with the
-following properties:</p>
+<p>At the point of <em>T</em>, temporarily insert a definition <em>D</em>
+with a brace-delimited scope and with the following properties:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p><em>D</em> contains the following definitions: (a) all the <a href="#Definitions">bound parameter
-definitions</a> of <em>E</em> and (b) all the <a href="#Definitions">global definitions</a>
-introduced in the expansion <em>E</em>.</p>
+<p>The scope of <em>D</em> contains the following definitions: (a) all the
+   <a href="#Definitions">bound parameter definitions</a> of <em>E</em> and (b) all the
+<a href="#Definitions">global definitions</a> introduced in the expansion <em>E</em>.</p>
 </li>
 <li>
 <p>The name of <em>D</em> is different from any name appearing as a qualifier in the
@@ -11157,6 +11158,23 @@ So when <code>T2</code> is expanded, the use of <code>a</code> will
 not correspond to a definition.
 The section on <a href="#Expansion-of-Templates">expansion of templates</a>
 describes the expansion algorithm.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Scoping-of-Names_Resolution-of-Identifiers_Implementation-Note">16.6.3. Implementation Note</h4>
+<div class="paragraph">
+<p>The standard way to implement the resolution semantics described in the
+previous two sections is with a stack of scopes.
+Each brace-delimited definition has a scope that maps names to definitions.
+At each point in the model, there is a stack describing how that point is
+nested enclosing definitions.
+Resolving an identifier works by searching upwards in the stack
+from the current scope, stopping if the identifier is found
+or if we have reached the top and the identifier is not found.
+In particular, it is possible to implement the temporary definition <em>D</em> with an
+inaccessible name,
+as described in the previous section, by creating a scope and adding it to the
+stack without mapping it to any name.</p>
 </div>
 </div>
 </div>
@@ -13726,7 +13744,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-14 08:38:25 -0700
+Last updated 2026-04-14 08:55:03 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

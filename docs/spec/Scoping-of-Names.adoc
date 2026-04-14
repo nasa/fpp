@@ -332,12 +332,12 @@ To resolve an identifier _I_ inside an
 
 . Let _T_ be the template definition referred to by _E_.
 
-. At the point of _T_, temporarily insert a new definition _D_ with the 
-  following properties:
+. At the point of _T_, temporarily insert a definition _D_ 
+  with a brace-delimited scope and with the following properties:
 
-.. _D_ contains the following definitions: (a) all the <<Definitions,bound parameter 
-   definitions>> of _E_ and (b) all the <<Definitions,global definitions>> 
-   introduced in the expansion _E_.
+.. The scope of _D_ contains the following definitions: (a) all the 
+   <<Definitions,bound parameter definitions>> of _E_ and (b) all the 
+<<Definitions,global definitions>> introduced in the expansion _E_.
 
 .. The name of _D_ is different from any name appearing as a qualifier in the 
    model.
@@ -392,6 +392,22 @@ So when `T2` is expanded, the use of `a` will
 not correspond to a definition.
 The section on <<Expansion-of-Templates,expansion of templates>>
 describes the expansion algorithm.
+
+
+==== Implementation Note
+
+The standard way to implement the resolution semantics described in the
+previous two sections is with a stack of scopes.
+Each brace-delimited definition has a scope that maps names to definitions.
+At each point in the model, there is a stack describing how that point is
+nested enclosing definitions.
+Resolving an identifier works by searching upwards in the stack
+from the current scope, stopping if the identifier is found
+or if we have reached the top and the identifier is not found.
+In particular, it is possible to implement the temporary definition _D_ with an 
+inaccessible name,
+as described in the previous section, by creating a scope and adding it to the 
+stack without mapping it to any name.
 
 === Resolution of Qualified Identifiers
 
