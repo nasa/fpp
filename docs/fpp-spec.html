@@ -1745,8 +1745,8 @@ and associates some code with <em>N</em>.</p>
 <a href="#Specifiers_Template-Expansion-Specifiers">template arguments</a> to
 <a href="#Template-Parameter-Lists">template parameters</a> within
 the scope of an <a href="#Expansion-of-Templates">expanded template</a>.
-A bound parameter definition is a pair consisting of
-a template parameter and a template argument.
+A bound parameter definition is a pair \$(p, A)\$ consisting of
+a template parameter <em>p</em> and a template argument <em>A</em>.
 Bound parameter definitions have simple identifiers as names.
 They come into scope
 <a href="#Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template">during
@@ -4022,10 +4022,14 @@ if <em>E</em> has a port number  expression <em>e</em> in the FPP source, then
 Check that <em>n</em> is in bounds for the port instance being numbered.</p>
 </li>
 <li>
-<p>Let <em>S</em> be the set of all topologies or port interface instance template parameters that
-refer to topologies that are named as
-<a href="#Specifiers_Port-Interface-Instance-Specifiers">instances</a>
-in <em>D</em>.
+<p>Let <em>S</em> be the set of all topologies named in
+<a href="#Specifiers_Port-Interface-Instance-Specifiers">port interface instance
+specifiers</a> in <em>D</em>.
+A port interface instance specifier <em>s</em> names a topology <em>T</em> if
+(a) <em>s</em> refers to the definition <em>D'</em> of <em>T</em> or (b) <em>s</em> refers to
+a <a href="#Definitions">bound parameter definition</a> \$(p, D')\$, where <em>p</em>
+is a <a href="#Template-Parameter-Lists">port interface instance template parameter</a>,
+and <em>D'</em> is the definition of <em>T</em>.
 Recursively resolve all the topologies in <em>S</em>.</p>
 </li>
 <li>
@@ -8256,9 +8260,7 @@ of FPP.</p>
 <p>The qualified identifier must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
 a
-<a href="#Ports_Port-Interface-Instances">port interface instance</a>,
-i.e., a component instance definition, topology definition,
-or port interface instance template parameter.</p>
+<a href="#Ports_Port-Interface-Instances">port interface instance</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -13656,18 +13658,40 @@ It is given by the port interface definition referred to in <em>P</em>.</p>
 <div class="sect2">
 <h3 id="Ports_Port-Interface-Instances">24.3. Port Interface Instances</h3>
 <div class="paragraph">
-<p>A <strong>port interface instance</strong> is a
-<a href="#Definitions_Component-Instance-Definitions">component instance definition</a>,
-<a href="#Definitions_Topology-Definitions">topology definition</a> or a
-<a href="#Template-Parameter-Lists">port interface instance template parameter</a>.
-Each of these elements provides concrete port instances
+<p>A <strong>port interface instance</strong> is one of the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A <a href="#Definitions_Component-Instance-Definitions">component instance definition</a>.</p>
+</li>
+<li>
+<p>A <a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
+</li>
+<li>
+<p>A <a href="#Definitions">bound parameter definition</a> \$(p, T)\$, where
+<em>p</em> is a <a href="#Template-Parameter-Lists">port interface instance template
+parameter</a>, and <em>T</em> is a topology definition.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Each of these elements provides concrete port instances
 that can serve as the endpoints of topology connections.
-A port interface instance has an associated port interface <em>I</em>;
-this is the port interface associated with the
-<a href="#Ports_Port-Interfaces_Component-Instance-Definitions">component instance
-definition</a>,
-<a href="#Ports_Port-Interfaces_Topology-Definitions">topology definition</a>,
-or <a href="#Template-Parameter-Lists">template parameter</a>.</p>
+A port interface instance has an associated port interface <em>I</em>;</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For a component instance definition or a topology definition, the port
+interface is given by the definition.</p>
+</li>
+<li>
+<p>For a bound parameter definition \$(p, T)\$, the port interface is specified
+in the parameter <em>p</em>. In general it is a subset of the port interface
+of <em>T</em>.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
@@ -13798,7 +13822,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-14 10:00:48 -0700
+Last updated 2026-04-14 10:51:22 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
