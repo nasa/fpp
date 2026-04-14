@@ -135,21 +135,3 @@ module N {
 ----
 
 stem:[M_2] is the final model presented to full analysis.
-
-Note that if we replaced
-
-[source,fpp]
-----
-constant d = a + c
-----
-
-with 
-
-[source,fpp]
-----
-constant d = a + b
-----
-
-in the original model, then stem:[M_2] would not pass the semantic
-analyzer, because the scope in which the `expand T2`
-is resolved does not include the parameter `b` of `T1`.

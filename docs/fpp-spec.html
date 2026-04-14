@@ -10994,7 +10994,7 @@ qualified name <em>N</em> appearing at the top level:</p>
 </li>
 <li>
 <p>Otherwise <em>I</em> refers to the definition with qualified name <em>I</em> if it
-exists in name group <em>S</em>.</p>
+exists in name group <em>G</em>.</p>
 </li>
 <li>
 <p>Otherwise an error results.</p>
@@ -11080,19 +11080,32 @@ module M {
 <p>Let <em>T</em> be the template definition referred to by <em>E</em>.</p>
 </li>
 <li>
-<p>Construct a scope <em>S</em> at the point of <em>T</em> that contains
-the following definitions: (a) all the <a href="#Definitions">bound parameter
+<p>At the point of <em>T</em>, temporarily insert a new definition <em>D</em> with the
+following properties:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>D</em> contains the following definitions: (a) all the <a href="#Definitions">bound parameter
 definitions</a> of <em>E</em> and (b) all the <a href="#Definitions">global definitions</a>
 introduced in the expansion <em>E</em>.</p>
 </li>
 <li>
+<p>The name of <em>D</em> is different from any name appearing as a qualifier in the
+model.
+Therefore the model uses only simple identifiers to refer to the
+definitions in <em>D</em>,</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
 <p>Use the rules stated in the previous section to resolve <em>I</em>
-in the scope <em>S</em>.</p>
+as if it appeared in <em>D</em>.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p><strong>Example:</strong></p>
+<p><strong>Example 1:</strong></p>
 </div>
 <div class="paragraph">
 <p><em>G</em> refers to the type name group.</p>
@@ -11117,6 +11130,29 @@ module N {
 # template expansion follow the standard rules for scoping.
 constant c = N.b</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p><strong>Example 2:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T1(constant a) {
+  module template T2 {
+    constant b = a
+  }
+  expand T2
+}
+expand T1(constant 0)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This model is not well formed.
+The constant parameter <code>a</code> is in scope when resolving the expansion of <code>T1</code>,
+but not when resolving the expansion of <code>T2</code>.
+So when <code>T2</code> is expanded, the use of <code>a</code> will
+not correspond to a definition.
+The section on <a href="#Expansion-of-Templates">expansion of templates</a>
+describes the expansion algorithm.</p>
 </div>
 </div>
 </div>
@@ -11566,27 +11602,6 @@ module N {
 </div>
 <div class="paragraph">
 <p>\$M_2\$ is the final model presented to full analysis.</p>
-</div>
-<div class="paragraph">
-<p>Note that if we replaced</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant d = a + c</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>with</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant d = a + b</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>in the original model, then \$M_2\$ would not pass the semantic
-analyzer, because the scope in which the <code>expand T2</code>
-is resolved does not include the parameter <code>b</code> of <code>T1</code>.</p>
 </div>
 </div>
 </div>
@@ -13708,7 +13723,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-14 00:00:04 -0700
+Last updated 2026-04-14 00:23:49 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

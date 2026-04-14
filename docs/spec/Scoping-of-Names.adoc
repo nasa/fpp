@@ -268,7 +268,7 @@ qualified name _N_ appearing at the top level:
 _N_ `.` _I_ if it exists in name group _G_.
 
   .. Otherwise _I_ refers to the definition with qualified name _I_ if it
-exists in name group _S_.
+exists in name group _G_.
 
   .. Otherwise an error results.
 
@@ -332,15 +332,22 @@ To resolve an identifier _I_ inside an
 
 . Let _T_ be the template definition referred to by _E_.
 
-. Construct a scope _S_ at the point of _T_ that contains
-  the following definitions: (a) all the <<Definitions,bound parameter 
-  definitions>> of _E_ and (b) all the <<Definitions,global definitions>> 
-  introduced in the expansion _E_.
+. At the point of _T_, temporarily insert a new definition _D_ with the 
+  following properties:
+
+.. _D_ contains the following definitions: (a) all the <<Definitions,bound parameter 
+   definitions>> of _E_ and (b) all the <<Definitions,global definitions>> 
+   introduced in the expansion _E_.
+
+.. The name of _D_ is different from any name appearing as a qualifier in the 
+   model.
+   Therefore the model uses only simple identifiers to refer to the 
+   definitions in _D_,
 
 . Use the rules stated in the previous section to resolve _I_
-  in the scope _S_.
+  as if it appeared in _D_.
 
-*Example:*
+*Example 1:*
 
 _G_ refers to the type name group.
 
@@ -364,6 +371,27 @@ module N {
 # template expansion follow the standard rules for scoping.
 constant c = N.b
 ----
+
+*Example 2:*
+
+[source,fpp]
+----
+module template T1(constant a) {
+  module template T2 {
+    constant b = a
+  }
+  expand T2
+}
+expand T1(constant 0)
+----
+
+This model is not well formed.
+The constant parameter `a` is in scope when resolving the expansion of `T1`,
+but not when resolving the expansion of `T2`.
+So when `T2` is expanded, the use of `a` will
+not correspond to a definition.
+The section on <<Expansion-of-Templates,expansion of templates>>
+describes the expansion algorithm.
 
 === Resolution of Qualified Identifiers
 
