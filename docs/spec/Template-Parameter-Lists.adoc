@@ -6,7 +6,7 @@ in which the elements are template parameters,
 and the terminating punctuation is a comma.
 
 A *template parameter* is a name to which a 
-<<Specifiers_Template-Expansion-Specifiers,template parameter argument>>
+<<Specifiers_Template-Expansion-Specifiers,template argument>>
 becomes bound when a <<Expansion-of-Templates,template is expanded>>.
 Within the scope of an expanded template, a the bound parameter is a
 <<Definitions,definition>>.

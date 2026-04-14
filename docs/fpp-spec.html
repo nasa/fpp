@@ -1741,11 +1741,11 @@ and associates some code with <em>N</em>.</p>
 </li>
 <li>
 <p><strong>Bound parameter definitions</strong> introduced by binding
-<a href="#Specifiers_Template-Expansion-Specifiers">template parameter arguments</a> to
+<a href="#Specifiers_Template-Expansion-Specifiers">template arguments</a> to
 <a href="#Template-Parameter-Lists">template parameters</a> within
 the scope of an <a href="#Expansion-of-Templates">expanded template</a>.
 A bound parameter definition is a pair consisting of
-a template parameter and a template parameter argument.
+a template parameter and a template argument.
 Bound parameter definitions have simple identifiers as names.
 Each one is in scope in the top level of an expanded template.</p>
 </li>
@@ -8991,24 +8991,26 @@ template argument.</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">port P
 
 @ A basic template parameterizing an interface port count
-template Templ(
-  constant numPorts: U32
-) {
+template T(constant numPorts: U32) {
+
   interface I {
-    output port N[numPorts]: P
+    output port p: [numPorts] P
   }
 
   passive component C {
     import I
   }
+
 }
 
 @ Instantiate the template giving the parameters concrete values
 module M {
-  expand Templ(constant 30)
-}
-# M.I =&gt; interface { output port N[30]: P }
-# M.C =&gt; passive component { output port N[30]: P }</code></pre>
+
+  expand T(constant 30)
+  # Definition interface I { output port p: [30] P }
+  # Definition passive component C { output port p: [30] P }
+
+}</code></pre>
 </div>
 </div>
 </div>
@@ -10184,7 +10186,7 @@ and the terminating punctuation is a comma.</p>
 </div>
 <div class="paragraph">
 <p>A <strong>template parameter</strong> is a name to which a
-<a href="#Specifiers_Template-Expansion-Specifiers">template parameter argument</a>
+<a href="#Specifiers_Template-Expansion-Specifiers">template argument</a>
 becomes bound when a <a href="#Expansion-of-Templates">template is expanded</a>.
 Within the scope of an expanded template, a the bound parameter is a
 <a href="#Definitions">definition</a>.</p>
@@ -13706,7 +13708,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-13 23:53:04 -0700
+Last updated 2026-04-14 00:00:04 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

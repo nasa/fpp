@@ -64,22 +64,25 @@ template argument.
 port P
 
 @ A basic template parameterizing an interface port count
-template Templ(
-  constant numPorts: U32
-) {
+template T(constant numPorts: U32) {
+
   interface I {
-    output port N[numPorts]: P
+    output port p: [numPorts] P
   }
 
   passive component C {
     import I
   }
+
 }
 
 @ Instantiate the template giving the parameters concrete values
 module M {
-  expand Templ(constant 30)
+
+  expand T(constant 30)
+  # Definition interface I { output port p: [30] P }
+  # Definition passive component C { output port p: [30] P }
+
 }
-# M.I => interface { output port N[30]: P }
-# M.C => passive component { output port N[30]: P }
+
 ----
