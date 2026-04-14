@@ -34,6 +34,6 @@ For example, the bound parameter definition
 ( constant x : U32 , 0 )
 ----
 
-does not represent any definition.
+does not represent any global definition.
 
 The rest of this section discusses the global definitions.
