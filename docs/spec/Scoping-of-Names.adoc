@@ -8,7 +8,7 @@ A *qualified identifier* _qual-ident_ is one of the following:
 
 * `.` _<<Lexical-Elements_Identifiers,identifier>>_
 
-* _qual-ident `.` _<<Lexical-Elements_Identifiers,identifier>>_
+* _qual-ident_ `.` _<<Lexical-Elements_Identifiers,identifier>>_
 
 Therefore every qualified identifier consists of an optional dot `.` followed
 by a nonempty list of identifiers separated by dots.

@@ -1747,8 +1747,9 @@ and associates some code with <em>N</em>.</p>
 the scope of an <a href="#Expansion-of-Templates">expanded template</a>.
 A bound parameter definition is a pair \$(p, A)\$ consisting of
 a template parameter <em>p</em> and a template argument <em>A</em>.
-Bound parameter definitions have simple identifiers as names.
-They come into scope
+The name associated with a bound parameter definition \$(p, A)\$
+is the identifier specified in <em>p</em>.
+Bound parameter definitions come into scope
 <a href="#Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template">during
 template expansion</a>.</p>
 </li>
@@ -4082,7 +4083,7 @@ refers to one of the port interface instances computed in the previous step.</p>
 </li>
 <li>
 <p>For each
-<a href="#Specifiers_Connection-Graph-Specifiers_Syntax">connection endpoint</a>
+<a href="#Specifiers_Connection-Graph-Specifiers_Syntax">endpoint</a>
 <em>E</em> of a connection computed in step 3, let the port instance
 identifier in <em>E</em> be <em>Q</em> <code>.</code> <em>I</em>, and do the following:</p>
 <div class="olist loweralpha">
@@ -4116,7 +4117,24 @@ Retain the port number assignment, if any, at <em>E</em> computed in step 1.</p>
 </div>
 </li>
 <li>
-<p>Otherwise <em>TODO: Handle bound parameter case. Check the interface, then substitute.</em></p>
+<p>Otherwise <em>E</em> is a <a href="#Specifiers_Connection-Graph-Specifiers_Semantics">bound
+parameter endpoint</a>, where <em>Q</em> refers to a bound parameter \$B = (p, A)\$,
+and <em>A</em> refers to a <a href="#Ports_Port-Interface-Instances">port interface instance</a>
+<em>N</em>.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Check that the port interface of <em>p</em> contains the port instance <em>I</em>.</p>
+</li>
+<li>
+<p>Replace <em>B</em> with <em>N</em> in the endpoint <em>E</em>.
+Retain the port number assignment, if any, at <em>E</em> computed in step 1.</p>
+</li>
+<li>
+<p>Reapply steps a, b, and c to the endpoint <em>E</em>.</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
@@ -6593,11 +6611,12 @@ identifier</a> appearing in <em>E</em>.</p>
 <p>The port interface instance <em>Q</em> must exist in the enclosing topology,
 after
 <a href="#Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology">resolution to a partially numbered topology</a>.
-If <em>Q</em> refers to a component instance, then <em>E</em> is a <strong>component instance
-endpoint</strong>.
-Otherwise if <em>Q</em> refers to a topology, then <em>E</em> is a <strong>topology endpoint</strong>.
-Otherwise <em>Q</em> refers to a bound port interface instance template parameter,
-and <em>E</em> is a <strong>parameter endpoint</strong>.</p>
+If <em>Q</em> refers to a <a href="#Definitions_Component-Instance-Definitions">component
+instance definition</a>, then <em>E</em> is a <strong>component instance endpoint</strong>.
+Otherwise if <em>Q</em> refers to a <a href="#Definitions_Topology-Definitions">topology
+definition</a>, then <em>E</em> is a <strong>topology endpoint</strong>.
+Otherwise <em>Q</em> refers to a <a href="#Definitions">bound port interface instance template
+parameter</a>, and <em>E</em> is a <strong>bound parameter endpoint</strong>.</p>
 </li>
 <li>
 <p>The optional expression <em>e</em> following <em>I</em>, if it is present,
@@ -9710,9 +9729,30 @@ IEEE floating-point number.</p>
 that refers to a
 <a href="#Definitions_Constant-Definitions">constant definition</a>,
 <a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>,
-or <a href="#Definitions_Module-Template-Definitions">constant template parameter</a>,
+or <a href="#Definitions">bound parameter definition</a>
 according to the
-<a href="#Scoping-of-Names_Resolution-of-Identifiers">rules for resolving identifiers</a>.</p>
+<a href="#Scoping-of-Names_Resolution-of-Identifiers">rules for resolving identifiers</a>.
+If the identifier refers to a bound parameter definition \$B = (p, A)\$,
+then <em>p</em> must be a <a href="#Template-Parameter-Lists">constant template parameter</a>.</p>
+</div>
+<div class="paragraph">
+<p>An identifier expression is evaluated as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If the identifier refers to a constant definition or enumerated constant
+definition <em>D</em>, then the value of the expression is the value provided
+by <em>D</em>.</p>
+</li>
+<li>
+<p>Otherwise the identifier refers to a bound parameter definition
+\$B = (p, A)\$.
+By the rules for <a href="#Specifiers_Template-Expansion-Specifiers">binding arguments to template parameters</a>,
+<em>A</em> is <code>constant</code> <em>e</em> for some expression <em>e</em>.
+In this case the value is provided by evaluating the expression <em>e</em>.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p><strong>Example:</strong></p>
@@ -10635,7 +10675,7 @@ directory in the environment where the analysis occurs.</p>
 <p><code>.</code> <em><a href="#Lexical-Elements_Identifiers">identifier</a></em></p>
 </li>
 <li>
-<p><em>qual-ident <code>.</code> _<a href="#Lexical-Elements_Identifiers">identifier</a></em></p>
+<p><em>qual-ident</em> <code>.</code> <em><a href="#Lexical-Elements_Identifiers">identifier</a></em></p>
 </li>
 </ul>
 </div>
@@ -13640,7 +13680,8 @@ It is given by the port interface definition referred to in <em>P</em>.</p>
 <li>
 <p>A <a href="#Definitions">bound parameter definition</a> \$(p, A)\$, where
 <em>p</em> is a <a href="#Template-Parameter-Lists">port interface instance template
-parameter</a>.</p>
+parameter</a>, and <em>A</em> <a href="#Scoping-of-Names_Resolution-of-Identifiers">refers to</a>
+a port interface instance.</p>
 </li>
 </ol>
 </div>
@@ -13807,7 +13848,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-14 12:16:35 -0700
+Last updated 2026-04-14 14:04:35 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -14,8 +14,9 @@ In FPP, there are two kinds of definitions:
 the scope of an <<Expansion-of-Templates,expanded template>>.
 A bound parameter definition is a pair stem:[(p, A)] consisting of
 a template parameter _p_ and a template argument _A_.
-Bound parameter definitions have simple identifiers as names.
-They come into scope
+The name associated with a bound parameter definition stem:[(p, A)]
+is the identifier specified in _p_.
+Bound parameter definitions come into scope
 <<Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template,during 
 template expansion>>.
 

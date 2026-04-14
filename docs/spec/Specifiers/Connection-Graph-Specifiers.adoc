@@ -104,11 +104,12 @@ identifier>> appearing in _E_.
 after 
 <<Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology,
 resolution to a partially numbered topology>>.
-If _Q_ refers to a component instance, then _E_ is a *component instance 
-endpoint*.
-Otherwise if _Q_ refers to a topology, then _E_ is a *topology endpoint*.
-Otherwise _Q_ refers to a bound port interface instance template parameter,
-and _E_ is a *parameter endpoint*.
+If _Q_ refers to a <<Definitions_Component-Instance-Definitions,component 
+instance definition>>, then _E_ is a *component instance endpoint*.
+Otherwise if _Q_ refers to a <<Definitions_Topology-Definitions,topology 
+definition>>, then _E_ is a *topology endpoint*.
+Otherwise _Q_ refers to a <<Definitions,bound port interface instance template 
+parameter>>, and _E_ is a *bound parameter endpoint*.
 
 ... The optional expression _e_ following _I_, if it is present,
 represents a port number, i.e., an index into an
