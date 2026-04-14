@@ -3047,9 +3047,57 @@ of a <a href="#Definitions_Module-Definitions">module definition</a>.</p>
 <p>The identifier is the name of the template.</p>
 </div>
 <div class="paragraph">
-<p><em>TODO: Specify the checking that is done on a module template definition.
-Ideally, we should do all checking that can be done without knowing
-the constants, types, and interface instances bound to the parameters.</em></p>
+<p>Each module template definition <em>M</em> that appears in a model
+must pass the following analysis, regardless of whether it
+is expanded.
+As module template definitions are expanded, new template definitions can
+be introduced; they are analyzed at this point.
+For more details, See the section on <a href="#Expansion-of-Templates">expansion of
+templates</a>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Expand <em>M</em> at the point of the definition of <em>M</em>, providing the following
+<a href="#Specifiers_Template-Expansion-Specifiers">arguments for the template
+parameters</a>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>For each constant template parameter, a literal value of the correct type.</p>
+</li>
+<li>
+<p>For each port interface instance template argument, a component
+interface definition that minimally satisfies the interface.</p>
+</li>
+<li>
+<p>For each type template argument, an abstract type definition.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>In the expansion <em>E</em>, do the following:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Construct the <a href="#Definitions-and-Uses_Use-Def-Graph">use-def
+graph</a>, checking for cycles.</p>
+</li>
+<li>
+<p>Compute the types associated with type definition symbols, enumerated
+constant symbols, and type names, except that array size expressions
+and default value expressions are still unevaluated.</p>
+</li>
+<li>
+<p>Perform <a href="#Type-Checking">type checking</a>,
+except that array size expressions and default value expressions in type
+definitions are still unevaluated.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -13923,7 +13971,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-14 15:37:19 -0700
+Last updated 2026-04-14 16:18:19 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

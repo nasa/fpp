@@ -32,9 +32,37 @@ of a <<Definitions_Module-Definitions,module definition>>.
 
 The identifier is the name of the template.
 
-_TODO: Specify the checking that is done on a module template definition.
-Ideally, we should do all checking that can be done without knowing
-the constants, types, and interface instances bound to the parameters._
+Each module template definition _M_ that appears in a model
+must pass the following analysis, regardless of whether it
+is expanded.
+As module template definitions are expanded, new template definitions can
+be introduced; they are analyzed at this point.
+For more details, See the section on <<Expansion-of-Templates,expansion of 
+templates>>.
+
+. Expand _M_ at the point of the definition of _M_, providing the following
+  <<Specifiers_Template-Expansion-Specifiers,arguments for the template 
+  parameters>>:
+
+.. For each constant template parameter, a literal value of the correct type.
+
+.. For each port interface instance template argument, a component
+   interface definition that minimally satisfies the interface.
+
+.. For each type template argument, an abstract type definition.
+
+. In the expansion _E_, do the following:
+
+.. Construct the <<Definitions-and-Uses_Use-Def-Graph,use-def 
+   graph>>, checking for cycles.
+
+.. Compute the types associated with type definition symbols, enumerated
+   constant symbols, and type names, except that array size expressions
+   and default value expressions are still unevaluated.
+
+.. Perform <<Type-Checking,type checking>>,
+   except that array size expressions and default value expressions in type 
+   definitions are still unevaluated. 
 
 ==== Example
 
