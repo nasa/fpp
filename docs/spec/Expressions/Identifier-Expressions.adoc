@@ -12,8 +12,9 @@ The identifier must refer to a
 or <<Definitions,bound parameter definition>>
 according to the
 <<Scoping-of-Names_Resolution-of-Identifiers,rules for resolving identifiers>>.
-If the identifier refers to a bound parameter definition stem:[B = (p, A)],
-then _p_ must be a <<Template-Parameter-Lists,constant template parameter>>.
+If the identifier refers to a bound parameter definition _B_,
+then _B_ must be a <<Specifiers_Template-Expansion-Specifiers,constant template 
+parameter definition>>.
 
 An identifier expression is evaluated as follows:
 
@@ -23,7 +24,8 @@ An identifier expression is evaluated as follows:
 
 * Otherwise the identifier refers to a bound parameter definition
   stem:[B = (p, A)].
-  By the rules for <<Specifiers_Template-Expansion-Specifiers,binding arguments to template parameters>>,
+  By the rules for <<Specifiers_Template-Expansion-Specifiers,binding arguments 
+  to template parameters>>,
   _A_ is `constant` _e_ for some expression _e_.
   In this case the value is provided by evaluating the expression _e_.
 
