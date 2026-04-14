@@ -100,13 +100,15 @@ unmatched.
    <<Instance-Member-Identifiers_Port-Instance-Identifiers,port instance
 identifier>> appearing in _E_.
 
-... The port interface instance _Q_ must exist in the enclosing 
-topology,
+... The port interface instance _Q_ must exist in the enclosing topology,
 after 
 <<Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology,
 resolution to a partially numbered topology>>.
-If _Q_ is a component instance, then _E_ is a *component instance endpoint*.
-Otherwise _Q_ is a topology, and _E_ is a *topology endpoint*.
+If _Q_ refers to a component instance, then _E_ is a *component instance 
+endpoint*.
+Otherwise if _Q_ refers to a topology, then _E_ is a *topology endpoint*.
+Otherwise _Q_ refers to a bound port interface instance template parameter,
+and _E_ is a *parameter endpoint*.
 
 ... The optional expression _e_ following _I_, if it is present,
 represents a port number, i.e., an index into an
