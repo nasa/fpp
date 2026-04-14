@@ -4065,60 +4065,15 @@ For example, the two connection graphs</p>
 </li>
 <li>
 <p>Let the initial set of instances of <em>T</em> be the
-<a href="#Specifiers_Port-Interface-Instance-Specifiers">port interface instances</a>
-specified in the definition of <em>T</em>.
-For each topology <em>T'</em> in <em>S</em> (step 2),
+port interface instances
+<a href="#Specifiers_Port-Interface-Instance-Specifiers">specified</a>
+in the definition of <em>T</em>.
+For each topology <em>T'</em> resolved in step 2,
 <a href="#Definitions_Topology-Definitions_Importing-Subtopologies_Importing-Interface-Instances">import
 the instances</a>
 of <em>T'</em> into <em>T</em>.
-Note that <em>T'</em> is resolved (step 2), so the set of instances of <em>T'</em> contains
-all topologies transitively
-imported by the definition of <em>T'</em>.</p>
-</li>
-<li>
-<p>For each instance <em>I</em> in set <em>S</em>, compute the <strong>included port interface</strong>
-<em>P<sub>I</sub></em> of <em>I</em> accessible in <em>T</em>:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>If <em>I</em> refers to a <a href="#Definitions_Component-Instance-Definitions">component
-instance</a>, <em>P<sub>I</sub></em> is the port interface of the component instance</p>
-</li>
-<li>
-<p>If <em>I</em> refers to a <a href="#Definitions_Topology-Definitions">topology</a>, <em>P<sub>I</sub></em> is
-the port interface of the topology</p>
-</li>
-<li>
-<p>If <em>I</em> refers to a <a href="#Definitions_Module-Template-Definitions">port interface
-   instance template parameter</a> <em>T<sub>P</sub></em> inside template <em>T<sub>D</sub></em> where <em>T</em> is
-found in expansion <em>T<sub>E</sub></em>:</p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
-<li>
-<p>The corresponding template parameter value <em>T<sub>V</sub></em> in <em>T<sub>E</sub></em> must refer to a
-port interface instance</p>
-</li>
-<li>
-<p><em>P<sub>I</sub></em> is the port interface specified in <em>T<sub>P</sub></em></p>
-</li>
-<li>
-<p><em>P<sub>I</sub></em> must be a <a href="#Ports_Sub-Interfaces">sub-interface</a> of <em>T<sub>V</sub></em></p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>If an instance <em>I</em> is named twice in <em>S</em> with differing port interfaces
-<em>P<sub>I1</sub></em> and <em>P<sub>I2</sub></em>, the set union will be
-used to compute <em>P<sub>I</sub></em>.</p>
-</li>
-<li>
-<p>Replace all instances <a href="#Definitions_Module-Template-Definitions">port
-interface instance template parameter</a> with the
-component instance or topology specified in the template expansion.</p>
+Note that <em>T'</em> is resolved, so the set of instances of <em>T'</em> contains all
+topologies transitively imported by the definition of <em>T'</em>.</p>
 </li>
 <li>
 <p>For each connection <em>C</em> discovered in step 3, check that each
@@ -4132,26 +4087,21 @@ refers to one of the port interface instances computed in the previous step.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>If <em>E</em> is a <a href="#Specifiers_Connection-Graph-Specifiers_Semantics">component instance endpoint</a> with the form <em>Q</em> <code>.</code> <em>I</em>:</p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
-<li>
-<p>Check that the associated port interface of the component instance contains
-the port instance <em>I</em></p>
-</li>
-</ol>
-</div>
+<p>If <em>E</em> is a <a href="#Specifiers_Connection-Graph-Specifiers_Semantics">component
+instance endpoint</a> with the form <em>Q</em> <code>.</code> <em>I</em>,
+check that the <a href="#Ports_Port-Interface-Instances">associated port interface</a>
+of the component instance contains the port instance <em>I</em>.</p>
 </li>
 <li>
-<p>Otherwise the <a href="#Instance-Member-Identifiers_Port-Instance-Identifiers">port instance identifier</a>
+<p>Otherwise if the <a href="#Instance-Member-Identifiers_Port-Instance-Identifiers">port instance identifier</a>
 <em>P</em> appearing in <em>E</em> has the form <em>Q</em>
 <code>.</code> <em>I</em>, where <em>Q</em> refers to a topology <em>T'</em>, and
-<em>I</em> names a port of <em>T'</em>.</p>
+<em>I</em> names a port of <em>T'</em>, then</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
-<p>Check that the associated port interface of the topology contains the port
-instance <em>I</em></p>
+<p>Check that the associated port interface of <em>T'</em> contains the
+port instance <em>I</em>,</p>
 </li>
 <li>
 <p>Find the <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifier</a> <code>port</code> <em>I</em> <code>=</code> <em>P'</em> in <em>T'</em>.</p>
@@ -4165,6 +4115,9 @@ Retain the port number assignment, if any, at <em>E</em> computed in step 1.</p>
 </li>
 </ol>
 </div>
+</li>
+<li>
+<p>Otherwise <em>TODO: Handle bound parameter case. Check the interface, then substitute.</em></p>
 </li>
 </ol>
 </div>
@@ -13696,8 +13649,11 @@ parameter</a>.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>For a component instance definition or a topology definition, the port
-interface is given by the definition.</p>
+<p>For a component instance definition <em>D</em>, the port interface is given by the
+component definition referred to in <em>D</em>.</p>
+</li>
+<li>
+<p>For a topology definition, the port interface is given by the definition.</p>
 </li>
 <li>
 <p>For a bound parameter definition \$(p, A)\$, the port interface is specified
@@ -13850,7 +13806,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-14 11:23:52 -0700
+Last updated 2026-04-14 12:04:20 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

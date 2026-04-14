@@ -111,8 +111,10 @@ parameter>>.
 
 Each of these elements has an *associated port interface* _I_:
 
-. For a component instance definition or a topology definition, the port 
-  interface is given by the definition.
+. For a component instance definition _D_, the port interface is given by the 
+  component definition referred to in _D_.
+
+. For a topology definition, the port interface is given by the definition.
 
 . For a bound parameter definition stem:[(p, A)], the port interface is specified
   in the parameter _p_.

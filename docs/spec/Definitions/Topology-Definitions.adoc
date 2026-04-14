@@ -120,43 +120,15 @@ connections C { a.b -> c.d, e.f -> g.h }
 +
 
 . Let the initial set of instances of _T_ be the
-<<Specifiers_Port-Interface-Instance-Specifiers,port interface instances>>
-specified in the definition of _T_.
-For each topology _T'_ in _S_ (step 2),
+port interface instances
+<<Specifiers_Port-Interface-Instance-Specifiers,specified>>
+in the definition of _T_.
+For each topology _T'_ resolved in step 2,
 <<Definitions_Topology-Definitions_Importing-Subtopologies_Importing-Interface-Instances,import 
 the instances>>
 of _T'_ into _T_.
-Note that _T'_ is resolved (step 2), so the set of instances of _T'_ contains 
-all topologies transitively
-imported by the definition of _T'_.
-
-. For each instance _I_ in set _S_, compute the **included port interface** 
-  _P~I~_ of _I_ accessible in _T_:
-
-.. If _I_ refers to a <<Definitions_Component-Instance-Definitions,component 
-   instance>>, _P~I~_ is the port interface of the component instance
-
-.. If _I_ refers to a <<Definitions_Topology-Definitions,topology>>, _P~I~_ is 
-   the port interface of the topology
-
-.. If _I_ refers to a <<Definitions_Module-Template-Definitions,port interface 
-   instance template parameter>> _T~P~_ inside template _T~D~_ where _T_ is 
-found in expansion _T~E~_:
-
-... The corresponding template parameter value _T~V~_ in _T~E~_ must refer to a 
-    port interface instance
-
-... _P~I~_ is the port interface specified in _T~P~_
-
-... _P~I~_ must be a <<Ports_Sub-Interfaces,sub-interface>> of _T~V~_
-
-. If an instance _I_ is named twice in _S_ with differing port interfaces 
-_P~I1~_ and _P~I2~_, the set union will be
-used to compute _P~I~_.
-
-. Replace all instances <<Definitions_Module-Template-Definitions,port 
-interface instance template parameter>> with the
-component instance or topology specified in the template expansion.
+Note that _T'_ is resolved, so the set of instances of _T'_ contains all 
+topologies transitively imported by the definition of _T'_.
 
 . For each connection _C_ discovered in step 3, check that each
 <<Specifiers_Connection-Graph-Specifiers_Syntax,endpoint>> of _C_
@@ -166,18 +138,18 @@ refers to one of the port interface instances computed in the previous step.
 <<Specifiers_Connection-Graph-Specifiers_Syntax,connection endpoint>>
 _E_ of a connection computed in step 3, do the following:
 
-.. If _E_ is a <<Specifiers_Connection-Graph-Specifiers_Semantics,component instance endpoint>> with the form _Q_ `.` _I_:
+.. If _E_ is a <<Specifiers_Connection-Graph-Specifiers_Semantics,component 
+instance endpoint>> with the form _Q_ `.` _I_,
+check that the <<Ports_Port-Interface-Instances,associated port interface>>
+of the component instance contains the port instance _I_.
 
-... Check that the associated port interface of the component instance contains 
-    the port instance _I_
-
-.. Otherwise the <<Instance-Member-Identifiers_Port-Instance-Identifiers,port instance identifier>>
+.. Otherwise if the <<Instance-Member-Identifiers_Port-Instance-Identifiers,port instance identifier>>
 _P_ appearing in _E_ has the form _Q_ 
 `.` _I_, where _Q_ refers to a topology _T'_, and
-_I_ names a port of _T'_.
+_I_ names a port of _T'_, then
 
-... Check that the associated port interface of the topology contains the port 
-    instance _I_
+... Check that the associated port interface of _T'_ contains the 
+    port instance _I_,
 
 ... Find the <<Specifiers_Topology-Port-Instance-Specifiers,
 topology port instance specifier>> `port` _I_ `=` _P'_ in _T'_.
@@ -186,6 +158,8 @@ topology port instance specifier>> `port` _I_ `=` _P'_ in _T'_.
 Retain the port number assignment, if any, at _E_ computed in step 1.
 
 ... Reapply steps a and b to the endpoint _E_.
+
+.. Otherwise _TODO: Handle bound parameter case. Check the interface, then substitute._
 
 . For each topology _T'_ in _S_,
 <<Definitions_Topology-Definitions_Importing-Subtopologies_Importing-Connections,import 
