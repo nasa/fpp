@@ -88,6 +88,8 @@ reside in the following *name groups*:
 
 . The *state machine name group*
 
+. The *template name group*
+
 . The *type name group*
 
 . The *value name group*
@@ -116,7 +118,7 @@ state machine name group.
 
 * Module definitions reside in all the name groups.
 
-* Module template definitions reside in all name groups.
+* Module template definitions reside in the template name group.
 
 * Port definitions reside in the port name group.
 

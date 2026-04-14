@@ -37,6 +37,10 @@ _]_
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
+* A *template specifier* `locate` `template`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
+<<Expressions_String-Literals,_string-literal_>>
+
 * A *type location specifier* `locate`
 _[_
 `dictionary`
@@ -77,6 +81,9 @@ as follows:
 
 .. A topology location specifier refers to a
 <<Definitions_Topology-Definitions,topology definition>>.
+
+.. A template specifier refers to a 
+   <<Definitions_Module-Template-Definitions,template definition>>.
 
 .. A type location specifier refers to a <<Definitions_Type-Definitions,type 
    definition>>.
