@@ -7,16 +7,16 @@
 #ifndef Ports_NoArgsReturnPortAc_HPP
 #define Ports_NoArgsReturnPortAc_HPP
 
-#include <cstdio>
-#include <cstring>
-
-#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#if !FW_DIRECT_PORT_CALLS
+#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
-#include "Fw/Types/String.hpp"
+#endif
 
 namespace Ports {
+
+#if !FW_DIRECT_PORT_CALLS
 
   //! Input NoArgsReturn port
   //! A typed port with no arguments and a return type
@@ -27,18 +27,7 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Constants
-      // ----------------------------------------------------------------------
-
-      enum {
-        //! The size of the serial representations of the port arguments
-        SERIALIZED_SIZE = 0
-      };
-
-    public:
-
-      // ----------------------------------------------------------------------
-      // Types
+      // Public types for InputNoArgsReturnPort
       // ----------------------------------------------------------------------
 
       //! The port callback function type
@@ -50,11 +39,17 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Input Port Member functions
+      // Public constructors for InputNoArgsReturnPort
       // ----------------------------------------------------------------------
 
       //! Constructor
       InputNoArgsReturnPort();
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Public member functions for InputNoArgsReturnPort
+      // ----------------------------------------------------------------------
 
       //! Initialization function
       void init();
@@ -70,17 +65,24 @@ namespace Ports {
 
     private:
 
+      // ----------------------------------------------------------------------
+      // Private member functions for InputNoArgsReturnPort
+      // ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
       //! Invoke the port with serialized arguments
-      Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer);
+      //! \return The serialize status
+      Fw::SerializeStatus invokeSerial(
+          Fw::LinearBufferBase& _buffer //!< The serial buffer
+      );
 
 #endif
 
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables
+      // Private member variables for InputNoArgsReturnPort
       // ----------------------------------------------------------------------
 
       //! The pointer to the port callback function
@@ -97,11 +99,17 @@ namespace Ports {
     public:
 
       // ----------------------------------------------------------------------
-      // Output Port Member functions
+      // Public constructors for OutputNoArgsReturnPort
       // ----------------------------------------------------------------------
 
       //! Constructor
       OutputNoArgsReturnPort();
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Public member functions for OutputNoArgsReturnPort
+      // ----------------------------------------------------------------------
 
       //! Initialization function
       void init();
@@ -111,19 +119,22 @@ namespace Ports {
           InputNoArgsReturnPort* callPort //!< The input port
       );
 
-      //! Invoke a port interface
+      //! Invoke a port connection
+      //! \return The return value of the port handler
       U32 invoke() const;
 
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables
+      // Private member variables for OutputNoArgsReturnPort
       // ----------------------------------------------------------------------
 
       //! The pointer to the input port
       InputNoArgsReturnPort* m_port;
 
   };
+
+#endif
 
 }
 
