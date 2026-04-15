@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>The F Prime Prime (FPP) User&#8217;s Guide, v3.2.0</title>
+<title>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v3.2.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) User&#8217;s Guide, v3.2.0</h1>
+<h1>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v3.2.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -462,7 +462,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Constants_Expressions_Struct-Members">3.3.6. Struct Members</a></li>
 <li><a href="#Defining-Constants_Expressions_Name-Expressions">3.3.7. Name Expressions</a></li>
 <li><a href="#Defining-Constants_Expressions_Value-Arithmetic-Expressions">3.3.8. Value Arithmetic Expressions</a></li>
-<li><a href="#Defining-Constants_Expressions_Compound-Expressions">3.3.9. Compound Expressions</a></li>
+<li><a href="#Defining-Constants_Expressions_String-Concatenation-Expressions">3.3.9. String Concatenation Expressions</a></li>
+<li><a href="#Defining-Constants_Expressions_Compound-Expressions">3.3.10. Compound Expressions</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">3.4. Multiple Definitions and Element Sequences</a></li>
@@ -1614,14 +1615,6 @@ It is one of the following:</p>
 </div>
 </div>
 </li>
-<li>
-<p>A parenthesis expression, for example:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant a = (1)</code></pre>
-</div>
-</div>
-</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -1630,7 +1623,7 @@ It is one of the following:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The subexpressions must be integer or floating-point values.</p>
+<p>The subexpressions must evaluate to integer or floating-point values.</p>
 </li>
 <li>
 <p>If there are any floating-point subexpressions, then the entire expression is
@@ -1648,10 +1641,27 @@ floating-point values) very close to zero.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Constants_Expressions_Compound-Expressions">3.3.9. Compound Expressions</h4>
+<h4 id="Defining-Constants_Expressions_String-Concatenation-Expressions">3.3.9. String Concatenation Expressions</h4>
+<div class="paragraph">
+<p>A <strong>string concatenation expression</strong> concatenates strings.
+To write a string concatenation expression, you use the symbol <code>+</code>.
+This is the same symbol as for
+<a href="#Defining-Constants_Expressions_Value-Arithmetic-Expressions">addition</a>,
+except that it operates on strings instead of numbers.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = "hello " + "there!" # value of a is "hello there!"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Constants_Expressions_Compound-Expressions">3.3.10. Compound Expressions</h4>
 <div class="paragraph">
 <p>Wherever you can write a value inside an expression, you can write
 a more complex expression there, so long as the types work out.
+You can also use parentheses in the usual way to group subexpressions.
 For example, these expressions are valid:</p>
 </div>
 <div class="listingblock">
@@ -17089,7 +17099,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-27 10:18:33 -0700
+Last updated 2026-04-11 15:26:26 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
