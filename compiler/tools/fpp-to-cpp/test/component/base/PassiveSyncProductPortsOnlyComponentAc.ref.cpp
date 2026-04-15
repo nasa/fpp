@@ -21,6 +21,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port productRecvIn
   for (
     FwIndexType port = 0;
@@ -44,7 +45,9 @@ void PassiveSyncProductPortsOnlyComponentBase ::
     this->m_productRecvIn_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port productRequestOut
   for (
     FwIndexType port = 0;
@@ -63,7 +66,9 @@ void PassiveSyncProductPortsOnlyComponentBase ::
     this->m_productRequestOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port productSendOut
   for (
     FwIndexType port = 0;
@@ -82,7 +87,10 @@ void PassiveSyncProductPortsOnlyComponentBase ::
     this->m_productSendOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 }
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for special input ports
@@ -98,6 +106,10 @@ Fw::InputDpResponsePort* PassiveSyncProductPortsOnlyComponentBase ::
 
   return &this->m_productRecvIn_InputPort[portNum];
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports
@@ -131,7 +143,9 @@ void PassiveSyncProductPortsOnlyComponentBase ::
   this->m_productSendOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to special output ports
@@ -184,12 +198,14 @@ PassiveSyncProductPortsOnlyComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 
 bool PassiveSyncProductPortsOnlyComponentBase ::
-  isConnected_productRequestOut_OutputPort(FwIndexType portNum)
+  isConnected_productRequestOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
@@ -200,7 +216,7 @@ bool PassiveSyncProductPortsOnlyComponentBase ::
 }
 
 bool PassiveSyncProductPortsOnlyComponentBase ::
-  isConnected_productSendOut_OutputPort(FwIndexType portNum)
+  isConnected_productSendOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
@@ -209,6 +225,8 @@ bool PassiveSyncProductPortsOnlyComponentBase ::
 
   return this->m_productSendOut_OutputPort[portNum].isConnected();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Port handler base-class functions for special input ports
@@ -236,54 +254,6 @@ void PassiveSyncProductPortsOnlyComponentBase ::
     id,
     buffer,
     status
-  );
-}
-
-// ----------------------------------------------------------------------
-// Invocation functions for special output ports
-// ----------------------------------------------------------------------
-
-void PassiveSyncProductPortsOnlyComponentBase ::
-  productRequestOut_out(
-      FwIndexType portNum,
-      FwDpIdType id,
-      FwSizeType dataSize
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  FW_ASSERT(
-    this->m_productRequestOut_OutputPort[portNum].isConnected(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-  this->m_productRequestOut_OutputPort[portNum].invoke(
-    id,
-    dataSize
-  );
-}
-
-void PassiveSyncProductPortsOnlyComponentBase ::
-  productSendOut_out(
-      FwIndexType portNum,
-      FwDpIdType id,
-      const Fw::Buffer& buffer
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  FW_ASSERT(
-    this->m_productSendOut_OutputPort[portNum].isConnected(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-  this->m_productSendOut_OutputPort[portNum].invoke(
-    id,
-    buffer
   );
 }
 

@@ -35,8 +35,8 @@ case class ComponentTesterBaseWriter(
     )
   }
 
-  private  def returnOrEmptyString(pi: PortInstance) =
-    getPortReturnType(pi).map(_ => "return ").getOrElse("")
+  private def returnOrEmptyString(pi: PortInstance) =
+    getPortReturnTypeAsStringOption(pi).map(_ => "return ").getOrElse("")
 
   private def getMembers: List[CppDoc.Member] = {
     val cls = classMember(
@@ -142,7 +142,7 @@ case class ComponentTesterBaseWriter(
         testerPortVariableName,
         fromPortCallbackName,
         testerPortName,
-        ComponentCppWriter.ConnectionSense.Reversed
+        ComponentCppWriter.Mode.TesterBase
       )
       guardedList (portInstanceIsUsed(port)) (code)
     }
@@ -1463,7 +1463,7 @@ case class ComponentTesterBaseWriter(
                   |"""
             ),
             writeFunctionCall(
-              addReturnKeyword(s"_testerBase->$baseName", i),
+              addReturnToInvocation (i) (s"_testerBase->$baseName"),
               List("portNum"),
               getPortParams(i).map(_._1)
             )
@@ -1545,7 +1545,7 @@ case class ComponentTesterBaseWriter(
     addAccessTagAndComment(
       "private",
       "Static functions for output ports",
-      mapPorts(outputPorts, getPortFunction)
+      getPortMembersWithGuard(outputPorts, getPortFunction)
     )
 
   }
@@ -1576,7 +1576,7 @@ case class ComponentTesterBaseWriter(
       addAccessTagAndComment(
         "private",
         "From ports",
-        mapPorts(
+        getPortMembersWithGuard(
           outputPorts,
           p => {
             val unqualifiedName = p.getUnqualifiedName

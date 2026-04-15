@@ -117,7 +117,7 @@ class PassiveSyncProductPortsOnlyTesterBase :
     //! \return Whether port to_productRecvIn is connected
     bool isConnected_to_productRecvIn(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
   private:
 

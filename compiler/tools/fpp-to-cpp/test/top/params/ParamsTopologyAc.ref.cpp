@@ -113,3 +113,349 @@ namespace M {
   }
 
 }
+
+#if FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Topology-dependent component implementation
+// ----------------------------------------------------------------------
+
+namespace M {
+
+  bool CComponentBase::isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_CMDREGOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_CMDREGOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+    }
+    return result;
+  }
+
+  bool CComponentBase::isConnected_cmdResponseIn_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_CMDRESPONSEIN_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_CMDRESPONSEIN_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+    }
+    return result;
+  }
+
+  bool CComponentBase::isConnected_prmGetOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRMGETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRMGETOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+    }
+    return result;
+  }
+
+  bool CComponentBase::isConnected_prmSetOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRMSETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRMSETOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+    }
+    return result;
+  }
+
+  void CComponentBase::cmdRegOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_CMDREGOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_CMDREGOUT_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+    }
+  }
+
+  void CComponentBase::cmdResponseIn_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      const Fw::CmdResponse& response
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_CMDRESPONSEIN_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_CMDRESPONSEIN_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+    }
+  }
+
+  Fw::ParamValid CComponentBase::prmGetOut_out(
+      FwIndexType portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRMGETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRMGETOUT_OUTPUT_PORTS)
+    );
+    Fw::ParamValid _result = {};
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+    }
+    return _result;
+  }
+
+  void CComponentBase::prmSetOut_out(
+      FwIndexType portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRMSETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRMSETOUT_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+    }
+  }
+
+}
+
+namespace M {
+
+  bool NoParamsComponentBase::isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_CMDREGOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_CMDREGOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    switch (portNum) {
+      default:
+        break;
+    }
+    return result;
+  }
+
+  bool NoParamsComponentBase::isConnected_cmdResponseIn_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_CMDRESPONSEIN_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_CMDRESPONSEIN_OUTPUT_PORTS)
+    );
+    bool result = false;
+    switch (portNum) {
+      default:
+        break;
+    }
+    return result;
+  }
+
+  bool NoParamsComponentBase::isConnected_prmGetOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRMGETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRMGETOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    switch (portNum) {
+      default:
+        break;
+    }
+    return result;
+  }
+
+  bool NoParamsComponentBase::isConnected_prmSetOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRMSETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRMSETOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    switch (portNum) {
+      default:
+        break;
+    }
+    return result;
+  }
+
+}
+
+#endif

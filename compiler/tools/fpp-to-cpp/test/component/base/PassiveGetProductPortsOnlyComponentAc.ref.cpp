@@ -21,6 +21,7 @@ void PassiveGetProductPortsOnlyComponentBase ::
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port productGetOut
   for (
     FwIndexType port = 0;
@@ -39,7 +40,9 @@ void PassiveGetProductPortsOnlyComponentBase ::
     this->m_productGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port productSendOut
   for (
     FwIndexType port = 0;
@@ -58,7 +61,10 @@ void PassiveGetProductPortsOnlyComponentBase ::
     this->m_productSendOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 }
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports
@@ -92,7 +98,9 @@ void PassiveGetProductPortsOnlyComponentBase ::
   this->m_productSendOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to special output ports
@@ -131,12 +139,14 @@ PassiveGetProductPortsOnlyComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 
 bool PassiveGetProductPortsOnlyComponentBase ::
-  isConnected_productGetOut_OutputPort(FwIndexType portNum)
+  isConnected_productGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_productGetOut_OutputPorts()),
@@ -147,7 +157,7 @@ bool PassiveGetProductPortsOnlyComponentBase ::
 }
 
 bool PassiveGetProductPortsOnlyComponentBase ::
-  isConnected_productSendOut_OutputPort(FwIndexType portNum)
+  isConnected_productSendOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
@@ -157,52 +167,4 @@ bool PassiveGetProductPortsOnlyComponentBase ::
   return this->m_productSendOut_OutputPort[portNum].isConnected();
 }
 
-// ----------------------------------------------------------------------
-// Invocation functions for special output ports
-// ----------------------------------------------------------------------
-
-Fw::Success PassiveGetProductPortsOnlyComponentBase ::
-  productGetOut_out(
-      FwIndexType portNum,
-      FwDpIdType id,
-      FwSizeType dataSize,
-      Fw::Buffer& buffer
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_productGetOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  FW_ASSERT(
-    this->m_productGetOut_OutputPort[portNum].isConnected(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-  return this->m_productGetOut_OutputPort[portNum].invoke(
-    id,
-    dataSize,
-    buffer
-  );
-}
-
-void PassiveGetProductPortsOnlyComponentBase ::
-  productSendOut_out(
-      FwIndexType portNum,
-      FwDpIdType id,
-      const Fw::Buffer& buffer
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  FW_ASSERT(
-    this->m_productSendOut_OutputPort[portNum].isConnected(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-  this->m_productSendOut_OutputPort[portNum].invoke(
-    id,
-    buffer
-  );
-}
+#endif

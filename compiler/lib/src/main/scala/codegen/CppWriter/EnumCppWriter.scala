@@ -271,18 +271,13 @@ case class EnumCppWriter(
              |}"""
         )
       ),
-    ) ++ (
-      linesClassMember(
-        List(Line.blank),
-        CppDoc.Lines.Both
-      ) :: writeOstreamOperator(
-        name,
-        lines(
-          """|Fw::String s;
-             |obj.toString(s);
-             |os << s;
-             |return os;"""
-        )
+    ) ++ writeOstreamOperator(
+      name,
+      lines(
+        """|Fw::String s;
+           |obj.toString(s);
+           |os << s;
+           |return os;"""
       )
     )
 
@@ -373,7 +368,7 @@ case class EnumCppWriter(
           )
         ),
         wrapClassMembersInIfDirective(
-          "\n#if FW_SERIALIZABLE_TO_STRING",
+          "#if FW_SERIALIZABLE_TO_STRING",
           List(
             functionClassMember(
               Some(s"Convert enum to string"),
