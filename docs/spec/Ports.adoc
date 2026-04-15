@@ -106,7 +106,7 @@ A *port interface instance* is one of the following:
 . A <<Definitions_Topology-Definitions,topology definition>>.
 
 . A <<Specifiers_Template-Expansion-Specifiers_Semantics,port interface 
-instance template parameter definition>> stem:[(p, A)], where
+instance parameter definition>> stem:[(p, A)], where
 _p_ is a <<Template-Parameter-Lists,port interface instance template 
 parameter>>, and _A_ <<Scoping-of-Names_Resolution-of-Identifiers,refers to>>
 a port interface instance.

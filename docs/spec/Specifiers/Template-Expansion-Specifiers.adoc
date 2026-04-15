@@ -64,13 +64,13 @@ template argument.
    There are three kinds of bound parameter definitions:
 
 ... When _p_ is a constant template parameter, _B_ is called a
-    *constant template parameter definition*.
+    *constant parameter definition*.
 
 ... When _p_ is a port interface instance template parameter, _B_
-    is called a *port interface instance template parameter definition*.
+    is called a *port interface instance parameter definition*.
 
 ... When _p_ is a type template parameter, _B_
-    is called a *type template parameter definition*.
+    is called a *type parameter definition*.
 
 === Examples
 
