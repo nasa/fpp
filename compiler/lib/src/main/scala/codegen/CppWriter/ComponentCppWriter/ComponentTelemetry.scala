@@ -39,36 +39,35 @@ case class ComponentTelemetry(
   }
 
   private def getSerializedWriteFunction: List[CppDoc.Class.Member] = {
+    val timeGetPortName = timeGetPort.get.getUnqualifiedName
+    val timeGetPortInvokerName = outputPortInvokerName(timeGetPortName)
+    val timeGetPortIsConnected = outputPortIsConnectedName(timeGetPortName)
+    val tlmPortName = tlmPort.get.getUnqualifiedName
+    val tlmPortIsConnected = outputPortIsConnectedName(tlmPortName)
+    val tlmPortInvokerName = outputPortInvokerName(tlmPort.get)
+
     val body = intersperseBlankLines(
       List(
         wrapInIf(
-          s"this->${portVariableName(tlmPort.get)}[0].isConnected()",
-          List.concat(
-            lines(
-              s"""|if (
-                  |  this->${portVariableName(
-                  timeGetPort.get
-                )}[0].isConnected() &&
-                  |  (_tlmTime ==  Fw::ZERO_TIME)
-                  |) {
-                  |  this->${portVariableName(
-                  timeGetPort.get
-                )}[0].invoke(_tlmTime);
-                  |}
-                  |"""
-            ),
-            lines(
-              s"""|FwChanIdType _id;
-                  |
-                  |_id = this->getIdBase() + id;
-                  |
-                  |this->${portVariableName(tlmPort.get)}[0].invoke(
-                  |  _id,
-                  |  _tlmTime,
-                  |  value
-                  |);
-                  |"""
-            )
+          s"this->$tlmPortIsConnected(0)",
+          lines(
+            s"""|if (
+                    |  this->$timeGetPortIsConnected(0) &&
+                    |  (_tlmTime ==  Fw::ZERO_TIME)
+                    |) {
+                    |  this->$timeGetPortInvokerName(0, _tlmTime);
+                    |}
+                    |
+                    |FwChanIdType _id;
+                    |_id = this->getIdBase() + id;
+                    |
+                    |this->$tlmPortInvokerName(
+                    |  0,
+                    |  _id,
+                    |  _tlmTime,
+                    |  _tlmBuff
+                    |);
+                    |"""
           )
         )
       )
@@ -90,7 +89,7 @@ case class ComponentTelemetry(
         ),
         CppDoc.Function.Param(
           CppDoc.Type("Fw::TlmBuffer&"),
-          "value",
+          "_tlmBuff",
           Some("The serialized telemetry value")
         ),
         CppDoc.Function.Param(
@@ -159,7 +158,6 @@ case class ComponentTelemetry(
       val timeGetPortIsConnected = outputPortIsConnectedName(timeGetPortName)
       val tlmPortName = tlmPort.get.getUnqualifiedName
       val tlmPortIsConnected = outputPortIsConnectedName(tlmPortName)
-      val tlmPortInvokerName = outputPortInvokerName(tlmPort.get)
       val idConstantName = channelIdConstantName(channel.getName)
       intersperseBlankLines(
         List(
@@ -189,17 +187,7 @@ case class ComponentTelemetry(
           wrapInIf(
             s"this->$tlmPortIsConnected(0)",
             List.concat(
-              lines(
-                s"""|if (
-                    |  this->$timeGetPortIsConnected(0) &&
-                    |  (_tlmTime ==  Fw::ZERO_TIME)
-                    |) {
-                    |  this->$timeGetPortInvokerName(0, _tlmTime);
-                    |}
-                    |
-                    |Fw::TlmBuffer _tlmBuff;
-                    |"""
-              ),
+              lines("Fw::TlmBuffer _tlmBuff;"),
               lines(
                 channel.channelType.getUnderlyingType match {
                   case t: Type.String =>
@@ -219,15 +207,10 @@ case class ComponentTelemetry(
                     |  static_cast<FwAssertArgType>(_stat)
                     |);
                     |
-                    |FwChanIdType _id;
-                    |
-                    |_id = this->getIdBase() + $idConstantName;
-                    |
-                    |this->$tlmPortInvokerName(
-                    |  0,
-                    |  _id,
-                    |  _tlmTime,
-                    |  _tlmBuff
+                    |this->tlmWrite(
+                    |  $idConstantName,
+                    |  _tlmBuff,
+                    |  _tlmTime
                     |);
                     |"""
               )

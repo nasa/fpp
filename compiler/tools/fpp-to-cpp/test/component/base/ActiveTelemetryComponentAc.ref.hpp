@@ -1495,7 +1495,7 @@ class ActiveTelemetryComponentBase :
     //!          Update on change semantics are ignored, this telemetry is always written
     void tlmWrite(
         FwChanIdType id, //!< The channel id
-        Fw::TlmBuffer& value, //!< The serialized telemetry value
+        Fw::TlmBuffer& _tlmBuff, //!< The serialized telemetry value
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
     ) const;
 
