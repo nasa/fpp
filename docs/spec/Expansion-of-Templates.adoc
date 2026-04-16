@@ -20,9 +20,10 @@ To construct stem:[M_{i+1}] from stem:[M_i], do the following:
 
 . Otherwise do the following:
 
-.. Perform enough analysis on stem:[M_i] to 
-   <<Definitions_Module-Template-Definitions_Semantics,check all the template definitions>>
-   that have not yet been checked and to match all template expansion
+.. Perform enough analysis on stem:[M_i] (i) to 
+   <<Definitions_Module-Template-Definitions_Semantics,check all the template 
+definitions>>
+   that have not yet been checked and (ii) to match all template expansion
    specifiers with the template definitions to which they refer.
 
 .. For each template expansion specifier _E_ in stem:[M_i] that has not yet been
@@ -37,9 +38,6 @@ To construct stem:[M_{i+1}] from stem:[M_i], do the following:
 at the point of _T_>>.
     At this point, do not expand any template expansion specifiers
     appearing in _X_.
-
-.. If any templates were expanded in step 2(b), then resolve
-   <<Specifiers_Include-Specifiers,include specifiers>>.
 
 .. Run the algorithm on stem:[M_{i+1}].
   

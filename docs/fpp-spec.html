@@ -7190,7 +7190,8 @@ should be included in a
 <a href="#Translation-Units-and-Models_Locations">location</a> of the include specifier.</p>
 </div>
 <div class="paragraph">
-<p>During parsing, the translator does the following:</p>
+<p>During <a href="#Analysis-and-Translation_Analysis">parsing</a>, the translator does the
+following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -7206,6 +7207,11 @@ in the enclosing translation unit at the point where the include
 specifier appears.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>All include specifiers are resolved this way, even ones that occur inside or
+transitively inside a <a href="#Definitions_Module-Template-Definitions">template
+definition</a>.</p>
 </div>
 <div class="paragraph">
 <p>The suffix <code>.fppi</code> is conventional for included files, to distinguish them
@@ -11677,10 +11683,11 @@ result of template expansion.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Perform enough analysis on \$M_i\$ to
-<a href="#Definitions_Module-Template-Definitions_Semantics">check all the template definitions</a>
-that have not yet been checked and to match all template expansion
-specifiers with the template definitions to which they refer.</p>
+<p>Perform enough analysis on \$M_i\$ (i) to
+   <a href="#Definitions_Module-Template-Definitions_Semantics">check all the template
+definitions</a>
+   that have not yet been checked and (ii) to match all template expansion
+   specifiers with the template definitions to which they refer.</p>
 </li>
 <li>
 <p>For each template expansion specifier <em>E</em> in \$M_i\$ that has not yet been
@@ -11701,10 +11708,6 @@ at the point of <em>T</em></a>.
 </li>
 </ol>
 </div>
-</li>
-<li>
-<p>If any templates were expanded in step 2(b), then resolve
-<a href="#Specifiers_Include-Specifiers">include specifiers</a>.</p>
 </li>
 <li>
 <p>Run the algorithm on \$M_{i+1}\$.</p>
@@ -13971,7 +13974,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 15:43:40 -0700
+Last updated 2026-04-16 15:36:31 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
