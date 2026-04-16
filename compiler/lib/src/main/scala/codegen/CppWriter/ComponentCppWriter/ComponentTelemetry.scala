@@ -5,9 +5,9 @@ import fpp.compiler.ast._
 import fpp.compiler.codegen._
 
 /** Writes out C++ for component telemetry channels */
-case class ComponentTelemetry (
-  s: CppWriterState,
-  aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
+case class ComponentTelemetry(
+    s: CppWriterState,
+    aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
   def getConstantMembers: List[CppDoc.Class.Member] = {
@@ -21,16 +21,95 @@ case class ComponentTelemetry (
     )
     lazy val member = linesClassMember(
       Line.blank ::
-      List.concat(
-        lines(s"//! Channel IDs"),
-        wrapInEnum(channelIds)
-      )
+        List.concat(
+          lines(s"//! Channel IDs"),
+          wrapInEnum(channelIds)
+        )
     )
-    guardedList (hasChannels) (List(member))
+    guardedList(hasChannels)(List(member))
   }
 
   def getFunctionMembers: List[CppDoc.Class.Member] = {
-    getWriteFunctions
+    if !hasChannels then Nil
+    else
+      List(
+        getSerializedWriteFunction,
+        getWriteFunctions
+      ).flatten
+  }
+
+  private def getSerializedWriteFunction: List[CppDoc.Class.Member] = {
+    val timeGetPortName = timeGetPort.get.getUnqualifiedName
+    val timeGetPortInvokerName = outputPortInvokerName(timeGetPortName)
+    val timeGetPortIsConnected = outputPortIsConnectedName(timeGetPortName)
+    val tlmPortName = tlmPort.get.getUnqualifiedName
+    val tlmPortIsConnected = outputPortIsConnectedName(tlmPortName)
+    val tlmPortInvokerName = outputPortInvokerName(tlmPort.get)
+
+    val body = intersperseBlankLines(
+      List(
+        wrapInIf(
+          s"this->$tlmPortIsConnected(0)",
+          lines(
+            s"""|if (
+                    |  this->$timeGetPortIsConnected(0) &&
+                    |  (_tlmTime ==  Fw::ZERO_TIME)
+                    |) {
+                    |  this->$timeGetPortInvokerName(0, _tlmTime);
+                    |}
+                    |
+                    |FwChanIdType _id;
+                    |_id = this->getIdBase() + id;
+                    |
+                    |this->$tlmPortInvokerName(
+                    |  0,
+                    |  _id,
+                    |  _tlmTime,
+                    |  _tlmBuff
+                    |);
+                    |"""
+          )
+        )
+      )
+    )
+
+    val writeTelemetrySerial = functionClassMember(
+      Some(
+        "Write telemetry channel given its local id and serialized value.\n" +
+          "Warning: This is a low level telemetry interface that does not guarentee channel type safety.\n" +
+          "         It is up to the caller to make sure the serialized data matches the definition in the model.\n" +
+          "         Update on change semantics are ignored, this telemetry is always written"
+      ),
+      "tlmWrite",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("FwChanIdType"),
+          "id",
+          Some("The channel id")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::TlmBuffer&"),
+          "_tlmBuff",
+          Some("The serialized telemetry value")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::Time"),
+          "_tlmTime",
+          Some("Timestamp. Default: unspecified, request from getTime port"),
+          Some("Fw::Time()")
+        )
+      ),
+      CppDoc.Type("void"),
+      body,
+      CppDoc.Function.NonSV,
+      CppDoc.Function.Const
+    )
+
+    addAccessTagAndComment(
+      "protected",
+      "Telemetry serialized write",
+      if !hasChannels then Nil else List(writeTelemetrySerial)
+    )
   }
 
   def getVariableMembers: List[CppDoc.Class.Member] = {
@@ -55,7 +134,8 @@ case class ComponentTelemetry (
         "Last value storage for telemetry channels",
         updateOnChangeChannels.map((_, channel) => {
           val channelName = channel.getName
-          val channelType = writeChannelType(channel.channelType, "Fw::TlmString")
+          val channelType =
+            writeChannelType(channel.channelType, "Fw::TlmString")
           val channelStoreName = channelStorageName(channel.getName)
           linesClassMember(
             lines(
@@ -78,7 +158,6 @@ case class ComponentTelemetry (
       val timeGetPortIsConnected = outputPortIsConnectedName(timeGetPortName)
       val tlmPortName = tlmPort.get.getUnqualifiedName
       val tlmPortIsConnected = outputPortIsConnectedName(tlmPortName)
-      val tlmPortInvokerName = outputPortInvokerName(tlmPort.get)
       val idConstantName = channelIdConstantName(channel.getName)
       intersperseBlankLines(
         List(
@@ -108,17 +187,7 @@ case class ComponentTelemetry (
           wrapInIf(
             s"this->$tlmPortIsConnected(0)",
             List.concat(
-              lines(
-                s"""|if (
-                    |  this->$timeGetPortIsConnected(0) &&
-                    |  (_tlmTime ==  Fw::ZERO_TIME)
-                    |) {
-                    |  this->$timeGetPortInvokerName(0, _tlmTime);
-                    |}
-                    |
-                    |Fw::TlmBuffer _tlmBuff;
-                    |"""
-              ),
+              lines("Fw::TlmBuffer _tlmBuff;"),
               lines(
                 channel.channelType.getUnderlyingType match {
                   case t: Type.String =>
@@ -138,15 +207,10 @@ case class ComponentTelemetry (
                     |  static_cast<FwAssertArgType>(_stat)
                     |);
                     |
-                    |FwChanIdType _id;
-                    |
-                    |_id = this->getIdBase() + $idConstantName;
-                    |
-                    |this->$tlmPortInvokerName(
-                    |  0,
-                    |  _id,
-                    |  _tlmTime,
-                    |  _tlmBuff
+                    |this->tlmWrite(
+                    |  $idConstantName,
+                    |  _tlmBuff,
+                    |  _tlmTime
                     |);
                     |"""
               )
@@ -181,7 +245,7 @@ case class ComponentTelemetry (
       CppDoc.Function.NonSV,
       channel.update match {
         case Ast.SpecTlmChannel.OnChange => CppDoc.Function.NonConst
-        case _ => CppDoc.Function.Const
+        case _                           => CppDoc.Function.Const
       }
     )
   }
@@ -197,7 +261,7 @@ case class ComponentTelemetry (
     val typeName = writeChannelType(t)
     t match {
       case t if s.isPrimitive(t, typeName) => typeName
-      case _ => s"const $typeName&"
+      case _                               => s"const $typeName&"
     }
   }
 

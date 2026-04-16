@@ -1776,6 +1776,22 @@ class PassiveSerialComponentBase :
   protected:
 
     // ----------------------------------------------------------------------
+    // Telemetry serialized write
+    // ----------------------------------------------------------------------
+
+    //! Write telemetry channel given its local id and serialized value.
+    //! Warning: This is a low level telemetry interface that does not guarentee channel type safety.
+    //!          It is up to the caller to make sure the serialized data matches the definition in the model.
+    //!          Update on change semantics are ignored, this telemetry is always written
+    void tlmWrite(
+        FwChanIdType id, //!< The channel id
+        Fw::TlmBuffer& _tlmBuff, //!< The serialized telemetry value
+        Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
+    ) const;
+
+  protected:
+
+    // ----------------------------------------------------------------------
     // Telemetry write functions
     // ----------------------------------------------------------------------
 

@@ -3074,12 +3074,13 @@ F32 QueuedTelemetryComponentBase ::
 #endif
 
 // ----------------------------------------------------------------------
-// Telemetry write functions
+// Telemetry serialized write
 // ----------------------------------------------------------------------
 
 void QueuedTelemetryComponentBase ::
-  tlmWrite_ChannelU32Format(
-      U32 arg,
+  tlmWrite(
+      FwChanIdType id,
+      Fw::TlmBuffer& _tlmBuff,
       Fw::Time _tlmTime
   ) const
 {
@@ -3091,6 +3092,29 @@ void QueuedTelemetryComponentBase ::
       this->timeGetOut_out(0, _tlmTime);
     }
 
+    FwChanIdType _id;
+    _id = this->getIdBase() + id;
+
+    this->tlmOut_out(
+      0,
+      _id,
+      _tlmTime,
+      _tlmBuff
+    );
+  }
+}
+
+// ----------------------------------------------------------------------
+// Telemetry write functions
+// ----------------------------------------------------------------------
+
+void QueuedTelemetryComponentBase ::
+  tlmWrite_ChannelU32Format(
+      U32 arg,
+      Fw::Time _tlmTime
+  ) const
+{
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3098,15 +3122,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELU32FORMAT;
-
-    this->tlmOut_out(
-      0,
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELU32FORMAT,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3118,13 +3137,6 @@ void QueuedTelemetryComponentBase ::
   ) const
 {
   if (this->isConnected_tlmOut_OutputPort(0)) {
-    if (
-      this->isConnected_timeGetOut_OutputPort(0) &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->timeGetOut_out(0, _tlmTime);
-    }
-
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3132,15 +3144,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELF32FORMAT;
-
-    this->tlmOut_out(
-      0,
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELF32FORMAT,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3152,13 +3159,6 @@ void QueuedTelemetryComponentBase ::
   ) const
 {
   if (this->isConnected_tlmOut_OutputPort(0)) {
-    if (
-      this->isConnected_timeGetOut_OutputPort(0) &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->timeGetOut_out(0, _tlmTime);
-    }
-
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = arg.serializeTo(
       _tlmBuff,
@@ -3169,15 +3169,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELSTRINGFORMAT;
-
-    this->tlmOut_out(
-      0,
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELSTRINGFORMAT,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3189,13 +3184,6 @@ void QueuedTelemetryComponentBase ::
   ) const
 {
   if (this->isConnected_tlmOut_OutputPort(0)) {
-    if (
-      this->isConnected_timeGetOut_OutputPort(0) &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->timeGetOut_out(0, _tlmTime);
-    }
-
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3203,15 +3191,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELENUM;
-
-    this->tlmOut_out(
-      0,
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELENUM,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3223,13 +3206,6 @@ void QueuedTelemetryComponentBase ::
   ) const
 {
   if (this->isConnected_tlmOut_OutputPort(0)) {
-    if (
-      this->isConnected_timeGetOut_OutputPort(0) &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->timeGetOut_out(0, _tlmTime);
-    }
-
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3237,15 +3213,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELARRAYFREQ;
-
-    this->tlmOut_out(
-      0,
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELARRAYFREQ,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3257,13 +3228,6 @@ void QueuedTelemetryComponentBase ::
   ) const
 {
   if (this->isConnected_tlmOut_OutputPort(0)) {
-    if (
-      this->isConnected_timeGetOut_OutputPort(0) &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->timeGetOut_out(0, _tlmTime);
-    }
-
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3271,15 +3235,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELSTRUCTFREQ;
-
-    this->tlmOut_out(
-      0,
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELSTRUCTFREQ,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3291,13 +3250,6 @@ void QueuedTelemetryComponentBase ::
   ) const
 {
   if (this->isConnected_tlmOut_OutputPort(0)) {
-    if (
-      this->isConnected_timeGetOut_OutputPort(0) &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->timeGetOut_out(0, _tlmTime);
-    }
-
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3305,15 +3257,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELU32LIMITS;
-
-    this->tlmOut_out(
-      0,
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELU32LIMITS,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3325,13 +3272,6 @@ void QueuedTelemetryComponentBase ::
   ) const
 {
   if (this->isConnected_tlmOut_OutputPort(0)) {
-    if (
-      this->isConnected_timeGetOut_OutputPort(0) &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->timeGetOut_out(0, _tlmTime);
-    }
-
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3339,15 +3279,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELF32LIMITS;
-
-    this->tlmOut_out(
-      0,
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELF32LIMITS,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3359,13 +3294,6 @@ void QueuedTelemetryComponentBase ::
   ) const
 {
   if (this->isConnected_tlmOut_OutputPort(0)) {
-    if (
-      this->isConnected_timeGetOut_OutputPort(0) &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->timeGetOut_out(0, _tlmTime);
-    }
-
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3373,15 +3301,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELF64;
-
-    this->tlmOut_out(
-      0,
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELF64,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3408,13 +3331,6 @@ void QueuedTelemetryComponentBase ::
   }
 
   if (this->isConnected_tlmOut_OutputPort(0)) {
-    if (
-      this->isConnected_timeGetOut_OutputPort(0) &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->timeGetOut_out(0, _tlmTime);
-    }
-
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3422,15 +3338,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELU32ONCHANGE;
-
-    this->tlmOut_out(
-      0,
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELU32ONCHANGE,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3457,13 +3368,6 @@ void QueuedTelemetryComponentBase ::
   }
 
   if (this->isConnected_tlmOut_OutputPort(0)) {
-    if (
-      this->isConnected_timeGetOut_OutputPort(0) &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->timeGetOut_out(0, _tlmTime);
-    }
-
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3471,15 +3375,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELENUMONCHANGE;
-
-    this->tlmOut_out(
-      0,
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELENUMONCHANGE,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3506,13 +3405,6 @@ void QueuedTelemetryComponentBase ::
   }
 
   if (this->isConnected_tlmOut_OutputPort(0)) {
-    if (
-      this->isConnected_timeGetOut_OutputPort(0) &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->timeGetOut_out(0, _tlmTime);
-    }
-
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3520,15 +3412,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELBOOLONCHANGE;
-
-    this->tlmOut_out(
-      0,
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELBOOLONCHANGE,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
