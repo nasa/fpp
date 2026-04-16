@@ -366,11 +366,11 @@ module M {
   }
 }
 module N {
-  # Inside the expansion of T, names are resolved
-  # in a new scope at the point of the definition of T.
+  # Inside the expansion of M.T, names are resolved
+  # in a new scope at the point of the definition of M.T.
   # So a refers to M.a, even though the expansion
   # occurs inside N.
-  expand T
+  expand M.T
 }
 # The expansion introduces a definition b in module N,
 # so N.b is in scope here. Definitions introduced by

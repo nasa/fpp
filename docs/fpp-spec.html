@@ -11269,11 +11269,11 @@ as if it appeared in <em>D</em>.</p>
   }
 }
 module N {
-  # Inside the expansion of T, names are resolved
-  # in a new scope at the point of the definition of T.
+  # Inside the expansion of M.T, names are resolved
+  # in a new scope at the point of the definition of M.T.
   # So a refers to M.a, even though the expansion
   # occurs inside N.
-  expand T
+  expand M.T
 }
 # The expansion introduces a definition b in module N,
 # so N.b is in scope here. Definitions introduced by
@@ -13971,7 +13971,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-15 08:23:59 -0700
+Last updated 2026-04-15 15:43:40 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
