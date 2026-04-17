@@ -815,7 +815,7 @@ module template T(
   }
 }
 
-# In the expansion, cOut is bound to iOut
+# In the expansion, the bound parameter (iOut: IOut, cOut) is in scope.
 # After resolution, the connection is cOut.p -> cIn.p.
 expand T(cOut)
 ----
