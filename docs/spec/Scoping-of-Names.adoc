@@ -355,9 +355,7 @@ To resolve an identifier _I_ inside an
 . Use the rules stated in the previous section to resolve _I_
   as if it appeared in _D_.
 
-*Example:*
-
-_G_ refers to the type name group.
+*Example 1:*
 
 [source,fpp]
 ----
@@ -378,6 +376,21 @@ module N {
 # so N.b is in scope here. Definitions introduced by
 # template expansion follow the standard rules for scoping.
 constant c = N.b
+----
+
+*Example 2:*
+
+[source,fpp]
+----
+module template T(constant a: U32) {
+  constant b = a
+}
+
+# The expansion of T introduces a definition constant b = a.
+# Inside the expansion of T, the bound parameter definition
+# (constant a: U32, 0) is in scope, and the name a refers
+# to this definition.
+expand T(0)
 ----
 
 ==== Implementation Note

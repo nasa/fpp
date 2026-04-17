@@ -11271,10 +11271,7 @@ as if it appeared in <em>D</em>.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p><strong>Example:</strong></p>
-</div>
-<div class="paragraph">
-<p><em>G</em> refers to the type name group.</p>
+<p><strong>Example 1:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -11295,6 +11292,22 @@ module N {
 # so N.b is in scope here. Definitions introduced by
 # template expansion follow the standard rules for scoping.
 constant c = N.b</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example 2:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T(constant a: U32) {
+  constant b = a
+}
+
+# The expansion of T introduces a definition constant b = a.
+# Inside the expansion of T, the bound parameter definition
+# (constant a: U32, 0) is in scope, and the name a refers
+# to this definition.
+expand T(0)</code></pre>
 </div>
 </div>
 </div>
@@ -11653,7 +11666,11 @@ is a copy of the syntax provided
 by the template definition to which <em>S</em> refers.
 The expanded template <em>E</em> is not expressible in the syntax
 of the source language, but it is expressible in the internal
-representation of the model.</p>
+representation of the model.
+The syntax <em>X</em> behaves as if it were literally included in
+the model at the point of <em>E</em>, except that there are
+special rules for resolving
+<a href="#Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template">resolving names</a> that appear inside <em>E</em>.</p>
 </div>
 <div class="sect2">
 <h3 id="Expansion-of-Templates_Algorithm">18.1. Algorithm</h3>
@@ -13900,7 +13917,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-16 18:03:22 -0700
+Last updated 2026-04-17 09:10:48 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

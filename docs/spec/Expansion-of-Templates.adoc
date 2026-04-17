@@ -11,6 +11,11 @@ by the template definition to which _S_ refers.
 The expanded template _E_ is not expressible in the syntax
 of the source language, but it is expressible in the internal
 representation of the model.
+The syntax _X_ behaves as if it were literally included in
+the model at the point of _E_, except that there are
+special rules for resolving 
+<<Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template,
+resolving names>> that appear inside _E_.
 
 === Algorithm
 
