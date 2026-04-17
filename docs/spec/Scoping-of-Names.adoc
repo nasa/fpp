@@ -334,7 +334,9 @@ module M {
 To resolve an identifier _I_ inside an
 <<Expansion-of-Templates,expanded template>>, do the following:
 
-. Let _E_ be the innermost expanded template containing _I_.
+. Let _E_ be the expanded template containing _I_.
+  By the <<Definitions_Module-Template-Definitions,rules
+  for template definitions>>, _E_ is guaranteed to be unique.
 
 . Let _T_ be the template definition referred to by _E_.
 
@@ -353,7 +355,7 @@ To resolve an identifier _I_ inside an
 . Use the rules stated in the previous section to resolve _I_
   as if it appeared in _D_.
 
-*Example 1:*
+*Example:*
 
 _G_ refers to the type name group.
 
@@ -377,28 +379,6 @@ module N {
 # template expansion follow the standard rules for scoping.
 constant c = N.b
 ----
-
-*Example 2:*
-
-[source,fpp]
-----
-module template T1(constant a) {
-  module template T2 {
-    constant b = a
-  }
-  expand T2
-}
-expand T1(constant 0)
-----
-
-This model is not well formed.
-The constant parameter `a` is in scope when resolving the expansion of `T1`,
-but not when resolving the expansion of `T2`.
-So when `T2` is expanded, the use of `a` will
-not correspond to a definition.
-The section on <<Expansion-of-Templates,expansion of templates>>
-describes the expansion algorithm.
-
 
 ==== Implementation Note
 

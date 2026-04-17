@@ -3047,6 +3047,14 @@ of a <a href="#Definitions_Module-Definitions">module definition</a>.</p>
 <p>The identifier is the name of the template.</p>
 </div>
 <div class="paragraph">
+<p>No module template definition may be the ancestor in the
+abstract syntax tree of another module template definition
+or of a <a href="#Specifiers_Template-Expansion-Specifiers">template expansion specifier</a>.
+This rule ensures that <a href="#Expansion-of-Templates">expanding a template</a>
+never causes another template to be defined or another
+template expansion to occur.</p>
+</div>
+<div class="paragraph">
 <p>Each module template definition <em>M</em> that appears in a model
 must pass the following analysis, regardless of whether it
 is expanded.
@@ -11230,7 +11238,9 @@ module M {
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Let <em>E</em> be the innermost expanded template containing <em>I</em>.</p>
+<p>Let <em>E</em> be the expanded template containing <em>I</em>.
+By the <a href="#Definitions_Module-Template-Definitions">rules
+for template definitions</a>, <em>E</em> is guaranteed to be unique.</p>
 </li>
 <li>
 <p>Let <em>T</em> be the template definition referred to by <em>E</em>.</p>
@@ -11261,7 +11271,7 @@ as if it appeared in <em>D</em>.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p><strong>Example 1:</strong></p>
+<p><strong>Example:</strong></p>
 </div>
 <div class="paragraph">
 <p><em>G</em> refers to the type name group.</p>
@@ -11286,29 +11296,6 @@ module N {
 # template expansion follow the standard rules for scoping.
 constant c = N.b</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p><strong>Example 2:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module template T1(constant a) {
-  module template T2 {
-    constant b = a
-  }
-  expand T2
-}
-expand T1(constant 0)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This model is not well formed.
-The constant parameter <code>a</code> is in scope when resolving the expansion of <code>T1</code>,
-but not when resolving the expansion of <code>T2</code>.
-So when <code>T2</code> is expanded, the use of <code>a</code> will
-not correspond to a definition.
-The section on <a href="#Expansion-of-Templates">expansion of templates</a>
-describes the expansion algorithm.</p>
 </div>
 </div>
 <div class="sect3">
@@ -11656,61 +11643,46 @@ to mean both qualification and member selection.</p>
 <h2 id="Expansion-of-Templates">18. Expansion of Templates</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Expansion of templates is an iterative process.
-It interleaves partial analysis and syntactic expansion
-to produce a sequence of incrementally expanded models.
-When no more expansion is possible, the resulting model
-is presented to the full semantic analysis.</p>
+<p>Expansion of templates performs partial analysis
+and syntactic expansion.
+It produces a new model in which each
+<a href="#Specifiers_Template-Expansion-Specifiers">template
+expansion specifier</a> <em>S</em> is transformed into an
+<strong>expanded template</strong> \$E = S { X }\$, where <em>X</em>
+is a copy of the syntax provided
+by the template definition to which <em>S</em> refers.
+The expanded template <em>E</em> is not expressible in the syntax
+of the source language, but it is expressible in the internal
+representation of the model.</p>
 </div>
 <div class="sect2">
 <h3 id="Expansion-of-Templates_Algorithm">18.1. Algorithm</h3>
 <div class="paragraph">
-<p>Let \$M_0\$ be the model initially presented to the analyzer,
+<p>Let <em>M</em> be the model initially presented to the analyzer,
 with <a href="#Specifiers_Include-Specifiers">include specifiers</a> resolved.
-To construct \$M_{i+1}\$ from \$M_i\$, do the following:</p>
+Construct the output model <em>M'</em> as follows:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If all <a href="#Definitions_Module-Template-Definitions">template definitions</a>
-in \$M_i\$ have been analyzed and all
-<a href="#Specifiers_Template-Expansion-Specifiers">template expansion specifiers</a> in \$M_i\$
-have been expanded, then do nothing. Let \$M_i\$ be the final
-result of template expansion.</p>
+<p>Perform enough analysis on <em>M</em> to
+  <a href="#Definitions_Module-Template-Definitions_Semantics">check all the template
+definitions</a> and to match all template expansion
+  specifiers with the template definitions to which they refer.</p>
 </li>
 <li>
-<p>Otherwise do the following:</p>
+<p>For each template expansion specifier <em>S</em> in <em>M</em>,
+do the following:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Perform enough analysis on \$M_i\$ (i) to
-   <a href="#Definitions_Module-Template-Definitions_Semantics">check all the template
-definitions</a>
-   that have not yet been checked and (ii) to match all template expansion
-   specifiers with the template definitions to which they refer.</p>
+<p>Let <em>T</em> be the template definition referred to in <em>S</em>.</p>
 </li>
 <li>
-<p>For each template expansion specifier <em>E</em> in \$M_i\$ that has not yet been
-expanded, do the following:</p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
-<li>
-<p>Let <em>T</em> be the template definition referred to in <em>E</em>.</p>
+<p>Let <em>X</em> be a copy of the syntax specified in the body of <em>T</em>.</p>
 </li>
 <li>
-<p>Replicate the syntax <em>X</em> in the body of <em>T</em> at the point of <em>E</em>, noting
-    that definitions in <em>X</em> are to be added at the point of <em>E</em> but
-    uses in <em>X</em> are to be
-    <a href="#Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template">resolved
-at the point of <em>T</em></a>.
-    At this point, do not expand any template expansion specifiers
-    appearing in <em>X</em>.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Run the algorithm on \$M_{i+1}\$.</p>
+<p>Replace <em>S</em> with \$S { X }\$.</p>
 </li>
 </ol>
 </div>
@@ -11721,7 +11693,7 @@ at the point of <em>T</em></a>.
 <div class="sect2">
 <h3 id="Expansion-of-Templates_Example">18.2. Example</h3>
 <div class="paragraph">
-<p><strong>Model \$M_0\$:</strong></p>
+<p><strong>Model <em>M</em>:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -11729,13 +11701,9 @@ at the point of <em>T</em></a>.
 
   constant a = 0
 
-  module template T1(constant b: U32) {
+  module template T(constant b: U32) {
 
-    constant c = b
-
-    module template T2 { constant d = a + c }
-
-    expand T2
+    constant c = a + b
 
   }
 
@@ -11743,13 +11711,13 @@ at the point of <em>T</em></a>.
 
 module N {
 
-  expand T1(constant 1)
+  expand M.T(constant 1)
 
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Model \$M_1\$:</strong></p>
+<p><strong>Model <em>M'</em>:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -11757,63 +11725,21 @@ module N {
 
   constant a = 0
 
-  ...
+  module template T(constant b: U32) {
+
+    constant c = a + b
+
+  }
 
 }
 
 module N {
 
-  expand T1(constant 1)
-  # ----------------------------------------------------------------------
-  # Syntax of T1 is replicated here.
-  # Definition of c is introduced in scope N
-  # Uses are resolved in a scope containing the bound parameter
-  # definition (b, 1) and the module template definition T2,
-  # inside the scope of M.
-  # ----------------------------------------------------------------------
-  # constant c = b
-  #
-  # module template T2 { constant d = a + c }
-  #
-  # expand T2
+  # The expanded template is expand M.T(constant 1) { constant c = a + b }
+  expand M.T(constant 1)
 
 }</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p><strong>Model \$M_2\$:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M {
-
-  constant a = 0
-
-  ...
-
-}
-
-module N {
-
-  expand T1(constant 1)
-  # ----------------------------------------------------------------------
-  # constant c = b
-  #
-  # module template T2 { constant d = a + c }
-  #
-  # expand T2
-  # ----------------------------------------------------------------------
-  # Syntax of T2 is replicated here.
-  # Definition of d is introduced in scope N.
-  # Uses are resolved in scope N.
-  # ----------------------------------------------------------------------
-  # constant d = a + c
-
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>\$M_2\$ is the final model presented to the full analysis.</p>
 </div>
 </div>
 </div>
@@ -13974,7 +13900,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-16 15:36:31 -0700
+Last updated 2026-04-16 18:03:22 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

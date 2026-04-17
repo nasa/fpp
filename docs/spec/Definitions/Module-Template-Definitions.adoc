@@ -32,6 +32,13 @@ of a <<Definitions_Module-Definitions,module definition>>.
 
 The identifier is the name of the template.
 
+No module template definition may be the ancestor in the
+abstract syntax tree of another module template definition
+or of a <<Specifiers_Template-Expansion-Specifiers,template expansion specifier>>.
+This rule ensures that <<Expansion-of-Templates,expanding a template>>
+never causes another template to be defined or another
+template expansion to occur.
+
 Each module template definition _M_ that appears in a model
 must pass the following analysis, regardless of whether it
 is expanded.
