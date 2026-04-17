@@ -95,8 +95,9 @@ template T(constant numPorts: U32) {
 module M {
 
   expand T(constant 30)
-  # Definition interface I { output port p: [30] P }
-  # Definition passive component C { output port p: [30] P }
+  # Bound parameter definition (constant numPorts: U32, 30)
+  # Global definition interface I { output port p: [numPorts] P }
+  # Global definition passive component C { output port p: [numPorts] P }
 
 }
 

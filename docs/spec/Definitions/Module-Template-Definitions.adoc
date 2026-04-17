@@ -76,19 +76,19 @@ templates>>.
 [source,fpp]
 ----
 template MT(
-    constant baseId: U32
-    instance comDriver: ByteStreamDriver
+    constant baseId: FwIdType
+    instance comDriver: Drv.ByteStreamDriver
 ) {
 
     instance comStub: Svc.ComStub base id \
         baseId + 0x0800
 
     topology T {
+        instance comDriver
         instance comStub
 
         # Connect to the driver from the parameter list
         connections Downlink {
-            # ComStub <-> ComDriver
             comStub.drvSendOut      -> comDriver.$send
             comDriver.sendReturnOut -> comStub.drvSendReturnIn
             comDriver.ready         -> comStub.drvConnected

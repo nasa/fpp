@@ -3113,19 +3113,19 @@ definitions are still unevaluated.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">template MT(
-    constant baseId: U32
-    instance comDriver: ByteStreamDriver
+    constant baseId: FwIdType
+    instance comDriver: Drv.ByteStreamDriver
 ) {
 
     instance comStub: Svc.ComStub base id \
         baseId + 0x0800
 
     topology T {
+        instance comDriver
         instance comStub
 
         # Connect to the driver from the parameter list
         connections Downlink {
-            # ComStub &lt;-&gt; ComDriver
             comStub.drvSendOut      -&gt; comDriver.$send
             comDriver.sendReturnOut -&gt; comStub.drvSendReturnIn
             comDriver.ready         -&gt; comStub.drvConnected
@@ -4733,7 +4733,7 @@ topology AttitudeControl {
   # Imported topologies
   # ----------------------------------------------------------------------
 
-  instance CDH
+  import CDH
 
   # ----------------------------------------------------------------------
   # Public instances
@@ -4794,9 +4794,9 @@ topology Release {
   # Imported topologies
   # ----------------------------------------------------------------------
 
-  instance AttitudeControl
-  instance CDH
-  instance Communication
+  import AttitudeControl
+  import CDH
+  import Communication
   ...
 
   # Connecting subtopologies together
@@ -4831,7 +4831,7 @@ topology Release {
 
 topology B {
 
-  instance A
+  import A
 
   instance d
   instance e
@@ -4923,6 +4923,109 @@ applied to topology <code>B</code> in Example 3.</p>
   }
 
 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example 6 (Topology Ports).</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  instance b
+
+  port p = b.p
+
+}
+
+topology B {
+
+  instance a
+
+  instance B
+
+  connections C {
+    a.p -&gt; B.p
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we have imported topology <code>B</code> with the <code>instance</code> keyword, emphasizing
+that <code>B</code> is to be treated as an interface instance with ports.
+We could also have used <code>import</code> as in the examples above.
+See the section on <a href="#Specifiers_Port-Interface-Instance-Specifiers_Syntax">port
+interface instance specifiers</a>.</p>
+</div>
+<div class="paragraph">
+<p>Import resolution produces this topology:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  instance a
+  instance b
+
+  connections C {
+    a.p -&gt; b.p
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example 7 (Topology Templates).</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">port P
+
+interface IOut {
+  output port p: P
+}
+
+passive component COut {
+  import IOut
+  output port pOther: P
+}
+
+passive component CIn {
+  sync input port p: P
+}
+
+instance cOut: COut base id 0x100
+instance cIn: CIn base id 0x200
+
+module template T(
+  # Introduce an instance by template parameter.
+  # At this point we don't know what this instance is.
+  # All we know is that it has the port interface IOut.
+  instance iOut: IOut
+) {
+  topology T {
+    # On expansion, the topology T will have two instances: iOut and cIn.
+    # iOut will refer to the bound parameter definition with name iOut.
+    # cIn will refer to the component instance cIn.
+    instance iOut
+    instance cIn
+    connections C {
+      # Connection goes from the port interface of iOut to
+      # the port interface of cIn
+      iOut.p -&gt; cIn.p
+      # We must connect ports in the interfaces of the instances named.
+      # For example, a connection iOut.pOther -&gt; cIn.p is not allowed here,
+      # because pOther is not in the port interface of iOut.
+      # This is true even if iOut is eventually bound to cOut, which has the
+      # output port pOther.
+    }
+  }
+}
+
+# In the expansion, cOut is bound to iOut
+# After resolution, the connection is cOut.p -&gt; cIn.p.
+expand T(cOut)</code></pre>
 </div>
 </div>
 </div>
@@ -9116,8 +9219,9 @@ template T(constant numPorts: U32) {
 module M {
 
   expand T(constant 30)
-  # Definition interface I { output port p: [30] P }
-  # Definition passive component C { output port p: [30] P }
+  # Bound parameter definition (constant numPorts: U32, 30)
+  # Global definition interface I { output port p: [numPorts] P }
+  # Global definition passive component C { output port p: [numPorts] P }
 
 }</code></pre>
 </div>
@@ -13917,7 +14021,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-17 09:10:48 -0700
+Last updated 2026-04-17 09:53:23 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

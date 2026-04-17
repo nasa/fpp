@@ -540,7 +540,7 @@ topology AttitudeControl {
   # Imported topologies
   # ----------------------------------------------------------------------
 
-  instance CDH
+  import CDH
 
   # ----------------------------------------------------------------------
   # Public instances
@@ -600,9 +600,9 @@ topology Release {
   # Imported topologies
   # ----------------------------------------------------------------------
 
-  instance AttitudeControl
-  instance CDH
-  instance Communication
+  import AttitudeControl
+  import CDH
+  import Communication
   ...
 
   # Connecting subtopologies together
@@ -636,7 +636,7 @@ topology A {
 
 topology B {
 
-  instance A
+  import A
 
   instance d
   instance e
@@ -720,3 +720,104 @@ topology B {
 
 }
 ----
+
+*Example 6 (Topology Ports).*
+
+[source,fpp]
+----
+topology A {
+
+  instance b
+
+  port p = b.p
+
+}
+
+topology B {
+
+  instance a
+
+  instance B
+
+  connections C {
+    a.p -> B.p
+  }
+
+}
+----
+
+Here we have imported topology `B` with the `instance` keyword, emphasizing
+that `B` is to be treated as an interface instance with ports.
+We could also have used `import` as in the examples above.
+See the section on <<Specifiers_Port-Interface-Instance-Specifiers_Syntax,port
+interface instance specifiers>>.
+
+Import resolution produces this topology:
+
+[source,fpp]
+----
+topology A {
+
+  instance a
+  instance b
+
+  connections C {
+    a.p -> b.p
+  }
+
+}
+----
+
+*Example 7 (Topology Templates).*
+
+[source,fpp]
+----
+port P
+
+interface IOut {
+  output port p: P
+}
+
+passive component COut {
+  import IOut
+  output port pOther: P
+}
+
+passive component CIn {
+  sync input port p: P
+}
+
+instance cOut: COut base id 0x100
+instance cIn: CIn base id 0x200
+
+module template T(
+  # Introduce an instance by template parameter.
+  # At this point we don't know what this instance is.
+  # All we know is that it has the port interface IOut.
+  instance iOut: IOut
+) {
+  topology T {
+    # On expansion, the topology T will have two instances: iOut and cIn.
+    # iOut will refer to the bound parameter definition with name iOut.
+    # cIn will refer to the component instance cIn.
+    instance iOut
+    instance cIn
+    connections C {
+      # Connection goes from the port interface of iOut to
+      # the port interface of cIn
+      iOut.p -> cIn.p
+      # We must connect ports in the interfaces of the instances named.
+      # For example, a connection iOut.pOther -> cIn.p is not allowed here,
+      # because pOther is not in the port interface of iOut.
+      # This is true even if iOut is eventually bound to cOut, which has the
+      # output port pOther.
+    }
+  }
+}
+
+# In the expansion, cOut is bound to iOut
+# After resolution, the connection is cOut.p -> cIn.p.
+expand T(cOut)
+----
+
+
