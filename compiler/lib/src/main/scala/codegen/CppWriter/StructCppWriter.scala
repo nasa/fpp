@@ -257,7 +257,7 @@ case class StructCppWriter(
       List.concat(
         getSerialFunctionMembers,
         wrapClassMembersInIfDirective(
-          "\n#if FW_SERIALIZABLE_TO_STRING",
+          "#if FW_SERIALIZABLE_TO_STRING",
           List(ToStringFunctionMember.get)
         ),
         getGetterFunctionMembers,
@@ -348,7 +348,6 @@ case class StructCppWriter(
     )
 
   private def getOstreamOperator =
-    linesClassMember(List(Line.blank), CppDoc.Lines.Both) ::
     writeOstreamOperator(
       structName,
       lines(

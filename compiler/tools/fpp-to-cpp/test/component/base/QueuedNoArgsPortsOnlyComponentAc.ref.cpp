@@ -66,6 +66,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
   // Initialize base class
   Fw::QueuedComponentBase::init(instance);
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsAsync
   for (
     FwIndexType port = 0;
@@ -89,7 +90,9 @@ void QueuedNoArgsPortsOnlyComponentBase ::
     this->m_noArgsAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsGuarded
   for (
     FwIndexType port = 0;
@@ -113,7 +116,9 @@ void QueuedNoArgsPortsOnlyComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsReturnGuarded
   for (
     FwIndexType port = 0;
@@ -137,7 +142,9 @@ void QueuedNoArgsPortsOnlyComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsReturnSync
   for (
     FwIndexType port = 0;
@@ -161,7 +168,9 @@ void QueuedNoArgsPortsOnlyComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsOut
   for (
     FwIndexType port = 0;
@@ -180,7 +189,9 @@ void QueuedNoArgsPortsOnlyComponentBase ::
     this->m_noArgsOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsReturnOut
   for (
     FwIndexType port = 0;
@@ -199,6 +210,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
     this->m_noArgsReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
   // Create the queue
   Os::Queue::Status qStat = this->createQueue(
@@ -210,6 +222,8 @@ void QueuedNoArgsPortsOnlyComponentBase ::
     static_cast<FwAssertArgType>(qStat)
   );
 }
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for typed input ports
@@ -259,6 +273,10 @@ Ports::InputNoArgsReturnPort* QueuedNoArgsPortsOnlyComponentBase ::
   return &this->m_noArgsReturnSync_InputPort[portNum];
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connect typed input ports to typed output ports
 // ----------------------------------------------------------------------
@@ -291,7 +309,9 @@ void QueuedNoArgsPortsOnlyComponentBase ::
   this->m_noArgsReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to typed output ports
@@ -330,12 +350,14 @@ QueuedNoArgsPortsOnlyComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
 
 bool QueuedNoArgsPortsOnlyComponentBase ::
-  isConnected_noArgsOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -346,7 +368,7 @@ bool QueuedNoArgsPortsOnlyComponentBase ::
 }
 
 bool QueuedNoArgsPortsOnlyComponentBase ::
-  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -355,6 +377,8 @@ bool QueuedNoArgsPortsOnlyComponentBase ::
 
   return this->m_noArgsReturnOut_OutputPort[portNum].isConnected();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Port handler base-class functions for typed input ports
@@ -475,12 +499,14 @@ void QueuedNoArgsPortsOnlyComponentBase ::
   // Default: no-op
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
 
 void QueuedNoArgsPortsOnlyComponentBase ::
-  noArgsOut_out(FwIndexType portNum)
+  noArgsOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -495,7 +521,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
 }
 
 U32 QueuedNoArgsPortsOnlyComponentBase ::
-  noArgsReturnOut_out(FwIndexType portNum)
+  noArgsReturnOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -508,6 +534,8 @@ U32 QueuedNoArgsPortsOnlyComponentBase ::
   );
   return this->m_noArgsReturnOut_OutputPort[portNum].invoke();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Mutex operations for guarded ports

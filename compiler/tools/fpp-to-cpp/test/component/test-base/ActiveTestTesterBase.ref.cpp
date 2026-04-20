@@ -284,7 +284,7 @@ namespace M {
 #endif
     }
 
-#if FW_ENABLE_TEXT_LOGGING == 1
+#if FW_ENABLE_TEXT_LOGGING
     // Connect input port textEventOut
     for (
       FwIndexType port = 0;
@@ -2262,7 +2262,7 @@ namespace M {
   // ----------------------------------------------------------------------
 
   bool ActiveTestTesterBase ::
-    isConnected_to_cmdIn(FwIndexType portNum)
+    isConnected_to_cmdIn(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_cmdIn()),
@@ -2273,7 +2273,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_productRecvIn(FwIndexType portNum)
+    isConnected_to_productRecvIn(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_productRecvIn()),
@@ -2284,7 +2284,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_aliasTypedAsync(FwIndexType portNum)
+    isConnected_to_aliasTypedAsync(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_aliasTypedAsync()),
@@ -2295,7 +2295,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_noArgsAliasStringReturnSync(FwIndexType portNum)
+    isConnected_to_noArgsAliasStringReturnSync(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_noArgsAliasStringReturnSync()),
@@ -2306,7 +2306,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_noArgsAsync(FwIndexType portNum)
+    isConnected_to_noArgsAsync(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_noArgsAsync()),
@@ -2317,7 +2317,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_noArgsGuarded(FwIndexType portNum)
+    isConnected_to_noArgsGuarded(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_noArgsGuarded()),
@@ -2328,7 +2328,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_noArgsReturnGuarded(FwIndexType portNum)
+    isConnected_to_noArgsReturnGuarded(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnGuarded()),
@@ -2339,7 +2339,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_noArgsReturnSync(FwIndexType portNum)
+    isConnected_to_noArgsReturnSync(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnSync()),
@@ -2350,7 +2350,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_noArgsStringReturnSync(FwIndexType portNum)
+    isConnected_to_noArgsStringReturnSync(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_noArgsStringReturnSync()),
@@ -2361,7 +2361,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_noArgsSync(FwIndexType portNum)
+    isConnected_to_noArgsSync(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_noArgsSync()),
@@ -2372,7 +2372,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_typedAliasGuarded(FwIndexType portNum)
+    isConnected_to_typedAliasGuarded(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_typedAliasGuarded()),
@@ -2383,7 +2383,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_typedAliasReturnSync(FwIndexType portNum)
+    isConnected_to_typedAliasReturnSync(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_typedAliasReturnSync()),
@@ -2394,7 +2394,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_typedAliasStringReturnSync(FwIndexType portNum)
+    isConnected_to_typedAliasStringReturnSync(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_typedAliasStringReturnSync()),
@@ -2405,7 +2405,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_typedAsync(FwIndexType portNum)
+    isConnected_to_typedAsync(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_typedAsync()),
@@ -2416,7 +2416,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_typedAsyncAssert(FwIndexType portNum)
+    isConnected_to_typedAsyncAssert(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_typedAsyncAssert()),
@@ -2427,7 +2427,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_typedAsyncBlockPriority(FwIndexType portNum)
+    isConnected_to_typedAsyncBlockPriority(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_typedAsyncBlockPriority()),
@@ -2438,7 +2438,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_typedAsyncDropPriority(FwIndexType portNum)
+    isConnected_to_typedAsyncDropPriority(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_typedAsyncDropPriority()),
@@ -2449,7 +2449,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_typedGuarded(FwIndexType portNum)
+    isConnected_to_typedGuarded(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_typedGuarded()),
@@ -2460,7 +2460,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_typedReturnGuarded(FwIndexType portNum)
+    isConnected_to_typedReturnGuarded(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_typedReturnGuarded()),
@@ -2471,7 +2471,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_typedReturnSync(FwIndexType portNum)
+    isConnected_to_typedReturnSync(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_typedReturnSync()),
@@ -2482,7 +2482,7 @@ namespace M {
   }
 
   bool ActiveTestTesterBase ::
-    isConnected_to_typedSync(FwIndexType portNum)
+    isConnected_to_typedSync(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_to_typedSync()),

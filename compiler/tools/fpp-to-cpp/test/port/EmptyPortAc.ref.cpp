@@ -6,36 +6,11 @@
 
 #include "EmptyPortAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/ExternalString.hpp"
 
-namespace {
-
-  // ----------------------------------------------------------------------
-  // Port buffer class
-  // ----------------------------------------------------------------------
-
-  class EmptyPortBuffer : public Fw::LinearBufferBase {
-
-    public:
-
-      Fw::Serializable::SizeType getCapacity() const {
-        return InputEmptyPort::SERIALIZED_SIZE;
-      }
-
-      U8* getBuffAddr() {
-        return nullptr;
-      }
-
-      const U8* getBuffAddr() const {
-        return nullptr;
-      }
-
-  };
-
-}
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
-// Input Port Member functions
+// Public constructors for InputEmptyPort
 // ----------------------------------------------------------------------
 
 InputEmptyPort ::
@@ -45,6 +20,10 @@ InputEmptyPort ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Public member functions for InputEmptyPort
+// ----------------------------------------------------------------------
 
 void InputEmptyPort ::
   init()
@@ -79,19 +58,23 @@ void InputEmptyPort ::
   return this->m_func(this->m_comp, this->m_portNum);
 }
 
+// ----------------------------------------------------------------------
+// Private member functions for InputEmptyPort
+// ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
 Fw::SerializeStatus InputEmptyPort ::
   invokeSerial(Fw::LinearBufferBase& _buffer)
 {
-  (void) _buffer;
-
 #if FW_PORT_TRACING == 1
   this->trace();
 #endif
 
   FW_ASSERT(this->m_comp != nullptr);
   FW_ASSERT(this->m_func != nullptr);
+
+  (void) _buffer;
 
   this->m_func(this->m_comp, this->m_portNum);
 
@@ -101,7 +84,7 @@ Fw::SerializeStatus InputEmptyPort ::
 #endif
 
 // ----------------------------------------------------------------------
-// Output Port Member functions
+// Public constructors for OutputEmptyPort
 // ----------------------------------------------------------------------
 
 OutputEmptyPort ::
@@ -111,6 +94,10 @@ OutputEmptyPort ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Public member functions for OutputEmptyPort
+// ----------------------------------------------------------------------
 
 void OutputEmptyPort ::
   init()
@@ -156,3 +143,5 @@ void OutputEmptyPort ::
   this->m_port->invoke();
 #endif
 }
+
+#endif

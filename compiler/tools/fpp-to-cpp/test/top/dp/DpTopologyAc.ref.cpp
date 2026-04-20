@@ -60,6 +60,8 @@ namespace M {
 
   void connectComponents() {
 
+#if !FW_DIRECT_PORT_CALLS
+
     // Dp
     M::c1.set_productGetOut_OutputPort(
         0,
@@ -77,6 +79,9 @@ namespace M {
         0,
         M::c1.get_productRecvIn_InputPort(0)
     );
+
+#endif
+
   }
 
   void regCommands() {
@@ -137,3 +142,429 @@ namespace M {
   }
 
 }
+
+#if FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Topology-dependent component implementation
+// ----------------------------------------------------------------------
+
+namespace M {
+
+  bool CComponentBase::isConnected_productGetOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRODUCTGETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRODUCTGETOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+    }
+    return result;
+  }
+
+  bool CComponentBase::isConnected_productRequestOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRODUCTREQUESTOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRODUCTREQUESTOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+    }
+    return result;
+  }
+
+  bool CComponentBase::isConnected_productSendOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRODUCTSENDOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRODUCTSENDOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+    }
+    return result;
+  }
+
+  bool CComponentBase::isConnected_timeGetOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_TIMEGETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_TIMEGETOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+    }
+    return result;
+  }
+
+  Fw::Success CComponentBase::productGetOut_out(
+      FwIndexType portNum,
+      FwDpIdType id,
+      FwSizeType dataSize,
+      Fw::Buffer& buffer
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRODUCTGETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRODUCTGETOUT_OUTPUT_PORTS)
+    );
+    Fw::Success _result = {};
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          case 0:
+            _result = M::dpManager.productGetIn_handlerBase(
+              0,
+              id,
+              dataSize,
+              buffer
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+    }
+    return _result;
+  }
+
+  void CComponentBase::productRequestOut_out(
+      FwIndexType portNum,
+      FwDpIdType id,
+      FwSizeType dataSize
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRODUCTREQUESTOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRODUCTREQUESTOUT_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          case 0:
+            M::dpManager.productRequestIn_handlerBase(
+              0,
+              id,
+              dataSize
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+    }
+  }
+
+  void CComponentBase::productSendOut_out(
+      FwIndexType portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRODUCTSENDOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRODUCTSENDOUT_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          case 0:
+            M::dpManager.productSendIn_handlerBase(
+              0,
+              id,
+              buffer
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+    }
+  }
+
+  void CComponentBase::timeGetOut_out(
+      FwIndexType portNum,
+      Fw::Time& time
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_TIMEGETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_TIMEGETOUT_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+    }
+  }
+
+}
+
+namespace M {
+
+  bool DpManagerComponentBase::isConnected_productResponseOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRODUCTRESPONSEOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRODUCTRESPONSEOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    switch (portNum) {
+      case 0:
+        result = true;
+        break;
+      default:
+        break;
+    }
+    return result;
+  }
+
+  void DpManagerComponentBase::productResponseOut_out(
+      FwIndexType portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRODUCTRESPONSEOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRODUCTRESPONSEOUT_OUTPUT_PORTS)
+    );
+    switch (portNum) {
+      case 0:
+        M::c1.productRecvIn_handlerBase(
+          0,
+          id,
+          buffer,
+          status
+        );
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        break;
+    }
+  }
+
+}
+
+namespace M {
+
+  bool NoDpComponentBase::isConnected_productGetOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRODUCTGETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRODUCTGETOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    switch (portNum) {
+      default:
+        break;
+    }
+    return result;
+  }
+
+  bool NoDpComponentBase::isConnected_productSendOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRODUCTSENDOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRODUCTSENDOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    switch (portNum) {
+      default:
+        break;
+    }
+    return result;
+  }
+
+  bool NoDpComponentBase::isConnected_timeGetOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_TIMEGETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_TIMEGETOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    switch (portNum) {
+      default:
+        break;
+    }
+    return result;
+  }
+
+  void NoDpComponentBase::timeGetOut_out(
+      FwIndexType portNum,
+      Fw::Time& time
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_TIMEGETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_TIMEGETOUT_OUTPUT_PORTS)
+    );
+    switch (portNum) {
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        break;
+    }
+  }
+
+}
+
+#endif
