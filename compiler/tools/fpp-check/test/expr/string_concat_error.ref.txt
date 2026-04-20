@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/expr/string_concat_error.fpp:1.24
+constant a = { x = 1 } + { x = 2 }
+                       ^
+error: cannot convert { x: Integer } to a numeric or string type
