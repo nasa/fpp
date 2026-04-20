@@ -10903,45 +10903,22 @@ directory in the environment where the analysis occurs.</p>
 <p><em><a href="#Lexical-Elements_Identifiers">identifier</a></em></p>
 </li>
 <li>
-<p><code>.</code> <em><a href="#Lexical-Elements_Identifiers">identifier</a></em></p>
-</li>
-<li>
 <p><em>qual-ident</em> <code>.</code> <em><a href="#Lexical-Elements_Identifiers">identifier</a></em></p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Therefore every qualified identifier consists of an optional dot <code>.</code> followed
-by a nonempty list of identifiers separated by dots.</p>
+<p>Therefore every qualified identifier consists of
+a nonempty list of identifiers separated by dots.</p>
 </div>
 <div class="paragraph">
-<p>A qualified identifier that begins with an identifier is called a <strong>relative
-qualified identifier</strong>.
-It specifies a qualified name relative to an enclosing scope.</p>
-</div>
-<div class="paragraph">
-<p>A qualified identifier that begins with a dot is called an <strong>absolute qualified
-identifier</strong>.
-It specifies a qualified name without reference to an enclosing scope.</p>
-</div>
-<div class="paragraph">
-<p><strong>Examples of relative qualified identifiers:</strong></p>
+<p><strong>Examples:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">a
 a.b
 a.b.c</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Examples of absolute qualified identifiers:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">.a
-.a.b
-.a.b.c</code></pre>
 </div>
 </div>
 </div>
@@ -11485,10 +11462,6 @@ associating qualified identifiers <em>Q</em> with definitions:</p>
 <a href="#Scoping-of-Names_Resolution-of-Identifiers">previous section</a>.</p>
 </li>
 <li>
-<p>Otherwise if <em>Q</em> has the form <code>.</code> <em>I</em>, then resolve <em>Q</em> as
-if it were <em>I</em> appearing at the top level.</p>
-</li>
-<li>
 <p>Otherwise <em>Q</em> has the form <em>Q'</em> <code>.</code> <em>I</em>, where
 <em>Q'</em> is a qualified identifier and <em>I</em> is an identifier. Do the
 following:</p>
@@ -11540,7 +11513,6 @@ module M {
   constant g = M.a # Refers to M.a
   constant h = E.b # Refers to M.E.b
   constant i = M.E.b # Refers to M.E.b
-  constant j = .a # Refers to a
 }</code></pre>
 </div>
 </div>
@@ -14017,7 +13989,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-19 19:12:22 -0700
+Last updated 2026-04-20 13:50:25 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
