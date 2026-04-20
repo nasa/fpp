@@ -42,10 +42,6 @@ template expansion to occur.
 Each module template definition _M_ that appears in a model
 must pass the following analysis, regardless of whether it
 is expanded.
-As module template definitions are expanded, new template definitions can
-be introduced; they are analyzed at this point.
-For more details, See the section on <<Expansion-of-Templates,expansion of 
-templates>>.
 
 . Expand _M_ at the point of the definition of _M_, providing the following
   <<Specifiers_Template-Expansion-Specifiers,arguments for the template 
@@ -54,7 +50,7 @@ templates>>.
 .. For each constant template parameter, a literal value of the correct type.
 
 .. For each port interface instance template argument, a component
-   interface definition that minimally satisfies the interface.
+   instance definition that minimally satisfies the interface.
 
 .. For each type template argument, an abstract type definition.
 
