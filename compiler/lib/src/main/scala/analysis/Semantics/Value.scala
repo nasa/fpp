@@ -2,7 +2,6 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
-import java.lang
 
 /** An FPP value */
 sealed trait Value {
@@ -11,7 +10,8 @@ sealed trait Value {
   final def +(v: Value): Option[Value] = {
     def intOp(v1: BigInt, v2: BigInt) = v1 + v2
     def doubleOp(v1: Double, v2: Double) = v1 + v2
-    binop(Value.Binop(intOp, doubleOp))(v)
+    def stringOp(v1: java.lang.String, v2: java.lang.String) = v1.concat(v2)
+    binop(Value.Binop(intOp, doubleOp, Some(stringOp)))(v)
   }
 
   /** Check whether a value is zero for purposes of division */
@@ -269,6 +269,11 @@ object Value {
   /** String values */
   case class String(value: java.lang.String) extends Value {
 
+    override private[analysis] def binop(op: Binop)(v: Value) = v match {
+      case String(value1) => op.stringOpOpt.map(_(value, value1)).map(String(_))
+      case _ => None
+    }
+
     override def convertToDistinctType(t: Type) =
       t.getUnderlyingType match {
         case Type.String(_) => Some(this)
@@ -472,7 +477,9 @@ object Value {
     /** The integer operation */
     intOp: Binop.Op[BigInt], 
     /** The double-precision floating point operation */
-    doubleOp: Binop.Op[Double]
+    doubleOp: Binop.Op[Double],
+    /** The optional string operation */
+    stringOpOpt: Option[Binop.Op[java.lang.String]] = None
   )
 
   private[analysis] object Binop {

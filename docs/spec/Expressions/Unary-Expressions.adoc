@@ -1,0 +1,22 @@
+=== Unary Negation Expressions
+
+A *unary negation expression* is an expression that negates
+a numeric value.
+
+==== Syntax
+
+`-` <<Expressions,_expression_>>
+
+==== Semantics
+
+The entire expression must have a valid
+<<Type-Checking_Unary-Negation-Expressions,type>>.
+Evaluation is by integer or floating-point negation, depending on the
+type of the expression.
+
+==== Example
+
+[source,fpp]
+----
+constant a = -1 # a has value -1
+----

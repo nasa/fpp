@@ -560,16 +560,10 @@ constant a = -1
 ----
 constant a = 1 + 2
 ----
-* A parenthesis expression, for example:
-+
-[source,fpp]
-----
-constant a = (1)
-----
 
 The following rules apply to arithmetic expressions:
 
-* The subexpressions must be integer or floating-point values.
+* The subexpressions must evaluate to integer or floating-point values.
 
 * If there are any floating-point subexpressions, then the entire expression is 
 evaluated using 64-bit floating-point arithmetic.
@@ -577,13 +571,28 @@ evaluated using 64-bit floating-point arithmetic.
 * Otherwise the expression is evaluated using arbitrary-precision integer 
 arithmetic.
 
-* In a division operation, the second operand may not be zero or (for 
+* In a division operation, the second operand may not be zero or (for
 floating-point values) very close to zero.
+
+==== String Concatenation Expressions
+
+A *string concatenation expression* concatenates strings.
+To write a string concatenation expression, you use the symbol `+`.
+This is the same symbol as for 
+<<Defining-Constants_Expressions_Value-Arithmetic-Expressions,addition>>,
+except that it operates on strings instead of numbers.
+For example:
+
+[source,fpp]
+----
+constant a = "hello " + "there!" # value of a is "hello there!"
+----
 
 ==== Compound Expressions
 
 Wherever you can write a value inside an expression, you can write
 a more complex expression there, so long as the types work out.
+You can also use parentheses in the usual way to group subexpressions.
 For example, these expressions are valid:
 
 [source,fpp]
