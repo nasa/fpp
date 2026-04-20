@@ -4,9 +4,7 @@
 
 A *use* is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>>
-that refers to a
-<<Definitions,definition>>
-according to the
+that refers to a <<Definitions,definition>> according to the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,scoping rules for names>>.
 
 A use is a *qualifying use* if it qualifies another use. For example, in
@@ -152,7 +150,7 @@ module M {
 
 An error also occurs if the rules
 for resolving <<Expressions_Dot-Expressions_Semantics,dot expressions>>
-causes an implied constant use to be resolved to a member
+cause an implied constant use to be resolved to a member
 of a struct value instead of a constant definition. For example, suppose this 
 definition exists in the model:
 

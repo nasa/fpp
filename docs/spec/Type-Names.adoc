@@ -77,16 +77,26 @@ identifier>> that refers to an
 <<Definitions_Abstract-Type-Definitions,abstract type definition>>,
 <<Definitions_Alias-Type-Definitions,alias type definition>>,
 <<Definitions_Array-Definitions,array definition>>,
-<<Definitions_Enum-Definitions,enum definition>>, or
-<<Definitions_Struct-Definitions,struct definition>>
+<<Definitions_Enum-Definitions,enum definition>>,
+<<Definitions_Struct-Definitions,struct definition>>,
+or
+<<Definitions,bound parameter definition>>
  via the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules
 for name scoping>>.
-It names the
-<<Types,type>> defined in the definition to which it refers.
+A qualified identifier type name _Q_ names a type a follows:
+
+.  If _Q_ refers to a global definition _D_,
+then _Q_ names the
+<<Types,type>> defined in _D_.
+
+.  Otherwise _Q_ refers to a bound parameter definition _B_.
+In this case, _B_ must be a
+<<Specifiers_Template-Expansion-Specifiers,type template parameter 
+definition>>, and _Q_ names the type defined in the global definition
+<<Definitions,represented by>> _B_.
 
 For example:
-
 
 [source,fpp]
 ----
