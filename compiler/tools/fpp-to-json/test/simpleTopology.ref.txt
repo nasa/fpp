@@ -2629,46 +2629,16 @@
       }
     },
     "useDefMap" : {
-      "12" : {
-        "Port" : {
-          "nodeId" : 0,
-          "unqualifiedName" : "P"
-        }
-      },
-      "62" : {
-        "ComponentInstance" : {
-          "nodeId" : 18,
-          "unqualifiedName" : "c1"
-        }
-      },
-      "31" : {
-        "ComponentInstance" : {
-          "nodeId" : 18,
-          "unqualifiedName" : "c1"
-        }
-      },
-      "58" : {
-        "ComponentInstance" : {
-          "nodeId" : 22,
-          "unqualifiedName" : "c2"
-        }
-      },
       "3" : {
         "Port" : {
           "nodeId" : 0,
           "unqualifiedName" : "P"
         }
       },
-      "24" : {
-        "ComponentInstance" : {
-          "nodeId" : 18,
-          "unqualifiedName" : "c1"
-        }
-      },
-      "35" : {
-        "ComponentInstance" : {
-          "nodeId" : 22,
-          "unqualifiedName" : "c2"
+      "12" : {
+        "Port" : {
+          "nodeId" : 0,
+          "unqualifiedName" : "P"
         }
       },
       "16" : {
@@ -2683,10 +2653,40 @@
           "unqualifiedName" : "C"
         }
       },
+      "24" : {
+        "ComponentInstance" : {
+          "nodeId" : 18,
+          "unqualifiedName" : "c1"
+        }
+      },
       "27" : {
         "ComponentInstance" : {
           "nodeId" : 22,
           "unqualifiedName" : "c2"
+        }
+      },
+      "31" : {
+        "ComponentInstance" : {
+          "nodeId" : 18,
+          "unqualifiedName" : "c1"
+        }
+      },
+      "35" : {
+        "ComponentInstance" : {
+          "nodeId" : 22,
+          "unqualifiedName" : "c2"
+        }
+      },
+      "58" : {
+        "ComponentInstance" : {
+          "nodeId" : 22,
+          "unqualifiedName" : "c2"
+        }
+      },
+      "62" : {
+        "ComponentInstance" : {
+          "nodeId" : 18,
+          "unqualifiedName" : "c1"
         }
       }
     },
@@ -2723,6 +2723,33 @@
           "specialPortMap" : {
             
           }
+        }
+      }
+    },
+    "dictionaryMap" : {
+      "65" : {
+        "usedSymbolSet" : [
+        ],
+        "commandEntryMap" : {
+          
+        },
+        "tlmChannelEntryMap" : {
+          
+        },
+        "eventEntryMap" : {
+          
+        },
+        "paramEntryMap" : {
+          
+        },
+        "recordEntryMap" : {
+          
+        },
+        "containerEntryMap" : {
+          
+        },
+        "tlmPacketSetMap" : {
+          
         }
       }
     }
