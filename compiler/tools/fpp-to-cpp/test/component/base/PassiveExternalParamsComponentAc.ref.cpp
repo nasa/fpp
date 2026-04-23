@@ -1389,6 +1389,8 @@ void PassiveExternalParamsComponentBase ::
     _buff
   );
 
+  this->m_paramLock.lock();
+
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamI32Ext_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
@@ -1405,6 +1407,8 @@ void PassiveExternalParamsComponentBase ::
     this->m_param_ParamI32Ext_valid = Fw::ParamValid::INVALID;
   }
 
+  this->m_paramLock.unLock();
+
   _id = _baseId + PARAMID_PARAMF64EXT;
 
   // Get parameter ParamF64Ext
@@ -1413,6 +1417,8 @@ void PassiveExternalParamsComponentBase ::
     _id,
     _buff
   );
+
+  this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamF64Ext_valid == Fw::ParamValid::VALID) {
@@ -1430,6 +1436,8 @@ void PassiveExternalParamsComponentBase ::
     this->m_param_ParamF64Ext_valid = Fw::ParamValid::INVALID;
   }
 
+  this->m_paramLock.unLock();
+
   _id = _baseId + PARAMID_PARAMSTRINGEXT;
 
   // Get parameter ParamStringExt
@@ -1438,6 +1446,8 @@ void PassiveExternalParamsComponentBase ::
     _id,
     _buff
   );
+
+  this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamStringExt_valid == Fw::ParamValid::VALID) {
@@ -1455,6 +1465,8 @@ void PassiveExternalParamsComponentBase ::
     this->m_param_ParamStringExt_valid = Fw::ParamValid::INVALID;
   }
 
+  this->m_paramLock.unLock();
+
   _id = _baseId + PARAMID_PARAMENUMEXT;
 
   // Get parameter ParamEnumExt
@@ -1463,6 +1475,8 @@ void PassiveExternalParamsComponentBase ::
     _id,
     _buff
   );
+
+  this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamEnumExt_valid == Fw::ParamValid::VALID) {
@@ -1480,6 +1494,8 @@ void PassiveExternalParamsComponentBase ::
     this->m_param_ParamEnumExt_valid = Fw::ParamValid::INVALID;
   }
 
+  this->m_paramLock.unLock();
+
   _id = _baseId + PARAMID_PARAMARRAYEXT;
 
   // Get parameter ParamArrayExt
@@ -1488,6 +1504,8 @@ void PassiveExternalParamsComponentBase ::
     _id,
     _buff
   );
+
+  this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamArrayExt_valid == Fw::ParamValid::VALID) {
@@ -1505,6 +1523,8 @@ void PassiveExternalParamsComponentBase ::
     this->m_param_ParamArrayExt_valid = Fw::ParamValid::INVALID;
   }
 
+  this->m_paramLock.unLock();
+
   _id = _baseId + PARAMID_PARAMSTRUCTEXT;
 
   // Get parameter ParamStructExt
@@ -1513,6 +1533,8 @@ void PassiveExternalParamsComponentBase ::
     _id,
     _buff
   );
+
+  this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamStructExt_valid == Fw::ParamValid::VALID) {
@@ -1529,6 +1551,8 @@ void PassiveExternalParamsComponentBase ::
   else {
     this->m_param_ParamStructExt_valid = Fw::ParamValid::INVALID;
   }
+
+  this->m_paramLock.unLock();
 
   // Call notifier
   this->parametersLoaded();

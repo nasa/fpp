@@ -2220,7 +2220,6 @@ void QueuedTestComponentBase ::
     _buff
   );
 
-  // Deserialize value
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
@@ -2245,7 +2244,6 @@ void QueuedTestComponentBase ::
     _buff
   );
 
-  // Deserialize value
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
@@ -2270,7 +2268,6 @@ void QueuedTestComponentBase ::
     _buff
   );
 
-  // Deserialize value
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
@@ -2299,7 +2296,6 @@ void QueuedTestComponentBase ::
     _buff
   );
 
-  // Deserialize value
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
@@ -2324,7 +2320,6 @@ void QueuedTestComponentBase ::
     _buff
   );
 
-  // Deserialize value
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
@@ -2353,7 +2348,6 @@ void QueuedTestComponentBase ::
     _buff
   );
 
-  // Deserialize value
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
@@ -2378,6 +2372,8 @@ void QueuedTestComponentBase ::
     _buff
   );
 
+  this->m_paramLock.lock();
+
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamI32Ext_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
@@ -2394,6 +2390,8 @@ void QueuedTestComponentBase ::
     this->m_param_ParamI32Ext_valid = Fw::ParamValid::INVALID;
   }
 
+  this->m_paramLock.unLock();
+
   _id = _baseId + PARAMID_PARAMF64EXT;
 
   // Get parameter ParamF64Ext
@@ -2402,6 +2400,8 @@ void QueuedTestComponentBase ::
     _id,
     _buff
   );
+
+  this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamF64Ext_valid == Fw::ParamValid::VALID) {
@@ -2419,6 +2419,8 @@ void QueuedTestComponentBase ::
     this->m_param_ParamF64Ext_valid = Fw::ParamValid::INVALID;
   }
 
+  this->m_paramLock.unLock();
+
   _id = _baseId + PARAMID_PARAMSTRINGEXT;
 
   // Get parameter ParamStringExt
@@ -2427,6 +2429,8 @@ void QueuedTestComponentBase ::
     _id,
     _buff
   );
+
+  this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamStringExt_valid == Fw::ParamValid::VALID) {
@@ -2444,6 +2448,8 @@ void QueuedTestComponentBase ::
     this->m_param_ParamStringExt_valid = Fw::ParamValid::INVALID;
   }
 
+  this->m_paramLock.unLock();
+
   _id = _baseId + PARAMID_PARAMENUMEXT;
 
   // Get parameter ParamEnumExt
@@ -2452,6 +2458,8 @@ void QueuedTestComponentBase ::
     _id,
     _buff
   );
+
+  this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamEnumExt_valid == Fw::ParamValid::VALID) {
@@ -2469,6 +2477,8 @@ void QueuedTestComponentBase ::
     this->m_param_ParamEnumExt_valid = Fw::ParamValid::INVALID;
   }
 
+  this->m_paramLock.unLock();
+
   _id = _baseId + PARAMID_PARAMARRAYEXT;
 
   // Get parameter ParamArrayExt
@@ -2477,6 +2487,8 @@ void QueuedTestComponentBase ::
     _id,
     _buff
   );
+
+  this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamArrayExt_valid == Fw::ParamValid::VALID) {
@@ -2494,6 +2506,8 @@ void QueuedTestComponentBase ::
     this->m_param_ParamArrayExt_valid = Fw::ParamValid::INVALID;
   }
 
+  this->m_paramLock.unLock();
+
   _id = _baseId + PARAMID_PARAMSTRUCTEXT;
 
   // Get parameter ParamStructExt
@@ -2502,6 +2516,8 @@ void QueuedTestComponentBase ::
     _id,
     _buff
   );
+
+  this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamStructExt_valid == Fw::ParamValid::VALID) {
@@ -2518,6 +2534,8 @@ void QueuedTestComponentBase ::
   else {
     this->m_param_ParamStructExt_valid = Fw::ParamValid::INVALID;
   }
+
+  this->m_paramLock.unLock();
 
   // Call notifier
   this->parametersLoaded();

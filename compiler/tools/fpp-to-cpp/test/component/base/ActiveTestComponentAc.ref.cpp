@@ -2222,7 +2222,6 @@ namespace M {
       _buff
     );
 
-    // Deserialize value
     this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
@@ -2247,7 +2246,6 @@ namespace M {
       _buff
     );
 
-    // Deserialize value
     this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
@@ -2272,7 +2270,6 @@ namespace M {
       _buff
     );
 
-    // Deserialize value
     this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
@@ -2301,7 +2298,6 @@ namespace M {
       _buff
     );
 
-    // Deserialize value
     this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
@@ -2326,7 +2322,6 @@ namespace M {
       _buff
     );
 
-    // Deserialize value
     this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
@@ -2355,7 +2350,6 @@ namespace M {
       _buff
     );
 
-    // Deserialize value
     this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
@@ -2380,6 +2374,8 @@ namespace M {
       _buff
     );
 
+    this->m_paramLock.lock();
+
     // If there was a deserialization issue, mark it invalid
     if (this->m_param_ParamI32Ext_valid == Fw::ParamValid::VALID) {
       // Pass the local ID to the delegate
@@ -2396,6 +2392,8 @@ namespace M {
       this->m_param_ParamI32Ext_valid = Fw::ParamValid::INVALID;
     }
 
+    this->m_paramLock.unLock();
+
     _id = _baseId + PARAMID_PARAMF64EXT;
 
     // Get parameter ParamF64Ext
@@ -2404,6 +2402,8 @@ namespace M {
       _id,
       _buff
     );
+
+    this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
     if (this->m_param_ParamF64Ext_valid == Fw::ParamValid::VALID) {
@@ -2421,6 +2421,8 @@ namespace M {
       this->m_param_ParamF64Ext_valid = Fw::ParamValid::INVALID;
     }
 
+    this->m_paramLock.unLock();
+
     _id = _baseId + PARAMID_PARAMSTRINGEXT;
 
     // Get parameter ParamStringExt
@@ -2429,6 +2431,8 @@ namespace M {
       _id,
       _buff
     );
+
+    this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
     if (this->m_param_ParamStringExt_valid == Fw::ParamValid::VALID) {
@@ -2446,6 +2450,8 @@ namespace M {
       this->m_param_ParamStringExt_valid = Fw::ParamValid::INVALID;
     }
 
+    this->m_paramLock.unLock();
+
     _id = _baseId + PARAMID_PARAMENUMEXT;
 
     // Get parameter ParamEnumExt
@@ -2454,6 +2460,8 @@ namespace M {
       _id,
       _buff
     );
+
+    this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
     if (this->m_param_ParamEnumExt_valid == Fw::ParamValid::VALID) {
@@ -2471,6 +2479,8 @@ namespace M {
       this->m_param_ParamEnumExt_valid = Fw::ParamValid::INVALID;
     }
 
+    this->m_paramLock.unLock();
+
     _id = _baseId + PARAMID_PARAMARRAYEXT;
 
     // Get parameter ParamArrayExt
@@ -2479,6 +2489,8 @@ namespace M {
       _id,
       _buff
     );
+
+    this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
     if (this->m_param_ParamArrayExt_valid == Fw::ParamValid::VALID) {
@@ -2496,6 +2508,8 @@ namespace M {
       this->m_param_ParamArrayExt_valid = Fw::ParamValid::INVALID;
     }
 
+    this->m_paramLock.unLock();
+
     _id = _baseId + PARAMID_PARAMSTRUCTEXT;
 
     // Get parameter ParamStructExt
@@ -2504,6 +2518,8 @@ namespace M {
       _id,
       _buff
     );
+
+    this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
     if (this->m_param_ParamStructExt_valid == Fw::ParamValid::VALID) {
@@ -2520,6 +2536,8 @@ namespace M {
     else {
       this->m_param_ParamStructExt_valid = Fw::ParamValid::INVALID;
     }
+
+    this->m_paramLock.unLock();
 
     // Call notifier
     this->parametersLoaded();

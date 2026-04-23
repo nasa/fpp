@@ -1389,7 +1389,6 @@ void PassiveParamsComponentBase ::
     _buff
   );
 
-  // Deserialize value
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
@@ -1414,7 +1413,6 @@ void PassiveParamsComponentBase ::
     _buff
   );
 
-  // Deserialize value
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
@@ -1439,7 +1437,6 @@ void PassiveParamsComponentBase ::
     _buff
   );
 
-  // Deserialize value
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
@@ -1468,7 +1465,6 @@ void PassiveParamsComponentBase ::
     _buff
   );
 
-  // Deserialize value
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
@@ -1493,7 +1489,6 @@ void PassiveParamsComponentBase ::
     _buff
   );
 
-  // Deserialize value
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
@@ -1522,7 +1517,6 @@ void PassiveParamsComponentBase ::
     _buff
   );
 
-  // Deserialize value
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid

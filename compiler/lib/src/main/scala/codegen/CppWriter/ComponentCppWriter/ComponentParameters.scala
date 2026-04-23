@@ -354,6 +354,8 @@ case class ComponentParameters (
       getParam(param, s"this->$validityFlagName"),
       lines(
         s"""|
+            |this->m_paramLock.lock();
+            |
             |// If there was a deserialization issue, mark it invalid
             |"""
       ),
@@ -377,7 +379,8 @@ case class ComponentParameters (
           )
         ),
         lines(s"this->$validityFlagName = Fw::ParamValid::INVALID;")
-      )
+      ),
+      Line.blank :: lines("this->m_paramLock.unLock();")
     )
   }
 
@@ -390,7 +393,6 @@ case class ComponentParameters (
       getParam(param, s"this->$validityFlagName"),
       lines(
         s"""|
-            |// Deserialize value
             |this->m_paramLock.lock();
             |
             |// If there was a deserialization issue, mark it invalid
