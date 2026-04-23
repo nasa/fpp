@@ -127,15 +127,16 @@ case class ComponentParameters (
       )
     )
 
-  private def getParam(param: Param, validityFlag: String) = {
+  private def getParam(param: Param) = {
     val paramName = param.getName
     val idConstantName = paramIdConstantName(paramName)
     val prmGetPortInvokerName = outputPortInvokerName(prmGetPort.get)
+    val validityFlagName = paramValidityFlagName(param.getName)
     lines(
       s"""|_id = _baseId + $idConstantName;
           |
           |// Get parameter $paramName
-          |$validityFlag = this->$prmGetPortInvokerName(
+          |this->$validityFlagName = this->$prmGetPortInvokerName(
           |  0,
           |  _id,
           |  _buff
@@ -423,9 +424,8 @@ case class ComponentParameters (
         ),
         intersperseBlankLines(
           sortedParams.map((_, param) =>
-            val validityFlagName = paramValidityFlagName(param.getName)
             List.concat(
-              getParam(param, s"this->$validityFlagName"),
+              getParam(param),
               lines(
                 s"""|
                     |this->m_paramLock.lock();
