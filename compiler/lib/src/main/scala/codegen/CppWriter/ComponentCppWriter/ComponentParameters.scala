@@ -408,6 +408,22 @@ case class ComponentParameters (
     )
   }
 
+  private def writeLoadForParam(param: Param) =
+    List.concat(
+      getParam(param),
+      lines(
+        s"""|
+            |this->m_paramLock.lock();
+            |
+            |// If there was a deserialization issue, mark it invalid
+            |"""
+      ),
+      if param.isExternal
+      then writeLoadForExternalParam(param)
+      else writeLoadForInternalParam(param),
+      Line.blank :: lines("this->m_paramLock.unLock();")
+    )
+
   private def writeLoadFunctionBody = {
     val prmGetPortName = prmGetPort.get.getUnqualifiedName
     val prmGetIsConnected = outputPortIsConnectedName(prmGetPortName)
@@ -423,22 +439,7 @@ case class ComponentParameters (
               |"""
         ),
         intersperseBlankLines(
-          sortedParams.map((_, param) =>
-            List.concat(
-              getParam(param),
-              lines(
-                s"""|
-                    |this->m_paramLock.lock();
-                    |
-                    |// If there was a deserialization issue, mark it invalid
-                    |"""
-              ),
-              if param.isExternal
-              then writeLoadForExternalParam(param)
-              else writeLoadForInternalParam(param),
-              Line.blank :: lines("this->m_paramLock.unLock();")
-            )
-          )
+          sortedParams.map((_, param) => writeLoadForParam(param))
         ),
         lines(
           """|// Call notifier
