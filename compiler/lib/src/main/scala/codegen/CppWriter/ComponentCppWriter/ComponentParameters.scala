@@ -360,7 +360,7 @@ case class ComponentParameters (
             |"""
       )
     else
-      lines(s"_stat = _buff.deserializeTo(this->$varName);"),
+      lines(s"_stat = _buff.deserializeTo(this->$varName);")
   }
 
   private def writeLoadForExternalParam(param: Param) = {
@@ -405,8 +405,8 @@ case class ComponentParameters (
           "_stat != Fw::FW_SERIALIZE_OK",
           param.default match {
             case Some(value) => lines(
-              s"""|this->$validityFlagName = Fw::ParamValid::DEFAULT;
-                  |// Set default value
+              s"""|// Use default value
+                  |this->$validityFlagName = Fw::ParamValid::DEFAULT;
                   |this->$varName = ${ValueCppWriter.write(s, value)};
                   |"""
             )
@@ -418,7 +418,7 @@ case class ComponentParameters (
       ),
       param.default match {
         case Some(value) => lines(
-          s"""|// Set default value
+          s"""|// Use default value
               |this->$validityFlagName = Fw::ParamValid::DEFAULT;
               |this->$varName = ${ValueCppWriter.write(s, value)};
               |"""
