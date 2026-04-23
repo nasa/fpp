@@ -501,14 +501,14 @@ case class ComponentParameters (
                 |const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
                 |
                 |FW_ASSERT(this->paramDelegatePtr != nullptr);
+                |this->m_paramLock.lock();
                 |_stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
+                |this->m_paramLock.unLock();
                 |"""
           )
           else lines (
             s"""|this->m_paramLock.lock();
-                |
                 |_stat = _saveBuff.serializeFrom($paramVarName);
-                |
                 |this->m_paramLock.unLock();
                 |"""
           ),

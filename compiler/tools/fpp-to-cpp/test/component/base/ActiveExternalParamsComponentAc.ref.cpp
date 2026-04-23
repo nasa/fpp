@@ -4789,7 +4789,9 @@ Fw::CmdResponse ActiveExternalParamsComponentBase ::
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
+    this->m_paramLock.lock();
     _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
+    this->m_paramLock.unLock();
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
     }
@@ -4821,7 +4823,9 @@ Fw::CmdResponse ActiveExternalParamsComponentBase ::
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
+    this->m_paramLock.lock();
     _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
+    this->m_paramLock.unLock();
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
     }
@@ -4853,7 +4857,9 @@ Fw::CmdResponse ActiveExternalParamsComponentBase ::
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
+    this->m_paramLock.lock();
     _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
+    this->m_paramLock.unLock();
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
     }
@@ -4885,7 +4891,9 @@ Fw::CmdResponse ActiveExternalParamsComponentBase ::
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
+    this->m_paramLock.lock();
     _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
+    this->m_paramLock.unLock();
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
     }
@@ -4917,7 +4925,9 @@ Fw::CmdResponse ActiveExternalParamsComponentBase ::
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
+    this->m_paramLock.lock();
     _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
+    this->m_paramLock.unLock();
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
     }
@@ -4949,7 +4959,9 @@ Fw::CmdResponse ActiveExternalParamsComponentBase ::
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
+    this->m_paramLock.lock();
     _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
+    this->m_paramLock.unLock();
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
     }
