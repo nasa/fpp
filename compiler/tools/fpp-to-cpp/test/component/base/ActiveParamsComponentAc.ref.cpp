@@ -1843,12 +1843,7 @@ ActiveParamsComponentBase ::
   ActiveParamsComponentBase(const char* compName) :
     Fw::ActiveComponentBase(compName)
 {
-  this->m_param_ParamU32_valid = Fw::ParamValid::UNINIT;
-  this->m_param_ParamF64_valid = Fw::ParamValid::UNINIT;
-  this->m_param_ParamString_valid = Fw::ParamValid::UNINIT;
-  this->m_param_ParamEnum_valid = Fw::ParamValid::UNINIT;
-  this->m_param_ParamArray_valid = Fw::ParamValid::UNINIT;
-  this->m_param_ParamStruct_valid = Fw::ParamValid::UNINIT;
+
 }
 
 ActiveParamsComponentBase ::

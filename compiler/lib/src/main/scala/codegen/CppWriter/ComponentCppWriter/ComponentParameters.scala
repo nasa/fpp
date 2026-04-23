@@ -156,7 +156,8 @@ case class ComponentParameters (
                 |"""
           )
         )
-      )
+      ),
+      CppDoc.Lines.Hpp
     )
 
   private def getParamIds = linesClassMember(
@@ -277,16 +278,12 @@ case class ComponentParameters (
   private def getValidityFlagForParam(param: Param) = {
     val paramName = param.getName
     val flagName = paramValidityFlagName(paramName)
-    guardedList (!param.isExternal) (
-      List(
-        linesClassMember(
-          lines(
-            s"""|
-                |//! True if $paramName was successfully received
-                |Fw::ParamValid $flagName;
-                |"""
-          )
-        )
+    linesClassMember(
+      lines(
+        s"""|
+            |//! VALID if $paramName was successfully received
+            |Fw::ParamValid $flagName = Fw::ParamValid::UNINIT;
+            |"""
       )
     )
   }
@@ -294,7 +291,7 @@ case class ComponentParameters (
   private def getValidityFlags = addAccessTagAndComment(
     "private",
     "Parameter validity flags",
-    sortedParams.flatMap((_, param) => getValidityFlagForParam(param)),
+    sortedParams.map((_, param) => getValidityFlagForParam(param)),
     CppDoc.Lines.Hpp
   )
 
@@ -307,8 +304,10 @@ case class ComponentParameters (
   private def writeGetterFunctionBodyForExternalParam(param: Param) = {
     val paramType = writeParamType(param.paramType, "Fw::ParamString")
     val idConstantName = paramIdConstantName(param.getName)
+    val validityFlagName = paramValidityFlagName(param.getName)
     lines(
       s"""|$paramType _local{};
+          |this->m_paramLock.lock();
           |Fw::ParamBuffer _getBuff;
           |// Get the base ID
           |const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -321,10 +320,11 @@ case class ComponentParameters (
           |if(_stat == Fw::FW_SERIALIZE_OK) {
           |  _stat = _getBuff.deserializeTo(_local);
           |  FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
-          |  valid = Fw::ParamValid::VALID;
+          |  valid = this->$validityFlagName;
           |} else {
           |  valid = Fw::ParamValid::INVALID;
           |}
+          |this->m_paramLock.unLock();
           |return _local;
           |"""
     )
@@ -348,16 +348,17 @@ case class ComponentParameters (
   private def writeLoadForExternalParam(param: Param) = {
     val paramName = param.getName
     val idConstantName = paramIdConstantName(paramName)
+    val validityFlagName = paramValidityFlagName(paramName)
     val varName = paramVariableName(paramName)
     List.concat(
-      getParam(param, "_paramValid"),
+      getParam(param, s"this->$validityFlagName"),
       lines(
         s"""|
             |// If there was a deserialization issue, mark it invalid
             |"""
       ),
       wrapInIfElse(
-        s"_paramValid == Fw::ParamValid::VALID",
+        s"this->$validityFlagName == Fw::ParamValid::VALID",
         List.concat(
           lines(
             s"""|// Pass the local ID to the delegate
@@ -365,17 +366,17 @@ case class ComponentParameters (
                 |
                 |FW_ASSERT(this->paramDelegatePtr != nullptr);
                 |// Call the delegate deserialize function for $varName
-                |_stat = this->paramDelegatePtr->deserializeParam(_baseId, _localId, _paramValid, _buff);
+                |_stat = this->paramDelegatePtr->deserializeParam(_baseId, _localId, this->$validityFlagName, _buff);
                 |"""
           ),
           wrapInIf(
             "_stat != Fw::FW_SERIALIZE_OK",
             lines(
-              s"_paramValid = Fw::ParamValid::INVALID;"
+              s"this->$validityFlagName = Fw::ParamValid::INVALID;"
             )
           )
         ),
-        lines(s"_paramValid = Fw::ParamValid::INVALID;")
+        lines(s"this->$validityFlagName = Fw::ParamValid::INVALID;")
       )
     )
   }
@@ -440,7 +441,6 @@ case class ComponentParameters (
               |FwPrmIdType _id{};
               |"""
         ),
-        guardedList (hasExternalParameters) (lines("Fw::ParamValid _paramValid;")),
         intersperseBlankLines(
           sortedParams.map((_, param) =>
             if param.isExternal

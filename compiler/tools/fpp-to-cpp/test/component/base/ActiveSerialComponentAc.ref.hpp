@@ -3464,23 +3464,41 @@ class ActiveSerialComponentBase :
     // Parameter validity flags
     // ----------------------------------------------------------------------
 
-    //! True if ParamU32 was successfully received
-    Fw::ParamValid m_param_ParamU32_valid;
+    //! VALID if ParamU32 was successfully received
+    Fw::ParamValid m_param_ParamU32_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamF64 was successfully received
-    Fw::ParamValid m_param_ParamF64_valid;
+    //! VALID if ParamF64 was successfully received
+    Fw::ParamValid m_param_ParamF64_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamString was successfully received
-    Fw::ParamValid m_param_ParamString_valid;
+    //! VALID if ParamString was successfully received
+    Fw::ParamValid m_param_ParamString_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamEnum was successfully received
-    Fw::ParamValid m_param_ParamEnum_valid;
+    //! VALID if ParamEnum was successfully received
+    Fw::ParamValid m_param_ParamEnum_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamArray was successfully received
-    Fw::ParamValid m_param_ParamArray_valid;
+    //! VALID if ParamArray was successfully received
+    Fw::ParamValid m_param_ParamArray_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamStruct was successfully received
-    Fw::ParamValid m_param_ParamStruct_valid;
+    //! VALID if ParamStruct was successfully received
+    Fw::ParamValid m_param_ParamStruct_valid = Fw::ParamValid::UNINIT;
+
+    //! VALID if ParamI32Ext was successfully received
+    Fw::ParamValid m_param_ParamI32Ext_valid = Fw::ParamValid::UNINIT;
+
+    //! VALID if ParamF64Ext was successfully received
+    Fw::ParamValid m_param_ParamF64Ext_valid = Fw::ParamValid::UNINIT;
+
+    //! VALID if ParamStringExt was successfully received
+    Fw::ParamValid m_param_ParamStringExt_valid = Fw::ParamValid::UNINIT;
+
+    //! VALID if ParamEnumExt was successfully received
+    Fw::ParamValid m_param_ParamEnumExt_valid = Fw::ParamValid::UNINIT;
+
+    //! VALID if ParamArrayExt was successfully received
+    Fw::ParamValid m_param_ParamArrayExt_valid = Fw::ParamValid::UNINIT;
+
+    //! VALID if ParamStructExt was successfully received
+    Fw::ParamValid m_param_ParamStructExt_valid = Fw::ParamValid::UNINIT;
 
   private:
 

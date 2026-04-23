@@ -1751,23 +1751,23 @@ class PassiveParamsComponentBase :
     // Parameter validity flags
     // ----------------------------------------------------------------------
 
-    //! True if ParamU32 was successfully received
-    Fw::ParamValid m_param_ParamU32_valid;
+    //! VALID if ParamU32 was successfully received
+    Fw::ParamValid m_param_ParamU32_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamF64 was successfully received
-    Fw::ParamValid m_param_ParamF64_valid;
+    //! VALID if ParamF64 was successfully received
+    Fw::ParamValid m_param_ParamF64_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamString was successfully received
-    Fw::ParamValid m_param_ParamString_valid;
+    //! VALID if ParamString was successfully received
+    Fw::ParamValid m_param_ParamString_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamEnum was successfully received
-    Fw::ParamValid m_param_ParamEnum_valid;
+    //! VALID if ParamEnum was successfully received
+    Fw::ParamValid m_param_ParamEnum_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamArray was successfully received
-    Fw::ParamValid m_param_ParamArray_valid;
+    //! VALID if ParamArray was successfully received
+    Fw::ParamValid m_param_ParamArray_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamStruct was successfully received
-    Fw::ParamValid m_param_ParamStruct_valid;
+    //! VALID if ParamStruct was successfully received
+    Fw::ParamValid m_param_ParamStruct_valid = Fw::ParamValid::UNINIT;
 
   private:
 

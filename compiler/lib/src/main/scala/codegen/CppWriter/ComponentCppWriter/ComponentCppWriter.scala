@@ -555,9 +555,6 @@ case class ComponentCppWriter (
               throttledEventsWithTimeout.map((_, event) => line(
                 s"this->${eventThrottleTimeName(event.getName)} = Fw::Time();"
               )),
-              sortedParams.flatMap((_, param) => guardedList(!param.isExternal) (
-                lines(s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::UNINIT;")
-              ))
             )
           )
         ),
