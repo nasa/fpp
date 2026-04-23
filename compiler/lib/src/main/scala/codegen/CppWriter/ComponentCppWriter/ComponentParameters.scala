@@ -378,20 +378,22 @@ case class ComponentParameters (
     val varName = paramVariableName(paramName)
     wrapInIfElse(
       s"this->$validityFlagName == Fw::ParamValid::VALID",
-      line(s"_stat = _buff.deserializeTo(this->$varName);") ::
-      wrapInIf(
-        "_stat != Fw::FW_SERIALIZE_OK",
-        param.default match {
-          case Some(value) => lines(
-            s"""|this->$validityFlagName = Fw::ParamValid::DEFAULT;
-                |// Set default value
-                |this->$varName = ${ValueCppWriter.write(s, value)};
-                |"""
-          )
-          case None => lines(
-            s"this->$validityFlagName = Fw::ParamValid::INVALID;"
-          )
-        }
+      List.concat(
+        lines(s"_stat = _buff.deserializeTo(this->$varName);"),
+        wrapInIf(
+          "_stat != Fw::FW_SERIALIZE_OK",
+          param.default match {
+            case Some(value) => lines(
+              s"""|this->$validityFlagName = Fw::ParamValid::DEFAULT;
+                  |// Set default value
+                  |this->$varName = ${ValueCppWriter.write(s, value)};
+                  |"""
+            )
+            case None => lines(
+              s"this->$validityFlagName = Fw::ParamValid::INVALID;"
+            )
+          }
+        )
       ),
       param.default match {
         case Some(value) => lines(
