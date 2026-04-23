@@ -347,6 +347,22 @@ case class ComponentParameters (
     )
   }
 
+  private def deserializeParam(param: Param) = {
+    val paramName = param.getName
+    val varName = paramVariableName(paramName)
+    val validityFlagName = paramValidityFlagName(paramName)
+    if param.isExternal
+    then
+      val idConstantName = paramIdConstantName(paramName)
+      lines(
+        s"""|FW_ASSERT(this->paramDelegatePtr != nullptr);
+            |_stat = this->paramDelegatePtr->deserializeParam(_baseId, $idConstantName, this->$validityFlagName, _buff);
+            |"""
+      )
+    else
+      lines(s"_stat = _buff.deserializeTo(this->$varName);"),
+  }
+
   private def writeLoadForExternalParam(param: Param) = {
     val paramName = param.getName
     val idConstantName = paramIdConstantName(paramName)
@@ -355,19 +371,24 @@ case class ComponentParameters (
     wrapInIfElse(
       s"this->$validityFlagName == Fw::ParamValid::VALID",
       List.concat(
-        lines(
-          s"""|FW_ASSERT(this->paramDelegatePtr != nullptr);
-              |_stat = this->paramDelegatePtr->deserializeParam(_baseId, $idConstantName, this->$validityFlagName, _buff);
-              |"""
-        ),
+        deserializeParam(param),
         wrapInIf(
           "_stat != Fw::FW_SERIALIZE_OK",
-          lines(
-            s"this->$validityFlagName = Fw::ParamValid::INVALID;"
-          )
+          param.default match {
+            // TODO
+            case Some(value) => lines(
+              s"this->$validityFlagName = Fw::ParamValid::INVALID;"
+            )
+            case None => lines(
+              s"this->$validityFlagName = Fw::ParamValid::INVALID;"
+            )
+          }
         )
       ),
-      lines(s"this->$validityFlagName = Fw::ParamValid::INVALID;")
+      param.default match {
+        case Some(value) => lines("// TODO: Set default value")
+        case None => lines("// No default")
+      }
     )
   }
 
@@ -379,7 +400,7 @@ case class ComponentParameters (
     wrapInIfElse(
       s"this->$validityFlagName == Fw::ParamValid::VALID",
       List.concat(
-        lines(s"_stat = _buff.deserializeTo(this->$varName);"),
+        deserializeParam(param),
         wrapInIf(
           "_stat != Fw::FW_SERIALIZE_OK",
           param.default match {

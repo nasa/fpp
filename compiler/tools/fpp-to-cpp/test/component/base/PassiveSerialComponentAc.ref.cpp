@@ -1797,7 +1797,7 @@ void PassiveSerialComponentBase ::
     }
   }
   else {
-    this->m_param_ParamI32Ext_valid = Fw::ParamValid::INVALID;
+    // No default
   }
 
   this->m_paramLock.unLock();
@@ -1822,7 +1822,7 @@ void PassiveSerialComponentBase ::
     }
   }
   else {
-    this->m_param_ParamF64Ext_valid = Fw::ParamValid::INVALID;
+    // No default
   }
 
   this->m_paramLock.unLock();
@@ -1847,7 +1847,7 @@ void PassiveSerialComponentBase ::
     }
   }
   else {
-    this->m_param_ParamStringExt_valid = Fw::ParamValid::INVALID;
+    // TODO: Set default value
   }
 
   this->m_paramLock.unLock();
@@ -1872,7 +1872,7 @@ void PassiveSerialComponentBase ::
     }
   }
   else {
-    this->m_param_ParamEnumExt_valid = Fw::ParamValid::INVALID;
+    // No default
   }
 
   this->m_paramLock.unLock();
@@ -1897,7 +1897,7 @@ void PassiveSerialComponentBase ::
     }
   }
   else {
-    this->m_param_ParamArrayExt_valid = Fw::ParamValid::INVALID;
+    // TODO: Set default value
   }
 
   this->m_paramLock.unLock();
@@ -1922,7 +1922,7 @@ void PassiveSerialComponentBase ::
     }
   }
   else {
-    this->m_param_ParamStructExt_valid = Fw::ParamValid::INVALID;
+    // No default
   }
 
   this->m_paramLock.unLock();
