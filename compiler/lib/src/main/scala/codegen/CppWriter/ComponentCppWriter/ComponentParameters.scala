@@ -133,7 +133,8 @@ case class ComponentParameters (
     val prmGetPortInvokerName = outputPortInvokerName(prmGetPort.get)
     val validityFlagName = paramValidityFlagName(param.getName)
     lines(
-      s"""|_id = _baseId + $idConstantName;
+      s"""|
+          |_id = _baseId + $idConstantName;
           |
           |// Get parameter $paramName
           |this->$validityFlagName = this->$prmGetPortInvokerName(
@@ -427,25 +428,22 @@ case class ComponentParameters (
   private def writeLoadFunctionBody = {
     val prmGetPortName = prmGetPort.get.getUnqualifiedName
     val prmGetIsConnected = outputPortIsConnectedName(prmGetPortName)
-    intersperseBlankLines(
-      List(
-        lines(
-          s"""|Fw::ParamBuffer _buff;
-              |Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_OK;
-              |const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
-              |FW_ASSERT(this->$prmGetIsConnected(0));
-              |
-              |FwPrmIdType _id{};
-              |"""
-        ),
-        intersperseBlankLines(
-          sortedParams.map((_, param) => writeLoadForParam(param))
-        ),
-        lines(
-          """|// Call notifier
-             |this->parametersLoaded();
-             |"""
-        )
+    List.concat(
+      lines(
+        s"""|Fw::ParamBuffer _buff;
+            |Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_OK;
+            |const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+            |FW_ASSERT(this->$prmGetIsConnected(0));
+            |
+            |FwPrmIdType _id{};
+            |"""
+      ),
+      sortedParams.flatMap((_, param) => writeLoadForParam(param)),
+      lines(
+        """|
+           |// Call notifier
+           |this->parametersLoaded();
+           |"""
       )
     )
   }
