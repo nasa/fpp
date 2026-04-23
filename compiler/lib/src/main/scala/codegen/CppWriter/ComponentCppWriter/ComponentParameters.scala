@@ -356,12 +356,8 @@ case class ComponentParameters (
       s"this->$validityFlagName == Fw::ParamValid::VALID",
       List.concat(
         lines(
-          s"""|// Pass the local ID to the delegate
-              |constexpr FwPrmIdType _localId = $idConstantName;
-              |
-              |FW_ASSERT(this->paramDelegatePtr != nullptr);
-              |// Call the delegate deserialize function for $varName
-              |_stat = this->paramDelegatePtr->deserializeParam(_baseId, _localId, this->$validityFlagName, _buff);
+          s"""|FW_ASSERT(this->paramDelegatePtr != nullptr);
+              |_stat = this->paramDelegatePtr->deserializeParam(_baseId, $idConstantName, this->$validityFlagName, _buff);
               |"""
         ),
         wrapInIf(
