@@ -161,6 +161,7 @@ object CheckExprTypes extends UseAnalyzer {
       t <- a.commonType(e.e1.id, e.e2.id, loc)
       _ <- e.op match {
         case Ast.Binop.Add => convertToNumericOrString(loc, t)
+        case Ast.Binop.Shift(_) => convertToInteger(loc, t)
         case _ => convertToNumeric(loc, t)
       }
     } yield a.assignType(node -> t)
@@ -497,4 +498,12 @@ object CheckExprTypes extends UseAnalyzer {
         Left(error)
     }
 
+  /** For shifting operations make sure both values are integer */
+  private def convertToInteger(loc: Location, t: Type): Result.Result[Type] =
+    if (t.isInt) Right(t)
+    else if (t.isConvertibleTo(Type.Integer)) Right(Type.Integer)
+    else {                                                                                                                                                                                      
+      val error = SemanticError.InvalidType(loc, s"cannot convert $t to an integer type")
+      Left(error)                                                                                                                                                                               
+    } 
 }
