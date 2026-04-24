@@ -393,7 +393,12 @@ object Parser extends Parsers {
         leftAssoc(e, es)
       }
 
-    addSubOperand ~ rep((plus | minus) ~! addSubOperand) ^^ { case e ~ es =>
+    def shiftOperand = 
+      addSubOperand ~ rep((plus | minus) ~! addSubOperand) ^^  { case e ~ es =>
+        leftAssoc(e, es)
+      }
+
+    shiftOperand ~ rep((lshift | rshift) ~! shiftOperand) ^^ { case e ~ es =>
       leftAssoc(e, es)
     }
   }
