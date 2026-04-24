@@ -48,6 +48,7 @@ update -ia include-subdir
 update -ia include-topology
 update -ia subdir/include-parent-dir
 update -ia syntax syntax-include-ast
+update "" numeric-shift
 
 cat syntax.fpp | $fpp_syntax -ia 2>&1 > syntax-stdin.ref.txt
 
