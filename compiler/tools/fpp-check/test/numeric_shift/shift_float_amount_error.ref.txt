@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/numeric_shift/shift_float_amount_error.fpp:1.1
+constat a = 2 << 1.5
+^
+error: unexpected token

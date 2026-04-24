@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/numeric_shift/shift_boolean_value_error.fpp:1.19
+constant b = true >> 1
+                  ^
+error: cannot compute common type of bool and Integer

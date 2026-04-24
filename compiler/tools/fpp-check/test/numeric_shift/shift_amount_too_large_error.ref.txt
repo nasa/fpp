@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/numeric_shift/shift_amount_too_large_error.fpp:1.19
+constant a = 2 << 0x100000000
+                  ^
+error: invalid shift amount
+note: shift amount must be a non-negative value that fits in a 32-bit integer
