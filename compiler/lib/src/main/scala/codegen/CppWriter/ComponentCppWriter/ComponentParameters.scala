@@ -363,41 +363,25 @@ case class ComponentParameters (
       lines(s"_stat = _buff.deserializeTo(this->$varName);")
   }
 
-  private def writeLoadForExternalParam(param: Param) = {
-    val paramName = param.getName
-    val idConstantName = paramIdConstantName(paramName)
-    val validityFlagName = paramValidityFlagName(paramName)
-    val varName = paramVariableName(paramName)
-    wrapInIfElse(
-      s"this->$validityFlagName == Fw::ParamValid::VALID",
-      List.concat(
-        deserializeParam(param),
-        wrapInIf(
-          "_stat != Fw::FW_SERIALIZE_OK",
-          param.default match {
-            // TODO
-            case Some(value) => lines(
-              s"this->$validityFlagName = Fw::ParamValid::INVALID;"
-            )
-            case None => lines(
-              s"this->$validityFlagName = Fw::ParamValid::INVALID;"
-            )
-          }
-        )
-      ),
-      param.default match {
-        case Some(value) => lines("// TODO: Set default value")
-        case None => lines("// No default")
-      }
-    )
-  }
-
-  private def writeLoadForInternalParam(param: Param) = {
+  private def writeLoadForParam(param: Param) = {
     val paramName = param.getName
     val idConstantName = paramIdConstantName(paramName)
     val validityFlagName = paramValidityFlagName(paramName)
     val varName = paramVariableName(paramName)
     List.concat(
+      getParam(param),
+      {
+        val orUseDefaultValue = param.default match {
+          case Some(_) => " or use default value"
+          case None => ""
+        }
+        lines(
+          s"""|
+              |this->m_paramLock.lock();
+              |
+              |// Deserialize parameter$orUseDefaultValue"""
+        )
+      },
       wrapInIfElse(
         s"this->$validityFlagName == Fw::ParamValid::VALID",
         List.concat(
@@ -425,32 +409,23 @@ case class ComponentParameters (
         case Some(value) =>
           wrapInIf(
             s"this->$validityFlagName == Fw::ParamValid::DEFAULT",
-            if param.isExternal
-            then lines("// TODO: Set default value")
-            else lines(s"this->$varName = ${ValueCppWriter.write(s, value)};")
+            setDefaultValue(param, value)
           )
         case None => Nil
-      }
+      },
+      lines(
+        """|
+           |this->m_paramLock.unLock();"""
+      )
     )
   }
 
-  private def writeLoadForParam(param: Param) = {
-    val orUseDefaultValue = param.default match {
-      case Some(_) => " or use default value"
-      case None => ""
-    }
-    List.concat(
-      getParam(param),
-      lines(
-        s"""|
-            |this->m_paramLock.lock();
-            |
-            |// Deserialize parameter$orUseDefaultValue
-            |"""
-      ),
-      writeLoadForInternalParam(param),
-      Line.blank :: lines("this->m_paramLock.unLock();")
-    )
+  private def setDefaultValue(param: Param, value: Value) = {
+    val paramName = param.getName
+    val varName = paramVariableName(paramName)
+    if param.isExternal
+    then lines("// TODO: Set default value")
+    else lines(s"this->$varName = ${ValueCppWriter.write(s, value)};")
   }
 
   private def writeLoadFunctionBody = {
