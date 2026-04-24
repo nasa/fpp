@@ -40,6 +40,22 @@ case class ComponentParameters (
       guardedList (hasExternalParameters) (getParamDelegate)
     )
 
+  private def deserializeParam(param: Param) = {
+    val paramName = param.getName
+    val varName = paramVariableName(paramName)
+    val validityFlagName = paramValidityFlagName(paramName)
+    if param.isExternal
+    then
+      val idConstantName = paramIdConstantName(paramName)
+      lines(
+        s"""|FW_ASSERT(this->paramDelegatePtr != nullptr);
+            |_stat = this->paramDelegatePtr->deserializeParam(_baseId, $idConstantName, this->$validityFlagName, _buff);
+            |"""
+      )
+    else
+      lines(s"_stat = _buff.deserializeTo(this->$varName);")
+  }
+
   private def getExternalParameterFunctions: List[CppDoc.Class.Member] = {
     lazy val delegateInit = addAccessTagAndComment(
       "protected",
@@ -303,6 +319,14 @@ case class ComponentParameters (
   private def paramVariableName(name: String) =
     s"m_$name"
 
+  private def setDefaultValue(param: Param, value: Value) = {
+    val paramName = param.getName
+    val varName = paramVariableName(paramName)
+    if param.isExternal
+    then lines("// TODO: Set default value")
+    else lines(s"this->$varName = ${ValueCppWriter.write(s, value)};")
+  }
+
   private def writeGetterFunctionBodyForExternalParam(param: Param) = {
     val paramType = writeParamType(param.paramType, "Fw::ParamString")
     val idConstantName = paramIdConstantName(param.getName)
@@ -347,22 +371,6 @@ case class ComponentParameters (
     )
   }
 
-  private def deserializeParam(param: Param) = {
-    val paramName = param.getName
-    val varName = paramVariableName(paramName)
-    val validityFlagName = paramValidityFlagName(paramName)
-    if param.isExternal
-    then
-      val idConstantName = paramIdConstantName(paramName)
-      lines(
-        s"""|FW_ASSERT(this->paramDelegatePtr != nullptr);
-            |_stat = this->paramDelegatePtr->deserializeParam(_baseId, $idConstantName, this->$validityFlagName, _buff);
-            |"""
-      )
-    else
-      lines(s"_stat = _buff.deserializeTo(this->$varName);")
-  }
-
   private def writeLoadForParam(param: Param) = {
     val paramName = param.getName
     val idConstantName = paramIdConstantName(paramName)
@@ -389,20 +397,18 @@ case class ComponentParameters (
           wrapInIf(
             "_stat != Fw::FW_SERIALIZE_OK",
             param.default match {
-              case Some(value) => lines(
-                s"this->$validityFlagName = Fw::ParamValid::DEFAULT;"
-              )
-              case None => lines(
-                s"this->$validityFlagName = Fw::ParamValid::INVALID;"
-              )
+              case Some(value) =>
+                lines(s"this->$validityFlagName = Fw::ParamValid::DEFAULT;")
+              case None =>
+                lines(s"this->$validityFlagName = Fw::ParamValid::INVALID;")
             }
           )
         ),
         param.default match {
-          case Some(value) => lines(
-            s"this->$validityFlagName = Fw::ParamValid::DEFAULT;"
-          )
-          case None => lines("// No default")
+          case Some(value) =>
+            lines(s"this->$validityFlagName = Fw::ParamValid::DEFAULT;")
+          case None =>
+            lines("// No default")
         }
       ),
       param.default match {
@@ -418,14 +424,6 @@ case class ComponentParameters (
            |this->m_paramLock.unLock();"""
       )
     )
-  }
-
-  private def setDefaultValue(param: Param, value: Value) = {
-    val paramName = param.getName
-    val varName = paramVariableName(paramName)
-    if param.isExternal
-    then lines("// TODO: Set default value")
-    else lines(s"this->$varName = ${ValueCppWriter.write(s, value)};")
   }
 
   private def writeLoadFunctionBody = {
