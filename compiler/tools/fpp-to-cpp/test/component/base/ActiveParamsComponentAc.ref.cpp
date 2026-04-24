@@ -1675,7 +1675,7 @@ void ActiveParamsComponentBase ::
 
   _id = _baseId + PARAMID_PARAMU32;
 
-  // Get parameter ParamU32
+  // Get serialized parameter ParamU32
   this->m_param_ParamU32_valid = this->prmGetOut_out(
     0,
     _id,
@@ -1684,7 +1684,7 @@ void ActiveParamsComponentBase ::
 
   this->m_paramLock.lock();
 
-  // If there was a deserialization issue, mark it invalid
+  // Deserialize parameter or use default value
   if (this->m_param_ParamU32_valid == Fw::ParamValid::VALID) {
     _stat = _buff.deserializeTo(this->m_ParamU32);
     if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -1699,7 +1699,7 @@ void ActiveParamsComponentBase ::
 
   _id = _baseId + PARAMID_PARAMF64;
 
-  // Get parameter ParamF64
+  // Get serialized parameter ParamF64
   this->m_param_ParamF64_valid = this->prmGetOut_out(
     0,
     _id,
@@ -1708,7 +1708,7 @@ void ActiveParamsComponentBase ::
 
   this->m_paramLock.lock();
 
-  // If there was a deserialization issue, mark it invalid
+  // Deserialize parameter or use default value
   if (this->m_param_ParamF64_valid == Fw::ParamValid::VALID) {
     _stat = _buff.deserializeTo(this->m_ParamF64);
     if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -1723,7 +1723,7 @@ void ActiveParamsComponentBase ::
 
   _id = _baseId + PARAMID_PARAMSTRING;
 
-  // Get parameter ParamString
+  // Get serialized parameter ParamString
   this->m_param_ParamString_valid = this->prmGetOut_out(
     0,
     _id,
@@ -1732,18 +1732,17 @@ void ActiveParamsComponentBase ::
 
   this->m_paramLock.lock();
 
-  // If there was a deserialization issue, mark it invalid
+  // Deserialize parameter or use default value
   if (this->m_param_ParamString_valid == Fw::ParamValid::VALID) {
     _stat = _buff.deserializeTo(this->m_ParamString);
     if (_stat != Fw::FW_SERIALIZE_OK) {
-      // Use default value
       this->m_param_ParamString_valid = Fw::ParamValid::DEFAULT;
-      this->m_ParamString = Fw::String("default");
     }
   }
   else {
-    // Use default value
     this->m_param_ParamString_valid = Fw::ParamValid::DEFAULT;
+  }
+  if (this->m_param_ParamString_valid == Fw::ParamValid::DEFAULT) {
     this->m_ParamString = Fw::String("default");
   }
 
@@ -1751,7 +1750,7 @@ void ActiveParamsComponentBase ::
 
   _id = _baseId + PARAMID_PARAMENUM;
 
-  // Get parameter ParamEnum
+  // Get serialized parameter ParamEnum
   this->m_param_ParamEnum_valid = this->prmGetOut_out(
     0,
     _id,
@@ -1760,7 +1759,7 @@ void ActiveParamsComponentBase ::
 
   this->m_paramLock.lock();
 
-  // If there was a deserialization issue, mark it invalid
+  // Deserialize parameter or use default value
   if (this->m_param_ParamEnum_valid == Fw::ParamValid::VALID) {
     _stat = _buff.deserializeTo(this->m_ParamEnum);
     if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -1775,7 +1774,7 @@ void ActiveParamsComponentBase ::
 
   _id = _baseId + PARAMID_PARAMARRAY;
 
-  // Get parameter ParamArray
+  // Get serialized parameter ParamArray
   this->m_param_ParamArray_valid = this->prmGetOut_out(
     0,
     _id,
@@ -1784,18 +1783,17 @@ void ActiveParamsComponentBase ::
 
   this->m_paramLock.lock();
 
-  // If there was a deserialization issue, mark it invalid
+  // Deserialize parameter or use default value
   if (this->m_param_ParamArray_valid == Fw::ParamValid::VALID) {
     _stat = _buff.deserializeTo(this->m_ParamArray);
     if (_stat != Fw::FW_SERIALIZE_OK) {
-      // Use default value
       this->m_param_ParamArray_valid = Fw::ParamValid::DEFAULT;
-      this->m_ParamArray = A({1, 2, 3});
     }
   }
   else {
-    // Use default value
     this->m_param_ParamArray_valid = Fw::ParamValid::DEFAULT;
+  }
+  if (this->m_param_ParamArray_valid == Fw::ParamValid::DEFAULT) {
     this->m_ParamArray = A({1, 2, 3});
   }
 
@@ -1803,7 +1801,7 @@ void ActiveParamsComponentBase ::
 
   _id = _baseId + PARAMID_PARAMSTRUCT;
 
-  // Get parameter ParamStruct
+  // Get serialized parameter ParamStruct
   this->m_param_ParamStruct_valid = this->prmGetOut_out(
     0,
     _id,
@@ -1812,7 +1810,7 @@ void ActiveParamsComponentBase ::
 
   this->m_paramLock.lock();
 
-  // If there was a deserialization issue, mark it invalid
+  // Deserialize parameter or use default value
   if (this->m_param_ParamStruct_valid == Fw::ParamValid::VALID) {
     _stat = _buff.deserializeTo(this->m_ParamStruct);
     if (_stat != Fw::FW_SERIALIZE_OK) {

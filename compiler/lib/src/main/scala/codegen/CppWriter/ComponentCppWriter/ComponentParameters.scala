@@ -136,7 +136,7 @@ case class ComponentParameters (
       s"""|
           |_id = _baseId + $idConstantName;
           |
-          |// Get parameter $paramName
+          |// Get serialized parameter $paramName
           |this->$validityFlagName = this->$prmGetPortInvokerName(
           |  0,
           |  _id,
@@ -397,33 +397,39 @@ case class ComponentParameters (
     val idConstantName = paramIdConstantName(paramName)
     val validityFlagName = paramValidityFlagName(paramName)
     val varName = paramVariableName(paramName)
-    wrapInIfElse(
-      s"this->$validityFlagName == Fw::ParamValid::VALID",
-      List.concat(
-        deserializeParam(param),
-        wrapInIf(
-          "_stat != Fw::FW_SERIALIZE_OK",
-          param.default match {
-            case Some(value) => lines(
-              s"""|// Use default value
-                  |this->$validityFlagName = Fw::ParamValid::DEFAULT;
-                  |this->$varName = ${ValueCppWriter.write(s, value)};
-                  |"""
-            )
-            case None => lines(
-              s"this->$validityFlagName = Fw::ParamValid::INVALID;"
-            )
-          }
-        )
+    List.concat(
+      wrapInIfElse(
+        s"this->$validityFlagName == Fw::ParamValid::VALID",
+        List.concat(
+          deserializeParam(param),
+          wrapInIf(
+            "_stat != Fw::FW_SERIALIZE_OK",
+            param.default match {
+              case Some(value) => lines(
+                s"this->$validityFlagName = Fw::ParamValid::DEFAULT;"
+              )
+              case None => lines(
+                s"this->$validityFlagName = Fw::ParamValid::INVALID;"
+              )
+            }
+          )
+        ),
+        param.default match {
+          case Some(value) => lines(
+            s"this->$validityFlagName = Fw::ParamValid::DEFAULT;"
+          )
+          case None => lines("// No default")
+        }
       ),
       param.default match {
-        case Some(value) => lines(
-          s"""|// Use default value
-              |this->$validityFlagName = Fw::ParamValid::DEFAULT;
-              |this->$varName = ${ValueCppWriter.write(s, value)};
-              |"""
-        )
-        case None => lines("// No default")
+        case Some(value) =>
+          wrapInIf(
+            s"this->$validityFlagName == Fw::ParamValid::DEFAULT",
+            if param.isExternal
+            then lines("// TODO: Set default value")
+            else lines(s"this->$varName = ${ValueCppWriter.write(s, value)};")
+          )
+        case None => Nil
       }
     )
   }
@@ -435,12 +441,10 @@ case class ComponentParameters (
         s"""|
             |this->m_paramLock.lock();
             |
-            |// If there was a deserialization issue, mark it invalid
+            |// Deserialize parameter or use default value
             |"""
       ),
-      if param.isExternal
-      then writeLoadForExternalParam(param)
-      else writeLoadForInternalParam(param),
+      writeLoadForInternalParam(param),
       Line.blank :: lines("this->m_paramLock.unLock();")
     )
 

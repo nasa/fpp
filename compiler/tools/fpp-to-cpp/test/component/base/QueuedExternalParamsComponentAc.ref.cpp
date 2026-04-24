@@ -1675,7 +1675,7 @@ void QueuedExternalParamsComponentBase ::
 
   _id = _baseId + PARAMID_PARAMI32EXT;
 
-  // Get parameter ParamI32Ext
+  // Get serialized parameter ParamI32Ext
   this->m_param_ParamI32Ext_valid = this->prmGetOut_out(
     0,
     _id,
@@ -1684,7 +1684,7 @@ void QueuedExternalParamsComponentBase ::
 
   this->m_paramLock.lock();
 
-  // If there was a deserialization issue, mark it invalid
+  // Deserialize parameter or use default value
   if (this->m_param_ParamI32Ext_valid == Fw::ParamValid::VALID) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMI32EXT, this->m_param_ParamI32Ext_valid, _buff);
@@ -1700,7 +1700,7 @@ void QueuedExternalParamsComponentBase ::
 
   _id = _baseId + PARAMID_PARAMF64EXT;
 
-  // Get parameter ParamF64Ext
+  // Get serialized parameter ParamF64Ext
   this->m_param_ParamF64Ext_valid = this->prmGetOut_out(
     0,
     _id,
@@ -1709,7 +1709,7 @@ void QueuedExternalParamsComponentBase ::
 
   this->m_paramLock.lock();
 
-  // If there was a deserialization issue, mark it invalid
+  // Deserialize parameter or use default value
   if (this->m_param_ParamF64Ext_valid == Fw::ParamValid::VALID) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMF64EXT, this->m_param_ParamF64Ext_valid, _buff);
@@ -1725,7 +1725,7 @@ void QueuedExternalParamsComponentBase ::
 
   _id = _baseId + PARAMID_PARAMSTRINGEXT;
 
-  // Get parameter ParamStringExt
+  // Get serialized parameter ParamStringExt
   this->m_param_ParamStringExt_valid = this->prmGetOut_out(
     0,
     _id,
@@ -1734,15 +1734,18 @@ void QueuedExternalParamsComponentBase ::
 
   this->m_paramLock.lock();
 
-  // If there was a deserialization issue, mark it invalid
+  // Deserialize parameter or use default value
   if (this->m_param_ParamStringExt_valid == Fw::ParamValid::VALID) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMSTRINGEXT, this->m_param_ParamStringExt_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
-      this->m_param_ParamStringExt_valid = Fw::ParamValid::INVALID;
+      this->m_param_ParamStringExt_valid = Fw::ParamValid::DEFAULT;
     }
   }
   else {
+    this->m_param_ParamStringExt_valid = Fw::ParamValid::DEFAULT;
+  }
+  if (this->m_param_ParamStringExt_valid == Fw::ParamValid::DEFAULT) {
     // TODO: Set default value
   }
 
@@ -1750,7 +1753,7 @@ void QueuedExternalParamsComponentBase ::
 
   _id = _baseId + PARAMID_PARAMENUMEXT;
 
-  // Get parameter ParamEnumExt
+  // Get serialized parameter ParamEnumExt
   this->m_param_ParamEnumExt_valid = this->prmGetOut_out(
     0,
     _id,
@@ -1759,7 +1762,7 @@ void QueuedExternalParamsComponentBase ::
 
   this->m_paramLock.lock();
 
-  // If there was a deserialization issue, mark it invalid
+  // Deserialize parameter or use default value
   if (this->m_param_ParamEnumExt_valid == Fw::ParamValid::VALID) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMENUMEXT, this->m_param_ParamEnumExt_valid, _buff);
@@ -1775,7 +1778,7 @@ void QueuedExternalParamsComponentBase ::
 
   _id = _baseId + PARAMID_PARAMARRAYEXT;
 
-  // Get parameter ParamArrayExt
+  // Get serialized parameter ParamArrayExt
   this->m_param_ParamArrayExt_valid = this->prmGetOut_out(
     0,
     _id,
@@ -1784,15 +1787,18 @@ void QueuedExternalParamsComponentBase ::
 
   this->m_paramLock.lock();
 
-  // If there was a deserialization issue, mark it invalid
+  // Deserialize parameter or use default value
   if (this->m_param_ParamArrayExt_valid == Fw::ParamValid::VALID) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMARRAYEXT, this->m_param_ParamArrayExt_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
-      this->m_param_ParamArrayExt_valid = Fw::ParamValid::INVALID;
+      this->m_param_ParamArrayExt_valid = Fw::ParamValid::DEFAULT;
     }
   }
   else {
+    this->m_param_ParamArrayExt_valid = Fw::ParamValid::DEFAULT;
+  }
+  if (this->m_param_ParamArrayExt_valid == Fw::ParamValid::DEFAULT) {
     // TODO: Set default value
   }
 
@@ -1800,7 +1806,7 @@ void QueuedExternalParamsComponentBase ::
 
   _id = _baseId + PARAMID_PARAMSTRUCTEXT;
 
-  // Get parameter ParamStructExt
+  // Get serialized parameter ParamStructExt
   this->m_param_ParamStructExt_valid = this->prmGetOut_out(
     0,
     _id,
@@ -1809,7 +1815,7 @@ void QueuedExternalParamsComponentBase ::
 
   this->m_paramLock.lock();
 
-  // If there was a deserialization issue, mark it invalid
+  // Deserialize parameter or use default value
   if (this->m_param_ParamStructExt_valid == Fw::ParamValid::VALID) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMSTRUCTEXT, this->m_param_ParamStructExt_valid, _buff);
