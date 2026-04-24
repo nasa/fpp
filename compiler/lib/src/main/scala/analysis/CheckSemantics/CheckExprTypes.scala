@@ -501,7 +501,6 @@ object CheckExprTypes extends UseAnalyzer {
   /** For shifting operations make sure both values are integer */
   private def convertToInteger(loc: Location, t: Type): Result.Result[Type] =
     if (t.isInt) Right(t)
-    else if (t.isConvertibleTo(Type.Integer)) Right(Type.Integer)
     else {                                                                                                                                                                                      
       val error = SemanticError.InvalidType(loc, s"cannot convert $t to an integer type")
       Left(error)                                                                                                                                                                               
