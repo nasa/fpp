@@ -144,6 +144,8 @@ object Token {
   final case class WARNING() extends Token
   final case class WITH() extends Token
   final case class YELLOW() extends Token
+  final case class LSHIFT() extends Token
+  final case class RSHIFT() extends Token
 }
 
 enum TokenId {
@@ -295,4 +297,6 @@ enum TokenId {
   case SEMI
   case SLASH
   case STAR
+  case LSHIFT
+  case RSHIFT
 }
