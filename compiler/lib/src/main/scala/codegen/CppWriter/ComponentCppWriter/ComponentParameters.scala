@@ -434,19 +434,24 @@ case class ComponentParameters (
     )
   }
 
-  private def writeLoadForParam(param: Param) =
+  private def writeLoadForParam(param: Param) = {
+    val orUseDefaultValue = param.default match {
+      case Some(_) => " or use default value"
+      case None => ""
+    }
     List.concat(
       getParam(param),
       lines(
         s"""|
             |this->m_paramLock.lock();
             |
-            |// Deserialize parameter or use default value
+            |// Deserialize parameter$orUseDefaultValue
             |"""
       ),
       writeLoadForInternalParam(param),
       Line.blank :: lines("this->m_paramLock.unLock();")
     )
+  }
 
   private def writeLoadFunctionBody = {
     val prmGetPortName = prmGetPort.get.getUnqualifiedName

@@ -2224,7 +2224,7 @@ namespace M {
 
     this->m_paramLock.lock();
 
-    // Deserialize parameter or use default value
+    // Deserialize parameter
     if (this->m_param_ParamU32_valid == Fw::ParamValid::VALID) {
       _stat = _buff.deserializeTo(this->m_ParamU32);
       if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -2248,7 +2248,7 @@ namespace M {
 
     this->m_paramLock.lock();
 
-    // Deserialize parameter or use default value
+    // Deserialize parameter
     if (this->m_param_ParamF64_valid == Fw::ParamValid::VALID) {
       _stat = _buff.deserializeTo(this->m_ParamF64);
       if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -2299,7 +2299,7 @@ namespace M {
 
     this->m_paramLock.lock();
 
-    // Deserialize parameter or use default value
+    // Deserialize parameter
     if (this->m_param_ParamEnum_valid == Fw::ParamValid::VALID) {
       _stat = _buff.deserializeTo(this->m_ParamEnum);
       if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -2350,7 +2350,7 @@ namespace M {
 
     this->m_paramLock.lock();
 
-    // Deserialize parameter or use default value
+    // Deserialize parameter
     if (this->m_param_ParamStruct_valid == Fw::ParamValid::VALID) {
       _stat = _buff.deserializeTo(this->m_ParamStruct);
       if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -2374,7 +2374,7 @@ namespace M {
 
     this->m_paramLock.lock();
 
-    // Deserialize parameter or use default value
+    // Deserialize parameter
     if (this->m_param_ParamI32Ext_valid == Fw::ParamValid::VALID) {
       FW_ASSERT(this->paramDelegatePtr != nullptr);
       _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMI32EXT, this->m_param_ParamI32Ext_valid, _buff);
@@ -2399,7 +2399,7 @@ namespace M {
 
     this->m_paramLock.lock();
 
-    // Deserialize parameter or use default value
+    // Deserialize parameter
     if (this->m_param_ParamF64Ext_valid == Fw::ParamValid::VALID) {
       FW_ASSERT(this->paramDelegatePtr != nullptr);
       _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMF64EXT, this->m_param_ParamF64Ext_valid, _buff);
@@ -2452,7 +2452,7 @@ namespace M {
 
     this->m_paramLock.lock();
 
-    // Deserialize parameter or use default value
+    // Deserialize parameter
     if (this->m_param_ParamEnumExt_valid == Fw::ParamValid::VALID) {
       FW_ASSERT(this->paramDelegatePtr != nullptr);
       _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMENUMEXT, this->m_param_ParamEnumExt_valid, _buff);
@@ -2505,7 +2505,7 @@ namespace M {
 
     this->m_paramLock.lock();
 
-    // Deserialize parameter or use default value
+    // Deserialize parameter
     if (this->m_param_ParamStructExt_valid == Fw::ParamValid::VALID) {
       FW_ASSERT(this->paramDelegatePtr != nullptr);
       _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMSTRUCTEXT, this->m_param_ParamStructExt_valid, _buff);

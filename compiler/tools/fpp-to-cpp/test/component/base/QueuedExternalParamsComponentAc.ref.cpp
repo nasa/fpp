@@ -1684,7 +1684,7 @@ void QueuedExternalParamsComponentBase ::
 
   this->m_paramLock.lock();
 
-  // Deserialize parameter or use default value
+  // Deserialize parameter
   if (this->m_param_ParamI32Ext_valid == Fw::ParamValid::VALID) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMI32EXT, this->m_param_ParamI32Ext_valid, _buff);
@@ -1709,7 +1709,7 @@ void QueuedExternalParamsComponentBase ::
 
   this->m_paramLock.lock();
 
-  // Deserialize parameter or use default value
+  // Deserialize parameter
   if (this->m_param_ParamF64Ext_valid == Fw::ParamValid::VALID) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMF64EXT, this->m_param_ParamF64Ext_valid, _buff);
@@ -1762,7 +1762,7 @@ void QueuedExternalParamsComponentBase ::
 
   this->m_paramLock.lock();
 
-  // Deserialize parameter or use default value
+  // Deserialize parameter
   if (this->m_param_ParamEnumExt_valid == Fw::ParamValid::VALID) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMENUMEXT, this->m_param_ParamEnumExt_valid, _buff);
@@ -1815,7 +1815,7 @@ void QueuedExternalParamsComponentBase ::
 
   this->m_paramLock.lock();
 
-  // Deserialize parameter or use default value
+  // Deserialize parameter
   if (this->m_param_ParamStructExt_valid == Fw::ParamValid::VALID) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMSTRUCTEXT, this->m_param_ParamStructExt_valid, _buff);
