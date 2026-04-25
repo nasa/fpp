@@ -125,6 +125,64 @@ class ValueSpec extends AnyWordSpec {
     }
   }
 
+  "lshift" should {
+    val triples = List(
+      (createI8(1), createI8(2), Some(createI8(4))),
+      (createI32(1), createI32(3), Some(createI32(8))),
+      (createI8(-1), createI8(1), Some(createI8(-2))),
+      (createI32(1), Integer(4), Some(Integer(16))),
+      (Integer(1), createI32(5), Some(Integer(32))),
+      (Integer(1), Integer(10), Some(Integer(1024))),
+      (enumeration, createI32(3), Some(createI32(0))),
+      (enumeration, Integer(3), Some(Integer(0))),
+      (createI32(1), enumeration, Some(createI32(1))),
+      (Integer(1), enumeration, Some(Integer(1))),
+      (createI32(1), createF32(2), None),
+      (createF32(1), createI32(2), None),
+      (createI32(1), defaultString, None),
+      (defaultString, createI32(2), None),
+      (createI32(1), defaultBoolean, None),
+      (defaultBoolean, createI32(2), None),
+      (createI32(1), defaultAnonArray3U32, None),
+      (createI32(1), array, None),
+      (createI32(1), anonStruct, None),
+      (createI32(1), struct, None),
+    )
+    triples.foreach {
+      triple => s"${triple._1} << ${triple._2} = ${triple._3}" in
+      assert(triple._1 << triple._2 == triple._3)
+    }
+  }
+
+  "rshift" should {
+    val triples = List(
+      (createI8(8), createI8(1), Some(createI8(4))),
+      (createI32(16), createI32(2), Some(createI32(4))),
+      (createI8(-8), createI8(1), Some(createI8(-4))),
+      (createI32(16), Integer(2), Some(Integer(4))),
+      (Integer(32), createI32(2), Some(Integer(8))),
+      (Integer(64), Integer(3), Some(Integer(8))),
+      (enumeration, createI32(1), Some(createI32(0))),
+      (enumeration, Integer(1), Some(Integer(0))),
+      (createI32(16), enumeration, Some(createI32(16))),
+      (Integer(16), enumeration, Some(Integer(16))),
+      (createI32(16), createF32(2), None),
+      (createF32(16), createI32(2), None),
+      (createI32(16), defaultString, None),
+      (defaultString, createI32(2), None),
+      (createI32(16), defaultBoolean, None),
+      (defaultBoolean, createI32(2), None),
+      (createI32(16), defaultAnonArray3U32, None),
+      (createI32(16), array, None),
+      (createI32(16), anonStruct, None),
+      (createI32(16), struct, None),
+    )
+    triples.foreach {
+      triple => s"${triple._1} >> ${triple._2} = ${triple._3}" in
+      assert(triple._1 >> triple._2 == triple._3)
+    }
+  }
+
   "is zero" should {
     val pairs = List(
       (createI32(1), false),
@@ -140,6 +198,58 @@ class ValueSpec extends AnyWordSpec {
     pairs.foreach {
       pair => s"evaluate ${pair._1} to ${pair._2}" in
       assert(pair._1.isZero == pair._2)
+    }
+  }
+
+  "is negative" should {
+    val pairs = List(
+      (createI32(-1), true),
+      (createI32(0), false),
+      (createI32(1), false),
+      (Integer(-5), true),
+      (Integer(0), false),
+      (Integer(5), false),
+      (createF32(-1), false),
+      (createF32(0), false),
+      (defaultString, false),
+      (defaultBoolean, false),
+      (enumeration, false),
+      (array, false),
+      (defaultAnonArray3U32, false),
+      (struct, false),
+      (anonStruct, false),
+    )
+    pairs.foreach {
+      pair => s"evaluate ${pair._1} to ${pair._2}" in
+      assert(pair._1.isNegative == pair._2)
+    }
+  }
+
+  "is valid shift amount" should {
+    val pairs = List(
+      (createI32(0), true),
+      (createI32(5), true),
+      (createI32(-1), false),
+      (createU32(5), true),
+      (Integer(0), true),
+      (Integer(5), true),
+      (Integer(-1), false),
+      (Integer(BigInt(Int.MaxValue)), true),
+      (Integer(BigInt(Int.MaxValue) + 1), false),
+      (Integer(BigInt(Int.MinValue)), false),
+      (createF32(1), false),
+      (createF32(0), false),
+      (defaultString, false),
+      (defaultBoolean, false),
+      (enumeration, true),
+      (array, false),
+      (defaultAnonArray3U32, false),
+      (struct, false),
+      (anonStruct, false),
+    )
+    pairs.foreach {
+      pair => s"evaluate ${pair._1} to ${pair._2}" in
+      assert(pair._1.isValidShiftAmount == pair._2)
     }
   }
 
