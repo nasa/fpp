@@ -322,9 +322,30 @@ case class ComponentParameters (
   private def setDefaultValue(param: Param, value: Value) = {
     val paramName = param.getName
     val varName = paramVariableName(paramName)
+    val cppValue = ValueCppWriter.write(s, value)
     if param.isExternal
-    then lines("// TODO: Set default value")
-    else lines(s"this->$varName = ${ValueCppWriter.write(s, value)};")
+    then
+      val cppType = TypeCppWriter.getName(s, value.getType, "Fw::String")
+      val idConstantName = paramIdConstantName(param.getName)
+      val validityFlagName = paramValidityFlagName(paramName)
+      lines(
+        s"""|$cppType _val = $cppValue;
+            |_buff.resetSer();
+            |_stat = _buff.serializeFrom(_val);
+            |if (_stat == Fw::FW_SERIALIZE_OK) {
+            |  _stat = this->paramDelegatePtr->deserializeParam(
+            |    _baseId,
+            |    $idConstantName,
+            |    this->$validityFlagName,
+            |    _buff
+            |  );
+            |}
+            |if (_stat != Fw::FW_SERIALIZE_OK) {
+            |  this->$validityFlagName = Fw::ParamValid::INVALID;
+            |}"""
+      )
+    else
+      lines(s"this->$varName = $cppValue;")
   }
 
   private def writeGetterFunctionBodyForExternalParam(param: Param) = {

@@ -2358,7 +2358,20 @@ void QueuedSerialComponentBase ::
     this->m_param_ParamStringExt_valid = Fw::ParamValid::DEFAULT;
   }
   if (this->m_param_ParamStringExt_valid == Fw::ParamValid::DEFAULT) {
-    // TODO: Set default value
+    Fw::String _val = Fw::String("external default");
+    _buff.resetSer();
+    _stat = _buff.serializeFrom(_val);
+    if (_stat == Fw::FW_SERIALIZE_OK) {
+      _stat = this->paramDelegatePtr->deserializeParam(
+        _baseId,
+        PARAMID_PARAMSTRINGEXT,
+        this->m_param_ParamStringExt_valid,
+        _buff
+      );
+    }
+    if (_stat != Fw::FW_SERIALIZE_OK) {
+      this->m_param_ParamStringExt_valid = Fw::ParamValid::INVALID;
+    }
   }
 
   this->m_paramLock.unLock();
@@ -2411,7 +2424,20 @@ void QueuedSerialComponentBase ::
     this->m_param_ParamArrayExt_valid = Fw::ParamValid::DEFAULT;
   }
   if (this->m_param_ParamArrayExt_valid == Fw::ParamValid::DEFAULT) {
-    // TODO: Set default value
+    A _val = A({1, 2, 3});
+    _buff.resetSer();
+    _stat = _buff.serializeFrom(_val);
+    if (_stat == Fw::FW_SERIALIZE_OK) {
+      _stat = this->paramDelegatePtr->deserializeParam(
+        _baseId,
+        PARAMID_PARAMARRAYEXT,
+        this->m_param_ParamArrayExt_valid,
+        _buff
+      );
+    }
+    if (_stat != Fw::FW_SERIALIZE_OK) {
+      this->m_param_ParamArrayExt_valid = Fw::ParamValid::INVALID;
+    }
   }
 
   this->m_paramLock.unLock();
