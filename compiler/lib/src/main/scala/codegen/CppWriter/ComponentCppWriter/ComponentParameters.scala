@@ -49,8 +49,12 @@ case class ComponentParameters (
       val idConstantName = paramIdConstantName(paramName)
       lines(
         s"""|FW_ASSERT(this->paramDelegatePtr != nullptr);
-            |_stat = this->paramDelegatePtr->deserializeParam(_baseId, $idConstantName, this->$validityFlagName, _buff);
-            |"""
+            |_stat = this->paramDelegatePtr->deserializeParam(
+            |  _baseId,
+            |  $idConstantName,
+            |  this->$validityFlagName,
+            |  _buff
+            |);"""
       )
     else
       lines(s"_stat = _buff.deserializeTo(this->$varName);")
@@ -326,23 +330,21 @@ case class ComponentParameters (
     if param.isExternal
     then
       val cppType = TypeCppWriter.getName(s, value.getType, "Fw::String")
-      val idConstantName = paramIdConstantName(param.getName)
-      val validityFlagName = paramValidityFlagName(paramName)
-      lines(
-        s"""|$cppType _val = $cppValue;
-            |_buff.resetSer();
-            |_stat = _buff.serializeFrom(_val);
-            |if (_stat == Fw::FW_SERIALIZE_OK) {
-            |  _stat = this->paramDelegatePtr->deserializeParam(
-            |    _baseId,
-            |    $idConstantName,
-            |    this->$validityFlagName,
-            |    _buff
-            |  );
-            |}
-            |if (_stat != Fw::FW_SERIALIZE_OK) {
-            |  this->$validityFlagName = Fw::ParamValid::INVALID;
-            |}"""
+      val validityFlagName = paramValidityFlagName(param.getName)
+      List.concat(
+        lines(
+          s"""|$cppType _val = $cppValue;
+              |_buff.resetSer();
+              |_stat = _buff.serializeFrom(_val);"""
+        ),
+        wrapInIf(
+          "_stat == Fw::FW_SERIALIZE_OK",
+          deserializeParam(param)
+        ),
+        wrapInIf(
+          "_stat != Fw::FW_SERIALIZE_OK",
+          lines(s"this->$validityFlagName = Fw::ParamValid::INVALID;")
+        )
       )
     else
       lines(s"this->$varName = $cppValue;")

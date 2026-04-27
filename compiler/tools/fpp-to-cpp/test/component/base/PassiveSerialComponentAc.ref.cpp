@@ -1789,7 +1789,12 @@ void PassiveSerialComponentBase ::
   // Deserialize parameter
   if (this->m_param_ParamI32Ext_valid == Fw::ParamValid::VALID) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
-    _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMI32EXT, this->m_param_ParamI32Ext_valid, _buff);
+    _stat = this->paramDelegatePtr->deserializeParam(
+      _baseId,
+      PARAMID_PARAMI32EXT,
+      this->m_param_ParamI32Ext_valid,
+      _buff
+    );
     if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamI32Ext_valid = Fw::ParamValid::INVALID;
     }
@@ -1814,7 +1819,12 @@ void PassiveSerialComponentBase ::
   // Deserialize parameter
   if (this->m_param_ParamF64Ext_valid == Fw::ParamValid::VALID) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
-    _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMF64EXT, this->m_param_ParamF64Ext_valid, _buff);
+    _stat = this->paramDelegatePtr->deserializeParam(
+      _baseId,
+      PARAMID_PARAMF64EXT,
+      this->m_param_ParamF64Ext_valid,
+      _buff
+    );
     if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamF64Ext_valid = Fw::ParamValid::INVALID;
     }
@@ -1839,7 +1849,12 @@ void PassiveSerialComponentBase ::
   // Deserialize parameter or use default value
   if (this->m_param_ParamStringExt_valid == Fw::ParamValid::VALID) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
-    _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMSTRINGEXT, this->m_param_ParamStringExt_valid, _buff);
+    _stat = this->paramDelegatePtr->deserializeParam(
+      _baseId,
+      PARAMID_PARAMSTRINGEXT,
+      this->m_param_ParamStringExt_valid,
+      _buff
+    );
     if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamStringExt_valid = Fw::ParamValid::DEFAULT;
     }
@@ -1852,6 +1867,7 @@ void PassiveSerialComponentBase ::
     _buff.resetSer();
     _stat = _buff.serializeFrom(_val);
     if (_stat == Fw::FW_SERIALIZE_OK) {
+      FW_ASSERT(this->paramDelegatePtr != nullptr);
       _stat = this->paramDelegatePtr->deserializeParam(
         _baseId,
         PARAMID_PARAMSTRINGEXT,
@@ -1880,7 +1896,12 @@ void PassiveSerialComponentBase ::
   // Deserialize parameter
   if (this->m_param_ParamEnumExt_valid == Fw::ParamValid::VALID) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
-    _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMENUMEXT, this->m_param_ParamEnumExt_valid, _buff);
+    _stat = this->paramDelegatePtr->deserializeParam(
+      _baseId,
+      PARAMID_PARAMENUMEXT,
+      this->m_param_ParamEnumExt_valid,
+      _buff
+    );
     if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamEnumExt_valid = Fw::ParamValid::INVALID;
     }
@@ -1905,7 +1926,12 @@ void PassiveSerialComponentBase ::
   // Deserialize parameter or use default value
   if (this->m_param_ParamArrayExt_valid == Fw::ParamValid::VALID) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
-    _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMARRAYEXT, this->m_param_ParamArrayExt_valid, _buff);
+    _stat = this->paramDelegatePtr->deserializeParam(
+      _baseId,
+      PARAMID_PARAMARRAYEXT,
+      this->m_param_ParamArrayExt_valid,
+      _buff
+    );
     if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamArrayExt_valid = Fw::ParamValid::DEFAULT;
     }
@@ -1918,6 +1944,7 @@ void PassiveSerialComponentBase ::
     _buff.resetSer();
     _stat = _buff.serializeFrom(_val);
     if (_stat == Fw::FW_SERIALIZE_OK) {
+      FW_ASSERT(this->paramDelegatePtr != nullptr);
       _stat = this->paramDelegatePtr->deserializeParam(
         _baseId,
         PARAMID_PARAMARRAYEXT,
@@ -1946,7 +1973,12 @@ void PassiveSerialComponentBase ::
   // Deserialize parameter
   if (this->m_param_ParamStructExt_valid == Fw::ParamValid::VALID) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
-    _stat = this->paramDelegatePtr->deserializeParam(_baseId, PARAMID_PARAMSTRUCTEXT, this->m_param_ParamStructExt_valid, _buff);
+    _stat = this->paramDelegatePtr->deserializeParam(
+      _baseId,
+      PARAMID_PARAMSTRUCTEXT,
+      this->m_param_ParamStructExt_valid,
+      _buff
+    );
     if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamStructExt_valid = Fw::ParamValid::INVALID;
     }
