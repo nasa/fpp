@@ -487,48 +487,39 @@ case class ComponentParameters (
     val prmSetIsConnected = outputPortIsConnectedName(prmSetPortName)
     val prmSetPortInvokerName = outputPortInvokerName(prmSetPort.get)
     List.concat(
-      lines(
-        s"""|Fw::ParamBuffer _saveBuff;
-            |FwPrmIdType _id;
-            |Fw::SerializeStatus _stat;
-            |
-            |"""
-      ),
       wrapInIf(
         s"this->$prmSetIsConnected(0)",
         List.concat(
+          lines(
+            """|Fw::ParamBuffer _saveBuff;
+               |const FwIdType idBase = this->getIdBase();
+               |// Serialize the parameter
+               |this->m_paramLock.lock();"""
+          ),
           if (param.isExternal)
           then lines(
-            s"""|// Get the local and base ID to pass to the delegate
-                |_id = $idConstantName;
-                |const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
-                |
-                |FW_ASSERT(this->paramDelegatePtr != nullptr);
-                |this->m_paramLock.lock();
-                |_stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
-                |this->m_paramLock.unLock();
-                |"""
+            s"""|FW_ASSERT(this->paramDelegatePtr != nullptr);
+                |const Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(
+                |  static_cast<FwPrmIdType>(idBase),
+                |  $idConstantName,
+                |  _saveBuff
+                |);"""
           )
           else lines (
-            s"""|this->m_paramLock.lock();
-                |_stat = _saveBuff.serializeFrom($paramVarName);
-                |this->m_paramLock.unLock();
-                |"""
+            s"const Fw::SerializeStatus _stat = _saveBuff.serializeFrom($paramVarName);"
           ),
           lines(
-            s"""|if (_stat != Fw::FW_SERIALIZE_OK) {
+            s"""|this->m_paramLock.unlock();
+                |if (_stat != Fw::FW_SERIALIZE_OK) {
                 |  return Fw::CmdResponse::VALIDATION_ERROR;
                 |}
-                |
-                |_id = static_cast<FwPrmIdType>(this->getIdBase() + $idConstantName);
-                |
                 |// Save the parameter
                 |this->$prmSetPortInvokerName(
                 |  0,
-                |  _id,
+                |  static_cast<FwPrmIdType>(idBase + $idConstantName),
                 |  _saveBuff
                 |);
-                |
+                |// Return the command response
                 |return Fw::CmdResponse::OK;
                 |"""
           )
