@@ -540,27 +540,35 @@ case class ComponentParameters (
 
   private def writeSetterBodyForExternalParam(param: Param) = {
     val idConstantName = paramIdConstantName(param.getName)
-    val varName = paramVariableName(param.getName)
+    val validityFlagName = paramValidityFlagName(param.getName)
     lines(
-      s"""|const FwPrmIdType _localId = $idConstantName;
-          |const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+      s"""|Fw::CmdResponse _response{};
           |
+          |this->m_paramLock.lock();
+          |// Update the external parameter
           |FW_ASSERT(this->paramDelegatePtr != nullptr);
-          |// Call the delegate serialize function for $varName
           |const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
-          |  _baseId,
-          |  _localId,
+          |  static_cast<FwPrmIdType>(this->getIdBase()),
+          |  $idConstantName,
           |  Fw::ParamValid::VALID,
           |  val
           |);
-          |if (_stat != Fw::FW_SERIALIZE_OK) {
-          |  return Fw::CmdResponse::VALIDATION_ERROR;
+          |// Set response and update component state
+          |if (_stat == Fw::FW_SERIALIZE_OK) {
+          |  this->$validityFlagName = Fw::ParamValid::VALID;
+          |  _response = Fw::CmdResponse::OK;
           |}
+          |else {
+          |  _response = Fw::CmdResponse::VALIDATION_ERROR;
+          |}
+          |this->m_paramLock.unLock();
           |
           |// Call notifier
-          |this->parameterUpdated($idConstantName);
-          |return Fw::CmdResponse::OK;
-          |"""
+          |if (_response == Fw::CmdResponse::OK) {
+          |  this->parameterUpdated($idConstantName);
+          |}
+          |// Return response
+          |return _response;"""
     )
   }
 

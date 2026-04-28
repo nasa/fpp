@@ -9046,139 +9046,193 @@ Fw::CmdResponse QueuedTestComponentBase ::
 Fw::CmdResponse QueuedTestComponentBase ::
   paramSet_ParamI32Ext(Fw::SerialBufferBase& val)
 {
-  const FwPrmIdType _localId = PARAMID_PARAMI32EXT;
-  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+  Fw::CmdResponse _response{};
 
+  this->m_paramLock.lock();
+  // Update the external parameter
   FW_ASSERT(this->paramDelegatePtr != nullptr);
-  // Call the delegate serialize function for m_ParamI32Ext
   const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
-    _baseId,
-    _localId,
+    static_cast<FwPrmIdType>(this->getIdBase()),
+    PARAMID_PARAMI32EXT,
     Fw::ParamValid::VALID,
     val
   );
-  if (_stat != Fw::FW_SERIALIZE_OK) {
-    return Fw::CmdResponse::VALIDATION_ERROR;
+  // Set response and update component state
+  if (_stat == Fw::FW_SERIALIZE_OK) {
+    this->m_param_ParamI32Ext_valid = Fw::ParamValid::VALID;
+    _response = Fw::CmdResponse::OK;
   }
+  else {
+    _response = Fw::CmdResponse::VALIDATION_ERROR;
+  }
+  this->m_paramLock.unLock();
 
   // Call notifier
-  this->parameterUpdated(PARAMID_PARAMI32EXT);
-  return Fw::CmdResponse::OK;
+  if (_response == Fw::CmdResponse::OK) {
+    this->parameterUpdated(PARAMID_PARAMI32EXT);
+  }
+  // Return response
+  return _response;
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
   paramSet_ParamF64Ext(Fw::SerialBufferBase& val)
 {
-  const FwPrmIdType _localId = PARAMID_PARAMF64EXT;
-  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+  Fw::CmdResponse _response{};
 
+  this->m_paramLock.lock();
+  // Update the external parameter
   FW_ASSERT(this->paramDelegatePtr != nullptr);
-  // Call the delegate serialize function for m_ParamF64Ext
   const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
-    _baseId,
-    _localId,
+    static_cast<FwPrmIdType>(this->getIdBase()),
+    PARAMID_PARAMF64EXT,
     Fw::ParamValid::VALID,
     val
   );
-  if (_stat != Fw::FW_SERIALIZE_OK) {
-    return Fw::CmdResponse::VALIDATION_ERROR;
+  // Set response and update component state
+  if (_stat == Fw::FW_SERIALIZE_OK) {
+    this->m_param_ParamF64Ext_valid = Fw::ParamValid::VALID;
+    _response = Fw::CmdResponse::OK;
   }
+  else {
+    _response = Fw::CmdResponse::VALIDATION_ERROR;
+  }
+  this->m_paramLock.unLock();
 
   // Call notifier
-  this->parameterUpdated(PARAMID_PARAMF64EXT);
-  return Fw::CmdResponse::OK;
+  if (_response == Fw::CmdResponse::OK) {
+    this->parameterUpdated(PARAMID_PARAMF64EXT);
+  }
+  // Return response
+  return _response;
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
   paramSet_ParamStringExt(Fw::SerialBufferBase& val)
 {
-  const FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
-  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+  Fw::CmdResponse _response{};
 
+  this->m_paramLock.lock();
+  // Update the external parameter
   FW_ASSERT(this->paramDelegatePtr != nullptr);
-  // Call the delegate serialize function for m_ParamStringExt
   const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
-    _baseId,
-    _localId,
+    static_cast<FwPrmIdType>(this->getIdBase()),
+    PARAMID_PARAMSTRINGEXT,
     Fw::ParamValid::VALID,
     val
   );
-  if (_stat != Fw::FW_SERIALIZE_OK) {
-    return Fw::CmdResponse::VALIDATION_ERROR;
+  // Set response and update component state
+  if (_stat == Fw::FW_SERIALIZE_OK) {
+    this->m_param_ParamStringExt_valid = Fw::ParamValid::VALID;
+    _response = Fw::CmdResponse::OK;
   }
+  else {
+    _response = Fw::CmdResponse::VALIDATION_ERROR;
+  }
+  this->m_paramLock.unLock();
 
   // Call notifier
-  this->parameterUpdated(PARAMID_PARAMSTRINGEXT);
-  return Fw::CmdResponse::OK;
+  if (_response == Fw::CmdResponse::OK) {
+    this->parameterUpdated(PARAMID_PARAMSTRINGEXT);
+  }
+  // Return response
+  return _response;
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
   paramSet_ParamEnumExt(Fw::SerialBufferBase& val)
 {
-  const FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
-  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+  Fw::CmdResponse _response{};
 
+  this->m_paramLock.lock();
+  // Update the external parameter
   FW_ASSERT(this->paramDelegatePtr != nullptr);
-  // Call the delegate serialize function for m_ParamEnumExt
   const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
-    _baseId,
-    _localId,
+    static_cast<FwPrmIdType>(this->getIdBase()),
+    PARAMID_PARAMENUMEXT,
     Fw::ParamValid::VALID,
     val
   );
-  if (_stat != Fw::FW_SERIALIZE_OK) {
-    return Fw::CmdResponse::VALIDATION_ERROR;
+  // Set response and update component state
+  if (_stat == Fw::FW_SERIALIZE_OK) {
+    this->m_param_ParamEnumExt_valid = Fw::ParamValid::VALID;
+    _response = Fw::CmdResponse::OK;
   }
+  else {
+    _response = Fw::CmdResponse::VALIDATION_ERROR;
+  }
+  this->m_paramLock.unLock();
 
   // Call notifier
-  this->parameterUpdated(PARAMID_PARAMENUMEXT);
-  return Fw::CmdResponse::OK;
+  if (_response == Fw::CmdResponse::OK) {
+    this->parameterUpdated(PARAMID_PARAMENUMEXT);
+  }
+  // Return response
+  return _response;
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
   paramSet_ParamArrayExt(Fw::SerialBufferBase& val)
 {
-  const FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
-  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+  Fw::CmdResponse _response{};
 
+  this->m_paramLock.lock();
+  // Update the external parameter
   FW_ASSERT(this->paramDelegatePtr != nullptr);
-  // Call the delegate serialize function for m_ParamArrayExt
   const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
-    _baseId,
-    _localId,
+    static_cast<FwPrmIdType>(this->getIdBase()),
+    PARAMID_PARAMARRAYEXT,
     Fw::ParamValid::VALID,
     val
   );
-  if (_stat != Fw::FW_SERIALIZE_OK) {
-    return Fw::CmdResponse::VALIDATION_ERROR;
+  // Set response and update component state
+  if (_stat == Fw::FW_SERIALIZE_OK) {
+    this->m_param_ParamArrayExt_valid = Fw::ParamValid::VALID;
+    _response = Fw::CmdResponse::OK;
   }
+  else {
+    _response = Fw::CmdResponse::VALIDATION_ERROR;
+  }
+  this->m_paramLock.unLock();
 
   // Call notifier
-  this->parameterUpdated(PARAMID_PARAMARRAYEXT);
-  return Fw::CmdResponse::OK;
+  if (_response == Fw::CmdResponse::OK) {
+    this->parameterUpdated(PARAMID_PARAMARRAYEXT);
+  }
+  // Return response
+  return _response;
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
   paramSet_ParamStructExt(Fw::SerialBufferBase& val)
 {
-  const FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
-  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+  Fw::CmdResponse _response{};
 
+  this->m_paramLock.lock();
+  // Update the external parameter
   FW_ASSERT(this->paramDelegatePtr != nullptr);
-  // Call the delegate serialize function for m_ParamStructExt
   const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
-    _baseId,
-    _localId,
+    static_cast<FwPrmIdType>(this->getIdBase()),
+    PARAMID_PARAMSTRUCTEXT,
     Fw::ParamValid::VALID,
     val
   );
-  if (_stat != Fw::FW_SERIALIZE_OK) {
-    return Fw::CmdResponse::VALIDATION_ERROR;
+  // Set response and update component state
+  if (_stat == Fw::FW_SERIALIZE_OK) {
+    this->m_param_ParamStructExt_valid = Fw::ParamValid::VALID;
+    _response = Fw::CmdResponse::OK;
   }
+  else {
+    _response = Fw::CmdResponse::VALIDATION_ERROR;
+  }
+  this->m_paramLock.unLock();
 
   // Call notifier
-  this->parameterUpdated(PARAMID_PARAMSTRUCTEXT);
-  return Fw::CmdResponse::OK;
+  if (_response == Fw::CmdResponse::OK) {
+    this->parameterUpdated(PARAMID_PARAMSTRUCTEXT);
+  }
+  // Return response
+  return _response;
 }
 
 // ----------------------------------------------------------------------
