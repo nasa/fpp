@@ -3471,7 +3471,9 @@ U32 QueuedParamsComponentBase ::
   U32 _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamU32_valid;
-  _local = this->m_ParamU32;
+  if ((valid == Fw::ParamValid::VALID) || (valid == Fw::ParamValid::DEFAULT)) {
+    _local = this->m_ParamU32;
+  }
   this->m_paramLock.unLock();
   return _local;
 }
@@ -3482,7 +3484,9 @@ F64 QueuedParamsComponentBase ::
   F64 _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamF64_valid;
-  _local = this->m_ParamF64;
+  if ((valid == Fw::ParamValid::VALID) || (valid == Fw::ParamValid::DEFAULT)) {
+    _local = this->m_ParamF64;
+  }
   this->m_paramLock.unLock();
   return _local;
 }
@@ -3493,7 +3497,9 @@ Fw::ParamString QueuedParamsComponentBase ::
   Fw::ParamString _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamString_valid;
-  _local = this->m_ParamString;
+  if ((valid == Fw::ParamValid::VALID) || (valid == Fw::ParamValid::DEFAULT)) {
+    _local = this->m_ParamString;
+  }
   this->m_paramLock.unLock();
   return _local;
 }
@@ -3504,7 +3510,9 @@ E QueuedParamsComponentBase ::
   E _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamEnum_valid;
-  _local = this->m_ParamEnum;
+  if ((valid == Fw::ParamValid::VALID) || (valid == Fw::ParamValid::DEFAULT)) {
+    _local = this->m_ParamEnum;
+  }
   this->m_paramLock.unLock();
   return _local;
 }
@@ -3515,7 +3523,9 @@ A QueuedParamsComponentBase ::
   A _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamArray_valid;
-  _local = this->m_ParamArray;
+  if ((valid == Fw::ParamValid::VALID) || (valid == Fw::ParamValid::DEFAULT)) {
+    _local = this->m_ParamArray;
+  }
   this->m_paramLock.unLock();
   return _local;
 }
@@ -3526,7 +3536,9 @@ S QueuedParamsComponentBase ::
   S _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamStruct_valid;
-  _local = this->m_ParamStruct;
+  if ((valid == Fw::ParamValid::VALID) || (valid == Fw::ParamValid::DEFAULT)) {
+    _local = this->m_ParamStruct;
+  }
   this->m_paramLock.unLock();
   return _local;
 }
