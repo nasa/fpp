@@ -1057,35 +1057,6 @@
         "portInterface" : {
           "instanceType" : "component",
           "portMap" : {
-            "cmdRegOut" : {
-              "Special" : {
-                "aNode" : {
-                  "astNodeId" : 11
-                },
-                "specifier" : {
-                  "inputKind" : "None",
-                  "kind" : {
-                    "CommandReg" : {
-                      
-                    }
-                  },
-                  "name" : "cmdRegOut",
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 1,
-                    "unqualifiedName" : "CmdReg"
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None",
-                "importNodeIds" : [
-                  29
-                ]
-              }
-            },
             "cmdIn" : {
               "Special" : {
                 "aNode" : {
@@ -1106,6 +1077,35 @@
                   "Port" : {
                     "nodeId" : 0,
                     "unqualifiedName" : "Cmd"
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None",
+                "importNodeIds" : [
+                  29
+                ]
+              }
+            },
+            "cmdRegOut" : {
+              "Special" : {
+                "aNode" : {
+                  "astNodeId" : 11
+                },
+                "specifier" : {
+                  "inputKind" : "None",
+                  "kind" : {
+                    "CommandReg" : {
+                      
+                    }
+                  },
+                  "name" : "cmdRegOut",
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 1,
+                    "unqualifiedName" : "CmdReg"
                   }
                 },
                 "priority" : "None",
@@ -1184,33 +1184,6 @@
             }
           },
           "specialPortMap" : {
-            "command reg" : {
-              "aNode" : {
-                "astNodeId" : 11
-              },
-              "specifier" : {
-                "inputKind" : "None",
-                "kind" : {
-                  "CommandReg" : {
-                    
-                  }
-                },
-                "name" : "cmdRegOut",
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "symbol" : {
-                "Port" : {
-                  "nodeId" : 1,
-                  "unqualifiedName" : "CmdReg"
-                }
-              },
-              "priority" : "None",
-              "queueFull" : "None",
-              "importNodeIds" : [
-                29
-              ]
-            },
             "command recv" : {
               "aNode" : {
                 "astNodeId" : 12
@@ -1230,6 +1203,33 @@
                 "Port" : {
                   "nodeId" : 0,
                   "unqualifiedName" : "Cmd"
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None",
+              "importNodeIds" : [
+                29
+              ]
+            },
+            "command reg" : {
+              "aNode" : {
+                "astNodeId" : 11
+              },
+              "specifier" : {
+                "inputKind" : "None",
+                "kind" : {
+                  "CommandReg" : {
+                    
+                  }
+                },
+                "name" : "cmdRegOut",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "symbol" : {
+                "Port" : {
+                  "nodeId" : 1,
+                  "unqualifiedName" : "CmdReg"
                 }
               },
               "priority" : "None",
@@ -1441,6 +1441,17 @@
       
     },
     "typeMap" : {
+      "7" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U16" : {
+                
+              }
+            }
+          }
+        }
+      },
       "8" : {
         "AliasType" : {
           "node" : {
@@ -1459,14 +1470,14 @@
           }
         }
       },
-      "77" : {
+      "9" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "9" : {
+      "10" : {
         "Int" : {
           "Integer" : {
             
@@ -1491,14 +1502,37 @@
           }
         }
       },
-      "72" : {
+      "41" : {
+        "Primitive" : {
+          "Float" : {
+            "kind" : {
+              "F32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "43" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "10" : {
+      "69" : {
+        "String" : {
+          "size" : "None"
+        }
+      },
+      "71" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "72" : {
         "Int" : {
           "Integer" : {
             
@@ -1523,83 +1557,25 @@
           }
         }
       },
-      "43" : {
+      "77" : {
         "Int" : {
           "Integer" : {
             
-          }
-        }
-      },
-      "71" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "69" : {
-        "String" : {
-          "size" : "None"
-        }
-      },
-      "7" : {
-        "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U16" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "41" : {
-        "Primitive" : {
-          "Float" : {
-            "kind" : {
-              "F32" : {
-                
-              }
-            }
           }
         }
       }
     },
     "useDefMap" : {
+      "11" : {
+        "Port" : {
+          "nodeId" : 1,
+          "unqualifiedName" : "CmdReg"
+        }
+      },
       "12" : {
         "Port" : {
           "nodeId" : 0,
           "unqualifiedName" : "Cmd"
-        }
-      },
-      "77" : {
-        "Constant" : {
-          "nodeId" : 10,
-          "unqualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE"
-        }
-      },
-      "24" : {
-        "Port" : {
-          "nodeId" : 6,
-          "unqualifiedName" : "General"
-        }
-      },
-      "76" : {
-        "AliasType" : {
-          "nodeId" : 8,
-          "unqualifiedName" : "FwSizeStoreType"
-        }
-      },
-      "31" : {
-        "Interface" : {
-          "nodeId" : 26,
-          "unqualifiedName" : "IPort"
-        }
-      },
-      "28" : {
-        "Interface" : {
-          "nodeId" : 16,
-          "unqualifiedName" : "ICmd"
         }
       },
       "15" : {
@@ -1608,20 +1584,44 @@
           "unqualifiedName" : "CmdResponse"
         }
       },
-      "11" : {
+      "24" : {
         "Port" : {
-          "nodeId" : 1,
-          "unqualifiedName" : "CmdReg"
+          "nodeId" : 6,
+          "unqualifiedName" : "General"
+        }
+      },
+      "28" : {
+        "Interface" : {
+          "nodeId" : 16,
+          "unqualifiedName" : "ICmd"
+        }
+      },
+      "31" : {
+        "Interface" : {
+          "nodeId" : 26,
+          "unqualifiedName" : "IPort"
+        }
+      },
+      "76" : {
+        "AliasType" : {
+          "nodeId" : 8,
+          "unqualifiedName" : "FwSizeStoreType"
+        }
+      },
+      "77" : {
+        "Constant" : {
+          "nodeId" : 10,
+          "unqualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE"
         }
       }
     },
     "valueMap" : {
-      "77" : {
+      "9" : {
         "Integer" : {
           "value" : 256
         }
       },
-      "9" : {
+      "10" : {
         "Integer" : {
           "value" : 256
         }
@@ -1629,16 +1629,6 @@
       "33" : {
         "Integer" : {
           "value" : 10
-        }
-      },
-      "72" : {
-        "Integer" : {
-          "value" : 30
-        }
-      },
-      "10" : {
-        "Integer" : {
-          "value" : 256
         }
       },
       "43" : {
@@ -1649,6 +1639,16 @@
       "71" : {
         "Integer" : {
           "value" : 16
+        }
+      },
+      "72" : {
+        "Integer" : {
+          "value" : 30
+        }
+      },
+      "77" : {
+        "Integer" : {
+          "value" : 256
         }
       }
     },
@@ -1668,34 +1668,6 @@
         "portInterface" : {
           "instanceType" : "interface",
           "portMap" : {
-            "cmdRegOut" : {
-              "Special" : {
-                "aNode" : {
-                  "astNodeId" : 11
-                },
-                "specifier" : {
-                  "inputKind" : "None",
-                  "kind" : {
-                    "CommandReg" : {
-                      
-                    }
-                  },
-                  "name" : "cmdRegOut",
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 1,
-                    "unqualifiedName" : "CmdReg"
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None",
-                "importNodeIds" : [
-                ]
-              }
-            },
             "cmdIn" : {
               "Special" : {
                 "aNode" : {
@@ -1716,6 +1688,34 @@
                   "Port" : {
                     "nodeId" : 0,
                     "unqualifiedName" : "Cmd"
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None",
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "cmdRegOut" : {
+              "Special" : {
+                "aNode" : {
+                  "astNodeId" : 11
+                },
+                "specifier" : {
+                  "inputKind" : "None",
+                  "kind" : {
+                    "CommandReg" : {
+                      
+                    }
+                  },
+                  "name" : "cmdRegOut",
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 1,
+                    "unqualifiedName" : "CmdReg"
                   }
                 },
                 "priority" : "None",
@@ -1754,32 +1754,6 @@
             }
           },
           "specialPortMap" : {
-            "command reg" : {
-              "aNode" : {
-                "astNodeId" : 11
-              },
-              "specifier" : {
-                "inputKind" : "None",
-                "kind" : {
-                  "CommandReg" : {
-                    
-                  }
-                },
-                "name" : "cmdRegOut",
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "symbol" : {
-                "Port" : {
-                  "nodeId" : 1,
-                  "unqualifiedName" : "CmdReg"
-                }
-              },
-              "priority" : "None",
-              "queueFull" : "None",
-              "importNodeIds" : [
-              ]
-            },
             "command recv" : {
               "aNode" : {
                 "astNodeId" : 12
@@ -1799,6 +1773,32 @@
                 "Port" : {
                   "nodeId" : 0,
                   "unqualifiedName" : "Cmd"
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None",
+              "importNodeIds" : [
+              ]
+            },
+            "command reg" : {
+              "aNode" : {
+                "astNodeId" : 11
+              },
+              "specifier" : {
+                "inputKind" : "None",
+                "kind" : {
+                  "CommandReg" : {
+                    
+                  }
+                },
+                "name" : "cmdRegOut",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "symbol" : {
+                "Port" : {
+                  "nodeId" : 1,
+                  "unqualifiedName" : "CmdReg"
                 }
               },
               "priority" : "None",
@@ -1888,6 +1888,9 @@
           }
         }
       }
+    },
+    "dictionaryMap" : {
+      
     }
   }
 }

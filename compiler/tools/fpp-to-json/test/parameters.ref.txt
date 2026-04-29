@@ -900,26 +900,26 @@
                 ]
               }
             },
-            "prmGetOut" : {
+            "cmdRegOut" : {
               "Special" : {
                 "aNode" : {
-                  "astNodeId" : 6
+                  "astNodeId" : 4
                 },
                 "specifier" : {
                   "inputKind" : "None",
                   "kind" : {
-                    "ParamGet" : {
+                    "CommandReg" : {
                       
                     }
                   },
-                  "name" : "prmGetOut",
+                  "name" : "cmdRegOut",
                   "priority" : "None",
                   "queueFull" : "None"
                 },
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 36,
-                    "unqualifiedName" : "PrmGet"
+                    "nodeId" : 39,
+                    "unqualifiedName" : "CmdReg"
                   }
                 },
                 "priority" : "None",
@@ -956,6 +956,34 @@
                 ]
               }
             },
+            "prmGetOut" : {
+              "Special" : {
+                "aNode" : {
+                  "astNodeId" : 6
+                },
+                "specifier" : {
+                  "inputKind" : "None",
+                  "kind" : {
+                    "ParamGet" : {
+                      
+                    }
+                  },
+                  "name" : "prmGetOut",
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 36,
+                    "unqualifiedName" : "PrmGet"
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None",
+                "importNodeIds" : [
+                ]
+              }
+            },
             "prmSetOut" : {
               "Special" : {
                 "aNode" : {
@@ -983,63 +1011,9 @@
                 "importNodeIds" : [
                 ]
               }
-            },
-            "cmdRegOut" : {
-              "Special" : {
-                "aNode" : {
-                  "astNodeId" : 4
-                },
-                "specifier" : {
-                  "inputKind" : "None",
-                  "kind" : {
-                    "CommandReg" : {
-                      
-                    }
-                  },
-                  "name" : "cmdRegOut",
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 39,
-                    "unqualifiedName" : "CmdReg"
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None",
-                "importNodeIds" : [
-                ]
-              }
             }
           },
           "specialPortMap" : {
-            "param set" : {
-              "aNode" : {
-                "astNodeId" : 7
-              },
-              "specifier" : {
-                "inputKind" : "None",
-                "kind" : {
-                  "ParamSet" : {
-                    
-                  }
-                },
-                "name" : "prmSetOut",
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "symbol" : {
-                "Port" : {
-                  "nodeId" : 37,
-                  "unqualifiedName" : "PrmSet"
-                }
-              },
-              "priority" : "None",
-              "queueFull" : "None",
-              "importNodeIds" : [
-              ]
-            },
             "command recv" : {
               "aNode" : {
                 "astNodeId" : 3
@@ -1143,29 +1117,55 @@
               "queueFull" : "None",
               "importNodeIds" : [
               ]
+            },
+            "param set" : {
+              "aNode" : {
+                "astNodeId" : 7
+              },
+              "specifier" : {
+                "inputKind" : "None",
+                "kind" : {
+                  "ParamSet" : {
+                    
+                  }
+                },
+                "name" : "prmSetOut",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "symbol" : {
+                "Port" : {
+                  "nodeId" : 37,
+                  "unqualifiedName" : "PrmSet"
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None",
+              "importNodeIds" : [
+              ]
             }
           }
         },
         "commandMap" : {
-          "34" : {
+          "0" : {
             "Param" : {
               "aNode" : {
-                "astNodeId" : 34
+                "astNodeId" : 10
               },
               "kind" : {
-                "Save" : {
+                "Set" : {
                   
                 }
               }
             }
           },
-          "33" : {
+          "1" : {
             "Param" : {
               "aNode" : {
-                "astNodeId" : 34
+                "astNodeId" : 10
               },
               "kind" : {
-                "Set" : {
+                "Save" : {
                   
                 }
               }
@@ -1175,6 +1175,30 @@
             "Param" : {
               "aNode" : {
                 "astNodeId" : 16
+              },
+              "kind" : {
+                "Set" : {
+                  
+                }
+              }
+            }
+          },
+          "17" : {
+            "Param" : {
+              "aNode" : {
+                "astNodeId" : 16
+              },
+              "kind" : {
+                "Save" : {
+                  
+                }
+              }
+            }
+          },
+          "18" : {
+            "Param" : {
+              "aNode" : {
+                "astNodeId" : 25
               },
               "kind" : {
                 "Set" : {
@@ -1195,34 +1219,10 @@
               }
             }
           },
-          "1" : {
+          "33" : {
             "Param" : {
               "aNode" : {
-                "astNodeId" : 10
-              },
-              "kind" : {
-                "Save" : {
-                  
-                }
-              }
-            }
-          },
-          "17" : {
-            "Param" : {
-              "aNode" : {
-                "astNodeId" : 16
-              },
-              "kind" : {
-                "Save" : {
-                  
-                }
-              }
-            }
-          },
-          "0" : {
-            "Param" : {
-              "aNode" : {
-                "astNodeId" : 10
+                "astNodeId" : 34
               },
               "kind" : {
                 "Set" : {
@@ -1231,13 +1231,13 @@
               }
             }
           },
-          "18" : {
+          "34" : {
             "Param" : {
               "aNode" : {
-                "astNodeId" : 25
+                "astNodeId" : 34
               },
               "kind" : {
-                "Set" : {
+                "Save" : {
                   
                 }
               }
@@ -1601,13 +1601,13 @@
     "locationSpecifierMap" : [
     ],
     "parentSymbolMap" : {
-      "37" : {
+      "36" : {
         "Module" : {
           "nodeId" : 43,
           "unqualifiedName" : "Fw"
         }
       },
-      "42" : {
+      "37" : {
         "Module" : {
           "nodeId" : 43,
           "unqualifiedName" : "Fw"
@@ -1619,13 +1619,13 @@
           "unqualifiedName" : "Fw"
         }
       },
-      "36" : {
+      "39" : {
         "Module" : {
           "nodeId" : 43,
           "unqualifiedName" : "Fw"
         }
       },
-      "39" : {
+      "42" : {
         "Module" : {
           "nodeId" : 43,
           "unqualifiedName" : "Fw"
@@ -1642,10 +1642,22 @@
         "map" : {
           "Port" : {
             "map" : {
+              "Cmd" : {
+                "Port" : {
+                  "nodeId" : 38,
+                  "unqualifiedName" : "Cmd"
+                }
+              },
               "CmdReg" : {
                 "Port" : {
                   "nodeId" : 39,
                   "unqualifiedName" : "CmdReg"
+                }
+              },
+              "CmdResponse" : {
+                "Port" : {
+                  "nodeId" : 42,
+                  "unqualifiedName" : "CmdResponse"
                 }
               },
               "PrmGet" : {
@@ -1659,18 +1671,6 @@
                   "nodeId" : 37,
                   "unqualifiedName" : "PrmSet"
                 }
-              },
-              "Cmd" : {
-                "Port" : {
-                  "nodeId" : 38,
-                  "unqualifiedName" : "Cmd"
-                }
-              },
-              "CmdResponse" : {
-                "Port" : {
-                  "nodeId" : 42,
-                  "unqualifiedName" : "CmdResponse"
-                }
               }
             }
           }
@@ -1681,79 +1681,10 @@
       
     },
     "typeMap" : {
-      "12" : {
-        "Primitive" : {
-          "Float" : {
-            "kind" : {
-              "F64" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "8" : {
-        "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U32" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "33" : {
+      "0" : {
         "Int" : {
           "Integer" : {
             
-          }
-        }
-      },
-      "22" : {
-        "Primitive" : {
-          "Float" : {
-            "kind" : {
-              "F64" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "13" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "24" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "21" : {
-        "Primitive" : {
-          "Float" : {
-            "kind" : {
-              "F64" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "32" : {
-        "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "I16" : {
-                
-              }
-            }
           }
         }
       },
@@ -1765,13 +1696,6 @@
                 
               }
             }
-          }
-        }
-      },
-      "14" : {
-        "Int" : {
-          "Integer" : {
-            
           }
         }
       },
@@ -1860,6 +1784,67 @@
           "format" : "None"
         }
       },
+      "8" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "9" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "11" : {
+        "Primitive" : {
+          "Float" : {
+            "kind" : {
+              "F64" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "12" : {
+        "Primitive" : {
+          "Float" : {
+            "kind" : {
+              "F64" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "13" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "14" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "15" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
       "19" : {
         "Array" : {
           "node" : {
@@ -1945,6 +1930,39 @@
           "format" : "None"
         }
       },
+      "20" : {
+        "Primitive" : {
+          "Float" : {
+            "kind" : {
+              "F64" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "21" : {
+        "Primitive" : {
+          "Float" : {
+            "kind" : {
+              "F64" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "22" : {
+        "Primitive" : {
+          "Float" : {
+            "kind" : {
+              "F64" : {
+                
+              }
+            }
+          }
+        }
+      },
       "23" : {
         "AnonArray" : {
           "size" : {
@@ -1963,55 +1981,37 @@
           }
         }
       },
-      "15" : {
+      "24" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "11" : {
-        "Primitive" : {
-          "Float" : {
+      "32" : {
+        "Int" : {
+          "PrimitiveInt" : {
             "kind" : {
-              "F64" : {
+              "I16" : {
                 
               }
             }
           }
         }
       },
-      "9" : {
+      "33" : {
         "Int" : {
           "Integer" : {
             
-          }
-        }
-      },
-      "0" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "20" : {
-        "Primitive" : {
-          "Float" : {
-            "kind" : {
-              "F64" : {
-                
-              }
-            }
           }
         }
       }
     },
     "useDefMap" : {
-      "19" : {
-        "Array" : {
-          "nodeId" : 2,
-          "unqualifiedName" : "F64x3"
+      "3" : {
+        "Port" : {
+          "nodeId" : 38,
+          "unqualifiedName" : "Cmd"
         }
       },
       "4" : {
@@ -2032,29 +2032,84 @@
           "unqualifiedName" : "PrmGet"
         }
       },
-      "18" : {
-        "Array" : {
-          "nodeId" : 2,
-          "unqualifiedName" : "F64x3"
-        }
-      },
       "7" : {
         "Port" : {
           "nodeId" : 37,
           "unqualifiedName" : "PrmSet"
         }
       },
-      "3" : {
-        "Port" : {
-          "nodeId" : 38,
-          "unqualifiedName" : "Cmd"
+      "18" : {
+        "Array" : {
+          "nodeId" : 2,
+          "unqualifiedName" : "F64x3"
+        }
+      },
+      "19" : {
+        "Array" : {
+          "nodeId" : 2,
+          "unqualifiedName" : "F64x3"
         }
       }
     },
     "valueMap" : {
+      "0" : {
+        "Integer" : {
+          "value" : 3
+        }
+      },
+      "9" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
       "12" : {
         "Float" : {
           "value" : 2.0,
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
+      },
+      "13" : {
+        "Integer" : {
+          "value" : 16
+        }
+      },
+      "14" : {
+        "Integer" : {
+          "value" : 16
+        }
+      },
+      "15" : {
+        "Integer" : {
+          "value" : 17
+        }
+      },
+      "20" : {
+        "Float" : {
+          "value" : 1.0,
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
+      },
+      "21" : {
+        "Float" : {
+          "value" : 2.0,
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
+      },
+      "22" : {
+        "Float" : {
+          "value" : 3.0,
           "kind" : {
             "F64" : {
               
@@ -2098,69 +2153,14 @@
           ]
         }
       },
-      "33" : {
-        "Integer" : {
-          "value" : 42
-        }
-      },
-      "22" : {
-        "Float" : {
-          "value" : 3.0,
-          "kind" : {
-            "F64" : {
-              
-            }
-          }
-        }
-      },
-      "13" : {
-        "Integer" : {
-          "value" : 16
-        }
-      },
       "24" : {
         "Integer" : {
           "value" : 32
         }
       },
-      "21" : {
-        "Float" : {
-          "value" : 2.0,
-          "kind" : {
-            "F64" : {
-              
-            }
-          }
-        }
-      },
-      "14" : {
+      "33" : {
         "Integer" : {
-          "value" : 16
-        }
-      },
-      "15" : {
-        "Integer" : {
-          "value" : 17
-        }
-      },
-      "9" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "0" : {
-        "Integer" : {
-          "value" : 3
-        }
-      },
-      "20" : {
-        "Float" : {
-          "value" : 1.0,
-          "kind" : {
-            "F64" : {
-              
-            }
-          }
+          "value" : 42
         }
       }
     },
@@ -2170,6 +2170,9 @@
     "dictionarySymbolSet" : [
     ],
     "interfaceMap" : {
+      
+    },
+    "dictionaryMap" : {
       
     }
   }

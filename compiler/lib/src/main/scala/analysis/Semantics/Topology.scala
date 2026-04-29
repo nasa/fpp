@@ -280,7 +280,7 @@ case class Topology(
   def getLoc: Location = Locations.get(aNode._2.id)
 
   /** Precompute the set of component instances in the topology */
-  val componentInstanceMap: Map[ComponentInstance, Location] = {
+  lazy val componentInstanceMap: Map[ComponentInstance, Location] = {
     instanceMap collect { case (InterfaceInstance.InterfaceComponentInstance(ci), loc: Location) => (ci, loc) }
   }
 

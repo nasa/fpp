@@ -38,13 +38,16 @@ object AnalysisJsonEncoder extends JsonEncoder{
 
   // JSON encoder for symbols
   // Report the symbol kind and the info in the SymbolInterface trait
-  private def symbolAsJson(symbol: SymbolInterface) = addTypeNameKey(
-    symbol,
-    Json.obj(
-      "nodeId" -> symbol.getNodeId.asJson,
-      "unqualifiedName" -> symbol.getUnqualifiedName.asJson
-    )
-  )
+  implicit val symbolInterfaceEncoder: Encoder[SymbolInterface] =
+    Encoder.instance { symbol =>
+      addTypeNameKey(
+        symbol,
+        Json.obj(
+          "nodeId" -> symbol.getNodeId.asJson,
+          "unqualifiedName" -> symbol.getUnqualifiedName.asJson
+        )
+      )
+    }
 
   // JSON encoder for interface instances
   // Replace component instance/topology with its AST node
@@ -57,6 +60,45 @@ object AnalysisJsonEncoder extends JsonEncoder{
       addTypeNameKey(instance, nodeJson)
   }
 
+  // Sorts maps with symbol keys by node ID before encoding as JSON
+  private implicit def symbolMapEncoder[K <: Symbol, V](implicit
+    ke: KeyEncoder[K],
+    ve: Encoder[V]
+  ): Encoder[Map[K, V]] =
+    Encoder.instance { map =>
+      Json.obj(
+        map.toList
+          .sortBy(_._1.getNodeId)
+          .map { case (k, v) => (ke(k), v.asJson) }: _*
+      )
+    }
+
+  // Sorts maps with AST node ID keys before encoding as JSON
+  private implicit def astNodeIdMapEncoder[V](implicit
+    ke: KeyEncoder[AstNode.Id],
+    ve: Encoder[V]
+  ): Encoder[Map[AstNode.Id, V]] =
+    Encoder.instance { map =>
+      Json.obj(
+        map.toList
+          .sortBy(_._1)
+          .map { case (k, v) => (ke(k), v.asJson) }: _*
+      )
+    }
+
+  // Generic map sorting
+  implicit def genericMapEncoder[K, V](implicit
+    ke: KeyEncoder[K],
+    ve: Encoder[V],
+  ): Encoder[Map[K, V]] =
+    Encoder.instance { map =>
+      Json.obj(
+        map.toList
+          .map { case (k, v) => (ke(k), ve(v)) }
+          .sortBy(_._1): _*
+      )
+    }
+
   // JSON encoder for component instances
   // Use the default Circe encoding, but replace the component instance
   // with its AST node. We can use the ID to look up the component
@@ -67,6 +109,37 @@ object AnalysisJsonEncoder extends JsonEncoder{
         apply(compInstance).asObject.get.
         add("component", compInstance.component.aNode.asJson).asJson
     }
+
+  // Dictionary encoder that omits the reverseTlmChannelEntryMap
+  private implicit val dictionaryEncoder: Encoder[Dictionary] =
+      Encoder.instance { d =>
+        io.circe.Json.obj(
+          "usedSymbolSet" -> d.usedSymbolSet.asJson,
+          "commandEntryMap" -> d.commandEntryMap.asJson,
+          "tlmChannelEntryMap" -> d.tlmChannelEntryMap.asJson,
+          "eventEntryMap" -> d.eventEntryMap.asJson,
+          "paramEntryMap" -> d.paramEntryMap.asJson,
+          "recordEntryMap" -> d.recordEntryMap.asJson,
+          "containerEntryMap" -> d.containerEntryMap.asJson,
+          "tlmPacketSetMap" -> d.tlmPacketSetMap.asJson
+        )
+      }
+
+  // Encoder for converting node ID keys to strings
+  private implicit val astNodeIdKeyEncoder: KeyEncoder[AstNode.Id] =
+    KeyEncoder.instance(_.toString)
+
+  // Encoder for converting BigInt keys to strings
+  private implicit val bigIntKeyEncoder: KeyEncoder[BigInt] =
+    KeyEncoder.instance(_.toString)
+
+  // Encoder for converting node ID keys to strings
+  private implicit def stateMachineSymbolKeyEncoder[A <: StateMachineSymbol]: KeyEncoder[A]=
+    KeyEncoder.instance(_.getNodeId.toString)
+
+  // Encoder for converting symbol keys to node ID strings
+  private implicit def symbolKeyEncoder[A <: Symbol]: KeyEncoder[A] =
+    KeyEncoder.instance(_.getNodeId.toString)
 
   // ----------------------------------------------------------------------
   // Encoders for helping Circe with recursive types
@@ -88,13 +161,13 @@ object AnalysisJsonEncoder extends JsonEncoder{
     io.circe.generic.semiauto.deriveEncoder[PortInstanceIdentifier]
 
   private implicit val portSymbolEncoder: Encoder[Symbol.Port] =
-    Encoder.instance(symbolAsJson(_))
+    Encoder.instance(symbolInterfaceEncoder.apply)
 
   private implicit val stateMachineSymbolEncoder: Encoder[StateMachineSymbol] =
-    Encoder.instance(symbolAsJson(_))
+    Encoder.instance(symbolInterfaceEncoder.apply)
 
   private implicit val symbolEncoder: Encoder[Symbol] =
-    Encoder.instance(symbolAsJson(_))
+    Encoder.instance(symbolInterfaceEncoder.apply)
 
   private implicit val typeEncoder: Encoder[Type] =
     io.circe.generic.semiauto.deriveEncoder[Type]
@@ -116,76 +189,8 @@ object AnalysisJsonEncoder extends JsonEncoder{
   // We use this conversion when the keys can be converted to strings
   // ----------------------------------------------------------------------
 
-  private def astNodeIdToString(id: AstNode.Id) = id.toString
-
   private def mapAsJsonMap[A,B] (f1: A => String) (f2: B => Json) (map: Map[A,B]): Json =
     (map.map { case (key, value) => (f1(key), f2(value)) }).asJson
-
-  private def stateMachineSymbolToIdString(s: StateMachineSymbol) = s.getNodeId.toString
-
-  private def symbolToIdString(s: Symbol) = s.getNodeId.toString
-
-  private implicit val commandMapEncoder: Encoder[Map[Command.Opcode, Command]] = {
-    def f1(opcode: Command.Opcode) = opcode.toString
-    def f2(command: Command) = command.asJson
-    Encoder.instance (mapAsJsonMap(f1)(f2))
-  }
-
-  private implicit val componentInstanceMapEncoder:
-    Encoder[Map[Symbol.ComponentInstance, ComponentInstance]] =
-  {
-    def f2(ci: ComponentInstance) = ci.asJson
-    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
-  }
-
-  private implicit val componentMapEncoder:
-    Encoder[Map[Symbol.Component, Component]] =
-  {
-    def f2(c: Component) = c.asJson
-    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
-  }
-
-  private implicit val containerMapEncoder:
-    Encoder[Map[Container.Id, Container]] =
-  {
-    def f1(id: Container.Id) = id.toString
-    def f2(c: Container) = c.asJson
-    Encoder.instance (mapAsJsonMap(f1)(f2))
-  }
-
-  private implicit val directTopologiesMapEncoder:
-    Encoder[Map[Symbol.Topology, Location]] =
-  {
-    def f2(loc: Location) = loc.asJson
-    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
-  }
-
-  private implicit val directComponentInstancesEncoder:
-    Encoder[Map[Symbol.ComponentInstance, Location]] =
-  {
-    def f2(loc: Location) = loc.asJson
-    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
-  }
-
-  private implicit val eventMapEncoder: Encoder[Map[Event.Id, Event]] = {
-    def f1(id: Event.Id) = id.toString
-    def f2(event: Event) = event.asJson
-    Encoder.instance (mapAsJsonMap(f1)(f2))
-  }
-
-  private implicit val interfaceMapEncoder:
-    Encoder[Map[Symbol.Interface, Interface]] =
-  {
-    def f2(i: Interface): Json = i.asJson
-    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
-  }
-
-  private implicit val importMapEncoder:
-    Encoder[Map[Symbol.Interface, (AstNode.Id, Location)]] =
-  {
-    def f2(i: (AstNode.Id, Location)): Json = i.asJson
-    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
-  }
 
   private implicit val limitsEncoder: Encoder[TlmChannel.Limits] = {
     def f1(kind: Ast.SpecTlmChannel.LimitKind) = kind.toString
@@ -201,20 +206,6 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance (mapAsJsonMap(f1)(f2))
   }
 
-  private implicit val nameSymbolMapEncoder:
-    Encoder[Map[Name.Unqualified, Symbol]] =
-  {
-    def f1(name: Name.Unqualified) = name.toString
-    def f2(symbol: Symbol) = symbol.asJson
-    Encoder.instance (mapAsJsonMap(f1)(f2))
-  }
-
-  private implicit val paramMapEncoder: Encoder[Map[Param.Id, Param]] = {
-    def f1(id: Param.Id) = id.toString
-    def f2(param: Param) = param.asJson
-    Encoder.instance (mapAsJsonMap(f1)(f2))
-  }
-
   private implicit val patternMapEncoder:
     Encoder[Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern]] =
   {
@@ -222,21 +213,6 @@ object AnalysisJsonEncoder extends JsonEncoder{
       getUnqualifiedClassName(kind)
     def f2(pattern: ConnectionPattern) = pattern.asJson
     Encoder.instance (mapAsJsonMap(f1)(f2))
-  }
-
-  private implicit val recordMapEncoder:
-    Encoder[Map[Record.Id, Record]] =
-  {
-    def f1(id: Record.Id) = id.toString
-    def f2(c: Record) = c.asJson
-    Encoder.instance (mapAsJsonMap(f1)(f2))
-  }
-
-  private implicit val signalStateTransitionMapEncoder: Encoder[StateMachineAnalysis.SignalStateTransitionMap] = {
-    def f1(s: StateMachineSymbol.Signal) = s.getNodeId.toString
-    def f2(s: StateMachineSymbol.State) = s.getNodeId.toString
-    def f3(t: Transition.Guarded) = t.asJson
-    Encoder.instance (mapAsJsonMap(f1)(mapAsJsonMap(f2)(f3) _))
   }
 
   private implicit val specialKindMapEncoder:
@@ -247,62 +223,12 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance (mapAsJsonMap(f1)(f2))
   }
 
-  private implicit val stateMachineMapEncoder:
-    Encoder[Map[Symbol.StateMachine, StateMachine]] =
-  {
-    def f2(sm: StateMachine): Json = sm.asJson
-    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
-  }
-
   private implicit val stateMachineNameGroupMapEncoder:
     Encoder[Map[StateMachineNameGroup, SmNameSymbolMap]] =
   {
     def f1(nameGroup: StateMachineNameGroup) = getUnqualifiedClassName(nameGroup)
     def f2(map: SmNameSymbolMap) = map.asJson
     Encoder.instance (mapAsJsonMap(f1)(f2))
-  }
-
-  private implicit val stateMachineNameSymbolMapEncoder:
-    Encoder[Map[Name.Unqualified, StateMachineSymbol]] =
-  {
-    def f1(name: Name.Unqualified) = name.toString
-    def f2(symbol: StateMachineSymbol) = symbol.asJson
-    Encoder.instance (mapAsJsonMap(f1)(f2))
-  }
-
-  private implicit val stateMachineSymbolScopeMapEncoder: Encoder[Map[StateMachineSymbol, StateMachineScope]] = {
-    def f2(s: StateMachineScope) = s.asJson
-    Encoder.instance (mapAsJsonMap(stateMachineSymbolToIdString)(f2))
-  }
-
-  private implicit val stateMachineUseDefMapEncoder: Encoder[Map[AstNode.Id, StateMachineSymbol]] = {
-      def f2(s: StateMachineSymbol) = s.asJson
-      Encoder.instance (mapAsJsonMap(astNodeIdToString)(f2))
-  }
-
-  private implicit val symbolMapEncoder: Encoder[Map[Symbol, Symbol]] = {
-    def f2(s: Symbol) = symbolAsJson(s)
-    Encoder.instance (mapAsJsonMap(symbolToIdString)(f2))
-  }
-
-  private implicit val symbolScopeMapEncoder: Encoder[Map[Symbol, Scope]] = {
-    def f2(s: Scope) = s.asJson
-    Encoder.instance (mapAsJsonMap(symbolToIdString)(f2))
-  }
-
-  private implicit val tlmChannelMapEncoder:
-    Encoder[Map[TlmChannel.Id, TlmChannel]] =
-  {
-    def f1(id: TlmChannel.Id) = id.toString
-    def f2(channel: TlmChannel) = channel.asJson
-    Encoder.instance (mapAsJsonMap(f1)(f2))
-  }
-
-  private implicit val topologyMapEncoder:
-    Encoder[Map[Symbol.Topology, Topology]] =
-  {
-    def f2(t: Topology) = t.asJson
-    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
   }
 
   private implicit val transitionExprMapEncoder: Encoder[StateMachineAnalysis.TransitionExprMap] = {
@@ -317,11 +243,6 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance (mapAsJsonMap(f1)(f2))
   }
 
-  private implicit val typeMapEncoder: Encoder[Map[AstNode.Id, Type]] = {
-    def f2(t: Type) = t.asJson
-    Encoder.instance (mapAsJsonMap(astNodeIdToString)(f2))
-  }
-
   private implicit val typeOptionMap: Encoder[Map[StateMachineTypedElement, Option[Type]]] = {
       def f1(e: StateMachineTypedElement) = e.getNodeId.toString
       def f2(t: Option[Type]) = t.asJson
@@ -331,22 +252,12 @@ object AnalysisJsonEncoder extends JsonEncoder{
   private implicit val portInterfaceEncoder: Encoder[PortInterface] =
     io.circe.generic.semiauto.deriveEncoder[PortInterface]
 
-  private implicit val useDefMapEncoder: Encoder[Map[AstNode.Id, Symbol]] = {
-    def f2(s: Symbol) = s.asJson
-    Encoder.instance (mapAsJsonMap(astNodeIdToString)(f2))
-  }
-
-  private implicit val valueMapEncoder: Encoder[Map[AstNode.Id, Value]] = {
-    def f2(value: Value) = value.asJson
-    Encoder.instance (mapAsJsonMap(astNodeIdToString)(f2))
-  }
-
   // ----------------------------------------------------------------------
   // Methods for converting Scala maps to JSON lists
   // We use this conversion when the keys cannot be converted to strings
   // ----------------------------------------------------------------------
 
-  implicit val locationComparator: java.util.Comparator[Location] =
+  private implicit val locationComparator: java.util.Comparator[Location] =
     new java.util.Comparator[Location] {
       override def compare(o1: Location, o2: Location): Int =
         o1.compare(o2)
@@ -405,7 +316,8 @@ object AnalysisJsonEncoder extends JsonEncoder{
         "valueMap" -> a.valueMap.asJson,
         "stateMachineMap" -> a.stateMachineMap.asJson,
         "dictionarySymbolSet" -> a.dictionarySymbolSet.asJson,
-        "interfaceMap" -> a.interfaceMap.asJson
+        "interfaceMap" -> a.interfaceMap.asJson,
+        "dictionaryMap" -> a.dictionaryMap.asJson
       )
     )
   }
