@@ -1,103 +1,95 @@
 === Module Template Definitions
 
-A *module template definition* defines an FPP template that can
-help reduce FPP model code duplication.
-A module template is an FPP construct with definitions inside
-parameterized with a set of types, constants, and interfaces that
-can be expanded into a module.
+A *module template definition* associates a name
+with a *module template*.
+A module template is a set of syntactic elements, each of which
+becomes a member of a <<Translation-Units-and-Models_Translation-Units,
+translation unit>> or a
+<<Definitions_Module-Definitions,module definition>>
+at the point where the template is <<Expansion-of-Templates,expanded>>.
+Each template may be expanded any number of times, and
+each expansion creates a distinct set of translation unit
+or module members.
+Templates may have parameters that become bound
+to <<Specifiers_Template-Expansion-Specifiers,arguments>>
+at the point of expansion.
 
 ==== Syntax
 
-`template`
+`module` `template`
 <<Lexical-Elements_Identifiers,_identifier_>>
-`(` _parameter-sequence_ `)` `{`
+_[_
+`(` <<Template-Parameter-Lists,_template-param-list_>> `)`
+_]_
+`{`
 _module-member-sequence_
 `}`
 
-The _identifier_ specifies the name of the template.
-
-_parameter-sequence_ is an
-<<Element-Sequences,element sequence>> in which the
-elements are one of the following and the terminating punctuation
-is a comma:
-
-* `constant` <<Lexical-Elements_Identifiers,_identifier_>> `:` <<Type-Names,_type-name_>>
-* `interface` <<Lexical-Elements_Identifiers,_identifier_>> `:` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
-* `type` <<Lexical-Elements_Identifiers,_identifier_>>
-
-_module-member-sequence_ is an
-<<Element-Sequences,element sequence>> in
-which each element is a <<Definitions_Module-Definitions_Syntax,
-module member>>, and the terminating punctuation is a semicolon.
-
-. Note that <<Definitions_Module-Template-Definitions,template definition>> defined
-as members to template definitions will cause an error.
+_module-member-sequence_ is identical to the module member sequence
+of a <<Definitions_Module-Definitions,module definition>>.
 
 ==== Semantics
 
-Module template definitions define parameterized FPP syntax. A template can be expanded
-through a <<Specifiers_Template-Expansion-Specifiers,
-template expansion specifier>>.
+The identifier is the name of the template.
 
-Templates are expanded with the following algorithm:
+No module template definition may be the ancestor in the
+abstract syntax tree of another module template definition
+or of a <<Specifiers_Template-Expansion-Specifiers,template expansion specifier>>.
+This rule ensures that <<Expansion-of-Templates,expanding a template>>
+never causes another template to be defined or another
+template expansion to occur.
 
-. For each template expansion specifier _E_:
+Each module template definition _M_ that appears in a model
+must pass the following analysis, regardless of whether it
+is expanded.
 
-.. Create a new empty scope _S_ for _E_.
+. Expand _M_ at the point of the definition of _M_, providing the following
+  <<Specifiers_Template-Expansion-Specifiers,arguments for the template 
+  parameters>>:
 
-.. Resolve the module template definition _T_ which _E_
-<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refers to>>.
+.. For each constant template parameter, a literal value of the correct type.
 
-.. Enter template parameters of _T_ into _S_ with concrete values given in _E_.
+.. For each port interface instance template argument, a component
+   instance definition that minimally satisfies the interface.
 
-.. Duplicate the syntax contained in _T_ into syntax _X_ contained under _E_.
+.. For each type template argument, an abstract type definition.
 
-.. Enter symbols discovered in _X_ into _S_.
+. In the expansion _E_, do the following:
 
-.. For each template expansion specifier in _X_, apply these rules recursively.
+.. Construct the <<Definitions-and-Uses_Use-Def-Graph,use-def 
+   graph>>, checking for cycles.
 
-With templates expanded, 
+.. Compute the types associated with type definition symbols, enumerated
+   constant symbols, and type names, except that array size expressions
+   and default value expressions are still unevaluated.
+
+.. Perform <<Type-Checking,type checking>>,
+   except that array size expressions and default value expressions in type 
+   definitions are still unevaluated. 
 
 ==== Example
 
 [source,fpp]
 ----
 template MT(
-    constant base_id: U32,
-    interface comDriver: ByteStreamDriver
+    constant baseId: FwIdType
+    instance comDriver: Drv.ByteStreamDriver
 ) {
+
     instance comStub: Svc.ComStub base id \
-        base_id + 0x0800
+        baseId + 0x0800
 
-    toplogy T {
-        instance comStub
-
-        # TODO(tumbar) What is this? Do we need it
-        # (do we need `instance comStub`?)
+    topology T {
         instance comDriver
+        instance comStub
 
         # Connect to the driver from the parameter list
         connections Downlink {
-            # ComStub <-> ComDriver
             comStub.drvSendOut      -> comDriver.$send
             comDriver.sendReturnOut -> comStub.drvSendReturnIn
             comDriver.ready         -> comStub.drvConnected
         }
     }
-}
 
-instance comDriver: Drv.TcpClient base id 0x10300000 + 0x100
-
-module M {
-    # Instantiate template with topology inside
-    # Pass an external component into the topology
-    expand MT(constant 0x100, interface comDriver)
-}
-
-topology T {
-    import M.T # Imports the instantiated template topology
-    import MT.T # Error: Cannot reference definitions inside a _template_
-
-    instance comDriver
 }
 ----

@@ -435,6 +435,7 @@ var IN_GLOBAL_SCOPE = false;
           "event," +
           "every," +
           "exit," +
+          "expand," +
           "external," +
           "fatal," +
           "format," +
@@ -496,6 +497,7 @@ var IN_GLOBAL_SCOPE = false;
           "struct," +
           "sync," +
           "telemetry," +
+          "template," +
           "text," +
           "throttle," +
           "time," +
