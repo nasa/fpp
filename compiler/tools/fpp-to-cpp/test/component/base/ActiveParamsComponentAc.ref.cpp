@@ -4679,8 +4679,9 @@ Fw::CmdResponse ActiveParamsComponentBase ::
   paramSave_ParamU32()
 {
   if (this->isConnected_prmSetOut_OutputPort(0)) {
-    // Serialize the parameter
     Fw::ParamBuffer _saveBuff;
+    const FwIdType idBase = this->getIdBase();
+    // Serialize the parameter
     this->m_paramLock.lock();
     const Fw::SerializeStatus _stat = _saveBuff.serializeFrom(m_ParamU32);
     this->m_paramLock.unlock();
@@ -4690,7 +4691,7 @@ Fw::CmdResponse ActiveParamsComponentBase ::
     // Save the parameter
     this->prmSetOut_out(
       0,
-      static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMU32),
+      static_cast<FwPrmIdType>(idBase + PARAMID_PARAMU32),
       _saveBuff
     );
     // Return the command response
@@ -4704,8 +4705,9 @@ Fw::CmdResponse ActiveParamsComponentBase ::
   paramSave_ParamF64()
 {
   if (this->isConnected_prmSetOut_OutputPort(0)) {
-    // Serialize the parameter
     Fw::ParamBuffer _saveBuff;
+    const FwIdType idBase = this->getIdBase();
+    // Serialize the parameter
     this->m_paramLock.lock();
     const Fw::SerializeStatus _stat = _saveBuff.serializeFrom(m_ParamF64);
     this->m_paramLock.unlock();
@@ -4715,7 +4717,7 @@ Fw::CmdResponse ActiveParamsComponentBase ::
     // Save the parameter
     this->prmSetOut_out(
       0,
-      static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMF64),
+      static_cast<FwPrmIdType>(idBase + PARAMID_PARAMF64),
       _saveBuff
     );
     // Return the command response
@@ -4729,8 +4731,9 @@ Fw::CmdResponse ActiveParamsComponentBase ::
   paramSave_ParamString()
 {
   if (this->isConnected_prmSetOut_OutputPort(0)) {
-    // Serialize the parameter
     Fw::ParamBuffer _saveBuff;
+    const FwIdType idBase = this->getIdBase();
+    // Serialize the parameter
     this->m_paramLock.lock();
     const Fw::SerializeStatus _stat = _saveBuff.serializeFrom(m_ParamString);
     this->m_paramLock.unlock();
@@ -4740,7 +4743,7 @@ Fw::CmdResponse ActiveParamsComponentBase ::
     // Save the parameter
     this->prmSetOut_out(
       0,
-      static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMSTRING),
+      static_cast<FwPrmIdType>(idBase + PARAMID_PARAMSTRING),
       _saveBuff
     );
     // Return the command response
@@ -4754,8 +4757,9 @@ Fw::CmdResponse ActiveParamsComponentBase ::
   paramSave_ParamEnum()
 {
   if (this->isConnected_prmSetOut_OutputPort(0)) {
-    // Serialize the parameter
     Fw::ParamBuffer _saveBuff;
+    const FwIdType idBase = this->getIdBase();
+    // Serialize the parameter
     this->m_paramLock.lock();
     const Fw::SerializeStatus _stat = _saveBuff.serializeFrom(m_ParamEnum);
     this->m_paramLock.unlock();
@@ -4765,7 +4769,7 @@ Fw::CmdResponse ActiveParamsComponentBase ::
     // Save the parameter
     this->prmSetOut_out(
       0,
-      static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMENUM),
+      static_cast<FwPrmIdType>(idBase + PARAMID_PARAMENUM),
       _saveBuff
     );
     // Return the command response
@@ -4779,8 +4783,9 @@ Fw::CmdResponse ActiveParamsComponentBase ::
   paramSave_ParamArray()
 {
   if (this->isConnected_prmSetOut_OutputPort(0)) {
-    // Serialize the parameter
     Fw::ParamBuffer _saveBuff;
+    const FwIdType idBase = this->getIdBase();
+    // Serialize the parameter
     this->m_paramLock.lock();
     const Fw::SerializeStatus _stat = _saveBuff.serializeFrom(m_ParamArray);
     this->m_paramLock.unlock();
@@ -4790,7 +4795,7 @@ Fw::CmdResponse ActiveParamsComponentBase ::
     // Save the parameter
     this->prmSetOut_out(
       0,
-      static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMARRAY),
+      static_cast<FwPrmIdType>(idBase + PARAMID_PARAMARRAY),
       _saveBuff
     );
     // Return the command response
@@ -4804,8 +4809,9 @@ Fw::CmdResponse ActiveParamsComponentBase ::
   paramSave_ParamStruct()
 {
   if (this->isConnected_prmSetOut_OutputPort(0)) {
-    // Serialize the parameter
     Fw::ParamBuffer _saveBuff;
+    const FwIdType idBase = this->getIdBase();
+    // Serialize the parameter
     this->m_paramLock.lock();
     const Fw::SerializeStatus _stat = _saveBuff.serializeFrom(m_ParamStruct);
     this->m_paramLock.unlock();
@@ -4815,7 +4821,7 @@ Fw::CmdResponse ActiveParamsComponentBase ::
     // Save the parameter
     this->prmSetOut_out(
       0,
-      static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMSTRUCT),
+      static_cast<FwPrmIdType>(idBase + PARAMID_PARAMSTRUCT),
       _saveBuff
     );
     // Return the command response

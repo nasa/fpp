@@ -359,10 +359,7 @@ case class ComponentParameters (
               |_buff.resetSer();
               |_stat = _buff.serializeFrom(_val);"""
         ),
-        wrapInIf(
-          "_stat == Fw::FW_SERIALIZE_OK",
-          deserializeParam(param)
-        ),
+        deserializeParam(param),
         wrapInIf(
           "_stat != Fw::FW_SERIALIZE_OK",
           lines(s"this->$validityFlagName = Fw::ParamValid::INVALID;")
