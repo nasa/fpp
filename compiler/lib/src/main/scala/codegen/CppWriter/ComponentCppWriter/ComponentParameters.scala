@@ -403,11 +403,22 @@ case class ComponentParameters (
     )
   }
 
+  private def setValidityFlagString(param: Param, flagValue: String) =
+    val validityFlagName = paramValidityFlagName(paramName)
+    s"this->$validityFlagName = Fw::ParamValid::$flagValue;"
+
+  private def setValidityFlag(param: Param, flagValue: String) =
+    lines(setValidityFlagString(param, flagValue))
+
   private def writeLoadForParam(param: Param) = {
     val paramName = param.getName
     val idConstantName = paramIdConstantName(paramName)
-    val validityFlagName = paramValidityFlagName(paramName)
     val varName = paramVariableName(paramName)
+    // Optimize the external no-default case
+    def optimizedIfElse(condition: String, ifBody: List[Line], elseBody: List[Line]) =
+      if param.isExternal && !param.default.isDefined
+      then ifBody
+      else wrapInIfElse(condition, ifBody, elseBody)
     List.concat(
       getParamFromPort(param),
       {
@@ -422,31 +433,27 @@ case class ComponentParameters (
               |// Deserialize parameter$orUseDefaultValue"""
         )
       },
-      wrapInIfElse(
-        s"this->$validityFlagName == Fw::ParamValid::VALID",
+      optimizedIfElse(
+        setValidityFlagString(param, "VALID"),
         List.concat(
           deserializeParam(param),
           wrapInIf(
             "_stat != Fw::FW_SERIALIZE_OK",
             param.default match {
-              case Some(value) =>
-                lines(s"this->$validityFlagName = Fw::ParamValid::DEFAULT;")
-              case None =>
-                lines(s"this->$validityFlagName = Fw::ParamValid::INVALID;")
+              case Some(value) => setValidityFlag(param, "DEFAULT")
+              case None => setValidityFlag(param, "INVALID")
             }
           )
         ),
         param.default match {
-          case Some(value) =>
-            lines(s"this->$validityFlagName = Fw::ParamValid::DEFAULT;")
-          case None =>
-            lines("// No default")
+          case Some(value) => setValidityFlag(param, "DEFAULT")
+          case None => lines("// No default")
         }
       ),
       param.default match {
         case Some(value) =>
           wrapInIf(
-            s"this->$validityFlagName == Fw::ParamValid::DEFAULT",
+            setValidityFlagString(param, "DEFAULT"),
             setDefaultValue(param, value)
           )
         case None => Nil
