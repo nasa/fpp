@@ -1892,8 +1892,7 @@ void ActiveExternalParamsComponentBase ::
 
 ActiveExternalParamsComponentBase ::
   ActiveExternalParamsComponentBase(const char* compName) :
-    Fw::ActiveComponentBase(compName),
-    paramDelegatePtr(nullptr)
+    Fw::ActiveComponentBase(compName)
 {
 
 }

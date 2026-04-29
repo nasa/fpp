@@ -1892,8 +1892,7 @@ void QueuedExternalParamsComponentBase ::
 
 QueuedExternalParamsComponentBase ::
   QueuedExternalParamsComponentBase(const char* compName) :
-    Fw::QueuedComponentBase(compName),
-    paramDelegatePtr(nullptr)
+    Fw::QueuedComponentBase(compName)
 {
 
 }

@@ -2504,8 +2504,7 @@ void ActiveSerialComponentBase ::
 
 ActiveSerialComponentBase ::
   ActiveSerialComponentBase(const char* compName) :
-    Fw::ActiveComponentBase(compName),
-    paramDelegatePtr(nullptr)
+    Fw::ActiveComponentBase(compName)
 {
   this->m_EventActivityLowThrottledThrottle = 0;
   this->m_EventFatalThrottledThrottle = 0;

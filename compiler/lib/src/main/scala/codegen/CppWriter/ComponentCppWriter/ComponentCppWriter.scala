@@ -536,7 +536,6 @@ case class ComponentCppWriter (
             )
           ),
           List(s"Fw::${kindStr}ComponentBase(compName)") :::
-            (if (hasExternalParameters) List("paramDelegatePtr(nullptr)") else Nil) :::
             smInstancesByName.map { (name, smi) =>
               val sm = s.a.stateMachineMap(smi.symbol)
               val hasActionsOrGuards = sm.hasActions || sm.hasGuards

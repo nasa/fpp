@@ -2226,8 +2226,7 @@ void PassiveTestComponentBase ::
 
 PassiveTestComponentBase ::
   PassiveTestComponentBase(const char* compName) :
-    Fw::PassiveComponentBase(compName),
-    paramDelegatePtr(nullptr)
+    Fw::PassiveComponentBase(compName)
 {
   this->m_EventActivityLowThrottledThrottle = 0;
   this->m_EventFatalThrottledThrottle = 0;

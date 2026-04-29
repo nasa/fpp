@@ -2504,8 +2504,7 @@ void QueuedSerialComponentBase ::
 
 QueuedSerialComponentBase ::
   QueuedSerialComponentBase(const char* compName) :
-    Fw::QueuedComponentBase(compName),
-    paramDelegatePtr(nullptr)
+    Fw::QueuedComponentBase(compName)
 {
   this->m_EventActivityLowThrottledThrottle = 0;
   this->m_EventFatalThrottledThrottle = 0;

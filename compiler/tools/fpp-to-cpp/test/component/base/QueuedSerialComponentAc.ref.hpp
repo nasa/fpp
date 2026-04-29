@@ -3556,7 +3556,7 @@ class QueuedSerialComponentBase :
     // ----------------------------------------------------------------------
 
     //! Delegate to serialize/deserialize an externally stored parameter
-    Fw::ParamExternalDelegate* paramDelegatePtr;
+    Fw::ParamExternalDelegate* paramDelegatePtr = nullptr;
 
   private:
 
