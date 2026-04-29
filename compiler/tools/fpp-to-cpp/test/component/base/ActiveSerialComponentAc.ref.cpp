@@ -2296,20 +2296,15 @@ void ActiveSerialComponentBase ::
   this->m_paramLock.lock();
 
   // Deserialize parameter
-  if (this->m_param_ParamI32Ext_valid == Fw::ParamValid::VALID) {
-    FW_ASSERT(this->paramDelegatePtr != nullptr);
-    _stat = this->paramDelegatePtr->deserializeParam(
-      _baseId,
-      PARAMID_PARAMI32EXT,
-      this->m_param_ParamI32Ext_valid,
-      this->m___fprime_ac_paramBuffer
-    );
-    if (_stat != Fw::FW_SERIALIZE_OK) {
-      this->m_param_ParamI32Ext_valid = Fw::ParamValid::INVALID;
-    }
-  }
-  else {
-    // No default
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
+  _stat = this->paramDelegatePtr->deserializeParam(
+    _baseId,
+    PARAMID_PARAMI32EXT,
+    this->m_param_ParamI32Ext_valid,
+    this->m___fprime_ac_paramBuffer
+  );
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    this->m_param_ParamI32Ext_valid = Fw::ParamValid::INVALID;
   }
 
   this->m_paramLock.unLock();
@@ -2326,20 +2321,15 @@ void ActiveSerialComponentBase ::
   this->m_paramLock.lock();
 
   // Deserialize parameter
-  if (this->m_param_ParamF64Ext_valid == Fw::ParamValid::VALID) {
-    FW_ASSERT(this->paramDelegatePtr != nullptr);
-    _stat = this->paramDelegatePtr->deserializeParam(
-      _baseId,
-      PARAMID_PARAMF64EXT,
-      this->m_param_ParamF64Ext_valid,
-      this->m___fprime_ac_paramBuffer
-    );
-    if (_stat != Fw::FW_SERIALIZE_OK) {
-      this->m_param_ParamF64Ext_valid = Fw::ParamValid::INVALID;
-    }
-  }
-  else {
-    // No default
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
+  _stat = this->paramDelegatePtr->deserializeParam(
+    _baseId,
+    PARAMID_PARAMF64EXT,
+    this->m_param_ParamF64Ext_valid,
+    this->m___fprime_ac_paramBuffer
+  );
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    this->m_param_ParamF64Ext_valid = Fw::ParamValid::INVALID;
   }
 
   this->m_paramLock.unLock();
@@ -2401,20 +2391,15 @@ void ActiveSerialComponentBase ::
   this->m_paramLock.lock();
 
   // Deserialize parameter
-  if (this->m_param_ParamEnumExt_valid == Fw::ParamValid::VALID) {
-    FW_ASSERT(this->paramDelegatePtr != nullptr);
-    _stat = this->paramDelegatePtr->deserializeParam(
-      _baseId,
-      PARAMID_PARAMENUMEXT,
-      this->m_param_ParamEnumExt_valid,
-      this->m___fprime_ac_paramBuffer
-    );
-    if (_stat != Fw::FW_SERIALIZE_OK) {
-      this->m_param_ParamEnumExt_valid = Fw::ParamValid::INVALID;
-    }
-  }
-  else {
-    // No default
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
+  _stat = this->paramDelegatePtr->deserializeParam(
+    _baseId,
+    PARAMID_PARAMENUMEXT,
+    this->m_param_ParamEnumExt_valid,
+    this->m___fprime_ac_paramBuffer
+  );
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    this->m_param_ParamEnumExt_valid = Fw::ParamValid::INVALID;
   }
 
   this->m_paramLock.unLock();
@@ -2476,20 +2461,15 @@ void ActiveSerialComponentBase ::
   this->m_paramLock.lock();
 
   // Deserialize parameter
-  if (this->m_param_ParamStructExt_valid == Fw::ParamValid::VALID) {
-    FW_ASSERT(this->paramDelegatePtr != nullptr);
-    _stat = this->paramDelegatePtr->deserializeParam(
-      _baseId,
-      PARAMID_PARAMSTRUCTEXT,
-      this->m_param_ParamStructExt_valid,
-      this->m___fprime_ac_paramBuffer
-    );
-    if (_stat != Fw::FW_SERIALIZE_OK) {
-      this->m_param_ParamStructExt_valid = Fw::ParamValid::INVALID;
-    }
-  }
-  else {
-    // No default
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
+  _stat = this->paramDelegatePtr->deserializeParam(
+    _baseId,
+    PARAMID_PARAMSTRUCTEXT,
+    this->m_param_ParamStructExt_valid,
+    this->m___fprime_ac_paramBuffer
+  );
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    this->m_param_ParamStructExt_valid = Fw::ParamValid::INVALID;
   }
 
   this->m_paramLock.unLock();

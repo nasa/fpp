@@ -42,6 +42,11 @@ case class ComponentParameters (
       guardedList (hasExternalParameters) (getParamDelegate)
     )
 
+  private def checkValidityFlag(param: Param, flagValue: String) =
+    val paramName = param.getName
+    val validityFlagName = paramValidityFlagName(paramName)
+    s"this->$validityFlagName == Fw::ParamValid::$flagValue"
+
   private def deserializeParam(param: Param) = {
     val paramName = param.getName
     val varName = paramVariableName(paramName)
@@ -145,6 +150,15 @@ case class ComponentParameters (
           writeLoadFunctionBody
         )
       )
+    )
+
+  private def getParamBuffer =
+    linesClassMember(
+        lines(
+          s"""|
+              |//! Scratch buffer for parameter management
+              |Fw::ParamBuffer $paramBufferName;"""
+        )
     )
 
   private def getParamDelegate =
@@ -264,15 +278,6 @@ case class ComponentParameters (
       )
     }
 
-  private def getParamBuffer =
-    linesClassMember(
-        lines(
-          s"""|
-              |//! Scratch buffer for parameter management
-              |Fw::ParamBuffer $paramBufferName;"""
-        )
-    )
-
   private def getParamVars = addAccessTagAndComment(
     "private",
     "Parameter variables",
@@ -383,6 +388,11 @@ case class ComponentParameters (
       lines(s"this->$varName = $cppValue;")
   }
 
+  private def setValidityFlag(param: Param, flagValue: String) =
+    val paramName = param.getName
+    val validityFlagName = paramValidityFlagName(paramName)
+    lines(s"this->$validityFlagName = Fw::ParamValid::$flagValue;")
+
   private def writeGetterFunctionBody(param: Param) = {
     val paramType = writeParamType(param.paramType, "Fw::ParamString")
     val validityFlagName = paramValidityFlagName(param.getName)
@@ -403,19 +413,15 @@ case class ComponentParameters (
     )
   }
 
-  private def setValidityFlagString(param: Param, flagValue: String) =
-    val validityFlagName = paramValidityFlagName(paramName)
-    s"this->$validityFlagName = Fw::ParamValid::$flagValue;"
-
-  private def setValidityFlag(param: Param, flagValue: String) =
-    lines(setValidityFlagString(param, flagValue))
-
   private def writeLoadForParam(param: Param) = {
-    val paramName = param.getName
-    val idConstantName = paramIdConstantName(paramName)
-    val varName = paramVariableName(paramName)
     // Optimize the external no-default case
-    def optimizedIfElse(condition: String, ifBody: List[Line], elseBody: List[Line]) =
+    // Here there is no if condition, because we always call
+    // the external serialization interface
+    def optimizedIfElse(
+      condition: => String,
+      ifBody: List[Line],
+      elseBody: => List[Line]
+    ) =
       if param.isExternal && !param.default.isDefined
       then ifBody
       else wrapInIfElse(condition, ifBody, elseBody)
@@ -434,26 +440,25 @@ case class ComponentParameters (
         )
       },
       optimizedIfElse(
-        setValidityFlagString(param, "VALID"),
+        checkValidityFlag(param, "VALID"),
         List.concat(
           deserializeParam(param),
           wrapInIf(
             "_stat != Fw::FW_SERIALIZE_OK",
-            param.default match {
-              case Some(value) => setValidityFlag(param, "DEFAULT")
-              case None => setValidityFlag(param, "INVALID")
-            }
+            setValidityFlag(
+              param,
+              if param.default.isDefined then "DEFAULT" else "INVALID"
+            )
           )
         ),
-        param.default match {
-          case Some(value) => setValidityFlag(param, "DEFAULT")
-          case None => lines("// No default")
-        }
+        if param.default.isDefined
+        then setValidityFlag(param, "DEFAULT")
+        else lines("// No default")
       ),
       param.default match {
         case Some(value) =>
           wrapInIf(
-            setValidityFlagString(param, "DEFAULT"),
+            checkValidityFlag(param, "DEFAULT"),
             setDefaultValue(param, value)
           )
         case None => Nil
