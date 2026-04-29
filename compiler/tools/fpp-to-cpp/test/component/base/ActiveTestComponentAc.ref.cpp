@@ -2206,7 +2206,6 @@ namespace M {
   void ActiveTestComponentBase ::
     loadParameters()
   {
-    Fw::ParamBuffer _buff;
     Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_OK;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
     FW_ASSERT(this->isConnected_prmGetOut_OutputPort(0));
@@ -2219,14 +2218,14 @@ namespace M {
     this->m_param_ParamU32_valid = this->prmGetOut_out(
       0,
       _id,
-      _buff
+      this->m___fprime_ac_paramBuffer
     );
 
     this->m_paramLock.lock();
 
     // Deserialize parameter
     if (this->m_param_ParamU32_valid == Fw::ParamValid::VALID) {
-      _stat = _buff.deserializeTo(this->m_ParamU32);
+      _stat = this->m___fprime_ac_paramBuffer.deserializeTo(this->m_ParamU32);
       if (_stat != Fw::FW_SERIALIZE_OK) {
         this->m_param_ParamU32_valid = Fw::ParamValid::INVALID;
       }
@@ -2243,14 +2242,14 @@ namespace M {
     this->m_param_ParamF64_valid = this->prmGetOut_out(
       0,
       _id,
-      _buff
+      this->m___fprime_ac_paramBuffer
     );
 
     this->m_paramLock.lock();
 
     // Deserialize parameter
     if (this->m_param_ParamF64_valid == Fw::ParamValid::VALID) {
-      _stat = _buff.deserializeTo(this->m_ParamF64);
+      _stat = this->m___fprime_ac_paramBuffer.deserializeTo(this->m_ParamF64);
       if (_stat != Fw::FW_SERIALIZE_OK) {
         this->m_param_ParamF64_valid = Fw::ParamValid::INVALID;
       }
@@ -2267,14 +2266,14 @@ namespace M {
     this->m_param_ParamString_valid = this->prmGetOut_out(
       0,
       _id,
-      _buff
+      this->m___fprime_ac_paramBuffer
     );
 
     this->m_paramLock.lock();
 
     // Deserialize parameter or use default value
     if (this->m_param_ParamString_valid == Fw::ParamValid::VALID) {
-      _stat = _buff.deserializeTo(this->m_ParamString);
+      _stat = this->m___fprime_ac_paramBuffer.deserializeTo(this->m_ParamString);
       if (_stat != Fw::FW_SERIALIZE_OK) {
         this->m_param_ParamString_valid = Fw::ParamValid::DEFAULT;
       }
@@ -2294,14 +2293,14 @@ namespace M {
     this->m_param_ParamEnum_valid = this->prmGetOut_out(
       0,
       _id,
-      _buff
+      this->m___fprime_ac_paramBuffer
     );
 
     this->m_paramLock.lock();
 
     // Deserialize parameter
     if (this->m_param_ParamEnum_valid == Fw::ParamValid::VALID) {
-      _stat = _buff.deserializeTo(this->m_ParamEnum);
+      _stat = this->m___fprime_ac_paramBuffer.deserializeTo(this->m_ParamEnum);
       if (_stat != Fw::FW_SERIALIZE_OK) {
         this->m_param_ParamEnum_valid = Fw::ParamValid::INVALID;
       }
@@ -2318,14 +2317,14 @@ namespace M {
     this->m_param_ParamArray_valid = this->prmGetOut_out(
       0,
       _id,
-      _buff
+      this->m___fprime_ac_paramBuffer
     );
 
     this->m_paramLock.lock();
 
     // Deserialize parameter or use default value
     if (this->m_param_ParamArray_valid == Fw::ParamValid::VALID) {
-      _stat = _buff.deserializeTo(this->m_ParamArray);
+      _stat = this->m___fprime_ac_paramBuffer.deserializeTo(this->m_ParamArray);
       if (_stat != Fw::FW_SERIALIZE_OK) {
         this->m_param_ParamArray_valid = Fw::ParamValid::DEFAULT;
       }
@@ -2345,14 +2344,14 @@ namespace M {
     this->m_param_ParamStruct_valid = this->prmGetOut_out(
       0,
       _id,
-      _buff
+      this->m___fprime_ac_paramBuffer
     );
 
     this->m_paramLock.lock();
 
     // Deserialize parameter
     if (this->m_param_ParamStruct_valid == Fw::ParamValid::VALID) {
-      _stat = _buff.deserializeTo(this->m_ParamStruct);
+      _stat = this->m___fprime_ac_paramBuffer.deserializeTo(this->m_ParamStruct);
       if (_stat != Fw::FW_SERIALIZE_OK) {
         this->m_param_ParamStruct_valid = Fw::ParamValid::INVALID;
       }
@@ -2369,7 +2368,7 @@ namespace M {
     this->m_param_ParamI32Ext_valid = this->prmGetOut_out(
       0,
       _id,
-      _buff
+      this->m___fprime_ac_paramBuffer
     );
 
     this->m_paramLock.lock();
@@ -2381,7 +2380,7 @@ namespace M {
         _baseId,
         PARAMID_PARAMI32EXT,
         this->m_param_ParamI32Ext_valid,
-        _buff
+        this->m___fprime_ac_paramBuffer
       );
       if (_stat != Fw::FW_SERIALIZE_OK) {
         this->m_param_ParamI32Ext_valid = Fw::ParamValid::INVALID;
@@ -2399,7 +2398,7 @@ namespace M {
     this->m_param_ParamF64Ext_valid = this->prmGetOut_out(
       0,
       _id,
-      _buff
+      this->m___fprime_ac_paramBuffer
     );
 
     this->m_paramLock.lock();
@@ -2411,7 +2410,7 @@ namespace M {
         _baseId,
         PARAMID_PARAMF64EXT,
         this->m_param_ParamF64Ext_valid,
-        _buff
+        this->m___fprime_ac_paramBuffer
       );
       if (_stat != Fw::FW_SERIALIZE_OK) {
         this->m_param_ParamF64Ext_valid = Fw::ParamValid::INVALID;
@@ -2429,7 +2428,7 @@ namespace M {
     this->m_param_ParamStringExt_valid = this->prmGetOut_out(
       0,
       _id,
-      _buff
+      this->m___fprime_ac_paramBuffer
     );
 
     this->m_paramLock.lock();
@@ -2441,7 +2440,7 @@ namespace M {
         _baseId,
         PARAMID_PARAMSTRINGEXT,
         this->m_param_ParamStringExt_valid,
-        _buff
+        this->m___fprime_ac_paramBuffer
       );
       if (_stat != Fw::FW_SERIALIZE_OK) {
         this->m_param_ParamStringExt_valid = Fw::ParamValid::DEFAULT;
@@ -2452,14 +2451,14 @@ namespace M {
     }
     if (this->m_param_ParamStringExt_valid == Fw::ParamValid::DEFAULT) {
       Fw::String _val = Fw::String("external default");
-      _buff.resetSer();
-      _stat = _buff.serializeFrom(_val);
+      this->m___fprime_ac_paramBuffer.resetSer();
+      _stat = this->m___fprime_ac_paramBuffer.serializeFrom(_val);
       FW_ASSERT(this->paramDelegatePtr != nullptr);
       _stat = this->paramDelegatePtr->deserializeParam(
         _baseId,
         PARAMID_PARAMSTRINGEXT,
         this->m_param_ParamStringExt_valid,
-        _buff
+        this->m___fprime_ac_paramBuffer
       );
       if (_stat != Fw::FW_SERIALIZE_OK) {
         this->m_param_ParamStringExt_valid = Fw::ParamValid::INVALID;
@@ -2474,7 +2473,7 @@ namespace M {
     this->m_param_ParamEnumExt_valid = this->prmGetOut_out(
       0,
       _id,
-      _buff
+      this->m___fprime_ac_paramBuffer
     );
 
     this->m_paramLock.lock();
@@ -2486,7 +2485,7 @@ namespace M {
         _baseId,
         PARAMID_PARAMENUMEXT,
         this->m_param_ParamEnumExt_valid,
-        _buff
+        this->m___fprime_ac_paramBuffer
       );
       if (_stat != Fw::FW_SERIALIZE_OK) {
         this->m_param_ParamEnumExt_valid = Fw::ParamValid::INVALID;
@@ -2504,7 +2503,7 @@ namespace M {
     this->m_param_ParamArrayExt_valid = this->prmGetOut_out(
       0,
       _id,
-      _buff
+      this->m___fprime_ac_paramBuffer
     );
 
     this->m_paramLock.lock();
@@ -2516,7 +2515,7 @@ namespace M {
         _baseId,
         PARAMID_PARAMARRAYEXT,
         this->m_param_ParamArrayExt_valid,
-        _buff
+        this->m___fprime_ac_paramBuffer
       );
       if (_stat != Fw::FW_SERIALIZE_OK) {
         this->m_param_ParamArrayExt_valid = Fw::ParamValid::DEFAULT;
@@ -2527,14 +2526,14 @@ namespace M {
     }
     if (this->m_param_ParamArrayExt_valid == Fw::ParamValid::DEFAULT) {
       A _val = A({1, 2, 3});
-      _buff.resetSer();
-      _stat = _buff.serializeFrom(_val);
+      this->m___fprime_ac_paramBuffer.resetSer();
+      _stat = this->m___fprime_ac_paramBuffer.serializeFrom(_val);
       FW_ASSERT(this->paramDelegatePtr != nullptr);
       _stat = this->paramDelegatePtr->deserializeParam(
         _baseId,
         PARAMID_PARAMARRAYEXT,
         this->m_param_ParamArrayExt_valid,
-        _buff
+        this->m___fprime_ac_paramBuffer
       );
       if (_stat != Fw::FW_SERIALIZE_OK) {
         this->m_param_ParamArrayExt_valid = Fw::ParamValid::INVALID;
@@ -2549,7 +2548,7 @@ namespace M {
     this->m_param_ParamStructExt_valid = this->prmGetOut_out(
       0,
       _id,
-      _buff
+      this->m___fprime_ac_paramBuffer
     );
 
     this->m_paramLock.lock();
@@ -2561,7 +2560,7 @@ namespace M {
         _baseId,
         PARAMID_PARAMSTRUCTEXT,
         this->m_param_ParamStructExt_valid,
-        _buff
+        this->m___fprime_ac_paramBuffer
       );
       if (_stat != Fw::FW_SERIALIZE_OK) {
         this->m_param_ParamStructExt_valid = Fw::ParamValid::INVALID;

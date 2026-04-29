@@ -10,6 +10,8 @@ case class ComponentParameters (
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
+  val paramBufferName = "m___fprime_ac_paramBuffer"
+
   def getConstantMembers: List[CppDoc.Class.Member] =
     guardedList (hasParameters) (List(getParamIds))
 
@@ -53,11 +55,11 @@ case class ComponentParameters (
             |  _baseId,
             |  $idConstantName,
             |  this->$validityFlagName,
-            |  _buff
+            |  this->$paramBufferName
             |);"""
       )
     else
-      lines(s"_stat = _buff.deserializeTo(this->$varName);")
+      lines(s"_stat = this->$paramBufferName.deserializeTo(this->$varName);")
   }
 
   private def getExternalParameterFunctions: List[CppDoc.Class.Member] = {
@@ -199,7 +201,7 @@ case class ComponentParameters (
           |this->$validityFlagName = this->$prmGetPortInvokerName(
           |  0,
           |  _id,
-          |  _buff
+          |  this->$paramBufferName
           |);"""
     )
   }
@@ -262,10 +264,22 @@ case class ComponentParameters (
       )
     }
 
+  private def getParamBuffer =
+    linesClassMember(
+        lines(
+          s"""|
+              |//! Scratch buffer for parameter management
+              |Fw::ParamBuffer $paramBufferName;"""
+        )
+    )
+
   private def getParamVars = addAccessTagAndComment(
     "private",
     "Parameter variables",
-    sortedParams.flatMap((_, param) => getParamVarForParam(param)),
+    List.concat(
+      guardedList(!sortedParams.isEmpty) (List(getParamBuffer)),
+      sortedParams.flatMap((_, param) => getParamVarForParam(param))
+    ),
     CppDoc.Lines.Hpp
   )
 
@@ -356,8 +370,8 @@ case class ComponentParameters (
       List.concat(
         lines(
           s"""|$cppType _val = $cppValue;
-              |_buff.resetSer();
-              |_stat = _buff.serializeFrom(_val);"""
+              |this->$paramBufferName.resetSer();
+              |_stat = this->$paramBufferName.serializeFrom(_val);"""
         ),
         deserializeParam(param),
         wrapInIf(
@@ -449,8 +463,7 @@ case class ComponentParameters (
     val prmGetIsConnected = outputPortIsConnectedName(prmGetPortName)
     List.concat(
       lines(
-        s"""|Fw::ParamBuffer _buff;
-            |Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_OK;
+        s"""|Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_OK;
             |const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
             |FW_ASSERT(this->$prmGetIsConnected(0));
             |

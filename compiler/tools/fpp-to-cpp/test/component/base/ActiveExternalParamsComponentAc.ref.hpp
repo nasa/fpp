@@ -2178,6 +2178,15 @@ class ActiveExternalParamsComponentBase :
   private:
 
     // ----------------------------------------------------------------------
+    // Parameter variables
+    // ----------------------------------------------------------------------
+
+    //! Scratch buffer for parameter management
+    Fw::ParamBuffer m___fprime_ac_paramBuffer;
+
+  private:
+
+    // ----------------------------------------------------------------------
     // Parameter delegate
     // ----------------------------------------------------------------------
 

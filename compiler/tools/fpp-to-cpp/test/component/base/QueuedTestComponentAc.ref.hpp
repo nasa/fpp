@@ -3495,6 +3495,9 @@ class QueuedTestComponentBase :
     // Parameter variables
     // ----------------------------------------------------------------------
 
+    //! Scratch buffer for parameter management
+    Fw::ParamBuffer m___fprime_ac_paramBuffer;
+
     //! Parameter ParamU32
     //!
     //! A parameter with U32 data
