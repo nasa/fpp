@@ -5,6 +5,8 @@ import fpp.compiler.util._
 
 /** An FPP Port Interface (set of port instances) */
 case class PortInterface(
+  /** The type of interface instance this port interface represents */
+  instanceType: String,
   /** The map from port names to port instances */
   portMap: Map[Name.Unqualified, PortInstance] = Map(),
   /** The map from special port kinds to special port instances */
@@ -26,7 +28,7 @@ case class PortInterface(
           this.portMap.get(name) match {
             case Some(found) =>
               // Port exists, make sure it matches theirs
-              if found == pi then Right(())
+              if PortInstanceSignature(found) == PortInstanceSignature(pi) then Right(())
               else Left(SemanticError.PortInterfaceInvalidPort(
                 found.getLoc,
                 pi.getLoc
@@ -46,7 +48,7 @@ case class PortInterface(
           this.specialPortMap.get(kind) match {
             case Some(found) =>
               // The port exists, make sure it's the same theirs
-              if found == pi then Right(())
+              if PortInstanceSignature(found) == PortInstanceSignature(pi) then Right(())
               else Left(SemanticError.PortInterfaceInvalidPort(
                 found.getLoc,
                 pi.getLoc
@@ -68,6 +70,7 @@ case class PortInterface(
         SemanticError.InvalidPortInstanceId(
           Locations.get(name.id),
           name.data,
+          instanceType,
           interfaceName
         )
       )

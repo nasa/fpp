@@ -9,11 +9,18 @@
 
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
+#endif
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/OutputSerializePort.hpp"
+#endif
 #include "SmInitialQueued_BasicStateMachineAc.hpp"
+#include "SmInitialQueued_Basic_StateEnumAc.hpp"
 #include "SmInitialQueued_ChoiceStateMachineAc.hpp"
+#include "SmInitialQueued_Choice_StateEnumAc.hpp"
 #include "SmInitialQueued_NestedStateMachineAc.hpp"
+#include "SmInitialQueued_Nested_StateEnumAc.hpp"
 #include "Svc/Sched/SchedPortAc.hpp"
 #include "state-machine/initial/BasicStateMachineAc.hpp"
 #include "state-machine/initial/ChoiceStateMachineAc.hpp"
@@ -373,6 +380,8 @@ namespace FppTest {
           FwEnumStoreType instance = 0 //!< The instance number
       );
 
+#if !FW_DIRECT_PORT_CALLS
+
     public:
 
       // ----------------------------------------------------------------------
@@ -385,6 +394,8 @@ namespace FppTest {
       Svc::InputSchedPort* get_schedIn_InputPort(
           FwIndexType portNum //!< The port number
       );
+
+#endif
 
     protected:
 
@@ -425,7 +436,11 @@ namespace FppTest {
           U32 context //!< The call order
       ) = 0;
 
+#if FW_DIRECT_PORT_CALLS
+    public:
+#else
     protected:
+#endif
 
       // ----------------------------------------------------------------------
       // Port handler base-class functions for typed input ports
@@ -483,7 +498,7 @@ namespace FppTest {
       virtual void smInitialNested_stateMachineOverflowHook(
           SmId smId, //!< The state machine ID
           FwEnumStoreType signal, //!< The signal
-          Fw::SerializeBufferBase& buffer //!< The message buffer
+          Fw::SerialBufferBase& buffer //!< The message buffer
       ) = 0;
 
     protected:
@@ -601,57 +616,59 @@ namespace FppTest {
 
       //! Dispatch a signal to a state machine instance
       void smDispatch(
-          Fw::SerializeBufferBase& buffer //!< The message buffer
+          Fw::SerialBufferBase& buffer //!< The message buffer
       );
 
       //! Deserialize the state machine ID and signal from the message buffer
       static void deserializeSmIdAndSignal(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer (input and output)
+          Fw::SerialBufferBase& buffer, //!< The message buffer (input and output)
           FwEnumStoreType& smId, //!< The state machine ID (output)
           FwEnumStoreType& signal //!< The signal (output)
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmInitial_Basic
       void FppTest_SmInitial_Basic_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmInitial_Basic& sm, //!< The state machine
           FppTest_SmInitial_Basic::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmInitial_Choice
       void FppTest_SmInitial_Choice_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmInitial_Choice& sm, //!< The state machine
           FppTest_SmInitial_Choice::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmInitial_Nested
       void FppTest_SmInitial_Nested_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmInitial_Nested& sm, //!< The state machine
           FppTest_SmInitial_Nested::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmInitialQueued_Basic
       void FppTest_SmInitialQueued_Basic_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmInitialQueued_Basic& sm, //!< The state machine
           FppTest_SmInitialQueued_Basic::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmInitialQueued_Choice
       void FppTest_SmInitialQueued_Choice_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmInitialQueued_Choice& sm, //!< The state machine
           FppTest_SmInitialQueued_Choice::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmInitialQueued_Nested
       void FppTest_SmInitialQueued_Nested_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmInitialQueued_Nested& sm, //!< The state machine
           FppTest_SmInitialQueued_Nested::Signal signal //!< The signal
       );
+
+#if !FW_DIRECT_PORT_CALLS
 
     private:
 
@@ -661,6 +678,8 @@ namespace FppTest {
 
       //! Input port schedIn
       Svc::InputSchedPort m_schedIn_InputPort[NUM_SCHEDIN_INPUT_PORTS];
+
+#endif
 
     private:
 

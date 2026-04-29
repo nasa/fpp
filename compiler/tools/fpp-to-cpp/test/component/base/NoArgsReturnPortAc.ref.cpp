@@ -5,13 +5,14 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/ExternalString.hpp"
-#include "base/NoArgsReturnPortAc.hpp"
+#include "NoArgsReturnPortAc.hpp"
 
 namespace Ports {
 
+#if !FW_DIRECT_PORT_CALLS
+
   // ----------------------------------------------------------------------
-  // Input Port Member functions
+  // Public constructors for InputNoArgsReturnPort
   // ----------------------------------------------------------------------
 
   InputNoArgsReturnPort ::
@@ -21,6 +22,10 @@ namespace Ports {
   {
 
   }
+
+  // ----------------------------------------------------------------------
+  // Public member functions for InputNoArgsReturnPort
+  // ----------------------------------------------------------------------
 
   void InputNoArgsReturnPort ::
     init()
@@ -55,10 +60,14 @@ namespace Ports {
     return this->m_func(this->m_comp, this->m_portNum);
   }
 
+  // ----------------------------------------------------------------------
+  // Private member functions for InputNoArgsReturnPort
+  // ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
   Fw::SerializeStatus InputNoArgsReturnPort ::
-    invokeSerial(Fw::SerializeBufferBase& _buffer)
+    invokeSerial(Fw::LinearBufferBase& _buffer)
   {
     // For ports with a return type, invokeSerial is not used
     (void) _buffer;
@@ -70,7 +79,7 @@ namespace Ports {
 #endif
 
   // ----------------------------------------------------------------------
-  // Output Port Member functions
+  // Public constructors for OutputNoArgsReturnPort
   // ----------------------------------------------------------------------
 
   OutputNoArgsReturnPort ::
@@ -80,6 +89,10 @@ namespace Ports {
   {
 
   }
+
+  // ----------------------------------------------------------------------
+  // Public member functions for OutputNoArgsReturnPort
+  // ----------------------------------------------------------------------
 
   void OutputNoArgsReturnPort ::
     init()
@@ -110,5 +123,7 @@ namespace Ports {
     FW_ASSERT(this->m_port != nullptr);
     return this->m_port->invoke();
   }
+
+#endif
 
 }

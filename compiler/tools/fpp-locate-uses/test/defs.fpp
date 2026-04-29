@@ -1,3 +1,7 @@
+# Core F Prime types and constants
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 # Placeholders for core F Prime ports
 # used in special port instances
 module Fw {
@@ -15,22 +19,31 @@ module Fw {
   port Tlm
 }
 
-array A = [3] U32
+dictionary array A = [3] U32
 constant a = 0
 enum E { X, Y }
 enum Phases { setup, teardown }
 struct S { x: U32 }
 type T
-state machine S
+state machine SM {
+  array A = [3] U32
+  constant a = 0
+  enum E { X, Y }
+  dictionary struct S { x: U32 }
+  type T
+  type X = T
+  state S
+  initial enter S
+}
 constant t = {seconds=10,useconds=20}
 
 module M {
   array A = [3] U32
-  constant a = 0
+  dictionary constant a = 0
   enum E { X, Y }
   struct S { x: U32 }
   type T
-  state machine S
+  state machine SM
 } 
 
 port P
@@ -40,9 +53,9 @@ active component C1 {
   array A = [3] U32
   constant a = 0
   enum E { X, Y }
-  struct S { x: U32 }
+  dictionary struct S { x: U32 }
   type T
-  state machine S
+  state machine SM
 }
 
 instance c11: C1 \
@@ -60,10 +73,10 @@ module M {
   passive component C1 {
     array A = [3] U32
     constant a = 0
-    enum E { X, Y }
+    dictionary enum E { X, Y }
     struct S { x: U32 }
     type T
-    state machine S
+    state machine SM
   }
 
   instance c11: C1 base id 0x100
@@ -80,8 +93,8 @@ constant stack_size_def = 10
 constant priority_def = 10
 constant cpu_def = 0
 constant record_id = 0
-array RecordType = [3] U32
-constant container_id = 0
+dictionary array RecordType = [3] U32
+dictionary constant container_id = 0
 constant container_priority = 0
 constant product_recv_priority = 0
 
@@ -92,3 +105,5 @@ constant SignalConstant = 10
 
 constant tlm_packet_id = 0
 constant tlm_packet_group = 0
+
+array SizeOfType = [3] U32

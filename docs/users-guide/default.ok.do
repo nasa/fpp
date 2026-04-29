@@ -8,6 +8,7 @@ exec 1>&2
 
 . ./defs.sh
 
+fpp_check=$PWD/../../compiler/bin/fpp-check
 dir=`dirname $2`
 base=`basename $2`
 infile=$base.adoc
@@ -23,7 +24,7 @@ for file in `ls | grep '\.fpp$' || true`
 do
   echo 'checking '$file 1>&2
   outfile=$file.out
-  if ! fpp-check $built_in_fpp $file > $outfile 2>&1
+  if ! $fpp_check $built_in_fpp $file > $outfile 2>&1
   then
     echo "check.do: checking of $file failed"
     cat $outfile

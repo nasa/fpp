@@ -5,6 +5,7 @@ bad_constant
 bad_default
 bad_rep_type
 default_ok
+dictionary_ok
 duplicate_value
 explicit
 implied

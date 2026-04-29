@@ -1,10 +1,14 @@
 tests="
-multipleTops
 basic
 dataProducts
+dictionaryDefs
 duplicate
+invalidDictDefConstant
+invalidDictDefType
+missingFwFixedLengthStringSizeConstant
 missingFwOpcodeType
 missingUserDataSizeConstant
-invalidUserDataSizeConstant
+multipleTops
 unqualifiedComponentInstances
+userDataSizeAsMember
 "

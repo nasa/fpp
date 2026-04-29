@@ -1,6 +1,8 @@
 tests="
 default_error
 default_ok
+dictionary_not_displayable
+dictionary_ok
 duplicate_names
 format_alias_not_numeric
 format_alias_numeric

@@ -14,8 +14,6 @@ case class ComponentTesterBaseWriter(
 
   private val componentFileName = ComputeCppFiles.FileNames.getComponent(componentName)
 
-  private val componentRelativeFileName = s.getRelativePath(componentFileName).toString
-
   private val fileName = ComputeCppFiles.FileNames.getComponentTesterBase(componentName)
 
   private val historyWriter = ComponentHistory(s, aNode)
@@ -24,14 +22,10 @@ case class ComponentTesterBaseWriter(
 
   private val namespaceIdentList = componentNamespaceIdentList
 
-  private val relativeFileName = s.getRelativePath(fileName).toString
-
-  private val symbol = componentSymbol
-
   private val externalParameterDelegate = ExternalParameterDelegate(s, aNode)
 
   def write: CppDoc = {
-    val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
+    val includeGuard = s.includeGuardFromQualifiedName(componentSymbol, fileName)
     CppWriter.createCppDoc(
       s"$name component test harness base class",
       fileName,
@@ -41,8 +35,8 @@ case class ComponentTesterBaseWriter(
     )
   }
 
-  private  def returnOrEmptyString(pi: PortInstance) =
-    getPortReturnType(pi).map(_ => "return ").getOrElse("")
+  private def returnOrEmptyString(pi: PortInstance) =
+    getPortReturnTypeAsStringOption(pi).map(_ => "return ").getOrElse("")
 
   private def getMembers: List[CppDoc.Member] = {
     val cls = classMember(
@@ -61,7 +55,7 @@ case class ComponentTesterBaseWriter(
 
   private def getHppIncludes: CppDoc.Member = {
     val standardHeaders = List(
-      s"$componentRelativeFileName.hpp",
+      s.getIncludePath(componentSymbol, componentFileName),
       "Fw/Comp/PassiveComponentBase.hpp",
       "Fw/Port/InputSerializePort.hpp",
       "Fw/Types/Assert.hpp",
@@ -87,7 +81,9 @@ case class ComponentTesterBaseWriter(
   }
 
   private def getCppIncludes: CppDoc.Member = {
-    val userHeader = lines(CppWriter.headerString(s"$relativeFileName.hpp"))
+    val userHeaders = lines(
+      CppWriter.headerString(s.getIncludePath(componentSymbol, fileName))
+    )
     val systemHeaders = List(
       "cstdlib",
       "cstring"
@@ -95,7 +91,7 @@ case class ComponentTesterBaseWriter(
     linesMember(
       List.concat(
         Line.blank :: systemHeaders,
-        Line.blank :: userHeader
+        Line.blank :: userHeaders
       ),
       CppDoc.Lines.Cpp
     )
@@ -146,7 +142,7 @@ case class ComponentTesterBaseWriter(
         testerPortVariableName,
         fromPortCallbackName,
         testerPortName,
-        ComponentCppWriter.ConnectionSense.Reversed
+        ComponentCppWriter.Mode.TesterBase
       )
       guardedList (portInstanceIsUsed(port)) (code)
     }
@@ -1467,7 +1463,7 @@ case class ComponentTesterBaseWriter(
                   |"""
             ),
             writeFunctionCall(
-              addReturnKeyword(s"_testerBase->$baseName", i),
+              addReturnToInvocation (i) (s"_testerBase->$baseName"),
               List("portNum"),
               getPortParams(i).map(_._1)
             )
@@ -1549,7 +1545,7 @@ case class ComponentTesterBaseWriter(
     addAccessTagAndComment(
       "private",
       "Static functions for output ports",
-      mapPorts(outputPorts, getPortFunction)
+      getPortMembersWithGuard(outputPorts, getPortFunction)
     )
 
   }
@@ -1580,7 +1576,7 @@ case class ComponentTesterBaseWriter(
       addAccessTagAndComment(
         "private",
         "From ports",
-        mapPorts(
+        getPortMembersWithGuard(
           outputPorts,
           p => {
             val unqualifiedName = p.getUnqualifiedName
@@ -1731,7 +1727,7 @@ case class ExternalParameterDelegate(
               Some("The parameter validity status")
             ),
             CppDoc.Function.Param(
-              CppDoc.Type("Fw::SerializeBufferBase&"),
+              CppDoc.Type("Fw::SerialBufferBase&"),
               "buff",
               Some("The buffer containing the parameter to deserialize")
             )
@@ -1787,7 +1783,7 @@ case class ExternalParameterDelegate(
               Some("The parameter local ID to serialize")
             ),
             CppDoc.Function.Param(
-              CppDoc.Type("Fw::SerializeBufferBase&"),
+              CppDoc.Type("Fw::SerialBufferBase&"),
               "buff",
               Some("The buffer to serialize the parameter into")
             )

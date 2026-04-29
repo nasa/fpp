@@ -4,6 +4,13 @@ alias_serial_type()
   move_cpp AliasSerialTypeEnum
 }
 
+component()
+{
+  update "-p $PWD" component
+  move_cpp C_EEnum
+  move_cpp EEnum
+}
+
 default()
 {
   update "-p $PWD" default
@@ -28,9 +35,8 @@ serialize_type()
   move_cpp SerializeTypeEnum
 }
 
-component()
+state_machine()
 {
-  update "-p $PWD" component
-  move_cpp C_EEnum
-  move_cpp EEnum
+  update "-p $PWD" state_machine
+  move_cpp SM_EEnum
 }

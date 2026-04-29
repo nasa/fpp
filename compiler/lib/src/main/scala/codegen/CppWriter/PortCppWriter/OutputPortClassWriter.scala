@@ -1,0 +1,169 @@
+package fpp.compiler.codegen
+
+import fpp.compiler.analysis._
+import fpp.compiler.ast._
+import fpp.compiler.util._
+
+/** Writes the output port class for a port definition */
+case class OutputPortClassWriter(
+  s: CppWriterState,
+  aNode: Ast.Annotated[AstNode[Ast.DefPort]]
+) extends PortCppWriterUtils(s, aNode) {
+
+  def write = classMember(
+    Some(s"Output $portName port\n$portAnnotation"),
+    outputPortClassName,
+    Some("public Fw::OutputPortBase"),
+    List.concat(
+      getPublicConstructorMembers,
+      getPublicFunctionMembers,
+      getPrivateVariableMembers
+    )
+  )
+
+  private def getAddCallPortFunction =
+    functionClassMember(
+      Some("Register an input port"),
+      "addCallPort",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type(s"$inputPortClassName*"),
+          "callPort",
+          Some("The input port")
+        )
+      ),
+      CppDoc.Type("void"),
+      lines(
+        """|FW_ASSERT(callPort != nullptr);
+           |
+           |this->m_port = callPort;
+           |this->m_connObj = callPort;
+           |
+           |#if FW_PORT_SERIALIZATION == 1
+           |this->m_serPort = nullptr;
+           |#endif
+           |"""
+      )
+    )
+
+  private def getInitFunction =
+    functionClassMember(
+      Some("Initialization function"),
+      "init",
+      Nil,
+      CppDoc.Type("void"),
+      lines("Fw::OutputPortBase::init();")
+    )
+
+  private def getInvokeFunction =
+    functionClassMember(
+      {
+        val returnComment =
+          if hasReturnType
+          then "\n\\return The return value of the port handler"
+          else ""
+        Some(s"Invoke a port connection$returnComment")
+      },
+      "invoke",
+      portFunctionParams,
+      CppDoc.Type(returnType),
+      List.concat(
+        lines(
+          s"""|#if FW_PORT_TRACING == 1
+              |this->trace();
+              |#endif
+              |"""
+        ),
+        if hasReturnType
+        then writeInvokeBodyNonVoid
+        else writeInvokeBodyVoid
+      ),
+      CppDoc.Function.NonSV,
+      CppDoc.Function.Const
+    )
+
+  private def getPrivateVariableMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "private",
+      s"Private member variables for $outputPortClassName",
+      List(
+        linesClassMember(
+          lines(
+            s"""|
+                |//! The pointer to the input port
+                |$inputPortClassName* m_port;"""
+          )
+        )
+      ),
+      CppDoc.Lines.Hpp
+    )
+
+  private def getPublicConstructorMembers =
+    addAccessTagAndComment(
+      "public",
+      s"Public constructors for $outputPortClassName",
+      List(
+        constructorClassMember(
+          Some("Constructor"),
+          Nil,
+          List("Fw::OutputPortBase()", "m_port(nullptr)"),
+          Nil
+        )
+      )
+    )
+
+  private def getPublicFunctionMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "public",
+      s"Public member functions for $outputPortClassName",
+      List(
+        getInitFunction,
+        getAddCallPortFunction,
+        getInvokeFunction
+      )
+    )
+
+  private def writeInvokeBodyNonVoid =
+    lines(
+      s"""|
+          |FW_ASSERT(this->m_port != nullptr);
+          |return this->m_port->invoke($writeParamNames);
+          |"""
+    )
+
+  private def writeInvokeBodyVoid =
+    List.concat(
+      lines(
+        s"""|
+            |#if FW_PORT_SERIALIZATION
+            |FW_ASSERT((this->m_port != nullptr) || (this->m_serPort != nullptr));
+            |
+            |if (this->m_port != nullptr) {
+            |  this->m_port->invoke($writeParamNames);
+            |}
+            |else {
+            |  Fw::SerializeStatus _status;
+            |  $portBufferName _buffer;
+            |"""
+      ),
+      guardedList (hasParams) (
+        lines(
+          s"""|
+              |  _status = $portSerializerName::serializePortArgs($writeParamNames, _buffer);
+              |  FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));"""
+        )
+      ),
+      lines(
+        s"""|
+            |  _status = this->m_serPort->invokeSerial(_buffer);
+            |  FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+            |}
+            |#else
+            |FW_ASSERT(this->m_port != nullptr);
+            |this->m_port->invoke($writeParamNames);
+            |#endif
+            |"""
+      )
+    )
+
+}

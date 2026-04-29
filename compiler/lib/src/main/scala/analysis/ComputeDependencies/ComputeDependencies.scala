@@ -22,7 +22,7 @@ object ComputeDependencies {
       }
       a <- BuildSpecLocMap.visitList(a, tul, BuildSpecLocMap.transUnit)
       a <- ConstructImpliedUseMap.visitList(a, tul, ConstructImpliedUseMap.transUnit)
-      a <- MapUsesToLocs.visitList(a, tul, MapUsesToLocs.transUnit)
+      a <- AddDependencies.visitList(a, tul, AddDependencies.transUnit)
     }
     yield {
       val includedFileSet = a.includedFileSet

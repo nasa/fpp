@@ -1,0 +1,9 @@
+fpp-to-dict
+[ local path prefix ]/tools/fpp-to-dict/test/top/userDataSizeAsMember.fpp:57.5
+    module DpCfg {
+    ^
+error: redefinition of symbol DpCfg
+previous definition is here:
+[ local path prefix ]/tools/fpp-to-dict/test/top/userDataSizeAsMember.fpp:46.5
+    constant DpCfg = {
+    ^

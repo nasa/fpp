@@ -1,6 +1,7 @@
 package fpp.compiler.codegen
 
 import fpp.compiler.analysis._
+import fpp.compiler.ast._
 
 /** Utilities for writing C++ */
 trait CppWriterUtils extends LineUtils {
@@ -34,6 +35,49 @@ trait CppWriterUtils extends LineUtils {
   /** Guards an option type with a Boolean condition */
   def guardedOption[T] = guardedValue (None: Option[T]) _
 
+  /** Add an access tag to a nonempty list of class members */
+  def addAccessTag(
+    accessTag: String,
+    members: List[CppDoc.Class.Member]
+  ): List[CppDoc.Class.Member] = guardedList (!members.isEmpty) (
+    linesClassMember(CppDocHppWriter.writeAccessTag(accessTag)) ::
+    members
+  )
+
+  /** Add a comment to a nonempty list of members */
+  def addMemberComment(
+    comment: String,
+    members: List[CppDoc.Member],
+    output: CppDoc.Lines.Output = CppDoc.Lines.Both,
+    cppFileNameBaseOpt: Option[String] = None
+  ): List[CppDoc.Member] = guardedList (!members.isEmpty) (
+    linesMember(CppDocWriter.writeBannerComment(comment), output, cppFileNameBaseOpt) ::
+    members
+  )
+
+  /** Add a banner comment to a nonempty list of lines */
+  def addBannerComment(comment: String, ll: List[Line]): List[Line] =
+    guardedList (!ll.isEmpty) (CppDocWriter.writeBannerComment(comment) ++ ll)
+
+  /** Add a comment to a nonempty list of lines */
+  def addComment(comment: String, ll: List[Line]): List[Line] =
+    guardedList (!ll.isEmpty) (CppDocWriter.writeComment(comment) ++ ll)
+
+  /** Add a comment to a nonempty list of class members */
+  def addComment(
+    comment: String,
+    members: List[CppDoc.Class.Member],
+    output: CppDoc.Lines.Output = CppDoc.Lines.Both,
+    cppFileNameBaseOpt: Option[String] = None
+  ): List[CppDoc.Class.Member] = guardedList (!members.isEmpty) (
+    linesClassMember(CppDocWriter.writeBannerComment(comment), output, cppFileNameBaseOpt) ::
+    members
+  )
+
+  /** Adds a conditional prefix to a string */
+  def addConditionalPrefix (condition: Boolean) (prefix: String) (s: String): String =
+    if condition then s"$prefix $s" else s
+
   /** Add an access tag and comment to a nonempty list of class members */
   def addAccessTagAndComment(
     accessTag: String,
@@ -41,21 +85,14 @@ trait CppWriterUtils extends LineUtils {
     members: List[CppDoc.Class.Member],
     output: CppDoc.Lines.Output = CppDoc.Lines.Both,
     cppFileNameBaseOpt: Option[String] = None
-  ): List[CppDoc.Class.Member] = members match {
-    case Nil => Nil
-    case _ =>
-      linesClassMember(CppDocHppWriter.writeAccessTag(accessTag)) ::
-      linesClassMember(CppDocWriter.writeBannerComment(comment), output, cppFileNameBaseOpt) ::
-      members
-  }
+  ): List[CppDoc.Class.Member] = addAccessTag(
+    accessTag,
+    addComment(comment, members, output, cppFileNameBaseOpt)
+  )
 
   /** Add an optional string separated by two newlines */
-  def addSeparatedString(str: String, strOpt: Option[String]): String = {
-    strOpt match {
-      case Some(s) => s"$str\n\n$s"
-      case None => str
-    }
-  }
+  def addSeparatedString(str: String, strOpt: Option[String]): String =
+    strOpt.map(s => s"$str\n\n$s").getOrElse(str)
 
   /** Add an optional pre comment separated by two newlines */
   def addSeparatedPreComment(str: String, commentOpt: Option[String]): List[Line] = {
@@ -67,17 +104,29 @@ trait CppWriterUtils extends LineUtils {
     }
   }
 
+  // Add a comma prefix if string is nonempty
+  def commaPrefix(s: String) = s match {
+    case "" => ""
+    case s => s", $s"
+  }
+
   def wrapInScope(
     s1: String,
     ll: List[Line],
     s2: String
-  ): List[Line] = ll match {
-    case Nil => Nil
-    case _ => List(lines(s1), ll.map(indentIn), lines(s2)).flatten
-  }
+  ): List[Line] = guardedList (!ll.isEmpty) (
+    List.concat(
+      lines(s1),
+      ll.map(indentIn),
+      lines(s2)
+    )
+  )
 
   def wrapInAnonymousNamespace(ll: List[Line]): List[Line] =
     wrapInScope("namespace {", ll, "}")
+
+  def wrapInBlock(ll: List[Line]) =
+    wrapInScope("{", ll, "}")
 
   def wrapInNamespace(namespace: String, ll: List[Line]): List[Line] =
     wrapInScope(s"namespace $namespace {", ll, "}")
@@ -112,23 +161,27 @@ trait CppWriterUtils extends LineUtils {
     wrapInScope(prefix, ll, "};")
   }
 
-  def wrapInSwitch(condition: String, body: List[Line]) =
-    wrapInScope(s"switch ($condition) {", body, "}")
+  def wrapInSwitch(selector: String, body: List[Line]) =
+    wrapInScope(s"switch ($selector) {", body, "}")
 
   def wrapInForLoop(init: String, condition: String, step: String, body: List[Line]): List[Line] =
     wrapInScope(s"for ($init; $condition; $step) {", body, "}")
 
-  def wrapInForLoopStaggered(init: String, condition: String, step: String, body: List[Line]): List[Line] =
-    wrapInScope(
-      s"""|for (
-          |  $init;
-          |  $condition;
-          |  $step
-          |) {
-          |""",
-      body,
-      "}"
-    )
+  def wrapInForLoopStaggered(
+    init: String,
+    condition: String,
+    step: String,
+    body: List[Line]
+  ): List[Line] = wrapInScope(
+    s"""|for (
+        |  $init;
+        |  $condition;
+        |  $step
+        |) {
+        |""",
+    body,
+    "}"
+  )
 
   def wrapInIf(condition: String, body: List[Line]): List[Line] =
     wrapInScope(s"if ($condition) {", body, "}")
@@ -165,28 +218,20 @@ trait CppWriterUtils extends LineUtils {
     body: List[T],
     constructMemberLines: CppDoc.Lines => T,
     linesOutput: CppDoc.Lines.Output = CppDoc.Lines.Both
-  ): List[T] = body match {
-    case Nil => Nil
-    case _ => List(
-      List(
-        constructMemberLines(
-          CppDoc.Lines(
-            lines(directive),
-            linesOutput
-          )
-        )
-      ),
-      body,
-      List(
-        constructMemberLines(
-          CppDoc.Lines(
-            Line.blank :: lines("#endif"),
-            linesOutput
-          )
-        )
-      ),
-    ).flatten
-  }
+  ): List[T] = guardedList (!body.isEmpty) (
+    (
+      constructMemberLines(
+        CppDoc.Lines(lines(s"\n$directive"), linesOutput)
+      ) ::
+      body
+    ) :+
+    constructMemberLines(
+      CppDoc.Lines(
+        Line.blank :: lines("#endif"),
+        linesOutput
+      )
+    )
+  )
 
   def writeOstreamOperator(
     name: String,
@@ -253,6 +298,24 @@ trait CppWriterUtils extends LineUtils {
     )
   }
 
+  /** Write a sum of terms */
+  def writeSum(
+    terms: List[String],
+    empty: String = "0",
+    separator: String = "+",
+    terminator: String = ";"
+  ): List[Line] = {
+    def helper(
+      terms: List[String],
+      sum: List[Line]
+    ): List[Line] = terms match {
+      case Nil => lines(s"$empty$terminator")
+      case t :: Nil => line(s"$t$terminator") :: sum
+      case t :: tail => helper(tail, line(s"$t $separator") :: sum)
+    }
+    helper(terms, Nil).reverse
+  }
+
   /** Write a variable declaration */
   def writeVarDecl(s: CppWriterState, typeName: String, name: String, t: Type): String =
     t.getUnderlyingType match {
@@ -287,19 +350,10 @@ trait CppWriterUtils extends LineUtils {
   /** Get a buffer name */
   def getBufferName(name: String) = s"__fprime_ac_${name}_buffer"
 
-  /** Gets the size of a string type */
-  def getStringSize(s: CppWriterState, t: Type.String): BigInt =
-    t.size.map(
-      node => {
-        val _ @ Value.Integer(value) = s.a.valueMap(node.id).convertToType(Type.Integer).get
-        value
-      }
-    ).getOrElse(BigInt(s.defaultStringSize))
-
   /** Write the size of a string type */
   def writeStringSize(s: CppWriterState, t: Type.String): String =
     t.size.map(node => ValueCppWriter.write(s, s.a.valueMap(node.id))).
-      getOrElse(s.defaultStringSize.toString)
+      getOrElse("static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)")
 
   /** Write a C++ expression for static serialized size */
   def writeStaticSerializedSizeExpr(s: CppWriterState, t: Type, typeName: String): String =
@@ -471,6 +525,9 @@ trait CppWriterUtils extends LineUtils {
     case head :: tail =>
       List(namespaceMember(head, wrapInNamespaces(tail, members)))
   }
+
+  def isTextEventPort(pi: PortInstance) =
+    pi.getSpecialKind == Some(Ast.SpecPortInstance.TextEvent)
 
 }
 

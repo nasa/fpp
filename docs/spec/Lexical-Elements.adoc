@@ -62,6 +62,7 @@ container
 cpu
 default
 diagnostic
+dictionary
 do
 drop
 else
@@ -125,6 +126,7 @@ set
 severity
 signal
 size
+sizeof
 stack
 state
 string

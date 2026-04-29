@@ -29,7 +29,10 @@ object LocMapJsonEncoder extends JsonEncoder {
         case (id, location) => id.toString -> location.asJson
       }
     // Convert the list elements to function arguments
-    Json.obj(locationsList: _*)
+    Json.obj(
+      "fppVersion" -> Version.v.asJson,
+      "locationMap" -> Json.obj(locationsList: _*)
+    )
   }
 
 }

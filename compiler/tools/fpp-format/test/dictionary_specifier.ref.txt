@@ -1,0 +1,17 @@
+dictionary type T = U32
+
+dictionary array A = [2] F32
+
+dictionary struct S {
+  x: [3] U32
+  y: F32
+  z: string
+}
+
+dictionary enum E {
+  X
+  Y
+  Z
+} default X
+
+dictionary constant C = 1

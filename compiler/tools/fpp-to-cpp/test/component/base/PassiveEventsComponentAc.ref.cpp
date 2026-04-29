@@ -9,7 +9,7 @@
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
-#include "base/PassiveEventsComponentAc.hpp"
+#include "PassiveEventsComponentAc.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization
@@ -21,6 +21,7 @@ void PassiveEventsComponentBase ::
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port cmdIn
   for (
     FwIndexType port = 0;
@@ -44,7 +45,9 @@ void PassiveEventsComponentBase ::
     this->m_cmdIn_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsAliasStringReturnSync
   for (
     FwIndexType port = 0;
@@ -68,7 +71,9 @@ void PassiveEventsComponentBase ::
     this->m_noArgsAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsGuarded
   for (
     FwIndexType port = 0;
@@ -92,7 +97,9 @@ void PassiveEventsComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsReturnGuarded
   for (
     FwIndexType port = 0;
@@ -116,7 +123,9 @@ void PassiveEventsComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsReturnSync
   for (
     FwIndexType port = 0;
@@ -140,7 +149,9 @@ void PassiveEventsComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsStringReturnSync
   for (
     FwIndexType port = 0;
@@ -164,7 +175,9 @@ void PassiveEventsComponentBase ::
     this->m_noArgsStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsSync
   for (
     FwIndexType port = 0;
@@ -188,7 +201,9 @@ void PassiveEventsComponentBase ::
     this->m_noArgsSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasGuarded
   for (
     FwIndexType port = 0;
@@ -212,7 +227,9 @@ void PassiveEventsComponentBase ::
     this->m_typedAliasGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasReturnSync
   for (
     FwIndexType port = 0;
@@ -236,7 +253,9 @@ void PassiveEventsComponentBase ::
     this->m_typedAliasReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasStringReturnSync
   for (
     FwIndexType port = 0;
@@ -260,7 +279,9 @@ void PassiveEventsComponentBase ::
     this->m_typedAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedGuarded
   for (
     FwIndexType port = 0;
@@ -284,7 +305,9 @@ void PassiveEventsComponentBase ::
     this->m_typedGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedReturnGuarded
   for (
     FwIndexType port = 0;
@@ -308,7 +331,9 @@ void PassiveEventsComponentBase ::
     this->m_typedReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedReturnSync
   for (
     FwIndexType port = 0;
@@ -332,7 +357,9 @@ void PassiveEventsComponentBase ::
     this->m_typedReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedSync
   for (
     FwIndexType port = 0;
@@ -356,7 +383,9 @@ void PassiveEventsComponentBase ::
     this->m_typedSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port cmdRegOut
   for (
     FwIndexType port = 0;
@@ -375,7 +404,9 @@ void PassiveEventsComponentBase ::
     this->m_cmdRegOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port cmdResponseOut
   for (
     FwIndexType port = 0;
@@ -394,7 +425,9 @@ void PassiveEventsComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port eventOut
   for (
     FwIndexType port = 0;
@@ -413,7 +446,9 @@ void PassiveEventsComponentBase ::
     this->m_eventOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port prmGetOut
   for (
     FwIndexType port = 0;
@@ -432,7 +467,9 @@ void PassiveEventsComponentBase ::
     this->m_prmGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port prmSetOut
   for (
     FwIndexType port = 0;
@@ -451,8 +488,9 @@ void PassiveEventsComponentBase ::
     this->m_prmSetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
-#if FW_ENABLE_TEXT_LOGGING == 1
+#if !FW_DIRECT_PORT_CALLS && FW_ENABLE_TEXT_LOGGING
   // Connect output port textEventOut
   for (
     FwIndexType port = 0;
@@ -473,6 +511,7 @@ void PassiveEventsComponentBase ::
   }
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port timeGetOut
   for (
     FwIndexType port = 0;
@@ -491,7 +530,9 @@ void PassiveEventsComponentBase ::
     this->m_timeGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port tlmOut
   for (
     FwIndexType port = 0;
@@ -510,7 +551,9 @@ void PassiveEventsComponentBase ::
     this->m_tlmOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsOut
   for (
     FwIndexType port = 0;
@@ -529,7 +572,9 @@ void PassiveEventsComponentBase ::
     this->m_noArgsOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsReturnOut
   for (
     FwIndexType port = 0;
@@ -548,7 +593,9 @@ void PassiveEventsComponentBase ::
     this->m_noArgsReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsStringReturnOut
   for (
     FwIndexType port = 0;
@@ -567,7 +614,9 @@ void PassiveEventsComponentBase ::
     this->m_noArgsStringReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasOut
   for (
     FwIndexType port = 0;
@@ -586,7 +635,9 @@ void PassiveEventsComponentBase ::
     this->m_typedAliasOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasReturnOut
   for (
     FwIndexType port = 0;
@@ -605,7 +656,9 @@ void PassiveEventsComponentBase ::
     this->m_typedAliasReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasReturnStringOut
   for (
     FwIndexType port = 0;
@@ -624,7 +677,9 @@ void PassiveEventsComponentBase ::
     this->m_typedAliasReturnStringOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedOut
   for (
     FwIndexType port = 0;
@@ -643,7 +698,9 @@ void PassiveEventsComponentBase ::
     this->m_typedOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedReturnOut
   for (
     FwIndexType port = 0;
@@ -662,7 +719,10 @@ void PassiveEventsComponentBase ::
     this->m_typedReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 }
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for special input ports
@@ -678,6 +738,10 @@ Fw::InputCmdPort* PassiveEventsComponentBase ::
 
   return &this->m_cmdIn_InputPort[portNum];
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for typed input ports
@@ -826,6 +890,10 @@ Ports::InputTypedPort* PassiveEventsComponentBase ::
   return &this->m_typedSync_InputPort[portNum];
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports
 // ----------------------------------------------------------------------
@@ -946,6 +1014,10 @@ void PassiveEventsComponentBase ::
   this->m_tlmOut_OutputPort[portNum].addCallPort(port);
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connect typed input ports to typed output ports
 // ----------------------------------------------------------------------
@@ -1062,7 +1134,9 @@ void PassiveEventsComponentBase ::
   this->m_typedReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to special output ports
@@ -1172,7 +1246,7 @@ void PassiveEventsComponentBase ::
 
 #endif
 
-#if FW_PORT_SERIALIZATION
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to typed output ports
@@ -1244,12 +1318,14 @@ PassiveEventsComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 
 bool PassiveEventsComponentBase ::
-  isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
@@ -1260,7 +1336,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
@@ -1271,7 +1347,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_eventOut_OutputPort(FwIndexType portNum)
+  isConnected_eventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
@@ -1282,7 +1358,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_prmGetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
@@ -1293,7 +1369,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_prmSetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmSetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
@@ -1306,7 +1382,7 @@ bool PassiveEventsComponentBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 bool PassiveEventsComponentBase ::
-  isConnected_textEventOut_OutputPort(FwIndexType portNum)
+  isConnected_textEventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
@@ -1319,7 +1395,7 @@ bool PassiveEventsComponentBase ::
 #endif
 
 bool PassiveEventsComponentBase ::
-  isConnected_timeGetOut_OutputPort(FwIndexType portNum)
+  isConnected_timeGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
@@ -1330,7 +1406,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_tlmOut_OutputPort(FwIndexType portNum)
+  isConnected_tlmOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
@@ -1340,12 +1416,16 @@ bool PassiveEventsComponentBase ::
   return this->m_tlmOut_OutputPort[portNum].isConnected();
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
 
 bool PassiveEventsComponentBase ::
-  isConnected_noArgsOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -1356,7 +1436,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -1367,7 +1447,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
@@ -1378,7 +1458,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_typedAliasOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
@@ -1389,7 +1469,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
@@ -1400,7 +1480,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
@@ -1411,7 +1491,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_typedOut_OutputPort(FwIndexType portNum)
+  isConnected_typedOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
@@ -1422,7 +1502,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_typedReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_typedReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
@@ -1430,6 +1510,34 @@ bool PassiveEventsComponentBase ::
   );
 
   return this->m_typedReturnOut_OutputPort[portNum].isConnected();
+}
+
+#endif
+
+// ----------------------------------------------------------------------
+// Port handler base-class functions for special input ports
+//
+// Call these functions directly to bypass the corresponding ports
+// ----------------------------------------------------------------------
+
+void PassiveEventsComponentBase ::
+  cmdIn_handlerBase(
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
+
+  const U32 idBase = this->getIdBase();
+  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+
+  // Select base class function based on opcode
+  switch (opCode - idBase) {
+    default:
+      // Unknown opcode: ignore it
+      break;
+  }
 }
 
 // ----------------------------------------------------------------------
@@ -1795,12 +1903,14 @@ void PassiveEventsComponentBase ::
   );
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
 
 void PassiveEventsComponentBase ::
-  noArgsOut_out(FwIndexType portNum)
+  noArgsOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -1815,7 +1925,7 @@ void PassiveEventsComponentBase ::
 }
 
 U32 PassiveEventsComponentBase ::
-  noArgsReturnOut_out(FwIndexType portNum)
+  noArgsReturnOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -1830,7 +1940,7 @@ U32 PassiveEventsComponentBase ::
 }
 
 Fw::String PassiveEventsComponentBase ::
-  noArgsStringReturnOut_out(FwIndexType portNum)
+  noArgsStringReturnOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
@@ -1854,7 +1964,7 @@ void PassiveEventsComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
@@ -1886,7 +1996,7 @@ AliasPrim2 PassiveEventsComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
@@ -1918,7 +2028,7 @@ Fw::String PassiveEventsComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AnotherAliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
@@ -1950,7 +2060,7 @@ void PassiveEventsComponentBase ::
       const E& e,
       const A& a,
       const S& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
@@ -1982,7 +2092,7 @@ F32 PassiveEventsComponentBase ::
       const E& e,
       const A& a,
       const S& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
@@ -2004,6 +2114,8 @@ F32 PassiveEventsComponentBase ::
   );
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Event logging functions
 // ----------------------------------------------------------------------
@@ -2013,16 +2125,14 @@ void PassiveEventsComponentBase ::
 {
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTACTIVITYHIGH;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTACTIVITYHIGH;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
 
 #if FW_AMPCS_COMPATIBLE
@@ -2035,7 +2145,8 @@ void PassiveEventsComponentBase ::
     );
 #endif
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::ACTIVITY_HI,
@@ -2045,7 +2156,7 @@ void PassiveEventsComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Activity High occurred";
@@ -2063,7 +2174,8 @@ void PassiveEventsComponentBase ::
       "EventActivityHigh "
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::ACTIVITY_HI,
@@ -2090,16 +2202,14 @@ void PassiveEventsComponentBase ::
 
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTACTIVITYLOWTHROTTLED;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTACTIVITYLOWTHROTTLED;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
@@ -2160,7 +2270,8 @@ void PassiveEventsComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::ACTIVITY_LO,
@@ -2170,7 +2281,7 @@ void PassiveEventsComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Activity Low occurred with arguments: %" PRIu32 ", %f, %d";
@@ -2191,7 +2302,8 @@ void PassiveEventsComponentBase ::
       b
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::ACTIVITY_LO,
@@ -2209,16 +2321,14 @@ void PassiveEventsComponentBase ::
 {
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTCOMMAND;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTCOMMAND;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
@@ -2231,19 +2341,26 @@ void PassiveEventsComponentBase ::
     );
 #endif
 
-    _status = str1.serializeTo(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, 80));
+    _status = str1.serializeTo(
+      _logBuff,
+      FW_MIN(static_cast<FwSizeType>(FW_LOG_STRING_MAX_SIZE), static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))
+    );
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = str2.serializeTo(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, 100));
+    _status = str2.serializeTo(
+      _logBuff,
+      FW_MIN(static_cast<FwSizeType>(FW_LOG_STRING_MAX_SIZE), 100)
+    );
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::COMMAND,
@@ -2253,7 +2370,7 @@ void PassiveEventsComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Command occurred with arguments: %s, %s";
@@ -2273,7 +2390,8 @@ void PassiveEventsComponentBase ::
       str2.toChar()
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::COMMAND,
@@ -2288,16 +2406,14 @@ void PassiveEventsComponentBase ::
 {
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTDIAGNOSTIC;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTDIAGNOSTIC;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
@@ -2326,7 +2442,8 @@ void PassiveEventsComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::DIAGNOSTIC,
@@ -2336,7 +2453,7 @@ void PassiveEventsComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Diagnostic occurred with argument: %s";
@@ -2358,7 +2475,8 @@ void PassiveEventsComponentBase ::
       eStr.toChar()
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::DIAGNOSTIC,
@@ -2381,16 +2499,14 @@ void PassiveEventsComponentBase ::
 
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTFATALTHROTTLED;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTFATALTHROTTLED;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
@@ -2432,7 +2548,8 @@ void PassiveEventsComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::FATAL,
@@ -2442,7 +2559,7 @@ void PassiveEventsComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Fatal occurred with argument: %s";
@@ -2464,7 +2581,8 @@ void PassiveEventsComponentBase ::
       aStr.toChar()
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::FATAL,
@@ -2479,16 +2597,14 @@ void PassiveEventsComponentBase ::
 {
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTWARNINGHIGH;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTWARNINGHIGH;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
@@ -2517,7 +2633,8 @@ void PassiveEventsComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_HI,
@@ -2527,7 +2644,7 @@ void PassiveEventsComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Warning High occurred with argument: %s";
@@ -2549,7 +2666,8 @@ void PassiveEventsComponentBase ::
       sStr.toChar()
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_HI,
@@ -2572,16 +2690,14 @@ void PassiveEventsComponentBase ::
 
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLED;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLED;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
 
 #if FW_AMPCS_COMPATIBLE
@@ -2594,7 +2710,8 @@ void PassiveEventsComponentBase ::
     );
 #endif
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_LO,
@@ -2604,7 +2721,7 @@ void PassiveEventsComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Warning Low occurred";
@@ -2622,7 +2739,8 @@ void PassiveEventsComponentBase ::
       "EventWarningLowThrottled "
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_LO,
@@ -2637,13 +2755,11 @@ void PassiveEventsComponentBase ::
 {
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL;
 
   // Check throttle value & throttle timeout
   {
@@ -2671,7 +2787,7 @@ void PassiveEventsComponentBase ::
   }
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
 
 #if FW_AMPCS_COMPATIBLE
@@ -2684,7 +2800,8 @@ void PassiveEventsComponentBase ::
     );
 #endif
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_LO,
@@ -2694,7 +2811,7 @@ void PassiveEventsComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Warning Low occurred";
@@ -2712,7 +2829,8 @@ void PassiveEventsComponentBase ::
       "EventWarningLowThrottledInterval "
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_LO,
@@ -2768,9 +2886,9 @@ void PassiveEventsComponentBase ::
 Fw::Time PassiveEventsComponentBase ::
   getTime() const
 {
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
     Fw::Time _time;
-    this->m_timeGetOut_OutputPort[0].invoke(_time);
+    this->timeGetOut_out(0, _time);
     return _time;
   }
   else {
@@ -2811,9 +2929,13 @@ void PassiveEventsComponentBase ::
   )
 {
   FW_ASSERT(callComp);
-
-  const U32 idBase = callComp->getIdBase();
-  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+  PassiveEventsComponentBase* compPtr = static_cast<PassiveEventsComponentBase*>(callComp);
+  compPtr->cmdIn_handlerBase(
+    portNum,
+    opCode,
+    cmdSeq,
+    args
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -3074,3 +3196,87 @@ void PassiveEventsComponentBase ::
     s
   );
 }
+
+#if !FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Invocation functions for special output ports
+// ----------------------------------------------------------------------
+
+void PassiveEventsComponentBase ::
+  eventOut_out(
+      FwIndexType portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::LogBuffer& args
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_eventOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_eventOut_OutputPort[portNum].invoke(
+    id,
+    timeTag,
+    severity,
+    args
+  );
+}
+
+#if FW_ENABLE_TEXT_LOGGING
+
+void PassiveEventsComponentBase ::
+  textEventOut_out(
+      FwIndexType portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::TextLogString& text
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_textEventOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_textEventOut_OutputPort[portNum].invoke(
+    id,
+    timeTag,
+    severity,
+    text
+  );
+}
+
+#endif
+
+void PassiveEventsComponentBase ::
+  timeGetOut_out(
+      FwIndexType portNum,
+      Fw::Time& time
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_timeGetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_timeGetOut_OutputPort[portNum].invoke(
+    time
+  );
+}
+
+#endif

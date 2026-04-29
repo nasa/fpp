@@ -22,7 +22,7 @@ PassiveGetProductPortsOnlyTester ::
 PassiveGetProductPortsOnlyTester ::
   ~PassiveGetProductPortsOnlyTester()
 {
-
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

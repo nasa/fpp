@@ -14,7 +14,14 @@ module M {
 
   port P
 
-  state machine S
+  state machine SM {
+    type T
+    type X = T
+    array A = [3] U32
+    constant a = 0
+    enum E { X, Y, Z }
+    struct S { x: U32 }
+  }
 
   passive component C {
     type T
@@ -22,7 +29,9 @@ module M {
     array A = [3] U32
     constant a = 0
     enum E { X, Y, Z }
+    dictionary enum E2 { A, B, C }
     struct S { x: U32 }
+    dictionary struct S2 { a: U32 }
     state machine S
   }
 

@@ -1,0 +1,15 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/struct/dictionary_not_displayable.fpp:2.1
+dictionary struct S { x: T }
+^
+error: dictionary type is not displayable
+
+[ local path prefix ]/compiler/tools/fpp-check/test/struct/dictionary_not_displayable.fpp:2.26
+dictionary struct S { x: T }
+                         ^
+because this type is not displayable
+
+[ local path prefix ]/compiler/tools/fpp-check/test/struct/dictionary_not_displayable.fpp:1.1
+type T
+^
+Type is defined here

@@ -19,7 +19,7 @@ object AstWriter extends AstVisitor with LineUtils {
     in: Unit,
     aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]): Out = {
       val (_, node, _) = aNode
-      lines("def alias type") ++ (
+      prefixWithDictionary("def alias type", node.data.isDictionaryDef) ++ (
         ident(node.data.name) ++
         typeNameNode(node.data.typeName)
       ).map(indentIn)
@@ -52,7 +52,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines("def array") ++
+    prefixWithDictionary("def array", data.isDictionaryDef) ++
     List.concat(
       ident(data.name),
       addPrefix("size", exprNode) (data.size),
@@ -131,8 +131,10 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines("def constant") ++
-    (ident(data.name) ++ exprNode(data.value)).map(indentIn)
+    prefixWithDictionary("def constant", data.isDictionaryDef) ++ (
+      ident(data.name) ++
+      exprNode(data.value)
+    ).map(indentIn)
   }
 
   override def defEnumAnnotatedNode(
@@ -141,7 +143,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines("def enum") ++
+    prefixWithDictionary("def enum", data.isDictionaryDef) ++
     List.concat(
       ident(data.name),
       linesOpt(typeNameNode, data.typeName),
@@ -283,7 +285,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines("def struct") ++
+    prefixWithDictionary("def struct", data.isDictionaryDef) ++
     (
       ident(data.name) ++
       data.members.flatMap(annotateNode(structTypeMember)) ++
@@ -388,6 +390,14 @@ object AstWriter extends AstVisitor with LineUtils {
   ) =
     lines("expr paren") ++
     exprNode(e.e).map(indentIn)
+
+  override def exprSizeOfNode(
+    in: In,
+    node: AstNode[Ast.Expr],
+    e: Ast.ExprSizeOf
+  ) =
+    lines("expr sizeof") ++
+    typeNameNode(e.typeName).map(indentIn)
 
   override def exprStructNode(
     in: In,
@@ -784,31 +794,31 @@ object AstWriter extends AstVisitor with LineUtils {
   override def typeNameBoolNode(
     in: In,
     node: AstNode[Ast.TypeName]
-  ) = lines("bool")
+  ) = lines("type name bool")
 
   override def typeNameFloatNode(
     in: In,
     node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat
-  ) = lines(tn.name.toString)
+  ) = lines(s"type name ${tn.name.toString}")
 
   override def typeNameIntNode(
     in: In,
     node: AstNode[Ast.TypeName],
     tn: Ast.TypeNameInt
-  ) = lines(tn.name.toString)
+  ) = lines(s"type name ${tn.name.toString}")
 
   override def typeNameQualIdentNode(
     in: In,
     node: AstNode[Ast.TypeName],
     tn: Ast.TypeNameQualIdent
-  ) = qualIdent(tn.name.data)
+  ) = addPrefix("type name", qualIdent) (tn.name.data)
 
   override def typeNameStringNode(
     in: In,
     node: AstNode[Ast.TypeName],
     tn: Ast.TypeNameString
   ) =
-    lines("string") ++ linesOpt(addPrefix("size", exprNode), tn.size).map(indentIn)
+    lines("type name string") ++ linesOpt(addPrefix("size", exprNode), tn.size).map(indentIn)
 
   private def addPrefixNoIndent[T](
     s: String,
@@ -1006,8 +1016,13 @@ object AstWriter extends AstVisitor with LineUtils {
   private def tuMember(tum: Ast.TUMember) = moduleMember(tum)
 
   private def typeNameNode(node: AstNode[Ast.TypeName]) =
-    addPrefix("type name", matchTypeNameNode((), _)) (node)
+    matchTypeNameNode((), node)
 
   private def unop(op: Ast.Unop) = lines(s"unop ${op.toString}")
 
+  private def prefixWithDictionary(s: String, isDictionaryDef: Boolean) =
+    if isDictionaryDef then
+      lines(s"dictionary $s")
+    else
+      lines(s)
 }

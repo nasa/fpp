@@ -17,7 +17,9 @@ case class TlmPacketSetCppWriter(
 
   private val Some(t) = s.a.topology
 
-  private val d = s.a.dictionaryMap(Symbol.Topology(t.aNode))
+  private val topologySymbol = Symbol.Topology(t.aNode)
+
+  private val d = s.a.dictionaryMap(topologySymbol)
 
   private val tps = d.tlmPacketSetMap(name)
 
@@ -49,7 +51,7 @@ case class TlmPacketSetCppWriter(
       "Fw/Types/Assert.hpp",
       "Fw/Types/StringBase.hpp",
       "Fw/Time/Time.hpp",
-      s"${s.getRelativePath(fileName).toString}.hpp",
+      s.getIncludePath(topologySymbol, fileName)
     ).sorted.map(CppWriter.headerString)
     val usedSymbolHeaders = s.writeIncludeDirectives(d.usedSymbolSet)
     val headers = standardHeaders ++ usedSymbolHeaders
@@ -127,7 +129,7 @@ case class TlmPacketSetCppWriter(
     )
 
   private def getIncludeGuard: String = {
-    val guard = s.a.getEnclosingNames(Symbol.Topology(t.aNode)) match {
+    val guard = s.a.getEnclosingNames(topologySymbol) match {
       case Nil => namespaceName
       case names =>
         val qualifier = CppWriterState.identFromQualifiedName(
@@ -139,7 +141,7 @@ case class TlmPacketSetCppWriter(
   }
 
   private def getMembers: List[CppDoc.Member] = {
-    val nsil = s.getNamespaceIdentList(Symbol.Topology(t.aNode)) :+
+    val nsil = s.getNamespaceIdentList(topologySymbol) :+
       namespaceName
     val members = getHppMembers ++ getCppMembers
     getHppIncludesMember :: getCppIncludesMember ::

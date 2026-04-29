@@ -15,7 +15,7 @@
 #include "Fw/Prm/PrmExternalTypes.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/QueuedTestComponentAc.hpp"
+#include "QueuedTestComponentAc.hpp"
 
 //! \class QueuedTestTesterBase
 //! \brief Auto-generated base for QueuedTest component test harness
@@ -186,7 +186,7 @@ class QueuedTestTesterBase :
       U32 u32;
       F32 f32;
       bool b;
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1;
       E e;
       A a;
@@ -207,7 +207,7 @@ class QueuedTestTesterBase :
       U32 u32;
       F32 f32;
       bool b;
-      char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str2;
       E e;
       A a;
@@ -422,14 +422,14 @@ class QueuedTestTesterBase :
             const FwPrmIdType baseId, //!< The component base parameter ID to deserialize
             const FwPrmIdType localId, //!< The parameter local ID to deserialize
             const Fw::ParamValid prmStat, //!< The parameter validity status
-            Fw::SerializeBufferBase& buff //!< The buffer containing the parameter to deserialize
+            Fw::SerialBufferBase& buff //!< The buffer containing the parameter to deserialize
         ) override;
 
         //! Parameter serialization function for external parameter unit testing
         Fw::SerializeStatus serializeParam(
             const FwPrmIdType baseId, //!< The component base parameter ID to serialize
             const FwPrmIdType localId, //!< The parameter local ID to serialize
-            Fw::SerializeBufferBase& buff //!< The buffer to serialize the parameter into
+            Fw::SerialBufferBase& buff //!< The buffer to serialize the parameter into
         ) const override;
 
     };
@@ -1370,147 +1370,147 @@ class QueuedTestTesterBase :
     //! \return Whether port to_cmdIn is connected
     bool isConnected_to_cmdIn(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_productRecvIn is connected
     //!
     //! \return Whether port to_productRecvIn is connected
     bool isConnected_to_productRecvIn(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_aliasTypedAsync is connected
     //!
     //! \return Whether port to_aliasTypedAsync is connected
     bool isConnected_to_aliasTypedAsync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsAliasStringReturnSync is connected
     //!
     //! \return Whether port to_noArgsAliasStringReturnSync is connected
     bool isConnected_to_noArgsAliasStringReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsAsync is connected
     //!
     //! \return Whether port to_noArgsAsync is connected
     bool isConnected_to_noArgsAsync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsGuarded is connected
     //!
     //! \return Whether port to_noArgsGuarded is connected
     bool isConnected_to_noArgsGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsReturnGuarded is connected
     //!
     //! \return Whether port to_noArgsReturnGuarded is connected
     bool isConnected_to_noArgsReturnGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsReturnSync is connected
     //!
     //! \return Whether port to_noArgsReturnSync is connected
     bool isConnected_to_noArgsReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsStringReturnSync is connected
     //!
     //! \return Whether port to_noArgsStringReturnSync is connected
     bool isConnected_to_noArgsStringReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsSync is connected
     //!
     //! \return Whether port to_noArgsSync is connected
     bool isConnected_to_noArgsSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAliasGuarded is connected
     //!
     //! \return Whether port to_typedAliasGuarded is connected
     bool isConnected_to_typedAliasGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAliasReturnSync is connected
     //!
     //! \return Whether port to_typedAliasReturnSync is connected
     bool isConnected_to_typedAliasReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAliasStringReturnSync is connected
     //!
     //! \return Whether port to_typedAliasStringReturnSync is connected
     bool isConnected_to_typedAliasStringReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAsync is connected
     //!
     //! \return Whether port to_typedAsync is connected
     bool isConnected_to_typedAsync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAsyncAssert is connected
     //!
     //! \return Whether port to_typedAsyncAssert is connected
     bool isConnected_to_typedAsyncAssert(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAsyncBlockPriority is connected
     //!
     //! \return Whether port to_typedAsyncBlockPriority is connected
     bool isConnected_to_typedAsyncBlockPriority(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAsyncDropPriority is connected
     //!
     //! \return Whether port to_typedAsyncDropPriority is connected
     bool isConnected_to_typedAsyncDropPriority(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedGuarded is connected
     //!
     //! \return Whether port to_typedGuarded is connected
     bool isConnected_to_typedGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedReturnGuarded is connected
     //!
     //! \return Whether port to_typedReturnGuarded is connected
     bool isConnected_to_typedReturnGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedReturnSync is connected
     //!
     //! \return Whether port to_typedReturnSync is connected
     bool isConnected_to_typedReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedSync is connected
     //!
     //! \return Whether port to_typedSync is connected
     bool isConnected_to_typedSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
   protected:
 

@@ -51,6 +51,6 @@ topology Simple2 {
 }
 
 @ A third Simple Topology
-topology Simple3{
+topology Simple3 {
   import Simple2
 }

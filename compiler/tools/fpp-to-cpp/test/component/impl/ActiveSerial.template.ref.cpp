@@ -259,7 +259,7 @@ void ActiveSerial ::
 void ActiveSerial ::
   serialAsync_handler(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // TODO
@@ -268,7 +268,7 @@ void ActiveSerial ::
 void ActiveSerial ::
   serialAsyncAssert_handler(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // TODO
@@ -277,7 +277,7 @@ void ActiveSerial ::
 void ActiveSerial ::
   serialAsyncBlockPriority_handler(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // TODO
@@ -286,7 +286,7 @@ void ActiveSerial ::
 void ActiveSerial ::
   serialAsyncDropPriority_handler(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // TODO
@@ -295,7 +295,7 @@ void ActiveSerial ::
 void ActiveSerial ::
   serialGuarded_handler(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // TODO
@@ -304,7 +304,7 @@ void ActiveSerial ::
 void ActiveSerial ::
   serialSync_handler(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // TODO

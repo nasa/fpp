@@ -16,7 +16,7 @@ Default ::
     Serializable(),
     m_mU32(54),
     m_mS1(m___fprime_ac_mS1_buffer, sizeof m___fprime_ac_mS1_buffer, Fw::String("hello")),
-    m_mF64(0.0)
+    m_mF64()
 {
 
 }
@@ -94,7 +94,7 @@ std::ostream& operator<<(std::ostream& os, const Default& obj) {
 
 Fw::SerializeStatus Default ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -118,7 +118,7 @@ Fw::SerializeStatus Default ::
 
 Fw::SerializeStatus Default ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

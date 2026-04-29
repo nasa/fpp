@@ -30,6 +30,7 @@ object Token {
   final case class CPU() extends Token
   final case class DEFAULT() extends Token
   final case class DIAGNOSTIC() extends Token
+  final case class DICTIONARY() extends Token
   final case class DO() extends Token
   final case class DOT() extends Token
   final case class DROP() extends Token
@@ -120,6 +121,7 @@ object Token {
   final case class SEVERITY() extends Token
   final case class SIGNAL() extends Token
   final case class SIZE() extends Token
+  final case class SIZEOF() extends Token
   final case class SLASH() extends Token
   final case class STACK() extends Token
   final case class STAR() extends Token
@@ -182,6 +184,7 @@ enum TokenId {
   case CPU
   case DEFAULT
   case DIAGNOSTIC
+  case DICTIONARY
   case DO
   case DROP
   case ELSE
@@ -254,6 +257,7 @@ enum TokenId {
   case SEVERITY
   case SIGNAL
   case SIZE
+  case SIZEOF
   case STACK
   case STATE
   case STRING

@@ -100,7 +100,7 @@ object CheckUseDefCycles extends UseAnalyzer {
     val symbol = a.useDefMap(node.id)
     val m = UseDefMatching(node.id, use, symbol)
     val a1 = a.copy(useDefMatchingList = m :: a.useDefMatchingList)
-    visitDefPre(a1, symbol)
+    for (_ <- visitDefPre(a1, symbol)) yield a
   }
 
 }

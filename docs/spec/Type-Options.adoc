@@ -21,10 +21,10 @@ stem:[O_2] in the following cases.
 
 .. stem:[T_1] and stem:[T_2] are <<Type-Checking_Identical-Types,identical types>>.
 
-.. Either or both of stem:[T_1] and stem:[T_2] is an <<Types_Alias-Types,alias 
+.. Either or both of stem:[T_1] and stem:[T_2] is an <<Types_Alias-Types,alias
 type>>,
 and _Some_ stem:[T'_1] may be converted to _Some_ stem:[T'_2], where
-stem:[T'_1] is the <<Types_Underlying-Types,underlying type>> of stem:[T_1], 
+stem:[T'_1] is the <<Types_Underlying-Types,underlying type>> of stem:[T_1],
 and
 stem:[T'_2] is the <<Types_Underlying-Types,underlying type>> of stem:[T_2].
 
@@ -93,7 +93,7 @@ stem:[O_1, ... , O_n], do the following:
 . Let stem:[O'_1] be stem:[O_1].
 
 .  For each stem:[i in [2,n]], compute the
-<<Type-Checking_Computing-a-Common-Type,common type>> stem:[O'_i] of
-stem:[O'_(i-1)] and stem:[O_i].
+<<Type-Options_Computing-a-Common-Type-Option,common type option>> stem:[O'_i] 
+of stem:[O'_(i-1)] and stem:[O_i].
 
-.  Use stem:[O'_n] as the common type of the list.
+.  Use stem:[O'_n] as the common type option of the list.

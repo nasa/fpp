@@ -26,7 +26,7 @@ object CheckUses extends BasicUseAnalyzer {
     def visitExprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = {
       def visitExprIdent(a: Analysis, node: AstNode[Ast.Expr], name: Name.Unqualified) = {
         val mapping = a.nestedScope.get (NameGroup.Value) _
-        for (symbol <- helpers.getSymbolForName(mapping)(node.id, name)) yield {
+        for (symbol <- helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)) yield {
           val useDefMap = a.useDefMap + (node.id -> symbol)
           a.copy(useDefMap = useDefMap)
         }
@@ -48,7 +48,7 @@ object CheckUses extends BasicUseAnalyzer {
               case Some(qual) =>
                 val scope = a.symbolScopeMap(qual)
                 val mapping = scope.get (NameGroup.Value) _
-                helpers.getSymbolForName(mapping)(id.id, id.data) match {
+                helpers.getSymbolForName(NameGroup.Value, mapping)(id.id, id.data) match {
                   case Right(value) => Right(Some(value))
                   case Left(err) => Left(err)
                 }
@@ -76,6 +76,33 @@ object CheckUses extends BasicUseAnalyzer {
       }
     }
     visitExprNode(a, node)
+  }
+
+  // Check that an implied use (a) is not a member
+  // of a def and (b) does not shadow the required def
+  override def impliedUse(a: Analysis, iu: ImpliedUse, kind: ImpliedUse.Kind) = {
+    val sym = a.useDefMap(iu.id)
+    val symQualifiedName = a.getQualifiedName(sym).toString
+    val iuName = iu.name.toString
+    // Check that the name of the def matches the name of the use
+    if symQualifiedName == iuName
+    // OK, they match
+    then Right(a)
+    else {
+      val msg = if symQualifiedName.length < iuName.length
+      // Definition has a shorter name: the use is a member of the definition
+      then s"it has $iuName as a member"
+      // Definition has a longer name: it shadows the required definition
+      else s"it shadows $iuName here"
+      Left(
+        SemanticError.InvalidSymbol(
+          symQualifiedName,
+          Locations.get(iu.id),
+          msg,
+          sym.getLoc
+        )
+      )
+    }
   }
 
   override def defComponentAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
@@ -117,7 +144,7 @@ object CheckUses extends BasicUseAnalyzer {
     for {
       symbol <- {
         val mapping = a.nestedScope.get (NameGroup.Value) _
-        helpers.getSymbolForName(mapping)(node.id, name)
+        helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)
       }
       a <- {
         val scope = a.symbolScopeMap(symbol)
@@ -129,60 +156,18 @@ object CheckUses extends BasicUseAnalyzer {
     yield a.copy(nestedScope = a.nestedScope.pop)
   }
 
-  override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
-    val impliedTypeUses = a.getImpliedUses(ImpliedUse.Kind.Type, node._2.id).toList
-    val impliedConstantUses = a.getImpliedUses(ImpliedUse.Kind.Constant, node._2.id).toList
+  override def defStateMachineAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
     for {
-      _ <- Result.foldLeft (impliedConstantUses) (()) ((_, itu) => {
-        val impliedUse = itu.asUniqueExprNode
-
-        for {
-          a <- {
-            Result.annotateResult(
-              constantUse(a, impliedUse, itu.name),
-              s"when constructing a dictionary, the constant ${itu.name} must be defined"
-            )
-          }
-
-          // Check to make sure this implied use is actually a constant
-          // ...rather than a member of a constant.
-          _ <- {
-            a.useDefMap.get(impliedUse.id) match {
-              case Some(Symbol.Constant(_) | Symbol.EnumConstant(_)) => Right(a)
-              case Some(_) => throw new InternalError("not a constant use or member")
-              case x =>
-                // Get the parent symbol to make the error reporting better
-                def getSymbolOfExpr(e: AstNode[Expr]): Symbol = {
-                  (a.useDefMap.get(e.id), e.data) match {
-                    case (Some(sym), _) => sym
-                    case (None, Ast.ExprDot(ee, eid)) => getSymbolOfExpr(ee)
-                    case _ => throw new InternalError("expected a constant use")
-                  }
-                }
-
-                val sym = getSymbolOfExpr(impliedUse)
-                Left(SemanticError.InvalidSymbol(
-                  sym.getUnqualifiedName,
-                  Locations.get(impliedUse.id),
-                  s"${itu.name} must be a constant symbol",
-                  sym.getLoc
-                ))
-            }
-          }
-        } yield ()
-      })
-
-      _ <- Result.foldLeft (impliedTypeUses) (()) ((_, itu) => {
-        for {
-          _ <- Result.annotateResult(
-            typeUse(a, itu.asTypeNameNode, itu.name),
-            s"when constructing a dictionary, the type ${itu.name} must be defined"
-          )
-        } yield ()
-      })
-
-      a <- super.defTopologyAnnotatedNode(a, node)
-    } yield a
+      a <- {
+        val symbol = Symbol.StateMachine(aNode)
+        val scope = a.symbolScopeMap(symbol)
+        val newNestedScope = a.nestedScope.push(scope)
+        val a1 = a.copy(nestedScope = newNestedScope)
+        super.defStateMachineAnnotatedNode(a1, aNode)
+      }
+    } yield a.copy(nestedScope = a.nestedScope.pop)
   }
 
   override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =

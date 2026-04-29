@@ -7,3 +7,6 @@ Line 2."""
 
 @ Escaped backslashes
 constant s3 = "\\"
+
+@ String concatenation
+constant s4 = "a" + "b"

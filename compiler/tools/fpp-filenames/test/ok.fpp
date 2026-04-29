@@ -6,7 +6,12 @@ enum E { X, Y }
 struct S { x: U32 }
 state machine SM1
 state machine SM2 {
+  array A = [3] U32
   initial enter S
+  constant a = 0
+  enum E { X, Y }
+  struct S { x: U32 }
+  type X = S
   state S
 }
 
@@ -27,6 +32,11 @@ module M {
     enum E { X, Y }
     struct S { x: U32 }
     import I
+    state machine SM {
+      array A = [3] U32
+      state S
+      initial enter S
+    }
   }
 
 }

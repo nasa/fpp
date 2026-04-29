@@ -94,7 +94,7 @@ void ActiveOverflow ::
 void ActiveOverflow ::
   serialAsyncHook_handler(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // TODO
@@ -161,7 +161,7 @@ void ActiveOverflow ::
 void ActiveOverflow ::
   serialAsyncHook_overflowHook(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // TODO

@@ -22,8 +22,12 @@
 #if FW_ENABLE_TEXT_LOGGING == 1
 #include "Fw/Log/LogTextPortAc.hpp"
 #endif
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
+#endif
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/OutputSerializePort.hpp"
+#endif
 #include "Fw/Prm/PrmExternalTypes.hpp"
 #include "Fw/Prm/PrmGetPortAc.hpp"
 #include "Fw/Prm/PrmSetPortAc.hpp"
@@ -38,6 +42,7 @@
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 //! \class PassiveExternalParamsComponentBase
 //! \brief Auto-generated base for PassiveExternalParams component
@@ -146,6 +151,8 @@ class PassiveExternalParamsComponentBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -158,6 +165,10 @@ class PassiveExternalParamsComponentBase :
     Fw::InputCmdPort* get_cmdIn_InputPort(
         FwIndexType portNum //!< The port number
     );
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   public:
 
@@ -256,6 +267,10 @@ class PassiveExternalParamsComponentBase :
         FwIndexType portNum //!< The port number
     );
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -314,6 +329,10 @@ class PassiveExternalParamsComponentBase :
         Fw::InputTlmPort* port //!< The input port
     );
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -368,7 +387,9 @@ class PassiveExternalParamsComponentBase :
         Ports::InputTypedReturnPort* port //!< The input port
     );
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
   public:
 
@@ -424,7 +445,7 @@ class PassiveExternalParamsComponentBase :
 
 #endif
 
-#if FW_PORT_SERIALIZATION
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
   public:
 
@@ -737,35 +758,35 @@ class PassiveExternalParamsComponentBase :
     //! \return Whether port cmdRegOut is connected
     bool isConnected_cmdRegOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port cmdResponseOut is connected
     //!
     //! \return Whether port cmdResponseOut is connected
     bool isConnected_cmdResponseOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port eventOut is connected
     //!
     //! \return Whether port eventOut is connected
     bool isConnected_eventOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port prmGetOut is connected
     //!
     //! \return Whether port prmGetOut is connected
     bool isConnected_prmGetOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port prmSetOut is connected
     //!
     //! \return Whether port prmSetOut is connected
     bool isConnected_prmSetOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
@@ -774,7 +795,7 @@ class PassiveExternalParamsComponentBase :
     //! \return Whether port textEventOut is connected
     bool isConnected_textEventOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
 #endif
 
@@ -783,14 +804,14 @@ class PassiveExternalParamsComponentBase :
     //! \return Whether port timeGetOut is connected
     bool isConnected_timeGetOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port tlmOut is connected
     //!
     //! \return Whether port tlmOut is connected
     bool isConnected_tlmOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
   protected:
 
@@ -803,55 +824,75 @@ class PassiveExternalParamsComponentBase :
     //! \return Whether port noArgsOut is connected
     bool isConnected_noArgsOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port noArgsReturnOut is connected
     //!
     //! \return Whether port noArgsReturnOut is connected
     bool isConnected_noArgsReturnOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port noArgsStringReturnOut is connected
     //!
     //! \return Whether port noArgsStringReturnOut is connected
     bool isConnected_noArgsStringReturnOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port typedAliasOut is connected
     //!
     //! \return Whether port typedAliasOut is connected
     bool isConnected_typedAliasOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port typedAliasReturnOut is connected
     //!
     //! \return Whether port typedAliasReturnOut is connected
     bool isConnected_typedAliasReturnOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port typedAliasReturnStringOut is connected
     //!
     //! \return Whether port typedAliasReturnStringOut is connected
     bool isConnected_typedAliasReturnStringOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port typedOut is connected
     //!
     //! \return Whether port typedOut is connected
     bool isConnected_typedOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port typedReturnOut is connected
     //!
     //! \return Whether port typedReturnOut is connected
     bool isConnected_typedReturnOut_OutputPort(
         FwIndexType portNum //!< The port number
+    ) const;
+
+#if FW_DIRECT_PORT_CALLS
+  public:
+#else
+  protected:
+#endif
+
+    // ----------------------------------------------------------------------
+    // Port handler base-class functions for special input ports
+    //
+    // Call these functions directly to bypass the corresponding ports
+    // ----------------------------------------------------------------------
+
+    //! Handler base-class function for input port cmdIn
+    void cmdIn_handlerBase(
+        FwIndexType portNum, //!< The port number
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        Fw::CmdArgBuffer& args //!< The command argument buffer
     );
 
   protected:
@@ -974,7 +1015,11 @@ class PassiveExternalParamsComponentBase :
         const S& s //!< A struct
     ) = 0;
 
+#if FW_DIRECT_PORT_CALLS
+  public:
+#else
   protected:
+#endif
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
@@ -1105,17 +1150,17 @@ class PassiveExternalParamsComponentBase :
     //! Invoke output port noArgsOut
     void noArgsOut_out(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Invoke output port noArgsReturnOut
     U32 noArgsReturnOut_out(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Invoke output port noArgsStringReturnOut
     Fw::String noArgsStringReturnOut_out(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Invoke output port typedAliasOut
     void typedAliasOut_out(
@@ -1127,7 +1172,7 @@ class PassiveExternalParamsComponentBase :
         const AliasEnum& e, //!< An enum
         const AliasArray& a, //!< An array
         const AliasStruct& s //!< A struct
-    );
+    ) const;
 
     //! Invoke output port typedAliasReturnOut
     AliasPrim2 typedAliasReturnOut_out(
@@ -1139,7 +1184,7 @@ class PassiveExternalParamsComponentBase :
         const AliasEnum& e, //!< An enum
         const AliasArray& a, //!< An array
         const AliasStruct& s //!< A struct
-    );
+    ) const;
 
     //! Invoke output port typedAliasReturnStringOut
     Fw::String typedAliasReturnStringOut_out(
@@ -1151,7 +1196,7 @@ class PassiveExternalParamsComponentBase :
         const AliasEnum& e, //!< An enum
         const AliasArray& a, //!< An array
         const AnotherAliasStruct& s //!< A struct
-    );
+    ) const;
 
     //! Invoke output port typedOut
     void typedOut_out(
@@ -1163,7 +1208,7 @@ class PassiveExternalParamsComponentBase :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) const;
 
     //! Invoke output port typedReturnOut
     F32 typedReturnOut_out(
@@ -1175,7 +1220,7 @@ class PassiveExternalParamsComponentBase :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) const;
 
   protected:
 
@@ -1193,7 +1238,7 @@ class PassiveExternalParamsComponentBase :
   protected:
 
     // ----------------------------------------------------------------------
-    // Parameter update hook
+    // Parameter hook functions
     // ----------------------------------------------------------------------
 
     //! \brief Called whenever a parameter is updated
@@ -1202,10 +1247,6 @@ class PassiveExternalParamsComponentBase :
     virtual void parameterUpdated(
         FwPrmIdType id //!< The parameter ID
     );
-
-    // ----------------------------------------------------------------------
-    // Parameter load hook
-    // ----------------------------------------------------------------------
 
     //! \brief Called whenever parameters are loaded
     //!
@@ -1461,6 +1502,46 @@ class PassiveExternalParamsComponentBase :
   private:
 
     // ----------------------------------------------------------------------
+    // Invocation functions for special output ports
+    // ----------------------------------------------------------------------
+
+    //! Invoke output port cmdRegOut
+    void cmdRegOut_out(
+        FwIndexType portNum, //!< The port number
+        FwOpcodeType opCode //!< Command Op Code
+    ) const;
+
+    //! Invoke output port cmdResponseOut
+    void cmdResponseOut_out(
+        FwIndexType portNum, //!< The port number
+        FwOpcodeType opCode, //!< Command Op Code
+        U32 cmdSeq, //!< Command Sequence
+        const Fw::CmdResponse& response //!< The command response argument
+    ) const;
+
+    //! Invoke output port prmGetOut
+    Fw::ParamValid prmGetOut_out(
+        FwIndexType portNum, //!< The port number
+        FwPrmIdType id, //!< Parameter ID
+        Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
+    ) const;
+
+    //! Invoke output port prmSetOut
+    void prmSetOut_out(
+        FwIndexType portNum, //!< The port number
+        FwPrmIdType id, //!< Parameter ID
+        Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
+    ) const;
+
+    //! Invoke output port timeGetOut
+    void timeGetOut_out(
+        FwIndexType portNum, //!< The port number
+        Fw::Time& time //!< Reference to Time object
+    ) const;
+
+  private:
+
+    // ----------------------------------------------------------------------
     // Parameter set functions
     // ----------------------------------------------------------------------
 
@@ -1468,42 +1549,42 @@ class PassiveExternalParamsComponentBase :
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamI32Ext(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamF64Ext
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamF64Ext(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamStringExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamStringExt(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamEnumExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamEnumExt(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamArrayExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamArrayExt(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamStructExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamStructExt(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
   private:
@@ -1542,6 +1623,8 @@ class PassiveExternalParamsComponentBase :
     //! \return The command response
     Fw::CmdResponse paramSave_ParamStructExt();
 
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -1550,6 +1633,10 @@ class PassiveExternalParamsComponentBase :
 
     //! Input port cmdIn
     Fw::InputCmdPort m_cmdIn_InputPort[NUM_CMDIN_INPUT_PORTS];
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   private:
 
@@ -1596,6 +1683,10 @@ class PassiveExternalParamsComponentBase :
     //! Input port typedSync
     Ports::InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -1630,6 +1721,10 @@ class PassiveExternalParamsComponentBase :
     //! Output port tlmOut
     Fw::OutputTlmPort m_tlmOut_OutputPort[NUM_TLMOUT_OUTPUT_PORTS];
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -1660,10 +1755,12 @@ class PassiveExternalParamsComponentBase :
     //! Output port typedReturnOut
     Ports::OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
 
+#endif
+
   private:
 
     // ----------------------------------------------------------------------
-    // Parameter delegates
+    // Parameter delegate
     // ----------------------------------------------------------------------
 
     //! Delegate to serialize/deserialize an externally stored parameter

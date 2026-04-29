@@ -1,6 +1,10 @@
 @ Definitions and specifiers
 module DefinitionsAndSpecifiers {
 
+  type FwSizeStoreType = U16
+
+  constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
   @ Abstract type definition
   type T @< Abstract type definition
 
@@ -368,5 +372,16 @@ module Expressions {
                          b = 2
                          c = 3
                        } @< Struct
+
+  @ SizeOf
+  module SizeOf {
+
+    constant typeFloat = sizeof(F64)
+
+    constant typeQualId = sizeof(TypeNames.typeNameU32)
+
+    constant typeString = sizeof(string size 20)
+
+  } @< SizeOf
 
 } @< Expressions

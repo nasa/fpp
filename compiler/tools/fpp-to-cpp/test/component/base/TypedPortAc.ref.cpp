@@ -5,43 +5,104 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/ExternalString.hpp"
-#include "base/TypedPortAc.hpp"
+#include "TypedPortAc.hpp"
 
 namespace Ports {
 
-  namespace {
+  // ----------------------------------------------------------------------
+  // Public constructors for TypedPortSerializer
+  // ----------------------------------------------------------------------
 
-    // ----------------------------------------------------------------------
-    // Port buffer class
-    // ----------------------------------------------------------------------
-
-    class TypedPortBuffer : public Fw::SerializeBufferBase {
-
-      public:
-
-        Fw::Serializable::SizeType getBuffCapacity() const {
-          return InputTypedPort::SERIALIZED_SIZE;
-        }
-
-        U8* getBuffAddr() {
-          return m_buff;
-        }
-
-        const U8* getBuffAddr() const {
-          return m_buff;
-        }
-
-      private:
-
-        U8 m_buff[InputTypedPort::SERIALIZED_SIZE];
-
-    };
+  TypedPortSerializer ::
+    TypedPortSerializer() :
+      m_u32(),
+      m_f32(),
+      m_b(),
+      m_str1(m___fprime_ac_str1_buffer, sizeof m___fprime_ac_str1_buffer),
+      m_e(),
+      m_a(),
+      m_s()
+  {
 
   }
 
   // ----------------------------------------------------------------------
-  // Input Port Member functions
+  // Public member functions for TypedPortSerializer
+  // ----------------------------------------------------------------------
+
+  Fw::SerializeStatus TypedPortSerializer ::
+    deserializePortArgs(Fw::SerialBufferBase& _buffer)
+  {
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.deserializeTo(m_u32);
+    }
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.deserializeTo(m_f32);
+    }
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.deserializeTo(m_b);
+    }
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.deserializeTo(m_str1);
+    }
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.deserializeTo(m_e);
+    }
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.deserializeTo(m_a);
+    }
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.deserializeTo(m_s);
+    }
+    return _status;
+  }
+
+  // ----------------------------------------------------------------------
+  // Public static functions for TypedPortSerializer
+  // ----------------------------------------------------------------------
+
+  Fw::SerializeStatus TypedPortSerializer ::
+    serializePortArgs(
+        U32 u32,
+        F32 f32,
+        bool b,
+        const Fw::StringBase& str1,
+        const E& e,
+        const A& a,
+        const S& s,
+        Fw::SerialBufferBase& _buffer
+    )
+  {
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.serializeFrom(u32);
+    }
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.serializeFrom(f32);
+    }
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.serializeFrom(b);
+    }
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.serializeFrom(str1);
+    }
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.serializeFrom(e);
+    }
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.serializeFrom(a);
+    }
+    if (_status == Fw::FW_SERIALIZE_OK) {
+      _status = _buffer.serializeFrom(s);
+    }
+    return _status;
+  }
+
+#if !FW_DIRECT_PORT_CALLS
+
+  // ----------------------------------------------------------------------
+  // Public constructors for InputTypedPort
   // ----------------------------------------------------------------------
 
   InputTypedPort ::
@@ -51,6 +112,10 @@ namespace Ports {
   {
 
   }
+
+  // ----------------------------------------------------------------------
+  // Public member functions for InputTypedPort
+  // ----------------------------------------------------------------------
 
   void InputTypedPort ::
     init()
@@ -93,13 +158,15 @@ namespace Ports {
     return this->m_func(this->m_comp, this->m_portNum, u32, f32, b, str1, e, a, s);
   }
 
+  // ----------------------------------------------------------------------
+  // Private member functions for InputTypedPort
+  // ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
   Fw::SerializeStatus InputTypedPort ::
-    invokeSerial(Fw::SerializeBufferBase& _buffer)
+    invokeSerial(Fw::LinearBufferBase& _buffer)
   {
-    Fw::SerializeStatus _status;
-
 #if FW_PORT_TRACING == 1
     this->trace();
 #endif
@@ -107,50 +174,13 @@ namespace Ports {
     FW_ASSERT(this->m_comp != nullptr);
     FW_ASSERT(this->m_func != nullptr);
 
-    U32 u32;
-    _status = _buffer.deserializeTo(u32);
+    TypedPortSerializer _serializer;
+    Fw::SerializeStatus _status = _serializer.deserializePortArgs(_buffer);
     if (_status != Fw::FW_SERIALIZE_OK) {
       return _status;
     }
 
-    F32 f32;
-    _status = _buffer.deserializeTo(f32);
-    if (_status != Fw::FW_SERIALIZE_OK) {
-      return _status;
-    }
-
-    bool b;
-    _status = _buffer.deserializeTo(b);
-    if (_status != Fw::FW_SERIALIZE_OK) {
-      return _status;
-    }
-
-    char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
-    Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
-    _status = _buffer.deserializeTo(str1);
-    if (_status != Fw::FW_SERIALIZE_OK) {
-      return _status;
-    }
-
-    E e;
-    _status = _buffer.deserializeTo(e);
-    if (_status != Fw::FW_SERIALIZE_OK) {
-      return _status;
-    }
-
-    A a;
-    _status = _buffer.deserializeTo(a);
-    if (_status != Fw::FW_SERIALIZE_OK) {
-      return _status;
-    }
-
-    S s;
-    _status = _buffer.deserializeTo(s);
-    if (_status != Fw::FW_SERIALIZE_OK) {
-      return _status;
-    }
-
-    this->m_func(this->m_comp, this->m_portNum, u32, f32, b, str1, e, a, s);
+    this->m_func(this->m_comp, this->m_portNum, _serializer.m_u32, _serializer.m_f32, _serializer.m_b, _serializer.m_str1, _serializer.m_e, _serializer.m_a, _serializer.m_s);
 
     return Fw::FW_SERIALIZE_OK;
   }
@@ -158,7 +188,7 @@ namespace Ports {
 #endif
 
   // ----------------------------------------------------------------------
-  // Output Port Member functions
+  // Public constructors for OutputTypedPort
   // ----------------------------------------------------------------------
 
   OutputTypedPort ::
@@ -168,6 +198,10 @@ namespace Ports {
   {
 
   }
+
+  // ----------------------------------------------------------------------
+  // Public member functions for OutputTypedPort
+  // ----------------------------------------------------------------------
 
   void OutputTypedPort ::
     init()
@@ -213,25 +247,7 @@ namespace Ports {
       Fw::SerializeStatus _status;
       TypedPortBuffer _buffer;
 
-      _status = _buffer.serializeFrom(u32);
-      FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-
-      _status = _buffer.serializeFrom(f32);
-      FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-
-      _status = _buffer.serializeFrom(b);
-      FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-
-      _status = _buffer.serializeFrom(str1);
-      FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-
-      _status = _buffer.serializeFrom(e);
-      FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-
-      _status = _buffer.serializeFrom(a);
-      FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
-
-      _status = _buffer.serializeFrom(s);
+      _status = TypedPortSerializer::serializePortArgs(u32, f32, b, str1, e, a, s, _buffer);
       FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
       _status = this->m_serPort->invokeSerial(_buffer);
@@ -242,5 +258,7 @@ namespace Ports {
     this->m_port->invoke(u32, f32, b, str1, e, a, s);
 #endif
   }
+
+#endif
 
 }

@@ -14,23 +14,23 @@
 Format ::
   Format() :
     Serializable(),
-    m_m1(0),
-    m_m2(0),
-    m_m3(0),
-    m_m4(0),
-    m_m5(0),
-    m_m6(0),
-    m_m7(0),
-    m_m8(0),
-    m_m9(0),
-    m_m10(0),
-    m_m11(0.0f),
-    m_m12(0.0f),
-    m_m13(0.0f),
-    m_m14(0.0f),
-    m_m15(0.0f),
-    m_m16(0.0f),
-    m_m17(0.0f)
+    m_m1(),
+    m_m2(),
+    m_m3(),
+    m_m4(),
+    m_m5(),
+    m_m6(),
+    m_m7(),
+    m_m8(),
+    m_m9(),
+    m_m10(),
+    m_m11(),
+    m_m12(),
+    m_m13(),
+    m_m14(),
+    m_m15(),
+    m_m16(),
+    m_m17()
 {
 
 }
@@ -164,7 +164,7 @@ std::ostream& operator<<(std::ostream& os, const Format& obj) {
 
 Fw::SerializeStatus Format ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -244,7 +244,7 @@ Fw::SerializeStatus Format ::
 
 Fw::SerializeStatus Format ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

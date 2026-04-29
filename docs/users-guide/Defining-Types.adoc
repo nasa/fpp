@@ -77,23 +77,44 @@ of width 32 and 64 bits.
 
 * The type name `string`, denoting the type of
 <<Defining-Constants_Expressions_String-Values,string values>>.
-This type has a default maximum size.
 For example:
 +
 [source,fpp]
 ----
-# A is an array of 3 strings with default maximum size
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+# A is an array of 3 strings with size FW_FIXED_LENGTH_STRING_SIZE
 array A = [3] string
 ----
++
+Notice that we defined the 
+<<Defining-Types_Framework-Types,framework type>> 
+`FwSizeStoreType` and the 
+<<Defining-Constants_Framework-Constants,framework constant>>
+`FW_FIXED_LENGTH_STRING_SIZE`.
+These definitions are required when using the type `string`.
+Typically you provide them as part of the F Prime configuration.
+`FwSizeStoreType` specifies the type to use for storing the
+length of a string.
+`FW_FIXED_LENGTH_STRING_SIZE` specifies the size of the buffer
+used to store string data.
 
 * The type name `string size` _e_, where _e_ is a numeric expression
-specifying a maximum string size.
+specifying the maximum string length of any value of that type.
+For example:
 +
 [source,fpp]
 ----
-# A is an array of 3 strings with maximum size 40
+type FwSizeStoreType = U16
+
+# A is an array of 3 strings with size 40
 array A = [3] string size 40
 ----
++
+Here we just specified `FwSizeStoreType`.
+If a string type has an explicit size, then it does not
+use the definition `FW_FIXED_LENGTH_STRING_SIZE`.
 
 * A name associated with another type definition.
 In particular, an array definition may have another array definition as
@@ -297,6 +318,9 @@ a struct type containing two members: `x` of type `U32`, and `y` of type `string
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 struct S { x: U32, y: string }
 ----
 
@@ -320,6 +344,9 @@ So, for example, we can write the definition shown above in this alternate way:
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 struct S {
   x: U32
   y: string
@@ -337,6 +364,9 @@ Here is an example:
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 @ This is a pre annotation for struct S
 struct S {
   @ This is a pre annotation for member x
@@ -357,6 +387,9 @@ For example, here is a struct type `S` with default value `{ x = 1, y = "abc"
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 struct S { x: U32, y: string } default { x = 1, y = "abc" }
 ----
 
@@ -367,6 +400,9 @@ value and use it multiple times, like this:
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 constant s = { x = 1, y = "abc" }
 struct S1 { x: U8, y: string } default s
 struct S2 { x: U32, y: string } default s
@@ -400,11 +436,17 @@ However, these default expressions are not allowed:
 
 [source,fpp]
 --------
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 struct S1 { x: U32, y: string } default { z = 1 } # Error: member z does not match
 --------
 
 [source,fpp]
 --------
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 struct S2 { x: U32, y: string } default { x = "abc" } # Error: type of member x does not match
 --------
 
@@ -478,6 +520,9 @@ that member `x` should be displayed as a hexadecimal value:
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 struct Channel {
   name: string
   offset: U32 format "offset 0x{x}"
@@ -517,6 +562,9 @@ For example:
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 array Speeds = [3] U32
 # Member speeds has type Speeds, which is an array of 3 U32 values
 struct Wheel { name: string, speeds: Speeds }
@@ -528,6 +576,9 @@ For example:
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 array A = [2] U32
 struct S1 { x: U32, y: string }
 
@@ -569,6 +620,9 @@ For example, this code is legal:
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 struct S { x: U32, y: string } default { y = "abc", x = 5 }
 ----
 
@@ -691,3 +745,121 @@ defining `T`; elsewhere, configuration code can define
 F Prime uses this method to provide basic type whose definitions
 configure the framework.
 These types are defined in the file `config/FpConfig.fpp`.
+
+=== Framework Types
+
+Certain types defined in FPP have a special meaning in the F Prime
+framework.
+These types are called *framework types*.
+For example, the type `FwOpcodeType` defines the type of
+a command opcode.
+(Commands are an F Prime feature that we describe
+<<Defining-Components_Commands,in a later section of this manual>>.)
+
+Framework types are like <<Defining-Constants_Framework-Constants,framework 
+constants>>:
+you typically define them by overriding configuration files
+provided by F Prime, and if they are defined, then they must
+conform to certain rules.
+https://nasa.github.io/fpp/fpp-spec.html#Definitions_Framework-Definitions_Type-Definitions[_The 
+FPP Language Specification_] has all the details.
+
+
+=== Displayable Types and Serialized Sizes
+
+Some types have complete definitions that are known in the FPP
+model.
+For example, the type `U32` is like this.
+So is the type `A`, if `A` is an array of 3 `U32` values.
+For other types, the complete definition is not known.
+For example, if `T` is an abstract type, then the definition
+of `T` depends on its {cpp} implementation; it is not known
+in the FPP model.
+
+If an FPP type has a complete definition in the model where
+it appears, then we say the type is a *displayable type*,
+because it is a type that the F Prime ground system can display.
+In general, an FPP type is a displayable type _unless_
+(1) it is an <<Defining-Types_Abstract-Type-Definitions,abstract type>>;
+or (2) it is an <<Defining-Types_Array-Type-Definitions,array type>>
+whose element type is not a displayable type; or
+(3) it is a <<Defining-Types_Struct-Type-Definitions,struct type>> with at
+least one member type that is not a displayable type.
+For example:
+
+* The type `U32` is a displayable type.
+
+* The type `string` is a displayable type.
+
+* If `T` is an abstract type, then `T` is not a displayable type.
+
+* If `A` is an array of 3 `U32` values, then `A` is a displayable
+  type.
+
+* If `A` is an array of 3 values of type `T`, where `T` is an abstract type,
+  then `A` is not a displayable type.
+
+Every displayable type has a *serialized size*.
+This is the maximum number of bytes needed to represent
+a value of the type in the F Prime serialization format.
+For example:
+
+* The serialized size of the type `U32` is 4.
+
+* The serialized size _s_ of the type `string` is the serialized size of the
+  <<Defining-Types_Framework-Types,framework type>>
+  `FwSizeStoreType` plus the value of the
+  <<Defining-Constants_Framework-Constants,framework constant>>
+  `FW_FIXED_LENGTH_STRING_SIZE`.
+  In F Prime, a string value is stored as a length of type `FwSizeStoreType`
+  followed by the characters of the string.
+  A value of type `string` may have any number of characters from zero
+  up to and including `FW_FIXED_LENGTH_STRING_SIZE`.
+  Thus, _s_ is the maximum number of bytes required to store a value of this
+  type.
+
+* If `T` is an abstract type, then `T` has no serialized size in the
+  FPP model, because the implementation of `T` is not known.
+
+* If `A` is an array of 3 `U32` values, then the serialized
+  size _s_ of `A` is 3 times the serialized size of `U32`.
+  Thus _s_ = 3 * 4 = 12.
+
+* If `A` is an array of 3 values of type `T`, where `T` is an abstract type,
+  then `A` has no serialized size in the FPP model.
+
+When a type has a serialized size, you can use a *sizeof expression*
+to calculate the size.
+A sizeof expression consists of the keyword `sizeof` followed
+by the name of a type enclosed in parentheses.
+You can use a sizeof expression anywhere you can use an
+<<Defining-Constants_Expressions,expression>> that evaluates to
+an integer.
+For example:
+
+[source,fpp]
+----
+constant a = sizeof(U32) # a = 4
+
+array A = [3] U32
+constant b = sizeof(A) + 10 # b = 3 * sizeof(U32) + 10
+                            #   = 3 * 4 + 10
+                            #   = 22
+
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 80
+constant c = sizeof(string) # c = sizeof(FwSizeStoreType) + FW_FIXED_LENGTH_STRING_SIZE
+                            #   = sizeof(U16) + 80
+                            #   = 2 + 80
+                            #   = 82
+----
+
+It is an error to use a non-displayable type in a
+`sizeof` expression.
+For example, the following code is invalid:
+
+[source,fpp]
+--------
+type T
+constant c = sizeof(T) # Error: The abstract type T has no serialized size
+--------

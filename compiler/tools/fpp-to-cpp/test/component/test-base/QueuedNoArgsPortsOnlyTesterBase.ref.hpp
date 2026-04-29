@@ -13,7 +13,7 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/QueuedNoArgsPortsOnlyComponentAc.hpp"
+#include "QueuedNoArgsPortsOnlyComponentAc.hpp"
 
 //! \class QueuedNoArgsPortsOnlyTesterBase
 //! \brief Auto-generated base for QueuedNoArgsPortsOnly component test harness
@@ -301,28 +301,28 @@ class QueuedNoArgsPortsOnlyTesterBase :
     //! \return Whether port to_noArgsAsync is connected
     bool isConnected_to_noArgsAsync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsGuarded is connected
     //!
     //! \return Whether port to_noArgsGuarded is connected
     bool isConnected_to_noArgsGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsReturnGuarded is connected
     //!
     //! \return Whether port to_noArgsReturnGuarded is connected
     bool isConnected_to_noArgsReturnGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsReturnSync is connected
     //!
     //! \return Whether port to_noArgsReturnSync is connected
     bool isConnected_to_noArgsReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
   protected:
 

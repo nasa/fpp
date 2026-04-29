@@ -100,7 +100,7 @@ case class ArrayCppWriter (
   private def getCppIncludes: CppDoc.Member = {
     val userHeaders = List(
       "Fw/Types/Assert.hpp",
-      s"${s.getRelativePath(fileName).toString}.hpp"
+      s.getIncludePath(symbol, fileName)
     ).sorted.map(CppWriter.headerString).map(line)
     linesMember(Line.blank :: userHeaders, CppDoc.Lines.Cpp)
   }
@@ -162,17 +162,31 @@ case class ArrayCppWriter (
 
   private val initElementsCall = guardedList (hasStringEltType) (lines("this->initElements();"))
 
+  private val defaultElementInitialization: Boolean = {
+    val elements = arrayType.getDefaultValue.get.anonArray.elements
+    val elementType = arrayType.anonArray.eltType.getDefaultValue
+    elementType match {
+      case None => false
+      case Some(elementTypeDefault) =>
+        elements.head == elementTypeDefault &&
+        elements.tail.forall(_ == elements.head)
+    }
+  }
+
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
     val defaultValueConstructor = constructorClassMember(
       Some("Constructor (default value)"),
       Nil,
-      List("Serializable()"),
+      List(
+        "Serializable()",
+        "elements()"
+      ),
       List.concat(
         initElementsCall,
-        {
+        guardedList (!defaultElementInitialization) ({
           val valueString = ValueCppWriter.write(s, arrayType.getDefaultValue.get)
           lines(s"*this = $valueString;")
-        }
+        })
       )
     )
     val singleElementConstructor = constructorClassMember(
@@ -409,18 +423,13 @@ case class ArrayCppWriter (
         CppDoc.Function.NonSV,
         CppDoc.Function.Const,
       )
-    ) ++ (
-      linesClassMember(
-        List(Line.blank),
-        CppDoc.Lines.Both
-      ) :: writeOstreamOperator(
-        name,
-        lines(
-          """|Fw::String s;
-             |obj.toString(s);
-             |os << s;
-             |return os;"""
-        )
+    ) ++ writeOstreamOperator(
+      name,
+      lines(
+        """|Fw::String s;
+           |obj.toString(s);
+           |os << s;
+           |return os;"""
       )
     )
 
@@ -440,18 +449,14 @@ case class ArrayCppWriter (
                  |tmp.format(\"%s\", tmp.toChar());"""
 
     val formatLoop = indexIterator(lines(
-      s"""|Fw::String tmp;
+      s"""|// Array data
+          |Fw::String tmp;
           |$fillTmpString
           |
-          |FwSizeType size = tmp.length() + (index > 0 ? 2 : 0);
-          |if ((size + sb.length()) <= sb.maxLength()) {
-          |  if (index > 0) {
-          |    sb += ", ";
-          |  }
-          |  sb += tmp;
-          |} else {
-          |  break;
+          |if (index > 0) {
+          |  sb += ", ";
           |}
+          |sb += tmp;
           |"""
     ))
     val serializedSize = eltType.getUnderlyingType match {
@@ -480,7 +485,7 @@ case class ArrayCppWriter (
         "serializeTo",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("Fw::SerializeBufferBase&"),
+            CppDoc.Type("Fw::SerialBufferBase&"),
             "buffer",
             Some("The serial buffer"),
           ),
@@ -508,7 +513,7 @@ case class ArrayCppWriter (
         "deserializeFrom",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("Fw::SerializeBufferBase&"),
+            CppDoc.Type("Fw::SerialBufferBase&"),
             "buffer",
             Some("The serial buffer"),
           ),
@@ -540,7 +545,7 @@ case class ArrayCppWriter (
       )
     ) ++
       wrapClassMembersInIfDirective(
-        "\n#if FW_SERIALIZABLE_TO_STRING",
+        "#if FW_SERIALIZABLE_TO_STRING",
         List(
           functionClassMember(
             Some("Convert array to string"),
@@ -559,19 +564,13 @@ case class ArrayCppWriter (
                     |sb = "";
                     |
                     |// Array prefix
-                    |if (sb.length() + 2 <= sb.maxLength()) {
-                    |  sb += \"[ \";
-                    |} else {
-                    |  return;
-                    |}"""),
+                    |sb += \"[ \";"""),
               List(Line.blank),
               formatLoop,
               List(Line.blank),
               lines(
                 s"""|// Array suffix
-                    |if (sb.length() + 2 <= sb.maxLength()) {
-                    |  sb += \" ]\";
-                    |}"""),
+                    |sb += \" ]\";""")
             ),
             CppDoc.Function.NonSV,
             CppDoc.Function.Const,

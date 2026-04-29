@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/redef/type.fpp:3.3
+  type T
+  ^
+error: redefinition of symbol T
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/redef/type.fpp:2.3
+  type T
+  ^

@@ -15,9 +15,10 @@ namespace M {
 
   PrimitiveI64 ::
     PrimitiveI64() :
-      Serializable()
+      Serializable(),
+      elements()
   {
-    *this = M::PrimitiveI64(0);
+
   }
 
   PrimitiveI64 ::
@@ -143,7 +144,7 @@ namespace M {
 
   Fw::SerializeStatus PrimitiveI64 ::
     serializeTo(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     ) const
   {
@@ -159,7 +160,7 @@ namespace M {
 
   Fw::SerializeStatus PrimitiveI64 ::
     deserializeFrom(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     )
   {
@@ -188,31 +189,21 @@ namespace M {
     sb = "";
 
     // Array prefix
-    if (sb.length() + 2 <= sb.maxLength()) {
-      sb += "[ ";
-    } else {
-      return;
-    }
+    sb += "[ ";
 
     for (FwSizeType index = 0; index < SIZE; index++) {
+      // Array data
       Fw::String tmp;
       tmp.format("%" PRIx64 "", this->elements[index]);
 
-      FwSizeType size = tmp.length() + (index > 0 ? 2 : 0);
-      if ((size + sb.length()) <= sb.maxLength()) {
-        if (index > 0) {
-          sb += ", ";
-        }
-        sb += tmp;
-      } else {
-        break;
+      if (index > 0) {
+        sb += ", ";
       }
+      sb += tmp;
     }
 
     // Array suffix
-    if (sb.length() + 2 <= sb.maxLength()) {
-      sb += " ]";
-    }
+    sb += " ]";
   }
 
 #endif

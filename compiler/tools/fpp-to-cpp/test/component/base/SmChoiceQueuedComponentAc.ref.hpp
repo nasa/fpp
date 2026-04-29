@@ -9,9 +9,14 @@
 
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
+#endif
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/OutputSerializePort.hpp"
+#endif
 #include "SmChoiceQueued_BasicStateMachineAc.hpp"
+#include "SmChoiceQueued_Basic_StateEnumAc.hpp"
 #include "Svc/Sched/SchedPortAc.hpp"
 #include "state-machine/choice/BasicStateMachineAc.hpp"
 #include "state-machine/choice/BasicU32StateMachineAc.hpp"
@@ -582,6 +587,8 @@ namespace FppTest {
           FwEnumStoreType instance = 0 //!< The instance number
       );
 
+#if !FW_DIRECT_PORT_CALLS
+
     public:
 
       // ----------------------------------------------------------------------
@@ -594,6 +601,8 @@ namespace FppTest {
       Svc::InputSchedPort* get_schedIn_InputPort(
           FwIndexType portNum //!< The port number
       );
+
+#endif
 
     protected:
 
@@ -634,7 +643,11 @@ namespace FppTest {
           U32 context //!< The call order
       ) = 0;
 
+#if FW_DIRECT_PORT_CALLS
+    public:
+#else
     protected:
+#endif
 
       // ----------------------------------------------------------------------
       // Port handler base-class functions for typed input ports
@@ -733,7 +746,7 @@ namespace FppTest {
       virtual void smChoiceChoiceToChoice_stateMachineOverflowHook(
           SmId smId, //!< The state machine ID
           FwEnumStoreType signal, //!< The signal
-          Fw::SerializeBufferBase& buffer //!< The message buffer
+          Fw::SerialBufferBase& buffer //!< The message buffer
       ) = 0;
 
     protected:
@@ -1027,47 +1040,47 @@ namespace FppTest {
       void sendSignalStart(
           SmId smId, //!< The state machine ID (input)
           FwEnumStoreType signal, //!< The signal (input)
-          Fw::SerializeBufferBase& buffer //!< The message buffer (output)
+          Fw::SerialBufferBase& buffer //!< The message buffer (output)
       );
 
       //! Finish sending a signal to a state machine
       void basic_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smChoiceBasic_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smChoiceBasicU32_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smChoiceChoiceToChoice_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smChoiceChoiceToState_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smChoiceInputPairU16U32_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smChoiceSequence_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smChoiceSequenceU32_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
     private:
@@ -1078,71 +1091,73 @@ namespace FppTest {
 
       //! Dispatch a signal to a state machine instance
       void smDispatch(
-          Fw::SerializeBufferBase& buffer //!< The message buffer
+          Fw::SerialBufferBase& buffer //!< The message buffer
       );
 
       //! Deserialize the state machine ID and signal from the message buffer
       static void deserializeSmIdAndSignal(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer (input and output)
+          Fw::SerialBufferBase& buffer, //!< The message buffer (input and output)
           FwEnumStoreType& smId, //!< The state machine ID (output)
           FwEnumStoreType& signal //!< The signal (output)
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmChoice_Basic
       void FppTest_SmChoice_Basic_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmChoice_Basic& sm, //!< The state machine
           FppTest_SmChoice_Basic::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmChoice_BasicU32
       void FppTest_SmChoice_BasicU32_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmChoice_BasicU32& sm, //!< The state machine
           FppTest_SmChoice_BasicU32::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmChoice_ChoiceToChoice
       void FppTest_SmChoice_ChoiceToChoice_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmChoice_ChoiceToChoice& sm, //!< The state machine
           FppTest_SmChoice_ChoiceToChoice::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmChoice_ChoiceToState
       void FppTest_SmChoice_ChoiceToState_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmChoice_ChoiceToState& sm, //!< The state machine
           FppTest_SmChoice_ChoiceToState::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmChoice_InputPairU16U32
       void FppTest_SmChoice_InputPairU16U32_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmChoice_InputPairU16U32& sm, //!< The state machine
           FppTest_SmChoice_InputPairU16U32::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmChoice_Sequence
       void FppTest_SmChoice_Sequence_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmChoice_Sequence& sm, //!< The state machine
           FppTest_SmChoice_Sequence::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmChoice_SequenceU32
       void FppTest_SmChoice_SequenceU32_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmChoice_SequenceU32& sm, //!< The state machine
           FppTest_SmChoice_SequenceU32::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmChoiceQueued_Basic
       void FppTest_SmChoiceQueued_Basic_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmChoiceQueued_Basic& sm, //!< The state machine
           FppTest_SmChoiceQueued_Basic::Signal signal //!< The signal
       );
+
+#if !FW_DIRECT_PORT_CALLS
 
     private:
 
@@ -1152,6 +1167,8 @@ namespace FppTest {
 
       //! Input port schedIn
       Svc::InputSchedPort m_schedIn_InputPort[NUM_SCHEDIN_INPUT_PORTS];
+
+#endif
 
     private:
 

@@ -28,6 +28,7 @@ syn keyword fppKeyword container
 syn keyword fppKeyword cpu
 syn keyword fppKeyword default
 syn keyword fppKeyword diagnostic
+syn keyword fppKeyword dictionary
 syn keyword fppKeyword do
 syn keyword fppKeyword drop
 syn keyword fppKeyword else
@@ -50,6 +51,7 @@ syn keyword fppKeyword high
 syn keyword fppKeyword hook
 syn keyword fppKeyword id
 syn keyword fppKeyword if
+syn keyword fppKeyword implements
 syn keyword fppKeyword import
 syn keyword fppKeyword include
 syn keyword fppKeyword initial
@@ -91,6 +93,7 @@ syn keyword fppKeyword set
 syn keyword fppKeyword severity
 syn keyword fppKeyword signal
 syn keyword fppKeyword size
+syn keyword fppKeyword sizeof
 syn keyword fppKeyword stack
 syn keyword fppKeyword state
 syn keyword fppKeyword struct

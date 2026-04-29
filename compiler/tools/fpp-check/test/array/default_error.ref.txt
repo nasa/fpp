@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/array/default_error.fpp:2.25
+array B = [3] A default [ 1, 2 ]
+                        ^
+error: cannot convert [2] Integer to array B

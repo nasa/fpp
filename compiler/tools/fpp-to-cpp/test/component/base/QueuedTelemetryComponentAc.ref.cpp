@@ -9,7 +9,7 @@
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
-#include "base/QueuedTelemetryComponentAc.hpp"
+#include "QueuedTelemetryComponentAc.hpp"
 
 namespace {
   enum MsgTypeEnum {
@@ -25,18 +25,18 @@ namespace {
   // Get the max size by constructing a union of the async input, command, and
   // internal port serialization sizes
   union BuffUnion {
-    BYTE aliasTypedAsyncPortSize[Ports::InputAliasTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncAssertPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncBlockPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncDropPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
+    BYTE aliasTypedAsyncPortSize[Ports::AliasTypedPortBuffer::CAPACITY];
+    BYTE typedAsyncPortSize[Ports::TypedPortBuffer::CAPACITY];
+    BYTE typedAsyncAssertPortSize[Ports::TypedPortBuffer::CAPACITY];
+    BYTE typedAsyncBlockPriorityPortSize[Ports::TypedPortBuffer::CAPACITY];
+    BYTE typedAsyncDropPriorityPortSize[Ports::TypedPortBuffer::CAPACITY];
+    BYTE cmdPortSize[Fw::CmdPortBuffer::CAPACITY];
   };
 
   // Define a message buffer class large enough to handle all the
   // asynchronous inputs to the component
   class ComponentIpcSerializableBuffer :
-    public Fw::SerializeBufferBase
+    public Fw::LinearBufferBase
   {
 
     public:
@@ -50,7 +50,7 @@ namespace {
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
-      Fw::Serializable::SizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -82,6 +82,7 @@ void QueuedTelemetryComponentBase ::
   // Initialize base class
   Fw::QueuedComponentBase::init(instance);
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port cmdIn
   for (
     FwIndexType port = 0;
@@ -105,7 +106,9 @@ void QueuedTelemetryComponentBase ::
     this->m_cmdIn_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port aliasTypedAsync
   for (
     FwIndexType port = 0;
@@ -129,7 +132,9 @@ void QueuedTelemetryComponentBase ::
     this->m_aliasTypedAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsAliasStringReturnSync
   for (
     FwIndexType port = 0;
@@ -153,7 +158,9 @@ void QueuedTelemetryComponentBase ::
     this->m_noArgsAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsAsync
   for (
     FwIndexType port = 0;
@@ -177,7 +184,9 @@ void QueuedTelemetryComponentBase ::
     this->m_noArgsAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsGuarded
   for (
     FwIndexType port = 0;
@@ -201,7 +210,9 @@ void QueuedTelemetryComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsReturnGuarded
   for (
     FwIndexType port = 0;
@@ -225,7 +236,9 @@ void QueuedTelemetryComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsReturnSync
   for (
     FwIndexType port = 0;
@@ -249,7 +262,9 @@ void QueuedTelemetryComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsStringReturnSync
   for (
     FwIndexType port = 0;
@@ -273,7 +288,9 @@ void QueuedTelemetryComponentBase ::
     this->m_noArgsStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsSync
   for (
     FwIndexType port = 0;
@@ -297,7 +314,9 @@ void QueuedTelemetryComponentBase ::
     this->m_noArgsSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasGuarded
   for (
     FwIndexType port = 0;
@@ -321,7 +340,9 @@ void QueuedTelemetryComponentBase ::
     this->m_typedAliasGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasReturnSync
   for (
     FwIndexType port = 0;
@@ -345,7 +366,9 @@ void QueuedTelemetryComponentBase ::
     this->m_typedAliasReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasStringReturnSync
   for (
     FwIndexType port = 0;
@@ -369,7 +392,9 @@ void QueuedTelemetryComponentBase ::
     this->m_typedAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAsync
   for (
     FwIndexType port = 0;
@@ -393,7 +418,9 @@ void QueuedTelemetryComponentBase ::
     this->m_typedAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAsyncAssert
   for (
     FwIndexType port = 0;
@@ -417,7 +444,9 @@ void QueuedTelemetryComponentBase ::
     this->m_typedAsyncAssert_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAsyncBlockPriority
   for (
     FwIndexType port = 0;
@@ -441,7 +470,9 @@ void QueuedTelemetryComponentBase ::
     this->m_typedAsyncBlockPriority_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAsyncDropPriority
   for (
     FwIndexType port = 0;
@@ -465,7 +496,9 @@ void QueuedTelemetryComponentBase ::
     this->m_typedAsyncDropPriority_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedGuarded
   for (
     FwIndexType port = 0;
@@ -489,7 +522,9 @@ void QueuedTelemetryComponentBase ::
     this->m_typedGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedReturnGuarded
   for (
     FwIndexType port = 0;
@@ -513,7 +548,9 @@ void QueuedTelemetryComponentBase ::
     this->m_typedReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedReturnSync
   for (
     FwIndexType port = 0;
@@ -537,7 +574,9 @@ void QueuedTelemetryComponentBase ::
     this->m_typedReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedSync
   for (
     FwIndexType port = 0;
@@ -561,7 +600,9 @@ void QueuedTelemetryComponentBase ::
     this->m_typedSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port cmdRegOut
   for (
     FwIndexType port = 0;
@@ -580,7 +621,9 @@ void QueuedTelemetryComponentBase ::
     this->m_cmdRegOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port cmdResponseOut
   for (
     FwIndexType port = 0;
@@ -599,7 +642,9 @@ void QueuedTelemetryComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port eventOut
   for (
     FwIndexType port = 0;
@@ -618,7 +663,9 @@ void QueuedTelemetryComponentBase ::
     this->m_eventOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port prmGetOut
   for (
     FwIndexType port = 0;
@@ -637,7 +684,9 @@ void QueuedTelemetryComponentBase ::
     this->m_prmGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port prmSetOut
   for (
     FwIndexType port = 0;
@@ -656,8 +705,9 @@ void QueuedTelemetryComponentBase ::
     this->m_prmSetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
-#if FW_ENABLE_TEXT_LOGGING == 1
+#if !FW_DIRECT_PORT_CALLS && FW_ENABLE_TEXT_LOGGING
   // Connect output port textEventOut
   for (
     FwIndexType port = 0;
@@ -678,6 +728,7 @@ void QueuedTelemetryComponentBase ::
   }
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port timeGetOut
   for (
     FwIndexType port = 0;
@@ -696,7 +747,9 @@ void QueuedTelemetryComponentBase ::
     this->m_timeGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port tlmOut
   for (
     FwIndexType port = 0;
@@ -715,7 +768,9 @@ void QueuedTelemetryComponentBase ::
     this->m_tlmOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsOut
   for (
     FwIndexType port = 0;
@@ -734,7 +789,9 @@ void QueuedTelemetryComponentBase ::
     this->m_noArgsOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsReturnOut
   for (
     FwIndexType port = 0;
@@ -753,7 +810,9 @@ void QueuedTelemetryComponentBase ::
     this->m_noArgsReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsStringReturnOut
   for (
     FwIndexType port = 0;
@@ -772,7 +831,9 @@ void QueuedTelemetryComponentBase ::
     this->m_noArgsStringReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasOut
   for (
     FwIndexType port = 0;
@@ -791,7 +852,9 @@ void QueuedTelemetryComponentBase ::
     this->m_typedAliasOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasReturnOut
   for (
     FwIndexType port = 0;
@@ -810,7 +873,9 @@ void QueuedTelemetryComponentBase ::
     this->m_typedAliasReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasReturnStringOut
   for (
     FwIndexType port = 0;
@@ -829,7 +894,9 @@ void QueuedTelemetryComponentBase ::
     this->m_typedAliasReturnStringOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedOut
   for (
     FwIndexType port = 0;
@@ -848,7 +915,9 @@ void QueuedTelemetryComponentBase ::
     this->m_typedOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedReturnOut
   for (
     FwIndexType port = 0;
@@ -867,6 +936,7 @@ void QueuedTelemetryComponentBase ::
     this->m_typedReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
   // Create the queue
   Os::Queue::Status qStat = this->createQueue(
@@ -878,6 +948,8 @@ void QueuedTelemetryComponentBase ::
     static_cast<FwAssertArgType>(qStat)
   );
 }
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for special input ports
@@ -893,6 +965,10 @@ Fw::InputCmdPort* QueuedTelemetryComponentBase ::
 
   return &this->m_cmdIn_InputPort[portNum];
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for typed input ports
@@ -1107,6 +1183,10 @@ Ports::InputTypedPort* QueuedTelemetryComponentBase ::
   return &this->m_typedSync_InputPort[portNum];
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports
 // ----------------------------------------------------------------------
@@ -1227,6 +1307,10 @@ void QueuedTelemetryComponentBase ::
   this->m_tlmOut_OutputPort[portNum].addCallPort(port);
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connect typed input ports to typed output ports
 // ----------------------------------------------------------------------
@@ -1343,7 +1427,9 @@ void QueuedTelemetryComponentBase ::
   this->m_typedReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to special output ports
@@ -1453,7 +1539,7 @@ void QueuedTelemetryComponentBase ::
 
 #endif
 
-#if FW_PORT_SERIALIZATION
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to typed output ports
@@ -1520,12 +1606,14 @@ QueuedTelemetryComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 
 bool QueuedTelemetryComponentBase ::
-  isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
@@ -1536,7 +1624,7 @@ bool QueuedTelemetryComponentBase ::
 }
 
 bool QueuedTelemetryComponentBase ::
-  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
@@ -1547,7 +1635,7 @@ bool QueuedTelemetryComponentBase ::
 }
 
 bool QueuedTelemetryComponentBase ::
-  isConnected_eventOut_OutputPort(FwIndexType portNum)
+  isConnected_eventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
@@ -1558,7 +1646,7 @@ bool QueuedTelemetryComponentBase ::
 }
 
 bool QueuedTelemetryComponentBase ::
-  isConnected_prmGetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
@@ -1569,7 +1657,7 @@ bool QueuedTelemetryComponentBase ::
 }
 
 bool QueuedTelemetryComponentBase ::
-  isConnected_prmSetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmSetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
@@ -1582,7 +1670,7 @@ bool QueuedTelemetryComponentBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 bool QueuedTelemetryComponentBase ::
-  isConnected_textEventOut_OutputPort(FwIndexType portNum)
+  isConnected_textEventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
@@ -1595,7 +1683,7 @@ bool QueuedTelemetryComponentBase ::
 #endif
 
 bool QueuedTelemetryComponentBase ::
-  isConnected_timeGetOut_OutputPort(FwIndexType portNum)
+  isConnected_timeGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
@@ -1606,7 +1694,7 @@ bool QueuedTelemetryComponentBase ::
 }
 
 bool QueuedTelemetryComponentBase ::
-  isConnected_tlmOut_OutputPort(FwIndexType portNum)
+  isConnected_tlmOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
@@ -1616,12 +1704,16 @@ bool QueuedTelemetryComponentBase ::
   return this->m_tlmOut_OutputPort[portNum].isConnected();
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
 
 bool QueuedTelemetryComponentBase ::
-  isConnected_noArgsOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -1632,7 +1724,7 @@ bool QueuedTelemetryComponentBase ::
 }
 
 bool QueuedTelemetryComponentBase ::
-  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -1643,7 +1735,7 @@ bool QueuedTelemetryComponentBase ::
 }
 
 bool QueuedTelemetryComponentBase ::
-  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
@@ -1654,7 +1746,7 @@ bool QueuedTelemetryComponentBase ::
 }
 
 bool QueuedTelemetryComponentBase ::
-  isConnected_typedAliasOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
@@ -1665,7 +1757,7 @@ bool QueuedTelemetryComponentBase ::
 }
 
 bool QueuedTelemetryComponentBase ::
-  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
@@ -1676,7 +1768,7 @@ bool QueuedTelemetryComponentBase ::
 }
 
 bool QueuedTelemetryComponentBase ::
-  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
@@ -1687,7 +1779,7 @@ bool QueuedTelemetryComponentBase ::
 }
 
 bool QueuedTelemetryComponentBase ::
-  isConnected_typedOut_OutputPort(FwIndexType portNum)
+  isConnected_typedOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
@@ -1698,7 +1790,7 @@ bool QueuedTelemetryComponentBase ::
 }
 
 bool QueuedTelemetryComponentBase ::
-  isConnected_typedReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_typedReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
@@ -1706,6 +1798,34 @@ bool QueuedTelemetryComponentBase ::
   );
 
   return this->m_typedReturnOut_OutputPort[portNum].isConnected();
+}
+
+#endif
+
+// ----------------------------------------------------------------------
+// Port handler base-class functions for special input ports
+//
+// Call these functions directly to bypass the corresponding ports
+// ----------------------------------------------------------------------
+
+void QueuedTelemetryComponentBase ::
+  cmdIn_handlerBase(
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
+
+  const U32 idBase = this->getIdBase();
+  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+
+  // Select base class function based on opcode
+  switch (opCode - idBase) {
+    default:
+      // Unknown opcode: ignore it
+      break;
+  }
 }
 
 // ----------------------------------------------------------------------
@@ -2144,7 +2264,7 @@ void QueuedTelemetryComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2251,7 +2371,7 @@ void QueuedTelemetryComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2358,7 +2478,7 @@ void QueuedTelemetryComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2465,7 +2585,7 @@ void QueuedTelemetryComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2740,12 +2860,14 @@ void QueuedTelemetryComponentBase ::
   // Default: no-op
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
 
 void QueuedTelemetryComponentBase ::
-  noArgsOut_out(FwIndexType portNum)
+  noArgsOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -2760,7 +2882,7 @@ void QueuedTelemetryComponentBase ::
 }
 
 U32 QueuedTelemetryComponentBase ::
-  noArgsReturnOut_out(FwIndexType portNum)
+  noArgsReturnOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -2775,7 +2897,7 @@ U32 QueuedTelemetryComponentBase ::
 }
 
 Fw::String QueuedTelemetryComponentBase ::
-  noArgsStringReturnOut_out(FwIndexType portNum)
+  noArgsStringReturnOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
@@ -2799,7 +2921,7 @@ void QueuedTelemetryComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
@@ -2831,7 +2953,7 @@ AliasPrim2 QueuedTelemetryComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
@@ -2863,7 +2985,7 @@ Fw::String QueuedTelemetryComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AnotherAliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
@@ -2895,7 +3017,7 @@ void QueuedTelemetryComponentBase ::
       const E& e,
       const A& a,
       const S& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
@@ -2927,7 +3049,7 @@ F32 QueuedTelemetryComponentBase ::
       const E& e,
       const A& a,
       const S& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
@@ -2949,6 +3071,39 @@ F32 QueuedTelemetryComponentBase ::
   );
 }
 
+#endif
+
+// ----------------------------------------------------------------------
+// Telemetry serialized write
+// ----------------------------------------------------------------------
+
+void QueuedTelemetryComponentBase ::
+  tlmWrite(
+      FwChanIdType id,
+      Fw::TlmBuffer& _tlmBuff,
+      Fw::Time _tlmTime
+  ) const
+{
+  if (this->isConnected_tlmOut_OutputPort(0)) {
+    if (
+      this->isConnected_timeGetOut_OutputPort(0) &&
+      (_tlmTime ==  Fw::ZERO_TIME)
+    ) {
+      this->timeGetOut_out(0, _tlmTime);
+    }
+
+    FwChanIdType _id;
+    _id = this->getIdBase() + id;
+
+    this->tlmOut_out(
+      0,
+      _id,
+      _tlmTime,
+      _tlmBuff
+    );
+  }
+}
+
 // ----------------------------------------------------------------------
 // Telemetry write functions
 // ----------------------------------------------------------------------
@@ -2959,14 +3114,7 @@ void QueuedTelemetryComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
-    if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
-    }
-
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -2974,14 +3122,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELU32FORMAT;
-
-    this->m_tlmOut_OutputPort[0].invoke(
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELU32FORMAT,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -2992,14 +3136,7 @@ void QueuedTelemetryComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
-    if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
-    }
-
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3007,14 +3144,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELF32FORMAT;
-
-    this->m_tlmOut_OutputPort[0].invoke(
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELF32FORMAT,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3025,29 +3158,21 @@ void QueuedTelemetryComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
-    if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
-    }
-
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = arg.serializeTo(_tlmBuff, FW_MIN(FW_TLM_STRING_MAX_SIZE, 80));
+    Fw::SerializeStatus _stat = arg.serializeTo(
+      _tlmBuff,
+      FW_MIN(static_cast<FwSizeType>(FW_TLM_STRING_MAX_SIZE), static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))
+    );
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELSTRINGFORMAT;
-
-    this->m_tlmOut_OutputPort[0].invoke(
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELSTRINGFORMAT,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3058,14 +3183,7 @@ void QueuedTelemetryComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
-    if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
-    }
-
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3073,14 +3191,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELENUM;
-
-    this->m_tlmOut_OutputPort[0].invoke(
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELENUM,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3091,14 +3205,7 @@ void QueuedTelemetryComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
-    if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
-    }
-
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3106,14 +3213,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELARRAYFREQ;
-
-    this->m_tlmOut_OutputPort[0].invoke(
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELARRAYFREQ,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3124,14 +3227,7 @@ void QueuedTelemetryComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
-    if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
-    }
-
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3139,14 +3235,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELSTRUCTFREQ;
-
-    this->m_tlmOut_OutputPort[0].invoke(
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELSTRUCTFREQ,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3157,14 +3249,7 @@ void QueuedTelemetryComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
-    if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
-    }
-
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3172,14 +3257,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELU32LIMITS;
-
-    this->m_tlmOut_OutputPort[0].invoke(
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELU32LIMITS,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3190,14 +3271,7 @@ void QueuedTelemetryComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
-    if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
-    }
-
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3205,14 +3279,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELF32LIMITS;
-
-    this->m_tlmOut_OutputPort[0].invoke(
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELF32LIMITS,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3223,14 +3293,7 @@ void QueuedTelemetryComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
-    if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
-    }
-
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3238,14 +3301,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELF64;
-
-    this->m_tlmOut_OutputPort[0].invoke(
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELF64,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3271,14 +3330,7 @@ void QueuedTelemetryComponentBase ::
     this->m_last_ChannelU32OnChange = arg;
   }
 
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
-    if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
-    }
-
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3286,14 +3338,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELU32ONCHANGE;
-
-    this->m_tlmOut_OutputPort[0].invoke(
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELU32ONCHANGE,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3319,14 +3367,7 @@ void QueuedTelemetryComponentBase ::
     this->m_last_ChannelEnumOnChange = arg;
   }
 
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
-    if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
-    }
-
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3334,14 +3375,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELENUMONCHANGE;
-
-    this->m_tlmOut_OutputPort[0].invoke(
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELENUMONCHANGE,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3367,14 +3404,7 @@ void QueuedTelemetryComponentBase ::
     this->m_last_ChannelBoolOnChange = arg;
   }
 
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
-    if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
-      (_tlmTime ==  Fw::ZERO_TIME)
-    ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
-    }
-
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
@@ -3382,14 +3412,10 @@ void QueuedTelemetryComponentBase ::
       static_cast<FwAssertArgType>(_stat)
     );
 
-    FwChanIdType _id;
-
-    _id = this->getIdBase() + CHANNELID_CHANNELBOOLONCHANGE;
-
-    this->m_tlmOut_OutputPort[0].invoke(
-      _id,
-      _tlmTime,
-      _tlmBuff
+    this->tlmWrite(
+      CHANNELID_CHANNELBOOLONCHANGE,
+      _tlmBuff,
+      _tlmTime
     );
   }
 }
@@ -3401,9 +3427,9 @@ void QueuedTelemetryComponentBase ::
 Fw::Time QueuedTelemetryComponentBase ::
   getTime() const
 {
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
     Fw::Time _time;
-    this->m_timeGetOut_OutputPort[0].invoke(_time);
+    this->timeGetOut_out(0, _time);
     return _time;
   }
   else {
@@ -3587,7 +3613,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTelemetryComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -3660,7 +3686,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTelemetryComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -3733,7 +3759,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTelemetryComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -3806,7 +3832,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTelemetryComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -3892,9 +3918,13 @@ void QueuedTelemetryComponentBase ::
   )
 {
   FW_ASSERT(callComp);
-
-  const U32 idBase = callComp->getIdBase();
-  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+  QueuedTelemetryComponentBase* compPtr = static_cast<QueuedTelemetryComponentBase*>(callComp);
+  compPtr->cmdIn_handlerBase(
+    portNum,
+    opCode,
+    cmdSeq,
+    args
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -4301,3 +4331,55 @@ void QueuedTelemetryComponentBase ::
     s
   );
 }
+
+#if !FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Invocation functions for special output ports
+// ----------------------------------------------------------------------
+
+void QueuedTelemetryComponentBase ::
+  timeGetOut_out(
+      FwIndexType portNum,
+      Fw::Time& time
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_timeGetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_timeGetOut_OutputPort[portNum].invoke(
+    time
+  );
+}
+
+void QueuedTelemetryComponentBase ::
+  tlmOut_out(
+      FwIndexType portNum,
+      FwChanIdType id,
+      Fw::Time& timeTag,
+      Fw::TlmBuffer& val
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_tlmOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_tlmOut_OutputPort[portNum].invoke(
+    id,
+    timeTag,
+    val
+  );
+}
+
+#endif

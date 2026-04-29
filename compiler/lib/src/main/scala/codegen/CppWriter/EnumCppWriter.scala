@@ -97,7 +97,7 @@ case class EnumCppWriter(
     val systemStrings = List("cstring", "limits")
     val strings = List(
       "Fw/Types/Assert.hpp",
-      s"${s.getRelativePath(fileName).toString}.hpp"
+      s.getIncludePath(symbol, fileName)
     )
     linesMember(
       List(
@@ -166,7 +166,7 @@ case class EnumCppWriter(
           lines(
             s"""|
                 |//! For backwards compatibility
-                |typedef T t;"""
+                |typedef enum T t;"""
           ),
         ).flatten
       )
@@ -189,7 +189,7 @@ case class EnumCppWriter(
                 |
                 |//! Constructor (user-provided value)
                 |$name(
-                |    const T e1 //!< The raw enum value
+                |    const enum T e1 //!< The raw enum value
                 |)
                 |{
                 |  this->e = e1;
@@ -238,7 +238,7 @@ case class EnumCppWriter(
         "operator=",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("T"),
+            CppDoc.Type("enum T"),
             "e1",
             Some("The enum value"),
           ),
@@ -253,36 +253,31 @@ case class EnumCppWriter(
         lines(
           """|
              |//! Conversion operator
-             |operator T() const
+             |operator enum T() const
              |{
              |  return this->e;
              |}
              |
              |//! Equality operator
-             |bool operator==(T e1) const
+             |bool operator==(enum T e1) const
              |{
              |  return this->e == e1;
              |}
              |
              |//! Inequality operator
-             |bool operator!=(T e1) const
+             |bool operator!=(enum T e1) const
              |{
              |  return !(*this == e1);
              |}"""
         )
       ),
-    ) ++ (
-      linesClassMember(
-        List(Line.blank),
-        CppDoc.Lines.Both
-      ) :: writeOstreamOperator(
-        name,
-        lines(
-          """|Fw::String s;
-             |obj.toString(s);
-             |os << s;
-             |return os;"""
-        )
+    ) ++ writeOstreamOperator(
+      name,
+      lines(
+        """|Fw::String s;
+           |obj.toString(s);
+           |os << s;
+           |return os;"""
       )
     )
 
@@ -313,7 +308,7 @@ case class EnumCppWriter(
         "serializeTo",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("Fw::SerializeBufferBase&"),
+            CppDoc.Type("Fw::SerialBufferBase&"),
             "buffer",
             Some("The serial buffer")
           ),
@@ -340,7 +335,7 @@ case class EnumCppWriter(
         "deserializeFrom",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("Fw::SerializeBufferBase&"),
+            CppDoc.Type("Fw::SerialBufferBase&"),
             "buffer",
             Some("The serial buffer")
           ),
@@ -356,7 +351,7 @@ case class EnumCppWriter(
           s"""|SerialType es;
               |Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
               |if (status == Fw::FW_SERIALIZE_OK) {
-              |  this->e = static_cast<T>(es);
+              |  this->e = static_cast<enum T>(es);
               |  if (!this->isValid()) {
               |    status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
               |  }
@@ -373,7 +368,7 @@ case class EnumCppWriter(
           )
         ),
         wrapClassMembersInIfDirective(
-          "\n#if FW_SERIALIZABLE_TO_STRING",
+          "#if FW_SERIALIZABLE_TO_STRING",
           List(
             functionClassMember(
               Some(s"Convert enum to string"),
@@ -447,7 +442,7 @@ case class EnumCppWriter(
         addBlankPrefix(
           List(
             "//! The raw enum value",
-            "T e;"
+            "enum T e;"
           ).map(line)
         )
       )

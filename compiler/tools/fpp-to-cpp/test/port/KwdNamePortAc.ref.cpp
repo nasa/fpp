@@ -5,41 +5,54 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/ExternalString.hpp"
 #include "KwdNamePortAc.hpp"
 
-namespace {
+// ----------------------------------------------------------------------
+// Public constructors for KwdNamePortSerializer
+// ----------------------------------------------------------------------
 
-  // ----------------------------------------------------------------------
-  // Port buffer class
-  // ----------------------------------------------------------------------
-
-  class KwdNamePortBuffer : public Fw::SerializeBufferBase {
-
-    public:
-
-      Fw::Serializable::SizeType getBuffCapacity() const {
-        return InputKwdNamePort::SERIALIZED_SIZE;
-      }
-
-      U8* getBuffAddr() {
-        return m_buff;
-      }
-
-      const U8* getBuffAddr() const {
-        return m_buff;
-      }
-
-    private:
-
-      U8 m_buff[InputKwdNamePort::SERIALIZED_SIZE];
-
-  };
+KwdNamePortSerializer ::
+  KwdNamePortSerializer() :
+    m_time()
+{
 
 }
 
 // ----------------------------------------------------------------------
-// Input Port Member functions
+// Public member functions for KwdNamePortSerializer
+// ----------------------------------------------------------------------
+
+Fw::SerializeStatus KwdNamePortSerializer ::
+  deserializePortArgs(Fw::SerialBufferBase& _buffer)
+{
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_time);
+  }
+  return _status;
+}
+
+// ----------------------------------------------------------------------
+// Public static functions for KwdNamePortSerializer
+// ----------------------------------------------------------------------
+
+Fw::SerializeStatus KwdNamePortSerializer ::
+  serializePortArgs(
+      U32& time,
+      Fw::SerialBufferBase& _buffer
+  )
+{
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(time);
+  }
+  return _status;
+}
+
+#if !FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Public constructors for InputKwdNamePort
 // ----------------------------------------------------------------------
 
 InputKwdNamePort ::
@@ -49,6 +62,10 @@ InputKwdNamePort ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Public member functions for InputKwdNamePort
+// ----------------------------------------------------------------------
 
 void InputKwdNamePort ::
   init()
@@ -83,13 +100,15 @@ void InputKwdNamePort ::
   return this->m_func(this->m_comp, this->m_portNum, time);
 }
 
+// ----------------------------------------------------------------------
+// Private member functions for InputKwdNamePort
+// ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
 Fw::SerializeStatus InputKwdNamePort ::
-  invokeSerial(Fw::SerializeBufferBase& _buffer)
+  invokeSerial(Fw::LinearBufferBase& _buffer)
 {
-  Fw::SerializeStatus _status;
-
 #if FW_PORT_TRACING == 1
   this->trace();
 #endif
@@ -97,13 +116,13 @@ Fw::SerializeStatus InputKwdNamePort ::
   FW_ASSERT(this->m_comp != nullptr);
   FW_ASSERT(this->m_func != nullptr);
 
-  U32 time;
-  _status = _buffer.deserializeTo(time);
+  KwdNamePortSerializer _serializer;
+  Fw::SerializeStatus _status = _serializer.deserializePortArgs(_buffer);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  this->m_func(this->m_comp, this->m_portNum, time);
+  this->m_func(this->m_comp, this->m_portNum, _serializer.m_time);
 
   return Fw::FW_SERIALIZE_OK;
 }
@@ -111,7 +130,7 @@ Fw::SerializeStatus InputKwdNamePort ::
 #endif
 
 // ----------------------------------------------------------------------
-// Output Port Member functions
+// Public constructors for OutputKwdNamePort
 // ----------------------------------------------------------------------
 
 OutputKwdNamePort ::
@@ -121,6 +140,10 @@ OutputKwdNamePort ::
 {
 
 }
+
+// ----------------------------------------------------------------------
+// Public member functions for OutputKwdNamePort
+// ----------------------------------------------------------------------
 
 void OutputKwdNamePort ::
   init()
@@ -158,7 +181,7 @@ void OutputKwdNamePort ::
     Fw::SerializeStatus _status;
     KwdNamePortBuffer _buffer;
 
-    _status = _buffer.serializeFrom(time);
+    _status = KwdNamePortSerializer::serializePortArgs(time, _buffer);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
     _status = this->m_serPort->invokeSerial(_buffer);
@@ -169,3 +192,5 @@ void OutputKwdNamePort ::
   this->m_port->invoke(time);
 #endif
 }
+
+#endif

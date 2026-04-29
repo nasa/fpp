@@ -7,18 +7,132 @@
 #ifndef FppTypePortAc_HPP
 #define FppTypePortAc_HPP
 
-#include <cstdio>
-#include <cstring>
-
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"
-#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#include "Fw/Types/Serializable.hpp"
+#include "SSerializableAc.hpp"
+#if !FW_DIRECT_PORT_CALLS
+#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
-#include "Fw/Types/Serializable.hpp"
-#include "Fw/Types/String.hpp"
-#include "SSerializableAc.hpp"
+#endif
+
+//! Serialization buffer for FppType port
+//! A port with FPP type parameters
+class FppTypePortBuffer :
+  public Fw::LinearBufferBase
+{
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public constants for FppTypePortBuffer
+    // ----------------------------------------------------------------------
+
+    //! The buffer capacity. This is the sum of the static serialized
+    //! sizes of the port arguments.
+    static constexpr FwSizeType CAPACITY =
+      E::SERIALIZED_SIZE +
+      E::SERIALIZED_SIZE +
+      A::SERIALIZED_SIZE +
+      A::SERIALIZED_SIZE +
+      S::SERIALIZED_SIZE +
+      S::SERIALIZED_SIZE;
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for FppTypePortBuffer
+    // ----------------------------------------------------------------------
+
+    //! Get the capacity of the buffer
+    //! \return The capacity
+    Fw::Serializable::SizeType getCapacity() const override {
+      return CAPACITY;
+    }
+
+    //! Get the buffer address (non-const)
+    //! \return The buffer address
+    U8* getBuffAddr() override {
+      return m_buff;
+    }
+
+    //! Get the buffer address (const)
+    //! \return The buffer address
+    const U8* getBuffAddr() const override {
+      return m_buff;
+    }
+
+  private:
+
+    // ----------------------------------------------------------------------
+    // Private member variables
+    // ----------------------------------------------------------------------
+
+    U8 m_buff[CAPACITY];
+
+};
+
+//! Serializer for FppType port
+//! A port with FPP type parameters
+class FppTypePortSerializer {
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public constructors for FppTypePortSerializer
+    // ----------------------------------------------------------------------
+
+    //! Constructor
+    FppTypePortSerializer();
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for FppTypePortSerializer
+    // ----------------------------------------------------------------------
+
+    //! Deserialze port arguments into members
+    Fw::SerializeStatus deserializePortArgs(
+        Fw::SerialBufferBase& _buffer //!< The serial buffer
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public static functions for FppTypePortSerializer
+    // ----------------------------------------------------------------------
+
+    //! Serialize port arguments into a buffer
+    static Fw::SerializeStatus serializePortArgs(
+        const E& e, //!< An enum
+                    //!< Line 2 of the comment
+        E& eRef, //!< An enum ref
+                 //!< Line 2 of the comment
+        const A& a, //!< An array
+        A& aRef, //!< An array ref
+        const S& s, //!< A struct
+        S& sRef, //!< A struct ref
+        Fw::SerialBufferBase& _buffer //!< The serial buffer
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member variables for FppTypePortSerializer
+    // ----------------------------------------------------------------------
+
+    E m_e;
+    E m_eRef;
+    A m_a;
+    A m_aRef;
+    S m_s;
+    S m_sRef;
+
+};
+
+#if !FW_DIRECT_PORT_CALLS
 
 //! Input FppType port
 //! A port with FPP type parameters
@@ -29,24 +143,7 @@ class InputFppTypePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Constants
-    // ----------------------------------------------------------------------
-
-    enum {
-      //! The size of the serial representations of the port arguments
-      SERIALIZED_SIZE =
-        E::SERIALIZED_SIZE +
-        E::SERIALIZED_SIZE +
-        A::SERIALIZED_SIZE +
-        A::SERIALIZED_SIZE +
-        S::SERIALIZED_SIZE +
-        S::SERIALIZED_SIZE
-    };
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Types
+    // Public types for InputFppTypePort
     // ----------------------------------------------------------------------
 
     //! The port callback function type
@@ -64,11 +161,17 @@ class InputFppTypePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Input Port Member functions
+    // Public constructors for InputFppTypePort
     // ----------------------------------------------------------------------
 
     //! Constructor
     InputFppTypePort();
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for InputFppTypePort
+    // ----------------------------------------------------------------------
 
     //! Initialization function
     void init();
@@ -93,17 +196,24 @@ class InputFppTypePort :
 
   private:
 
+    // ----------------------------------------------------------------------
+    // Private member functions for InputFppTypePort
+    // ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
     //! Invoke the port with serialized arguments
-    Fw::SerializeStatus invokeSerial(Fw::SerializeBufferBase& _buffer);
+    //! \return The serialize status
+    Fw::SerializeStatus invokeSerial(
+        Fw::LinearBufferBase& _buffer //!< The serial buffer
+    );
 
 #endif
 
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables
+    // Private member variables for InputFppTypePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function
@@ -120,11 +230,17 @@ class OutputFppTypePort :
   public:
 
     // ----------------------------------------------------------------------
-    // Output Port Member functions
+    // Public constructors for OutputFppTypePort
     // ----------------------------------------------------------------------
 
     //! Constructor
     OutputFppTypePort();
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for OutputFppTypePort
+    // ----------------------------------------------------------------------
 
     //! Initialization function
     void init();
@@ -134,7 +250,7 @@ class OutputFppTypePort :
         InputFppTypePort* callPort //!< The input port
     );
 
-    //! Invoke a port interface
+    //! Invoke a port connection
     void invoke(
         const E& e, //!< An enum
                     //!< Line 2 of the comment
@@ -149,12 +265,14 @@ class OutputFppTypePort :
   private:
 
     // ----------------------------------------------------------------------
-    // Member variables
+    // Private member variables for OutputFppTypePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the input port
     InputFppTypePort* m_port;
 
 };
+
+#endif
 
 #endif

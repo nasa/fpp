@@ -4,10 +4,21 @@ package fpp.compiler.analysis
 sealed trait StateMachineNameGroup
 
 object StateMachineNameGroup {
-  case object Action extends StateMachineNameGroup
-  case object Guard extends StateMachineNameGroup
-  case object Signal extends StateMachineNameGroup
-  case object State extends StateMachineNameGroup
+  case object Action extends StateMachineNameGroup {
+    override def toString(): String = "action"
+  }
+
+  case object Guard extends StateMachineNameGroup {
+    override def toString(): String = "guard"
+  }
+
+  case object Signal extends StateMachineNameGroup {
+    override def toString(): String = "signal"
+  }
+
+  case object State extends StateMachineNameGroup {
+    override def toString(): String = "state"
+  }
 
   val groups: List[StateMachineNameGroup] = List(
     Action,

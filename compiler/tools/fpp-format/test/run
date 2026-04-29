@@ -62,4 +62,11 @@ state_machine()
     $fpp_syntax state_machine.out.txt
 }
 
+
+dictionary_specifier()
+{
+  run_test '' ../../fpp-syntax/test/dictionary-specifier dictionary_specifier && \
+    $fpp_syntax dictionary_specifier.out.txt
+}
+
 run_suite $tests

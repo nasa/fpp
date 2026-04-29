@@ -22,7 +22,7 @@ QueuedCommandsTester ::
 QueuedCommandsTester ::
   ~QueuedCommandsTester()
 {
-
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------
