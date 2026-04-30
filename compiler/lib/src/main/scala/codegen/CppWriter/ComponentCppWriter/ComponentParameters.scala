@@ -391,7 +391,10 @@ case class ComponentParameters (
   private def setValidityFlag(param: Param, flagValue: String) =
     val paramName = param.getName
     val validityFlagName = paramValidityFlagName(paramName)
-    lines(s"this->$validityFlagName = Fw::ParamValid::$flagValue;")
+    s"this->$validityFlagName = Fw::ParamValid::$flagValue;"
+
+  private def setValidityFlagLines(param: Param, flagValue: String) =
+    lines(setValidityFlag(param, flagValue))
 
   private def writeGetterFunctionBody(param: Param) = {
     val paramType = writeParamType(param.paramType, "Fw::ParamString")
@@ -448,13 +451,13 @@ case class ComponentParameters (
           deserializeParam(param),
           wrapInIf(
             "_stat != Fw::FW_SERIALIZE_OK",
-            setValidityFlag(
+            setValidityFlagLines(
               param,
               if param.default.isDefined then "DEFAULT" else "INVALID"
             )
           )
         ),
-        setValidityFlag(param, "DEFAULT")
+        setValidityFlagLines(param, "DEFAULT")
       ),
       param.default match {
         case Some(value) =>
@@ -554,7 +557,6 @@ case class ComponentParameters (
 
   private def writeSetterBodyForExternalParam(param: Param) = {
     val idConstantName = paramIdConstantName(param.getName)
-    val validityFlagName = paramValidityFlagName(param.getName)
     lines(
       s"""|Fw::CmdResponse _response{};
           |
@@ -569,19 +571,17 @@ case class ComponentParameters (
           |);
           |// Set response and update component state
           |if (_stat == Fw::FW_SERIALIZE_OK) {
-          |  this->$validityFlagName = Fw::ParamValid::VALID;
+          |  ${setValidityFlag(param, "VALID")}
           |  _response = Fw::CmdResponse::OK;
           |}
           |else {
+          |  ${setValidityFlag(param, "INVALID")}
           |  _response = Fw::CmdResponse::VALIDATION_ERROR;
           |}
           |this->m_paramLock.unLock();
           |
           |// Call notifier
-          |if (_response == Fw::CmdResponse::OK) {
-          |  this->parameterUpdated($idConstantName);
-          |}
-          |// Return response
+          |this->parameterUpdated($idConstantName);
           |return _response;"""
     )
   }

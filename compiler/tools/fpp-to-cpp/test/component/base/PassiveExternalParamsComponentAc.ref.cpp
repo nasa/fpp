@@ -3161,15 +3161,13 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
     _response = Fw::CmdResponse::OK;
   }
   else {
+    this->m_param_ParamI32Ext_valid = Fw::ParamValid::INVALID;
     _response = Fw::CmdResponse::VALIDATION_ERROR;
   }
   this->m_paramLock.unLock();
 
   // Call notifier
-  if (_response == Fw::CmdResponse::OK) {
-    this->parameterUpdated(PARAMID_PARAMI32EXT);
-  }
-  // Return response
+  this->parameterUpdated(PARAMID_PARAMI32EXT);
   return _response;
 }
 
@@ -3193,15 +3191,13 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
     _response = Fw::CmdResponse::OK;
   }
   else {
+    this->m_param_ParamF64Ext_valid = Fw::ParamValid::INVALID;
     _response = Fw::CmdResponse::VALIDATION_ERROR;
   }
   this->m_paramLock.unLock();
 
   // Call notifier
-  if (_response == Fw::CmdResponse::OK) {
-    this->parameterUpdated(PARAMID_PARAMF64EXT);
-  }
-  // Return response
+  this->parameterUpdated(PARAMID_PARAMF64EXT);
   return _response;
 }
 
@@ -3225,15 +3221,13 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
     _response = Fw::CmdResponse::OK;
   }
   else {
+    this->m_param_ParamStringExt_valid = Fw::ParamValid::INVALID;
     _response = Fw::CmdResponse::VALIDATION_ERROR;
   }
   this->m_paramLock.unLock();
 
   // Call notifier
-  if (_response == Fw::CmdResponse::OK) {
-    this->parameterUpdated(PARAMID_PARAMSTRINGEXT);
-  }
-  // Return response
+  this->parameterUpdated(PARAMID_PARAMSTRINGEXT);
   return _response;
 }
 
@@ -3257,15 +3251,13 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
     _response = Fw::CmdResponse::OK;
   }
   else {
+    this->m_param_ParamEnumExt_valid = Fw::ParamValid::INVALID;
     _response = Fw::CmdResponse::VALIDATION_ERROR;
   }
   this->m_paramLock.unLock();
 
   // Call notifier
-  if (_response == Fw::CmdResponse::OK) {
-    this->parameterUpdated(PARAMID_PARAMENUMEXT);
-  }
-  // Return response
+  this->parameterUpdated(PARAMID_PARAMENUMEXT);
   return _response;
 }
 
@@ -3289,15 +3281,13 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
     _response = Fw::CmdResponse::OK;
   }
   else {
+    this->m_param_ParamArrayExt_valid = Fw::ParamValid::INVALID;
     _response = Fw::CmdResponse::VALIDATION_ERROR;
   }
   this->m_paramLock.unLock();
 
   // Call notifier
-  if (_response == Fw::CmdResponse::OK) {
-    this->parameterUpdated(PARAMID_PARAMARRAYEXT);
-  }
-  // Return response
+  this->parameterUpdated(PARAMID_PARAMARRAYEXT);
   return _response;
 }
 
@@ -3321,15 +3311,13 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
     _response = Fw::CmdResponse::OK;
   }
   else {
+    this->m_param_ParamStructExt_valid = Fw::ParamValid::INVALID;
     _response = Fw::CmdResponse::VALIDATION_ERROR;
   }
   this->m_paramLock.unLock();
 
   // Call notifier
-  if (_response == Fw::CmdResponse::OK) {
-    this->parameterUpdated(PARAMID_PARAMSTRUCTEXT);
-  }
-  // Return response
+  this->parameterUpdated(PARAMID_PARAMSTRUCTEXT);
   return _response;
 }
 
