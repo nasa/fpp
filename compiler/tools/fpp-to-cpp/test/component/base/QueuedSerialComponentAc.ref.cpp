@@ -9415,7 +9415,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
-  if (m_param_ParamU32_valid & Fw::ParamValid::VALID) {
+  if ((this->m_param_ParamU32_valid == Fw::ParamValid::VALID) || (this->m_param_ParamU32_valid == Fw::ParamValid::DEFAULT)) {
     _stat = _saveBuff.serializeFrom(m_ParamU32);
   }
   this->m_paramLock.unlock();
@@ -9443,7 +9443,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
-  if (m_param_ParamF64_valid & Fw::ParamValid::VALID) {
+  if ((this->m_param_ParamF64_valid == Fw::ParamValid::VALID) || (this->m_param_ParamF64_valid == Fw::ParamValid::DEFAULT)) {
     _stat = _saveBuff.serializeFrom(m_ParamF64);
   }
   this->m_paramLock.unlock();
@@ -9471,7 +9471,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
-  if (m_param_ParamString_valid & Fw::ParamValid::VALID) {
+  if ((this->m_param_ParamString_valid == Fw::ParamValid::VALID) || (this->m_param_ParamString_valid == Fw::ParamValid::DEFAULT)) {
     _stat = _saveBuff.serializeFrom(m_ParamString);
   }
   this->m_paramLock.unlock();
@@ -9499,7 +9499,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
-  if (m_param_ParamEnum_valid & Fw::ParamValid::VALID) {
+  if ((this->m_param_ParamEnum_valid == Fw::ParamValid::VALID) || (this->m_param_ParamEnum_valid == Fw::ParamValid::DEFAULT)) {
     _stat = _saveBuff.serializeFrom(m_ParamEnum);
   }
   this->m_paramLock.unlock();
@@ -9527,7 +9527,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
-  if (m_param_ParamArray_valid & Fw::ParamValid::VALID) {
+  if ((this->m_param_ParamArray_valid == Fw::ParamValid::VALID) || (this->m_param_ParamArray_valid == Fw::ParamValid::DEFAULT)) {
     _stat = _saveBuff.serializeFrom(m_ParamArray);
   }
   this->m_paramLock.unlock();
@@ -9555,7 +9555,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
-  if (m_param_ParamStruct_valid & Fw::ParamValid::VALID) {
+  if ((this->m_param_ParamStruct_valid == Fw::ParamValid::VALID) || (this->m_param_ParamStruct_valid == Fw::ParamValid::DEFAULT)) {
     _stat = _saveBuff.serializeFrom(m_ParamStruct);
   }
   this->m_paramLock.unlock();
@@ -9583,7 +9583,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
-  if (m_param_ParamI32Ext_valid & Fw::ParamValid::VALID) {
+  if ((this->m_param_ParamI32Ext_valid == Fw::ParamValid::VALID) || (this->m_param_ParamI32Ext_valid == Fw::ParamValid::DEFAULT)) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(
       static_cast<FwPrmIdType>(idBase),
@@ -9616,7 +9616,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
-  if (m_param_ParamF64Ext_valid & Fw::ParamValid::VALID) {
+  if ((this->m_param_ParamF64Ext_valid == Fw::ParamValid::VALID) || (this->m_param_ParamF64Ext_valid == Fw::ParamValid::DEFAULT)) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(
       static_cast<FwPrmIdType>(idBase),
@@ -9649,7 +9649,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
-  if (m_param_ParamStringExt_valid & Fw::ParamValid::VALID) {
+  if ((this->m_param_ParamStringExt_valid == Fw::ParamValid::VALID) || (this->m_param_ParamStringExt_valid == Fw::ParamValid::DEFAULT)) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(
       static_cast<FwPrmIdType>(idBase),
@@ -9682,7 +9682,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
-  if (m_param_ParamEnumExt_valid & Fw::ParamValid::VALID) {
+  if ((this->m_param_ParamEnumExt_valid == Fw::ParamValid::VALID) || (this->m_param_ParamEnumExt_valid == Fw::ParamValid::DEFAULT)) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(
       static_cast<FwPrmIdType>(idBase),
@@ -9715,7 +9715,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
-  if (m_param_ParamArrayExt_valid & Fw::ParamValid::VALID) {
+  if ((this->m_param_ParamArrayExt_valid == Fw::ParamValid::VALID) || (this->m_param_ParamArrayExt_valid == Fw::ParamValid::DEFAULT)) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(
       static_cast<FwPrmIdType>(idBase),
@@ -9748,7 +9748,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
-  if (m_param_ParamStructExt_valid & Fw::ParamValid::VALID) {
+  if ((this->m_param_ParamStructExt_valid == Fw::ParamValid::VALID) || (this->m_param_ParamStructExt_valid == Fw::ParamValid::DEFAULT)) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(
       static_cast<FwPrmIdType>(idBase),

@@ -50,11 +50,6 @@ case class ComponentParameters (
   private def checkValidityFlagValidOrDefault(param: Param) =
     s"(${checkValidityFlag(param, "VALID")}) || (${checkValidityFlag(param, "DEFAULT")})"
 
-  private def checkValidityFlagValidBitSet(param: Param) =
-    val paramName = param.getName
-    val validityFlagName = paramValidityFlagName(paramName)
-    s"$validityFlagName & Fw::ParamValid::VALID"
-
   private def deserializeParam(param: Param) = {
     val paramName = param.getName
     val varName = paramVariableName(paramName)
@@ -532,7 +527,7 @@ case class ComponentParameters (
             |this->m_paramLock.lock();"""
       ),
       wrapInIf(
-        checkValidityFlagValidBitSet(param),
+        checkValidityFlagValidOrDefault(param),
         if (param.isExternal)
         then lines(
           s"""|FW_ASSERT(this->paramDelegatePtr != nullptr);
