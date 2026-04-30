@@ -414,17 +414,20 @@ case class ComponentParameters (
   }
 
   private def writeLoadForParam(param: Param) = {
-    // Optimize the external no-default case
-    // Here there is no if condition, because we always call
-    // the external serialization interface
-    def optimizedIfElse(
+    // Generate a block, or an if statement, or an if-else statement
+    def writeCondition(
       condition: => String,
-      ifBody: List[Line],
-      elseBody: => List[Line]
+      ifBlock: List[Line],
+      elseBlock: => List[Line]
     ) =
       if param.isExternal && !param.default.isDefined
-      then ifBody
-      else wrapInIfElse(condition, ifBody, elseBody)
+      // External parameter, no default: no condition needed
+      then ifBlock
+      else if param.default.isDefined
+      // Default: if and else needed
+      then wrapInIfElse(condition, ifBlock, elseBlock)
+      // Internal parameter, no default: if needed
+      else wrapInIf(condition, ifBlock)
     List.concat(
       getParamFromPort(param),
       {
@@ -439,7 +442,7 @@ case class ComponentParameters (
               |// Deserialize parameter$orUseDefaultValue"""
         )
       },
-      optimizedIfElse(
+      writeCondition(
         checkValidityFlag(param, "VALID"),
         List.concat(
           deserializeParam(param),
@@ -451,9 +454,7 @@ case class ComponentParameters (
             )
           )
         ),
-        if param.default.isDefined
-        then setValidityFlag(param, "DEFAULT")
-        else lines("// No default")
+        setValidityFlag(param, "DEFAULT")
       ),
       param.default match {
         case Some(value) =>

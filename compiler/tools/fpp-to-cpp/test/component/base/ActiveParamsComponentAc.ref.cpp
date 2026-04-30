@@ -1690,9 +1690,6 @@ void ActiveParamsComponentBase ::
       this->m_param_ParamU32_valid = Fw::ParamValid::INVALID;
     }
   }
-  else {
-    // No default
-  }
 
   this->m_paramLock.unLock();
 
@@ -1713,9 +1710,6 @@ void ActiveParamsComponentBase ::
     if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamF64_valid = Fw::ParamValid::INVALID;
     }
-  }
-  else {
-    // No default
   }
 
   this->m_paramLock.unLock();
@@ -1765,9 +1759,6 @@ void ActiveParamsComponentBase ::
       this->m_param_ParamEnum_valid = Fw::ParamValid::INVALID;
     }
   }
-  else {
-    // No default
-  }
 
   this->m_paramLock.unLock();
 
@@ -1815,9 +1806,6 @@ void ActiveParamsComponentBase ::
     if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamStruct_valid = Fw::ParamValid::INVALID;
     }
-  }
-  else {
-    // No default
   }
 
   this->m_paramLock.unLock();
