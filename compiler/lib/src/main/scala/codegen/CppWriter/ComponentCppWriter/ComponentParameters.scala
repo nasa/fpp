@@ -520,11 +520,11 @@ case class ComponentParameters (
         s"""|if (!this->$prmSetIsConnected(0)) {
             |  return Fw::CmdResponse::EXECUTION_ERROR;
             |}
-            |Fw::ParamBuffer _saveBuff;
             |const FwIdType idBase = this->getIdBase();
             |Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
             |// Serialize the parameter
-            |this->m_paramLock.lock();"""
+            |this->m_paramLock.lock();
+            |this->$paramBufferName.resetSer();"""
       ),
       wrapInIf(
         checkValidityFlagValidOrDefault(param),
@@ -534,11 +534,11 @@ case class ComponentParameters (
               |_stat = this->paramDelegatePtr->serializeParam(
               |  static_cast<FwPrmIdType>(idBase),
               |  $idConstantName,
-              |  _saveBuff
+              |  this->$paramBufferName
               |);"""
         )
         else lines (
-          s"_stat = _saveBuff.serializeFrom($paramVarName);"
+          s"_stat = this->$paramBufferName.serializeFrom($paramVarName);"
         )
       ),
       lines(
@@ -550,11 +550,10 @@ case class ComponentParameters (
             |this->$prmSetPortInvokerName(
             |  0,
             |  static_cast<FwPrmIdType>(idBase + $idConstantName),
-            |  _saveBuff
+            |  this->$paramBufferName
             |);
             |// Return the command response
-            |return Fw::CmdResponse::OK;
-            |"""
+            |return Fw::CmdResponse::OK;"""
       )
     )
   }

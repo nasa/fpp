@@ -9195,13 +9195,13 @@ Fw::CmdResponse QueuedTestComponentBase ::
   if (!this->isConnected_prmSetOut_OutputPort(0)) {
     return Fw::CmdResponse::EXECUTION_ERROR;
   }
-  Fw::ParamBuffer _saveBuff;
   const FwIdType idBase = this->getIdBase();
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
+  this->m___fprime_ac_paramBuffer.resetSer();
   if ((this->m_param_ParamU32_valid == Fw::ParamValid::VALID) || (this->m_param_ParamU32_valid == Fw::ParamValid::DEFAULT)) {
-    _stat = _saveBuff.serializeFrom(m_ParamU32);
+    _stat = this->m___fprime_ac_paramBuffer.serializeFrom(m_ParamU32);
   }
   this->m_paramLock.unlock();
   if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -9211,7 +9211,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
   this->prmSetOut_out(
     0,
     static_cast<FwPrmIdType>(idBase + PARAMID_PARAMU32),
-    _saveBuff
+    this->m___fprime_ac_paramBuffer
   );
   // Return the command response
   return Fw::CmdResponse::OK;
@@ -9223,13 +9223,13 @@ Fw::CmdResponse QueuedTestComponentBase ::
   if (!this->isConnected_prmSetOut_OutputPort(0)) {
     return Fw::CmdResponse::EXECUTION_ERROR;
   }
-  Fw::ParamBuffer _saveBuff;
   const FwIdType idBase = this->getIdBase();
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
+  this->m___fprime_ac_paramBuffer.resetSer();
   if ((this->m_param_ParamF64_valid == Fw::ParamValid::VALID) || (this->m_param_ParamF64_valid == Fw::ParamValid::DEFAULT)) {
-    _stat = _saveBuff.serializeFrom(m_ParamF64);
+    _stat = this->m___fprime_ac_paramBuffer.serializeFrom(m_ParamF64);
   }
   this->m_paramLock.unlock();
   if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -9239,7 +9239,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
   this->prmSetOut_out(
     0,
     static_cast<FwPrmIdType>(idBase + PARAMID_PARAMF64),
-    _saveBuff
+    this->m___fprime_ac_paramBuffer
   );
   // Return the command response
   return Fw::CmdResponse::OK;
@@ -9251,13 +9251,13 @@ Fw::CmdResponse QueuedTestComponentBase ::
   if (!this->isConnected_prmSetOut_OutputPort(0)) {
     return Fw::CmdResponse::EXECUTION_ERROR;
   }
-  Fw::ParamBuffer _saveBuff;
   const FwIdType idBase = this->getIdBase();
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
+  this->m___fprime_ac_paramBuffer.resetSer();
   if ((this->m_param_ParamString_valid == Fw::ParamValid::VALID) || (this->m_param_ParamString_valid == Fw::ParamValid::DEFAULT)) {
-    _stat = _saveBuff.serializeFrom(m_ParamString);
+    _stat = this->m___fprime_ac_paramBuffer.serializeFrom(m_ParamString);
   }
   this->m_paramLock.unlock();
   if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -9267,7 +9267,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
   this->prmSetOut_out(
     0,
     static_cast<FwPrmIdType>(idBase + PARAMID_PARAMSTRING),
-    _saveBuff
+    this->m___fprime_ac_paramBuffer
   );
   // Return the command response
   return Fw::CmdResponse::OK;
@@ -9279,13 +9279,13 @@ Fw::CmdResponse QueuedTestComponentBase ::
   if (!this->isConnected_prmSetOut_OutputPort(0)) {
     return Fw::CmdResponse::EXECUTION_ERROR;
   }
-  Fw::ParamBuffer _saveBuff;
   const FwIdType idBase = this->getIdBase();
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
+  this->m___fprime_ac_paramBuffer.resetSer();
   if ((this->m_param_ParamEnum_valid == Fw::ParamValid::VALID) || (this->m_param_ParamEnum_valid == Fw::ParamValid::DEFAULT)) {
-    _stat = _saveBuff.serializeFrom(m_ParamEnum);
+    _stat = this->m___fprime_ac_paramBuffer.serializeFrom(m_ParamEnum);
   }
   this->m_paramLock.unlock();
   if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -9295,7 +9295,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
   this->prmSetOut_out(
     0,
     static_cast<FwPrmIdType>(idBase + PARAMID_PARAMENUM),
-    _saveBuff
+    this->m___fprime_ac_paramBuffer
   );
   // Return the command response
   return Fw::CmdResponse::OK;
@@ -9307,13 +9307,13 @@ Fw::CmdResponse QueuedTestComponentBase ::
   if (!this->isConnected_prmSetOut_OutputPort(0)) {
     return Fw::CmdResponse::EXECUTION_ERROR;
   }
-  Fw::ParamBuffer _saveBuff;
   const FwIdType idBase = this->getIdBase();
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
+  this->m___fprime_ac_paramBuffer.resetSer();
   if ((this->m_param_ParamArray_valid == Fw::ParamValid::VALID) || (this->m_param_ParamArray_valid == Fw::ParamValid::DEFAULT)) {
-    _stat = _saveBuff.serializeFrom(m_ParamArray);
+    _stat = this->m___fprime_ac_paramBuffer.serializeFrom(m_ParamArray);
   }
   this->m_paramLock.unlock();
   if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -9323,7 +9323,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
   this->prmSetOut_out(
     0,
     static_cast<FwPrmIdType>(idBase + PARAMID_PARAMARRAY),
-    _saveBuff
+    this->m___fprime_ac_paramBuffer
   );
   // Return the command response
   return Fw::CmdResponse::OK;
@@ -9335,13 +9335,13 @@ Fw::CmdResponse QueuedTestComponentBase ::
   if (!this->isConnected_prmSetOut_OutputPort(0)) {
     return Fw::CmdResponse::EXECUTION_ERROR;
   }
-  Fw::ParamBuffer _saveBuff;
   const FwIdType idBase = this->getIdBase();
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
+  this->m___fprime_ac_paramBuffer.resetSer();
   if ((this->m_param_ParamStruct_valid == Fw::ParamValid::VALID) || (this->m_param_ParamStruct_valid == Fw::ParamValid::DEFAULT)) {
-    _stat = _saveBuff.serializeFrom(m_ParamStruct);
+    _stat = this->m___fprime_ac_paramBuffer.serializeFrom(m_ParamStruct);
   }
   this->m_paramLock.unlock();
   if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -9351,7 +9351,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
   this->prmSetOut_out(
     0,
     static_cast<FwPrmIdType>(idBase + PARAMID_PARAMSTRUCT),
-    _saveBuff
+    this->m___fprime_ac_paramBuffer
   );
   // Return the command response
   return Fw::CmdResponse::OK;
@@ -9363,17 +9363,17 @@ Fw::CmdResponse QueuedTestComponentBase ::
   if (!this->isConnected_prmSetOut_OutputPort(0)) {
     return Fw::CmdResponse::EXECUTION_ERROR;
   }
-  Fw::ParamBuffer _saveBuff;
   const FwIdType idBase = this->getIdBase();
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
+  this->m___fprime_ac_paramBuffer.resetSer();
   if ((this->m_param_ParamI32Ext_valid == Fw::ParamValid::VALID) || (this->m_param_ParamI32Ext_valid == Fw::ParamValid::DEFAULT)) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(
       static_cast<FwPrmIdType>(idBase),
       PARAMID_PARAMI32EXT,
-      _saveBuff
+      this->m___fprime_ac_paramBuffer
     );
   }
   this->m_paramLock.unlock();
@@ -9384,7 +9384,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
   this->prmSetOut_out(
     0,
     static_cast<FwPrmIdType>(idBase + PARAMID_PARAMI32EXT),
-    _saveBuff
+    this->m___fprime_ac_paramBuffer
   );
   // Return the command response
   return Fw::CmdResponse::OK;
@@ -9396,17 +9396,17 @@ Fw::CmdResponse QueuedTestComponentBase ::
   if (!this->isConnected_prmSetOut_OutputPort(0)) {
     return Fw::CmdResponse::EXECUTION_ERROR;
   }
-  Fw::ParamBuffer _saveBuff;
   const FwIdType idBase = this->getIdBase();
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
+  this->m___fprime_ac_paramBuffer.resetSer();
   if ((this->m_param_ParamF64Ext_valid == Fw::ParamValid::VALID) || (this->m_param_ParamF64Ext_valid == Fw::ParamValid::DEFAULT)) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(
       static_cast<FwPrmIdType>(idBase),
       PARAMID_PARAMF64EXT,
-      _saveBuff
+      this->m___fprime_ac_paramBuffer
     );
   }
   this->m_paramLock.unlock();
@@ -9417,7 +9417,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
   this->prmSetOut_out(
     0,
     static_cast<FwPrmIdType>(idBase + PARAMID_PARAMF64EXT),
-    _saveBuff
+    this->m___fprime_ac_paramBuffer
   );
   // Return the command response
   return Fw::CmdResponse::OK;
@@ -9429,17 +9429,17 @@ Fw::CmdResponse QueuedTestComponentBase ::
   if (!this->isConnected_prmSetOut_OutputPort(0)) {
     return Fw::CmdResponse::EXECUTION_ERROR;
   }
-  Fw::ParamBuffer _saveBuff;
   const FwIdType idBase = this->getIdBase();
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
+  this->m___fprime_ac_paramBuffer.resetSer();
   if ((this->m_param_ParamStringExt_valid == Fw::ParamValid::VALID) || (this->m_param_ParamStringExt_valid == Fw::ParamValid::DEFAULT)) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(
       static_cast<FwPrmIdType>(idBase),
       PARAMID_PARAMSTRINGEXT,
-      _saveBuff
+      this->m___fprime_ac_paramBuffer
     );
   }
   this->m_paramLock.unlock();
@@ -9450,7 +9450,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
   this->prmSetOut_out(
     0,
     static_cast<FwPrmIdType>(idBase + PARAMID_PARAMSTRINGEXT),
-    _saveBuff
+    this->m___fprime_ac_paramBuffer
   );
   // Return the command response
   return Fw::CmdResponse::OK;
@@ -9462,17 +9462,17 @@ Fw::CmdResponse QueuedTestComponentBase ::
   if (!this->isConnected_prmSetOut_OutputPort(0)) {
     return Fw::CmdResponse::EXECUTION_ERROR;
   }
-  Fw::ParamBuffer _saveBuff;
   const FwIdType idBase = this->getIdBase();
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
+  this->m___fprime_ac_paramBuffer.resetSer();
   if ((this->m_param_ParamEnumExt_valid == Fw::ParamValid::VALID) || (this->m_param_ParamEnumExt_valid == Fw::ParamValid::DEFAULT)) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(
       static_cast<FwPrmIdType>(idBase),
       PARAMID_PARAMENUMEXT,
-      _saveBuff
+      this->m___fprime_ac_paramBuffer
     );
   }
   this->m_paramLock.unlock();
@@ -9483,7 +9483,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
   this->prmSetOut_out(
     0,
     static_cast<FwPrmIdType>(idBase + PARAMID_PARAMENUMEXT),
-    _saveBuff
+    this->m___fprime_ac_paramBuffer
   );
   // Return the command response
   return Fw::CmdResponse::OK;
@@ -9495,17 +9495,17 @@ Fw::CmdResponse QueuedTestComponentBase ::
   if (!this->isConnected_prmSetOut_OutputPort(0)) {
     return Fw::CmdResponse::EXECUTION_ERROR;
   }
-  Fw::ParamBuffer _saveBuff;
   const FwIdType idBase = this->getIdBase();
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
+  this->m___fprime_ac_paramBuffer.resetSer();
   if ((this->m_param_ParamArrayExt_valid == Fw::ParamValid::VALID) || (this->m_param_ParamArrayExt_valid == Fw::ParamValid::DEFAULT)) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(
       static_cast<FwPrmIdType>(idBase),
       PARAMID_PARAMARRAYEXT,
-      _saveBuff
+      this->m___fprime_ac_paramBuffer
     );
   }
   this->m_paramLock.unlock();
@@ -9516,7 +9516,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
   this->prmSetOut_out(
     0,
     static_cast<FwPrmIdType>(idBase + PARAMID_PARAMARRAYEXT),
-    _saveBuff
+    this->m___fprime_ac_paramBuffer
   );
   // Return the command response
   return Fw::CmdResponse::OK;
@@ -9528,17 +9528,17 @@ Fw::CmdResponse QueuedTestComponentBase ::
   if (!this->isConnected_prmSetOut_OutputPort(0)) {
     return Fw::CmdResponse::EXECUTION_ERROR;
   }
-  Fw::ParamBuffer _saveBuff;
   const FwIdType idBase = this->getIdBase();
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
   // Serialize the parameter
   this->m_paramLock.lock();
+  this->m___fprime_ac_paramBuffer.resetSer();
   if ((this->m_param_ParamStructExt_valid == Fw::ParamValid::VALID) || (this->m_param_ParamStructExt_valid == Fw::ParamValid::DEFAULT)) {
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(
       static_cast<FwPrmIdType>(idBase),
       PARAMID_PARAMSTRUCTEXT,
-      _saveBuff
+      this->m___fprime_ac_paramBuffer
     );
   }
   this->m_paramLock.unlock();
@@ -9549,7 +9549,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
   this->prmSetOut_out(
     0,
     static_cast<FwPrmIdType>(idBase + PARAMID_PARAMSTRUCTEXT),
-    _saveBuff
+    this->m___fprime_ac_paramBuffer
   );
   // Return the command response
   return Fw::CmdResponse::OK;
