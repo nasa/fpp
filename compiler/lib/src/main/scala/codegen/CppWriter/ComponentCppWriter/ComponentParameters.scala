@@ -183,15 +183,15 @@ case class ComponentParameters (
     then
       val idConstantName = paramIdConstantName(param.getName)
       lines(
-        s"""|Fw::ParamBuffer _getBuff;
+        s"""|$paramBufferName.resetSer();
             |FW_ASSERT(this->paramDelegatePtr != nullptr);
             |Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(
             |  static_cast<FwPrmIdType>(this->getIdBase()),
             |  $idConstantName,
-            |  _getBuff
+            |  $paramBufferName
             |);
             |if(_stat == Fw::FW_SERIALIZE_OK) {
-            |  _stat = _getBuff.deserializeTo(_local);
+            |  _stat = $paramBufferName.deserializeTo(_local);
             |  FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
             |} else {
             |  valid = Fw::ParamValid::INVALID;
