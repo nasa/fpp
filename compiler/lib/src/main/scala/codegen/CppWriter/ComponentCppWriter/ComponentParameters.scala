@@ -47,6 +47,14 @@ case class ComponentParameters (
     val validityFlagName = paramValidityFlagName(paramName)
     s"this->$validityFlagName == Fw::ParamValid::$flagValue"
 
+  private def checkValidityFlagValidOrDefault(param: Param) =
+    s"(${checkValidityFlag(param, "VALID")}) || (${checkValidityFlag(param, "DEFAULT")})"
+
+  private def checkValidityFlagValidBitSet(param: Param) =
+    val paramName = param.getName
+    val validityFlagName = paramValidityFlagName(paramName)
+    s"$validityFlagName & Fw::ParamValid::VALID"
+
   private def deserializeParam(param: Param) = {
     val paramName = param.getName
     val varName = paramVariableName(paramName)
@@ -513,45 +521,46 @@ case class ComponentParameters (
     val prmSetIsConnected = outputPortIsConnectedName(prmSetPortName)
     val prmSetPortInvokerName = outputPortInvokerName(prmSetPort.get)
     List.concat(
+      lines(
+        s"""|if (!this->$prmSetIsConnected(0)) {
+            |  return Fw::CmdResponse::EXECUTION_ERROR;
+            |}
+            |Fw::ParamBuffer _saveBuff;
+            |const FwIdType idBase = this->getIdBase();
+            |Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
+            |// Serialize the parameter
+            |this->m_paramLock.lock();"""
+      ),
       wrapInIf(
-        s"this->$prmSetIsConnected(0)",
-        List.concat(
-          lines(
-            """|Fw::ParamBuffer _saveBuff;
-               |const FwIdType idBase = this->getIdBase();
-               |// Serialize the parameter
-               |this->m_paramLock.lock();"""
-          ),
-          if (param.isExternal)
-          then lines(
-            s"""|FW_ASSERT(this->paramDelegatePtr != nullptr);
-                |const Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(
-                |  static_cast<FwPrmIdType>(idBase),
-                |  $idConstantName,
-                |  _saveBuff
-                |);"""
-          )
-          else lines (
-            s"const Fw::SerializeStatus _stat = _saveBuff.serializeFrom($paramVarName);"
-          ),
-          lines(
-            s"""|this->m_paramLock.unlock();
-                |if (_stat != Fw::FW_SERIALIZE_OK) {
-                |  return Fw::CmdResponse::VALIDATION_ERROR;
-                |}
-                |// Save the parameter
-                |this->$prmSetPortInvokerName(
-                |  0,
-                |  static_cast<FwPrmIdType>(idBase + $idConstantName),
-                |  _saveBuff
-                |);
-                |// Return the command response
-                |return Fw::CmdResponse::OK;
-                |"""
-          )
+        checkValidityFlagValidBitSet(param),
+        if (param.isExternal)
+        then lines(
+          s"""|FW_ASSERT(this->paramDelegatePtr != nullptr);
+              |_stat = this->paramDelegatePtr->serializeParam(
+              |  static_cast<FwPrmIdType>(idBase),
+              |  $idConstantName,
+              |  _saveBuff
+              |);"""
+        )
+        else lines (
+          s"_stat = _saveBuff.serializeFrom($paramVarName);"
         )
       ),
-      Line.blank :: lines("return Fw::CmdResponse::EXECUTION_ERROR;")
+      lines(
+        s"""|this->m_paramLock.unlock();
+            |if (_stat != Fw::FW_SERIALIZE_OK) {
+            |  return Fw::CmdResponse::VALIDATION_ERROR;
+            |}
+            |// Save the parameter
+            |this->$prmSetPortInvokerName(
+            |  0,
+            |  static_cast<FwPrmIdType>(idBase + $idConstantName),
+            |  _saveBuff
+            |);
+            |// Return the command response
+            |return Fw::CmdResponse::OK;
+            |"""
+      )
     )
   }
 
