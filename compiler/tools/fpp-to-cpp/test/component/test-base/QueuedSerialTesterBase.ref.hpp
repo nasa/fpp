@@ -2684,22 +2684,22 @@ class QueuedSerialTesterBase :
     // Parameter validity flags
     // ----------------------------------------------------------------------
 
-    //! True if ParamU32 was successfully received
+    //! The validity flag for ParamU32
     Fw::ParamValid m_param_ParamU32_valid;
 
-    //! True if ParamF64 was successfully received
+    //! The validity flag for ParamF64
     Fw::ParamValid m_param_ParamF64_valid;
 
-    //! True if ParamString was successfully received
+    //! The validity flag for ParamString
     Fw::ParamValid m_param_ParamString_valid;
 
-    //! True if ParamEnum was successfully received
+    //! The validity flag for ParamEnum
     Fw::ParamValid m_param_ParamEnum_valid;
 
-    //! True if ParamArray was successfully received
+    //! The validity flag for ParamArray
     Fw::ParamValid m_param_ParamArray_valid;
 
-    //! True if ParamStruct was successfully received
+    //! The validity flag for ParamStruct
     Fw::ParamValid m_param_ParamStruct_valid;
 
   private:

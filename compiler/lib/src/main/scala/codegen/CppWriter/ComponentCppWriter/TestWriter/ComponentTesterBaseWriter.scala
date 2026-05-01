@@ -1610,7 +1610,7 @@ case class ComponentTesterBaseWriter(
               linesClassMember(
                 lines(
                   s"""|
-                      |//! True if ${param.getName} was successfully received
+                      |//! The validity flag for ${param.getName}
                       |Fw::ParamValid ${paramValidityFlagName(param.getName)};
                       |"""
                 )
