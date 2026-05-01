@@ -964,6 +964,19 @@ abstract class ComponentCppWriterUtils(
     CppDoc.Function.PureVirtual
   )
 
+  def getValidityFlagForParam(param: Param) = {
+    val paramName = param.getName
+    val flagName = paramValidityFlagName(paramName)
+    linesClassMember(
+      lines(
+        s"""|
+            |//! The validity flag for $paramName
+            |Fw::ParamValid $flagName = Fw::ParamValid::UNINIT;
+            |"""
+      )
+    )
+  }
+
   /** Writes the type of a state machine implementation */
   def writeStateMachineImplType(smSymbol: Symbol.StateMachine) =
     StateMachine.getSymbolKind(smSymbol) match {

@@ -194,11 +194,7 @@ case class ComponentTesterBaseWriter(
         constructorClassMember(
           Some(s"Construct object $testerBaseClassName"),
           constructorParams,
-          "Fw::PassiveComponentBase(compName)" :: sortedParams.collect {
-            case (_, param) if !param.isExternal =>
-              val flagName = paramValidityFlagName(param.getName)
-              s"$flagName(Fw::ParamValid::UNINIT)"
-          },
+          List("Fw::PassiveComponentBase(compName)"),
           {
             lazy val portHistories = line("// Initialize port histories") ::
               typedOutputPorts.filter(hasPortParams).map(p => {
@@ -1604,19 +1600,8 @@ case class ComponentTesterBaseWriter(
       addAccessTagAndComment(
         "private",
         "Parameter validity flags",
-        sortedParams.flatMap { case (_, param) =>
-          guardedList (!param.isExternal) (
-            List(
-              linesClassMember(
-                lines(
-                  s"""|
-                      |//! The validity flag for ${param.getName}
-                      |Fw::ParamValid ${paramValidityFlagName(param.getName)};
-                      |"""
-                )
-              )
-            )
-          )
+        sortedParams.collect {
+          case (_, param) if !param.isExternal => getValidityFlagForParam(param)
         },
         CppDoc.Lines.Hpp
       ),

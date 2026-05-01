@@ -341,19 +341,6 @@ case class ComponentParameters (
       sortedParams.map((_, param) => getSetterForParam(param))
     )
 
-  private def getValidityFlagForParam(param: Param) = {
-    val paramName = param.getName
-    val flagName = paramValidityFlagName(paramName)
-    linesClassMember(
-      lines(
-        s"""|
-            |//! The validity flag for $paramName
-            |Fw::ParamValid $flagName = Fw::ParamValid::UNINIT;
-            |"""
-      )
-    )
-  }
-
   private def getValidityFlags = addAccessTagAndComment(
     "private",
     "Parameter validity flags",

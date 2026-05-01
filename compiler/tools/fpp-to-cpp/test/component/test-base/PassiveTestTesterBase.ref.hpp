@@ -2368,22 +2368,22 @@ class PassiveTestTesterBase :
     // ----------------------------------------------------------------------
 
     //! The validity flag for ParamU32
-    Fw::ParamValid m_param_ParamU32_valid;
+    Fw::ParamValid m_param_ParamU32_valid = Fw::ParamValid::UNINIT;
 
     //! The validity flag for ParamF64
-    Fw::ParamValid m_param_ParamF64_valid;
+    Fw::ParamValid m_param_ParamF64_valid = Fw::ParamValid::UNINIT;
 
     //! The validity flag for ParamString
-    Fw::ParamValid m_param_ParamString_valid;
+    Fw::ParamValid m_param_ParamString_valid = Fw::ParamValid::UNINIT;
 
     //! The validity flag for ParamEnum
-    Fw::ParamValid m_param_ParamEnum_valid;
+    Fw::ParamValid m_param_ParamEnum_valid = Fw::ParamValid::UNINIT;
 
     //! The validity flag for ParamArray
-    Fw::ParamValid m_param_ParamArray_valid;
+    Fw::ParamValid m_param_ParamArray_valid = Fw::ParamValid::UNINIT;
 
     //! The validity flag for ParamStruct
-    Fw::ParamValid m_param_ParamStruct_valid;
+    Fw::ParamValid m_param_ParamStruct_valid = Fw::ParamValid::UNINIT;
 
   private:
 
