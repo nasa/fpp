@@ -951,6 +951,22 @@ abstract class ComponentCppWriterUtils(
       case PortInstance.Type.Serial => "void"
     }
 
+  def getParamVariableName(name: String) =
+    s"m_$name"
+
+  def getParamVarForParam(param: Param) =
+    val paramType = writeParamType(param.paramType, "Fw::ParamString")
+    val paramVarName = getParamVariableName(param.getName)
+    linesClassMember(
+      List.concat(
+        addSeparatedPreComment(
+          s"Parameter ${param.getName}",
+          AnnotationCppWriter.asStringOpt(param.aNode)
+        ),
+        lines(s"$paramType $paramVarName;")
+      )
+    )
+
   def getVirtualOverflowHook(
     name: String,
     msgType: MessageType,
