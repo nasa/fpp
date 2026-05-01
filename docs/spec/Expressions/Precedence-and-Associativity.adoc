@@ -6,25 +6,34 @@ have higher precedence. For example, `-a.b` is parsed as `-(a.b)`
 and not `(-a).b`. Where necessary, each element in the ordering provides an
 associativity for resolving expressions with equal precedence.
 
-[cols=",",options="header",]
+[cols=",,",options="header",]
 |======================================
 
 |Expression
+|Precedence Level
 |Associativity
 
 |Dot expressions stem:[e] `.` stem:[i]
+|0
 |None
 
 |Unary negation expressions `-` stem:[e]
+|0
 |None
 
 |Multiplication expressions stem:[e_1] `*` stem:[e_2] and division expressions stem:[e_1] `/` stem:[e_2]
+|1
 |Left
 
 |Addition expressions stem:[e_1] `+` stem:[e_2] 
 (<<Expressions_Binary-Expressions,arithmetic addition>> or 
 <<Expressions_Binary-Expressions, string concatenation>>) and subtraction 
 expressions stem:[e_1] `-` stem:[e_2]
+|2
+|Left
+
+| Bitwise left-shift expressions stem:[e_1] `<<` stem:[e_2] and right-shift expressions stem:[e_1] `>>` stem:[e_2] 
+|3
 |Left
 
 |======================================

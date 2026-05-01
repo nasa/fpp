@@ -29,6 +29,12 @@ _op_ is one of the following:
 |`/`
 |Division
 
+| `<<`
+|Left-shift
+
+| `>>`
+|Right-shift
+
 |======================================
 
 ==== Semantics
@@ -38,7 +44,11 @@ A binary expression must have a valid
 
 A binary expression stem:[e_1] _op_ stem:[e_2] is evaluated as follows:
 
-. Let _T_ be the type of the expression.
+. If op is `pass:[<<]` or `pass:[>>]`, and types of both expression is an 
+<<Types_Internal-Types_Integer-Types,integer type>>, perform a bitwise shift 
+operation to shift stem:[e_1] by stem:[e_2] bits.
+
+. Otherwise, let _T_ be the type of the expression.
 
 . Evaluate stem:[e_1] to a value stem:[v_1].
 <<Type-Checking_Type-Conversion,Convert>>
@@ -72,4 +82,7 @@ constant s1 = "a" + "b" + "c"     # s1 has value "abc"
 constant s2 = "hello " + s1 + "!" # s2 has value "hello abc!"
 
 constant c = 1 + "2" # Error: cannot add Integer and string
+
+constant leftShifted = 2 << 3 # leftShifted has value 16
+constant rightShifted = 8 >> 2 # rightShifted has value 2
 ----
