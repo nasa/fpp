@@ -154,13 +154,48 @@ object Ast {
     final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node
     final case class DefInterface(node: AstNode[Ast.DefInterface]) extends Node
     final case class DefModule(node: AstNode[Ast.DefModule]) extends Node
+    final case class DefModuleTemplate(node: AstNode[Ast.DefModuleTemplate]) extends Node
     final case class DefPort(node: AstNode[Ast.DefPort]) extends Node
     final case class DefStateMachine(node: AstNode[Ast.DefStateMachine]) extends Node
     final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
     final case class DefTopology(node: AstNode[Ast.DefTopology]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
     final case class SpecLoc(node: AstNode[Ast.SpecLoc]) extends Node
+    final case class SpecTemplateExpand(node: AstNode[Ast.SpecTemplateExpand]) extends Node
   }
+
+  object DefTemplateParam {
+    sealed trait Node
+
+    final case class Constant(
+      name: Ident,
+      typeName: AstNode[Ast.TypeName]
+    ) extends Node
+    final case class Type(name: Ident) extends Node
+    final case class Interface(
+      name: Ident,
+      interface: AstNode[QualIdent],
+    ) extends Node
+  }
+
+  type TemplateParamList = List[Annotated[AstNode[DefTemplateParam.Node]]]
+
+  /** Module template definition */
+  final case class DefModuleTemplate(
+    name: Ident,
+    params: TemplateParamList,
+    members: List[ModuleMember]
+  )
+
+  sealed trait TemplateParameter
+  final case class TemplateConstantParameter(expr: AstNode[Expr]) extends TemplateParameter
+  final case class TemplateTypeParameter(typeName: AstNode[TypeName]) extends TemplateParameter
+  final case class TemplateInterfaceParameter(instance: AstNode[QualIdent]) extends TemplateParameter
+
+  final case class SpecTemplateExpand(
+    template: AstNode[QualIdent],
+    params: List[AstNode[TemplateParameter]]
+  )
 
   /** Port definition */
   final case class DefPort(

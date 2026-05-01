@@ -7,6 +7,7 @@ interface
 kwd_names
 no_include
 state_machine
+template
 topology
 dictionary_specifier
 "

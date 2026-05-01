@@ -3,6 +3,8 @@ package fpp.compiler.codegen
 import fpp.compiler.ast._
 import fpp.compiler.util._
 import fpp.compiler.ast.Ast.QualIdent
+import fpp.compiler.ast.Ast.Annotated
+import fpp.compiler.ast.Ast.SpecTemplateExpand
 
 /** Write out an FPP AST */
 object AstWriter extends AstVisitor with LineUtils {
@@ -171,6 +173,57 @@ object AstWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines("def module") ++
     (ident(data.name) ++ data.members.flatMap(moduleMember)).map(indentIn)
+  }
+
+  override def defModuleTemplateAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = {
+    def templateParam(tp: Ast.DefTemplateParam.Node) = {
+      tp match {
+        case Ast.DefTemplateParam.Constant(name, typeName) =>
+          addPrefix(s"constant $name", typeNameNode) (typeName)
+        case Ast.DefTemplateParam.Type(name) =>
+          lines(s"type $name")
+        case Ast.DefTemplateParam.Interface(name, interface) =>
+          addPrefix(s"interface $name", qualIdent) (interface.data)
+      }
+    }
+
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("def module template") ++
+    List.concat(
+      ident(data.name),
+      addPrefix("params", (x: List[Ast.Annotated[AstNode[Ast.DefTemplateParam.Node]]]) =>
+        x.flatMap(annotateNode(templateParam))) (data.params),
+      data.members.flatMap(moduleMember)
+    ).map(indentIn)
+  }
+
+  override def specTemplateExpandAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+
+    def templateParam(tp: AstNode[Ast.TemplateParameter]): Out = {
+      tp.data match {
+        case Ast.TemplateConstantParameter(e) =>
+          addPrefix("constant", exprNode) (e)
+        case Ast.TemplateTypeParameter(name) =>
+          addPrefix("type", typeNameNode) (name)
+        case Ast.TemplateInterfaceParameter(i) =>
+          addPrefix(s"interface", qualIdent) (i.data)
+      }
+    }
+
+    lines("expand") ++
+    List.concat(
+      qualIdent(data.template.data),
+      data.params.flatMap(templateParam).map(indentIn)
+    )
   }
 
   override def defPortAnnotatedNode(

@@ -43,6 +43,7 @@ object Token {
   final case class EVENT() extends Token
   final case class EVERY() extends Token
   final case class EXIT() extends Token
+  final case class EXPAND() extends Token
   final case class EXTERNAL() extends Token
   final case class F32() extends Token
   final case class F64() extends Token
@@ -129,6 +130,7 @@ object Token {
   final case class STRUCT() extends Token
   final case class SYNC() extends Token
   final case class TELEMETRY() extends Token
+  final case class TEMPLATE() extends Token
   final case class TEXT() extends Token
   final case class THROTTLE() extends Token
   final case class TIME() extends Token
@@ -192,6 +194,7 @@ enum TokenId {
   case EVENT
   case EVERY
   case EXIT
+  case EXPAND
   case EXTERNAL
   case F32
   case F64
@@ -261,6 +264,7 @@ enum TokenId {
   case STRUCT
   case SYNC
   case TELEMETRY
+  case TEMPLATE
   case TEXT
   case THROTTLE
   case TIME

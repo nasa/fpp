@@ -495,6 +495,21 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
+  "spec template expand OK" should {
+    parseAllOK(
+      Parser.specTemplateExpand,
+      List(
+        "expand T()",
+        "expand M.T()",
+        "expand M.T(constant 1)",
+        "expand M.T(constant 1, constant 2)",
+        "expand M.T(constant 1, constant 2, interface mod.$instance)",
+        "expand M.T(constant 1, constant 2, interface mod.$instance, type Type.Name)",
+        "expand M.T(constant 1, constant 2, constant {member=1}, constant [1, 2])",
+      )
+    )
+  }
+
   "spec include OK" should {
     parseAllOK(
       Parser.specInclude,
@@ -709,6 +724,32 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
+  "template ok" should {
+    parseAllOK(
+      Parser.transUnit,
+      List(
+        """
+        module template T(
+          constant c: U32,
+          type Ty,
+          interface i: Interface
+        ) {
+        }
+        """,
+
+        """
+        module template T(
+          constant c: U32,
+          type Ty,
+          interface i: Interface
+        ) {
+          array a = [3] Ty
+        }
+        """,
+      )
+    )
+  }
+
   "trans unit OK" should {
     parseAllOK(
       Parser.transUnit,
@@ -724,6 +765,7 @@ class ParserSpec extends AnyWordSpec {
         instance i: C base id 0x100
         constant a = 0
         module M {}
+        module template TT () {}
         port P
         struct S {}
         topology T {}
@@ -731,6 +773,7 @@ class ParserSpec extends AnyWordSpec {
         type T
         array A = [10] U32
         enum E { X, Y }
+        expand TT (constant 1, constant 2, constant 3, constant {member=[1, 2, 3]}, type TypeName, interface i)
         include "a.fpp"
         """,
         """

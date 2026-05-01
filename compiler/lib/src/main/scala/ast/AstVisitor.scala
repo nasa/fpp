@@ -33,6 +33,8 @@ trait AstVisitor {
 
   def defModuleAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefModule]]): Out = default(in)
 
+  def defModuleTemplateAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]): Out = default(in)
+
   def defPortAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefPort]]): Out = default(in)
 
   def defSignalAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefSignal]]): Out = default(in)
@@ -105,6 +107,8 @@ trait AstVisitor {
   def specInternalPortAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInternalPort]]): Out = default(in)
 
   def specLocAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecLoc]]): Out = default(in)
+
+  def specTemplateExpandAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]): Out = default(in)
 
   def specParamAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecParam]]): Out = default(in)
 
@@ -206,12 +210,14 @@ trait AstVisitor {
       case Ast.ModuleMember.DefEnum(node1) => defEnumAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefInterface(node1) => defInterfaceAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefModule(node1) => defModuleAnnotatedNode(in, (pre, node1, post))
+      case Ast.ModuleMember.DefModuleTemplate(node1) => defModuleTemplateAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefPort(node1) => defPortAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefStateMachine(node1) => defStateMachineAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefStruct(node1) => defStructAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefTopology(node1) => defTopologyAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.SpecInclude(node1) => specIncludeAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.SpecLoc(node1) => specLocAnnotatedNode(in, (pre, node1, post))
+      case Ast.ModuleMember.SpecTemplateExpand(node1) => specTemplateExpandAnnotatedNode(in, (pre, node1, post))
     }
   }
 
