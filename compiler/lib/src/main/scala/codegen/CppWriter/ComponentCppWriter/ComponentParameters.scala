@@ -265,28 +265,28 @@ case class ComponentParameters (
   )
 
   private def getParamVarForParam(param: Param) =
-    guardedList (!param.isExternal) {
-      val paramType = writeParamType(param.paramType, "Fw::ParamString")
-      val paramVarName = paramVariableName(param.getName)
-      List(
-        linesClassMember(
-          List.concat(
-            addSeparatedPreComment(
-              s"Parameter ${param.getName}",
-              AnnotationCppWriter.asStringOpt(param.aNode)
-            ),
-            lines(s"$paramType $paramVarName;")
-          )
-        )
+    val paramType = writeParamType(param.paramType, "Fw::ParamString")
+    val paramVarName = paramVariableName(param.getName)
+    linesClassMember(
+      List.concat(
+        addSeparatedPreComment(
+          s"Parameter ${param.getName}",
+          AnnotationCppWriter.asStringOpt(param.aNode)
+        ),
+        lines(s"$paramType $paramVarName;")
       )
-    }
+    )
 
   private def getParamVars = addAccessTagAndComment(
     "private",
     "Parameter variables",
     List.concat(
+      // Internal and external parameters need a parameter buffer for scratch memory
       guardedList(!sortedParams.isEmpty) (List(getParamBuffer)),
-      sortedParams.flatMap((_, param) => getParamVarForParam(param))
+      // Only internal paramenters need storage for parameter values
+      sortedParams.collect {
+        case (_, param) if !param.isExternal => getParamVarForParam(param)
+      }
     ),
     CppDoc.Lines.Hpp
   )

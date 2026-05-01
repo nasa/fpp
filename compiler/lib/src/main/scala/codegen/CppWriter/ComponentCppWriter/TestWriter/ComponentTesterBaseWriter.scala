@@ -1608,22 +1608,18 @@ case class ComponentTesterBaseWriter(
       addAccessTagAndComment(
         "private",
         "Parameter variables",
-        sortedParams.flatMap { case (_, param) =>
-          guardedList (!param.isExternal) {
-            val paramType = writeParamType(param.paramType, "Fw::ParamString")
-            val paramVarName = paramVariableName(param.getName)
-            List(
-              linesClassMember(
-                List.concat(
-                  addSeparatedPreComment(
-                    s"Parameter ${param.getName}",
-                    AnnotationCppWriter.asStringOpt(param.aNode)
-                  ),
-                  lines(s"$paramType $paramVarName;")
-                )
-              )
+        sortedParams.collect { case (_, param) if !param.isExternal =>
+          val paramType = writeParamType(param.paramType, "Fw::ParamString")
+          val paramVarName = paramVariableName(param.getName)
+          linesClassMember(
+            List.concat(
+              addSeparatedPreComment(
+                s"Parameter ${param.getName}",
+                AnnotationCppWriter.asStringOpt(param.aNode)
+              ),
+              lines(s"$paramType $paramVarName;")
             )
-          }
+          )
         },
         CppDoc.Lines.Hpp
       ),
