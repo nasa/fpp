@@ -23,6 +23,7 @@ Fw::SerializeStatus PassiveExternalParamsTesterBase::PassiveExternalParamsCompon
 {
   Fw::SerializeStatus stat;
   (void) baseId;
+  (void) prmStat;
 
   // Serialize the parameter based on ID
   switch(localId)
