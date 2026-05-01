@@ -52,7 +52,7 @@ case class ComponentParameters (
 
   private def deserializeParam(param: Param) = {
     val paramName = param.getName
-    val varName = getParamVariableName(paramName)
+    val varName = paramVariableName(paramName)
     val validityFlagName = paramValidityFlagName(paramName)
     if param.isExternal
     then
@@ -201,7 +201,7 @@ case class ComponentParameters (
             |}"""
       )
     else
-      val variableName = getParamVariableName(param.getName)
+      val variableName = paramVariableName(param.getName)
       lines(s"_local = this->$variableName;")
   }
 
@@ -264,16 +264,29 @@ case class ComponentParameters (
     CppDoc.Function.Virtual
   )
 
+  private def getParamVarForParam(param: Param) =
+    guardedList (!param.isExternal) {
+      val paramType = writeParamType(param.paramType, "Fw::ParamString")
+      val paramVarName = paramVariableName(param.getName)
+      List(
+        linesClassMember(
+          List.concat(
+            addSeparatedPreComment(
+              s"Parameter ${param.getName}",
+              AnnotationCppWriter.asStringOpt(param.aNode)
+            ),
+            lines(s"$paramType $paramVarName;")
+          )
+        )
+      )
+    }
+
   private def getParamVars = addAccessTagAndComment(
     "private",
     "Parameter variables",
     List.concat(
-      // Internal and external parameters need a parameter buffer for scratch memory
       guardedList(!sortedParams.isEmpty) (List(getParamBuffer)),
-      // Only internal parameters need parameter value variables
-      sortedParams.collect {
-        case (_, param) if !param.isExternal => getParamVarForParam(param)
-      }
+      sortedParams.flatMap((_, param) => getParamVarForParam(param))
     ),
     CppDoc.Lines.Hpp
   )
@@ -338,9 +351,12 @@ case class ComponentParameters (
   private def paramGetterName(name: String) =
     s"paramGet_$name"
 
+  private def paramVariableName(name: String) =
+    s"m_$name"
+
   private def setDefaultValue(param: Param, value: Value) = {
     val paramName = param.getName
-    val varName = getParamVariableName(paramName)
+    val varName = paramVariableName(paramName)
     val cppValue = ValueCppWriter.write(s, value)
     if param.isExternal
     then
@@ -482,7 +498,7 @@ case class ComponentParameters (
 
   private def writeSaveFunctionBodyForParam(param: Param) = {
     val idConstantName = paramIdConstantName(param.getName)
-    val paramVarName = getParamVariableName(param.getName)
+    val paramVarName = paramVariableName(param.getName)
     val prmSetPortName = prmSetPort.get.getUnqualifiedName
     val prmSetIsConnected = outputPortIsConnectedName(prmSetPortName)
     val prmSetPortInvokerName = outputPortInvokerName(prmSetPort.get)
@@ -562,7 +578,7 @@ case class ComponentParameters (
 
   private def writeSetterBodyForInternalParam(param: Param) = {
     val paramType = writeParamType(param.paramType, "Fw::ParamString")
-    val varName = getParamVariableName(param.getName)
+    val varName = paramVariableName(param.getName)
     val validityFlagName = paramValidityFlagName(param.getName)
     val idConstantName = paramIdConstantName(param.getName)
     lines(
