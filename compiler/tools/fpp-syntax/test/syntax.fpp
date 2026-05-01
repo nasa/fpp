@@ -235,7 +235,7 @@ module DefinitionsAndSpecifiers {
   locate instance i at "instances.fpp"
   @< Location specifier
 
-  template Tmpl(
+  module template Tmpl(
     @ Constant template parameter
     constant c: SomeType @< Constant parameter
 

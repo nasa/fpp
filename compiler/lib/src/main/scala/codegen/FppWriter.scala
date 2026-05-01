@@ -283,7 +283,7 @@ object FppWriter extends AstVisitor with LineUtils {
 
     val (_, node, _) = aNode
     val data = node.data
-    lines (s"template ${ident(data.name)}").
+    lines (s"module template ${ident(data.name)}").
       join("") (
         lines("(") ++
         data.params.flatMap(annotateNode(templateParam)).map(indentIn) ++

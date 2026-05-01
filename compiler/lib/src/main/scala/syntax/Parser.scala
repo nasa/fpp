@@ -430,8 +430,8 @@ object Parser extends Parsers {
         Ast.ModuleMember.DefComponentInstance(n)) |
       node(defConstant) ^^ (n => Ast.ModuleMember.DefConstant(n)) |
       node(defEnum) ^^ (n => Ast.ModuleMember.DefEnum(n)) |
+      node(defModuleTemplate) ^^ (n => Ast.ModuleMember.DefModuleTemplate(n)) |
       node(defModule) ^^ (n => Ast.ModuleMember.DefModule(n)) |
-      node(defTemplate) ^^ (n => Ast.ModuleMember.DefModuleTemplate(n)) |
       node(defPort) ^^ (n => Ast.ModuleMember.DefPort(n)) |
       node(defStateMachine) ^^ (n =>
         Ast.ModuleMember.DefStateMachine(n)) |
@@ -1056,11 +1056,11 @@ object Parser extends Parsers {
       failure("template parameter definition expected")
   }
 
-  def defTemplate: Parser[Ast.DefModuleTemplate] = {
+  def defModuleTemplate: Parser[Ast.DefModuleTemplate] = {
     def id(x: Ast.Annotated[AstNode[Ast.DefTemplateParam.Node]]) = x
     def params = annotatedElementSequence(templateParamDef, comma, id)
 
-    (template ~>! ident) ~! (lparen ~>! params <~! rparen) ~! (lbrace ~>! moduleMembers <~! rbrace) ^^ {
+    (module ~> template ~>! ident) ~! (lparen ~>! params <~! rparen) ~! (lbrace ~>! moduleMembers <~! rbrace) ^^ {
       case name ~ params ~ members => Ast.DefModuleTemplate(name, params, members)
     }
   }
