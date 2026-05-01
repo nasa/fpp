@@ -318,7 +318,8 @@ object FppWriter extends AstVisitor with LineUtils {
 
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"expand ${qualIdent(data.template.data)}").
+    lines("expand").
+      join(" ") (qualIdent(data.template.data)).
       join ("") (templateParamValueList(data.params))
   }
 
