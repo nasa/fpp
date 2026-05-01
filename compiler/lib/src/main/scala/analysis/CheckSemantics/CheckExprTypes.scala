@@ -158,11 +158,20 @@ object CheckExprTypes extends UseAnalyzer {
     val loc = Locations.get(node.id)
     for {
       a <- super.exprBinopNode(a, node, e)
-      t <- a.commonType(e.e1.id, e.e2.id, loc)
-      _ <- e.op match {
-        case Ast.Binop.Add => convertToNumericOrString(loc, t)
-        case Ast.Binop.Shift(_) => convertToInteger(loc, t)
-        case _ => convertToNumeric(loc, t)
+      t <- e.op match {
+        case Ast.Binop.Shift(_) => 
+          /** Shift operation is special, for this we idependently check for both operands to be integer */
+         for {
+          t1 <- convertNodeToInteger(a, e.e1)
+          _ <- convertNodeToInteger(a, e.e2)
+         } yield t1
+        case _ => for {
+          t2 <- a.commonType(e.e1.id, e.e2.id, loc)
+          _ <- e.op match {
+            case Ast.Binop.Add => convertToNumericOrString(loc, t2)
+            case _ => convertToNumeric(loc, t2)
+          }
+        } yield t2
       }
     } yield a.assignType(node -> t)
   }
@@ -498,8 +507,12 @@ object CheckExprTypes extends UseAnalyzer {
         Left(error)
     }
 
-  /** For shifting operations make sure both values are integer */
-  private def convertToInteger(loc: Location, t: Type): Result.Result[Type] =
+  /** For shifting operations make sure value is integer */
+  private def convertNodeToInteger[T](a: Analysis, node: AstNode[T]): Result.Result[Type] =
+    val id = node.id
+    val t = a.typeMap(id)
+    val loc = Locations.get(id)
+
     if (t.isInt) Right(t)
     else {                                                                                                                                                                                      
       val error = SemanticError.InvalidType(loc, s"cannot convert $t to an integer type")
