@@ -57,6 +57,9 @@ sealed trait Error {
         Error.print (Some(loc)) (s"channel $channelName is not in the dictionary for topology $topologyName")
       case SemanticError.DivisionByZero(loc) =>
         Error.print (Some(loc)) ("division by zero")
+      case SemanticError.InvalidShiftAmount(loc) =>
+        Error.print (Some(loc)) ("invalid shift amount")                                                                                                                                            
+        printNote("shift amount must be a non-negative value that fits in a 32-bit integer")
       case SemanticError.DuplicateConnectionAtMatchedPort(loc, port, portNum, prevLoc, matchingLoc) =>
         Error.print (Some(loc)) (s"duplicate connection at matched port $port[$portNum]")
         printPrevLoc(prevLoc)
@@ -431,6 +434,8 @@ object SemanticError {
   ) extends Error
   /** Division by zero */
   final case class DivisionByZero(loc: Location) extends Error
+  /** Invalid Shift values */
+  final case class InvalidShiftAmount(loc: Location) extends Error
   /** Duplicate connection at matched port */
   final case class DuplicateConnectionAtMatchedPort(
     loc: Location,

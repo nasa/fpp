@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/numeric_shift/shift_float_value_error.fpp:1.14
+constant a = 1.5 << 2
+             ^
+error: cannot convert F64 to an integer type

@@ -257,6 +257,10 @@ module Expressions {
   constant arithExp = 1 + 2 * 3 - -4 * 5 + 6
   @< Arithmetic
 
+  @ Shift
+  constant shiftExp = 1 + 2 << 3 >> 1
+  @< Shift
+
   @ Array
   constant arrayExp = [ 1, 2, 3 ]
   @< Array

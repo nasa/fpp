@@ -1,0 +1,10 @@
+tests="
+shift_ok
+shift_negative_amount_error
+shift_negative_rshift_error
+shift_amount_too_large_error
+shift_float_amount_error
+shift_float_value_error
+shift_invalid_type_error
+shift_boolean_value_error
+"

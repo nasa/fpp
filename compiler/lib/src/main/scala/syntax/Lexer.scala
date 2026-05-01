@@ -356,6 +356,8 @@ object Lexer {
         case WARNING => Token.WARNING()
         case WITH => Token.WITH()
         case YELLOW => Token.YELLOW()
+        case LSHIFT => Token.LSHIFT()
+        case RSHIFT => Token.RSHIFT()
       }
 
       out.setPos(pos())
@@ -548,6 +550,16 @@ object Lexer {
           nextChar()
           token = SLASH
           eatNewlines()
+        case '<' =>
+          nextChar()
+          if ch == '<' then 
+            token = LSHIFT
+            nextChar()
+        case '>' =>
+          nextChar()
+          if ch == '>' then 
+            token = RSHIFT
+            nextChar()
         case '=' =>
           nextChar()
           token = EQUALS
