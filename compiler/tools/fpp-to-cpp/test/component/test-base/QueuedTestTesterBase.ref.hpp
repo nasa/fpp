@@ -356,23 +356,23 @@ class QueuedTestTesterBase :
         // Parameter validity flags
         // ----------------------------------------------------------------------
 
-        //! True if ParamI32Ext was successfully received
-        Fw::ParamValid m_param_ParamI32Ext_valid;
+        //! The validity flag for ParamI32Ext
+        Fw::ParamValid m_param_ParamI32Ext_valid = Fw::ParamValid::UNINIT;
 
-        //! True if ParamF64Ext was successfully received
-        Fw::ParamValid m_param_ParamF64Ext_valid;
+        //! The validity flag for ParamF64Ext
+        Fw::ParamValid m_param_ParamF64Ext_valid = Fw::ParamValid::UNINIT;
 
-        //! True if ParamStringExt was successfully received
-        Fw::ParamValid m_param_ParamStringExt_valid;
+        //! The validity flag for ParamStringExt
+        Fw::ParamValid m_param_ParamStringExt_valid = Fw::ParamValid::UNINIT;
 
-        //! True if ParamEnumExt was successfully received
-        Fw::ParamValid m_param_ParamEnumExt_valid;
+        //! The validity flag for ParamEnumExt
+        Fw::ParamValid m_param_ParamEnumExt_valid = Fw::ParamValid::UNINIT;
 
-        //! True if ParamArrayExt was successfully received
-        Fw::ParamValid m_param_ParamArrayExt_valid;
+        //! The validity flag for ParamArrayExt
+        Fw::ParamValid m_param_ParamArrayExt_valid = Fw::ParamValid::UNINIT;
 
-        //! True if ParamStructExt was successfully received
-        Fw::ParamValid m_param_ParamStructExt_valid;
+        //! The validity flag for ParamStructExt
+        Fw::ParamValid m_param_ParamStructExt_valid = Fw::ParamValid::UNINIT;
 
       public:
 
