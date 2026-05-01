@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/numeric_shift/shift_invalid_type_error.fpp:1.18
+[ local path prefix ]/compiler/tools/fpp-check/test/numeric_shift/shift_invalid_type_error.fpp:1.14
 constant a = "x" << 2
-                 ^
-error: cannot compute common type of string and Integer
+             ^
+error: cannot convert string to an integer type

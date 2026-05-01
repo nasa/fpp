@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/numeric_shift/shift_ok.fpp:8.19
+constant h = 4 << E.X
+                  ^
+error: cannot convert enum E to an integer type
