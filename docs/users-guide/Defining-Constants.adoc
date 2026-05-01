@@ -574,6 +574,24 @@ arithmetic.
 * In a division operation, the second operand may not be zero or (for
 floating-point values) very close to zero.
 
+==== Value Shift Expressions
+A *value shift expression* performs bitwise shift on values.
+It is one of the following:
+
+* A left shift expression using `<<`, for example:
++
+[source,fpp]
+----
+constant a = 1 << 2
+----
+
+* A right shift expression using `>>`, for example:
++
+[source,fpp]
+----
+constant a = 8 >> 1
+----
+
 ==== String Concatenation Expressions
 
 A *string concatenation expression* concatenates strings.

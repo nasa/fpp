@@ -208,7 +208,7 @@ constant e = -E.X # Type is Integer
 constant f = -true # Error
 ----
 
-=== Binary Expressions
+=== Binary Arithmetic Expressions
 
 To type a <<Expressions_Binary-Expressions,binary expression>> stem:[e_1] _op_
 stem:[e_2], the semantic analyzer does the following:
@@ -238,6 +238,44 @@ enum E { X = 1, Y = 2 }
 constant d = X + Y # Type is Integer
 constant e = true + "abcd" # Error
 constant f = "ab" + "cd" # Type is String
+----
+
+=== Binary Shift Expressions
+
+To type a <<Expressions_Binary-Expressions,binary shift expression>>
+stem:[e_1] _op_ stem:[e_2], where _op_ is `<<` or `>>`,
+the semantic analyzer does the following:
+
+. Compute the type stem:[T_1] of stem:[e_1].
+
+. Compute the type stem:[T_2] of stem:[e_2].
+
+. For each of stem:[T_1] and stem:[T_2]:
+
+.. If it is a <<Types_Internal-Types_Numeric-Types,numeric type>> that is
+not a floating-point type, then it is acceptable.
+
+.. Otherwise if it <<Type-Checking_Type-Conversion,may be converted to>>
+_Integer_ without going through a floating-point type
+(for example, an <<Types_Enum-Types,enum type>>), then convert it to _Integer_.
+
+.. Otherwise throw an error.
+
+. If stem:[T_1] is a numeric type that is not a floating-point type,
+use stem:[T_1] as the type of the expression.
+Otherwise use _Integer_.
+
+**Examples:**
+
+[source,fpp]
+----
+constant a = 1 << 2 # Type is Integer
+constant b: U32 = 1
+constant c = b << 2 # Type is U32 (follows left operand)
+constant d = 1 << 2.0 # Error: right operand is a floating-point type
+constant e = 1.0 << 2 # Error: left operand is a floating-point type
+enum E { X = 1 }
+constant f = E.X << 2 # Type is Integer (enum converts to Integer)
 ----
 
 === Parenthesis Expressions
