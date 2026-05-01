@@ -2166,22 +2166,22 @@ class QueuedExternalParamsComponentBase :
     // Parameter validity flags
     // ----------------------------------------------------------------------
 
-    //! VALID if ParamI32Ext was successfully received
+    //! The validity flag for ParamI32Ext
     Fw::ParamValid m_param_ParamI32Ext_valid = Fw::ParamValid::UNINIT;
 
-    //! VALID if ParamF64Ext was successfully received
+    //! The validity flag for ParamF64Ext
     Fw::ParamValid m_param_ParamF64Ext_valid = Fw::ParamValid::UNINIT;
 
-    //! VALID if ParamStringExt was successfully received
+    //! The validity flag for ParamStringExt
     Fw::ParamValid m_param_ParamStringExt_valid = Fw::ParamValid::UNINIT;
 
-    //! VALID if ParamEnumExt was successfully received
+    //! The validity flag for ParamEnumExt
     Fw::ParamValid m_param_ParamEnumExt_valid = Fw::ParamValid::UNINIT;
 
-    //! VALID if ParamArrayExt was successfully received
+    //! The validity flag for ParamArrayExt
     Fw::ParamValid m_param_ParamArrayExt_valid = Fw::ParamValid::UNINIT;
 
-    //! VALID if ParamStructExt was successfully received
+    //! The validity flag for ParamStructExt
     Fw::ParamValid m_param_ParamStructExt_valid = Fw::ParamValid::UNINIT;
 
   private:

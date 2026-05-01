@@ -2145,22 +2145,22 @@ class ActiveParamsComponentBase :
     // Parameter validity flags
     // ----------------------------------------------------------------------
 
-    //! VALID if ParamU32 was successfully received
+    //! The validity flag for ParamU32
     Fw::ParamValid m_param_ParamU32_valid = Fw::ParamValid::UNINIT;
 
-    //! VALID if ParamF64 was successfully received
+    //! The validity flag for ParamF64
     Fw::ParamValid m_param_ParamF64_valid = Fw::ParamValid::UNINIT;
 
-    //! VALID if ParamString was successfully received
+    //! The validity flag for ParamString
     Fw::ParamValid m_param_ParamString_valid = Fw::ParamValid::UNINIT;
 
-    //! VALID if ParamEnum was successfully received
+    //! The validity flag for ParamEnum
     Fw::ParamValid m_param_ParamEnum_valid = Fw::ParamValid::UNINIT;
 
-    //! VALID if ParamArray was successfully received
+    //! The validity flag for ParamArray
     Fw::ParamValid m_param_ParamArray_valid = Fw::ParamValid::UNINIT;
 
-    //! VALID if ParamStruct was successfully received
+    //! The validity flag for ParamStruct
     Fw::ParamValid m_param_ParamStruct_valid = Fw::ParamValid::UNINIT;
 
   private:

@@ -347,7 +347,7 @@ case class ComponentParameters (
     linesClassMember(
       lines(
         s"""|
-            |//! VALID if $paramName was successfully received
+            |//! The validity flag for $paramName
             |Fw::ParamValid $flagName = Fw::ParamValid::UNINIT;
             |"""
       )
