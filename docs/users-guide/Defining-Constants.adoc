@@ -574,8 +574,8 @@ arithmetic.
 * In a division operation, the second operand may not be zero or (for
 floating-point values) very close to zero.
 
-==== Value Bitwise Shift Expressions
-A *value bitwise shift expression* performs bitwise shift on values.
+==== Value Shift Expressions
+A *value shift expression* performs bitwise shift on values.
 It is one of the following:
 
 * A left shift expression using `<<`, for example:
