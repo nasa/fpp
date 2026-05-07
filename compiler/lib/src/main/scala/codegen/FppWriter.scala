@@ -269,13 +269,10 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines (s"module template ${ident(data.name)}").
-      join("") (
-        lines("(") ++
-        data.params.flatMap(annotateNode(templateParam)).map(indentIn) ++
-        lines(") {")
-      ) ++
+      join ("") (paramList (templateParam) (data.params)).
+      addSuffix(" {") ++
     ((Line.blankSeparated (moduleMember) (data.members)).map(indentIn)) ++
-    lines("}")
+    List(Line.blank, line("}"))
   }
 
   override def specTemplateExpandAnnotatedNode(

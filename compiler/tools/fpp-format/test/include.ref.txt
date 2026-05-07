@@ -290,6 +290,7 @@ module DefinitionsAndSpecifiers {
       instance inst
 
     }
+
   }
 
   expand Tmpl(
