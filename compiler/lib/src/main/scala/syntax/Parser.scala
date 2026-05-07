@@ -1176,8 +1176,6 @@ object Parser extends Parsers {
 
   private def choice = accept("choice", { case t: Token.CHOICE => t })
 
-  private def lbrace = accept("{", { case t: Token.LBRACE => t })
-
   private def colon = accept(":", { case t: Token.COLON => t })
 
   private def comma = accept(",", { case t: Token.COMMA => t })
@@ -1279,9 +1277,11 @@ object Parser extends Parsers {
 
   private def instance = accept("instance", { case t: Token.INSTANCE => t })
 
+  private def interface = accept("interface", { case t: Token.INTERFACE => t })
+
   private def internal = accept("internal", { case t: Token.INTERNAL => t })
 
-  private def interface = accept("interface", { case t: Token.INTERFACE => t })
+  private def lbrace = accept("{", { case t: Token.LBRACE => t })
 
   private def lbracket = accept("[", { case t: Token.LBRACKET => t })
 
@@ -1398,9 +1398,9 @@ object Parser extends Parsers {
 
   private def sync = accept("sync", { case t: Token.SYNC => t })
 
-  private def template = accept("template", { case t: Token.TEMPLATE => t })
-
   private def telemetry = accept("telemetry", { case t: Token.TELEMETRY => t })
+
+  private def template = accept("template", { case t: Token.TEMPLATE => t })
 
   private def text = accept("text", { case t: Token.TEXT => t })
 
@@ -1421,6 +1421,7 @@ object Parser extends Parsers {
   private def warning = accept("warning", { case t: Token.WARNING => t })
 
   private def yellow = accept("yellow", { case t: Token.YELLOW => t })
+
 
   /** The first error seen */
   private var error: Option[Error] = None

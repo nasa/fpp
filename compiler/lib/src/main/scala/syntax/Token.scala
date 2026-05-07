@@ -63,8 +63,8 @@ object Token {
   final case class I8() extends Token
   final case class ID() extends Token
   final case class IDENTIFIER(str: String) extends Token
-  final case class IMPLEMENTS() extends Token
   final case class IF() extends Token
+  final case class IMPLEMENTS() extends Token
   final case class IMPORT() extends Token
   final case class INCLUDE() extends Token
   final case class INITIAL() extends Token
@@ -176,6 +176,7 @@ enum TokenId {
   case BLOCK
   case BOOL
   case CHANGE
+  case CHOICE
   case COMMAND
   case COMPONENT
   case CONNECTIONS
@@ -214,15 +215,14 @@ enum TokenId {
   case I8
   case ID
   case IF
-  case IMPORT
   case IMPLEMENTS
+  case IMPORT
   case INCLUDE
   case INITIAL
   case INPUT
   case INSTANCE
   case INTERFACE
   case INTERNAL
-  case CHOICE
   case LOCATE
   case LOW
   case MACHINE
