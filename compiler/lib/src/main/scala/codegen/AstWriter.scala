@@ -219,7 +219,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("expand") ++
     List.concat(
       qualIdent(data.template.data),
-      data.params.flatMap(templateParam).map(indentIn)
+      data.args.flatMap(templateParam).map(indentIn)
     )
   }
 

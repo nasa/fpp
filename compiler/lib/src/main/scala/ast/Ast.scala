@@ -198,7 +198,7 @@ object Ast {
 
   final case class SpecTemplateExpand(
     template: AstNode[QualIdent],
-    params: List[AstNode[TemplateArg]]
+    args: List[AstNode[TemplateArg]]
   )
 
   /** Port definition */

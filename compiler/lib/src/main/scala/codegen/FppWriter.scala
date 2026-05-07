@@ -302,7 +302,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines("expand").
       join(" ") (qualIdent(data.template.data)).
-      join ("") (templateParamValueList(data.params))
+      join ("") (templateParamValueList(data.args))
   }
 
   override def defPortAnnotatedNode(

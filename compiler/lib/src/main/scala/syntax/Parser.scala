@@ -407,16 +407,15 @@ object Parser extends Parsers {
     }
   }
 
-  def formalParamList: Parser[Ast.FormalParamList] = {
-    def id(x: Ast.Annotated[AstNode[Ast.FormalParam]]) = x
-
-    def params = annotatedElementSequence(node(formalParam), comma, id)
-
+  private def paramList[T](param: Parser[T]): Parser[List[Ast.Annotated[AstNode[T]]]] = {
+    def params = annotatedElementSequence(node(param), comma, { case x => x })
     opt(lparen ~>! params <~! rparen) ^^ {
       case Some(params) => params
       case None => Nil
     }
   }
+
+  val formalParamList = paramList(formalParam)
 
   def index: Parser[AstNode[Ast.Expr]] = lbracket ~>! exprNode <~! rbracket
 
@@ -1049,28 +1048,16 @@ object Parser extends Parsers {
     }
   }
 
-  private def templateParamNode: Parser[AstNode[Ast.TemplateParam]] = {
-    node(templateParamConstant) |
-      node(templateParamType) |
-      node(templateParamInterface) |
+  private def templateParam: Parser[Ast.TemplateParam] = {
+    templateParamConstant |
+      templateParamType |
+      templateParamInterface |
       failure("template parameter expected")
   }
 
-  private def templateParamList: Parser[Ast.TemplateParamList] = {
-    def id(x: Ast.Annotated[AstNode[Ast.TemplateParam]]) = x
-
-    def params = annotatedElementSequence(templateParamNode, comma, id)
-
-    opt(lparen ~>! params <~! rparen) ^^ {
-      case Some(params) => params
-      case None => Nil
-    }
-  }
+  val templateParamList = paramList(templateParam)
 
   def defModuleTemplate: Parser[Ast.DefModuleTemplate] = {
-    def id(x: Ast.Annotated[AstNode[Ast.TemplateParam]]) = x
-    def params = annotatedElementSequence(templateParamNode, comma, id)
-
     (module ~> template ~>! ident) ~! templateParamList ~! (lbrace ~>! moduleMembers <~! rbrace) ^^ {
       case name ~ params ~ members => Ast.DefModuleTemplate(name, params, members)
     }
@@ -1102,10 +1089,10 @@ object Parser extends Parsers {
   }
 
   def specTemplateExpand: Parser[Ast.SpecTemplateExpand] = {
-    def params = elementSequence(templateArg, comma)
+    def args = elementSequence(templateArg, comma)
 
-    (expand ~>! node(qualIdent)) ~! (lparen ~>! params <~! rparen) ^^ {
-      case id ~ params => Ast.SpecTemplateExpand(id, params)
+    (expand ~>! node(qualIdent)) ~! (lparen ~>! args <~! rparen) ^^ {
+      case id ~ args => Ast.SpecTemplateExpand(id, args)
     }
   }
 
