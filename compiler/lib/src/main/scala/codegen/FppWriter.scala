@@ -281,11 +281,11 @@ object FppWriter extends AstVisitor with LineUtils {
   ): Out = {
     def templateParam(tp: AstNode[Ast.TemplateArg]) =
       tp.data match {
-        case Ast.TemplateArgConstant(e) =>
+        case Ast.TemplateArg.Constant(e) =>
           lines("constant").join(" ") (exprNode(e))
-        case Ast.TemplateArgType(name) =>
+        case Ast.TemplateArg.Type(name) =>
           lines("type").join(" ") (typeNameNode(name))
-        case Ast.TemplateArgInterface(i) =>
+        case Ast.TemplateArg.Interface(i) =>
           lines("interface").join(" ") (qualIdent(i.data))
       }
 

@@ -1076,21 +1076,21 @@ object Parser extends Parsers {
     }
   }
 
-  def templateArgConstant: Parser[Ast.TemplateArgConstant] = {
+  def templateArgConstant: Parser[Ast.TemplateArg.Constant] = {
     (constant ~>! exprNode) ^^ {
-      case e => Ast.TemplateArgConstant(e)
+      case e => Ast.TemplateArg.Constant(e)
     }
   }
 
-  def templateArgType: Parser[Ast.TemplateArgType] = {
+  def templateArgType: Parser[Ast.TemplateArg.Type] = {
     typeToken ~>! node(typeName) ^^ {
-      case tn => Ast.TemplateArgType(tn)
+      case tn => Ast.TemplateArg.Type(tn)
     }
   }
 
-  def templateArgInterface: Parser[Ast.TemplateArgInterface] = {
+  def templateArgInterface: Parser[Ast.TemplateArg.Interface] = {
     interface ~>! node(qualIdent) ^^ {
-      case i => Ast.TemplateArgInterface(i)
+      case i => Ast.TemplateArg.Interface(i)
     }
   }
 

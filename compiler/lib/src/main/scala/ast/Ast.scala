@@ -189,9 +189,11 @@ object Ast {
   )
 
   sealed trait TemplateArg
-  final case class TemplateArgConstant(expr: AstNode[Expr]) extends TemplateArg
-  final case class TemplateArgType(typeName: AstNode[TypeName]) extends TemplateArg
-  final case class TemplateArgInterface(instance: AstNode[QualIdent]) extends TemplateArg
+  object TemplateArg {
+    final case class Constant(expr: AstNode[Expr]) extends TemplateArg
+    final case class Type(typeName: AstNode[TypeName]) extends TemplateArg
+    final case class Interface(instance: AstNode[QualIdent]) extends TemplateArg
+  }
 
   final case class SpecTemplateExpand(
     template: AstNode[QualIdent],
