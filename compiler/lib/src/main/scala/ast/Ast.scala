@@ -11,7 +11,7 @@ object Ast {
   type FormalParamList = List[Annotated[AstNode[FormalParam]]]
 
   /** Template parameter list */
-  type TemplateParamList = List[Annotated[AstNode[DefTemplateParam.Node]]]
+  type TemplateParamList = List[Annotated[AstNode[TemplateParam.Node]]]
 
   /** Identifier */
   type Ident = String
@@ -167,7 +167,7 @@ object Ast {
     final case class SpecTemplateExpand(node: AstNode[Ast.SpecTemplateExpand]) extends Node
   }
 
-  object DefTemplateParam {
+  object TemplateParam {
     sealed trait Node
 
     final case class Constant(

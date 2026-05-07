@@ -1031,25 +1031,25 @@ object Parser extends Parsers {
       failure("type name expected")
   }
 
-  def defTemplateConstantParam: Parser[Ast.DefTemplateParam.Constant] = {
+  def defTemplateConstantParam: Parser[Ast.TemplateParam.Constant] = {
     (constant ~>! ident) ~! (colon ~>! node(typeName)) ^^ {
-      case id ~ tn => Ast.DefTemplateParam.Constant(id, tn)
+      case id ~ tn => Ast.TemplateParam.Constant(id, tn)
     }
   }
 
-  def defTemplateTypeParam: Parser[Ast.DefTemplateParam.Type] = {
+  def defTemplateTypeParam: Parser[Ast.TemplateParam.Type] = {
     typeToken ~>! ident ^^ {
-      case id => Ast.DefTemplateParam.Type(id)
+      case id => Ast.TemplateParam.Type(id)
     }
   }
 
-  def defTemplateInterfaceParam: Parser[Ast.DefTemplateParam.Interface] = {
+  def defTemplateInterfaceParam: Parser[Ast.TemplateParam.Interface] = {
     (interface ~>! ident) ~! (colon ~>! node(qualIdent)) ^^ {
-      case id ~ iface => Ast.DefTemplateParam.Interface(id, iface)
+      case id ~ iface => Ast.TemplateParam.Interface(id, iface)
     }
   }
 
-  private def templateParamDef: Parser[AstNode[Ast.DefTemplateParam.Node]] = {
+  private def templateParamDef: Parser[AstNode[Ast.TemplateParam.Node]] = {
     node(defTemplateConstantParam) |
       node(defTemplateTypeParam) |
       node(defTemplateInterfaceParam) |
@@ -1057,7 +1057,7 @@ object Parser extends Parsers {
   }
 
   private def templateParamList: Parser[Ast.TemplateParamList] = {
-    def id(x: Ast.Annotated[AstNode[Ast.DefTemplateParam.Node]]) = x
+    def id(x: Ast.Annotated[AstNode[Ast.TemplateParam.Node]]) = x
 
     def params = annotatedElementSequence(templateParamDef, comma, id)
 
@@ -1068,7 +1068,7 @@ object Parser extends Parsers {
   }
 
   def defModuleTemplate: Parser[Ast.DefModuleTemplate] = {
-    def id(x: Ast.Annotated[AstNode[Ast.DefTemplateParam.Node]]) = x
+    def id(x: Ast.Annotated[AstNode[Ast.TemplateParam.Node]]) = x
     def params = annotatedElementSequence(templateParamDef, comma, id)
 
     (module ~> template ~>! ident) ~! templateParamList ~! (lbrace ~>! moduleMembers <~! rbrace) ^^ {
