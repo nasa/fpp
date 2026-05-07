@@ -938,7 +938,7 @@ object FppWriter extends AstVisitor with LineUtils {
       join (" ") (typeNameNode(member.typeName)).
       joinOpt (member.format) (" format ") (applyToData(string))
 
-  private def templateParam(tp: Ast.TemplateParam.Node) = {
+  private def templateParam(tp: Ast.TemplateParam) = {
     tp match {
       case Ast.TemplateParam.Constant(name, typeName) =>
         lines(s"constant $name: ").

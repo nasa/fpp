@@ -176,7 +176,7 @@ object AstWriter extends AstVisitor with LineUtils {
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
   ) = {
-    def templateParam(tp: Ast.TemplateParam.Node) = {
+    def templateParam(tp: Ast.TemplateParam) = {
       tp match {
         case Ast.TemplateParam.Constant(name, typeName) =>
           addPrefix(s"constant $name", typeNameNode) (typeName)
@@ -192,7 +192,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def module template") ++
     List.concat(
       ident(data.name),
-      addPrefix("params", (x: List[Ast.Annotated[AstNode[Ast.TemplateParam.Node]]]) =>
+      addPrefix("params", (x: List[Ast.Annotated[AstNode[Ast.TemplateParam]]]) =>
         x.flatMap(annotateNode(templateParam))) (data.params),
       data.members.flatMap(moduleMember)
     ).map(indentIn)

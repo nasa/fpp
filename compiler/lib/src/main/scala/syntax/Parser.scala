@@ -1031,33 +1031,33 @@ object Parser extends Parsers {
       failure("type name expected")
   }
 
-  def defTemplateConstantParam: Parser[Ast.TemplateParam.Constant] = {
+  def templateParamConstant: Parser[Ast.TemplateParam.Constant] = {
     (constant ~>! ident) ~! (colon ~>! node(typeName)) ^^ {
       case id ~ tn => Ast.TemplateParam.Constant(id, tn)
     }
   }
 
-  def defTemplateTypeParam: Parser[Ast.TemplateParam.Type] = {
+  def templateParamType: Parser[Ast.TemplateParam.Type] = {
     typeToken ~>! ident ^^ {
       case id => Ast.TemplateParam.Type(id)
     }
   }
 
-  def defTemplateInterfaceParam: Parser[Ast.TemplateParam.Interface] = {
+  def templateParamInterface: Parser[Ast.TemplateParam.Interface] = {
     (interface ~>! ident) ~! (colon ~>! node(qualIdent)) ^^ {
       case id ~ iface => Ast.TemplateParam.Interface(id, iface)
     }
   }
 
-  private def templateParamNode: Parser[AstNode[Ast.TemplateParam.Node]] = {
-    node(defTemplateConstantParam) |
-      node(defTemplateTypeParam) |
-      node(defTemplateInterfaceParam) |
-      failure("template parameter definition expected")
+  private def templateParamNode: Parser[AstNode[Ast.TemplateParam]] = {
+    node(templateParamConstant) |
+      node(templateParamType) |
+      node(templateParamInterface) |
+      failure("template parameter expected")
   }
 
   private def templateParamList: Parser[Ast.TemplateParamList] = {
-    def id(x: Ast.Annotated[AstNode[Ast.TemplateParam.Node]]) = x
+    def id(x: Ast.Annotated[AstNode[Ast.TemplateParam]]) = x
 
     def params = annotatedElementSequence(templateParamNode, comma, id)
 
@@ -1068,7 +1068,7 @@ object Parser extends Parsers {
   }
 
   def defModuleTemplate: Parser[Ast.DefModuleTemplate] = {
-    def id(x: Ast.Annotated[AstNode[Ast.TemplateParam.Node]]) = x
+    def id(x: Ast.Annotated[AstNode[Ast.TemplateParam]]) = x
     def params = annotatedElementSequence(templateParamNode, comma, id)
 
     (module ~> template ~>! ident) ~! templateParamList ~! (lbrace ~>! moduleMembers <~! rbrace) ^^ {
