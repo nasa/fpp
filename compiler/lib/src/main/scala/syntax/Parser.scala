@@ -1056,11 +1056,22 @@ object Parser extends Parsers {
       failure("template parameter definition expected")
   }
 
+  private def templateParamList: Parser[Ast.TemplateParamList] = {
+    def id(x: Ast.Annotated[AstNode[Ast.DefTemplateParam.Node]]) = x
+
+    def params = annotatedElementSequence(templateParamDef, comma, id)
+
+    opt(lparen ~>! params <~! rparen) ^^ {
+      case Some(params) => params
+      case None => Nil
+    }
+  }
+
   def defModuleTemplate: Parser[Ast.DefModuleTemplate] = {
     def id(x: Ast.Annotated[AstNode[Ast.DefTemplateParam.Node]]) = x
     def params = annotatedElementSequence(templateParamDef, comma, id)
 
-    (module ~> template ~>! ident) ~! (lparen ~>! params <~! rparen) ~! (lbrace ~>! moduleMembers <~! rbrace) ^^ {
+    (module ~> template ~>! ident) ~! templateParamList ~! (lbrace ~>! moduleMembers <~! rbrace) ^^ {
       case name ~ params ~ members => Ast.DefModuleTemplate(name, params, members)
     }
   }

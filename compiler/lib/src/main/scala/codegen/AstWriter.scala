@@ -2,9 +2,6 @@ package fpp.compiler.codegen
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
-import fpp.compiler.ast.Ast.QualIdent
-import fpp.compiler.ast.Ast.Annotated
-import fpp.compiler.ast.Ast.SpecTemplateExpand
 
 /** Write out an FPP AST */
 object AstWriter extends AstVisitor with LineUtils {

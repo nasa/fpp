@@ -10,6 +10,9 @@ object Ast {
   /** Formal parameter list */
   type FormalParamList = List[Annotated[AstNode[FormalParam]]]
 
+  /** Template parameter list */
+  type TemplateParamList = List[Annotated[AstNode[DefTemplateParam.Node]]]
+
   /** Identifier */
   type Ident = String
 
@@ -177,8 +180,6 @@ object Ast {
       interface: AstNode[QualIdent],
     ) extends Node
   }
-
-  type TemplateParamList = List[Annotated[AstNode[DefTemplateParam.Node]]]
 
   /** Module template definition */
   final case class DefModuleTemplate(
