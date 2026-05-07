@@ -728,6 +728,7 @@ class ParserSpec extends AnyWordSpec {
     parseAllOK(
       Parser.transUnit,
       List(
+        "module template T {}",
         """
         module template T(
           constant c: U32,
