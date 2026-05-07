@@ -266,19 +266,6 @@ object FppWriter extends AstVisitor with LineUtils {
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
   ) = {
-    def templateParam(tp: Ast.TemplateParam.Node) = {
-      tp match {
-        case Ast.TemplateParam.Constant(name, typeName) =>
-          lines(s"constant $name: ").
-            join("") (typeNameNode(typeName))
-        case Ast.TemplateParam.Type(name) =>
-          lines(s"type $name")
-        case Ast.TemplateParam.Interface(name, interface) =>
-          lines(s"interface $name: ").
-            join("") (qualIdent(interface.data))
-      }
-    }
-
     val (_, node, _) = aNode
     val data = node.data
     lines (s"module template ${ident(data.name)}").
@@ -328,7 +315,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines(s"port ${ident(data.name)}").
-      join ("") (formalParamList(data.params)).
+      join ("") (paramList (formalParam) (data.params)).
       joinOpt (data.returnType) (" -> ") (typeNameNode)
   }
 
@@ -494,7 +481,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val data = node.data
     val kind = data.kind.toString
     lines(s"$kind command ${ident(data.name)}").
-      join ("") (formalParamList(data.params)).
+      join ("") (paramList (formalParam) (data.params)).
       joinOptWithBreak (data.opcode) ("opcode ") (exprNode).
       joinOptWithBreak (data.priority) ("priority ") (exprNode).
       joinOptWithBreak (data.queueFull) ("") (applyToData(queueFull))
@@ -559,7 +546,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val data = node.data
     val severity = data.severity.toString
     lines(s"event ${ident(data.name)}").
-      join ("") (formalParamList(data.params)).
+      join ("") (paramList (formalParam) (data.params)).
       joinWithBreak ("severity ") (lines(severity)).
       joinOptWithBreak (data.id) ("id ") (exprNode).
       joinWithBreak ("format ") (string(data.format.data)).
@@ -592,7 +579,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines(s"internal port ${ident(data.name)}").
-      join ("") (formalParamList(data.params)).
+      join ("") (paramList (formalParam) (data.params)).
       joinOptWithBreak (data.priority) ("priority ") (exprNode).
       joinOptWithBreak (data.queueFull) ("") (queueFull)
   }
@@ -897,12 +884,12 @@ object FppWriter extends AstVisitor with LineUtils {
     lines(name).join (": ") (typeNameNode(fp.typeName))
   }
 
-  private def formalParamList(fpl: Ast.FormalParamList) =
-    fpl match {
+  private def paramList[T] (f: T => List[Line]) (params: List[Ast.Annotated[AstNode[T]]]) =
+    params match {
       case Nil => Nil
       case _ =>
         lines("(") ++
-        fpl.flatMap(annotateNode(formalParam)).map(indentIn) ++
+        params.flatMap(annotateNode(f)).map(indentIn) ++
         lines(")")
     }
 
@@ -914,6 +901,12 @@ object FppWriter extends AstVisitor with LineUtils {
   private def portInstanceId(pii: Ast.PortInstanceIdentifier) =
     qualIdent(pii.interfaceInstance.data).
     addSuffix(s".${ident(pii.portName.data)}")
+
+  private def prefixWithDictionary(s: String, isDictionaryDef: Boolean) =
+    if isDictionaryDef then
+      s"dictionary $s"
+    else
+      s
 
   private def qualIdent(qid: Ast.QualIdent): Out =
     lines(qualIdentString(qid))
@@ -948,6 +941,19 @@ object FppWriter extends AstVisitor with LineUtils {
       join (" ") (typeNameNode(member.typeName)).
       joinOpt (member.format) (" format ") (applyToData(string))
 
+  private def templateParam(tp: Ast.TemplateParam.Node) = {
+    tp match {
+      case Ast.TemplateParam.Constant(name, typeName) =>
+        lines(s"constant $name: ").
+          join("") (typeNameNode(typeName))
+      case Ast.TemplateParam.Type(name) =>
+        lines(s"type $name")
+      case Ast.TemplateParam.Interface(name, interface) =>
+        lines(s"interface $name: ").
+          join("") (qualIdent(interface.data))
+    }
+  }
+
   private def tlmChannelId(tci: Ast.TlmChannelIdentifier) =
     qualIdent(tci.componentInstance.data).
     addSuffix(s".${ident(tci.channelName.data)}")
@@ -964,9 +970,4 @@ object FppWriter extends AstVisitor with LineUtils {
 
   private def unop(op: Ast.Unop) = op.toString
 
-  private def prefixWithDictionary(s: String, isDictionaryDef: Boolean) =
-    if isDictionaryDef then
-      s"dictionary $s"
-    else
-      s
 }
