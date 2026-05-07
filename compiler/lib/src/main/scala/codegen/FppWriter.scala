@@ -279,17 +279,17 @@ object FppWriter extends AstVisitor with LineUtils {
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
   ): Out = {
-    def templateParam(tp: AstNode[Ast.TemplateParameter]) =
+    def templateParam(tp: AstNode[Ast.TemplateArg]) =
       tp.data match {
-        case Ast.TemplateConstantParameter(e) =>
+        case Ast.TemplateArgConstant(e) =>
           lines("constant").join(" ") (exprNode(e))
-        case Ast.TemplateTypeParameter(name) =>
+        case Ast.TemplateArgType(name) =>
           lines("type").join(" ") (typeNameNode(name))
-        case Ast.TemplateInterfaceParameter(i) =>
+        case Ast.TemplateArgInterface(i) =>
           lines("interface").join(" ") (qualIdent(i.data))
       }
 
-    def templateParamValueList(fpl: List[AstNode[Ast.TemplateParameter]]) =
+    def templateParamValueList(fpl: List[AstNode[Ast.TemplateArg]]) =
       fpl match {
         case Nil => Nil
         case _ =>

@@ -188,14 +188,14 @@ object Ast {
     members: List[ModuleMember]
   )
 
-  sealed trait TemplateParameter
-  final case class TemplateConstantParameter(expr: AstNode[Expr]) extends TemplateParameter
-  final case class TemplateTypeParameter(typeName: AstNode[TypeName]) extends TemplateParameter
-  final case class TemplateInterfaceParameter(instance: AstNode[QualIdent]) extends TemplateParameter
+  sealed trait TemplateArg
+  final case class TemplateArgConstant(expr: AstNode[Expr]) extends TemplateArg
+  final case class TemplateArgType(typeName: AstNode[TypeName]) extends TemplateArg
+  final case class TemplateArgInterface(instance: AstNode[QualIdent]) extends TemplateArg
 
   final case class SpecTemplateExpand(
     template: AstNode[QualIdent],
-    params: List[AstNode[TemplateParameter]]
+    params: List[AstNode[TemplateArg]]
   )
 
   /** Port definition */

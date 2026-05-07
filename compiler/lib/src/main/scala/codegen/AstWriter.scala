@@ -205,13 +205,13 @@ object AstWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
 
-    def templateParam(tp: AstNode[Ast.TemplateParameter]): Out = {
+    def templateParam(tp: AstNode[Ast.TemplateArg]): Out = {
       tp.data match {
-        case Ast.TemplateConstantParameter(e) =>
+        case Ast.TemplateArgConstant(e) =>
           addPrefix("constant", exprNode) (e)
-        case Ast.TemplateTypeParameter(name) =>
+        case Ast.TemplateArgType(name) =>
           addPrefix("type", typeNameNode) (name)
-        case Ast.TemplateInterfaceParameter(i) =>
+        case Ast.TemplateArgInterface(i) =>
           addPrefix(s"interface", qualIdent) (i.data)
       }
     }
