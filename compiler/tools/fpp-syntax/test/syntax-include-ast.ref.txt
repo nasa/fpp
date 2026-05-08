@@ -428,15 +428,19 @@ def module
   @< Location specifier
   def module template
     ident Tmpl
-    params @ Constant template parameter
-           constant c type name qual ident SomeType
-           @< Constant parameter
-           @ Type template parameter
-           type TypeParam
-           @< Type parameter
-           @ Interface instance template parameter
-           interface inst qual ident InterfaceDef
-           @< Instance parameter
+    @ Constant template parameter
+    constant template param
+      type name qual ident SomeType
+    @< Constant parameter
+    @ Type template parameter
+    type template param
+      ident TypeParam
+    @< Type parameter
+    @ Interface instance template parameter
+    interface template param
+      ident inst
+      qual ident InterfaceDef
+    @< Instance parameter
     def array
       ident Arr
       size literal int 3

@@ -181,7 +181,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def module template") ++
     List.concat(
       ident(data.name),
-      addPrefix("params", templateParamList) (data.params),
+      templateParamList(data.params),
       data.members.flatMap(moduleMember)
     ).map(indentIn)
   }
@@ -884,11 +884,17 @@ object AstWriter extends AstVisitor with LineUtils {
   private def templateParam(tp: Ast.TemplateParam) = {
     tp match {
       case Ast.TemplateParam.Constant(name, typeName) =>
-        addPrefix(s"constant $name", typeNameNode) (typeName)
+        line("constant template param") ::
+        typeNameNode(typeName).map(indentIn)
       case Ast.TemplateParam.Type(name) =>
-        lines(s"type $name")
+        line(s"type template param") ::
+        ident(name).map(indentIn)
       case Ast.TemplateParam.Interface(name, interface) =>
-        addPrefix(s"interface $name", qualIdent) (interface.data)
+        line(s"interface template param") ::
+        List.concat(
+          ident(name),
+          qualIdent(interface.data)
+        ).map(indentIn)
     }
   }
 
