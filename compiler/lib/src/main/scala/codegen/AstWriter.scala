@@ -192,7 +192,6 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-
     lines("expand") ++
     List.concat(
       qualIdent(data.template.data),
