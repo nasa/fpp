@@ -499,7 +499,7 @@ class ParserSpec extends AnyWordSpec {
     parseAllOK(
       Parser.specTemplateExpand,
       List(
-        "expand T()",
+        "expand T",
         "expand M.T()",
         "expand M.T(constant 1)",
         "expand M.T(constant 1, constant 2)",
