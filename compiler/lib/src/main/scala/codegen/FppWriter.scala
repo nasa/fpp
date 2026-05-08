@@ -279,30 +279,11 @@ object FppWriter extends AstVisitor with LineUtils {
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
   ): Out = {
-    def templateParam(tp: AstNode[Ast.TemplateArg]) =
-      tp.data match {
-        case Ast.TemplateArg.Constant(e) =>
-          lines("constant").join(" ") (exprNode(e))
-        case Ast.TemplateArg.Type(name) =>
-          lines("type").join(" ") (typeNameNode(name))
-        case Ast.TemplateArg.Interface(i) =>
-          lines("interface").join(" ") (qualIdent(i.data))
-      }
-
-    def templateParamValueList(fpl: List[AstNode[Ast.TemplateArg]]) =
-      fpl match {
-        case Nil => Nil
-        case _ =>
-          lines("(") ++
-          fpl.flatMap(templateParam).map(indentIn) ++
-          lines(")")
-      }
-
     val (_, node, _) = aNode
     val data = node.data
     lines("expand").
       join(" ") (qualIdent(data.template.data)).
-      join ("") (templateParamValueList(data.args))
+      join ("") (templateArgList(data.args))
   }
 
   override def defPortAnnotatedNode(
@@ -889,6 +870,27 @@ object FppWriter extends AstVisitor with LineUtils {
         params.flatMap(annotateNode(f)).map(indentIn) ++
         lines(")")
     }
+
+  private def templateArg(arg: Ast.TemplateArg) =
+    arg match {
+      case Ast.TemplateArg.Constant(e) =>
+        lines("constant").join(" ") (exprNode(e))
+      case Ast.TemplateArg.Type(name) =>
+        lines("type").join(" ") (typeNameNode(name))
+      case Ast.TemplateArg.Interface(i) =>
+        lines("interface").join(" ") (qualIdent(i.data))
+    }
+
+  private def argList[T] (f: T => List[Line]) (args: List[AstNode[T]]) =
+    args match {
+      case Nil => Nil
+      case _ =>
+        lines("(") ++
+        args.flatMap({ case node => f(node.data) }).map(indentIn) ++
+        lines(")")
+    }
+
+  private val templateArgList = argList (templateArg)
 
   private def ident(id: Ast.Ident) =
     if (Lexer.reservedWordSet.contains(id)) "$" ++ id else id
