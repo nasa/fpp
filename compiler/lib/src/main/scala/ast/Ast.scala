@@ -263,20 +263,6 @@ object Ast {
     members: List[StateMember]
   )
 
-  /** Template argument */
-  sealed trait TemplateArg
-  object TemplateArg {
-    final case class Constant(expr: AstNode[Expr]) extends TemplateArg
-    final case class Type(typeName: AstNode[TypeName]) extends TemplateArg
-    final case class Interface(instance: AstNode[QualIdent]) extends TemplateArg
-  }
-
-  /** Template expansion specifier */
-  final case class SpecTemplateExpand(
-    template: AstNode[QualIdent],
-    args: TemplateArgList
-  )
-
   /** State member */
   final case class StateMember(node: Annotated[StateMember.Node])
   object StateMember {
@@ -794,6 +780,20 @@ object Ast {
     stateMachine: AstNode[QualIdent],
     priority: Option[AstNode[Expr]],
     queueFull: Option[QueueFull]
+  )
+
+  /** Template argument */
+  sealed trait TemplateArg
+  object TemplateArg {
+    final case class Constant(expr: AstNode[Expr]) extends TemplateArg
+    final case class Type(typeName: AstNode[TypeName]) extends TemplateArg
+    final case class Interface(instance: AstNode[QualIdent]) extends TemplateArg
+  }
+
+  /** Template expansion specifier */
+  final case class SpecTemplateExpand(
+    template: AstNode[QualIdent],
+    args: TemplateArgList
   )
 
   /** Telemetry channel specifier */
