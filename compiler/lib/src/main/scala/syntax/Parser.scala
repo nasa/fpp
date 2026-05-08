@@ -407,16 +407,15 @@ object Parser extends Parsers {
     }
   }
 
-  def formalParamList: Parser[Ast.FormalParamList] = {
-    def id(x: Ast.Annotated[AstNode[Ast.FormalParam]]) = x
-
-    def params = annotatedElementSequence(node(formalParam), comma, id)
-
+  private def paramList[T](param: Parser[T]): Parser[List[Ast.Annotated[AstNode[T]]]] = {
+    def params = annotatedElementSequence(node(param), comma, { case x => x })
     opt(lparen ~>! params <~! rparen) ^^ {
       case Some(params) => params
       case None => Nil
     }
   }
+
+  val formalParamList = paramList(formalParam)
 
   def index: Parser[AstNode[Ast.Expr]] = lbracket ~>! exprNode <~! rbracket
 
@@ -430,6 +429,7 @@ object Parser extends Parsers {
         Ast.ModuleMember.DefComponentInstance(n)) |
       node(defConstant) ^^ (n => Ast.ModuleMember.DefConstant(n)) |
       node(defEnum) ^^ (n => Ast.ModuleMember.DefEnum(n)) |
+      node(defModuleTemplate) ^^ (n => Ast.ModuleMember.DefModuleTemplate(n)) |
       node(defModule) ^^ (n => Ast.ModuleMember.DefModule(n)) |
       node(defPort) ^^ (n => Ast.ModuleMember.DefPort(n)) |
       node(defStateMachine) ^^ (n =>
@@ -438,6 +438,7 @@ object Parser extends Parsers {
       node(defTopology) ^^ (n => Ast.ModuleMember.DefTopology(n)) |
       node(specInclude) ^^ (n => Ast.ModuleMember.SpecInclude(n)) |
       node(specLoc) ^^ (n => Ast.ModuleMember.SpecLoc(n)) |
+      node(specTemplateExpand) ^^ (n => Ast.ModuleMember.SpecTemplateExpand(n)) |
       failure("module member expected")
   }
 
@@ -1029,6 +1030,60 @@ object Parser extends Parsers {
       failure("type name expected")
   }
 
+  private def templateParam: Parser[Ast.TemplateParam] = {
+    def paramConstant: Parser[Ast.TemplateParam.Constant] = {
+      (constant ~>! ident) ~! (colon ~>! node(typeName)) ^^ {
+        case id ~ tn => Ast.TemplateParam.Constant(id, tn)
+      }
+    }
+
+    def paramType: Parser[Ast.TemplateParam.Type] = {
+      typeToken ~>! ident ^^ {
+        case id => Ast.TemplateParam.Type(id)
+      }
+    }
+
+    def paramInterface: Parser[Ast.TemplateParam.Interface] = {
+      (interface ~>! ident) ~! (colon ~>! node(qualIdent)) ^^ {
+        case id ~ iface => Ast.TemplateParam.Interface(id, iface)
+      }
+    }
+    paramConstant |
+      paramType |
+      paramInterface |
+      failure("template parameter expected")
+  }
+
+  val templateParamList = paramList(templateParam)
+
+  def defModuleTemplate: Parser[Ast.DefModuleTemplate] = {
+    (module ~> template ~>! ident) ~! templateParamList ~! (lbrace ~>! moduleMembers <~! rbrace) ^^ {
+      case name ~ params ~ members => Ast.DefModuleTemplate(name, params, members)
+    }
+  }
+
+  def templateArg: Parser[Ast.TemplateArg] = {
+    (constant ~>! exprNode) ^^ { case e => Ast.TemplateArg.Constant(e) } |
+      typeToken ~>! node(typeName) ^^ { case tn => Ast.TemplateArg.Type(tn) } |
+      interface ~>! node(qualIdent) ^^ { case i => Ast.TemplateArg.Interface(i) } |
+      failure("template argument expected")
+  }
+
+  private def argList[T](arg: Parser[T]): Parser[List[AstNode[T]]] = {
+    opt(lparen ~>! elementSequence(node(arg), comma) <~! rparen) ^^ {
+      case Some(args) => args
+      case None => Nil
+    }
+  }
+
+  val templateArgList = argList(templateArg)
+
+  def specTemplateExpand: Parser[Ast.SpecTemplateExpand] = {
+    (expand ~>! node(qualIdent)) ~! templateArgList ^^ {
+      case id ~ args => Ast.SpecTemplateExpand(id, args)
+    }
+  }
+
   override def commit[T](p: => Parser[T]) = Parser { in =>
     def setError(e: Error) = {
       error match {
@@ -1107,8 +1162,6 @@ object Parser extends Parsers {
 
   private def choice = accept("choice", { case t: Token.CHOICE => t })
 
-  private def lbrace = accept("{", { case t: Token.LBRACE => t })
-
   private def colon = accept(":", { case t: Token.COLON => t })
 
   private def comma = accept(",", { case t: Token.COMMA => t })
@@ -1163,6 +1216,8 @@ object Parser extends Parsers {
 
   private def exit = accept("exit", { case t: Token.EXIT => t })
 
+  private def expand = accept("expand", { case t: Token.EXPAND => t })
+
   private def external = accept("external", { case t : Token.EXTERNAL => t })
 
   private def falseToken = accept("false", { case t : Token.FALSE => t })
@@ -1208,9 +1263,11 @@ object Parser extends Parsers {
 
   private def instance = accept("instance", { case t: Token.INSTANCE => t })
 
+  private def interface = accept("interface", { case t: Token.INTERFACE => t })
+
   private def internal = accept("internal", { case t: Token.INTERNAL => t })
 
-  private def interface = accept("interface", { case t: Token.INTERFACE => t })
+  private def lbrace = accept("{", { case t: Token.LBRACE => t })
 
   private def lbracket = accept("[", { case t: Token.LBRACKET => t })
 
@@ -1329,6 +1386,8 @@ object Parser extends Parsers {
 
   private def telemetry = accept("telemetry", { case t: Token.TELEMETRY => t })
 
+  private def template = accept("template", { case t: Token.TEMPLATE => t })
+
   private def text = accept("text", { case t: Token.TEXT => t })
 
   private def throttle = accept("throttle", { case t: Token.THROTTLE => t })
@@ -1348,6 +1407,7 @@ object Parser extends Parsers {
   private def warning = accept("warning", { case t: Token.WARNING => t })
 
   private def yellow = accept("yellow", { case t: Token.YELLOW => t })
+
 
   /** The first error seen */
   private var error: Option[Error] = None
