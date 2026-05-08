@@ -176,24 +176,12 @@ object AstWriter extends AstVisitor with LineUtils {
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
   ) = {
-    def templateParam(tp: Ast.TemplateParam) = {
-      tp match {
-        case Ast.TemplateParam.Constant(name, typeName) =>
-          addPrefix(s"constant $name", typeNameNode) (typeName)
-        case Ast.TemplateParam.Type(name) =>
-          lines(s"type $name")
-        case Ast.TemplateParam.Interface(name, interface) =>
-          addPrefix(s"interface $name", qualIdent) (interface.data)
-      }
-    }
-
     val (_, node, _) = aNode
     val data = node.data
     lines("def module template") ++
     List.concat(
       ident(data.name),
-      addPrefix("params", (x: List[Ast.Annotated[AstNode[Ast.TemplateParam]]]) =>
-        x.flatMap(annotateNode(templateParam))) (data.params),
+      addPrefix("params", templateParamList) (data.params),
       data.members.flatMap(moduleMember)
     ).map(indentIn)
   }
@@ -205,21 +193,10 @@ object AstWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
 
-    def templateParam(tp: AstNode[Ast.TemplateArg]): Out = {
-      tp.data match {
-        case Ast.TemplateArg.Constant(e) =>
-          addPrefix("constant", exprNode) (e)
-        case Ast.TemplateArg.Type(name) =>
-          addPrefix("type", typeNameNode) (name)
-        case Ast.TemplateArg.Interface(i) =>
-          addPrefix(s"interface", qualIdent) (i.data)
-      }
-    }
-
     lines("expand") ++
     List.concat(
       qualIdent(data.template.data),
-      data.args.flatMap(templateParam)
+      templateArgList(data.args)
     ).map(indentIn)
   }
 
@@ -904,6 +881,34 @@ object AstWriter extends AstVisitor with LineUtils {
 
   private def formalParamList(params: Ast.FormalParamList) =
     params.flatMap(annotateNode(formalParam))
+
+  private def templateParam(tp: Ast.TemplateParam) = {
+    tp match {
+      case Ast.TemplateParam.Constant(name, typeName) =>
+        addPrefix(s"constant $name", typeNameNode) (typeName)
+      case Ast.TemplateParam.Type(name) =>
+        lines(s"type $name")
+      case Ast.TemplateParam.Interface(name, interface) =>
+        addPrefix(s"interface $name", qualIdent) (interface.data)
+    }
+  }
+
+  private def templateParamList(params: Ast.TemplateParamList) =
+    params.flatMap(annotateNode(templateParam))
+
+  private def templateArg(tp: AstNode[Ast.TemplateArg]) = {
+    tp.data match {
+      case Ast.TemplateArg.Constant(e) =>
+        addPrefix("constant", exprNode) (e)
+      case Ast.TemplateArg.Type(name) =>
+        addPrefix("type", typeNameNode) (name)
+      case Ast.TemplateArg.Interface(i) =>
+        addPrefix(s"interface", qualIdent) (i.data)
+    }
+  }
+
+  private def templateArgList(args: Ast.TemplateArgList) =
+    args.flatMap(templateArg)
 
   private def ident(s: String) = lines("ident " ++ s)
 

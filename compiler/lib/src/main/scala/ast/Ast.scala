@@ -13,6 +13,9 @@ object Ast {
   /** Template parameter list */
   type TemplateParamList = List[Annotated[AstNode[TemplateParam]]]
 
+  /** Template argument list */
+  type TemplateArgList = List[AstNode[TemplateArg]]
+
   /** Identifier */
   type Ident = String
 
@@ -198,7 +201,7 @@ object Ast {
 
   final case class SpecTemplateExpand(
     template: AstNode[QualIdent],
-    args: List[AstNode[TemplateArg]]
+    args: TemplateArgList
   )
 
   /** Port definition */
