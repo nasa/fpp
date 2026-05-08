@@ -219,8 +219,8 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("expand") ++
     List.concat(
       qualIdent(data.template.data),
-      data.args.flatMap(templateParam).map(indentIn)
-    )
+      data.args.flatMap(templateParam)
+    ).map(indentIn)
   }
 
   override def defPortAnnotatedNode(
