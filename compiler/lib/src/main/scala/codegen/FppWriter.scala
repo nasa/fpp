@@ -293,7 +293,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines(s"port ${ident(data.name)}").
-      join ("") (paramList (formalParam) (data.params)).
+      join ("") (formalParamList(data.params)).
       joinOpt (data.returnType) (" -> ") (typeNameNode)
   }
 
@@ -459,7 +459,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val data = node.data
     val kind = data.kind.toString
     lines(s"$kind command ${ident(data.name)}").
-      join ("") (paramList (formalParam) (data.params)).
+      join ("") (formalParamList(data.params)).
       joinOptWithBreak (data.opcode) ("opcode ") (exprNode).
       joinOptWithBreak (data.priority) ("priority ") (exprNode).
       joinOptWithBreak (data.queueFull) ("") (applyToData(queueFull))
@@ -524,7 +524,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val data = node.data
     val severity = data.severity.toString
     lines(s"event ${ident(data.name)}").
-      join ("") (paramList (formalParam) (data.params)).
+      join ("") (formalParamList(data.params)).
       joinWithBreak ("severity ") (lines(severity)).
       joinOptWithBreak (data.id) ("id ") (exprNode).
       joinWithBreak ("format ") (string(data.format.data)).
@@ -557,7 +557,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines(s"internal port ${ident(data.name)}").
-      join ("") (paramList (formalParam) (data.params)).
+      join ("") (formalParamList(data.params)).
       joinOptWithBreak (data.priority) ("priority ") (exprNode).
       joinOptWithBreak (data.queueFull) ("") (queueFull)
   }
@@ -861,6 +861,8 @@ object FppWriter extends AstVisitor with LineUtils {
     val name = prefix ++ ident(fp.name)
     lines(name).join (": ") (typeNameNode(fp.typeName))
   }
+
+  private val formalParamList = paramList (formalParam)
 
   private def paramList[T] (f: T => List[Line]) (params: List[Ast.Annotated[AstNode[T]]]) =
     params match {
