@@ -904,11 +904,14 @@ object AstWriter extends AstVisitor with LineUtils {
   private def templateArg(tp: AstNode[Ast.TemplateArg]) = {
     tp.data match {
       case Ast.TemplateArg.Constant(e) =>
-        addPrefix("constant", exprNode) (e)
+        line("constant template arg") ::
+        exprNode(e).map(indentIn)
       case Ast.TemplateArg.Type(name) =>
-        addPrefix("type", typeNameNode) (name)
+        line("type template arg") ::
+        typeNameNode(name).map(indentIn)
       case Ast.TemplateArg.Interface(i) =>
-        addPrefix(s"interface", qualIdent) (i.data)
+        line("interface template param") ::
+        qualIdent(i.data).map(indentIn)
     }
   }
 

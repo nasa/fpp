@@ -444,9 +444,12 @@ def module
         qual ident inst
   expand
     qual ident Tmpl
-    constant literal int 10
-    type type name qual ident Type
-    interface qual ident instance1
+    constant template arg
+      literal int 10
+    type template arg
+      type name qual ident Type
+    interface template param
+      qual ident instance1
 @< Definitions and specifiers
 @ Type names
 def module
