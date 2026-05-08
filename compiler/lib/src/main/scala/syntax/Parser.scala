@@ -1030,28 +1030,27 @@ object Parser extends Parsers {
       failure("type name expected")
   }
 
-  def templateParamConstant: Parser[Ast.TemplateParam.Constant] = {
-    (constant ~>! ident) ~! (colon ~>! node(typeName)) ^^ {
-      case id ~ tn => Ast.TemplateParam.Constant(id, tn)
-    }
-  }
-
-  def templateParamType: Parser[Ast.TemplateParam.Type] = {
-    typeToken ~>! ident ^^ {
-      case id => Ast.TemplateParam.Type(id)
-    }
-  }
-
-  def templateParamInterface: Parser[Ast.TemplateParam.Interface] = {
-    (interface ~>! ident) ~! (colon ~>! node(qualIdent)) ^^ {
-      case id ~ iface => Ast.TemplateParam.Interface(id, iface)
-    }
-  }
-
   private def templateParam: Parser[Ast.TemplateParam] = {
-    templateParamConstant |
-      templateParamType |
-      templateParamInterface |
+    def paramConstant: Parser[Ast.TemplateParam.Constant] = {
+      (constant ~>! ident) ~! (colon ~>! node(typeName)) ^^ {
+        case id ~ tn => Ast.TemplateParam.Constant(id, tn)
+      }
+    }
+
+    def paramType: Parser[Ast.TemplateParam.Type] = {
+      typeToken ~>! ident ^^ {
+        case id => Ast.TemplateParam.Type(id)
+      }
+    }
+
+    def paramInterface: Parser[Ast.TemplateParam.Interface] = {
+      (interface ~>! ident) ~! (colon ~>! node(qualIdent)) ^^ {
+        case id ~ iface => Ast.TemplateParam.Interface(id, iface)
+      }
+    }
+    paramConstant |
+      paramType |
+      paramInterface |
       failure("template parameter expected")
   }
 
@@ -1063,35 +1062,24 @@ object Parser extends Parsers {
     }
   }
 
-  def templateArgConstant: Parser[Ast.TemplateArg.Constant] = {
-    (constant ~>! exprNode) ^^ {
-      case e => Ast.TemplateArg.Constant(e)
+  def templateArg: Parser[Ast.TemplateArg] = {
+    (constant ~>! exprNode) ^^ { case e => Ast.TemplateArg.Constant(e) } |
+      typeToken ~>! node(typeName) ^^ { case tn => Ast.TemplateArg.Type(tn) } |
+      interface ~>! node(qualIdent) ^^ { case i => Ast.TemplateArg.Interface(i) } |
+      failure("template argument expected")
+  }
+
+  private def argList[T](arg: Parser[T]): Parser[List[AstNode[T]]] = {
+    opt(lparen ~>! elementSequence(node(arg), comma) <~! rparen) ^^ {
+      case Some(args) => args
+      case None => Nil
     }
   }
 
-  def templateArgType: Parser[Ast.TemplateArg.Type] = {
-    typeToken ~>! node(typeName) ^^ {
-      case tn => Ast.TemplateArg.Type(tn)
-    }
-  }
-
-  def templateArgInterface: Parser[Ast.TemplateArg.Interface] = {
-    interface ~>! node(qualIdent) ^^ {
-      case i => Ast.TemplateArg.Interface(i)
-    }
-  }
-
-  private def templateArg: Parser[AstNode[Ast.TemplateArg]] = {
-    node(templateArgConstant) |
-      node(templateArgType) |
-      node(templateArgInterface) |
-      failure("template parameter expected")
-  }
+  val templateArgList = argList(templateArg)
 
   def specTemplateExpand: Parser[Ast.SpecTemplateExpand] = {
-    def args = elementSequence(templateArg, comma)
-
-    (expand ~>! node(qualIdent)) ~! (lparen ~>! args <~! rparen) ^^ {
+    (expand ~>! node(qualIdent)) ~! templateArgList ^^ {
       case id ~ args => Ast.SpecTemplateExpand(id, args)
     }
   }
