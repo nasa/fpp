@@ -72,9 +72,11 @@ of stem:[v'_1] followed by the characters of stem:[v'_2].
 
 . Otherwise if _op_ is `pass:[<<]`, then
 
+.. Let _T_ be the type of the expression.
+
 .. Evaluate stem:[e_1] to a value stem:[v_1].
 <<Type-Checking_Type-Conversion,Convert>>
-stem:[v_1] to a value stem:[n] of type _Integer_.
+stem:[v_1] to a value stem:[n] of type _T_.
 
 .. Evaluate stem:[e_2] to a value stem:[v_2].
 <<Type-Checking_Type-Conversion,Convert>>
@@ -87,8 +89,8 @@ This is equivalent to multiplication by stem:[2^s].
 
 . Otherwise _op_ is `pass:[>>]`
 
-.. Perform the first three steps for a binary operation stem:[e_1] `pass:[<<]` 
-  stem:[e_2].
+.. Perform the first four steps for a binary operation stem:[e_1] `pass:[<<]` 
+stem:[e_2].
 
 .. Perform a signed right shift by _s_ places on stem:[n].
 This is equivalent to floor division by stem:[2^s].
