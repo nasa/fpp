@@ -9295,7 +9295,7 @@ on numbers or concatenates strings.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>&gt;&gt;</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bitwise right shift</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Signed bitwise right shift</p></td>
 </tr>
 </tbody>
 </table>
@@ -9944,44 +9944,34 @@ associativity for resolving expressions with equal precedence.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
+<col style="width: 50%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Expression</th>
-<th class="tableblock halign-left valign-top">Precedence Level</th>
 <th class="tableblock halign-left valign-top">Associativity</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dot expressions \$e\$ <code>.</code> \$i\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e\$ <code>.</code> \$i\$</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Unary negation expressions <code>-</code> \$e\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-</code> \$e\$</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Multiplication expressions \$e_1\$ <code>*</code> \$e_2\$ and division expressions \$e_1\$ <code>/</code> \$e_2\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>*</code> \$e_2\$ and \$e_1\$ <code>/</code> \$e_2\$</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Left</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Addition expressions \$e_1\$ <code>+</code> \$e_2\$
-(<a href="#Expressions_Binary-Expressions">arithmetic addition</a> or
-<a href="#Expressions_Binary-Expressions">string concatenation</a>) and subtraction
-expressions \$e_1\$ <code>-</code> \$e_2\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>+</code> \$e_2\$  and \$e_1\$ <code>-</code> \$e_2\$</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Left</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bitwise left-shift expressions \$e_1\$ <code>&lt;&lt;</code> \$e_2\$ and right-shift expressions \$e_1\$ <code>&gt;&gt;</code> \$e_2\$</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>&lt;&lt;</code> \$e_2\$ and \$e_1\$ <code>&gt;&gt;</code> \$e_2\$</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Left</p></td>
 </tr>
 </tbody>
@@ -13236,7 +13226,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-05-14 14:34:11 -0700
+Last updated 2026-05-14 14:47:16 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

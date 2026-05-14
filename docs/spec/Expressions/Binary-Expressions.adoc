@@ -33,7 +33,7 @@ _op_ is one of the following:
 |Bitwise left shift
 
 |`>>`
-|Bitwise right shift
+|Signed bitwise right shift
 
 |======================================
 
