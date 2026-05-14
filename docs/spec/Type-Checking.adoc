@@ -262,7 +262,7 @@ the semantic analyzer does the following:
 
 . For each stem:[i] in stem:[[1,2\]]
 
-.. Compute the type stem:[T_1] of stem:[e_1].
+.. Compute the type stem:[T_i] of stem:[e_i].
 
 .. Check that stem:[T_i] is an 
   <<Types_Internal-Types_Integer-Types,integer type>>
