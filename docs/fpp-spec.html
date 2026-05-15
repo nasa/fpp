@@ -1003,7 +1003,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Type-Checking_Sizeof-Expressions">18.9. Sizeof Expressions</a></li>
 <li><a href="#Type-Checking_Struct-Expressions">18.10. Struct Expressions</a></li>
 <li><a href="#Type-Checking_Unary-Negation-Expressions">18.11. Unary Negation Expressions</a></li>
-<li><a href="#Type-Checking_Binary-Expressions">18.12. Binary Expressions</a></li>
+<li><a href="#Type-Checking_Binary-Expressions">18.12. Binary Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Type-Checking_Binary-Expressions_Arithmetic-and-Concatenation">18.12.1. Arithmetic and Concatenation</a></li>
+<li><a href="#Type-Checking_Binary-Expressions_Shifting">18.12.2. Shifting</a></li>
+</ul>
+</li>
 <li><a href="#Type-Checking_Parenthesis-Expressions">18.13. Parenthesis Expressions</a></li>
 <li><a href="#Type-Checking_Identical-Types">18.14. Identical Types</a></li>
 <li><a href="#Type-Checking_Type-Conversion">18.15. Type Conversion</a></li>
@@ -1333,7 +1338,9 @@ yellow</code></pre>
 [
 ]
 {
-}</code></pre>
+}
+&gt;&gt;
+&lt;&lt;</code></pre>
 </div>
 </div>
 </div>
@@ -9282,6 +9289,14 @@ on numbers or concatenates strings.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>/</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Division</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;&lt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bitwise left shift</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&gt;&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Signed bitwise right shift</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -9292,10 +9307,15 @@ on numbers or concatenates strings.</p>
 <a href="#Type-Checking_Binary-Expressions">type</a>.</p>
 </div>
 <div class="paragraph">
-<p>A binary expression \$e_1\$ <em>op</em> \$e_2\$ is evaluated as follows:</p>
+<p>A binary expression \$e_1\$ <em>op</em> \$e_2\$ is
+evaluated as follows:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
+<li>
+<p>If <em>op</em> is <code>+</code>, <code>-</code>, <code>*</code>, or <code>/</code>, then</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
 <li>
 <p>Let <em>T</em> be the type of the expression.</p>
 </li>
@@ -9327,6 +9347,51 @@ of \$v'_1\$ followed by the characters of \$v'_2\$.</p>
 </li>
 </ol>
 </div>
+</li>
+<li>
+<p>Otherwise if <em>op</em> is <code><<</code>, then</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Let <em>T</em> be the type of the expression.</p>
+</li>
+<li>
+<p>Evaluate \$e_1\$ to a value \$v_1\$.
+<a href="#Type-Checking_Type-Conversion">Convert</a>
+\$v_1\$ to a value \$n\$ of type <em>T</em>.</p>
+</li>
+<li>
+<p>Evaluate \$e_2\$ to a value \$v_2\$.
+<a href="#Type-Checking_Type-Conversion">Convert</a>
+\$v_2\$ to a value \$s\$ of type <em>Integer</em>.</p>
+</li>
+<li>
+<p>Check that \$s\$ lies in the range \$[0,255)\$.</p>
+</li>
+<li>
+<p>Perform a left shift by <em>s</em> places on \$n\$.
+This is equivalent to multiplication by \$2^s\$.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Otherwise <em>op</em> is <code>>></code></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Perform the first four steps for a binary operation \$e_1\$ <code><<</code>
+\$e_2\$.</p>
+</li>
+<li>
+<p>Perform a signed right shift by <em>s</em> places on \$n\$.
+This is equivalent to floor division by \$2^s\$.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Expressions_Binary-Expressions_Examples">10.3.3. Examples</h4>
@@ -9338,7 +9403,10 @@ constant b = a * -1 # b has value -5
 constant s1 = "a" + "b" + "c"     # s1 has value "abc"
 constant s2 = "hello " + s1 + "!" # s2 has value "hello abc!"
 
-constant c = 1 + "2" # Error: cannot add Integer and string</code></pre>
+constant c = 1 + "2" # Error: cannot add Integer and string
+
+constant leftShifted = 2 &lt;&lt; 3 # leftShifted has value 16
+constant rightShifted = 8 &gt;&gt; 2 # rightShifted has value 2</code></pre>
 </div>
 </div>
 </div>
@@ -9890,22 +9958,23 @@ associativity for resolving expressions with equal precedence.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dot expressions \$e\$ <code>.</code> \$i\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e\$ <code>.</code> \$i\$</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Unary negation expressions <code>-</code> \$e\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-</code> \$e\$</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Multiplication expressions \$e_1\$ <code>*</code> \$e_2\$ and division expressions \$e_1\$ <code>/</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>*</code> \$e_2\$ and \$e_1\$ <code>/</code> \$e_2\$</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Left</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Addition expressions \$e_1\$ <code>+</code> \$e_2\$
-(<a href="#Expressions_Binary-Expressions">arithmetic addition</a> or
-<a href="#Expressions_Binary-Expressions">string concatenation</a>) and subtraction
-expressions \$e_1\$ <code>-</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>+</code> \$e_2\$  and \$e_1\$ <code>-</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Left</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>&lt;&lt;</code> \$e_2\$ and \$e_1\$ <code>&gt;&gt;</code> \$e_2\$</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Left</p></td>
 </tr>
 </tbody>
@@ -11729,8 +11798,27 @@ constant f = -true # Error</code></pre>
 <div class="sect2">
 <h3 id="Type-Checking_Binary-Expressions">18.12. Binary Expressions</h3>
 <div class="paragraph">
+<p>To type a <a href="#Expressions_Binary-Expressions">binary expression</a> \$e_1\$ <em>op</em> \$e_2\$
+the semantic analyzer does the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If <em>op</em> is <code>+</code>, <code>-</code>, <code>*</code>, or <code>/</code>, then use the
+<a href="#Type-Checking_Binary-Expressions_Arithmetic-and-Concatenation">rules for arithmetic and concatenation expressions</a>.</p>
+</li>
+<li>
+<p>Otherwise use the
+<a href="#Type-Checking_Binary-Expressions_Shifting">rules for shift expressions</a>.</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="Type-Checking_Binary-Expressions_Arithmetic-and-Concatenation">18.12.1. Arithmetic and Concatenation</h4>
+<div class="paragraph">
 <p>To type a <a href="#Expressions_Binary-Expressions">binary expression</a> \$e_1\$ <em>op</em>
-\$e_2\$, the semantic analyzer does the following:</p>
+\$e_2\$ where <em>op</em> is <code>+</code>, <code>-</code>, <code>*</code>, or <code>/</code>, the
+semantic analyzer does the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -11767,6 +11855,54 @@ enum E { X = 1, Y = 2 }
 constant d = X + Y # Type is Integer
 constant e = true + "abcd" # Error
 constant f = "ab" + "cd" # Type is String</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Type-Checking_Binary-Expressions_Shifting">18.12.2. Shifting</h4>
+<div class="paragraph">
+<p>To type a <a href="#Expressions_Binary-Expressions">binary expression</a> \$e_1\$ <em>op</em>
+\$e_2\$, where <em>op</em> is <code>&lt;&lt;</code> or <code>&gt;&gt;</code>,
+the semantic analyzer does the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For each \$i\$ in \$[1,2]\$</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Compute the type \$T_i\$ of \$e_i\$.</p>
+</li>
+<li>
+<p>Check that \$T_i\$ is an
+<a href="#Types_Internal-Types_Integer-Types">integer type</a>
+or an <a href="#Types_Enum-Types">enum type</a>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>If \$T_1\$ is an integer type, then use \$T_1\$
+as the type of the expression.</p>
+</li>
+<li>
+<p>Otherwise use <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>
+as the type of the expression.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 1 &lt;&lt; 2 # Type is Integer
+constant b = 1.0 &lt;&lt; 2 # Error: left operand is a floating-point type
+constant c = 1 &lt;&lt; 2.0 # Error: right operand is not a floating-point type
+enum E { X = 1 }
+constant d = E.X &lt;&lt; 2 # Type is Integer</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -13093,7 +13229,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-11 14:39:13 -0700
+Last updated 2026-05-14 16:31:32 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

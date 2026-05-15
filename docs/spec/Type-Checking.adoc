@@ -210,8 +210,22 @@ constant f = -true # Error
 
 === Binary Expressions
 
+To type a <<Expressions_Binary-Expressions,binary expression>> stem:[e_1] _op_ stem:[e_2]
+the semantic analyzer does the following:
+
+. If _op_ is `+`, `-`, `*`, or `/`, then use the
+  <<Type-Checking_Binary-Expressions_Arithmetic-and-Concatenation,
+  rules for arithmetic and concatenation expressions>>.
+
+. Otherwise use the 
+  <<Type-Checking_Binary-Expressions_Shifting,
+  rules for shift expressions>>.
+
+==== Arithmetic and Concatenation
+
 To type a <<Expressions_Binary-Expressions,binary expression>> stem:[e_1] _op_
-stem:[e_2], the semantic analyzer does the following:
+stem:[e_2] where _op_ is `+`, `-`, `*`, or `/`, the
+semantic analyzer does the following:
 
 . Compute the <<Type-Checking_Computing-a-Common-Type,common type>> stem:[T] of 
   stem:[e_1] and stem:[e_2].
@@ -238,6 +252,37 @@ enum E { X = 1, Y = 2 }
 constant d = X + Y # Type is Integer
 constant e = true + "abcd" # Error
 constant f = "ab" + "cd" # Type is String
+----
+
+==== Shifting
+
+To type a <<Expressions_Binary-Expressions,binary expression>> stem:[e_1] _op_
+stem:[e_2], where _op_ is `<<` or `>>`,
+the semantic analyzer does the following:
+
+. For each stem:[i] in stem:[[1,2\]]
+
+.. Compute the type stem:[T_i] of stem:[e_i].
+
+.. Check that stem:[T_i] is an 
+  <<Types_Internal-Types_Integer-Types,integer type>>
+  or an <<Types_Enum-Types,enum type>>.
+
+. If stem:[T_1] is an integer type, then use stem:[T_1]
+  as the type of the expression.
+
+. Otherwise use <<Types_Internal-Types_Integer,_Integer_>>
+  as the type of the expression.
+
+**Examples:**
+
+[source,fpp]
+----
+constant a = 1 << 2 # Type is Integer
+constant b = 1.0 << 2 # Error: left operand is a floating-point type
+constant c = 1 << 2.0 # Error: right operand is not a floating-point type
+enum E { X = 1 }
+constant d = E.X << 2 # Type is Integer
 ----
 
 === Parenthesis Expressions
