@@ -122,6 +122,16 @@ namespace FppTest {
 
 #endif
 
+    // ----------------------------------------------------------------------
+    // Static functions
+    // ----------------------------------------------------------------------
+
+    bool Polymorphism_State ::
+      isValid(SerialType serialTypeValue)
+    {
+      return ((serialTypeValue >= __FPRIME_UNINITIALIZED) && (serialTypeValue <= S5));
+    }
+
   }
 
 }

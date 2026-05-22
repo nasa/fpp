@@ -111,4 +111,14 @@ namespace M {
 
 #endif
 
+  // ----------------------------------------------------------------------
+  // Static functions
+  // ----------------------------------------------------------------------
+
+  bool Default ::
+    isValid(SerialType serialTypeValue)
+  {
+    return ((serialTypeValue >= X) && (serialTypeValue <= Y));
+  }
+
 }

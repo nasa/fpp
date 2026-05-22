@@ -108,3 +108,13 @@ void AliasSerialType ::
 }
 
 #endif
+
+// ----------------------------------------------------------------------
+// Static functions
+// ----------------------------------------------------------------------
+
+bool AliasSerialType ::
+  isValid(SerialType serialTypeValue)
+{
+  return ((serialTypeValue >= A) && (serialTypeValue <= B));
+}

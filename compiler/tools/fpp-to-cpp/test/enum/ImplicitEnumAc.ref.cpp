@@ -111,4 +111,14 @@ namespace M {
 
 #endif
 
+  // ----------------------------------------------------------------------
+  // Static functions
+  // ----------------------------------------------------------------------
+
+  bool Implicit ::
+    isValid(SerialType serialTypeValue)
+  {
+    return ((serialTypeValue >= X) && (serialTypeValue <= Y));
+  }
+
 }

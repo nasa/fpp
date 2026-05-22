@@ -163,6 +163,17 @@ namespace FppTest {
       public:
 
         // ----------------------------------------------------------------------
+        // Static functions
+        // ----------------------------------------------------------------------
+
+        //! Check raw enum value for validity
+        static bool isValid(
+            SerialType serialTypeValue //!< The serial type value
+        );
+
+      public:
+
+        // ----------------------------------------------------------------------
         // Member variables
         // ----------------------------------------------------------------------
 

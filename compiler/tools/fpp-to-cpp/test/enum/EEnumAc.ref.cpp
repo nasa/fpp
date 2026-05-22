@@ -108,3 +108,13 @@ void E ::
 }
 
 #endif
+
+// ----------------------------------------------------------------------
+// Static functions
+// ----------------------------------------------------------------------
+
+bool E ::
+  isValid(SerialType serialTypeValue)
+{
+  return ((serialTypeValue >= X) && (serialTypeValue <= Y));
+}

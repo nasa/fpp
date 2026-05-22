@@ -108,3 +108,13 @@ void SM_E ::
 }
 
 #endif
+
+// ----------------------------------------------------------------------
+// Static functions
+// ----------------------------------------------------------------------
+
+bool SM_E ::
+  isValid(SerialType serialTypeValue)
+{
+  return ((serialTypeValue >= X) && (serialTypeValue <= Y));
+}

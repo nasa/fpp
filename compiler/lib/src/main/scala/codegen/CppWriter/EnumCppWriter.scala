@@ -117,6 +117,7 @@ case class EnumCppWriter(
       getConstructorMembers,
       getOperatorMembers,
       getMemberFunctionMembers,
+      StaticFunctionMembers.get,
       getMemberVariableMembers
     ).flatten
 
@@ -432,6 +433,37 @@ case class EnumCppWriter(
         )
       )
 
+  private object StaticFunctionMembers {
+
+    def get: List[CppDoc.Class.Member] =
+      addAccessTagAndComment(
+        "public",
+        "Static functions",
+        List(getIsValidFunction)
+      )
+
+    private def getIsValidFunction = 
+      functionClassMember(
+        Some(s"Check raw enum value for validity"),
+        "isValid",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("SerialType"),
+            "serialTypeValue",
+            Some("The serial type value")
+          )
+        ),
+        CppDoc.Type("bool"),
+        Line.addPrefixAndSuffix(
+          "return ",
+          writeIntervals(intervals, "serialTypeValue"),
+          ";"
+        ),
+        CppDoc.Function.Static
+      )
+
+  }
+
   private def getMemberVariableMembers: List[CppDoc.Class.Member] =
     List(
       linesClassMember(
@@ -448,14 +480,14 @@ case class EnumCppWriter(
       )
     )
 
-  private def writeInterval(c: EnumCppWriter.Interval) = {
+  private def writeInterval(c: EnumCppWriter.Interval, v: String = "e") = {
     val (lower, upper) = c
-    s"((e >= ${lower._1}) && (e <= ${upper._1}))"
+    s"(($v >= ${lower._1}) && ($v <= ${upper._1}))"
   }
 
-  private def writeIntervals(cs: List[EnumCppWriter.Interval]) =
-    line(writeInterval(cs.head)) ::
-    cs.tail.map(c => line(s"|| ${writeInterval(c)}")).map(indentIn)
+  private def writeIntervals(cs: List[EnumCppWriter.Interval], v: String = "e") =
+    line(writeInterval(cs.head, v)) ::
+    cs.tail.map(c => line(s"|| ${writeInterval(c, v)}")).map(indentIn)
 
   private def writeFormatStr = {
     val pit @ Type.PrimitiveInt(_) =
