@@ -12,7 +12,8 @@ object FPPtoJson {
   case class Options(
       syntaxOnly: Boolean = false,
       dir: Option[String] = None,
-      files: List[File] = Nil
+      files: List[File] = Nil,
+      format: Boolean = false,
   )
 
   def command(options: Options) = {
@@ -41,7 +42,12 @@ object FPPtoJson {
       java.nio.file.Paths.get(options.dir.getOrElse("."), fileName)
     val file = File.Path(path)
     for (writer <- file.openWrite()) yield {
-      writer.println(json)
+      writer.println(
+        if options.format then
+          json
+        else
+          json.noSpaces
+      )
       writer.close()
     }
   }
@@ -81,6 +87,9 @@ object FPPtoJson {
       opt[Unit]('s', "syntax only")
         .action((_, c) => c.copy(syntaxOnly = true))
         .text("emit syntax only (location map and abstract syntax tree)"),
+      opt[Unit]('f', "format")
+        .action((_, c) => c.copy(format = true))
+        .text("format JSON with whitespace indentation and newlines"),
       opt[String]('d', "directory")
         .valueName("<dir>")
         .action((d, c) => c.copy(dir = Some(d)))
