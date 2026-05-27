@@ -43,12 +43,6 @@ std::ostream& operator<<(std::ostream& os, const AliasSerialType& obj) {
 // Member functions
 // ----------------------------------------------------------------------
 
-bool AliasSerialType ::
-  isValid() const
-{
-  return ((e >= A) && (e <= B));
-}
-
 Fw::SerializeStatus AliasSerialType ::
   serializeTo(
       Fw::SerialBufferBase& buffer,
@@ -70,11 +64,11 @@ Fw::SerializeStatus AliasSerialType ::
 {
   SerialType es;
   Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
+  if ((status == Fw::FW_SERIALIZE_OK) && !isValid(es)) {
+    status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
+  }
   if (status == Fw::FW_SERIALIZE_OK) {
     this->e = static_cast<enum T>(es);
-    if (!this->isValid()) {
-      status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
-    }
   }
   return status;
 }

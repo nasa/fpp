@@ -136,9 +136,6 @@ namespace FppTest {
         // Member functions
         // ----------------------------------------------------------------------
 
-        //! Check raw enum value for validity
-        bool isValid() const;
-
         //! Serialize raw enum value to SerialType
         Fw::SerializeStatus serializeTo(
             Fw::SerialBufferBase& buffer, //!< The serial buffer
@@ -166,7 +163,7 @@ namespace FppTest {
         // Static functions
         // ----------------------------------------------------------------------
 
-        //! Check raw enum value for validity
+        //! Check serial type value for validity
         static bool isValid(
             SerialType serialTypeValue //!< The serial type value
         );

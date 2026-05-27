@@ -292,19 +292,6 @@ case class EnumCppWriter(
         CppDoc.Lines.Both
       ),
       functionClassMember(
-        Some(s"Check raw enum value for validity"),
-        "isValid",
-        Nil,
-        CppDoc.Type("bool"),
-        Line.addPrefixAndSuffix(
-          "return ",
-          writeIntervals(intervals),
-          ";"
-        ),
-        CppDoc.Function.NonSV,
-        CppDoc.Function.Const
-      ),
-      functionClassMember(
         Some(s"Serialize raw enum value to SerialType"),
         "serializeTo",
         List(
@@ -351,11 +338,11 @@ case class EnumCppWriter(
         lines(
           s"""|SerialType es;
               |Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
+              |if ((status == Fw::FW_SERIALIZE_OK) && !isValid(es)) {
+              |  status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
+              |}
               |if (status == Fw::FW_SERIALIZE_OK) {
               |  this->e = static_cast<enum T>(es);
-              |  if (!this->isValid()) {
-              |    status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
-              |  }
               |}
               |return status;"""
         )
@@ -444,7 +431,7 @@ case class EnumCppWriter(
 
     private def getIsValidFunction = 
       functionClassMember(
-        Some(s"Check raw enum value for validity"),
+        Some(s"Check serial type value for validity"),
         "isValid",
         List(
           CppDoc.Function.Param(
