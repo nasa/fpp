@@ -162,19 +162,16 @@ object CheckExprTypes extends UseAnalyzer {
         case Ast.Binop.Shift(_) => 
           /** Shift operation is special, for this we idependently check for both operands to be integer */
          for {
-          t1 <- convertNodeToIntegerOrEnum(a, e.e1)
-          _ <- convertNodeToIntegerOrEnum(a, e.e2)
-         } yield t1 match {
-          case _: Type.Enum => Type.Integer
-          case _ => t1
-         }
+          _ <- checkIntegerOrEnumType(a, e.e1)
+          _ <- checkIntegerOrEnumType(a, e.e2)
+         } yield Type.Integer
         case _ => for {
-          t2 <- a.commonType(e.e1.id, e.e2.id, loc)
+          t <- a.commonType(e.e1.id, e.e2.id, loc)
           _ <- e.op match {
-            case Ast.Binop.Add => convertToNumericOrString(loc, t2)
-            case _ => convertToNumeric(loc, t2)
+            case Ast.Binop.Add => convertToNumericOrString(loc, t)
+            case _ => convertToNumeric(loc, t)
           }
-        } yield t2
+        } yield t
       }
     } yield a.assignType(node -> t)
   }
@@ -511,14 +508,14 @@ object CheckExprTypes extends UseAnalyzer {
     }
 
   /** For shifting operations make sure value is integer or enum */
-  private def convertNodeToIntegerOrEnum[T](a: Analysis, node: AstNode[T]): Result.Result[Type] =
+  private def checkIntegerOrEnumType[T](a: Analysis, node: AstNode[T]): Result.Result[Unit] =
     val id = node.id
     val t = a.typeMap(id)
     val loc = Locations.get(id)
 
-    if (t.isInt || t.isInstanceOf[Type.Enum]) Right(t)
+    if (t.isInt || t.isInstanceOf[Type.Enum]) Right(())
     else {                                                                                                                                                                                      
-      val error = SemanticError.InvalidType(loc, s"cannot convert $t to an integer or enum type")
+      val error = SemanticError.InvalidType(loc, s"$t is not an integer or enum type")
       Left(error)                                                                                                                                                                               
     } 
 }
