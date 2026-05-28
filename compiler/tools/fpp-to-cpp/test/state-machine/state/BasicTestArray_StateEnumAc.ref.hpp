@@ -39,7 +39,7 @@ namespace FppTest {
         };
 
         //! For backwards compatibility
-        using t = T;
+        using t = enum T;
 
       public:
 

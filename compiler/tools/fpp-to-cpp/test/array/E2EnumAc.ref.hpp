@@ -34,7 +34,7 @@ class E2 :
     };
 
     //! For backwards compatibility
-    using t = T;
+    using t = enum T;
 
   public:
 

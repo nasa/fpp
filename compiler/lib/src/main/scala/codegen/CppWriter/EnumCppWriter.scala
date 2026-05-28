@@ -167,7 +167,7 @@ case class EnumCppWriter(
           lines(
             s"""|
                 |//! For backwards compatibility
-                |using t = T;"""
+                |using t = enum T;"""
           ),
         ).flatten
       )

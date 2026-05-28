@@ -31,7 +31,7 @@ class C_E :
     };
 
     //! For backwards compatibility
-    using t = T;
+    using t = enum T;
 
   public:
 

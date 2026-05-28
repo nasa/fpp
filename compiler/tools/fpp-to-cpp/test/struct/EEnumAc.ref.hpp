@@ -33,7 +33,7 @@ namespace M {
       };
 
       //! For backwards compatibility
-      using t = T;
+      using t = enum T;
 
     public:
 
