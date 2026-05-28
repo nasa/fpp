@@ -82,7 +82,7 @@ stem:[v_1] to a value stem:[n] of type _T_.
 <<Type-Checking_Type-Conversion,Convert>>
 stem:[v_2] to a value stem:[s] of type _Integer_.
 
-.. Check that stem:[s] lies in the range stem:[[0,255)].
+.. Check that stem:[s] lies in the range stem:[[0,255]].
 
 .. Perform a left shift by _s_ places on stem:[n].
 This is equivalent to multiplication by stem:[2^s].
