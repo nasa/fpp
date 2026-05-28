@@ -280,7 +280,7 @@ the semantic analyzer does the following:
 ----
 constant a = 1 << 2 # Type is Integer
 constant b = 1.0 << 2 # Error: left operand is a floating-point type
-constant c = 1 << 2.0 # Error: right operand is not a floating-point type
+constant c = 1 << 2.0 # Error: right operand is a floating-point type
 enum E { X = 1 }
 constant d = E.X << 2 # Type is Integer
 ----
