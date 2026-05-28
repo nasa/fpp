@@ -3,4 +3,4 @@ fpp-check
 constant a = 2 >> -1
                   ^
 error: invalid shift amount
-note: shift amount must be a non-negative value that fits in a 32-bit integer
+note: shift amount must be a non-negative value that must be in the range [0,255]
