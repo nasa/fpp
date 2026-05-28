@@ -438,7 +438,7 @@ case class EnumCppWriter(
         List(getIsValidFunction)
       )
 
-    private def getIsValidFunction = 
+    private def getIsValidFunction =
       functionClassMember(
         Some(s"Check serial type value for validity"),
         "isValid",
@@ -452,7 +452,7 @@ case class EnumCppWriter(
         CppDoc.Type("bool"),
         Line.addPrefixAndSuffix(
           "return ",
-          writeIntervals(intervals, "serialTypeValue"),
+          writeIntervals("serialTypeValue", intervals),
           ";"
         ),
         CppDoc.Function.Static
@@ -476,14 +476,14 @@ case class EnumCppWriter(
       )
     )
 
-  private def writeInterval(c: EnumCppWriter.Interval, v: String = "e") = {
+  private def writeInterval(v: String, c: EnumCppWriter.Interval) = {
     val (lower, upper) = c
     s"(($v >= ${lower._1}) && ($v <= ${upper._1}))"
   }
 
-  private def writeIntervals(cs: List[EnumCppWriter.Interval], v: String = "e") =
-    line(writeInterval(cs.head, v)) ::
-    cs.tail.map(c => line(s"|| ${writeInterval(c, v)}")).map(indentIn)
+  private def writeIntervals(v: String, cs: List[EnumCppWriter.Interval]) =
+    line(writeInterval(v, cs.head)) ::
+    cs.tail.map(c => line(s"|| ${writeInterval(v, c)}")).map(indentIn)
 
   private def writeFormatStr = {
     val pit @ Type.PrimitiveInt(_) =
