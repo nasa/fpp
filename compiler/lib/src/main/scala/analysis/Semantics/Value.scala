@@ -108,11 +108,6 @@ sealed trait Value {
   /** Truncate the value based on the width of its type */
   def truncate: Value = this
 
-  /** Check if the Value is negative for the purpose of shifting operations */
-  def isNegative: Boolean = false
-
-  /** Check if the value is shiftable for the purpose of shiting operations */
-  def isValidShiftAmount: Boolean = false
 }
 
 object Value {
@@ -180,9 +175,6 @@ object Value {
 
     override def unary_- = Some(PrimitiveInt(-value, kind))
 
-    override def isNegative = (value < 0)
-
-    override def isValidShiftAmount = !isNegative && value.isValidInt
   }
 
   /** Integer values */
@@ -231,9 +223,6 @@ object Value {
 
     override def unary_- = Some(Integer(-value))
 
-    override def isNegative = (value < 0)
-    
-    override def isValidShiftAmount = !isNegative && value.isValidInt
   }
 
   /** Floating-point values */
@@ -417,9 +406,6 @@ object Value {
 
     override def unary_- = - convertToRepType
 
-    override def isNegative = convertToRepType.isNegative
-
-    override def isValidShiftAmount: scala.Boolean = convertToRepType.isValidShiftAmount
   }
 
   /** Anonymous struct values */

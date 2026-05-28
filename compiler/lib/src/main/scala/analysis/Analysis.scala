@@ -225,8 +225,16 @@ case class Analysis(
     opName: String                                                                                                                                                                              
   ): Result.Result[Value] = {
     val v1 = valueMap(id1)                                                                                                                                                                      
-    val v2 = valueMap(id2)                                                                                                                                                                    
-    if (!v2.isValidShiftAmount) {
+    val v2 = valueMap(id2)
+
+    val shiftAmount = v2 match {
+      case Value.PrimitiveInt(v, _) => v
+      case Value.Integer(v) => v
+      case Value.EnumConstant((_, v), _) => v
+      case _ => throw InternalError(s"$opName: shift amount is not an integer")
+    }
+
+    if (shiftAmount < 0 || shiftAmount > 255) {
       val loc = Locations.get(id2)                                                                                                                                                              
       Left(SemanticError.InvalidShiftAmount(loc))
     }                                                                                                                                                                                           
