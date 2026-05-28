@@ -10,7 +10,7 @@ case class ComponentParameters (
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  val paramBufferName = "m___fprime_ac_paramBuffer"
+  val paramBufferName = "_paramBuffer"
 
   def getConstantMembers: List[CppDoc.Class.Member] =
     guardedList (hasParameters) (List(getParamIds))
@@ -63,11 +63,11 @@ case class ComponentParameters (
             |  _baseId,
             |  $idConstantName,
             |  this->$validityFlagName,
-            |  this->$paramBufferName
+            |  $paramBufferName
             |);"""
       )
     else
-      lines(s"_stat = this->$paramBufferName.deserializeTo(this->$varName);")
+      lines(s"_stat = $paramBufferName.deserializeTo(this->$varName);")
   }
 
   private def getExternalParameterFunctions: List[CppDoc.Class.Member] = {
@@ -155,15 +155,6 @@ case class ComponentParameters (
       )
     )
 
-  private def getParamBuffer =
-    linesClassMember(
-        lines(
-          s"""|
-              |//! Scratch buffer for parameter management
-              |Fw::ParamBuffer $paramBufferName;"""
-        )
-    )
-
   private def getParamDelegate =
     addAccessTagAndComment(
       "private",
@@ -186,8 +177,7 @@ case class ComponentParameters (
     then
       val idConstantName = paramIdConstantName(param.getName)
       lines(
-        s"""|$paramBufferName.resetSer();
-            |FW_ASSERT(this->paramDelegatePtr != nullptr);
+        s"""|FW_ASSERT(this->paramDelegatePtr != nullptr);
             |Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(
             |  static_cast<FwPrmIdType>(this->getIdBase()),
             |  $idConstantName,
@@ -218,7 +208,7 @@ case class ComponentParameters (
           |this->$validityFlagName = this->$prmGetPortInvokerName(
           |  0,
           |  _id,
-          |  this->$paramBufferName
+          |  $paramBufferName
           |);"""
     )
   }
@@ -280,14 +270,10 @@ case class ComponentParameters (
   private def getParamVars = addAccessTagAndComment(
     "private",
     "Parameter variables",
-    List.concat(
-      // Internal and external parameters need a parameter buffer for scratch memory
-      guardedList(!sortedParams.isEmpty) (List(getParamBuffer)),
-      // Only internal paramenters need storage for parameter values
-      sortedParams.collect {
-        case (_, param) if !param.isExternal => getParamVarForParam(param)
-      }
-    ),
+    // Only internal paramenters need storage for parameter values
+    sortedParams.collect {
+      case (_, param) if !param.isExternal => getParamVarForParam(param)
+    },
     CppDoc.Lines.Hpp
   )
 
@@ -365,8 +351,8 @@ case class ComponentParameters (
       List.concat(
         lines(
           s"""|$cppType _val = $cppValue;
-              |this->$paramBufferName.resetSer();
-              |_stat = this->$paramBufferName.serializeFrom(_val);"""
+              |$paramBufferName.resetSer();
+              |_stat = $paramBufferName.serializeFrom(_val);"""
         ),
         deserializeParam(param),
         wrapInIf(
@@ -391,7 +377,8 @@ case class ComponentParameters (
     val validityFlagName = paramValidityFlagName(param.getName)
     List.concat(
       lines(
-        s"""|$paramType _local{};
+        s"""|Fw::ParamBuffer $paramBufferName;
+            |$paramType _local{};
             |this->m_paramLock.lock();
             |valid = this->$validityFlagName;"""
       ),
@@ -400,7 +387,7 @@ case class ComponentParameters (
         getParamFromComponent(param)
       ),
       lines(
-        """|this->m_paramLock.unLock();
+        """|this->m_paramLock.unlock();
            |return _local;"""
       )
     )
@@ -459,7 +446,7 @@ case class ComponentParameters (
       },
       lines(
         """|
-           |this->m_paramLock.unLock();"""
+           |this->m_paramLock.unlock();"""
       )
     )
   }
@@ -474,6 +461,7 @@ case class ComponentParameters (
             |FW_ASSERT(this->$prmGetIsConnected(0));
             |
             |FwPrmIdType _id{};
+            |Fw::ParamBuffer $paramBufferName;
             |"""
       ),
       sortedParams.flatMap((_, param) => writeLoadForParam(param)),
@@ -507,11 +495,11 @@ case class ComponentParameters (
         s"""|if (!this->$prmSetIsConnected(0)) {
             |  return Fw::CmdResponse::EXECUTION_ERROR;
             |}
+            |Fw::ParamBuffer $paramBufferName;
             |const FwIdType idBase = this->getIdBase();
             |Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
             |// Serialize the parameter
-            |this->m_paramLock.lock();
-            |this->$paramBufferName.resetSer();"""
+            |this->m_paramLock.lock();"""
       ),
       wrapInIf(
         checkValidityFlagValidOrDefault(param),
@@ -521,11 +509,11 @@ case class ComponentParameters (
               |_stat = this->paramDelegatePtr->serializeParam(
               |  static_cast<FwPrmIdType>(idBase),
               |  $idConstantName,
-              |  this->$paramBufferName
+              |  $paramBufferName
               |);"""
         )
         else lines (
-          s"_stat = this->$paramBufferName.serializeFrom($paramVarName);"
+          s"_stat = $paramBufferName.serializeFrom($paramVarName);"
         )
       ),
       lines(
@@ -537,7 +525,7 @@ case class ComponentParameters (
             |this->$prmSetPortInvokerName(
             |  0,
             |  static_cast<FwPrmIdType>(idBase + $idConstantName),
-            |  this->$paramBufferName
+            |  $paramBufferName
             |);
             |// Return the command response
             |return Fw::CmdResponse::OK;"""
@@ -568,7 +556,7 @@ case class ComponentParameters (
           |  ${setValidityFlag(param, "INVALID")}
           |  _response = Fw::CmdResponse::VALIDATION_ERROR;
           |}
-          |this->m_paramLock.unLock();
+          |this->m_paramLock.unlock();
           |
           |// Call notifier
           |this->parameterUpdated($idConstantName);
@@ -592,7 +580,7 @@ case class ComponentParameters (
           |this->m_paramLock.lock();
           |this->$varName = _localVal;
           |this->$validityFlagName = Fw::ParamValid::VALID;
-          |this->m_paramLock.unLock();
+          |this->m_paramLock.unlock();
           |
           |// Call notifier
           |this->parameterUpdated($idConstantName);
