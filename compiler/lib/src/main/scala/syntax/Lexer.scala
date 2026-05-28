@@ -291,6 +291,7 @@ object Lexer {
         case LOCATE => Token.LOCATE()
         case LOW => Token.LOW()
         case LPAREN => Token.LPAREN()
+        case LSHIFT => Token.LSHIFT()
         case MACHINE => Token.MACHINE()
         case MATCH => Token.MATCH()
         case MINUS => Token.MINUS()
@@ -324,6 +325,7 @@ object Lexer {
         case REQUEST => Token.REQUEST()
         case RESP => Token.RESP()
         case RPAREN => Token.RPAREN()
+        case RSHIFT => Token.RSHIFT()
         case SAVE => Token.SAVE()
         case SEMI => Token.SEMI()
         case SEND => Token.SEND()
@@ -356,8 +358,6 @@ object Lexer {
         case WARNING => Token.WARNING()
         case WITH => Token.WITH()
         case YELLOW => Token.YELLOW()
-        case LSHIFT => Token.LSHIFT()
-        case RSHIFT => Token.RSHIFT()
       }
 
       out.setPos(pos())

@@ -57,9 +57,6 @@ sealed trait Error {
         Error.print (Some(loc)) (s"channel $channelName is not in the dictionary for topology $topologyName")
       case SemanticError.DivisionByZero(loc) =>
         Error.print (Some(loc)) ("division by zero")
-      case SemanticError.InvalidShiftAmount(loc) =>
-        Error.print (Some(loc)) ("invalid shift amount")                                                                                                                                            
-        printNote("shift amount must be a non-negative value that fits in a 32-bit integer")
       case SemanticError.DuplicateConnectionAtMatchedPort(loc, port, portNum, prevLoc, matchingLoc) =>
         Error.print (Some(loc)) (s"duplicate connection at matched port $port[$portNum]")
         printPrevLoc(prevLoc)
@@ -225,6 +222,9 @@ sealed trait Error {
         Error.print (Some(loc)) ("only async input may have a priority")
       case SemanticError.InvalidQueueFull(loc) =>
         Error.print (Some(loc)) ("only async input may have queue full behavior")
+      case SemanticError.InvalidShiftAmount(loc) =>
+        Error.print (Some(loc)) ("invalid shift amount")                                                                                                                                            
+        printNote("shift amount must be a non-negative value that must be in the range [0,255]")
       case SemanticError.InvalidSpecialPort(loc, msg) =>
         Error.print (Some(loc)) (msg)
       case SemanticError.InvalidStringSize(loc, size) =>
@@ -434,8 +434,6 @@ object SemanticError {
   ) extends Error
   /** Division by zero */
   final case class DivisionByZero(loc: Location) extends Error
-  /** Invalid Shift values */
-  final case class InvalidShiftAmount(loc: Location) extends Error
   /** Duplicate connection at matched port */
   final case class DuplicateConnectionAtMatchedPort(
     loc: Location,
@@ -662,6 +660,8 @@ object SemanticError {
   final case class InvalidPriority(loc: Location) extends Error
   /** Invalid queue full specifier */
   final case class InvalidQueueFull(loc: Location) extends Error
+  /** Invalid Shift values */
+  final case class InvalidShiftAmount(loc: Location) extends Error
   /** Invalid special port */
   final case class InvalidSpecialPort(loc: Location, msg: String) extends Error
   /** Invalid string size */

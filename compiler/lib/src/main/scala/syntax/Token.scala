@@ -79,6 +79,7 @@ object Token {
   final case class LOCATE() extends Token
   final case class LOW() extends Token
   final case class LPAREN() extends Token
+  final case class LSHIFT() extends Token
   final case class MACHINE() extends Token
   final case class MATCH() extends Token
   final case class MINUS() extends Token
@@ -112,6 +113,7 @@ object Token {
   final case class REQUEST() extends Token
   final case class RESP() extends Token
   final case class RPAREN() extends Token
+  final case class RSHIFT() extends Token
   final case class SAVE() extends Token
   final case class SEMI() extends Token
   final case class SEND() extends Token
@@ -144,8 +146,6 @@ object Token {
   final case class WARNING() extends Token
   final case class WITH() extends Token
   final case class YELLOW() extends Token
-  final case class LSHIFT() extends Token
-  final case class RSHIFT() extends Token
 }
 
 enum TokenId {
