@@ -1,1 +1,1 @@
-constat a = 2 << 1.5
+constant a = 2 << 1.5
