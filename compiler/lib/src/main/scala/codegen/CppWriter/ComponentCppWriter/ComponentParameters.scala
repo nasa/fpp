@@ -352,7 +352,8 @@ case class ComponentParameters (
         lines(
           s"""|$cppType _val = $cppValue;
               |$paramBufferName.resetSer();
-              |_stat = $paramBufferName.serializeFrom(_val);"""
+              |_stat = $paramBufferName.serializeFrom(_val);
+              |FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));"""
         ),
         deserializeParam(param),
         wrapInIf(
@@ -559,7 +560,9 @@ case class ComponentParameters (
           |this->m_paramLock.unlock();
           |
           |// Call notifier
-          |this->parameterUpdated($idConstantName);
+          |if (_response == Fw::CmdResponse::OK) {
+          |  this->parameterUpdated($idConstantName);
+          |}
           |return _response;"""
     )
   }

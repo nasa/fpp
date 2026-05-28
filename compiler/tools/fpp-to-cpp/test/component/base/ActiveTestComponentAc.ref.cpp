@@ -2432,6 +2432,7 @@ namespace M {
       Fw::String _val = Fw::String("external default");
       _paramBuffer.resetSer();
       _stat = _paramBuffer.serializeFrom(_val);
+      FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
       FW_ASSERT(this->paramDelegatePtr != nullptr);
       _stat = this->paramDelegatePtr->deserializeParam(
         _baseId,
@@ -2502,6 +2503,7 @@ namespace M {
       A _val = A({1, 2, 3});
       _paramBuffer.resetSer();
       _stat = _paramBuffer.serializeFrom(_val);
+      FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
       FW_ASSERT(this->paramDelegatePtr != nullptr);
       _stat = this->paramDelegatePtr->deserializeParam(
         _baseId,
@@ -9016,7 +9018,9 @@ namespace M {
     this->m_paramLock.unlock();
 
     // Call notifier
-    this->parameterUpdated(PARAMID_PARAMI32EXT);
+    if (_response == Fw::CmdResponse::OK) {
+      this->parameterUpdated(PARAMID_PARAMI32EXT);
+    }
     return _response;
   }
 
@@ -9046,7 +9050,9 @@ namespace M {
     this->m_paramLock.unlock();
 
     // Call notifier
-    this->parameterUpdated(PARAMID_PARAMF64EXT);
+    if (_response == Fw::CmdResponse::OK) {
+      this->parameterUpdated(PARAMID_PARAMF64EXT);
+    }
     return _response;
   }
 
@@ -9076,7 +9082,9 @@ namespace M {
     this->m_paramLock.unlock();
 
     // Call notifier
-    this->parameterUpdated(PARAMID_PARAMSTRINGEXT);
+    if (_response == Fw::CmdResponse::OK) {
+      this->parameterUpdated(PARAMID_PARAMSTRINGEXT);
+    }
     return _response;
   }
 
@@ -9106,7 +9114,9 @@ namespace M {
     this->m_paramLock.unlock();
 
     // Call notifier
-    this->parameterUpdated(PARAMID_PARAMENUMEXT);
+    if (_response == Fw::CmdResponse::OK) {
+      this->parameterUpdated(PARAMID_PARAMENUMEXT);
+    }
     return _response;
   }
 
@@ -9136,7 +9146,9 @@ namespace M {
     this->m_paramLock.unlock();
 
     // Call notifier
-    this->parameterUpdated(PARAMID_PARAMARRAYEXT);
+    if (_response == Fw::CmdResponse::OK) {
+      this->parameterUpdated(PARAMID_PARAMARRAYEXT);
+    }
     return _response;
   }
 
@@ -9166,7 +9178,9 @@ namespace M {
     this->m_paramLock.unlock();
 
     // Call notifier
-    this->parameterUpdated(PARAMID_PARAMSTRUCTEXT);
+    if (_response == Fw::CmdResponse::OK) {
+      this->parameterUpdated(PARAMID_PARAMSTRUCTEXT);
+    }
     return _response;
   }
 
