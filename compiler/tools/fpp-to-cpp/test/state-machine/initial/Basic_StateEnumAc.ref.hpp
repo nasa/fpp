@@ -26,7 +26,7 @@ namespace FppTest {
         // ----------------------------------------------------------------------
 
         //! The serial representation type
-        typedef U8 SerialType;
+        using SerialType = U8;
 
         //! The raw enum type
         enum T {
@@ -37,7 +37,7 @@ namespace FppTest {
         };
 
         //! For backwards compatibility
-        typedef enum T t;
+        using t = T;
 
       public:
 

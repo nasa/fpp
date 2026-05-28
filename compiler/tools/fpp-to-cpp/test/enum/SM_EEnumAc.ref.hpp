@@ -22,7 +22,7 @@ class SM_E :
     // ----------------------------------------------------------------------
 
     //! The serial representation type
-    typedef I32 SerialType;
+    using SerialType = I32;
 
     //! The raw enum type
     enum T {
@@ -31,7 +31,7 @@ class SM_E :
     };
 
     //! For backwards compatibility
-    typedef enum T t;
+    using t = T;
 
   public:
 

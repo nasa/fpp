@@ -23,7 +23,7 @@ class AliasSerialType :
     // ----------------------------------------------------------------------
 
     //! The serial representation type
-    typedef U32 SerialType;
+    using SerialType = U32;
 
     //! The raw enum type
     enum T {
@@ -32,7 +32,7 @@ class AliasSerialType :
     };
 
     //! For backwards compatibility
-    typedef enum T t;
+    using t = T;
 
   public:
 

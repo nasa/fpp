@@ -148,7 +148,7 @@ case class EnumCppWriter(
           lines(
             s"""|
                 |//! The serial representation type
-                |typedef $repTypeName SerialType;
+                |using SerialType = $repTypeName;
                 |
                 |//! The raw enum type"""
           ),
@@ -167,7 +167,7 @@ case class EnumCppWriter(
           lines(
             s"""|
                 |//! For backwards compatibility
-                |typedef enum T t;"""
+                |using t = T;"""
           ),
         ).flatten
       )

@@ -24,7 +24,7 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! The serial representation type
-      typedef I32 SerialType;
+      using SerialType = I32;
 
       //! The raw enum type
       enum T {
@@ -33,7 +33,7 @@ namespace M {
       };
 
       //! For backwards compatibility
-      typedef enum T t;
+      using t = T;
 
     public:
 
