@@ -292,6 +292,15 @@ case class EnumCppWriter(
         CppDoc.Lines.Both
       ),
       functionClassMember(
+        Some(s"Check raw enum value for validity"),
+        "isValid",
+        Nil,
+        CppDoc.Type("bool"),
+        lines("return isValid(this->e);"),
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
+      ),
+      functionClassMember(
         Some(s"Serialize raw enum value to SerialType"),
         "serializeTo",
         List(

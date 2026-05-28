@@ -45,6 +45,12 @@ namespace M {
   // Member functions
   // ----------------------------------------------------------------------
 
+  bool Explicit ::
+    isValid() const
+  {
+    return isValid(this->e);
+  }
+
   Fw::SerializeStatus Explicit ::
     serializeTo(
         Fw::SerialBufferBase& buffer,

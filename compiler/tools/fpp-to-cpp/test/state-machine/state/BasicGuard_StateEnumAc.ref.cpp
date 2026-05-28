@@ -47,6 +47,12 @@ namespace FppTest {
     // Member functions
     // ----------------------------------------------------------------------
 
+    bool BasicGuard_State ::
+      isValid() const
+    {
+      return isValid(this->e);
+    }
+
     Fw::SerializeStatus BasicGuard_State ::
       serializeTo(
           Fw::SerialBufferBase& buffer,

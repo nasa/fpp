@@ -127,6 +127,9 @@ class E2 :
     // Member functions
     // ----------------------------------------------------------------------
 
+    //! Check raw enum value for validity
+    bool isValid() const;
+
     //! Serialize raw enum value to SerialType
     Fw::SerializeStatus serializeTo(
         Fw::SerialBufferBase& buffer, //!< The serial buffer

@@ -47,6 +47,12 @@ namespace FppTest {
     // Member functions
     // ----------------------------------------------------------------------
 
+    bool StateToSelf_State ::
+      isValid() const
+    {
+      return isValid(this->e);
+    }
+
     Fw::SerializeStatus StateToSelf_State ::
       serializeTo(
           Fw::SerialBufferBase& buffer,

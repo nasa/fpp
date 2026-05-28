@@ -43,6 +43,12 @@ std::ostream& operator<<(std::ostream& os, const SM_E& obj) {
 // Member functions
 // ----------------------------------------------------------------------
 
+bool SM_E ::
+  isValid() const
+{
+  return isValid(this->e);
+}
+
 Fw::SerializeStatus SM_E ::
   serializeTo(
       Fw::SerialBufferBase& buffer,

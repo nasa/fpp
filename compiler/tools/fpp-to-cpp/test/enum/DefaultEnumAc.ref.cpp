@@ -45,6 +45,12 @@ namespace M {
   // Member functions
   // ----------------------------------------------------------------------
 
+  bool Default ::
+    isValid() const
+  {
+    return isValid(this->e);
+  }
+
   Fw::SerializeStatus Default ::
     serializeTo(
         Fw::SerialBufferBase& buffer,

@@ -47,6 +47,12 @@ namespace FppTest {
     // Member functions
     // ----------------------------------------------------------------------
 
+    bool ChoiceToChoice_State ::
+      isValid() const
+    {
+      return isValid(this->e);
+    }
+
     Fw::SerializeStatus ChoiceToChoice_State ::
       serializeTo(
           Fw::SerialBufferBase& buffer,

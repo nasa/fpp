@@ -47,6 +47,12 @@ namespace FppTest {
     // Member functions
     // ----------------------------------------------------------------------
 
+    bool SequenceU32_State ::
+      isValid() const
+    {
+      return isValid(this->e);
+    }
+
     Fw::SerializeStatus SequenceU32_State ::
       serializeTo(
           Fw::SerialBufferBase& buffer,

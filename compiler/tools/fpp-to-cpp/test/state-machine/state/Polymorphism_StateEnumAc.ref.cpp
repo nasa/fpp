@@ -47,6 +47,12 @@ namespace FppTest {
     // Member functions
     // ----------------------------------------------------------------------
 
+    bool Polymorphism_State ::
+      isValid() const
+    {
+      return isValid(this->e);
+    }
+
     Fw::SerializeStatus Polymorphism_State ::
       serializeTo(
           Fw::SerialBufferBase& buffer,
