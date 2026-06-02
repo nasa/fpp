@@ -3510,11 +3510,11 @@ void QueuedExternalParamsComponentBase ::
 I32 QueuedExternalParamsComponentBase ::
   paramGet_ParamI32Ext(Fw::ParamValid& valid)
 {
-  Fw::ParamBuffer _paramBuffer;
   I32 _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamI32Ext_valid;
   if ((valid == Fw::ParamValid::VALID) || (valid == Fw::ParamValid::DEFAULT)) {
+    Fw::ParamBuffer _paramBuffer;
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(
       static_cast<FwPrmIdType>(this->getIdBase()),
@@ -3535,11 +3535,11 @@ I32 QueuedExternalParamsComponentBase ::
 F64 QueuedExternalParamsComponentBase ::
   paramGet_ParamF64Ext(Fw::ParamValid& valid)
 {
-  Fw::ParamBuffer _paramBuffer;
   F64 _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamF64Ext_valid;
   if ((valid == Fw::ParamValid::VALID) || (valid == Fw::ParamValid::DEFAULT)) {
+    Fw::ParamBuffer _paramBuffer;
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(
       static_cast<FwPrmIdType>(this->getIdBase()),
@@ -3560,11 +3560,11 @@ F64 QueuedExternalParamsComponentBase ::
 Fw::ParamString QueuedExternalParamsComponentBase ::
   paramGet_ParamStringExt(Fw::ParamValid& valid)
 {
-  Fw::ParamBuffer _paramBuffer;
   Fw::ParamString _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamStringExt_valid;
   if ((valid == Fw::ParamValid::VALID) || (valid == Fw::ParamValid::DEFAULT)) {
+    Fw::ParamBuffer _paramBuffer;
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(
       static_cast<FwPrmIdType>(this->getIdBase()),
@@ -3585,11 +3585,11 @@ Fw::ParamString QueuedExternalParamsComponentBase ::
 E QueuedExternalParamsComponentBase ::
   paramGet_ParamEnumExt(Fw::ParamValid& valid)
 {
-  Fw::ParamBuffer _paramBuffer;
   E _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamEnumExt_valid;
   if ((valid == Fw::ParamValid::VALID) || (valid == Fw::ParamValid::DEFAULT)) {
+    Fw::ParamBuffer _paramBuffer;
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(
       static_cast<FwPrmIdType>(this->getIdBase()),
@@ -3610,11 +3610,11 @@ E QueuedExternalParamsComponentBase ::
 A QueuedExternalParamsComponentBase ::
   paramGet_ParamArrayExt(Fw::ParamValid& valid)
 {
-  Fw::ParamBuffer _paramBuffer;
   A _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamArrayExt_valid;
   if ((valid == Fw::ParamValid::VALID) || (valid == Fw::ParamValid::DEFAULT)) {
+    Fw::ParamBuffer _paramBuffer;
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(
       static_cast<FwPrmIdType>(this->getIdBase()),
@@ -3635,11 +3635,11 @@ A QueuedExternalParamsComponentBase ::
 S QueuedExternalParamsComponentBase ::
   paramGet_ParamStructExt(Fw::ParamValid& valid)
 {
-  Fw::ParamBuffer _paramBuffer;
   S _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamStructExt_valid;
   if ((valid == Fw::ParamValid::VALID) || (valid == Fw::ParamValid::DEFAULT)) {
+    Fw::ParamBuffer _paramBuffer;
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(
       static_cast<FwPrmIdType>(this->getIdBase()),

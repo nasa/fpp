@@ -3456,7 +3456,6 @@ void QueuedParamsComponentBase ::
 U32 QueuedParamsComponentBase ::
   paramGet_ParamU32(Fw::ParamValid& valid)
 {
-  Fw::ParamBuffer _paramBuffer;
   U32 _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamU32_valid;
@@ -3470,7 +3469,6 @@ U32 QueuedParamsComponentBase ::
 F64 QueuedParamsComponentBase ::
   paramGet_ParamF64(Fw::ParamValid& valid)
 {
-  Fw::ParamBuffer _paramBuffer;
   F64 _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamF64_valid;
@@ -3484,7 +3482,6 @@ F64 QueuedParamsComponentBase ::
 Fw::ParamString QueuedParamsComponentBase ::
   paramGet_ParamString(Fw::ParamValid& valid)
 {
-  Fw::ParamBuffer _paramBuffer;
   Fw::ParamString _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamString_valid;
@@ -3498,7 +3495,6 @@ Fw::ParamString QueuedParamsComponentBase ::
 E QueuedParamsComponentBase ::
   paramGet_ParamEnum(Fw::ParamValid& valid)
 {
-  Fw::ParamBuffer _paramBuffer;
   E _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamEnum_valid;
@@ -3512,7 +3508,6 @@ E QueuedParamsComponentBase ::
 A QueuedParamsComponentBase ::
   paramGet_ParamArray(Fw::ParamValid& valid)
 {
-  Fw::ParamBuffer _paramBuffer;
   A _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamArray_valid;
@@ -3526,7 +3521,6 @@ A QueuedParamsComponentBase ::
 S QueuedParamsComponentBase ::
   paramGet_ParamStruct(Fw::ParamValid& valid)
 {
-  Fw::ParamBuffer _paramBuffer;
   S _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamStruct_valid;

@@ -2494,7 +2494,6 @@ void PassiveParamsComponentBase ::
 U32 PassiveParamsComponentBase ::
   paramGet_ParamU32(Fw::ParamValid& valid)
 {
-  Fw::ParamBuffer _paramBuffer;
   U32 _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamU32_valid;
@@ -2508,7 +2507,6 @@ U32 PassiveParamsComponentBase ::
 F64 PassiveParamsComponentBase ::
   paramGet_ParamF64(Fw::ParamValid& valid)
 {
-  Fw::ParamBuffer _paramBuffer;
   F64 _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamF64_valid;
@@ -2522,7 +2520,6 @@ F64 PassiveParamsComponentBase ::
 Fw::ParamString PassiveParamsComponentBase ::
   paramGet_ParamString(Fw::ParamValid& valid)
 {
-  Fw::ParamBuffer _paramBuffer;
   Fw::ParamString _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamString_valid;
@@ -2536,7 +2533,6 @@ Fw::ParamString PassiveParamsComponentBase ::
 E PassiveParamsComponentBase ::
   paramGet_ParamEnum(Fw::ParamValid& valid)
 {
-  Fw::ParamBuffer _paramBuffer;
   E _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamEnum_valid;
@@ -2550,7 +2546,6 @@ E PassiveParamsComponentBase ::
 A PassiveParamsComponentBase ::
   paramGet_ParamArray(Fw::ParamValid& valid)
 {
-  Fw::ParamBuffer _paramBuffer;
   A _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamArray_valid;
@@ -2564,7 +2559,6 @@ A PassiveParamsComponentBase ::
 S PassiveParamsComponentBase ::
   paramGet_ParamStruct(Fw::ParamValid& valid)
 {
-  Fw::ParamBuffer _paramBuffer;
   S _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamStruct_valid;

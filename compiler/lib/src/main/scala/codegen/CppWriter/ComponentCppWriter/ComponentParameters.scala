@@ -177,7 +177,8 @@ case class ComponentParameters (
     then
       val idConstantName = paramIdConstantName(param.getName)
       lines(
-        s"""|FW_ASSERT(this->paramDelegatePtr != nullptr);
+        s"""|Fw::ParamBuffer $paramBufferName;
+            |FW_ASSERT(this->paramDelegatePtr != nullptr);
             |Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(
             |  static_cast<FwPrmIdType>(this->getIdBase()),
             |  $idConstantName,
@@ -378,8 +379,7 @@ case class ComponentParameters (
     val validityFlagName = paramValidityFlagName(param.getName)
     List.concat(
       lines(
-        s"""|Fw::ParamBuffer $paramBufferName;
-            |$paramType _local{};
+        s"""|$paramType _local{};
             |this->m_paramLock.lock();
             |valid = this->$validityFlagName;"""
       ),
