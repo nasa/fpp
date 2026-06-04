@@ -3803,6 +3803,10 @@
   "fields":[{"name":"0bitmap$1"}]
 },
 {
+  "name":"fpp.compiler.codegen.EnumCppWriter",
+  "fields":[{"name":"0bitmap$1"}]
+},
+{
   "name":"fpp.compiler.codegen.LocMapJsonEncoder$$anon$1",
   "fields":[{"name":"0bitmap$1"}]
 },
