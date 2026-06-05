@@ -20,7 +20,7 @@
 all_flag=false
 for i in "$@"
 do
-  if [[ "$i" = "--all" ]]
+  if test "$i" = "--all"
   then
     all_flag=true
   fi
