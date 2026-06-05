@@ -217,8 +217,8 @@ case class ComponentGTestBaseWriter(
           ) ++ (eventParamTypeMap(id) match {
             case Nil => Nil
             case _ => Line.blank :: lines(
-              s"""#define ASSERT_EVENTS_$eventName(size$params) \\
-                 |  this->$eventAssertFn(__FILE__, __LINE__, size$params)
+              s"""#define ASSERT_EVENTS_$eventName(index$params) \\
+                 |  this->$eventAssertFn(__FILE__, __LINE__, index$params)
                  |"""
             )
           })
