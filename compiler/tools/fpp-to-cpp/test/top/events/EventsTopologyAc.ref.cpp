@@ -12,25 +12,25 @@
 
 namespace M {
 
-  M::C c1(FW_OPTIONAL_NAME("c1"));
+  M::C c1(FW_OPTIONAL_NAME("M.c1"));
 
 }
 
 namespace M {
 
-  M::C c2(FW_OPTIONAL_NAME("c2"));
+  M::C c2(FW_OPTIONAL_NAME("M.c2"));
 
 }
 
 namespace M {
 
-  M::EventManager eventManager(FW_OPTIONAL_NAME("eventManager"));
+  M::EventManager eventManager(FW_OPTIONAL_NAME("M.eventManager"));
 
 }
 
 namespace M {
 
-  M::NoEvents noEvents(FW_OPTIONAL_NAME("noEvents"));
+  M::NoEvents noEvents(FW_OPTIONAL_NAME("M.noEvents"));
 
 }
 

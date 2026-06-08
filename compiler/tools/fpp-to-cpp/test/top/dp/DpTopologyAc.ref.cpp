@@ -12,25 +12,25 @@
 
 namespace M {
 
-  M::C c1(FW_OPTIONAL_NAME("c1"));
+  M::C c1(FW_OPTIONAL_NAME("M.c1"));
 
 }
 
 namespace M {
 
-  M::C c2(FW_OPTIONAL_NAME("c2"));
+  M::C c2(FW_OPTIONAL_NAME("M.c2"));
 
 }
 
 namespace M {
 
-  M::DpManager dpManager(FW_OPTIONAL_NAME("dpManager"));
+  M::DpManager dpManager(FW_OPTIONAL_NAME("M.dpManager"));
 
 }
 
 namespace M {
 
-  M::NoDp noDp(FW_OPTIONAL_NAME("noDp"));
+  M::NoDp noDp(FW_OPTIONAL_NAME("M.noDp"));
 
 }
 
