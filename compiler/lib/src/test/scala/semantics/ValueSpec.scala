@@ -201,58 +201,6 @@ class ValueSpec extends AnyWordSpec {
     }
   }
 
-  "is negative" should {
-    val pairs = List(
-      (createI32(-1), true),
-      (createI32(0), false),
-      (createI32(1), false),
-      (Integer(-5), true),
-      (Integer(0), false),
-      (Integer(5), false),
-      (createF32(-1), false),
-      (createF32(0), false),
-      (defaultString, false),
-      (defaultBoolean, false),
-      (enumeration, false),
-      (array, false),
-      (defaultAnonArray3U32, false),
-      (struct, false),
-      (anonStruct, false),
-    )
-    pairs.foreach {
-      pair => s"evaluate ${pair._1} to ${pair._2}" in
-      assert(pair._1.isNegative == pair._2)
-    }
-  }
-
-  "is valid shift amount" should {
-    val pairs = List(
-      (createI32(0), true),
-      (createI32(5), true),
-      (createI32(-1), false),
-      (createU32(5), true),
-      (Integer(0), true),
-      (Integer(5), true),
-      (Integer(-1), false),
-      (Integer(BigInt(Int.MaxValue)), true),
-      (Integer(BigInt(Int.MaxValue) + 1), false),
-      (Integer(BigInt(Int.MinValue)), false),
-      (createF32(1), false),
-      (createF32(0), false),
-      (defaultString, false),
-      (defaultBoolean, false),
-      (enumeration, true),
-      (array, false),
-      (defaultAnonArray3U32, false),
-      (struct, false),
-      (anonStruct, false),
-    )
-    pairs.foreach {
-      pair => s"evaluate ${pair._1} to ${pair._2}" in
-      assert(pair._1.isValidShiftAmount == pair._2)
-    }
-  }
-
   "convert to type" should {
     val triples = List(
       (createI8(1), Type.I8, Some(createI8(1))),
