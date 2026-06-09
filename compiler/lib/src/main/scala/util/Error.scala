@@ -22,7 +22,7 @@ sealed trait Error {
     System.err.println("previous occurrence is here:")
     System.err.println(prevLoc)
   }
-  
+
   /** Print a note */
   def printNote(note: String) = System.err.println(s"note: $note")
 
@@ -223,7 +223,7 @@ sealed trait Error {
       case SemanticError.InvalidQueueFull(loc) =>
         Error.print (Some(loc)) ("only async input may have queue full behavior")
       case SemanticError.InvalidShiftAmount(loc) =>
-        Error.print (Some(loc)) ("invalid shift amount")                                                                                                                                            
+        Error.print (Some(loc)) ("invalid shift amount")
         printNote("shift amount must be a non-negative value that must be in the range [0,255]")
       case SemanticError.InvalidSpecialPort(loc, msg) =>
         Error.print (Some(loc)) (msg)

@@ -552,12 +552,12 @@ object Lexer {
           eatNewlines()
         case '<' =>
           nextChar()
-          if ch == '<' then 
+          if ch == '<' then
             token = LSHIFT
             nextChar()
         case '>' =>
           nextChar()
-          if ch == '>' then 
+          if ch == '>' then
             token = RSHIFT
             nextChar()
         case '=' =>
