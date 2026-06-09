@@ -1,0 +1,9 @@
+constant a = 2 << 3                                                                                                      
+constant b = 8 >> 1
+constant c = 1 << 2 << 3
+constant d = 1 + 2 << 3
+constant e = 1 << 2 + 3
+constant f = 1 * 2 << 3
+constant g = (1 << 2) + 3
+constant h = -1 << 2
+constant i = 1 << 2 >> 3

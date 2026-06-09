@@ -477,6 +477,20 @@ def module
       binop +
       literal int 6
   @< Arithmetic
+  @ Shift
+  def constant
+    ident shiftExp
+    expr binop
+      expr binop
+        expr binop
+          literal int 1
+          binop +
+          literal int 2
+        binop <<
+        literal int 3
+      binop >>
+      literal int 1
+  @< Shift
   @ Array
   def constant
     ident arrayExp

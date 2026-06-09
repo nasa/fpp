@@ -31,6 +31,9 @@ object Ast {
     case object Sub extends Binop {
       override def toString = "-"
     }
+    case class Shift(op: ShiftType) extends Binop {
+      override def toString = op.toString
+    }
   }
 
   /** Component kind */
@@ -905,6 +908,17 @@ object Ast {
   object Unop {
     case object Minus extends Unop {
       override def toString = "-"
+    }
+  }
+
+  /** Shift types */
+  sealed trait ShiftType
+  object ShiftType {
+    case object LShift extends ShiftType {
+      override def toString = "<<"
+    }
+    case object RShift extends ShiftType {
+      override def toString = ">>"
     }
   }
 }
