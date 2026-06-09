@@ -536,7 +536,6 @@ case class ComponentCppWriter (
             )
           ),
           List(s"Fw::${kindStr}ComponentBase(compName)") :::
-            (if (hasExternalParameters) List("paramDelegatePtr(nullptr)") else Nil) :::
             smInstancesByName.map { (name, smi) =>
               val sm = s.a.stateMachineMap(smi.symbol)
               val hasActionsOrGuards = sm.hasActions || sm.hasGuards
@@ -555,9 +554,6 @@ case class ComponentCppWriter (
               throttledEventsWithTimeout.map((_, event) => line(
                 s"this->${eventThrottleTimeName(event.getName)} = Fw::Time();"
               )),
-              sortedParams.flatMap((_, param) => guardedList(!param.isExternal) (
-                lines(s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::UNINIT;")
-              ))
             )
           )
         ),

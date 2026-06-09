@@ -1373,170 +1373,150 @@ void PassiveParamsComponentBase ::
 void PassiveParamsComponentBase ::
   loadParameters()
 {
-  Fw::ParamBuffer _buff;
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_OK;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
   FW_ASSERT(this->isConnected_prmGetOut_OutputPort(0));
 
   FwPrmIdType _id{};
+  Fw::ParamBuffer _paramBuffer;
 
   _id = _baseId + PARAMID_PARAMU32;
 
-  // Get parameter ParamU32
+  // Get serialized parameter ParamU32
   this->m_param_ParamU32_valid = this->prmGetOut_out(
     0,
     _id,
-    _buff
+    _paramBuffer
   );
 
-  // Deserialize value
   this->m_paramLock.lock();
 
-  // If there was a deserialization issue, mark it invalid
+  // Deserialize parameter
   if (this->m_param_ParamU32_valid == Fw::ParamValid::VALID) {
-    _stat = _buff.deserializeTo(this->m_ParamU32);
+    _stat = _paramBuffer.deserializeTo(this->m_ParamU32);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamU32_valid = Fw::ParamValid::INVALID;
     }
   }
-  else {
-    // No default
-  }
 
-  this->m_paramLock.unLock();
+  this->m_paramLock.unlock();
 
   _id = _baseId + PARAMID_PARAMF64;
 
-  // Get parameter ParamF64
+  // Get serialized parameter ParamF64
   this->m_param_ParamF64_valid = this->prmGetOut_out(
     0,
     _id,
-    _buff
+    _paramBuffer
   );
 
-  // Deserialize value
   this->m_paramLock.lock();
 
-  // If there was a deserialization issue, mark it invalid
+  // Deserialize parameter
   if (this->m_param_ParamF64_valid == Fw::ParamValid::VALID) {
-    _stat = _buff.deserializeTo(this->m_ParamF64);
+    _stat = _paramBuffer.deserializeTo(this->m_ParamF64);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamF64_valid = Fw::ParamValid::INVALID;
     }
   }
-  else {
-    // No default
-  }
 
-  this->m_paramLock.unLock();
+  this->m_paramLock.unlock();
 
   _id = _baseId + PARAMID_PARAMSTRING;
 
-  // Get parameter ParamString
+  // Get serialized parameter ParamString
   this->m_param_ParamString_valid = this->prmGetOut_out(
     0,
     _id,
-    _buff
+    _paramBuffer
   );
 
-  // Deserialize value
   this->m_paramLock.lock();
 
-  // If there was a deserialization issue, mark it invalid
+  // Deserialize parameter or use default value
   if (this->m_param_ParamString_valid == Fw::ParamValid::VALID) {
-    _stat = _buff.deserializeTo(this->m_ParamString);
+    _stat = _paramBuffer.deserializeTo(this->m_ParamString);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamString_valid = Fw::ParamValid::DEFAULT;
-      // Set default value
-      this->m_ParamString = Fw::String("default");
     }
   }
   else {
-    // Set default value
     this->m_param_ParamString_valid = Fw::ParamValid::DEFAULT;
+  }
+  if (this->m_param_ParamString_valid == Fw::ParamValid::DEFAULT) {
     this->m_ParamString = Fw::String("default");
   }
 
-  this->m_paramLock.unLock();
+  this->m_paramLock.unlock();
 
   _id = _baseId + PARAMID_PARAMENUM;
 
-  // Get parameter ParamEnum
+  // Get serialized parameter ParamEnum
   this->m_param_ParamEnum_valid = this->prmGetOut_out(
     0,
     _id,
-    _buff
+    _paramBuffer
   );
 
-  // Deserialize value
   this->m_paramLock.lock();
 
-  // If there was a deserialization issue, mark it invalid
+  // Deserialize parameter
   if (this->m_param_ParamEnum_valid == Fw::ParamValid::VALID) {
-    _stat = _buff.deserializeTo(this->m_ParamEnum);
+    _stat = _paramBuffer.deserializeTo(this->m_ParamEnum);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamEnum_valid = Fw::ParamValid::INVALID;
     }
   }
-  else {
-    // No default
-  }
 
-  this->m_paramLock.unLock();
+  this->m_paramLock.unlock();
 
   _id = _baseId + PARAMID_PARAMARRAY;
 
-  // Get parameter ParamArray
+  // Get serialized parameter ParamArray
   this->m_param_ParamArray_valid = this->prmGetOut_out(
     0,
     _id,
-    _buff
+    _paramBuffer
   );
 
-  // Deserialize value
   this->m_paramLock.lock();
 
-  // If there was a deserialization issue, mark it invalid
+  // Deserialize parameter or use default value
   if (this->m_param_ParamArray_valid == Fw::ParamValid::VALID) {
-    _stat = _buff.deserializeTo(this->m_ParamArray);
+    _stat = _paramBuffer.deserializeTo(this->m_ParamArray);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamArray_valid = Fw::ParamValid::DEFAULT;
-      // Set default value
-      this->m_ParamArray = A({1, 2, 3});
     }
   }
   else {
-    // Set default value
     this->m_param_ParamArray_valid = Fw::ParamValid::DEFAULT;
+  }
+  if (this->m_param_ParamArray_valid == Fw::ParamValid::DEFAULT) {
     this->m_ParamArray = A({1, 2, 3});
   }
 
-  this->m_paramLock.unLock();
+  this->m_paramLock.unlock();
 
   _id = _baseId + PARAMID_PARAMSTRUCT;
 
-  // Get parameter ParamStruct
+  // Get serialized parameter ParamStruct
   this->m_param_ParamStruct_valid = this->prmGetOut_out(
     0,
     _id,
-    _buff
+    _paramBuffer
   );
 
-  // Deserialize value
   this->m_paramLock.lock();
 
-  // If there was a deserialization issue, mark it invalid
+  // Deserialize parameter
   if (this->m_param_ParamStruct_valid == Fw::ParamValid::VALID) {
-    _stat = _buff.deserializeTo(this->m_ParamStruct);
+    _stat = _paramBuffer.deserializeTo(this->m_ParamStruct);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamStruct_valid = Fw::ParamValid::INVALID;
     }
   }
-  else {
-    // No default
-  }
 
-  this->m_paramLock.unLock();
+  this->m_paramLock.unlock();
 
   // Call notifier
   this->parametersLoaded();
@@ -1550,12 +1530,7 @@ PassiveParamsComponentBase ::
   PassiveParamsComponentBase(const char* compName) :
     Fw::PassiveComponentBase(compName)
 {
-  this->m_param_ParamU32_valid = Fw::ParamValid::UNINIT;
-  this->m_param_ParamF64_valid = Fw::ParamValid::UNINIT;
-  this->m_param_ParamString_valid = Fw::ParamValid::UNINIT;
-  this->m_param_ParamEnum_valid = Fw::ParamValid::UNINIT;
-  this->m_param_ParamArray_valid = Fw::ParamValid::UNINIT;
-  this->m_param_ParamStruct_valid = Fw::ParamValid::UNINIT;
+
 }
 
 PassiveParamsComponentBase ::
@@ -2522,8 +2497,10 @@ U32 PassiveParamsComponentBase ::
   U32 _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamU32_valid;
-  _local = this->m_ParamU32;
-  this->m_paramLock.unLock();
+  if ((valid == Fw::ParamValid::VALID) || (valid == Fw::ParamValid::DEFAULT)) {
+    _local = this->m_ParamU32;
+  }
+  this->m_paramLock.unlock();
   return _local;
 }
 
@@ -2533,8 +2510,10 @@ F64 PassiveParamsComponentBase ::
   F64 _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamF64_valid;
-  _local = this->m_ParamF64;
-  this->m_paramLock.unLock();
+  if ((valid == Fw::ParamValid::VALID) || (valid == Fw::ParamValid::DEFAULT)) {
+    _local = this->m_ParamF64;
+  }
+  this->m_paramLock.unlock();
   return _local;
 }
 
@@ -2544,8 +2523,10 @@ Fw::ParamString PassiveParamsComponentBase ::
   Fw::ParamString _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamString_valid;
-  _local = this->m_ParamString;
-  this->m_paramLock.unLock();
+  if ((valid == Fw::ParamValid::VALID) || (valid == Fw::ParamValid::DEFAULT)) {
+    _local = this->m_ParamString;
+  }
+  this->m_paramLock.unlock();
   return _local;
 }
 
@@ -2555,8 +2536,10 @@ E PassiveParamsComponentBase ::
   E _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamEnum_valid;
-  _local = this->m_ParamEnum;
-  this->m_paramLock.unLock();
+  if ((valid == Fw::ParamValid::VALID) || (valid == Fw::ParamValid::DEFAULT)) {
+    _local = this->m_ParamEnum;
+  }
+  this->m_paramLock.unlock();
   return _local;
 }
 
@@ -2566,8 +2549,10 @@ A PassiveParamsComponentBase ::
   A _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamArray_valid;
-  _local = this->m_ParamArray;
-  this->m_paramLock.unLock();
+  if ((valid == Fw::ParamValid::VALID) || (valid == Fw::ParamValid::DEFAULT)) {
+    _local = this->m_ParamArray;
+  }
+  this->m_paramLock.unlock();
   return _local;
 }
 
@@ -2577,8 +2562,10 @@ S PassiveParamsComponentBase ::
   S _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamStruct_valid;
-  _local = this->m_ParamStruct;
-  this->m_paramLock.unLock();
+  if ((valid == Fw::ParamValid::VALID) || (valid == Fw::ParamValid::DEFAULT)) {
+    _local = this->m_ParamStruct;
+  }
+  this->m_paramLock.unlock();
   return _local;
 }
 
@@ -3033,7 +3020,7 @@ Fw::CmdResponse PassiveParamsComponentBase ::
   this->m_paramLock.lock();
   this->m_ParamU32 = _localVal;
   this->m_param_ParamU32_valid = Fw::ParamValid::VALID;
-  this->m_paramLock.unLock();
+  this->m_paramLock.unlock();
 
   // Call notifier
   this->parameterUpdated(PARAMID_PARAMU32);
@@ -3053,7 +3040,7 @@ Fw::CmdResponse PassiveParamsComponentBase ::
   this->m_paramLock.lock();
   this->m_ParamF64 = _localVal;
   this->m_param_ParamF64_valid = Fw::ParamValid::VALID;
-  this->m_paramLock.unLock();
+  this->m_paramLock.unlock();
 
   // Call notifier
   this->parameterUpdated(PARAMID_PARAMF64);
@@ -3073,7 +3060,7 @@ Fw::CmdResponse PassiveParamsComponentBase ::
   this->m_paramLock.lock();
   this->m_ParamString = _localVal;
   this->m_param_ParamString_valid = Fw::ParamValid::VALID;
-  this->m_paramLock.unLock();
+  this->m_paramLock.unlock();
 
   // Call notifier
   this->parameterUpdated(PARAMID_PARAMSTRING);
@@ -3093,7 +3080,7 @@ Fw::CmdResponse PassiveParamsComponentBase ::
   this->m_paramLock.lock();
   this->m_ParamEnum = _localVal;
   this->m_param_ParamEnum_valid = Fw::ParamValid::VALID;
-  this->m_paramLock.unLock();
+  this->m_paramLock.unlock();
 
   // Call notifier
   this->parameterUpdated(PARAMID_PARAMENUM);
@@ -3113,7 +3100,7 @@ Fw::CmdResponse PassiveParamsComponentBase ::
   this->m_paramLock.lock();
   this->m_ParamArray = _localVal;
   this->m_param_ParamArray_valid = Fw::ParamValid::VALID;
-  this->m_paramLock.unLock();
+  this->m_paramLock.unlock();
 
   // Call notifier
   this->parameterUpdated(PARAMID_PARAMARRAY);
@@ -3133,7 +3120,7 @@ Fw::CmdResponse PassiveParamsComponentBase ::
   this->m_paramLock.lock();
   this->m_ParamStruct = _localVal;
   this->m_param_ParamStruct_valid = Fw::ParamValid::VALID;
-  this->m_paramLock.unLock();
+  this->m_paramLock.unlock();
 
   // Call notifier
   this->parameterUpdated(PARAMID_PARAMSTRUCT);
@@ -3147,185 +3134,167 @@ Fw::CmdResponse PassiveParamsComponentBase ::
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSave_ParamU32()
 {
-  Fw::ParamBuffer _saveBuff;
-  FwPrmIdType _id;
-  Fw::SerializeStatus _stat;
-  if (this->isConnected_prmSetOut_OutputPort(0)) {
-    this->m_paramLock.lock();
-
-    _stat = _saveBuff.serializeFrom(m_ParamU32);
-
-    this->m_paramLock.unLock();
-    if (_stat != Fw::FW_SERIALIZE_OK) {
-      return Fw::CmdResponse::VALIDATION_ERROR;
-    }
-
-    _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMU32);
-
-    // Save the parameter
-    this->prmSetOut_out(
-      0,
-      _id,
-      _saveBuff
-    );
-
-    return Fw::CmdResponse::OK;
+  if (!this->isConnected_prmSetOut_OutputPort(0)) {
+    return Fw::CmdResponse::EXECUTION_ERROR;
   }
-
-  return Fw::CmdResponse::EXECUTION_ERROR;
+  Fw::ParamBuffer _paramBuffer;
+  const FwIdType idBase = this->getIdBase();
+  Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
+  // Serialize the parameter
+  this->m_paramLock.lock();
+  if ((this->m_param_ParamU32_valid == Fw::ParamValid::VALID) || (this->m_param_ParamU32_valid == Fw::ParamValid::DEFAULT)) {
+    _stat = _paramBuffer.serializeFrom(m_ParamU32);
+  }
+  this->m_paramLock.unlock();
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+  // Save the parameter
+  this->prmSetOut_out(
+    0,
+    static_cast<FwPrmIdType>(idBase + PARAMID_PARAMU32),
+    _paramBuffer
+  );
+  // Return the command response
+  return Fw::CmdResponse::OK;
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSave_ParamF64()
 {
-  Fw::ParamBuffer _saveBuff;
-  FwPrmIdType _id;
-  Fw::SerializeStatus _stat;
-  if (this->isConnected_prmSetOut_OutputPort(0)) {
-    this->m_paramLock.lock();
-
-    _stat = _saveBuff.serializeFrom(m_ParamF64);
-
-    this->m_paramLock.unLock();
-    if (_stat != Fw::FW_SERIALIZE_OK) {
-      return Fw::CmdResponse::VALIDATION_ERROR;
-    }
-
-    _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMF64);
-
-    // Save the parameter
-    this->prmSetOut_out(
-      0,
-      _id,
-      _saveBuff
-    );
-
-    return Fw::CmdResponse::OK;
+  if (!this->isConnected_prmSetOut_OutputPort(0)) {
+    return Fw::CmdResponse::EXECUTION_ERROR;
   }
-
-  return Fw::CmdResponse::EXECUTION_ERROR;
+  Fw::ParamBuffer _paramBuffer;
+  const FwIdType idBase = this->getIdBase();
+  Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
+  // Serialize the parameter
+  this->m_paramLock.lock();
+  if ((this->m_param_ParamF64_valid == Fw::ParamValid::VALID) || (this->m_param_ParamF64_valid == Fw::ParamValid::DEFAULT)) {
+    _stat = _paramBuffer.serializeFrom(m_ParamF64);
+  }
+  this->m_paramLock.unlock();
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+  // Save the parameter
+  this->prmSetOut_out(
+    0,
+    static_cast<FwPrmIdType>(idBase + PARAMID_PARAMF64),
+    _paramBuffer
+  );
+  // Return the command response
+  return Fw::CmdResponse::OK;
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSave_ParamString()
 {
-  Fw::ParamBuffer _saveBuff;
-  FwPrmIdType _id;
-  Fw::SerializeStatus _stat;
-  if (this->isConnected_prmSetOut_OutputPort(0)) {
-    this->m_paramLock.lock();
-
-    _stat = _saveBuff.serializeFrom(m_ParamString);
-
-    this->m_paramLock.unLock();
-    if (_stat != Fw::FW_SERIALIZE_OK) {
-      return Fw::CmdResponse::VALIDATION_ERROR;
-    }
-
-    _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMSTRING);
-
-    // Save the parameter
-    this->prmSetOut_out(
-      0,
-      _id,
-      _saveBuff
-    );
-
-    return Fw::CmdResponse::OK;
+  if (!this->isConnected_prmSetOut_OutputPort(0)) {
+    return Fw::CmdResponse::EXECUTION_ERROR;
   }
-
-  return Fw::CmdResponse::EXECUTION_ERROR;
+  Fw::ParamBuffer _paramBuffer;
+  const FwIdType idBase = this->getIdBase();
+  Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
+  // Serialize the parameter
+  this->m_paramLock.lock();
+  if ((this->m_param_ParamString_valid == Fw::ParamValid::VALID) || (this->m_param_ParamString_valid == Fw::ParamValid::DEFAULT)) {
+    _stat = _paramBuffer.serializeFrom(m_ParamString);
+  }
+  this->m_paramLock.unlock();
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+  // Save the parameter
+  this->prmSetOut_out(
+    0,
+    static_cast<FwPrmIdType>(idBase + PARAMID_PARAMSTRING),
+    _paramBuffer
+  );
+  // Return the command response
+  return Fw::CmdResponse::OK;
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSave_ParamEnum()
 {
-  Fw::ParamBuffer _saveBuff;
-  FwPrmIdType _id;
-  Fw::SerializeStatus _stat;
-  if (this->isConnected_prmSetOut_OutputPort(0)) {
-    this->m_paramLock.lock();
-
-    _stat = _saveBuff.serializeFrom(m_ParamEnum);
-
-    this->m_paramLock.unLock();
-    if (_stat != Fw::FW_SERIALIZE_OK) {
-      return Fw::CmdResponse::VALIDATION_ERROR;
-    }
-
-    _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMENUM);
-
-    // Save the parameter
-    this->prmSetOut_out(
-      0,
-      _id,
-      _saveBuff
-    );
-
-    return Fw::CmdResponse::OK;
+  if (!this->isConnected_prmSetOut_OutputPort(0)) {
+    return Fw::CmdResponse::EXECUTION_ERROR;
   }
-
-  return Fw::CmdResponse::EXECUTION_ERROR;
+  Fw::ParamBuffer _paramBuffer;
+  const FwIdType idBase = this->getIdBase();
+  Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
+  // Serialize the parameter
+  this->m_paramLock.lock();
+  if ((this->m_param_ParamEnum_valid == Fw::ParamValid::VALID) || (this->m_param_ParamEnum_valid == Fw::ParamValid::DEFAULT)) {
+    _stat = _paramBuffer.serializeFrom(m_ParamEnum);
+  }
+  this->m_paramLock.unlock();
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+  // Save the parameter
+  this->prmSetOut_out(
+    0,
+    static_cast<FwPrmIdType>(idBase + PARAMID_PARAMENUM),
+    _paramBuffer
+  );
+  // Return the command response
+  return Fw::CmdResponse::OK;
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSave_ParamArray()
 {
-  Fw::ParamBuffer _saveBuff;
-  FwPrmIdType _id;
-  Fw::SerializeStatus _stat;
-  if (this->isConnected_prmSetOut_OutputPort(0)) {
-    this->m_paramLock.lock();
-
-    _stat = _saveBuff.serializeFrom(m_ParamArray);
-
-    this->m_paramLock.unLock();
-    if (_stat != Fw::FW_SERIALIZE_OK) {
-      return Fw::CmdResponse::VALIDATION_ERROR;
-    }
-
-    _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMARRAY);
-
-    // Save the parameter
-    this->prmSetOut_out(
-      0,
-      _id,
-      _saveBuff
-    );
-
-    return Fw::CmdResponse::OK;
+  if (!this->isConnected_prmSetOut_OutputPort(0)) {
+    return Fw::CmdResponse::EXECUTION_ERROR;
   }
-
-  return Fw::CmdResponse::EXECUTION_ERROR;
+  Fw::ParamBuffer _paramBuffer;
+  const FwIdType idBase = this->getIdBase();
+  Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
+  // Serialize the parameter
+  this->m_paramLock.lock();
+  if ((this->m_param_ParamArray_valid == Fw::ParamValid::VALID) || (this->m_param_ParamArray_valid == Fw::ParamValid::DEFAULT)) {
+    _stat = _paramBuffer.serializeFrom(m_ParamArray);
+  }
+  this->m_paramLock.unlock();
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+  // Save the parameter
+  this->prmSetOut_out(
+    0,
+    static_cast<FwPrmIdType>(idBase + PARAMID_PARAMARRAY),
+    _paramBuffer
+  );
+  // Return the command response
+  return Fw::CmdResponse::OK;
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
   paramSave_ParamStruct()
 {
-  Fw::ParamBuffer _saveBuff;
-  FwPrmIdType _id;
-  Fw::SerializeStatus _stat;
-  if (this->isConnected_prmSetOut_OutputPort(0)) {
-    this->m_paramLock.lock();
-
-    _stat = _saveBuff.serializeFrom(m_ParamStruct);
-
-    this->m_paramLock.unLock();
-    if (_stat != Fw::FW_SERIALIZE_OK) {
-      return Fw::CmdResponse::VALIDATION_ERROR;
-    }
-
-    _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMSTRUCT);
-
-    // Save the parameter
-    this->prmSetOut_out(
-      0,
-      _id,
-      _saveBuff
-    );
-
-    return Fw::CmdResponse::OK;
+  if (!this->isConnected_prmSetOut_OutputPort(0)) {
+    return Fw::CmdResponse::EXECUTION_ERROR;
   }
-
-  return Fw::CmdResponse::EXECUTION_ERROR;
+  Fw::ParamBuffer _paramBuffer;
+  const FwIdType idBase = this->getIdBase();
+  Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_FORMAT_ERROR;
+  // Serialize the parameter
+  this->m_paramLock.lock();
+  if ((this->m_param_ParamStruct_valid == Fw::ParamValid::VALID) || (this->m_param_ParamStruct_valid == Fw::ParamValid::DEFAULT)) {
+    _stat = _paramBuffer.serializeFrom(m_ParamStruct);
+  }
+  this->m_paramLock.unlock();
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+  // Save the parameter
+  this->prmSetOut_out(
+    0,
+    static_cast<FwPrmIdType>(idBase + PARAMID_PARAMSTRUCT),
+    _paramBuffer
+  );
+  // Return the command response
+  return Fw::CmdResponse::OK;
 }
