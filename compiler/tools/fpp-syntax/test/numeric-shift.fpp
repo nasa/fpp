@@ -1,4 +1,4 @@
-constant a = 2 << 3                                                                                                      
+constant a = 2 << 3
 constant b = 8 >> 1
 constant c = 1 << 2 << 3
 constant d = 1 + 2 << 3

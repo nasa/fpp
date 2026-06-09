@@ -39,7 +39,7 @@ module M {
 
   constant f = { a = b, b = { a = b + 1 }, c = [ 0, 1, 2 ] }
 
-  @ Constant with shift                                                                                                                                                    
+  @ Constant with shift
   constant shifted = 0xFF << 8
 }
 
@@ -85,8 +85,8 @@ state machine SM {
   constant a = 0
 }
 
-@ Constant with left shift                                                                                                                                               
-constant shiftLeft = 1 << 4   
+@ Constant with left shift
+constant shiftLeft = 1 << 4
 
 @ Constant with right shift
 constant shiftRight = 256 >> 2

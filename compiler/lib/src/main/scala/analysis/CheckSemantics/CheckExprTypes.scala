@@ -159,7 +159,7 @@ object CheckExprTypes extends UseAnalyzer {
     for {
       a <- super.exprBinopNode(a, node, e)
       t <- e.op match {
-        case Ast.Binop.Shift(_) => 
+        case Ast.Binop.Shift(_) =>
           /** Shift operation is special, for this we idependently check for both operands to be integer */
          for {
           _ <- checkIntegerOrEnumType(a, e.e1)
@@ -494,7 +494,7 @@ object CheckExprTypes extends UseAnalyzer {
       Left(error)
     }
   }
-  
+
   private def convertToNumericOrString(loc: Location, t: Type): Result.Result[Type] =
     (t, convertToNumeric(loc, t)) match {
       case (_, Right(t1)) => Right(t1)
@@ -514,8 +514,8 @@ object CheckExprTypes extends UseAnalyzer {
     val loc = Locations.get(id)
 
     if (t.isInt || t.isInstanceOf[Type.Enum]) Right(())
-    else {                                                                                                                                                                                      
+    else {
       val error = SemanticError.InvalidType(loc, s"$t is not an integer or enum type")
-      Left(error)                                                                                                                                                                               
-    } 
+      Left(error)
+    }
 }
