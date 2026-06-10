@@ -23,6 +23,7 @@ Fw::SerializeStatus PassiveSerialTesterBase::PassiveSerialComponentBaseParamExte
 {
   Fw::SerializeStatus stat;
   (void) baseId;
+  (void) prmStat;
 
   // Serialize the parameter based on ID
   switch(localId)
@@ -1261,13 +1262,7 @@ PassiveSerialTesterBase ::
       const char* const compName,
       const U32 maxHistorySize
   ) :
-    Fw::PassiveComponentBase(compName),
-    m_param_ParamU32_valid(Fw::ParamValid::UNINIT),
-    m_param_ParamF64_valid(Fw::ParamValid::UNINIT),
-    m_param_ParamString_valid(Fw::ParamValid::UNINIT),
-    m_param_ParamEnum_valid(Fw::ParamValid::UNINIT),
-    m_param_ParamArray_valid(Fw::ParamValid::UNINIT),
-    m_param_ParamStruct_valid(Fw::ParamValid::UNINIT)
+    Fw::PassiveComponentBase(compName)
 {
   // Initialize port histories
   this->fromPortHistory_typedAliasOut = new History<FromPortEntry_typedAliasOut>(maxHistorySize);
