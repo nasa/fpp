@@ -59,10 +59,15 @@ namespace FppTest {
           Fw::Endianness mode
       ) const
     {
-      const Fw::SerializeStatus status = buffer.serializeFrom(
-          static_cast<SerialType>(this->e),
-          mode
-      );
+      const SerialType es = static_cast<SerialType>(this->e);
+#ifdef BUILD_UT
+      // Unit testing only: On request, override the enum value
+      // with the numeric value, which is allowed to be invalid
+      if (this->m_serializeNumericValue) {
+        es = this->m_numericValue;
+      }
+#endif
+      const Fw::SerializeStatus status = buffer.serializeFrom(es, mode);
       return status;
     }
 

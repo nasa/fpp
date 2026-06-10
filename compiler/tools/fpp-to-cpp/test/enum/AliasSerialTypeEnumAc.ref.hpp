@@ -169,6 +169,18 @@ class AliasSerialType :
     //! The raw enum value
     enum T e;
 
+#ifdef BUILD_UT
+
+    //! Whether to use the numeric value when serializing the enum
+    //! (unit testing only). This allows serialization of invalid values
+    //! that can't be represented as the raw enum type.
+    bool m_serializeNumericValue = false;
+
+    //! The numeric value
+    SerialType m_numericValue = A;
+
+#endif
+
 };
 
 #endif

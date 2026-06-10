@@ -318,10 +318,15 @@ case class EnumCppWriter(
         ),
         CppDoc.Type("Fw::SerializeStatus"),
         lines(
-          s"""|const Fw::SerializeStatus status = buffer.serializeFrom(
-              |    static_cast<SerialType>(this->e),
-              |    mode
-              |);
+          s"""|const SerialType es = static_cast<SerialType>(this->e);
+              |#ifdef BUILD_UT
+              |// Unit testing only: On request, override the enum value
+              |// with the numeric value, which is allowed to be invalid
+              |if (this->m_serializeNumericValue) {
+              |  es = this->m_numericValue;
+              |}
+              |#endif
+              |const Fw::SerializeStatus status = buffer.serializeFrom(es, mode);
               |return status;"""
         ),
         CppDoc.Function.NonSV,
@@ -461,19 +466,31 @@ case class EnumCppWriter(
   }
 
   private def getMemberVariableMembers: List[CppDoc.Class.Member] =
-    List(
-      linesClassMember(
-        CppDocHppWriter.writeAccessTag("public")
-      ),
-      linesClassMember(
-        CppDocWriter.writeBannerComment("Member variables") ++
-        addBlankPrefix(
-          List(
-            "//! The raw enum value",
-            "enum T e;"
-          ).map(line)
+    addAccessTagAndComment(
+      "public",
+      "Member variables",
+      List(
+        linesClassMember(
+          lines(
+            s"""|
+                |//! The raw enum value
+                |enum T e;
+                |
+                |#ifdef BUILD_UT
+                |
+                |//! Whether to use the numeric value when serializing the enum
+                |//! (unit testing only). This allows serialization of invalid values
+                |//! that can't be represented as the raw enum type.
+                |bool m_serializeNumericValue = false;
+                |
+                |//! The numeric value
+                |SerialType m_numericValue = $defaultValue;
+                |
+                |#endif"""
+          )
         )
-      )
+      ),
+      CppDoc.Lines.Hpp
     )
 
   private def writeInterval(v: String, c: EnumCppWriter.Interval) = {
