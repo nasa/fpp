@@ -14,5 +14,10 @@ do
   cp $base.ref.hpp $base.hpp
   cp $base.ref.cpp $base.cpp
   echo "compiling $base.cpp"
-  $fprime_gcc -I../fprime -c $base.cpp
+  for guards in "-DFW_ENABLE_TEXT_LOGGING=0 -DFW_SERIALIZABLE_TO_STRING=0" \
+    "-DBUILD_UT -DFW_ENABLE_TEXT_LOGGING=1 -DFW_SERIALIZABLE_TO_STRING=1"
+  do
+    echo "compiling $base.cpp with $guards"
+    $fprime_gcc $guards3 -I../fprime -c $base.cpp
+  done
 done
