@@ -17,6 +17,10 @@ E2& E2 ::
   operator=(const E2& obj)
 {
   this->e = obj.e;
+#ifdef BUILD_UT
+  this->m_serializeNumericValue = obj.m_serializeNumericValue;
+  this->m_numericValue = obj.m_numericValue;
+#endif
   return *this;
 }
 
@@ -25,6 +29,10 @@ E2& E2 ::
 {
   FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
   this->e = e1;
+#ifdef BUILD_UT
+  this->m_serializeNumericValue = false;
+  this->m_numericValue = C;
+#endif
   return *this;
 }
 

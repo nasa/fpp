@@ -76,6 +76,10 @@ class E :
     )
     {
       this->e = obj.e;
+#ifdef BUILD_UT
+    this->m_serializeNumericValue = obj.m_serializeNumericValue;
+    this->m_numericValue = obj.m_numericValue;
+#endif
     }
 
   public:

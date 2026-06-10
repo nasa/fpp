@@ -19,6 +19,10 @@ namespace M {
     operator=(const E1& obj)
   {
     this->e = obj.e;
+#ifdef BUILD_UT
+    this->m_serializeNumericValue = obj.m_serializeNumericValue;
+    this->m_numericValue = obj.m_numericValue;
+#endif
     return *this;
   }
 
@@ -27,6 +31,10 @@ namespace M {
   {
     FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
     this->e = e1;
+#ifdef BUILD_UT
+    this->m_serializeNumericValue = false;
+    this->m_numericValue = X;
+#endif
     return *this;
   }
 

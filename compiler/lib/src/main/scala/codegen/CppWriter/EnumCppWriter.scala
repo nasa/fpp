@@ -201,6 +201,10 @@ case class EnumCppWriter(
                 |)
                 |{
                 |  this->e = obj.e;
+                |#ifdef BUILD_UT
+                |this->m_serializeNumericValue = obj.m_serializeNumericValue;
+                |this->m_numericValue = obj.m_numericValue;
+                |#endif
                 |}"""
 
           )
@@ -228,9 +232,13 @@ case class EnumCppWriter(
           ),
         ),
         CppDoc.Type(s"$name&"),
-        List(
-          line("this->e = obj.e;"),
-          line("return *this;"),
+        lines(
+          """|this->e = obj.e;
+             |#ifdef BUILD_UT
+             |this->m_serializeNumericValue = obj.m_serializeNumericValue;
+             |this->m_numericValue = obj.m_numericValue;
+             |#endif
+             |return *this;"""
         )
       ),
       functionClassMember(
@@ -244,10 +252,14 @@ case class EnumCppWriter(
           ),
         ),
         CppDoc.Type(s"$name&"),
-        List(
-          line("FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));"),
-          line("this->e = e1;"),
-          line("return *this;"),
+        lines(
+          s"""|FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
+              |this->e = e1;
+              |#ifdef BUILD_UT
+              |this->m_serializeNumericValue = false;
+              |this->m_numericValue = $defaultValue;
+              |#endif
+              |return *this;"""
         )
       ),
       linesClassMember(
