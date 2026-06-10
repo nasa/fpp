@@ -59,7 +59,7 @@ namespace FppTest {
           Fw::Endianness mode
       ) const
     {
-      const SerialType es = static_cast<SerialType>(this->e);
+      SerialType es = static_cast<SerialType>(this->e);
 #ifdef BUILD_UT
       // Unit testing only: On request, override the enum value
       // with the numeric value, which is allowed to be invalid

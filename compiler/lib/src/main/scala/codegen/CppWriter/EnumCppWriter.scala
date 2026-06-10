@@ -318,7 +318,7 @@ case class EnumCppWriter(
         ),
         CppDoc.Type("Fw::SerializeStatus"),
         lines(
-          s"""|const SerialType es = static_cast<SerialType>(this->e);
+          s"""|SerialType es = static_cast<SerialType>(this->e);
               |#ifdef BUILD_UT
               |// Unit testing only: On request, override the enum value
               |// with the numeric value, which is allowed to be invalid
