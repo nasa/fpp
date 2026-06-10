@@ -79,7 +79,7 @@ template argument.
 port P
 
 @ A basic template parameterizing an interface port count
-template T(constant numPorts: U32) {
+module template T(constant numPorts: U32) {
 
   interface I {
     output port p: [numPorts] P
