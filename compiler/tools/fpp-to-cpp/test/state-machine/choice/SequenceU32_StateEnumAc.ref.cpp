@@ -7,7 +7,6 @@
 #include <cstring>
 #include <limits>
 
-#include "Fw/Types/Assert.hpp"
 #include "SequenceU32_StateEnumAc.hpp"
 
 namespace FppTest {
@@ -28,6 +27,7 @@ namespace FppTest {
     SequenceU32_State& SequenceU32_State ::
       operator=(enum T e1)
     {
+      FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
       this->e = e1;
       return *this;
     }

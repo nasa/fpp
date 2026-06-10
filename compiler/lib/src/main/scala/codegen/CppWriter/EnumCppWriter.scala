@@ -84,6 +84,7 @@ case class EnumCppWriter(
   private def getHppIncludes: CppDoc.Member = {
     val strings = List(
       "Fw/FPrimeBasicTypes.hpp",
+      "Fw/Types/Assert.hpp",
       "Fw/Types/Serializable.hpp",
       "Fw/Types/String.hpp"
     )
@@ -95,10 +96,7 @@ case class EnumCppWriter(
 
   private def getCppIncludes: CppDoc.Member = {
     val systemStrings = List("cstring", "limits")
-    val strings = List(
-      "Fw/Types/Assert.hpp",
-      s.getIncludePath(symbol, fileName)
-    )
+    val strings = List(s.getIncludePath(symbol, fileName))
     linesMember(
       List(
         List(Line.blank),
@@ -193,6 +191,7 @@ case class EnumCppWriter(
                 |    const enum T e1 //!< The raw enum value
                 |)
                 |{
+                |  FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
                 |  this->e = e1;
                 |}
                 |
@@ -246,6 +245,7 @@ case class EnumCppWriter(
         ),
         CppDoc.Type(s"$name&"),
         List(
+          line("FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));"),
           line("this->e = e1;"),
           line("return *this;"),
         )

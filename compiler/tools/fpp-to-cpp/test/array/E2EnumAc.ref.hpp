@@ -8,6 +8,7 @@
 #define E2EnumAc_HPP
 
 #include "Fw/FPrimeBasicTypes.hpp"
+#include "Fw/Types/Assert.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
@@ -66,6 +67,7 @@ class E2 :
         const enum T e1 //!< The raw enum value
     )
     {
+      FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
       this->e = e1;
     }
 

@@ -7,7 +7,6 @@
 #include <cstring>
 #include <limits>
 
-#include "Fw/Types/Assert.hpp"
 #include "SerializeTypeEnumAc.hpp"
 
 namespace M {
@@ -26,6 +25,7 @@ namespace M {
   SerializeType& SerializeType ::
     operator=(enum T e1)
   {
+    FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
     this->e = e1;
     return *this;
   }

@@ -7,7 +7,6 @@
 #include <cstring>
 #include <limits>
 
-#include "Fw/Types/Assert.hpp"
 #include "C_EEnumAc.hpp"
 
 // ----------------------------------------------------------------------
@@ -24,6 +23,7 @@ C_E& C_E ::
 C_E& C_E ::
   operator=(enum T e1)
 {
+  FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
   this->e = e1;
   return *this;
 }
