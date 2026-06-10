@@ -1,5 +1,29 @@
+type FwSizeStoreType = U16
+
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 @ State machine M
 state machine M {
+
+  array A = [3] U32
+
+  constant c = 0
+
+  enum E {
+    X
+    Y
+    Z
+  } default X
+
+  struct S {
+    x: [3] U32
+    y: F32
+    z: string
+  }
+
+  type T
+
+  type X = U32
 
   @ Action a1
   action a1

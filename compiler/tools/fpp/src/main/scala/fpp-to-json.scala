@@ -22,8 +22,7 @@ object FPPtoJson {
       case list => list
     }
     for {
-      tul <- Result.map(files, Parser.parseFile(Parser.transUnit)(None) _)
-      tul <- resolveIncludes(tul)
+      tul <- ToolUtils.parseFilesAndResolveAsts(Analysis(), files).map(_._2)
       _ <- writeAst (options) (tul)
       _ <- writeLocMap (options)
       _ <- writeAnalysis (options) (tul)
@@ -69,16 +68,6 @@ object FPPtoJson {
         } yield ()
       case true => Right(())
     }
-
-  def resolveIncludes(tul: List[Ast.TransUnit]):
-    Result.Result[List[Ast.TransUnit]] =
-  for {
-    result <- ResolveSpecInclude.transformList(
-      Analysis(),
-      tul,
-      ResolveSpecInclude.transUnit
-    )
-  } yield result._2
 
   val builder = OParser.builder[Options]
 

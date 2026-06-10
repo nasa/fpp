@@ -1,0 +1,11 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/type/string_length_shadowed.fpp:7.12
+  type T = string
+           ^
+error: invalid use of symbol M.FW_FIXED_LENGTH_STRING_SIZE: it shadows FW_FIXED_LENGTH_STRING_SIZE here
+symbol is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/type/string_length_shadowed.fpp:5.3
+  constant FW_FIXED_LENGTH_STRING_SIZE = 100
+  ^
+note: the symbol FW_FIXED_LENGTH_STRING_SIZE has an implied use at the point of the error
+note: use of a string type with default size requires this definition

@@ -9,6 +9,7 @@ type FwSizeType = U32
 type FwSizeStoreType = U16
 type FwTimeBaseStoreType = U16
 type FwTimeContextStoreType = U8
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
 
 module Fw {
     enum DpState { 

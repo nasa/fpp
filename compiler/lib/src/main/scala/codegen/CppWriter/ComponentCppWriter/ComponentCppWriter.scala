@@ -121,15 +121,20 @@ case class ComponentCppWriter (
         internalStrHeaders
       ).map(CppWriter.headerString)
       val symbolHeaders = writeIncludeDirectives
+      def addConditional(condition: String, header: String) = lines(
+        s"""|$condition
+            |$header
+            |#endif
+            |""".stripMargin
+      )
       (standardHeaders ++ symbolHeaders).sorted.flatMap({
-        case s: "#include \"Fw/Log/LogTextPortAc.hpp\"" =>
-          lines(
-            s"""|#if FW_ENABLE_TEXT_LOGGING == 1
-                |$s
-                |#endif
-                |""".stripMargin
-          )
-        case s => lines(s)
+        case h: "#include \"Fw/Log/LogTextPortAc.hpp\"" =>
+              addConditional("#if FW_ENABLE_TEXT_LOGGING == 1", h)
+        case h: "#include \"Fw/Port/InputSerializePort.hpp\"" =>
+              addConditional("#if !FW_DIRECT_PORT_CALLS", h)
+        case h: "#include \"Fw/Port/OutputSerializePort.hpp\"" =>
+              addConditional("#if !FW_DIRECT_PORT_CALLS", h)
+        case h => lines(h)
       })
     }
     linesMember(
@@ -145,7 +150,7 @@ case class ComponentCppWriter (
       "Fw/Types/Assert.hpp",
       "Fw/Types/ExternalString.hpp",
       "Fw/Types/String.hpp",
-      s"${s.getRelativePath(fileName).toString}.hpp"
+      s.getIncludePath(componentSymbol, fileName)
     ).sorted.map(CppWriter.headerString).flatMap({
       case s: "#include \"Fw/Types/String.hpp\"" =>
         lines(
@@ -332,12 +337,17 @@ case class ComponentCppWriter (
       // Data product and typed async input ports
       asyncInputPortsWithFormalParams.flatMap(p => {
         val portName = p.getUnqualifiedName
-        val portTypeName = getQualifiedPortTypeName(p, p.getDirection.get)
-        lines(s"BYTE ${portName}PortSize[${portTypeName}::SERIALIZED_SIZE];")
+        val _ @ Some(PortInstance.Type.DefPort(symbol)) = p.getType
+        val cppPortName = s.writeSymbol(symbol)
+        val cppPortBufferName = PortCppWriterUtils.getPortBufferName(cppPortName)
+        lines(s"BYTE ${portName}PortSize[$cppPortBufferName::CAPACITY];")
       }),
       // Command input port
-      guardedList (cmdRecvPort.isDefined)
-        (lines(s"BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];")),
+      {
+        val cppPortBufferName = PortCppWriterUtils.getPortBufferName("Fw::Cmd")
+        guardedList (cmdRecvPort.isDefined)
+          (lines(s"BYTE cmdPortSize[$cppPortBufferName::CAPACITY];"))
+      },
       // Internal ports
       // Sum the sizes of the port arguments
       internalPortsWithFormalParams.flatMap(p =>
@@ -389,7 +399,7 @@ case class ComponentCppWriter (
       s"""|// Define a message buffer class large enough to handle all the
           |// asynchronous inputs to the component
           |class ComponentIpcSerializableBuffer :
-          |  public Fw::SerializeBufferBase
+          |  public Fw::LinearBufferBase
           |{
           |
           |  public:
@@ -403,7 +413,7 @@ case class ComponentCppWriter (
           |      SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
           |    };
           |
-          |    Fw::Serializable::SizeType getBuffCapacity() const {
+          |    Fw::Serializable::SizeType getCapacity() const {
           |      return sizeof(m_buff);
           |    }
           |
@@ -649,7 +659,9 @@ case class ComponentCppWriter (
         )
     }
     def writeAsyncCommandDispatch(opcode: Command.Opcode, cmd: Command) = {
+      val cmdRespName = cmdRespPort.get.getUnqualifiedName
       val cmdRespVarName = portVariableName(cmdRespPort.get)
+      val cmdRespIsConnectedName = outputPortIsConnectedName(cmdRespName)
       val body = intersperseBlankLines(
         List(
           lines(
@@ -688,7 +700,7 @@ case class ComponentCppWriter (
                     |$tn $n;
                     |_deserStatus = args.deserializeTo($n);
                     |if (_deserStatus != Fw::FW_SERIALIZE_OK) {
-                    |  if (this->$cmdRespVarName[0].isConnected()) {
+                    |  if (this->$cmdRespIsConnectedName(0)) {
                     |    this->cmdResponse_out(
                     |        _opCode,
                     |        _cmdSeq,
@@ -706,8 +718,8 @@ case class ComponentCppWriter (
             s"""|// Make sure there was no data left over.
                 |// That means the argument buffer size was incorrect.
                 |#if FW_CMD_CHECK_RESIDUAL
-                |if (args.getBuffLeft() != 0) {
-                |  if (this->$cmdRespVarName[0].isConnected()) {
+                |if (args.getDeserializeSizeLeft() != 0) {
+                |  if (this->$cmdRespIsConnectedName(0)) {
                 |    this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
                 |  }
                 |  // Don't crash the task if bad arguments were passed from the ground
@@ -755,8 +767,8 @@ case class ComponentCppWriter (
             """|// Make sure there was no data left over.
                |// That means the buffer size was incorrect.
                |FW_ASSERT(
-               |  _msg.getBuffLeft() == 0,
-               |  static_cast<FwAssertArgType>(_msg.getBuffLeft())
+               |  _msg.getDeserializeSizeLeft() == 0,
+               |  static_cast<FwAssertArgType>(_msg.getDeserializeSizeLeft())
                |);
                |"""
           ),
@@ -920,10 +932,10 @@ case class ComponentCppWriter (
   }
 
   private def getTimeFunctionMember: List[CppDoc.Class.Member] =
-    if !hasTimeGetPort then Nil
-    else {
-      val name = portVariableName(timeGetPort.get)
-
+    guardedList (hasTimeGetPort) ({
+      val portName = timeGetPort.get.getUnqualifiedName
+      val isConnectedFunctionName = outputPortIsConnectedName(portName)
+      val invokerName = outputPortInvokerName(portName)
       addAccessTagAndComment(
         "protected",
         "Time",
@@ -939,23 +951,21 @@ case class ComponentCppWriter (
             Nil,
             CppDoc.Type("Fw::Time"),
             wrapInIfElse(
-              s"this->$name[0].isConnected()",
+              s"this->$isConnectedFunctionName(0)",
               lines(
                 s"""|Fw::Time _time;
-                    |this->$name[0].invoke(_time);
+                    |this->$invokerName(0, _time);
                     |return _time;
                     |"""
               ),
-              lines(
-                "return Fw::Time(TimeBase::TB_NONE, 0, 0);"
-              )
+              lines("return Fw::Time(TimeBase::TB_NONE, 0, 0);")
             ),
             CppDoc.Function.NonSV,
             CppDoc.Function.Const
           )
         )
       )
-    }
+    })
 
   private def getMsgSizeVariableMember: List[CppDoc.Class.Member] = {
     if !hasSerialAsyncInputPorts then Nil
@@ -1013,10 +1023,9 @@ case class ComponentCppWriter (
 
 object ComponentCppWriter extends CppWriterUtils {
 
-  sealed trait ConnectionSense
-  object ConnectionSense {
-    case object Forward extends ConnectionSense
-    case object Reversed extends ConnectionSense
+  enum Mode {
+    case Base
+    case TesterBase
   }
 
   def reverseDirection(direction: PortInstance.Direction) = {
@@ -1033,13 +1042,13 @@ object ComponentCppWriter extends CppWriterUtils {
     variableName: PortInstance => String,
     callbackName: String => String,
     printName: PortInstance => String,
-    connectionSense: ConnectionSense = ConnectionSense.Forward
+    mode: Mode = Mode.Base
   ): List[Line] = {
     val d = {
       val trueDirection = port.getDirection.get
-      connectionSense match {
-        case ConnectionSense.Forward => trueDirection
-        case ConnectionSense.Reversed => reverseDirection(trueDirection)
+      mode match {
+        case Mode.Base => trueDirection
+        case Mode.TesterBase => reverseDirection(trueDirection)
       }
     }
 
@@ -1048,7 +1057,7 @@ object ComponentCppWriter extends CppWriterUtils {
         "FwIndexType port = 0",
         s"port < static_cast<FwIndexType>(this->${numGetterName(port)}())",
         "port++",
-        List(
+        List.concat(
           lines(
             s"|this->${variableName(port)}[port].init();"
           ),
@@ -1075,23 +1084,20 @@ object ComponentCppWriter extends CppWriterUtils {
                 |#endif
                 |"""
           )
-        ).flatten
+        )
       )
 
-    port match {
-      case PortInstance.Special(aNode, _, _, _, _, _) => aNode._2.data match {
-        case Ast.SpecPortInstance.Special(_, kind, _, _, _) => kind match {
-          case Ast.SpecPortInstance.TextEvent => List.concat(
-            lines("#if FW_ENABLE_TEXT_LOGGING == 1"),
-            body,
-            lines("#endif")
-          )
-          case _ => body
-        }
-        case _ => body
-      }
-      case _ => body
+    val guardOpt = (isTextEventPort(port), mode) match {
+      case (true, Mode.Base) => Some("!FW_DIRECT_PORT_CALLS && FW_ENABLE_TEXT_LOGGING")
+      case (false, Mode.Base) => Some("!FW_DIRECT_PORT_CALLS")
+      case (true, Mode.TesterBase) => Some("FW_ENABLE_TEXT_LOGGING")
+      case _ => None
     }
+
+    guardOpt.map(
+      guard => List.concat(lines(s"#if $guard"), body, lines("#endif"))
+    ).getOrElse(body)
+
   }
 
 }

@@ -25,7 +25,6 @@ class TypeSpec extends AnyWordSpec {
       duplicate(I64),
       duplicate(I8),
       duplicate(Integer),
-      duplicate(String(None)),
       duplicate(U16),
       duplicate(U32),
       duplicate(U64),
@@ -40,6 +39,7 @@ class TypeSpec extends AnyWordSpec {
       (defaultAbsType, defaultEnum),
       (defaultArray, defaultStruct),
       (Boolean,String(None)),
+      duplicate(String(None)),
       (F32,F64),
       (I8,U32),
       duplicate(AnonArray(None, I32)),
@@ -236,7 +236,12 @@ class TypeSpec extends AnyWordSpec {
       array("A3", AnonArray(None, defaultAbsType)),
       array("A4", AnonArray(None, array("A5", AnonArray(None, defaultAbsType)))),
       struct("S2", AnonStruct(Map("x" -> defaultAbsType))),
-      struct("S3", AnonStruct(Map("x" -> struct("S4", AnonStruct(Map("x" -> defaultAbsType))))))
+      struct(
+        "S3",
+        AnonStruct(
+          Map("x" -> struct("S4", AnonStruct(Map("x" -> defaultAbsType))))
+        )
+      )
     )
     displayable.foreach {
       ty => s"be true for $ty" in
@@ -247,5 +252,121 @@ class TypeSpec extends AnyWordSpec {
       assert(!ty.isDisplayable)
     }
   }
+
+  "size of" should {
+    // Types and constants used in test
+    val enum1 = enumeration("E", U16, 0)
+    val enumAlias = aliasType("EnumAlias", enum1, 1)
+    val array1 = array("A", AnonArray(Some(3), I64), 2)
+    val array2 = array("A2", AnonArray(Some(2), array1), 3)
+    val stringAlias = aliasType("StringAlias", stringWithSize("100", 4))
+    val stringSize10 = stringWithSize("10", 5)
+    val fwSizeStoreType = aliasType("FwSizeStoreType", U16, 6)
+    val fwFixedLengthStringSize = annotate(
+      AstNode.create(
+        Ast.DefConstant(
+          "FW_FIXED_LENGTH_STRING_SIZE",
+          AstNode.create(Ast.ExprLiteralInt("256"), 7),
+          false
+        ), 8
+      )
+    )
+    // Create analysis data structure and fill in the framework definitions, types, and values 
+    // required for computing the serialized size of a type
+    val a = Analysis(
+      frameworkDefinitions = FrameworkDefinitions(
+        constantMap = Map(
+          "FW_FIXED_LENGTH_STRING_SIZE" -> Symbol.Constant(fwFixedLengthStringSize)
+        ),
+        typeMap = Map(
+          "FwSizeStoreType" -> Symbol.AliasType(fwSizeStoreType.node)
+        )
+      ),
+      typeMap = Map(6 -> fwSizeStoreType),
+      valueMap = Map(
+        8 -> Value.Integer(256),
+        4 -> Value.Integer(100),
+        5 -> Value.Integer(10)
+      )
+    )
+
+    "compute the size of primitives" in {
+        assert(SerializedSize.ty(a, U8) == Some(1))
+        assert(SerializedSize.ty(a, U16) == Some(2))
+        assert(SerializedSize.ty(a, U32) == Some(4))
+        assert(SerializedSize.ty(a, U64) == Some(8))
+        assert(SerializedSize.ty(a, I8) == Some(1))
+        assert(SerializedSize.ty(a, I16) == Some(2))
+        assert(SerializedSize.ty(a, I32) == Some(4))
+        assert(SerializedSize.ty(a, I64) == Some(8))
+        assert(SerializedSize.ty(a, F32) == Some(4))
+        assert(SerializedSize.ty(a, F64) == Some(8))
+        assert(SerializedSize.ty(a, Boolean) == Some(1))
+      }
+
+      "compute the size of alias types" in {
+        assert(SerializedSize.ty(a, stringAlias) == Some(102))
+        assert(
+          SerializedSize.ty(
+            a,
+            aliasType("StringDefaultAlias", String(None))
+          ) == Some(258)
+        )
+        assert(SerializedSize.ty(a, enumAlias) == Some(2))
+      }
+
+      "compute the size of arrays" in {
+        assert(SerializedSize.ty(a, array1) == Some(24))
+        assert(SerializedSize.ty(a, array2) == Some(48))
+      }
+
+      "compute the size of enums" in {
+        assert(SerializedSize.ty(a, enum1) == Some(2))
+      }
+
+      "compute the size of structs" in {
+        val struct1 = struct(
+          "S",
+          AnonStruct(
+            Map(
+              "m1" -> array1,
+              "m2" -> F64,
+              "m3" -> enumAlias,
+              "m4" -> stringSize10
+            )
+          ),
+          0,
+          Map("m1" -> 2, "m3" -> 1, "m4" -> 3)
+        )
+        val struct2 = struct(
+          "S2",
+          AnonStruct(
+            Map(
+              "m1" -> array2,
+              "m2" -> stringAlias,
+              "m3" -> struct1
+            )
+          ),
+          0,
+          Map("m3" -> 2)
+        )
+        assert(SerializedSize.ty(a, struct1) == Some(94))
+        assert(SerializedSize.ty(a, struct2) == Some(338))
+      }
+
+      "compute the size of types with no size" in {
+        assert(SerializedSize.ty(a, defaultAbsType) == None)
+        val A = array("A", AnonArray(Some(3), defaultAbsType))
+        assert(SerializedSize.ty(a, A) == None)
+        val S = struct(
+          "S",
+          AnonStruct(Map("m1" -> I32, "m2" -> defaultAbsType))
+        )
+        assert(SerializedSize.ty(a, S) == None)
+        val X = aliasType("X", defaultAbsType)
+        assert(SerializedSize.ty(a, X) == None)
+      }
+
+    }
 
 }

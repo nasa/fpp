@@ -1,0 +1,8 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/component_instance_path_error.fpp:1.22
+locate instance i at "incorrect.fpp"
+                     ^
+error: incorrect location path [ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/incorrect.fpp
+actual location is [ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/component_instance_path_error.fpp:7.1
+instance i: C base id 0x100
+^

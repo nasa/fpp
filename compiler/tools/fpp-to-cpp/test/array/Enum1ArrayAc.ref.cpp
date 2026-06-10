@@ -13,7 +13,8 @@
 
 Enum1 ::
   Enum1() :
-    Serializable()
+    Serializable(),
+    elements()
 {
   *this = Enum1({M::E1::X, M::E1::Y});
 }
@@ -141,7 +142,7 @@ std::ostream& operator<<(std::ostream& os, const Enum1& obj) {
 
 Fw::SerializeStatus Enum1 ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -157,7 +158,7 @@ Fw::SerializeStatus Enum1 ::
 
 Fw::SerializeStatus Enum1 ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {
@@ -186,31 +187,21 @@ void Enum1 ::
   sb = "";
 
   // Array prefix
-  if (sb.length() + 2 <= sb.maxLength()) {
-    sb += "[ ";
-  } else {
-    return;
-  }
+  sb += "[ ";
 
   for (FwSizeType index = 0; index < SIZE; index++) {
+    // Array data
     Fw::String tmp;
     this->elements[index].toString(tmp);
 
-    FwSizeType size = tmp.length() + (index > 0 ? 2 : 0);
-    if ((size + sb.length()) <= sb.maxLength()) {
-      if (index > 0) {
-        sb += ", ";
-      }
-      sb += tmp;
-    } else {
-      break;
+    if (index > 0) {
+      sb += ", ";
     }
+    sb += tmp;
   }
 
   // Array suffix
-  if (sb.length() + 2 <= sb.maxLength()) {
-    sb += " ]";
-  }
+  sb += " ]";
 }
 
 #endif

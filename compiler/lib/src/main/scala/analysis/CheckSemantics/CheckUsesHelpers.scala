@@ -15,11 +15,11 @@ case class CheckUsesHelpers[A,NG,S <: SymbolInterface](
 
   /** Get the symbol for a name from the environment */
   def getSymbolForName
-    (mapping: Name.Unqualified => Option[S])
+    (ng: NG, mapping: Name.Unqualified => Option[S])
     (id: AstNode.Id, name: Name.Unqualified): Result.Result[S] =
     mapping(name).map(Right(_)).getOrElse({
       val loc = Locations.get(id)
-      Left(SemanticError.UndefinedSymbol(name, loc))
+      Left(SemanticError.UndefinedSymbol(name, ng.toString(), loc))
     })
 
   /** Visit an identifier node and check a use */
@@ -46,7 +46,7 @@ case class CheckUsesHelpers[A,NG,S <: SymbolInterface](
     name: Ast.Ident
   ) = {
     val mapping = getNestedScope(a).get (ng) _
-    for (symbol <- getSymbolForName(mapping)(id, name)) yield {
+    for (symbol <- getSymbolForName(ng, mapping)(id, name)) yield {
       val useDefMap = getUseDefMap(a) + (id -> symbol)
       setUseDefMap(a, useDefMap)
     }
@@ -75,7 +75,7 @@ case class CheckUsesHelpers[A,NG,S <: SymbolInterface](
       }
       symbol <- {
         val mapping = scope.get (ng) _
-        getSymbolForName(mapping)(name.id, name.data)
+        getSymbolForName(ng, mapping)(name.id, name.data)
       }
     }
     yield {

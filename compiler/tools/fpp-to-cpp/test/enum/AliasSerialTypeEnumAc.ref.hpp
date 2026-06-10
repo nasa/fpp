@@ -32,7 +32,7 @@ class AliasSerialType :
     };
 
     //! For backwards compatibility
-    typedef T t;
+    typedef enum T t;
 
   public:
 
@@ -61,7 +61,7 @@ class AliasSerialType :
 
     //! Constructor (user-provided value)
     AliasSerialType(
-        const T e1 //!< The raw enum value
+        const enum T e1 //!< The raw enum value
     )
     {
       this->e = e1;
@@ -88,23 +88,23 @@ class AliasSerialType :
 
     //! Copy assignment operator (raw enum)
     AliasSerialType& operator=(
-        T e1 //!< The enum value
+        enum T e1 //!< The enum value
     );
 
     //! Conversion operator
-    operator T() const
+    operator enum T() const
     {
       return this->e;
     }
 
     //! Equality operator
-    bool operator==(T e1) const
+    bool operator==(enum T e1) const
     {
       return this->e == e1;
     }
 
     //! Inequality operator
-    bool operator!=(T e1) const
+    bool operator!=(enum T e1) const
     {
       return !(*this == e1);
     }
@@ -130,13 +130,13 @@ class AliasSerialType :
 
     //! Serialize raw enum value to SerialType
     Fw::SerializeStatus serializeTo(
-        Fw::SerializeBufferBase& buffer, //!< The serial buffer
+        Fw::SerialBufferBase& buffer, //!< The serial buffer
         Fw::Endianness mode = Fw::Endianness::BIG //!< Endianness of serialized buffer
     ) const;
 
     //! Deserialize raw enum value from SerialType
     Fw::SerializeStatus deserializeFrom(
-        Fw::SerializeBufferBase& buffer, //!< The serial buffer
+        Fw::SerialBufferBase& buffer, //!< The serial buffer
         Fw::Endianness mode = Fw::Endianness::BIG //!< Endianness of serialized buffer
     );
 
@@ -156,7 +156,7 @@ class AliasSerialType :
     // ----------------------------------------------------------------------
 
     //! The raw enum value
-    T e;
+    enum T e;
 
 };
 

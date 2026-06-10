@@ -14,7 +14,7 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/PassiveGetProductsComponentAc.hpp"
+#include "PassiveGetProductsComponentAc.hpp"
 
 //! \class PassiveGetProductsTesterBase
 //! \brief Auto-generated base for PassiveGetProducts component test harness
@@ -185,7 +185,7 @@ class PassiveGetProductsTesterBase :
       U32 u32;
       F32 f32;
       bool b;
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1;
       E e;
       A a;
@@ -206,7 +206,7 @@ class PassiveGetProductsTesterBase :
       U32 u32;
       F32 f32;
       bool b;
-      char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str2;
       E e;
       A a;
@@ -1005,98 +1005,98 @@ class PassiveGetProductsTesterBase :
     //! \return Whether port to_cmdIn is connected
     bool isConnected_to_cmdIn(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsAliasStringReturnSync is connected
     //!
     //! \return Whether port to_noArgsAliasStringReturnSync is connected
     bool isConnected_to_noArgsAliasStringReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsGuarded is connected
     //!
     //! \return Whether port to_noArgsGuarded is connected
     bool isConnected_to_noArgsGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsReturnGuarded is connected
     //!
     //! \return Whether port to_noArgsReturnGuarded is connected
     bool isConnected_to_noArgsReturnGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsReturnSync is connected
     //!
     //! \return Whether port to_noArgsReturnSync is connected
     bool isConnected_to_noArgsReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsStringReturnSync is connected
     //!
     //! \return Whether port to_noArgsStringReturnSync is connected
     bool isConnected_to_noArgsStringReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsSync is connected
     //!
     //! \return Whether port to_noArgsSync is connected
     bool isConnected_to_noArgsSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAliasGuarded is connected
     //!
     //! \return Whether port to_typedAliasGuarded is connected
     bool isConnected_to_typedAliasGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAliasReturnSync is connected
     //!
     //! \return Whether port to_typedAliasReturnSync is connected
     bool isConnected_to_typedAliasReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAliasStringReturnSync is connected
     //!
     //! \return Whether port to_typedAliasStringReturnSync is connected
     bool isConnected_to_typedAliasStringReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedGuarded is connected
     //!
     //! \return Whether port to_typedGuarded is connected
     bool isConnected_to_typedGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedReturnGuarded is connected
     //!
     //! \return Whether port to_typedReturnGuarded is connected
     bool isConnected_to_typedReturnGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedReturnSync is connected
     //!
     //! \return Whether port to_typedReturnSync is connected
     bool isConnected_to_typedReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedSync is connected
     //!
     //! \return Whether port to_typedSync is connected
     bool isConnected_to_typedSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
   protected:
 

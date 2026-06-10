@@ -15,7 +15,8 @@ namespace M {
 
   PrimitiveF32e ::
     PrimitiveF32e() :
-      Serializable()
+      Serializable(),
+      elements()
   {
     *this = M::PrimitiveF32e(1.0f);
   }
@@ -143,7 +144,7 @@ namespace M {
 
   Fw::SerializeStatus PrimitiveF32e ::
     serializeTo(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     ) const
   {
@@ -159,7 +160,7 @@ namespace M {
 
   Fw::SerializeStatus PrimitiveF32e ::
     deserializeFrom(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     )
   {
@@ -188,31 +189,21 @@ namespace M {
     sb = "";
 
     // Array prefix
-    if (sb.length() + 2 <= sb.maxLength()) {
-      sb += "[ ";
-    } else {
-      return;
-    }
+    sb += "[ ";
 
     for (FwSizeType index = 0; index < SIZE; index++) {
+      // Array data
       Fw::String tmp;
       tmp.format("%.3e", static_cast<F64>(this->elements[index]));
 
-      FwSizeType size = tmp.length() + (index > 0 ? 2 : 0);
-      if ((size + sb.length()) <= sb.maxLength()) {
-        if (index > 0) {
-          sb += ", ";
-        }
-        sb += tmp;
-      } else {
-        break;
+      if (index > 0) {
+        sb += ", ";
       }
+      sb += tmp;
     }
 
     // Array suffix
-    if (sb.length() + 2 <= sb.maxLength()) {
-      sb += " ]";
-    }
+    sb += " ]";
   }
 
 #endif

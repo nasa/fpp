@@ -7,16 +7,18 @@
 #ifndef M_StringReturnTypePortAc_HPP
 #define M_StringReturnTypePortAc_HPP
 
-#include <cstdio>
-#include <cstring>
-
-#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#include "Fw/Types/String.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
+#if !FW_DIRECT_PORT_CALLS
+#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
-#include "Fw/Types/String.hpp"
+#endif
 
 namespace M {
+
+#if !FW_DIRECT_PORT_CALLS
 
   //! Input StringReturnType port
   //! A port with a string return type
@@ -27,18 +29,7 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
-      // Constants
-      // ----------------------------------------------------------------------
-
-      enum {
-        //! The size of the serial representations of the port arguments
-        SERIALIZED_SIZE = 0
-      };
-
-    public:
-
-      // ----------------------------------------------------------------------
-      // Types
+      // Public types for InputStringReturnTypePort
       // ----------------------------------------------------------------------
 
       //! The port callback function type
@@ -50,11 +41,17 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
-      // Input Port Member functions
+      // Public constructors for InputStringReturnTypePort
       // ----------------------------------------------------------------------
 
       //! Constructor
       InputStringReturnTypePort();
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Public member functions for InputStringReturnTypePort
+      // ----------------------------------------------------------------------
 
       //! Initialization function
       void init();
@@ -70,17 +67,24 @@ namespace M {
 
     private:
 
+      // ----------------------------------------------------------------------
+      // Private member functions for InputStringReturnTypePort
+      // ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
       //! Invoke the port with serialized arguments
-      Fw::SerializeStatus invokeSerial(Fw::SerializeBufferBase& _buffer);
+      //! \return The serialize status
+      Fw::SerializeStatus invokeSerial(
+          Fw::LinearBufferBase& _buffer //!< The serial buffer
+      );
 
 #endif
 
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables
+      // Private member variables for InputStringReturnTypePort
       // ----------------------------------------------------------------------
 
       //! The pointer to the port callback function
@@ -97,11 +101,17 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
-      // Output Port Member functions
+      // Public constructors for OutputStringReturnTypePort
       // ----------------------------------------------------------------------
 
       //! Constructor
       OutputStringReturnTypePort();
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Public member functions for OutputStringReturnTypePort
+      // ----------------------------------------------------------------------
 
       //! Initialization function
       void init();
@@ -111,19 +121,22 @@ namespace M {
           InputStringReturnTypePort* callPort //!< The input port
       );
 
-      //! Invoke a port interface
+      //! Invoke a port connection
+      //! \return The return value of the port handler
       Fw::String invoke() const;
 
     private:
 
       // ----------------------------------------------------------------------
-      // Member variables
+      // Private member variables for OutputStringReturnTypePort
       // ----------------------------------------------------------------------
 
       //! The pointer to the input port
       InputStringReturnTypePort* m_port;
 
   };
+
+#endif
 
 }
 

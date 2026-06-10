@@ -28,9 +28,9 @@ abstract class StateMachineCppWriterUtils(
 
   val typeCppWriter = TypeCppWriter(s)
 
-  val uninitStateName = "__FPRIME_AC_UNINITIALIZED"
+  val stateEnumSymbol = s.a.useDefMap(aNode._2.id)
 
-  val initialTransitionName = "__FPRIME_AC_INITIAL_TRANSITION"
+  val initialTransitionName = "__FPRIME_INITIAL_TRANSITION"
 
   val leafStateSymbols =
     StateMachine.getLeafStates(symbol).map(StateMachineSymbol.State(_)).

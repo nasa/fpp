@@ -3,6 +3,7 @@ constant a_use = a
 array T_use = [3] T
 array S_use = [3] S
 constant E_use = E.X
+constant SizeOfType_use = sizeof(SizeOfType)
 
 interface I {
   sync input port I_P_use: [3] P
@@ -37,10 +38,10 @@ active component C3 {
   telemetry port tlmOut
   text event port textEventOut
   time get port timeGetOut
-  state machine instance S_use: S
-  state machine instance M_S_use: M.S
-  state machine instance C1_S_use: C1.S
-  state machine instance M_C1_S_use: M.C1.S
+  state machine instance SM_use: SM
+  state machine instance M_S_use: M.SM
+  state machine instance C1_S_use: C1.SM
+  state machine instance M_C1_S_use: M.C1.SM
   event E(x: M.E) severity activity low id a format "x={}" throttle M.a + 2 every t
 }
 
@@ -89,12 +90,20 @@ module M {
 
 }
 
-state machine SM {
+state machine SM1 {
+
+  type SM_A_use = SM.A
+  constant SM_a_use = SM.a
+  type SM_E_use = SM.E
+  type SM_S_use = SM.S
+  type SM_T_use = SM.T
+  type SM_X_use = SM.X
 
   action a: ActionType
   guard g: GuardType
   signal s1: SignalType
   signal s2: string size SignalConstant
+  signal s3: string
 
   initial enter S
 

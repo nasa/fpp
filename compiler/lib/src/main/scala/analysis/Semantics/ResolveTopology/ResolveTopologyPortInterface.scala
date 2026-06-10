@@ -16,7 +16,6 @@ object ResolveTopologyPortInterface {
         t <- t.addPort(
           aNode,
           instance,
-          Locations.get(node.id)
         )
       } yield t
     })

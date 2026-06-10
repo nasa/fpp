@@ -7,8 +7,8 @@
 #ifndef ActiveAsyncProductPortsOnlyGTestBase_HPP
 #define ActiveAsyncProductPortsOnlyGTestBase_HPP
 
+#include "ActiveAsyncProductPortsOnlyTesterBase.hpp"
 #include "gtest/gtest.h"
-#include "test-base/ActiveAsyncProductPortsOnlyTesterBase.hpp"
 
 //! \class ActiveAsyncProductPortsOnlyGTestBase
 //! \brief Auto-generated base for ActiveAsyncProductPortsOnly component Google Test harness

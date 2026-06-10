@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/cycle/sizeof_string_1.fpp:2.1
+type T = string size sizeof(T)
+^
+error: encountered a use-def cycle:
+  use T at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/sizeof_string_1.fpp:2.29 refers to definition T at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/sizeof_string_1.fpp:2.1

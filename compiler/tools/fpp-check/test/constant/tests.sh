@@ -1,6 +1,8 @@
 tests="
 array_index_negative
 array_index_out_of_bounds
+dictionary_error
+dictionary_ok
 invalid_array_index_type
 invalid_array_type
 undef_1

@@ -476,7 +476,7 @@ abstract class ComponentCppWriterUtils(
           case Nil => ""
           case _ => qualifiers.mkString("::") + "::"
         }
-        val name = PortCppWriter.getPortName(symbol.getUnqualifiedName, direction)
+        val name = PortCppWriterUtils.getPortName(symbol.getUnqualifiedName)(direction)
 
         cppQualifier + name
       case Some(PortInstance.Type.Serial) =>
@@ -485,27 +485,39 @@ abstract class ComponentCppWriterUtils(
     }
   }
 
-  /** Calls writePort() on each port in ports, wrapping the result in an if directive if necessary */
-  def mapPorts(
+  /** For each port in ports, (1) call getPortMembers and (2) wrap the
+   *  result in a guard if necessary */
+  def getPortMembersWithGuard(
     ports: List[PortInstance],
-    writePort: PortInstance => List[CppDoc.Class.Member],
+    getPortMembers: PortInstance => List[CppDoc.Class.Member],
     output: CppDoc.Lines.Output = CppDoc.Lines.Both
-  ): List[CppDoc.Class.Member] = {
-    ports.flatMap(p => p match {
-      case PortInstance.Special(aNode, _, _, _, _, _) => aNode._2.data match {
-        case Ast.SpecPortInstance.Special(_, kind, _, _, _) => kind match {
-          case Ast.SpecPortInstance.TextEvent => wrapClassMembersInIfDirective(
-            "\n#if FW_ENABLE_TEXT_LOGGING == 1",
-            writePort(p),
-            output
-          )
-          case _ => writePort(p)
-        }
-        case _ => writePort(p)
-      }
-      case _ => writePort(p)
-    })
-  }
+  ): List[CppDoc.Class.Member] =
+    ports.flatMap(p =>
+      val members = getPortMembers(p)
+      if isTextEventPort(p)
+      then
+        wrapClassMembersInIfDirective(
+          "#if FW_ENABLE_TEXT_LOGGING == 1",
+          members,
+          output
+        )
+      else members
+    )
+
+  /** Add a guard for a port, if necessary */
+  def addGuardForPort(
+    port: PortInstance,
+    portLines: List[Line]
+  ): List[Line] =
+    if isTextEventPort(port)
+    then
+      List.concat(
+        Line.blank ::
+        line("#if FW_ENABLE_TEXT_LOGGING == 1") ::
+        portLines,
+        lines("\n#endif")
+      )
+    else portLines
 
   def getPortComment(p: PortInstance): Option[String] = {
     val aNode = p match {
@@ -518,11 +530,17 @@ abstract class ComponentCppWriterUtils(
     AnnotationCppWriter.asStringOpt(aNode)
   }
 
+  // The parameter name for a serial port
+  val serialPortParamName = "buffer"
+
+  // The parameter type for a serial port
+  val serialPortParamType = "Fw::LinearBufferBase"
+
   /** Get port params as a list of tuples containing the name and typename for each param */
   def getPortParams(p: PortInstance): List[(String, String, Option[Type])] =
     p.getType match {
       case Some(PortInstance.Type.Serial) => List(
-        ("buffer", "Fw::SerializeBufferBase", None)
+        (serialPortParamName, serialPortParamType, None)
       )
       case _ => portParamTypeMap(p.getUnqualifiedName).map((n, tn, t) => (n, tn, Some(t)))
     }
@@ -532,7 +550,7 @@ abstract class ComponentCppWriterUtils(
     p.getType match {
       case Some(PortInstance.Type.Serial) => List(
         CppDoc.Function.Param(
-          CppDoc.Type("Fw::SerializeBufferBase&"),
+          CppDoc.Type("Fw::LinearBufferBase&"),
           "buffer",
           Some("The serialization buffer")
         )
@@ -567,29 +585,25 @@ abstract class ComponentCppWriterUtils(
   }
 
   /** Get the C++ return type of a port instance as a String option */
-  def getPortReturnType(pi: PortInstance): Option[String] = {
+  def getPortReturnTypeAsStringOption(pi: PortInstance): Option[String] = {
     def transformer (sym: Symbol.Port) (node: AstNode[Ast.TypeName]) =
       TypeCppWriter.getName(s, s.a.typeMap(node.id), "Fw::String")
     transformPortReturnType(pi, transformer)
   }
 
+  /** Get the C++ return type of a port instance as a String */
+  def getPortReturnTypeAsString(pi: PortInstance): String =
+    getPortReturnTypeAsStringOption(pi).getOrElse("void")
+
   /** Get a return type of a port as a CppDoc type */
   def getPortReturnTypeAsCppDocType(p: PortInstance): CppDoc.Type =
-    CppDoc.Type(
-      getPortReturnType(p) match {
-        case Some(tn) => tn
-        case None => "void"
-      }
-    )
+    CppDoc.Type(getPortReturnTypeAsString(p))
 
-  def addReturnKeyword(str: String, p: PortInstance): String =
-    p.getType match {
-      case Some(PortInstance.Type.Serial) => s"return $str"
-      case _ => getPortReturnType(p) match {
-          case Some(_) => s"return $str"
-          case None => str
-        }
-    }
+  def invokerReturnsNonVoid(p: PortInstance): Boolean =
+    getInvokerReturnTypeAsString(p) != "void"
+
+  def addReturnToInvocation (p: PortInstance) =
+    addConditionalPrefix (invokerReturnsNonVoid(p)) ("return")
 
   /** Get the port type as a string */
   def getPortTypeString(p: PortInstance): String =
@@ -620,6 +634,27 @@ abstract class ComponentCppWriterUtils(
     kind match {
       case Command.Param.Save => "save"
       case Command.Param.Set => "set"
+    }
+
+  /** Whether an invoker is required for a port instance */
+  def invokerRequired(portInstance: PortInstance) =
+    portInstance.getSpecialKind match {
+      case Some(Ast.SpecPortInstance.CommandReg) |
+           Some(Ast.SpecPortInstance.CommandResp) =>
+        hasCommands || hasParameters
+      case Some(Ast.SpecPortInstance.Event) |
+           Some(Ast.SpecPortInstance.TextEvent) =>
+        hasEvents
+      case Some(Ast.SpecPortInstance.ParamGet) |
+           Some(Ast.SpecPortInstance.ParamSet) =>
+        hasParameters
+      case Some(Ast.SpecPortInstance.ProductGet) |
+           Some(Ast.SpecPortInstance.ProductRequest) |
+           Some(Ast.SpecPortInstance.ProductSend) =>
+        hasDataProducts
+      case Some(Ast.SpecPortInstance.Telemetry) =>
+        hasTelemetry
+      case _ => true
     }
 
   /** Write a state machine identifier name */
@@ -740,6 +775,10 @@ abstract class ComponentCppWriterUtils(
   def portCppConstantName(p: PortInstance) =
     s"${p.getUnqualifiedName}_${getPortTypeBaseName(p)}".toUpperCase
 
+  /** Get the name for a NUM_PORTS constant */
+  def numPortsConstantName(p: PortInstance) =
+    s"NUM_${p.getUnqualifiedName.toUpperCase}_${p.getDirection.get.toString.toUpperCase}_PORTS"
+
   /** Get the name for an internal port enumerated constant in cpp file */
   def internalPortCppConstantName(p: PortInstance.Internal) =
     s"INT_IF_${p.getUnqualifiedName.toUpperCase}"
@@ -793,6 +832,10 @@ abstract class ComponentCppWriterUtils(
   // Get the name for an output port connector function
   def outputPortConnectorName(name: String) =
     s"set_${name}_OutputPort"
+
+  /** Gets the name for an output port connection status function */
+  def outputPortIsConnectedName(name: String) =
+    s"isConnected_${name}_OutputPort"
 
   /** Get the name for an output port invocation function */
   def outputPortInvokerName(name: String) =
@@ -892,6 +935,22 @@ abstract class ComponentCppWriterUtils(
       }
     )
 
+  // Gets an invoker return type as a CppDoc Type
+  def getInvokerReturnType(p: PortInstance): CppDoc.Type =
+    CppDoc.Type(getInvokerReturnTypeAsString(p))
+
+  def getInvokerReturnTypeAsString(p: PortInstance): String =
+    p.getType.get match {
+      case PortInstance.Type.DefPort(_) => getPortReturnTypeAsString(p)
+      case PortInstance.Type.Serial => "Fw::SerializeStatus"
+    }
+
+  def getHandlerReturnTypeAsString(p: PortInstance): String =
+    p.getType.get match {
+      case PortInstance.Type.DefPort(_) => getPortReturnTypeAsString(p)
+      case PortInstance.Type.Serial => "void"
+    }
+
   def getVirtualOverflowHook(
     name: String,
     msgType: MessageType,
@@ -983,7 +1042,7 @@ object ComponentCppWriterUtils {
   /** Whether code generation is internal or external to the component */
   enum InternalOrExternal {
     case Internal
-    case External 
+    case External
   }
 
   /** (  parameter name, parameter type name, parameter type ) **/

@@ -184,7 +184,7 @@ class PassiveSerial final :
     //! A serial guarded input
     void serialGuarded_handler(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     ) override;
 
     //! Handler implementation for serialSync
@@ -192,7 +192,7 @@ class PassiveSerial final :
     //! A serial sync input port
     void serialSync_handler(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     ) override;
 
   private:

@@ -22,7 +22,7 @@ QueuedGetProductsTester ::
 QueuedGetProductsTester ::
   ~QueuedGetProductsTester()
 {
-
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

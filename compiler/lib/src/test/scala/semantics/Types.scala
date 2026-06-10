@@ -17,31 +17,40 @@ object Types {
   }
 
   def aliasType(name: Ast.Ident, ty: Type, id: AstNode.Id = 0): AliasType = {
-    val typeNameNode = AstNode.create(Ast.TypeNameInt(Ast.U32()), id)
+    val typeNameNode = AstNode.create(Ast.TypeNameInt(Ast.U32), id)
 
-    val d = Ast.DefAliasType(name, typeNameNode)
+    val d = Ast.DefAliasType(name, typeNameNode, false)
     val anode = annotatedNode(d, id)
     AliasType(anode, ty)
   }
 
   def array(name: Ast.Ident, anonArray: AnonArray = AnonArray(None, U32), id: AstNode.Id = 0): Array = {
     val size = AstNode.create(Ast.ExprLiteralInt("1"))
-    val eltType = AstNode.create(Ast.TypeNameInt(Ast.U32()))
-    val d = Ast.DefArray(name, size, eltType, None, None)
+    val eltType = AstNode.create(Ast.TypeNameInt(Ast.U32))
+    val d = Ast.DefArray(name, size, eltType, None, None, false)
     val anode = annotatedNode(d, id)
     Array(anode, anonArray)
   }
 
   def enumeration(name: Ast.Ident, repType: Type.PrimitiveInt = I32, id: AstNode.Id = 0): Enum = {
-    val d = Ast.DefEnum(name, None, List(), None)
+    val d = Ast.DefEnum(name, None, List(), None, false)
     val anode = annotatedNode(d, id)
     Enum(anode, repType)
   }
 
-  def struct(name: Ast.Ident, anonStruct: AnonStruct = AnonStruct(Map()), id: AstNode.Id = 0): Struct = {
-    val d = Ast.DefStruct(name, List(), None)
+  def stringWithSize(size: java.lang.String, sizeNodeId: AstNode.Id) = {
+    String(Some(AstNode.create(Ast.ExprLiteralInt(size), sizeNodeId)))
+  }
+
+  def struct(
+    name: Ast.Ident,
+    anonStruct: AnonStruct = AnonStruct(Map()),
+    id: AstNode.Id = 0,
+    sizes: Struct.Sizes = Map()
+  ): Struct = {
+    val d = Ast.DefStruct(name, List(), None, false)
     val anode = annotatedNode(d, id)
-    Struct(anode, anonStruct)
+    Struct(anode, anonStruct, None, sizes)
   }
 
   val defaultAbsType: AbsType = absType("T", 0)

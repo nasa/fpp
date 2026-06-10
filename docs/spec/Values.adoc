@@ -26,8 +26,7 @@ A *value* is one of the following:
 
 Every value _v_ belongs to exactly one <<Types_Canonical-Types,canonical type>>
 _T_, except that
-every string value belongs to the type `string` and to
-all types `string size` _n_, for any _n_.
+every string value belongs to every string type.
 
 Every value that belongs to type _T_ also belongs to every
 <<Types_Alias-Types,alias type>> whose
@@ -96,12 +95,7 @@ e.g., `"abc"`.
 Every string value _v_ has a *length*, which is the number of
 characters in the sequence.
 
-A string value _v_ belongs to the following canonical types:
-
-* `string`
-
-* `string size` _n_ for any _n_.
-
+A string value _v_ belongs to every string type.
 Note that _v_ may have length _m_ and type `string size` _n_,
 with stem:[m > n].
 In this case, the behavior is defined by the code generation strategy.
@@ -133,7 +127,7 @@ an anonymous array value stem:[v] has the form `[` stem:[v_1] `,` stem:[...]
 `,`
 stem:[v_{n-1}] `]`, where
 
-. stem:[n] is a positive integer called the *size* of the anonymous array 
+. stem:[n] is a positive integer called the *size* of the anonymous array
   value.
 
 . For each stem:[i in [0,n-1]], stem:[v_i] is a value of type
@@ -229,41 +223,25 @@ The canonical type of the struct value is stem:[Q].
 
 === Serialized Sizes
 
-Every value _v_ whose type has a syntactic representation in FPP has a
-*serialized size*.  This is the number of bytes required to represent _v_ in
+Every value _v_ of a <<Types_Displayable-Types,displayable type>>
+has a *serialized size*.  This is the number of bytes required to represent _v_ 
+in
 the standard F Prime serialized format.  The serialized size _s_ of a value _v_
 depends on the type _T_ of _v_:
 
 * If _T_ is a
-<<Types_Primitive-Numeric-Types,primitive numeric type>>, then _s_ is the byte
-width of the type.  For example, the serialized size of a value of type `F64`
-is 8.
+<<Types_String-Types,string type>>, then _s_ is the sum of the following two numbers:
 
-* If _T_ is
-<<Types_The-Boolean-Type,`bool`>>, then _s_ is 1.
+** The serialized size of the
+   <<Definitions_Framework-Definitions_Type-Definitions,framework type>>
+`FwSizeStoreType`.  This is the space used to store the length of the string.
 
-* If _T_ is a
-<<Types_String-Types,string type>>, then _s_ is the number of bytes used to
-represent the length of a string plus the length of the string in characters.
-The number of bytes used to represent the length of a string is
-implementation-specific.
+** The length of the string in characters.
 
-* If _T_ is an
-<<Types_Array-Types,array type>>, then _s_ is sum of the serialized sizes of
-the elements of _v_.
+* Otherwise if _v_ is an <<Types_Array-Types,array type>>, then _s_ is the sum
+  of the serialized sizes of the elements of _v_.
 
-* If _T_ is an
-<<Types_Enum-Types,enum type>>, then _s_ is the byte width of the
-representation type of _T_.
+* Otherwise if _v_ is a <<Types_Struct-Types,struct type>>, then _s_ is the sum
+  of the serialized sizes of the members of _v_
 
-* If _T_ is a
-<<Types_Struct-Types,struct type>>, then _s_
-the sum of the serialized sizes of the members of _v_
-
-* If _T_ is an
-<<Types_Abstract-Types,abstract type>>, then _s_ is not specified in FPP.  It
-is up to the implementer of _T_ to provide the serialized size.
-
-* If _T_ is a
-<<Types_Alias-Types,alias type>>, then apply these rules to its
-<<Types_Underlying-Types,underlying type>>.
+* Otherwise _s_ is the <<Types_Serialized-Sizes,serialized size of the type _T_>>.

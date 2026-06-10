@@ -1,0 +1,75 @@
+=== Binary Expressions
+
+A *binary expression* is an expression that performs arithmetic
+on numbers or concatenates strings.
+
+==== Syntax
+
+<<Expressions,_expression_>>
+_op_
+<<Expressions,_expression_>>
+
+
+_op_ is one of the following:
+
+[cols=",",options="header",]
+|======================================
+|Syntax
+|Meaning
+
+|`+`
+|Addition (numbers) or concatenation (strings)
+
+|`-`
+|Subtraction
+
+|`*`
+|Multiplication
+
+|`/`
+|Division
+
+|======================================
+
+==== Semantics
+
+A binary expression must have a valid 
+<<Type-Checking_Binary-Expressions,type>>.
+
+A binary expression stem:[e_1] _op_ stem:[e_2] is evaluated as follows:
+
+. Let _T_ be the type of the expression.
+
+. Evaluate stem:[e_1] to a value stem:[v_1].
+<<Type-Checking_Type-Conversion,Convert>>
+stem:[v_1] to a value stem:[v'_1] of type _T_.
+
+. Evaluate stem:[e_2] to a value stem:[v_2].
+<<Type-Checking_Type-Conversion,Convert>>
+stem:[v_2] to a value stem:[v'_2] of type _T_.
+
+. If _T_ is an <<Types_Internal-Types_Integer-Types,integer type>>, then use 
+integer arithmetic to compute the result of stem:[v'_1] _op_ stem:[v'_2].
+
+. Otherwise if _T_ is a <<Types_Floating-Point-Types,floating-point type>>, 
+then use floating-point arithmetic
+to compute the result of stem:[v'_1] _op_ stem:[v'_2].
+
+. Otherwise _op_ is `pass:[+]`, and _T_ is a <<Types_String-Types,string 
+type>>.
+Form the <<Values_String-Values,string value>>
+consisting of the characters
+of stem:[v'_1] followed by the characters of stem:[v'_2].
+
+==== Examples
+
+[source,fpp]
+----
+constant a = 2 + 3  # a has value 5
+constant b = a * -1 # b has value -5
+
+constant s1 = "a" + "b" + "c"     # s1 has value "abc"
+constant s2 = "hello " + s1 + "!" # s2 has value "hello abc!"
+
+constant c = 1 + "2" # Error: cannot add Integer and string
+----

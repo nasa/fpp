@@ -4,7 +4,7 @@
 // \brief  cpp file for ActiveCommands component Google Test harness base class
 // ======================================================================
 
-#include "test-base/ActiveCommandsGTestBase.hpp"
+#include "ActiveCommandsGTestBase.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

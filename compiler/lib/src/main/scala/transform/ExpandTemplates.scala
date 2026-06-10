@@ -42,7 +42,7 @@ object ExpandTemplates extends AstTransformer
   ): Result[Ast.TransUnit] = {
     for {
       members <- transformList(a, tu.members, matchModuleMember)
-    } yield (members._1, Ast.TransUnit(members._2))
+    } yield (members._1, Ast.TransUnit(members._2.flatten))
   }
 
   // Duplicate every node inside a template definition
@@ -312,7 +312,7 @@ object ExpandTemplates extends AstTransformer
     for (result <- transformList(a, data.members, matchComponentMember))
     yield {
       val (a1, members1) = result
-      (a1, cloneAnnotatedNode(a, aNode, data.copy(members = members1)))
+      (a1, cloneAnnotatedNode(a, aNode, data.copy(members = members1.flatten)))
     }
 
   override def defComponentInstanceAnnotatedNode(
@@ -429,7 +429,7 @@ object ExpandTemplates extends AstTransformer
       case None => defaultAnnotatedNode(a, aNode)
       case Some(members) =>
         for (result <- transformList(a, members, matchStateMachineMember))
-        yield (result._1, cloneAnnotatedNode(a, aNode, data.copy(members = Some(result._2))))
+        yield (result._1, cloneAnnotatedNode(a, aNode, data.copy(members = Some(result._2.flatten))))
     }
 
   override def defActionAnnotatedNode(
@@ -500,7 +500,7 @@ object ExpandTemplates extends AstTransformer
   ): ResultAnnotatedNode[Ast.DefState] =
     val data = aNode._2.data
     for (members <- transformList(a, data.members, matchStateMember))
-    yield (false, cloneAnnotatedNode(a, aNode, data.copy(members = members._2)))
+    yield (false, cloneAnnotatedNode(a, aNode, data.copy(members = members._2.flatten)))
 
   override def specInitialTransitionAnnotatedNode(
     a: In,
@@ -606,7 +606,7 @@ object ExpandTemplates extends AstTransformer
       implements <- transformList(a, data.implements, (a, q) => Right((false, cloneQualIdentNode(a, q))))
     } yield {
       (false, cloneAnnotatedNode(a, aNode, data.copy(
-        members = members._2,
+        members = members._2.flatten,
         implements = implements._2
       )))
     }
@@ -996,7 +996,7 @@ object ExpandTemplates extends AstTransformer
       members <- transformList(a, data.members, matchTlmPacketSetMember)
       omitted <- transformList(a, data.omitted, tlmChannelIdentifier)
     } yield (false, cloneAnnotatedNode(a, aNode, data.copy(
-      members = members._2,
+      members = members._2.flatten,
       omitted = omitted._2,
     )))
 
@@ -1048,7 +1048,7 @@ object ExpandTemplates extends AstTransformer
       val (_, members1) = members
       (false, cloneAnnotatedNode(a, aNode, data.copy(
         params = params1,
-        members = members1
+        members = members1.flatten
       )))
     }
 
@@ -1061,7 +1061,7 @@ object ExpandTemplates extends AstTransformer
     for { result <- transformList(a, data.members, matchModuleMember) }
     yield {
       val (a1, members1) = result
-      (a1, cloneAnnotatedNode(a, aNode, data.copy(members = members1)))
+      (a1, cloneAnnotatedNode(a, aNode, data.copy(members = members1.flatten)))
     }
   }
 
@@ -1145,7 +1145,7 @@ object ExpandTemplates extends AstTransformer
           }
         } yield {
           // Paste the expanded template expansion specifier
-          (members._1, (pre, AstNode.create(data.copy(members=Some(members._2)), node.id), post))
+          (members._1, (pre, AstNode.create(data.copy(members=Some(members._2.flatten)), node.id), post))
         }
       }
       case (templateExpanding, templateDef) => {
@@ -1160,7 +1160,7 @@ object ExpandTemplates extends AstTransformer
               case None => Right((true, None))
               case Some(members) => {
                 for (result <- transformList(a, members, matchModuleMember))
-                  yield (result._1, Some(result._2))
+                  yield (result._1, Some(result._2.flatten))
               }
             }
           }

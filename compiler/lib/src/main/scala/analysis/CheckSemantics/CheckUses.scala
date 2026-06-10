@@ -24,7 +24,7 @@ object CheckUses extends BasicUseAnalyzer {
     def visitExprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = {
       def visitExprIdent(a: Analysis, node: AstNode[Ast.Expr], name: Name.Unqualified) = {
         val mapping = a.nestedScope.get (NameGroup.Value) _
-        for (symbol <- helpers.getSymbolForName(mapping)(node.id, name)) yield {
+        for (symbol <- helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)) yield {
           val useDefMap = a.useDefMap + (node.id -> symbol)
           a.copy(useDefMap = useDefMap)
         }
@@ -47,7 +47,7 @@ object CheckUses extends BasicUseAnalyzer {
               case Some(qual) =>
                 val scope = a.symbolScopeMap(qual)
                 val mapping = scope.get (NameGroup.Value) _
-                helpers.getSymbolForName(mapping)(id.id, id.data) match {
+                helpers.getSymbolForName(NameGroup.Value, mapping)(id.id, id.data) match {
                   case Right(value) => Right(Some(value))
                   case Left(err) => Left(err)
                 }
@@ -75,6 +75,33 @@ object CheckUses extends BasicUseAnalyzer {
       }
     }
     visitExprNode(a, node)
+  }
+
+  // Check that an implied use (a) is not a member
+  // of a def and (b) does not shadow the required def
+  override def impliedUse(a: Analysis, iu: ImpliedUse, kind: ImpliedUse.Kind) = {
+    val sym = a.useDefMap(iu.id)
+    val symQualifiedName = a.getQualifiedName(sym).toString
+    val iuName = iu.name.toString
+    // Check that the name of the def matches the name of the use
+    if symQualifiedName == iuName
+    // OK, they match
+    then Right(a)
+    else {
+      val msg = if symQualifiedName.length < iuName.length
+      // Definition has a shorter name: the use is a member of the definition
+      then s"it has $iuName as a member"
+      // Definition has a longer name: it shadows the required definition
+      else s"it shadows $iuName here"
+      Left(
+        SemanticError.InvalidSymbol(
+          symQualifiedName,
+          Locations.get(iu.id),
+          msg,
+          sym.getLoc
+        )
+      )
+    }
   }
 
   override def defComponentAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
@@ -116,7 +143,7 @@ object CheckUses extends BasicUseAnalyzer {
     for {
       symbol <- {
         val mapping = a.nestedScope.get (NameGroup.Value) _
-        helpers.getSymbolForName(mapping)(node.id, name)
+        helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)
       }
       a <- {
         val scope = a.symbolScopeMap(symbol)
@@ -231,6 +258,20 @@ object CheckUses extends BasicUseAnalyzer {
 
       a <- super.defTopologyAnnotatedNode(a, node)
     } yield a
+  }
+
+  override def defStateMachineAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- {
+        val symbol = Symbol.StateMachine(aNode)
+        val scope = a.symbolScopeMap(symbol)
+        val newNestedScope = a.nestedScope.push(scope)
+        val a1 = a.copy(nestedScope = newNestedScope)
+        super.defStateMachineAnnotatedNode(a1, aNode)
+      }
+    } yield a.copy(nestedScope = a.nestedScope.pop)
   }
 
   override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =

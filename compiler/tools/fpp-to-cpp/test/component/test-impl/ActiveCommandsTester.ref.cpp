@@ -22,7 +22,7 @@ ActiveCommandsTester ::
 ActiveCommandsTester ::
   ~ActiveCommandsTester()
 {
-
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

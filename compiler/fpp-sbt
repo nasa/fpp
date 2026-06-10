@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+if test -n "$FPP_JAVA_HOME"
+then
+  sbt="sbt --java-home $FPP_JAVA_HOME $FPP_SBT_FLAGS"
+else
+  sbt="sbt $FPP_SBT_FLAGS"
+fi
+echo "sbt command: $sbt $@"
+
+$sbt "$@"

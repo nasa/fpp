@@ -6,16 +6,15 @@ import fpp.compiler.util._
 /** Analyze state machine members */
 trait StateMachineAnalyzer extends Analyzer {
 
-  override def defStateMachineAnnotatedNode(
+  override def defStateMachineAnnotatedNodeInternal(
     a: Analysis,
-    aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+    aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]],
+    members: List[Ast.StateMachineMember]
   ) = {
-    val (_, node, _) = aNode
-    node.data match {
-      case Ast.DefStateMachine(_, Some(members)) =>
-        visitList(a, members, matchStateMachineMember)
-      case _ => Right(a)
-    }
+    val name = aNode._2.data.name
+    val a1 = a.copy(scopeNameList = name :: a.scopeNameList)
+    for { a2 <- visitList(a1, members, matchStateMachineMember) }
+    yield a2.copy(scopeNameList = a.scopeNameList)
   }
 
 }

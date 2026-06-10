@@ -16,13 +16,15 @@ module FppTest {
     @ Data for a DataRecord
     struct Data {
       @ A U16 field
-      u16Field: AliasU16
+      u16Field: [5] AliasU16
+    } default {
+      u16Field = 10
     }
 
     @ Data for a ComplexRecord
     struct Complex {
       @ A struct in the struct
-      f1: Data
+      f1: [2] Data
       @ A simple U32 field
       f2: U32
     }

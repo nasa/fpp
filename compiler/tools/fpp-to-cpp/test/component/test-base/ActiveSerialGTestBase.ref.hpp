@@ -7,8 +7,8 @@
 #ifndef ActiveSerialGTestBase_HPP
 #define ActiveSerialGTestBase_HPP
 
+#include "ActiveSerialTesterBase.hpp"
 #include "gtest/gtest.h"
-#include "test-base/ActiveSerialTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Macros for typed user from port history assertions

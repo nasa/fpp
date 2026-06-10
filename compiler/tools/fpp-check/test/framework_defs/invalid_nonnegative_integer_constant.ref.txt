@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/framework_defs/invalid_nonnegative_integer_constant.fpp:1.32
+constant FW_ASSERT_COUNT_MAX = -1
+                               ^
+error: invalid integer value -1
+framework definition FW_ASSERT_COUNT_MAX must be a nonnegative integer constant

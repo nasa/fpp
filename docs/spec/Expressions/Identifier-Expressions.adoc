@@ -1,15 +1,35 @@
 === Identifier Expressions
 
-An *identifier expression* is an
-<<Lexical-Elements_Identifiers,identifier>>
-that refers to a
-<<Definitions_Constant-Definitions,constant definition>>
-or
+==== Syntax
+
+_<<Lexical-Elements_Identifiers,identifier>>_
+
+==== Semantics
+
+The identifier must refer to a
+<<Definitions_Constant-Definitions,constant definition>>,
 <<Definitions_Enumerated-Constant-Definitions,enumerated constant definition>>,
+or <<Definitions,bound parameter definition>>
 according to the
 <<Scoping-of-Names_Resolution-of-Identifiers,rules for resolving identifiers>>.
+If the identifier refers to a bound parameter definition _B_,
+then _B_ must be a <<Specifiers_Template-Expansion-Specifiers,constant template 
+parameter definition>>.
 
-**Example:**
+An identifier expression is evaluated as follows:
+
+* If the identifier refers to a constant definition or enumerated constant
+  definition _D_, then the value of the expression is the value provided
+  by _D_.
+
+* Otherwise the identifier refers to a bound parameter definition
+  stem:[B = (p, A)].
+  By the rules for <<Specifiers_Template-Expansion-Specifiers,binding arguments 
+  to template parameters>>,
+  _A_ is `constant` _e_ for some expression _e_.
+  In this case the value is provided by evaluating the expression _e_.
+
+==== Example
 
 [source,fpp]
 ----

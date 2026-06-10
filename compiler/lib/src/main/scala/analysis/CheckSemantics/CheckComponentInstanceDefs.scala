@@ -71,7 +71,7 @@ object CheckComponentInstanceDefs
             SemanticError.OverlappingIdRanges(
               i2.baseId,
               i2.aNode._2.data.name,
-              Locations.get(i1.aNode._2.id),
+              Locations.get(i2.aNode._2.id),
               i1.baseId,
               i1.maxId,
               i1.aNode._2.data.name,

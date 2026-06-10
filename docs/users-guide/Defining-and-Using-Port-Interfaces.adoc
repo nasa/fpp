@@ -175,3 +175,11 @@ interface I2 {
   sync input port p2: P
 }
 ----
+
+=== Using Port Interfaces in Topology Definitions
+
+You can use a port interface to specify the
+interface of a topology.
+We will explain how to do this in the section on
+<<Defining-Topologies_Topology-Ports_Implementing-Port-Interfaces,
+defining topologies>>.

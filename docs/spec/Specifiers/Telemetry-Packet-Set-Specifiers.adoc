@@ -1,7 +1,7 @@
 === Telemetry Packet Set Specifiers
 
 A *telemetry packet set specifier* arranges the telemetry channels of a
-topology into a set of <<Specifiers_Telemetry-Packet-Specifiers,telemetry 
+topology into a set of <<Specifiers_Telemetry-Packet-Specifiers,telemetry
 packets>>.
 A telemetry packet set specifier is part of a
 <<Definitions_Topology-Definitions, topology definition>>.
@@ -35,7 +35,7 @@ and the terminating punctuation is a comma.
 
 ==== Semantics
 
-FPP recursively resolves any include specifiers in 
+FPP recursively resolves any include specifiers in
 _telemetry-packet-group-member-sequence_.
 This action converts _telemetry-packet-group-member-sequence_ to a
 list _L_ of telemetry packet specifiers,

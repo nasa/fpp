@@ -3,6 +3,7 @@ action_error
 action_ok
 choice_error
 choice_ok
+constant_error
 guard_error
 guard_ok
 nested_action_error

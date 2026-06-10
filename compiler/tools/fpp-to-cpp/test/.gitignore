@@ -13,6 +13,7 @@
 *TesterBase.hpp
 default-tests.sh
 default-update-ref.sh
+names.txt
 
 !*/include/*
 !*.ref.h

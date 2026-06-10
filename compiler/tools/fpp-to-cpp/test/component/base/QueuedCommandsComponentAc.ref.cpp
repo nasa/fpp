@@ -9,7 +9,7 @@
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
-#include "base/QueuedCommandsComponentAc.hpp"
+#include "QueuedCommandsComponentAc.hpp"
 
 namespace {
   enum MsgTypeEnum {
@@ -30,18 +30,18 @@ namespace {
   // Get the max size by constructing a union of the async input, command, and
   // internal port serialization sizes
   union BuffUnion {
-    BYTE aliasTypedAsyncPortSize[Ports::InputAliasTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncAssertPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncBlockPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncDropPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
+    BYTE aliasTypedAsyncPortSize[Ports::AliasTypedPortBuffer::CAPACITY];
+    BYTE typedAsyncPortSize[Ports::TypedPortBuffer::CAPACITY];
+    BYTE typedAsyncAssertPortSize[Ports::TypedPortBuffer::CAPACITY];
+    BYTE typedAsyncBlockPriorityPortSize[Ports::TypedPortBuffer::CAPACITY];
+    BYTE typedAsyncDropPriorityPortSize[Ports::TypedPortBuffer::CAPACITY];
+    BYTE cmdPortSize[Fw::CmdPortBuffer::CAPACITY];
   };
 
   // Define a message buffer class large enough to handle all the
   // asynchronous inputs to the component
   class ComponentIpcSerializableBuffer :
-    public Fw::SerializeBufferBase
+    public Fw::LinearBufferBase
   {
 
     public:
@@ -55,7 +55,7 @@ namespace {
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
-      Fw::Serializable::SizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -87,6 +87,7 @@ void QueuedCommandsComponentBase ::
   // Initialize base class
   Fw::QueuedComponentBase::init(instance);
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port cmdIn
   for (
     FwIndexType port = 0;
@@ -110,7 +111,9 @@ void QueuedCommandsComponentBase ::
     this->m_cmdIn_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port aliasTypedAsync
   for (
     FwIndexType port = 0;
@@ -134,7 +137,9 @@ void QueuedCommandsComponentBase ::
     this->m_aliasTypedAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsAliasStringReturnSync
   for (
     FwIndexType port = 0;
@@ -158,7 +163,9 @@ void QueuedCommandsComponentBase ::
     this->m_noArgsAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsAsync
   for (
     FwIndexType port = 0;
@@ -182,7 +189,9 @@ void QueuedCommandsComponentBase ::
     this->m_noArgsAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsGuarded
   for (
     FwIndexType port = 0;
@@ -206,7 +215,9 @@ void QueuedCommandsComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsReturnGuarded
   for (
     FwIndexType port = 0;
@@ -230,7 +241,9 @@ void QueuedCommandsComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsReturnSync
   for (
     FwIndexType port = 0;
@@ -254,7 +267,9 @@ void QueuedCommandsComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsStringReturnSync
   for (
     FwIndexType port = 0;
@@ -278,7 +293,9 @@ void QueuedCommandsComponentBase ::
     this->m_noArgsStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsSync
   for (
     FwIndexType port = 0;
@@ -302,7 +319,9 @@ void QueuedCommandsComponentBase ::
     this->m_noArgsSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasGuarded
   for (
     FwIndexType port = 0;
@@ -326,7 +345,9 @@ void QueuedCommandsComponentBase ::
     this->m_typedAliasGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasReturnSync
   for (
     FwIndexType port = 0;
@@ -350,7 +371,9 @@ void QueuedCommandsComponentBase ::
     this->m_typedAliasReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasStringReturnSync
   for (
     FwIndexType port = 0;
@@ -374,7 +397,9 @@ void QueuedCommandsComponentBase ::
     this->m_typedAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAsync
   for (
     FwIndexType port = 0;
@@ -398,7 +423,9 @@ void QueuedCommandsComponentBase ::
     this->m_typedAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAsyncAssert
   for (
     FwIndexType port = 0;
@@ -422,7 +449,9 @@ void QueuedCommandsComponentBase ::
     this->m_typedAsyncAssert_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAsyncBlockPriority
   for (
     FwIndexType port = 0;
@@ -446,7 +475,9 @@ void QueuedCommandsComponentBase ::
     this->m_typedAsyncBlockPriority_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAsyncDropPriority
   for (
     FwIndexType port = 0;
@@ -470,7 +501,9 @@ void QueuedCommandsComponentBase ::
     this->m_typedAsyncDropPriority_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedGuarded
   for (
     FwIndexType port = 0;
@@ -494,7 +527,9 @@ void QueuedCommandsComponentBase ::
     this->m_typedGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedReturnGuarded
   for (
     FwIndexType port = 0;
@@ -518,7 +553,9 @@ void QueuedCommandsComponentBase ::
     this->m_typedReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedReturnSync
   for (
     FwIndexType port = 0;
@@ -542,7 +579,9 @@ void QueuedCommandsComponentBase ::
     this->m_typedReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedSync
   for (
     FwIndexType port = 0;
@@ -566,7 +605,9 @@ void QueuedCommandsComponentBase ::
     this->m_typedSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port cmdRegOut
   for (
     FwIndexType port = 0;
@@ -585,7 +626,9 @@ void QueuedCommandsComponentBase ::
     this->m_cmdRegOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port cmdResponseOut
   for (
     FwIndexType port = 0;
@@ -604,7 +647,9 @@ void QueuedCommandsComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port eventOut
   for (
     FwIndexType port = 0;
@@ -623,7 +668,9 @@ void QueuedCommandsComponentBase ::
     this->m_eventOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port prmGetOut
   for (
     FwIndexType port = 0;
@@ -642,7 +689,9 @@ void QueuedCommandsComponentBase ::
     this->m_prmGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port prmSetOut
   for (
     FwIndexType port = 0;
@@ -661,8 +710,9 @@ void QueuedCommandsComponentBase ::
     this->m_prmSetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
-#if FW_ENABLE_TEXT_LOGGING == 1
+#if !FW_DIRECT_PORT_CALLS && FW_ENABLE_TEXT_LOGGING
   // Connect output port textEventOut
   for (
     FwIndexType port = 0;
@@ -683,6 +733,7 @@ void QueuedCommandsComponentBase ::
   }
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port timeGetOut
   for (
     FwIndexType port = 0;
@@ -701,7 +752,9 @@ void QueuedCommandsComponentBase ::
     this->m_timeGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port tlmOut
   for (
     FwIndexType port = 0;
@@ -720,7 +773,9 @@ void QueuedCommandsComponentBase ::
     this->m_tlmOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsOut
   for (
     FwIndexType port = 0;
@@ -739,7 +794,9 @@ void QueuedCommandsComponentBase ::
     this->m_noArgsOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsReturnOut
   for (
     FwIndexType port = 0;
@@ -758,7 +815,9 @@ void QueuedCommandsComponentBase ::
     this->m_noArgsReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsStringReturnOut
   for (
     FwIndexType port = 0;
@@ -777,7 +836,9 @@ void QueuedCommandsComponentBase ::
     this->m_noArgsStringReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasOut
   for (
     FwIndexType port = 0;
@@ -796,7 +857,9 @@ void QueuedCommandsComponentBase ::
     this->m_typedAliasOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasReturnOut
   for (
     FwIndexType port = 0;
@@ -815,7 +878,9 @@ void QueuedCommandsComponentBase ::
     this->m_typedAliasReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasReturnStringOut
   for (
     FwIndexType port = 0;
@@ -834,7 +899,9 @@ void QueuedCommandsComponentBase ::
     this->m_typedAliasReturnStringOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedOut
   for (
     FwIndexType port = 0;
@@ -853,7 +920,9 @@ void QueuedCommandsComponentBase ::
     this->m_typedOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedReturnOut
   for (
     FwIndexType port = 0;
@@ -872,6 +941,7 @@ void QueuedCommandsComponentBase ::
     this->m_typedReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
   // Create the queue
   Os::Queue::Status qStat = this->createQueue(
@@ -883,6 +953,8 @@ void QueuedCommandsComponentBase ::
     static_cast<FwAssertArgType>(qStat)
   );
 }
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for special input ports
@@ -898,6 +970,10 @@ Fw::InputCmdPort* QueuedCommandsComponentBase ::
 
   return &this->m_cmdIn_InputPort[portNum];
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for typed input ports
@@ -1112,6 +1188,10 @@ Ports::InputTypedPort* QueuedCommandsComponentBase ::
   return &this->m_typedSync_InputPort[portNum];
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports
 // ----------------------------------------------------------------------
@@ -1232,6 +1312,10 @@ void QueuedCommandsComponentBase ::
   this->m_tlmOut_OutputPort[portNum].addCallPort(port);
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connect typed input ports to typed output ports
 // ----------------------------------------------------------------------
@@ -1348,7 +1432,9 @@ void QueuedCommandsComponentBase ::
   this->m_typedReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to special output ports
@@ -1458,7 +1544,7 @@ void QueuedCommandsComponentBase ::
 
 #endif
 
-#if FW_PORT_SERIALIZATION
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to typed output ports
@@ -1515,73 +1601,90 @@ void QueuedCommandsComponentBase ::
 void QueuedCommandsComponentBase ::
   regCommands()
 {
-  FW_ASSERT(this->m_cmdRegOut_OutputPort[0].isConnected());
+  FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_PRIMITIVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_STRING
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_ENUM
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_ARRAY
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_STRUCT
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_PRIMITIVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_STRING
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_ENUM
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_ARRAY
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_STRUCT
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_ASYNC
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_PRIORITY
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_PARAMS_PRIORITY
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_DROP
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_PARAMS_PRIORITY_DROP
   );
 }
@@ -1603,12 +1706,14 @@ QueuedCommandsComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 
 bool QueuedCommandsComponentBase ::
-  isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
@@ -1619,7 +1724,7 @@ bool QueuedCommandsComponentBase ::
 }
 
 bool QueuedCommandsComponentBase ::
-  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
@@ -1630,7 +1735,7 @@ bool QueuedCommandsComponentBase ::
 }
 
 bool QueuedCommandsComponentBase ::
-  isConnected_eventOut_OutputPort(FwIndexType portNum)
+  isConnected_eventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
@@ -1641,7 +1746,7 @@ bool QueuedCommandsComponentBase ::
 }
 
 bool QueuedCommandsComponentBase ::
-  isConnected_prmGetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
@@ -1652,7 +1757,7 @@ bool QueuedCommandsComponentBase ::
 }
 
 bool QueuedCommandsComponentBase ::
-  isConnected_prmSetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmSetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
@@ -1665,7 +1770,7 @@ bool QueuedCommandsComponentBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 bool QueuedCommandsComponentBase ::
-  isConnected_textEventOut_OutputPort(FwIndexType portNum)
+  isConnected_textEventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
@@ -1678,7 +1783,7 @@ bool QueuedCommandsComponentBase ::
 #endif
 
 bool QueuedCommandsComponentBase ::
-  isConnected_timeGetOut_OutputPort(FwIndexType portNum)
+  isConnected_timeGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
@@ -1689,7 +1794,7 @@ bool QueuedCommandsComponentBase ::
 }
 
 bool QueuedCommandsComponentBase ::
-  isConnected_tlmOut_OutputPort(FwIndexType portNum)
+  isConnected_tlmOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
@@ -1699,12 +1804,16 @@ bool QueuedCommandsComponentBase ::
   return this->m_tlmOut_OutputPort[portNum].isConnected();
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
 
 bool QueuedCommandsComponentBase ::
-  isConnected_noArgsOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -1715,7 +1824,7 @@ bool QueuedCommandsComponentBase ::
 }
 
 bool QueuedCommandsComponentBase ::
-  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -1726,7 +1835,7 @@ bool QueuedCommandsComponentBase ::
 }
 
 bool QueuedCommandsComponentBase ::
-  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
@@ -1737,7 +1846,7 @@ bool QueuedCommandsComponentBase ::
 }
 
 bool QueuedCommandsComponentBase ::
-  isConnected_typedAliasOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
@@ -1748,7 +1857,7 @@ bool QueuedCommandsComponentBase ::
 }
 
 bool QueuedCommandsComponentBase ::
-  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
@@ -1759,7 +1868,7 @@ bool QueuedCommandsComponentBase ::
 }
 
 bool QueuedCommandsComponentBase ::
-  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
@@ -1770,7 +1879,7 @@ bool QueuedCommandsComponentBase ::
 }
 
 bool QueuedCommandsComponentBase ::
-  isConnected_typedOut_OutputPort(FwIndexType portNum)
+  isConnected_typedOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
@@ -1781,7 +1890,7 @@ bool QueuedCommandsComponentBase ::
 }
 
 bool QueuedCommandsComponentBase ::
-  isConnected_typedReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_typedReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
@@ -1789,6 +1898,186 @@ bool QueuedCommandsComponentBase ::
   );
 
   return this->m_typedReturnOut_OutputPort[portNum].isConnected();
+}
+
+#endif
+
+// ----------------------------------------------------------------------
+// Port handler base-class functions for special input ports
+//
+// Call these functions directly to bypass the corresponding ports
+// ----------------------------------------------------------------------
+
+void QueuedCommandsComponentBase ::
+  cmdIn_handlerBase(
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
+
+  const U32 idBase = this->getIdBase();
+  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+
+  // Select base class function based on opcode
+  switch (opCode - idBase) {
+    case OPCODE_CMD_SYNC: {
+      this->CMD_SYNC_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_SYNC_PRIMITIVE: {
+      this->CMD_SYNC_PRIMITIVE_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_SYNC_STRING: {
+      this->CMD_SYNC_STRING_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_SYNC_ENUM: {
+      this->CMD_SYNC_ENUM_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_SYNC_ARRAY: {
+      this->CMD_SYNC_ARRAY_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_SYNC_STRUCT: {
+      this->CMD_SYNC_STRUCT_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED: {
+      this->CMD_GUARDED_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_PRIMITIVE: {
+      this->CMD_GUARDED_PRIMITIVE_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_STRING: {
+      this->CMD_GUARDED_STRING_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_ENUM: {
+      this->CMD_GUARDED_ENUM_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_ARRAY: {
+      this->CMD_GUARDED_ARRAY_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_STRUCT: {
+      this->CMD_GUARDED_STRUCT_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_ASYNC: {
+      this->CMD_ASYNC_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_PRIORITY: {
+      this->CMD_PRIORITY_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_PARAMS_PRIORITY: {
+      this->CMD_PARAMS_PRIORITY_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_DROP: {
+      this->CMD_DROP_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_PARAMS_PRIORITY_DROP: {
+      this->CMD_PARAMS_PRIORITY_DROP_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+    default:
+      // Unknown opcode: ignore it
+      break;
+  }
 }
 
 // ----------------------------------------------------------------------
@@ -2227,7 +2516,7 @@ void QueuedCommandsComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2334,7 +2623,7 @@ void QueuedCommandsComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2441,7 +2730,7 @@ void QueuedCommandsComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2548,7 +2837,7 @@ void QueuedCommandsComponentBase ::
   );
 
   // Serialize argument str1
-  _status = str1.serializeTo(msg, 80);
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2823,12 +3112,14 @@ void QueuedCommandsComponentBase ::
   // Default: no-op
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
 
 void QueuedCommandsComponentBase ::
-  noArgsOut_out(FwIndexType portNum)
+  noArgsOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -2843,7 +3134,7 @@ void QueuedCommandsComponentBase ::
 }
 
 U32 QueuedCommandsComponentBase ::
-  noArgsReturnOut_out(FwIndexType portNum)
+  noArgsReturnOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -2858,7 +3149,7 @@ U32 QueuedCommandsComponentBase ::
 }
 
 Fw::String QueuedCommandsComponentBase ::
-  noArgsStringReturnOut_out(FwIndexType portNum)
+  noArgsStringReturnOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
@@ -2882,7 +3173,7 @@ void QueuedCommandsComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
@@ -2914,7 +3205,7 @@ AliasPrim2 QueuedCommandsComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
@@ -2946,7 +3237,7 @@ Fw::String QueuedCommandsComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AnotherAliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
@@ -2978,7 +3269,7 @@ void QueuedCommandsComponentBase ::
       const E& e,
       const A& a,
       const S& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
@@ -3010,7 +3301,7 @@ F32 QueuedCommandsComponentBase ::
       const E& e,
       const A& a,
       const S& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
@@ -3032,6 +3323,8 @@ F32 QueuedCommandsComponentBase ::
   );
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Command response
 // ----------------------------------------------------------------------
@@ -3043,8 +3336,8 @@ void QueuedCommandsComponentBase ::
       Fw::CmdResponse response
   )
 {
-  FW_ASSERT(this->m_cmdResponseOut_OutputPort[0].isConnected());
-  this->m_cmdResponseOut_OutputPort[0].invoke(opCode, cmdSeq, response);
+  FW_ASSERT(this->isConnected_cmdResponseOut_OutputPort(0));
+  this->cmdResponseOut_out(0, opCode, cmdSeq, response);
 }
 
 // ----------------------------------------------------------------------
@@ -3063,9 +3356,10 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+  if (args.getDeserializeSizeLeft() != 0) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3094,8 +3388,9 @@ void QueuedCommandsComponentBase ::
   U32 u32;
   _status = args.deserializeTo(u32);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3107,8 +3402,9 @@ void QueuedCommandsComponentBase ::
   F32 f32;
   _status = args.deserializeTo(f32);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3120,8 +3416,9 @@ void QueuedCommandsComponentBase ::
   bool b;
   _status = args.deserializeTo(b);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3133,9 +3430,10 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+  if (args.getDeserializeSizeLeft() != 0) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3169,8 +3467,9 @@ void QueuedCommandsComponentBase ::
   Fw::CmdStringArg str1;
   _status = args.deserializeTo(str1);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3182,8 +3481,9 @@ void QueuedCommandsComponentBase ::
   Fw::CmdStringArg str2;
   _status = args.deserializeTo(str2);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3195,9 +3495,10 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+  if (args.getDeserializeSizeLeft() != 0) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3230,8 +3531,9 @@ void QueuedCommandsComponentBase ::
   E e;
   _status = args.deserializeTo(e);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3243,9 +3545,10 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+  if (args.getDeserializeSizeLeft() != 0) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3277,8 +3580,9 @@ void QueuedCommandsComponentBase ::
   A a;
   _status = args.deserializeTo(a);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3290,9 +3594,10 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+  if (args.getDeserializeSizeLeft() != 0) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3324,8 +3629,9 @@ void QueuedCommandsComponentBase ::
   S s;
   _status = args.deserializeTo(s);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3337,9 +3643,10 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+  if (args.getDeserializeSizeLeft() != 0) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3365,9 +3672,10 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+  if (args.getDeserializeSizeLeft() != 0) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3400,8 +3708,9 @@ void QueuedCommandsComponentBase ::
   U32 u32;
   _status = args.deserializeTo(u32);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3413,8 +3722,9 @@ void QueuedCommandsComponentBase ::
   F32 f32;
   _status = args.deserializeTo(f32);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3426,8 +3736,9 @@ void QueuedCommandsComponentBase ::
   bool b;
   _status = args.deserializeTo(b);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3439,9 +3750,10 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+  if (args.getDeserializeSizeLeft() != 0) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3479,8 +3791,9 @@ void QueuedCommandsComponentBase ::
   Fw::CmdStringArg str1;
   _status = args.deserializeTo(str1);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3492,8 +3805,9 @@ void QueuedCommandsComponentBase ::
   Fw::CmdStringArg str2;
   _status = args.deserializeTo(str2);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3505,9 +3819,10 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+  if (args.getDeserializeSizeLeft() != 0) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3544,8 +3859,9 @@ void QueuedCommandsComponentBase ::
   E e;
   _status = args.deserializeTo(e);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3557,9 +3873,10 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+  if (args.getDeserializeSizeLeft() != 0) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3595,8 +3912,9 @@ void QueuedCommandsComponentBase ::
   A a;
   _status = args.deserializeTo(a);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3608,9 +3926,10 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+  if (args.getDeserializeSizeLeft() != 0) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3646,8 +3965,9 @@ void QueuedCommandsComponentBase ::
   S s;
   _status = args.deserializeTo(s);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3659,9 +3979,10 @@ void QueuedCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+  if (args.getDeserializeSizeLeft() != 0) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -4056,9 +4377,9 @@ void QueuedCommandsComponentBase ::
 Fw::Time QueuedCommandsComponentBase ::
   getTime() const
 {
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
     Fw::Time _time;
-    this->m_timeGetOut_OutputPort[0].invoke(_time);
+    this->timeGetOut_out(0, _time);
     return _time;
   }
   else {
@@ -4242,7 +4563,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -4315,7 +4636,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -4388,7 +4709,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -4461,7 +4782,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       );
 
       // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       _deserStatus = _msg.deserializeTo(str1);
       FW_ASSERT(
@@ -4539,8 +4860,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      if (args.getDeserializeSizeLeft() != 0) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -4586,8 +4907,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      if (args.getDeserializeSizeLeft() != 0) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -4634,7 +4955,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       U32 u32;
       _deserStatus = args.deserializeTo(u32);
       if (_deserStatus != Fw::FW_SERIALIZE_OK) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(
               _opCode,
               _cmdSeq,
@@ -4648,8 +4969,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      if (args.getDeserializeSizeLeft() != 0) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -4698,8 +5019,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      if (args.getDeserializeSizeLeft() != 0) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -4746,7 +5067,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       U32 u32;
       _deserStatus = args.deserializeTo(u32);
       if (_deserStatus != Fw::FW_SERIALIZE_OK) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(
               _opCode,
               _cmdSeq,
@@ -4760,8 +5081,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedCommandsComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+      if (args.getDeserializeSizeLeft() != 0) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -4819,165 +5140,12 @@ void QueuedCommandsComponentBase ::
 {
   FW_ASSERT(callComp);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
-
-  const U32 idBase = callComp->getIdBase();
-  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
-
-  // Select base class function based on opcode
-  switch (opCode - idBase) {
-    case OPCODE_CMD_SYNC: {
-      compPtr->CMD_SYNC_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_SYNC_PRIMITIVE: {
-      compPtr->CMD_SYNC_PRIMITIVE_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_SYNC_STRING: {
-      compPtr->CMD_SYNC_STRING_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_SYNC_ENUM: {
-      compPtr->CMD_SYNC_ENUM_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_SYNC_ARRAY: {
-      compPtr->CMD_SYNC_ARRAY_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_SYNC_STRUCT: {
-      compPtr->CMD_SYNC_STRUCT_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_GUARDED: {
-      compPtr->CMD_GUARDED_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_GUARDED_PRIMITIVE: {
-      compPtr->CMD_GUARDED_PRIMITIVE_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_GUARDED_STRING: {
-      compPtr->CMD_GUARDED_STRING_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_GUARDED_ENUM: {
-      compPtr->CMD_GUARDED_ENUM_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_GUARDED_ARRAY: {
-      compPtr->CMD_GUARDED_ARRAY_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_GUARDED_STRUCT: {
-      compPtr->CMD_GUARDED_STRUCT_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_ASYNC: {
-      compPtr->CMD_ASYNC_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_PRIORITY: {
-      compPtr->CMD_PRIORITY_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_PARAMS_PRIORITY: {
-      compPtr->CMD_PARAMS_PRIORITY_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_DROP: {
-      compPtr->CMD_DROP_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_PARAMS_PRIORITY_DROP: {
-      compPtr->CMD_PARAMS_PRIORITY_DROP_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-  }
+  compPtr->cmdIn_handlerBase(
+    portNum,
+    opCode,
+    cmdSeq,
+    args
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -5384,3 +5552,75 @@ void QueuedCommandsComponentBase ::
     s
   );
 }
+
+#if !FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Invocation functions for special output ports
+// ----------------------------------------------------------------------
+
+void QueuedCommandsComponentBase ::
+  cmdRegOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_cmdRegOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_cmdRegOut_OutputPort[portNum].invoke(
+    opCode
+  );
+}
+
+void QueuedCommandsComponentBase ::
+  cmdResponseOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      const Fw::CmdResponse& response
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_cmdResponseOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_cmdResponseOut_OutputPort[portNum].invoke(
+    opCode,
+    cmdSeq,
+    response
+  );
+}
+
+void QueuedCommandsComponentBase ::
+  timeGetOut_out(
+      FwIndexType portNum,
+      Fw::Time& time
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_timeGetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_timeGetOut_OutputPort[portNum].invoke(
+    time
+  );
+}
+
+#endif

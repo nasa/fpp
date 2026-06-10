@@ -83,9 +83,9 @@ object StateMachine {
     }
 
   def getLeafStates(sym: Symbol.StateMachine): Set[Ast.Annotated[AstNode[Ast.DefState]]] =
-    LeafStateVisitor.defStateMachineAnnotatedNode(Set(), sym.node)
+    GetLeafStates.defStateMachineAnnotatedNode(Set(), sym.node)
 
-  private object LeafStateVisitor extends AstVisitor {
+  private object GetLeafStates extends AstVisitor {
 
     type States = Set[Ast.Annotated[AstNode[Ast.DefState]]]
     type In = States

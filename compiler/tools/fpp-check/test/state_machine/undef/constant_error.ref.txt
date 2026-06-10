@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/undef/constant_error.fpp:2.16
+  constant b = a
+               ^
+error: symbol a is not defined
+note: looking for a constant here

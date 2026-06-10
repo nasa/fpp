@@ -9,7 +9,7 @@
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
-#include "base/PassiveExternalParamsComponentAc.hpp"
+#include "PassiveExternalParamsComponentAc.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization
@@ -21,6 +21,7 @@ void PassiveExternalParamsComponentBase ::
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port cmdIn
   for (
     FwIndexType port = 0;
@@ -44,7 +45,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_cmdIn_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsAliasStringReturnSync
   for (
     FwIndexType port = 0;
@@ -68,7 +71,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_noArgsAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsGuarded
   for (
     FwIndexType port = 0;
@@ -92,7 +97,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsReturnGuarded
   for (
     FwIndexType port = 0;
@@ -116,7 +123,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsReturnSync
   for (
     FwIndexType port = 0;
@@ -140,7 +149,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsStringReturnSync
   for (
     FwIndexType port = 0;
@@ -164,7 +175,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_noArgsStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsSync
   for (
     FwIndexType port = 0;
@@ -188,7 +201,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_noArgsSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasGuarded
   for (
     FwIndexType port = 0;
@@ -212,7 +227,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_typedAliasGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasReturnSync
   for (
     FwIndexType port = 0;
@@ -236,7 +253,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_typedAliasReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasStringReturnSync
   for (
     FwIndexType port = 0;
@@ -260,7 +279,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_typedAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedGuarded
   for (
     FwIndexType port = 0;
@@ -284,7 +305,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_typedGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedReturnGuarded
   for (
     FwIndexType port = 0;
@@ -308,7 +331,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_typedReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedReturnSync
   for (
     FwIndexType port = 0;
@@ -332,7 +357,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_typedReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedSync
   for (
     FwIndexType port = 0;
@@ -356,7 +383,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_typedSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port cmdRegOut
   for (
     FwIndexType port = 0;
@@ -375,7 +404,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_cmdRegOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port cmdResponseOut
   for (
     FwIndexType port = 0;
@@ -394,7 +425,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port eventOut
   for (
     FwIndexType port = 0;
@@ -413,7 +446,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_eventOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port prmGetOut
   for (
     FwIndexType port = 0;
@@ -432,7 +467,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_prmGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port prmSetOut
   for (
     FwIndexType port = 0;
@@ -451,8 +488,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_prmSetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
-#if FW_ENABLE_TEXT_LOGGING == 1
+#if !FW_DIRECT_PORT_CALLS && FW_ENABLE_TEXT_LOGGING
   // Connect output port textEventOut
   for (
     FwIndexType port = 0;
@@ -473,6 +511,7 @@ void PassiveExternalParamsComponentBase ::
   }
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port timeGetOut
   for (
     FwIndexType port = 0;
@@ -491,7 +530,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_timeGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port tlmOut
   for (
     FwIndexType port = 0;
@@ -510,7 +551,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_tlmOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsOut
   for (
     FwIndexType port = 0;
@@ -529,7 +572,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_noArgsOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsReturnOut
   for (
     FwIndexType port = 0;
@@ -548,7 +593,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_noArgsReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsStringReturnOut
   for (
     FwIndexType port = 0;
@@ -567,7 +614,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_noArgsStringReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasOut
   for (
     FwIndexType port = 0;
@@ -586,7 +635,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_typedAliasOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasReturnOut
   for (
     FwIndexType port = 0;
@@ -605,7 +656,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_typedAliasReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasReturnStringOut
   for (
     FwIndexType port = 0;
@@ -624,7 +677,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_typedAliasReturnStringOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedOut
   for (
     FwIndexType port = 0;
@@ -643,7 +698,9 @@ void PassiveExternalParamsComponentBase ::
     this->m_typedOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedReturnOut
   for (
     FwIndexType port = 0;
@@ -662,7 +719,10 @@ void PassiveExternalParamsComponentBase ::
     this->m_typedReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 }
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for special input ports
@@ -678,6 +738,10 @@ Fw::InputCmdPort* PassiveExternalParamsComponentBase ::
 
   return &this->m_cmdIn_InputPort[portNum];
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for typed input ports
@@ -826,6 +890,10 @@ Ports::InputTypedPort* PassiveExternalParamsComponentBase ::
   return &this->m_typedSync_InputPort[portNum];
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports
 // ----------------------------------------------------------------------
@@ -946,6 +1014,10 @@ void PassiveExternalParamsComponentBase ::
   this->m_tlmOut_OutputPort[portNum].addCallPort(port);
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connect typed input ports to typed output ports
 // ----------------------------------------------------------------------
@@ -1062,7 +1134,9 @@ void PassiveExternalParamsComponentBase ::
   this->m_typedReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to special output ports
@@ -1172,7 +1246,7 @@ void PassiveExternalParamsComponentBase ::
 
 #endif
 
-#if FW_PORT_SERIALIZATION
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to typed output ports
@@ -1229,53 +1303,65 @@ void PassiveExternalParamsComponentBase ::
 void PassiveExternalParamsComponentBase ::
   regCommands()
 {
-  FW_ASSERT(this->m_cmdRegOut_OutputPort[0].isConnected());
+  FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMI32EXT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMI32EXT_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMF64EXT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMF64EXT_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMSTRINGEXT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMSTRINGEXT_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMENUMEXT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMENUMEXT_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMARRAYEXT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMARRAYEXT_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SAVE
   );
 }
@@ -1290,166 +1376,160 @@ void PassiveExternalParamsComponentBase ::
   Fw::ParamBuffer _buff;
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_OK;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
-  FW_ASSERT(this->m_prmGetOut_OutputPort[0].isConnected());
+  FW_ASSERT(this->isConnected_prmGetOut_OutputPort(0));
 
   FwPrmIdType _id{};
 
-  Fw::ParamValid param_valid;
+  Fw::ParamValid _paramValid;
 
   _id = _baseId + PARAMID_PARAMI32EXT;
 
   // Get parameter ParamI32Ext
-  param_valid = this->m_prmGetOut_OutputPort[0].invoke(
+  _paramValid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
 
-  // Get the local ID to pass to the delegate
-  _id = PARAMID_PARAMI32EXT;
   // If there was a deserialization issue, mark it invalid
-  if (param_valid == Fw::ParamValid::VALID) {
+  if (_paramValid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
-    _id = PARAMID_PARAMI32EXT;
+    constexpr FwPrmIdType _localId = PARAMID_PARAMI32EXT;
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamI32Ext
-    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _localId, _paramValid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
-      param_valid = Fw::ParamValid::INVALID;
+      _paramValid = Fw::ParamValid::INVALID;
     }
   }
   else {
-    param_valid = Fw::ParamValid::INVALID;
+    _paramValid = Fw::ParamValid::INVALID;
   }
 
   _id = _baseId + PARAMID_PARAMF64EXT;
 
   // Get parameter ParamF64Ext
-  param_valid = this->m_prmGetOut_OutputPort[0].invoke(
+  _paramValid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
 
-  // Get the local ID to pass to the delegate
-  _id = PARAMID_PARAMF64EXT;
   // If there was a deserialization issue, mark it invalid
-  if (param_valid == Fw::ParamValid::VALID) {
+  if (_paramValid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
-    _id = PARAMID_PARAMF64EXT;
+    constexpr FwPrmIdType _localId = PARAMID_PARAMF64EXT;
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamF64Ext
-    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _localId, _paramValid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
-      param_valid = Fw::ParamValid::INVALID;
+      _paramValid = Fw::ParamValid::INVALID;
     }
   }
   else {
-    param_valid = Fw::ParamValid::INVALID;
+    _paramValid = Fw::ParamValid::INVALID;
   }
 
   _id = _baseId + PARAMID_PARAMSTRINGEXT;
 
   // Get parameter ParamStringExt
-  param_valid = this->m_prmGetOut_OutputPort[0].invoke(
+  _paramValid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
 
-  // Get the local ID to pass to the delegate
-  _id = PARAMID_PARAMSTRINGEXT;
   // If there was a deserialization issue, mark it invalid
-  if (param_valid == Fw::ParamValid::VALID) {
+  if (_paramValid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
-    _id = PARAMID_PARAMSTRINGEXT;
+    constexpr FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamStringExt
-    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _localId, _paramValid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
-      param_valid = Fw::ParamValid::INVALID;
+      _paramValid = Fw::ParamValid::INVALID;
     }
   }
   else {
-    param_valid = Fw::ParamValid::INVALID;
+    _paramValid = Fw::ParamValid::INVALID;
   }
 
   _id = _baseId + PARAMID_PARAMENUMEXT;
 
   // Get parameter ParamEnumExt
-  param_valid = this->m_prmGetOut_OutputPort[0].invoke(
+  _paramValid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
 
-  // Get the local ID to pass to the delegate
-  _id = PARAMID_PARAMENUMEXT;
   // If there was a deserialization issue, mark it invalid
-  if (param_valid == Fw::ParamValid::VALID) {
+  if (_paramValid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
-    _id = PARAMID_PARAMENUMEXT;
+    constexpr FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamEnumExt
-    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _localId, _paramValid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
-      param_valid = Fw::ParamValid::INVALID;
+      _paramValid = Fw::ParamValid::INVALID;
     }
   }
   else {
-    param_valid = Fw::ParamValid::INVALID;
+    _paramValid = Fw::ParamValid::INVALID;
   }
 
   _id = _baseId + PARAMID_PARAMARRAYEXT;
 
   // Get parameter ParamArrayExt
-  param_valid = this->m_prmGetOut_OutputPort[0].invoke(
+  _paramValid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
 
-  // Get the local ID to pass to the delegate
-  _id = PARAMID_PARAMARRAYEXT;
   // If there was a deserialization issue, mark it invalid
-  if (param_valid == Fw::ParamValid::VALID) {
+  if (_paramValid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
-    _id = PARAMID_PARAMARRAYEXT;
+    constexpr FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamArrayExt
-    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _localId, _paramValid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
-      param_valid = Fw::ParamValid::INVALID;
+      _paramValid = Fw::ParamValid::INVALID;
     }
   }
   else {
-    param_valid = Fw::ParamValid::INVALID;
+    _paramValid = Fw::ParamValid::INVALID;
   }
 
   _id = _baseId + PARAMID_PARAMSTRUCTEXT;
 
   // Get parameter ParamStructExt
-  param_valid = this->m_prmGetOut_OutputPort[0].invoke(
+  _paramValid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
 
-  // Get the local ID to pass to the delegate
-  _id = PARAMID_PARAMSTRUCTEXT;
   // If there was a deserialization issue, mark it invalid
-  if (param_valid == Fw::ParamValid::VALID) {
+  if (_paramValid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
-    _id = PARAMID_PARAMSTRUCTEXT;
+    constexpr FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamStructExt
-    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _localId, _paramValid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
-      param_valid = Fw::ParamValid::INVALID;
+      _paramValid = Fw::ParamValid::INVALID;
     }
   }
   else {
-    param_valid = Fw::ParamValid::INVALID;
+    _paramValid = Fw::ParamValid::INVALID;
   }
 
   // Call notifier
@@ -1474,12 +1554,14 @@ PassiveExternalParamsComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 
 bool PassiveExternalParamsComponentBase ::
-  isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
@@ -1490,7 +1572,7 @@ bool PassiveExternalParamsComponentBase ::
 }
 
 bool PassiveExternalParamsComponentBase ::
-  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
@@ -1501,7 +1583,7 @@ bool PassiveExternalParamsComponentBase ::
 }
 
 bool PassiveExternalParamsComponentBase ::
-  isConnected_eventOut_OutputPort(FwIndexType portNum)
+  isConnected_eventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
@@ -1512,7 +1594,7 @@ bool PassiveExternalParamsComponentBase ::
 }
 
 bool PassiveExternalParamsComponentBase ::
-  isConnected_prmGetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
@@ -1523,7 +1605,7 @@ bool PassiveExternalParamsComponentBase ::
 }
 
 bool PassiveExternalParamsComponentBase ::
-  isConnected_prmSetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmSetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
@@ -1536,7 +1618,7 @@ bool PassiveExternalParamsComponentBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 bool PassiveExternalParamsComponentBase ::
-  isConnected_textEventOut_OutputPort(FwIndexType portNum)
+  isConnected_textEventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
@@ -1549,7 +1631,7 @@ bool PassiveExternalParamsComponentBase ::
 #endif
 
 bool PassiveExternalParamsComponentBase ::
-  isConnected_timeGetOut_OutputPort(FwIndexType portNum)
+  isConnected_timeGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
@@ -1560,7 +1642,7 @@ bool PassiveExternalParamsComponentBase ::
 }
 
 bool PassiveExternalParamsComponentBase ::
-  isConnected_tlmOut_OutputPort(FwIndexType portNum)
+  isConnected_tlmOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
@@ -1570,12 +1652,16 @@ bool PassiveExternalParamsComponentBase ::
   return this->m_tlmOut_OutputPort[portNum].isConnected();
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
 
 bool PassiveExternalParamsComponentBase ::
-  isConnected_noArgsOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -1586,7 +1672,7 @@ bool PassiveExternalParamsComponentBase ::
 }
 
 bool PassiveExternalParamsComponentBase ::
-  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -1597,7 +1683,7 @@ bool PassiveExternalParamsComponentBase ::
 }
 
 bool PassiveExternalParamsComponentBase ::
-  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
@@ -1608,7 +1694,7 @@ bool PassiveExternalParamsComponentBase ::
 }
 
 bool PassiveExternalParamsComponentBase ::
-  isConnected_typedAliasOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
@@ -1619,7 +1705,7 @@ bool PassiveExternalParamsComponentBase ::
 }
 
 bool PassiveExternalParamsComponentBase ::
-  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
@@ -1630,7 +1716,7 @@ bool PassiveExternalParamsComponentBase ::
 }
 
 bool PassiveExternalParamsComponentBase ::
-  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
@@ -1641,7 +1727,7 @@ bool PassiveExternalParamsComponentBase ::
 }
 
 bool PassiveExternalParamsComponentBase ::
-  isConnected_typedOut_OutputPort(FwIndexType portNum)
+  isConnected_typedOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
@@ -1652,7 +1738,7 @@ bool PassiveExternalParamsComponentBase ::
 }
 
 bool PassiveExternalParamsComponentBase ::
-  isConnected_typedReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_typedReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
@@ -1660,6 +1746,153 @@ bool PassiveExternalParamsComponentBase ::
   );
 
   return this->m_typedReturnOut_OutputPort[portNum].isConnected();
+}
+
+#endif
+
+// ----------------------------------------------------------------------
+// Port handler base-class functions for special input ports
+//
+// Call these functions directly to bypass the corresponding ports
+// ----------------------------------------------------------------------
+
+void PassiveExternalParamsComponentBase ::
+  cmdIn_handlerBase(
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
+
+  const U32 idBase = this->getIdBase();
+  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+
+  // Select base class function based on opcode
+  switch (opCode - idBase) {
+    case OPCODE_PARAMI32EXT_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamI32Ext(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMI32EXT_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamI32Ext();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMF64EXT_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamF64Ext(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMF64EXT_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamF64Ext();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRINGEXT_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamStringExt(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRINGEXT_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamStringExt();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMENUMEXT_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamEnumExt(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMENUMEXT_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamEnumExt();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMARRAYEXT_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamArrayExt(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMARRAYEXT_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamArrayExt();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRUCTEXT_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamStructExt(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRUCTEXT_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamStructExt();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+    default:
+      // Unknown opcode: ignore it
+      break;
+  }
 }
 
 // ----------------------------------------------------------------------
@@ -2025,12 +2258,14 @@ void PassiveExternalParamsComponentBase ::
   );
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
 
 void PassiveExternalParamsComponentBase ::
-  noArgsOut_out(FwIndexType portNum)
+  noArgsOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -2045,7 +2280,7 @@ void PassiveExternalParamsComponentBase ::
 }
 
 U32 PassiveExternalParamsComponentBase ::
-  noArgsReturnOut_out(FwIndexType portNum)
+  noArgsReturnOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -2060,7 +2295,7 @@ U32 PassiveExternalParamsComponentBase ::
 }
 
 Fw::String PassiveExternalParamsComponentBase ::
-  noArgsStringReturnOut_out(FwIndexType portNum)
+  noArgsStringReturnOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
@@ -2084,7 +2319,7 @@ void PassiveExternalParamsComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
@@ -2116,7 +2351,7 @@ AliasPrim2 PassiveExternalParamsComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
@@ -2148,7 +2383,7 @@ Fw::String PassiveExternalParamsComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AnotherAliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
@@ -2180,7 +2415,7 @@ void PassiveExternalParamsComponentBase ::
       const E& e,
       const A& a,
       const S& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
@@ -2212,7 +2447,7 @@ F32 PassiveExternalParamsComponentBase ::
       const E& e,
       const A& a,
       const S& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
@@ -2234,6 +2469,8 @@ F32 PassiveExternalParamsComponentBase ::
   );
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Command response
 // ----------------------------------------------------------------------
@@ -2245,12 +2482,12 @@ void PassiveExternalParamsComponentBase ::
       Fw::CmdResponse response
   )
 {
-  FW_ASSERT(this->m_cmdResponseOut_OutputPort[0].isConnected());
-  this->m_cmdResponseOut_OutputPort[0].invoke(opCode, cmdSeq, response);
+  FW_ASSERT(this->isConnected_cmdResponseOut_OutputPort(0));
+  this->cmdResponseOut_out(0, opCode, cmdSeq, response);
 }
 
 // ----------------------------------------------------------------------
-// Parameter update hook
+// Parameter hook functions
 // ----------------------------------------------------------------------
 
 void PassiveExternalParamsComponentBase ::
@@ -2425,9 +2662,9 @@ void PassiveExternalParamsComponentBase ::
 Fw::Time PassiveExternalParamsComponentBase ::
   getTime() const
 {
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
     Fw::Time _time;
-    this->m_timeGetOut_OutputPort[0].invoke(_time);
+    this->timeGetOut_out(0, _time);
     return _time;
   }
   else {
@@ -2469,132 +2706,12 @@ void PassiveExternalParamsComponentBase ::
 {
   FW_ASSERT(callComp);
   PassiveExternalParamsComponentBase* compPtr = static_cast<PassiveExternalParamsComponentBase*>(callComp);
-
-  const U32 idBase = callComp->getIdBase();
-  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
-
-  // Select base class function based on opcode
-  switch (opCode - idBase) {
-    case OPCODE_PARAMI32EXT_SET: {
-      Fw::CmdResponse _cstat = compPtr->paramSet_ParamI32Ext(args);
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMI32EXT_SAVE: {
-      Fw::CmdResponse _cstat = compPtr->paramSave_ParamI32Ext();
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMF64EXT_SET: {
-      Fw::CmdResponse _cstat = compPtr->paramSet_ParamF64Ext(args);
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMF64EXT_SAVE: {
-      Fw::CmdResponse _cstat = compPtr->paramSave_ParamF64Ext();
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMSTRINGEXT_SET: {
-      Fw::CmdResponse _cstat = compPtr->paramSet_ParamStringExt(args);
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMSTRINGEXT_SAVE: {
-      Fw::CmdResponse _cstat = compPtr->paramSave_ParamStringExt();
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMENUMEXT_SET: {
-      Fw::CmdResponse _cstat = compPtr->paramSet_ParamEnumExt(args);
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMENUMEXT_SAVE: {
-      Fw::CmdResponse _cstat = compPtr->paramSave_ParamEnumExt();
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMARRAYEXT_SET: {
-      Fw::CmdResponse _cstat = compPtr->paramSet_ParamArrayExt(args);
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMARRAYEXT_SAVE: {
-      Fw::CmdResponse _cstat = compPtr->paramSave_ParamArrayExt();
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMSTRUCTEXT_SET: {
-      Fw::CmdResponse _cstat = compPtr->paramSet_ParamStructExt(args);
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMSTRUCTEXT_SAVE: {
-      Fw::CmdResponse _cstat = compPtr->paramSave_ParamStructExt();
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-  }
+  compPtr->cmdIn_handlerBase(
+    portNum,
+    opCode,
+    cmdSeq,
+    args
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -2856,12 +2973,128 @@ void PassiveExternalParamsComponentBase ::
   );
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Invocation functions for special output ports
+// ----------------------------------------------------------------------
+
+void PassiveExternalParamsComponentBase ::
+  cmdRegOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_cmdRegOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_cmdRegOut_OutputPort[portNum].invoke(
+    opCode
+  );
+}
+
+void PassiveExternalParamsComponentBase ::
+  cmdResponseOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      const Fw::CmdResponse& response
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_cmdResponseOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_cmdResponseOut_OutputPort[portNum].invoke(
+    opCode,
+    cmdSeq,
+    response
+  );
+}
+
+Fw::ParamValid PassiveExternalParamsComponentBase ::
+  prmGetOut_out(
+      FwIndexType portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_prmGetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_prmGetOut_OutputPort[portNum].invoke(
+    id,
+    val
+  );
+}
+
+void PassiveExternalParamsComponentBase ::
+  prmSetOut_out(
+      FwIndexType portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_prmSetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_prmSetOut_OutputPort[portNum].invoke(
+    id,
+    val
+  );
+}
+
+void PassiveExternalParamsComponentBase ::
+  timeGetOut_out(
+      FwIndexType portNum,
+      Fw::Time& time
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_timeGetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_timeGetOut_OutputPort[portNum].invoke(
+    time
+  );
+}
+
+#endif
+
 // ----------------------------------------------------------------------
 // Parameter set functions
 // ----------------------------------------------------------------------
 
 Fw::CmdResponse PassiveExternalParamsComponentBase ::
-  paramSet_ParamI32Ext(Fw::SerializeBufferBase& val)
+  paramSet_ParamI32Ext(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMI32EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -2884,7 +3117,7 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse PassiveExternalParamsComponentBase ::
-  paramSet_ParamF64Ext(Fw::SerializeBufferBase& val)
+  paramSet_ParamF64Ext(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMF64EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -2907,7 +3140,7 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse PassiveExternalParamsComponentBase ::
-  paramSet_ParamStringExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamStringExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -2930,7 +3163,7 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse PassiveExternalParamsComponentBase ::
-  paramSet_ParamEnumExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamEnumExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -2953,7 +3186,7 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse PassiveExternalParamsComponentBase ::
-  paramSet_ParamArrayExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamArrayExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -2976,7 +3209,7 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse PassiveExternalParamsComponentBase ::
-  paramSet_ParamStructExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamStructExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -3008,7 +3241,7 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
   Fw::ParamBuffer _saveBuff;
   FwPrmIdType _id;
   Fw::SerializeStatus _stat;
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_prmSetOut_OutputPort(0)) {
     // Get the local and base ID to pass to the delegate
     _id = PARAMID_PARAMI32EXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -3022,7 +3255,8 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMI32EXT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -3039,7 +3273,7 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
   Fw::ParamBuffer _saveBuff;
   FwPrmIdType _id;
   Fw::SerializeStatus _stat;
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_prmSetOut_OutputPort(0)) {
     // Get the local and base ID to pass to the delegate
     _id = PARAMID_PARAMF64EXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -3053,7 +3287,8 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMF64EXT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -3070,7 +3305,7 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
   Fw::ParamBuffer _saveBuff;
   FwPrmIdType _id;
   Fw::SerializeStatus _stat;
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_prmSetOut_OutputPort(0)) {
     // Get the local and base ID to pass to the delegate
     _id = PARAMID_PARAMSTRINGEXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -3084,7 +3319,8 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMSTRINGEXT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -3101,7 +3337,7 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
   Fw::ParamBuffer _saveBuff;
   FwPrmIdType _id;
   Fw::SerializeStatus _stat;
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_prmSetOut_OutputPort(0)) {
     // Get the local and base ID to pass to the delegate
     _id = PARAMID_PARAMENUMEXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -3115,7 +3351,8 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMENUMEXT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -3132,7 +3369,7 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
   Fw::ParamBuffer _saveBuff;
   FwPrmIdType _id;
   Fw::SerializeStatus _stat;
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_prmSetOut_OutputPort(0)) {
     // Get the local and base ID to pass to the delegate
     _id = PARAMID_PARAMARRAYEXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -3146,7 +3383,8 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMARRAYEXT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -3163,7 +3401,7 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
   Fw::ParamBuffer _saveBuff;
   FwPrmIdType _id;
   Fw::SerializeStatus _stat;
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_prmSetOut_OutputPort(0)) {
     // Get the local and base ID to pass to the delegate
     _id = PARAMID_PARAMSTRUCTEXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -3177,7 +3415,8 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMSTRUCTEXT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -3189,5 +3428,5 @@ Fw::CmdResponse PassiveExternalParamsComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Parameter delegates
+// Parameter delegate
 // ----------------------------------------------------------------------

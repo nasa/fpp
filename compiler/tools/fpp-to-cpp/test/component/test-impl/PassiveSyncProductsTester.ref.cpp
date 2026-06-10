@@ -22,7 +22,7 @@ PassiveSyncProductsTester ::
 PassiveSyncProductsTester ::
   ~PassiveSyncProductsTester()
 {
-
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

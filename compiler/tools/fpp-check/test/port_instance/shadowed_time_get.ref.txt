@@ -1,0 +1,10 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/shadowed_time_get.fpp:11.5
+    time get port timeGetOut
+    ^
+error: invalid use of symbol M.Fw.Time: it shadows Fw.Time here
+symbol is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/shadowed_time_get.fpp:5.5
+    port Time
+    ^
+note: the symbol Fw.Time has an implied use at the point of the error

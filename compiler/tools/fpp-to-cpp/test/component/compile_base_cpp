@@ -39,9 +39,9 @@ warning_flags="
 gcc_flags="$include_flags $warning_flags $LOCAL_CPP_FLAGS"
 
 # Find all guards used in generated component base class files
-guards=`grep '#if FW_' *.ref.hpp *.ref.cpp | cut -f 2 -d ' ' | sort -u | sed 's/^/-D/g'`
+guards=`grep '#if.*FW_' *.ref.hpp *.ref.cpp | sed 's/^.*[^A-Za-z_]\(FW_[A-Za-z0-9_]*\).*$/\1/' | sort -u | sed 's/^/-D/g'`
 # All guards set to 1
-guards_on=`echo $guards | sed 's/ /\n/g' | sed 's/$/=1/g'`
+guards_on=`echo $guards | sed 's/ /\n/g' | sed 's/$/=1/g'`' -DBUILD_UT'
 # All guards set to 0
 guards_off=`echo $guards | sed 's/ /\n/g' | sed 's/$/=0/g'`
 # All guards except FW_PORT_SERIALIZATION set to 0

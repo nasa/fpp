@@ -11,8 +11,12 @@
 #include "Fw/Dp/DpGetPortAc.hpp"
 #include "Fw/Dp/DpSendPortAc.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
+#endif
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/OutputSerializePort.hpp"
+#endif
 
 //! \class PassiveGetProductPortsOnlyComponentBase
 //! \brief Auto-generated base for PassiveGetProductPortsOnly component
@@ -54,6 +58,8 @@ class PassiveGetProductPortsOnlyComponentBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -72,7 +78,9 @@ class PassiveGetProductPortsOnlyComponentBase :
         Fw::InputDpSendPort* port //!< The input port
     );
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
   public:
 
@@ -133,35 +141,16 @@ class PassiveGetProductPortsOnlyComponentBase :
     //! \return Whether port productGetOut is connected
     bool isConnected_productGetOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port productSendOut is connected
     //!
     //! \return Whether port productSendOut is connected
     bool isConnected_productSendOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
-  protected:
-
-    // ----------------------------------------------------------------------
-    // Invocation functions for special output ports
-    // ----------------------------------------------------------------------
-
-    //! Invoke output port productGetOut
-    Fw::Success productGetOut_out(
-        FwIndexType portNum, //!< The port number
-        FwDpIdType id, //!< The container ID (input)
-        FwSizeType dataSize, //!< The data size of the requested buffer (input)
-        Fw::Buffer& buffer //!< The buffer (output)
-    );
-
-    //! Invoke output port productSendOut
-    void productSendOut_out(
-        FwIndexType portNum, //!< The port number
-        FwDpIdType id, //!< The container ID
-        const Fw::Buffer& buffer //!< The buffer
-    );
+#if !FW_DIRECT_PORT_CALLS
 
   private:
 
@@ -174,6 +163,8 @@ class PassiveGetProductPortsOnlyComponentBase :
 
     //! Output port productSendOut
     Fw::OutputDpSendPort m_productSendOut_OutputPort[NUM_PRODUCTSENDOUT_OUTPUT_PORTS];
+
+#endif
 
 };
 

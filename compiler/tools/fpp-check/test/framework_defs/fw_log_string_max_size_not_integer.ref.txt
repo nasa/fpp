@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/framework_defs/fw_log_string_max_size_not_integer.fpp:1.1
+constant FW_LOG_STRING_MAX_SIZE = 1.5
+^
+error: the F Prime framework constant FW_LOG_STRING_MAX_SIZE must have an integer type

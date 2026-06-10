@@ -4,8 +4,8 @@
 // \brief  hpp file for C_S struct
 // ======================================================================
 
-#ifndef C_C_SSerializableAc_HPP
-#define C_C_SSerializableAc_HPP
+#ifndef C_SSerializableAc_HPP
+#define C_SSerializableAc_HPP
 
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
@@ -84,13 +84,13 @@ class C_S :
 
     //! Serialization
     Fw::SerializeStatus serializeTo(
-        Fw::SerializeBufferBase& buffer, //!< The serial buffer
+        Fw::SerialBufferBase& buffer, //!< The serial buffer
         Fw::Endianness mode = Fw::Endianness::BIG //!< Endianness of serialized buffer
     ) const;
 
     //! Deserialization
     Fw::SerializeStatus deserializeFrom(
-        Fw::SerializeBufferBase& buffer, //!< The serial buffer
+        Fw::SerialBufferBase& buffer, //!< The serial buffer
         Fw::Endianness mode = Fw::Endianness::BIG //!< Endianness of serialized buffer
     );
 

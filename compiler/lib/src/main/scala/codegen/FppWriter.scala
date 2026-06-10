@@ -125,7 +125,7 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"type ${ident(data.name)} = ").
+    lines(prefixWithDictionary(s"type ${ident(data.name)} = ", data.isDictionaryDef)).
       join("") (typeNameNode(data.typeName))
   }
 
@@ -154,7 +154,7 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"array ${ident(data.name)} = [").
+    lines(prefixWithDictionary(s"array ${ident(data.name)} = [", data.isDictionaryDef)).
       join ("") (exprNode(data.size)).
       join ("] ") (typeNameNode(data.eltType)).
       joinOpt (data.default) (" default ") (exprNode).
@@ -224,7 +224,8 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"constant ${ident(data.name)}").join (" = ") (exprNode(data.value))
+    lines(prefixWithDictionary(s"constant ${ident(data.name)}", data.isDictionaryDef)).
+      join (" = ") (exprNode(data.value))
   }
 
   override def defEnumAnnotatedNode(
@@ -233,7 +234,7 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"enum ${ident(data.name)}").
+    lines(prefixWithDictionary(s"enum ${ident(data.name)}", data.isDictionaryDef)).
       joinOpt (data.typeName) (": ") (typeNameNode).
       joinNoIndent (" ") (
         addBraces(data.constants.flatMap(annotateNode(defEnumConstant)))
@@ -379,7 +380,7 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"struct ${ident(data.name)}").
+    lines(prefixWithDictionary(s"struct ${ident(data.name)}", data.isDictionaryDef)).
     joinNoIndent (" ") (
       addBraces(data.members.flatMap(annotateNode(structTypeMember)))
     ).
@@ -465,6 +466,13 @@ object FppWriter extends AstVisitor with LineUtils {
     node: AstNode[Ast.Expr],
     e: Ast.ExprParen
   ) = Line.addPrefixAndSuffix("(", exprNode(e.e), ")")
+
+  override def exprSizeOfNode(
+    in: In,
+    node: AstNode[Ast.Expr],
+    e: Ast.ExprSizeOf
+  ) =
+    Line.addPrefixAndSuffix("sizeof(", typeNameNode(e.typeName), ")")
 
   override def exprStructNode(
     in: In,
@@ -596,7 +604,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     val kind = data.kind.toString
-    lines(s"locate ${kind}").
+    lines(s"locate ${prefixWithDictionary(kind, data.isDictionaryDef)}").
       join (" ") (qualIdent(data.symbol.data)).
       join (" at ") (string(data.file.data))
   }
@@ -956,4 +964,9 @@ object FppWriter extends AstVisitor with LineUtils {
 
   private def unop(op: Ast.Unop) = op.toString
 
+  private def prefixWithDictionary(s: String, isDictionaryDef: Boolean) =
+    if isDictionaryDef then
+      s"dictionary $s"
+    else
+      s
 }

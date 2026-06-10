@@ -271,15 +271,6 @@ This code associates the name `a` with the array of
 integers
 `[ 1, 2, 3 ]`.
 
-As mentioned in the introduction, an FPP model describes the structure of a FSW 
-application; the computations are specified in a target 
-language such as {cpp}.
-As a result, FPP does not provide an array indexing operation.
-In particular, it does not specify the index of the leftmost array element;
-that is up to the target language.
-For example, if the target language is {cpp}, then array indices start 
-at zero.
-
 Here are some rules for writing array values:
 
 . An array value must have at least one element.
@@ -569,16 +560,10 @@ constant a = -1
 ----
 constant a = 1 + 2
 ----
-* A parenthesis expression, for example:
-+
-[source,fpp]
-----
-constant a = (1)
-----
 
 The following rules apply to arithmetic expressions:
 
-* The subexpressions must be integer or floating-point values.
+* The subexpressions must evaluate to integer or floating-point values.
 
 * If there are any floating-point subexpressions, then the entire expression is 
 evaluated using 64-bit floating-point arithmetic.
@@ -586,13 +571,28 @@ evaluated using 64-bit floating-point arithmetic.
 * Otherwise the expression is evaluated using arbitrary-precision integer 
 arithmetic.
 
-* In a division operation, the second operand may not be zero or (for 
+* In a division operation, the second operand may not be zero or (for
 floating-point values) very close to zero.
+
+==== String Concatenation Expressions
+
+A *string concatenation expression* concatenates strings.
+To write a string concatenation expression, you use the symbol `+`.
+This is the same symbol as for 
+<<Defining-Constants_Expressions_Value-Arithmetic-Expressions,addition>>,
+except that it operates on strings instead of numbers.
+For example:
+
+[source,fpp]
+----
+constant a = "hello " + "there!" # value of a is "hello there!"
+----
 
 ==== Compound Expressions
 
 Wherever you can write a value inside an expression, you can write
 a more complex expression there, so long as the types work out.
+You can also use parentheses in the usual way to group subexpressions.
 For example, these expressions are valid:
 
 [source,fpp]
@@ -737,3 +737,77 @@ is not legal:
 constant
   a = 1
 --------
+
+=== Framework Constants
+
+Certain constants defined in FPP have a special meaning in the
+F Prime framework.
+These constants are called *framework constants*.
+For example, the constant `FW_FIXED_LENGTH_STRING_SIZE`
+defines the default maximum size of a string.
+(We will define string types
+<<Defining-Types_Array-Type-Definitions_Type-Names,in a later section of this 
+manual>>.)
+You typically set these constants by overriding configuration
+files provided in the directory `default/config` in the F Prime repository.
+For example, the file `default/config/FpConstants.fpp` provides a default 
+definition for `FW_FIXED_LENGTH_STRING_SIZE`.
+You can override this default value by a different definition for this 
+constant.
+The 
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/[F
+Prime User Manual]
+explains how to do this configuration.
+
+The FPP analyzer does not require that framework constants be defined
+unless they are used.
+For example, the following model is valid, because it neither defines nor users
+`FW_FIXED_LENGTH_STRING_SIZE`:
+
+[source,fpp]
+----
+constant a = 0
+----
+
+The following model is valid because it defines and uses `FW_FIXED_LENGTH_STRING_SIZE`:
+
+[source,fpp]
+----
+constant FW_FIXED_LENGTH_STRING_SIZE = 80
+
+constant a = FW_FIXED_LENGTH_STRING_SIZE
+----
+
+The following model is invalid, because it uses `FW_FIXED_LENGTH_STRING_SIZE`
+without defining it:
+
+[source,fpp]
+--------
+constant a = FW_FIXED_LENGTH_STRING_SIZE
+--------
+
+If framework constants are defined in the FPP model, then
+then they must conform to certain rules.
+These rules are spelled out in detail in the
+https://nasa.github.io/fpp/fpp-spec.html#Definitions_Framework-Definitions_Constant-Definitions[_The
+FPP Language Specification_].
+For example, `FW_FIXED_LENGTH_STRING_SIZE` must have an integer type.
+So this model is invalid:
+
+[source,fpp]
+--------
+constant FW_FIXED_LENGTH_STRING_SIZE = "abc"
+--------
+
+Here is what happens when you run this model through `fpp-check`:
+
+----
+% fpp-check
+constant FW_FIXED_LENGTH_STRING_SIZE = "abc"
+^D
+fpp-check
+stdin:1.1
+constant FW_FIXED_LENGTH_STRING_SIZE = "abc"
+^
+error: the F Prime framework constant FW_FIXED_LENGTH_STRING_SIZE must have an integer type
+----

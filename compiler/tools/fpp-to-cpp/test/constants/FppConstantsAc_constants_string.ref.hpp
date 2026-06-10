@@ -18,4 +18,7 @@ extern const char *const s2;
 //! Escaped backslashes
 extern const char *const s3;
 
+//! String concatenation
+extern const char *const s4;
+
 #endif

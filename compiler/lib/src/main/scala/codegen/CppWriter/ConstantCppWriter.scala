@@ -104,8 +104,16 @@ object ConstantCppWriter extends CppWriterUtils {
     ) = {
       val (_, node, _) = aNode
       val data = node.data
-      val members = data.members.flatMap(matchComponentMember(s, _))
-      members
+      data.members.flatMap(matchComponentMember(s, _))
+    }
+
+    override def defStateMachineAnnotatedNode(
+      s: CppWriterState,
+      aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+    ) = {
+      val (_, node, _) = aNode
+      val data = node.data
+      data.members.getOrElse(Nil).flatMap(matchStateMachineMember(s, _))
     }
 
     override def transUnit(s: CppWriterState, tu: Ast.TransUnit) =
@@ -121,7 +129,7 @@ object ConstantCppWriter extends CppWriterUtils {
       val hppLines = {
         val defLine = line(s"$name = $value")
         List(
-          line(s"enum FppConstant_$name {"),
+          line(s"enum {"),
           indentIn(defLine),
           line("};")
         )
