@@ -51,7 +51,7 @@ module M { # Qualified name is M
 
 === Name Groups
 
-The qualified names of definitions and
+The qualified names of definitions
 reside in the following *name groups*:
 
 . The *component name group*
