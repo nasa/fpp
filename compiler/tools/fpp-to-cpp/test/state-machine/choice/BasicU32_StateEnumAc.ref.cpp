@@ -122,14 +122,6 @@ namespace FppTest {
       sb.format("%s (%" PRIu8 ")", s.toChar(), e);
     }
 
-#elif FW_ENABLE_TEXT_LOGGING
-
-    void BasicU32_State ::
-      toString(Fw::StringBase& sb) const
-    {
-      sb.format("%" PRIu8 "", e);
-    }
-
 #endif
 
     // ----------------------------------------------------------------------

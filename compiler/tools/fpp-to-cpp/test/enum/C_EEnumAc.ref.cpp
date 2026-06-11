@@ -112,14 +112,6 @@ void C_E ::
   sb.format("%s (%" PRIi32 ")", s.toChar(), e);
 }
 
-#elif FW_ENABLE_TEXT_LOGGING
-
-void C_E ::
-  toString(Fw::StringBase& sb) const
-{
-  sb.format("%" PRIi32 "", e);
-}
-
 #endif
 
 // ----------------------------------------------------------------------

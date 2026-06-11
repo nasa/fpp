@@ -374,74 +374,47 @@ case class EnumCppWriter(
         )
       )
     ) ++
-      List.concat(
+      wrapClassMembersInIfDirective(
+        "#if FW_SERIALIZABLE_TO_STRING",
         List(
-          linesClassMember(
-            lines("\n#if FW_SERIALIZABLE_TO_STRING"),
-            CppDoc.Lines.Cpp
-          )
-        ),
-        wrapClassMembersInIfDirective(
-          "#if FW_SERIALIZABLE_TO_STRING",
-          List(
-            functionClassMember(
-              Some(s"Convert enum to string"),
-              "toString",
-              List(
-                CppDoc.Function.Param(
-                  CppDoc.Type("Fw::StringBase&"),
-                  "sb",
-                  Some("The StringBase object to hold the result")
-                )
-              ),
-              CppDoc.Type("void"),
-              List(
-                lines(
-                  s"""|Fw::String s;"""
-                ),
-                wrapInScope(
-                  "switch (e) {",
-                  data.constants.flatMap(aNode => {
-                    val enumName = aNode._2.data.name
-                    lines(
-                      s"""|case $enumName:
-                          |  s = "$enumName";
-                          |  break;"""
-                    )
-                  }) ++
-                    lines(
-                      """|default:
-                         |  s = "[invalid]";
-                         |  break;"""
-                    ),
-                  "}"
-                ),
-                lines(
-                  s"""|sb.format("%s ($writeFormatStr)", s.toChar(), e);"""
-                )
-              ).flatten,
-              CppDoc.Function.NonSV,
-              CppDoc.Function.Const
-            )
-          ),
-          CppDoc.Lines.Hpp
-        ),
-        List(
-          linesClassMember(
-            lines(
-              s"""|
-                  |#elif FW_ENABLE_TEXT_LOGGING
-                  |
-                  |void $name ::
-                  |  toString(Fw::StringBase& sb) const
-                  |{
-                  |  sb.format("$writeFormatStr", e);
-                  |}
-                  |
-                  |#endif
-                  |"""
+          functionClassMember(
+            Some(s"Convert enum to string"),
+            "toString",
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::StringBase&"),
+                "sb",
+                Some("The StringBase object to hold the result")
+              )
             ),
-            CppDoc.Lines.Cpp
+            CppDoc.Type("void"),
+            List(
+              lines(
+                s"""|Fw::String s;"""
+              ),
+              wrapInScope(
+                "switch (e) {",
+                data.constants.flatMap(aNode => {
+                  val enumName = aNode._2.data.name
+                  lines(
+                    s"""|case $enumName:
+                        |  s = "$enumName";
+                        |  break;"""
+                  )
+                }) ++
+                  lines(
+                    """|default:
+                       |  s = "[invalid]";
+                       |  break;"""
+                  ),
+                "}"
+              ),
+              lines(
+                s"""|sb.format("%s ($writeFormatStr)", s.toChar(), e);"""
+              )
+            ).flatten,
+            CppDoc.Function.NonSV,
+            CppDoc.Function.Const
           )
         )
       )
