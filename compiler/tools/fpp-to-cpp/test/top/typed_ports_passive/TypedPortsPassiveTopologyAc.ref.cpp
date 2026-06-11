@@ -12,13 +12,13 @@
 
 namespace TypedPortsPassive {
 
-  TypedPortsPassive::Receiver receiver(FW_OPTIONAL_NAME("receiver"));
+  TypedPortsPassive::Receiver receiver(FW_OPTIONAL_NAME("TypedPortsPassive.receiver"));
 
 }
 
 namespace TypedPortsPassive {
 
-  TypedPortsPassive::Sender sender(FW_OPTIONAL_NAME("sender"));
+  TypedPortsPassive::Sender sender(FW_OPTIONAL_NAME("TypedPortsPassive.sender"));
 
 }
 

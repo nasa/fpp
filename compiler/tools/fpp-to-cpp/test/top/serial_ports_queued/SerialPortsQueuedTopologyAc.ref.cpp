@@ -12,13 +12,13 @@
 
 namespace SerialPortsQueued {
 
-  SerialPortsQueued::Receiver receiver(FW_OPTIONAL_NAME("receiver"));
+  SerialPortsQueued::Receiver receiver(FW_OPTIONAL_NAME("SerialPortsQueued.receiver"));
 
 }
 
 namespace SerialPortsQueued {
 
-  SerialPortsQueued::Sender sender(FW_OPTIONAL_NAME("sender"));
+  SerialPortsQueued::Sender sender(FW_OPTIONAL_NAME("SerialPortsQueued.sender"));
 
 }
 

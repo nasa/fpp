@@ -12,7 +12,7 @@
 
 namespace M {
 
-  C c1(FW_OPTIONAL_NAME("c1"));
+  C c1(FW_OPTIONAL_NAME("M.c1"));
 
 }
 
