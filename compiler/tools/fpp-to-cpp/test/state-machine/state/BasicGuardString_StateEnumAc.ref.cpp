@@ -50,7 +50,7 @@ namespace FppTest {
     bool BasicGuardString_State ::
       isValid() const
     {
-      return ((e >= __FPRIME_UNINITIALIZED) && (e <= T));
+      return BasicGuardString_State::isValid(this->e);
     }
 
     Fw::SerializeStatus BasicGuardString_State ::
@@ -74,11 +74,11 @@ namespace FppTest {
     {
       SerialType es;
       Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
+      if ((status == Fw::FW_SERIALIZE_OK) && !BasicGuardString_State::isValid(es)) {
+        status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
+      }
       if (status == Fw::FW_SERIALIZE_OK) {
         this->e = static_cast<enum T>(es);
-        if (!this->isValid()) {
-          status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
-        }
       }
       return status;
     }
@@ -115,6 +115,16 @@ namespace FppTest {
     }
 
 #endif
+
+    // ----------------------------------------------------------------------
+    // Static functions
+    // ----------------------------------------------------------------------
+
+    bool BasicGuardString_State ::
+      isValid(SerialType serialTypeValue)
+    {
+      return ((serialTypeValue >= __FPRIME_UNINITIALIZED) && (serialTypeValue <= T));
+    }
 
   }
 

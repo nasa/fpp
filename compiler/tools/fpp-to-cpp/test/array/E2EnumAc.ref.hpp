@@ -23,7 +23,7 @@ class E2 :
     // ----------------------------------------------------------------------
 
     //! The serial representation type
-    typedef I32 SerialType;
+    using SerialType = I32;
 
     //! The raw enum type
     enum T {
@@ -34,7 +34,7 @@ class E2 :
     };
 
     //! For backwards compatibility
-    typedef enum T t;
+    using t = enum T;
 
   public:
 
@@ -150,6 +150,17 @@ class E2 :
     ) const;
 
 #endif
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Static functions
+    // ----------------------------------------------------------------------
+
+    //! Check serial type value for validity
+    static bool isValid(
+        SerialType serialTypeValue //!< The serial type value
+    );
 
   public:
 
