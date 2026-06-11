@@ -114,7 +114,7 @@ case class EnumCppWriter(
       getConstantMembers,
       getConstructorMembers,
       getOperatorMembers,
-      getMemberFunctionMembers,
+      MemberFunctionMembers.get,
       StaticFunctionMembers.get,
       getMemberVariableMembers
     ).flatten
@@ -294,15 +294,24 @@ case class EnumCppWriter(
       )
     )
 
-  private def getMemberFunctionMembers: List[CppDoc.Class.Member] =
-    List(
-      linesClassMember(
-        CppDocHppWriter.writeAccessTag("public")
-      ),
-      linesClassMember(
-        CppDocWriter.writeBannerComment("Member functions"),
-        CppDoc.Lines.Both
-      ),
+  private object MemberFunctionMembers {
+
+    def get: List[CppDoc.Class.Member] =
+      addAccessTagAndComment(
+        "public",
+        "Member functions",
+        getIsValidFunction ::
+        getSerializeToFunction ::
+        getDeserializeFromFunction ::
+        List.concat(
+          wrapClassMembersInIfDirective(
+            "#if FW_SERIALIZABLE_TO_STRING",
+            List(getToStringFunction)
+          )
+        )
+      )
+
+    private def getIsValidFunction =
       functionClassMember(
         Some(s"Check raw enum value for validity"),
         "isValid",
@@ -311,7 +320,9 @@ case class EnumCppWriter(
         lines("return isValid(this->e);"),
         CppDoc.Function.NonSV,
         CppDoc.Function.Const
-      ),
+      )
+
+    private def getSerializeToFunction =
       functionClassMember(
         Some(s"Serialize raw enum value to SerialType"),
         "serializeTo",
@@ -343,7 +354,9 @@ case class EnumCppWriter(
         ),
         CppDoc.Function.NonSV,
         CppDoc.Function.Const
-      ),
+      )
+
+    private def getDeserializeFromFunction =
       functionClassMember(
         Some(s"Deserialize raw enum value from SerialType"),
         "deserializeFrom",
@@ -373,51 +386,47 @@ case class EnumCppWriter(
               |return status;"""
         )
       )
-    ) ++
-      wrapClassMembersInIfDirective(
-        "#if FW_SERIALIZABLE_TO_STRING",
+
+    private def getToStringFunction =
+      functionClassMember(
+        Some(s"Convert enum to string"),
+        "toString",
         List(
-          functionClassMember(
-            Some(s"Convert enum to string"),
-            "toString",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::StringBase&"),
-                "sb",
-                Some("The StringBase object to hold the result")
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::StringBase&"),
+            "sb",
+            Some("The StringBase object to hold the result")
+          )
+        ),
+        CppDoc.Type("void"),
+        List.concat(
+          lines("Fw::String s;"),
+          wrapInScope(
+            "switch (e) {",
+            List.concat(
+              data.constants.flatMap(aNode => {
+                val enumName = aNode._2.data.name
+                lines(
+                  s"""|case $enumName:
+                      |  s = "$enumName";
+                      |  break;"""
+                )
+              }),
+              lines(
+                """|default:
+                   |  s = "[invalid]";
+                   |  break;"""
               )
             ),
-            CppDoc.Type("void"),
-            List(
-              lines(
-                s"""|Fw::String s;"""
-              ),
-              wrapInScope(
-                "switch (e) {",
-                data.constants.flatMap(aNode => {
-                  val enumName = aNode._2.data.name
-                  lines(
-                    s"""|case $enumName:
-                        |  s = "$enumName";
-                        |  break;"""
-                  )
-                }) ++
-                  lines(
-                    """|default:
-                       |  s = "[invalid]";
-                       |  break;"""
-                  ),
-                "}"
-              ),
-              lines(
-                s"""|sb.format("%s ($writeFormatStr)", s.toChar(), e);"""
-              )
-            ).flatten,
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
-          )
-        )
+            "}"
+          ),
+          lines(s"""sb.format("%s ($writeFormatStr)", s.toChar(), e);""")
+        ),
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
       )
+
+  }
 
   private object StaticFunctionMembers {
 
