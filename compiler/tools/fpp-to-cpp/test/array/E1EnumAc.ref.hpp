@@ -158,6 +158,15 @@ namespace M {
 
 #endif
 
+#ifdef BUILD_UT
+
+      //! Set the value to use for serialization (unit testing only)
+      void setSerializeValue(
+          SerialType serializeValue //!< The serialize value
+      );
+
+#endif
+
     public:
 
       // ----------------------------------------------------------------------
@@ -172,11 +181,17 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
-      // Member variables
+      // Public member variables
       // ----------------------------------------------------------------------
 
       //! The raw enum value
       enum T e;
+
+    private:
+
+      // ----------------------------------------------------------------------
+      // Private member variables
+      // ----------------------------------------------------------------------
 
 #ifdef BUILD_UT
 

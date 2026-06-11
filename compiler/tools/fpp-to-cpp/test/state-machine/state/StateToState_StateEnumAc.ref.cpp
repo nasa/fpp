@@ -124,6 +124,17 @@ namespace FppTest {
 
 #endif
 
+#ifdef BUILD_UT
+
+    void StateToState_State ::
+      setSerializeValue(SerialType serializeValue)
+    {
+      this->m_numericValue = serializeValue;
+      this->m_serializeNumericValue = true;
+    }
+
+#endif
+
     // ----------------------------------------------------------------------
     // Static functions
     // ----------------------------------------------------------------------
