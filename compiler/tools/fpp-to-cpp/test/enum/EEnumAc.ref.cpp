@@ -114,6 +114,17 @@ void E ::
 
 #endif
 
+#ifdef BUILD_UT
+
+void E ::
+  setSerializeValue(SerialType serializeValue)
+{
+  this->m_numericValue = serializeValue;
+  this->m_serializeNumericValue = true;
+}
+
+#endif
+
 // ----------------------------------------------------------------------
 // Static functions
 // ----------------------------------------------------------------------

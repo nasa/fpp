@@ -307,6 +307,10 @@ case class EnumCppWriter(
           wrapClassMembersInIfDirective(
             "#if FW_SERIALIZABLE_TO_STRING",
             List(getToStringFunction)
+          ),
+          wrapClassMembersInIfDirective(
+            "#ifdef BUILD_UT",
+            List(getSetSerializeValueFunction)
           )
         )
       )
@@ -424,6 +428,25 @@ case class EnumCppWriter(
         ),
         CppDoc.Function.NonSV,
         CppDoc.Function.Const
+      )
+
+    private def getSetSerializeValueFunction =
+      functionClassMember(
+        Some("Set the value to use for serialization (unit testing only)"),
+        "setSerializeValue",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("SerialType"),
+            "serializeValue",
+            Some("The serialize value")
+          )
+        ),
+        CppDoc.Type("void"),
+        lines(
+          """|this->m_numericValue = serializeValue;
+             |this->m_serializeNumericValue = true;"""
+        ),
+        CppDoc.Function.NonSV
       )
 
   }

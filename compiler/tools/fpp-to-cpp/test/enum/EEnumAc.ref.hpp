@@ -155,6 +155,15 @@ class E :
 
 #endif
 
+#ifdef BUILD_UT
+
+    //! Set the value to use for serialization (unit testing only)
+    void setSerializeValue(
+        SerialType serializeValue //!< The serialize value
+    );
+
+#endif
+
   public:
 
     // ----------------------------------------------------------------------

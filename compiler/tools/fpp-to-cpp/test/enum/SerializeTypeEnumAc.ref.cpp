@@ -116,6 +116,17 @@ namespace M {
 
 #endif
 
+#ifdef BUILD_UT
+
+  void SerializeType ::
+    setSerializeValue(SerialType serializeValue)
+  {
+    this->m_numericValue = serializeValue;
+    this->m_serializeNumericValue = true;
+  }
+
+#endif
+
   // ----------------------------------------------------------------------
   // Static functions
   // ----------------------------------------------------------------------
