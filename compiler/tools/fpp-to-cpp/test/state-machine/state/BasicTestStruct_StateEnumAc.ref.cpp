@@ -50,7 +50,7 @@ namespace FppTest {
     bool BasicTestStruct_State ::
       isValid() const
     {
-      return isValid(this->e);
+      return BasicTestStruct_State::isValid(this->e);
     }
 
     Fw::SerializeStatus BasicTestStruct_State ::
@@ -74,7 +74,7 @@ namespace FppTest {
     {
       SerialType es;
       Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
-      if ((status == Fw::FW_SERIALIZE_OK) && !isValid(es)) {
+      if ((status == Fw::FW_SERIALIZE_OK) && !BasicTestStruct_State::isValid(es)) {
         status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
       }
       if (status == Fw::FW_SERIALIZE_OK) {

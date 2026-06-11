@@ -48,7 +48,7 @@ namespace M {
   bool Implicit ::
     isValid() const
   {
-    return isValid(this->e);
+    return Implicit::isValid(this->e);
   }
 
   Fw::SerializeStatus Implicit ::
@@ -72,7 +72,7 @@ namespace M {
   {
     SerialType es;
     Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
-    if ((status == Fw::FW_SERIALIZE_OK) && !isValid(es)) {
+    if ((status == Fw::FW_SERIALIZE_OK) && !Implicit::isValid(es)) {
       status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
     }
     if (status == Fw::FW_SERIALIZE_OK) {
