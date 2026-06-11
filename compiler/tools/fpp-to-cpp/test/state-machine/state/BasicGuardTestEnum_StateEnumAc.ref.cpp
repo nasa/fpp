@@ -22,8 +22,8 @@ namespace FppTest {
     {
       this->e = obj.e;
 #ifdef BUILD_UT
-      this->m_serializeNumericValue = obj.m_serializeNumericValue;
-      this->m_numericValue = obj.m_numericValue;
+      this->m_serializeValueIsSet = obj.m_serializeValueIsSet;
+      this->m_serializeValue = obj.m_serializeValue;
 #endif
       return *this;
     }
@@ -34,8 +34,8 @@ namespace FppTest {
       FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
       this->e = e1;
 #ifdef BUILD_UT
-      this->m_serializeNumericValue = false;
-      this->m_numericValue = __FPRIME_UNINITIALIZED;
+      this->m_serializeValueIsSet = false;
+      this->m_serializeValue = 0;
 #endif
       return *this;
     }
@@ -71,8 +71,8 @@ namespace FppTest {
 #ifdef BUILD_UT
       // Unit testing only: On request, override the enum value
       // with the numeric value, which is allowed to be invalid
-      if (this->m_serializeNumericValue) {
-        es = this->m_numericValue;
+      if (this->m_serializeValueIsSet) {
+        es = this->m_serializeValue;
       }
 #endif
       const Fw::SerializeStatus status = buffer.serializeFrom(es, mode);
@@ -126,8 +126,8 @@ namespace FppTest {
     void BasicGuardTestEnum_State ::
       setSerializeValue(SerialType serializeValue)
     {
-      this->m_numericValue = serializeValue;
-      this->m_serializeNumericValue = true;
+      this->m_serializeValue = serializeValue;
+      this->m_serializeValueIsSet = true;
     }
 
 #endif

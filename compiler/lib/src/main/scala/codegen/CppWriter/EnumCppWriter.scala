@@ -203,8 +203,8 @@ case class EnumCppWriter(
                 |{
                 |  this->e = obj.e;
                 |#ifdef BUILD_UT
-                |this->m_serializeNumericValue = obj.m_serializeNumericValue;
-                |this->m_numericValue = obj.m_numericValue;
+                |this->m_serializeValueIsSet = obj.m_serializeValueIsSet;
+                |this->m_serializeValue = obj.m_serializeValue;
                 |#endif
                 |}"""
 
@@ -236,8 +236,8 @@ case class EnumCppWriter(
         lines(
           """|this->e = obj.e;
              |#ifdef BUILD_UT
-             |this->m_serializeNumericValue = obj.m_serializeNumericValue;
-             |this->m_numericValue = obj.m_numericValue;
+             |this->m_serializeValueIsSet = obj.m_serializeValueIsSet;
+             |this->m_serializeValue = obj.m_serializeValue;
              |#endif
              |return *this;"""
         )
@@ -254,13 +254,13 @@ case class EnumCppWriter(
         ),
         CppDoc.Type(s"$name&"),
         lines(
-          s"""|FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
-              |this->e = e1;
-              |#ifdef BUILD_UT
-              |this->m_serializeNumericValue = false;
-              |this->m_numericValue = $defaultValue;
-              |#endif
-              |return *this;"""
+          """|FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
+             |this->e = e1;
+             |#ifdef BUILD_UT
+             |this->m_serializeValueIsSet = false;
+             |this->m_serializeValue = 0;
+             |#endif
+             |return *this;"""
         )
       ),
       linesClassMember(
@@ -350,8 +350,8 @@ case class EnumCppWriter(
               |#ifdef BUILD_UT
               |// Unit testing only: On request, override the enum value
               |// with the numeric value, which is allowed to be invalid
-              |if (this->m_serializeNumericValue) {
-              |  es = this->m_numericValue;
+              |if (this->m_serializeValueIsSet) {
+              |  es = this->m_serializeValue;
               |}
               |#endif
               |const Fw::SerializeStatus status = buffer.serializeFrom(es, mode);
@@ -444,8 +444,8 @@ case class EnumCppWriter(
         ),
         CppDoc.Type("void"),
         lines(
-          """|this->m_numericValue = serializeValue;
-             |this->m_serializeNumericValue = true;"""
+          """|this->m_serializeValue = serializeValue;
+             |this->m_serializeValueIsSet = true;"""
         ),
         CppDoc.Function.NonSV
       )
@@ -508,14 +508,16 @@ case class EnumCppWriter(
         List(
           linesClassMember(
             lines(
-              s"""|
-                  |//! Whether to use the numeric value when serializing the enum
-                  |//! (unit testing only). This allows serialization of invalid values
-                  |//! that can't be represented as the raw enum type.
-                  |bool m_serializeNumericValue = false;
-                  |
-                  |//! The numeric value
-                  |SerialType m_numericValue = $defaultValue;"""
+              """|
+                 |//! Whether the serialize value is set (unit testing only).
+                 |//! When this flag is set to true, the serializeTo function
+                 |//! uses the serialize value instead of the raw enum value
+                 |//! when serializing the enum instance. This allows serialization
+                 |//! of invalid values that can't be represented as the raw enum type.
+                 |bool m_serializeValueIsSet = false;
+                 |
+                 |//! The serialize value
+                 |SerialType m_serializeValue = 0;"""
             )
           )
         ),

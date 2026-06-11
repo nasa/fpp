@@ -77,8 +77,8 @@ class E :
     {
       this->e = obj.e;
 #ifdef BUILD_UT
-    this->m_serializeNumericValue = obj.m_serializeNumericValue;
-    this->m_numericValue = obj.m_numericValue;
+    this->m_serializeValueIsSet = obj.m_serializeValueIsSet;
+    this->m_serializeValue = obj.m_serializeValue;
 #endif
     }
 
@@ -193,13 +193,15 @@ class E :
 
 #ifdef BUILD_UT
 
-    //! Whether to use the numeric value when serializing the enum
-    //! (unit testing only). This allows serialization of invalid values
-    //! that can't be represented as the raw enum type.
-    bool m_serializeNumericValue = false;
+    //! Whether the serialize value is set (unit testing only).
+    //! When this flag is set to true, the serializeTo function
+    //! uses the serialize value instead of the raw enum value
+    //! when serializing the enum instance. This allows serialization
+    //! of invalid values that can't be represented as the raw enum type.
+    bool m_serializeValueIsSet = false;
 
-    //! The numeric value
-    SerialType m_numericValue = X;
+    //! The serialize value
+    SerialType m_serializeValue = 0;
 
 #endif
 
