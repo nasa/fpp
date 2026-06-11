@@ -109,15 +109,16 @@ case class EnumCppWriter(
   }
 
   private def getClassMembers: List[CppDoc.Class.Member] =
-    List(
+    List.concat(
       getTypeMembers,
       getConstantMembers,
       getConstructorMembers,
       getOperatorMembers,
       MemberFunctionMembers.get,
       StaticFunctionMembers.get,
-      getMemberVariableMembers
-    ).flatten
+      getPublicMemberVariableMembers,
+      getPrivateMemberVariableMembers
+    )
 
   private def getConstantMembers: List[CppDoc.Class.Member] =
     List(
@@ -482,30 +483,43 @@ case class EnumCppWriter(
 
   }
 
-  private def getMemberVariableMembers: List[CppDoc.Class.Member] =
+  private def getPublicMemberVariableMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "public",
-      "Member variables",
+      "Public member variables",
       List(
         linesClassMember(
           lines(
             s"""|
                 |//! The raw enum value
-                |enum T e;
-                |
-                |#ifdef BUILD_UT
-                |
-                |//! Whether to use the numeric value when serializing the enum
-                |//! (unit testing only). This allows serialization of invalid values
-                |//! that can't be represented as the raw enum type.
-                |bool m_serializeNumericValue = false;
-                |
-                |//! The numeric value
-                |SerialType m_numericValue = $defaultValue;
-                |
-                |#endif"""
+                |enum T e;"""
           )
         )
+      ),
+      CppDoc.Lines.Hpp
+    )
+
+  private def getPrivateMemberVariableMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "private",
+      "Private member variables",
+      wrapClassMembersInIfDirective(
+        "#ifdef BUILD_UT",
+        List(
+          linesClassMember(
+            lines(
+              s"""|
+                  |//! Whether to use the numeric value when serializing the enum
+                  |//! (unit testing only). This allows serialization of invalid values
+                  |//! that can't be represented as the raw enum type.
+                  |bool m_serializeNumericValue = false;
+                  |
+                  |//! The numeric value
+                  |SerialType m_numericValue = $defaultValue;"""
+            )
+          )
+        ),
+        CppDoc.Lines.Hpp
       ),
       CppDoc.Lines.Hpp
     )
