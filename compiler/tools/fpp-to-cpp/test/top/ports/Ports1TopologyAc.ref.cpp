@@ -17,19 +17,19 @@ namespace M {
 
 namespace M {
 
-  M::Active active3(FW_OPTIONAL_NAME("active3"));
+  M::Active active3(FW_OPTIONAL_NAME("M.active3"));
 
 }
 
 namespace M {
 
-  M::Passive passive1(FW_OPTIONAL_NAME("passive1"));
+  M::Passive passive1(FW_OPTIONAL_NAME("M.passive1"));
 
 }
 
 namespace M {
 
-  ConcretePassive passive2(FW_OPTIONAL_NAME("passive2"));
+  ConcretePassive passive2(FW_OPTIONAL_NAME("M.passive2"));
 
 }
 

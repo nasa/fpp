@@ -12,13 +12,13 @@
 
 namespace TypedPortsQueued {
 
-  TypedPortsQueued::Receiver receiver(FW_OPTIONAL_NAME("receiver"));
+  TypedPortsQueued::Receiver receiver(FW_OPTIONAL_NAME("TypedPortsQueued.receiver"));
 
 }
 
 namespace TypedPortsQueued {
 
-  TypedPortsQueued::Sender sender(FW_OPTIONAL_NAME("sender"));
+  TypedPortsQueued::Sender sender(FW_OPTIONAL_NAME("TypedPortsQueued.sender"));
 
 }
 
