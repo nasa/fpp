@@ -1,0 +1,95 @@
+=== Module Template Definitions
+
+A *module template definition* associates a name
+with a *module template*.
+A module template is a set of syntactic elements, each of which
+becomes a member of a <<Translation-Units-and-Models_Translation-Units,
+translation unit>> or a
+<<Definitions_Module-Definitions,module definition>>
+at the point where the template is <<Expansion-of-Templates,expanded>>.
+Each template may be expanded any number of times, and
+each expansion creates a distinct set of translation unit
+or module members.
+Templates may have parameters that become bound
+to <<Specifiers_Template-Expansion-Specifiers,arguments>>
+at the point of expansion.
+
+==== Syntax
+
+`module` `template`
+<<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`(` <<Template-Parameter-Lists,_template-param-list_>> `)`
+_]_
+`{`
+_module-member-sequence_
+`}`
+
+_module-member-sequence_ is identical to the module member sequence
+of a <<Definitions_Module-Definitions,module definition>>.
+
+==== Semantics
+
+The identifier is the name of the template.
+
+No module template definition may be the ancestor in the
+abstract syntax tree of another module template definition
+or of a <<Specifiers_Template-Expansion-Specifiers,template expansion specifier>>.
+This rule ensures that <<Expansion-of-Templates,expanding a template>>
+never causes another template to be defined or another
+template expansion to occur.
+
+Each module template definition _M_ that appears in a model
+must pass the following analysis, regardless of whether it
+is expanded.
+
+. Expand _M_ at the point of the definition of _M_, providing the following
+  <<Specifiers_Template-Expansion-Specifiers,arguments for the template 
+  parameters>>:
+
+.. For each constant template parameter, a literal value of the correct type.
+
+.. For each port interface instance template argument, a component
+   instance definition that minimally satisfies the interface.
+
+.. For each type template argument, an abstract type definition.
+
+. In the expansion _E_, do the following:
+
+.. Construct the <<Definitions-and-Uses_Use-Def-Graph,use-def 
+   graph>>, checking for cycles.
+
+.. Compute the types associated with type definition symbols, enumerated
+   constant symbols, and type names, except that array size expressions
+   and default value expressions are still unevaluated.
+
+.. Perform <<Type-Checking,type checking>>,
+   except that array size expressions and default value expressions in type 
+   definitions are still unevaluated. 
+
+==== Example
+
+[source,fpp]
+----
+template MT(
+    constant baseId: FwIdType
+    instance comDriver: Drv.ByteStreamDriver
+) {
+
+    instance comStub: Svc.ComStub base id \
+        baseId + 0x0800
+
+    topology T {
+        instance comDriver
+        instance comStub
+
+        # Connect to the driver from the parameter list
+        connections Downlink {
+            comStub.drvSendOut      -> comDriver.$send
+            comDriver.sendReturnOut -> comStub.drvSendReturnIn
+            comDriver.ready         -> comStub.drvConnected
+        }
+    }
+
+}
+----
