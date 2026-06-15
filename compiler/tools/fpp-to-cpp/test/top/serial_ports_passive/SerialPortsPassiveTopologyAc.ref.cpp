@@ -12,13 +12,13 @@
 
 namespace SerialPortsPassive {
 
-  SerialPortsPassive::Receiver receiver(FW_OPTIONAL_NAME("receiver"));
+  SerialPortsPassive::Receiver receiver(FW_OPTIONAL_NAME("SerialPortsPassive.receiver"));
 
 }
 
 namespace SerialPortsPassive {
 
-  SerialPortsPassive::Sender sender(FW_OPTIONAL_NAME("sender"));
+  SerialPortsPassive::Sender sender(FW_OPTIONAL_NAME("SerialPortsPassive.sender"));
 
 }
 

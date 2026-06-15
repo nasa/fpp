@@ -12,13 +12,13 @@
 
 namespace TypedPortsActive {
 
-  TypedPortsActive::Receiver receiver(FW_OPTIONAL_NAME("receiver"));
+  TypedPortsActive::Receiver receiver(FW_OPTIONAL_NAME("TypedPortsActive.receiver"));
 
 }
 
 namespace TypedPortsActive {
 
-  TypedPortsActive::Sender sender(FW_OPTIONAL_NAME("sender"));
+  TypedPortsActive::Sender sender(FW_OPTIONAL_NAME("TypedPortsActive.sender"));
 
 }
 

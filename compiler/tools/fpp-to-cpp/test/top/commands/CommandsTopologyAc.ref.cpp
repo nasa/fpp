@@ -12,25 +12,25 @@
 
 namespace M {
 
-  M::C c1(FW_OPTIONAL_NAME("c1"));
+  M::C c1(FW_OPTIONAL_NAME("M.c1"));
 
 }
 
 namespace M {
 
-  M::C c2(FW_OPTIONAL_NAME("c2"));
+  M::C c2(FW_OPTIONAL_NAME("M.c2"));
 
 }
 
 namespace M {
 
-  M::CmdDispatcher cmdDispatcher(FW_OPTIONAL_NAME("cmdDispatcher"));
+  M::CmdDispatcher cmdDispatcher(FW_OPTIONAL_NAME("M.cmdDispatcher"));
 
 }
 
 namespace M {
 
-  M::NoCommands noCommands(FW_OPTIONAL_NAME("noCommands"));
+  M::NoCommands noCommands(FW_OPTIONAL_NAME("M.noCommands"));
 
 }
 
