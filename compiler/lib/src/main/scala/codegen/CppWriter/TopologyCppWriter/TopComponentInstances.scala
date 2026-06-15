@@ -17,6 +17,7 @@ case class TopComponentInstances(
     def getMembers(ci: ComponentInstance): List[CppDoc.Member] = {
       val implType = getImplType(ci)
       val instanceName = ci.getUnqualifiedName
+      val objectName = ci.qualifiedName.toString
       val hppMember = linesMember(
         lines(
           s"""|
@@ -29,7 +30,7 @@ case class TopComponentInstances(
         val instLines = getCodeLinesForPhase (CppWriter.Phases.instances) (ci).getOrElse(
           lines(
             s"""|
-                |$implType $instanceName(FW_OPTIONAL_NAME($q$instanceName$q));"""
+                |$implType $instanceName(FW_OPTIONAL_NAME($q$objectName$q));"""
           )
         )
         linesMember(instLines, CppDoc.Lines.Cpp)
