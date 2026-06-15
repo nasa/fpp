@@ -322,7 +322,7 @@ case class EnumCppWriter(
         "isValid",
         Nil,
         CppDoc.Type("bool"),
-        lines("return isValid(this->e);"),
+        lines(s"return $name::isValid(this->e);"),
         CppDoc.Function.NonSV,
         CppDoc.Function.Const
       )
@@ -382,7 +382,7 @@ case class EnumCppWriter(
         lines(
           s"""|SerialType es;
               |Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
-              |if ((status == Fw::FW_SERIALIZE_OK) && !isValid(es)) {
+              |if ((status == Fw::FW_SERIALIZE_OK) && !$name::isValid(es)) {
               |  status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
               |}
               |if (status == Fw::FW_SERIALIZE_OK) {

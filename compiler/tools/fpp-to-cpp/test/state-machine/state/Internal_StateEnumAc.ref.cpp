@@ -58,7 +58,7 @@ namespace FppTest {
     bool Internal_State ::
       isValid() const
     {
-      return isValid(this->e);
+      return Internal_State::isValid(this->e);
     }
 
     Fw::SerializeStatus Internal_State ::
@@ -87,7 +87,7 @@ namespace FppTest {
     {
       SerialType es;
       Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
-      if ((status == Fw::FW_SERIALIZE_OK) && !isValid(es)) {
+      if ((status == Fw::FW_SERIALIZE_OK) && !Internal_State::isValid(es)) {
         status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
       }
       if (status == Fw::FW_SERIALIZE_OK) {

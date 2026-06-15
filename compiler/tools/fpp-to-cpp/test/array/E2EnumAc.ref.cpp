@@ -54,7 +54,7 @@ std::ostream& operator<<(std::ostream& os, const E2& obj) {
 bool E2 ::
   isValid() const
 {
-  return isValid(this->e);
+  return E2::isValid(this->e);
 }
 
 Fw::SerializeStatus E2 ::
@@ -83,7 +83,7 @@ Fw::SerializeStatus E2 ::
 {
   SerialType es;
   Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
-  if ((status == Fw::FW_SERIALIZE_OK) && !isValid(es)) {
+  if ((status == Fw::FW_SERIALIZE_OK) && !E2::isValid(es)) {
     status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
   }
   if (status == Fw::FW_SERIALIZE_OK) {
