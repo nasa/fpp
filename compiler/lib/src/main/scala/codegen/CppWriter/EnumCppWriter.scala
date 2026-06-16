@@ -29,7 +29,9 @@ case class EnumCppWriter(
 
   private val typeCppWriter = TypeCppWriter(s)
 
-  private val repTypeName = typeCppWriter.write(enumType.repType)
+  private val repType = enumType.repType
+
+  private val repTypeName = typeCppWriter.write(repType)
 
   private val numConstants = data.constants.size
 
@@ -477,8 +479,13 @@ case class EnumCppWriter(
     )
 
   private def writeInterval(v: String, c: EnumCppWriter.Interval) = {
-    val (lower, upper) = c
-    s"(($v >= ${lower._1}) && ($v <= ${upper._1}))"
+    val ((lowerName, lowerValue), (upperName, upperValue)) = c
+    val repTypeMinValue = repType.minValue
+    val repTypeMaxValue = repType.maxValue
+    if (lowerValue <= repTypeMinValue) && (upperValue >= repTypeMaxValue) then "true"
+    else if lowerValue <= repTypeMinValue then s"($v <= $upperName)"
+    else if upperValue >= repTypeMaxValue then s"($v >= $lowerName)"
+    else s"(($v >= $lowerName) && ($v <= $upperName))"
   }
 
   private def writeIntervals(v: String, cs: List[EnumCppWriter.Interval]) =

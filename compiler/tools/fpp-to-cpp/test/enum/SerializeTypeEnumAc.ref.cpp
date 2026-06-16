@@ -118,7 +118,7 @@ namespace M {
   bool SerializeType ::
     isValid(SerialType serialTypeValue)
   {
-    return ((serialTypeValue >= X) && (serialTypeValue <= Y));
+    return (serialTypeValue <= Y);
   }
 
 }

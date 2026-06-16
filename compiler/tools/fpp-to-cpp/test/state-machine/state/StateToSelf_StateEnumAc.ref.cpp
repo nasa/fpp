@@ -123,7 +123,7 @@ namespace FppTest {
     bool StateToSelf_State ::
       isValid(SerialType serialTypeValue)
     {
-      return ((serialTypeValue >= __FPRIME_UNINITIALIZED) && (serialTypeValue <= S1_S3));
+      return (serialTypeValue <= S1_S3);
     }
 
   }
