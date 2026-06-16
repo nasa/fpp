@@ -480,7 +480,8 @@ case class EnumCppWriter(
 
   private def writeInterval(v: String, c: EnumCppWriter.Interval) = {
     val ((lowerName, lowerValue), (upperName, upperValue)) = c
-    if lowerValue <= repType.minValue then s"($v <= $upperName)"
+    if lowerValue == upperValue then s"($v == $lowerName)"
+    else if lowerValue <= repType.minValue then s"($v <= $upperName)"
     else if upperValue >= repType.maxValue then s"($v >= $lowerName)"
     else s"(($v >= $lowerName) && ($v <= $upperName))"
   }

@@ -122,7 +122,7 @@ namespace M {
     isValid(SerialType serialTypeValue)
   {
     return ((serialTypeValue >= X) && (serialTypeValue <= Y))
-      || ((serialTypeValue >= Z) && (serialTypeValue <= Z));
+      || (serialTypeValue == Z);
   }
 
 }

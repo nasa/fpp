@@ -6,5 +6,6 @@ default
 explicit
 implicit
 serialize_type
+singleton_range
 state_machine
 "
