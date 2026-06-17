@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
 . ../../../scripts/test-utils.sh
 
@@ -16,6 +16,10 @@ run_test_inner()
     $fpp_to_json $infile.fpp $args 2>&1 | remove_path_prefix > $outfile.out.txt && \
     remove_fpp_version < fpp-ast.json | remove_path_prefix >> $outfile.out.txt && \
     remove_fpp_version < fpp-loc-map.json | remove_path_prefix >> $outfile.out.txt
+    if test -f fpp-analysis.json
+    then
+      remove_fpp_version < fpp-analysis.json | remove_path_prefix >> $outfile.out.txt
+    fi
   } && \
   {
     # Validate the location map
@@ -28,14 +32,8 @@ run_test_inner()
     fi
   } && \
   {
-    # Clean up
-    if [[ "$args" == *"-s"* ]]; then
-      rm fpp-ast.json fpp-loc-map.json
-    else
-      remove_fpp_version < fpp-analysis.json | remove_path_prefix >> $outfile.out.txt
-      # Delete the JSON files
-      rm fpp-ast.json fpp-loc-map.json fpp-analysis.json
-    fi
+    # Delete the JSON files
+    rm -f fpp-ast.json fpp-loc-map.json fpp-analysis.json
   } && \
   {
     # Compare the output

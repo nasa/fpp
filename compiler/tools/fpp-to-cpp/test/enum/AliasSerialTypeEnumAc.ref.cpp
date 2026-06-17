@@ -46,7 +46,7 @@ std::ostream& operator<<(std::ostream& os, const AliasSerialType& obj) {
 bool AliasSerialType ::
   isValid() const
 {
-  return ((e >= A) && (e <= B));
+  return AliasSerialType::isValid(this->e);
 }
 
 Fw::SerializeStatus AliasSerialType ::
@@ -70,11 +70,11 @@ Fw::SerializeStatus AliasSerialType ::
 {
   SerialType es;
   Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
+  if ((status == Fw::FW_SERIALIZE_OK) && !AliasSerialType::isValid(es)) {
+    status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
+  }
   if (status == Fw::FW_SERIALIZE_OK) {
     this->e = static_cast<enum T>(es);
-    if (!this->isValid()) {
-      status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
-    }
   }
   return status;
 }
@@ -108,3 +108,13 @@ void AliasSerialType ::
 }
 
 #endif
+
+// ----------------------------------------------------------------------
+// Static functions
+// ----------------------------------------------------------------------
+
+bool AliasSerialType ::
+  isValid(SerialType serialTypeValue)
+{
+  return (serialTypeValue <= B);
+}

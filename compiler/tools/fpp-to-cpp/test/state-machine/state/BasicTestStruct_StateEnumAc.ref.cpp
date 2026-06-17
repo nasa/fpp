@@ -50,7 +50,7 @@ namespace FppTest {
     bool BasicTestStruct_State ::
       isValid() const
     {
-      return ((e >= __FPRIME_UNINITIALIZED) && (e <= T));
+      return BasicTestStruct_State::isValid(this->e);
     }
 
     Fw::SerializeStatus BasicTestStruct_State ::
@@ -74,11 +74,11 @@ namespace FppTest {
     {
       SerialType es;
       Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
+      if ((status == Fw::FW_SERIALIZE_OK) && !BasicTestStruct_State::isValid(es)) {
+        status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
+      }
       if (status == Fw::FW_SERIALIZE_OK) {
         this->e = static_cast<enum T>(es);
-        if (!this->isValid()) {
-          status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
-        }
       }
       return status;
     }
@@ -115,6 +115,16 @@ namespace FppTest {
     }
 
 #endif
+
+    // ----------------------------------------------------------------------
+    // Static functions
+    // ----------------------------------------------------------------------
+
+    bool BasicTestStruct_State ::
+      isValid(SerialType serialTypeValue)
+    {
+      return (serialTypeValue <= T);
+    }
 
   }
 

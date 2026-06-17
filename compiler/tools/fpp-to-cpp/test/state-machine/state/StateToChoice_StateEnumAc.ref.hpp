@@ -26,7 +26,7 @@ namespace FppTest {
         // ----------------------------------------------------------------------
 
         //! The serial representation type
-        typedef U8 SerialType;
+        using SerialType = U8;
 
         //! The raw enum type
         enum T {
@@ -43,7 +43,7 @@ namespace FppTest {
         };
 
         //! For backwards compatibility
-        typedef enum T t;
+        using t = enum T;
 
       public:
 
@@ -159,6 +159,17 @@ namespace FppTest {
         ) const;
 
 #endif
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Static functions
+        // ----------------------------------------------------------------------
+
+        //! Check serial type value for validity
+        static bool isValid(
+            SerialType serialTypeValue //!< The serial type value
+        );
 
       public:
 
