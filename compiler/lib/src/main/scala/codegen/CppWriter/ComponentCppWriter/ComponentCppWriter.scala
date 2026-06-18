@@ -128,8 +128,6 @@ case class ComponentCppWriter (
             |""".stripMargin
       )
       (standardHeaders ++ symbolHeaders).sorted.flatMap({
-        case h: "#include \"Fw/Log/LogTextPortAc.hpp\"" =>
-              addConditional("#if FW_ENABLE_TEXT_LOGGING == 1", h)
         case h: "#include \"Fw/Port/InputSerializePort.hpp\"" =>
               addConditional("#if !FW_DIRECT_PORT_CALLS", h)
         case h: "#include \"Fw/Port/OutputSerializePort.hpp\"" =>

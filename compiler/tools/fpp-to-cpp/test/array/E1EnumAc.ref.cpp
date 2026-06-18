@@ -48,8 +48,7 @@ namespace M {
   bool E1 ::
     isValid() const
   {
-    return ((e >= X) && (e <= Y))
-      || ((e >= Z) && (e <= Z));
+    return E1::isValid(this->e);
   }
 
   Fw::SerializeStatus E1 ::
@@ -73,11 +72,11 @@ namespace M {
   {
     SerialType es;
     Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
+    if ((status == Fw::FW_SERIALIZE_OK) && !E1::isValid(es)) {
+      status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
+    }
     if (status == Fw::FW_SERIALIZE_OK) {
       this->e = static_cast<enum T>(es);
-      if (!this->isValid()) {
-        status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
-      }
     }
     return status;
   }
@@ -114,5 +113,16 @@ namespace M {
   }
 
 #endif
+
+  // ----------------------------------------------------------------------
+  // Static functions
+  // ----------------------------------------------------------------------
+
+  bool E1 ::
+    isValid(SerialType serialTypeValue)
+  {
+    return ((serialTypeValue >= X) && (serialTypeValue <= Y))
+      || (serialTypeValue == Z);
+  }
 
 }

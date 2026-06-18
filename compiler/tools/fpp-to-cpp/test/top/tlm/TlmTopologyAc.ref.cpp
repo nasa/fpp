@@ -12,25 +12,25 @@
 
 namespace M {
 
-  M::C c1(FW_OPTIONAL_NAME("c1"));
+  M::C c1(FW_OPTIONAL_NAME("M.c1"));
 
 }
 
 namespace M {
 
-  M::C c2(FW_OPTIONAL_NAME("c2"));
+  M::C c2(FW_OPTIONAL_NAME("M.c2"));
 
 }
 
 namespace M {
 
-  M::NoTlm noTlm(FW_OPTIONAL_NAME("noTlm"));
+  M::NoTlm noTlm(FW_OPTIONAL_NAME("M.noTlm"));
 
 }
 
 namespace M {
 
-  M::TlmManager tlmManager(FW_OPTIONAL_NAME("tlmManager"));
+  M::TlmManager tlmManager(FW_OPTIONAL_NAME("M.tlmManager"));
 
 }
 

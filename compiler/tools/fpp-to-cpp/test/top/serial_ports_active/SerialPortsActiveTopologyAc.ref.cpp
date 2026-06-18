@@ -12,13 +12,13 @@
 
 namespace SerialPortsActive {
 
-  SerialPortsActive::Receiver receiver(FW_OPTIONAL_NAME("receiver"));
+  SerialPortsActive::Receiver receiver(FW_OPTIONAL_NAME("SerialPortsActive.receiver"));
 
 }
 
 namespace SerialPortsActive {
 
-  SerialPortsActive::Sender sender(FW_OPTIONAL_NAME("sender"));
+  SerialPortsActive::Sender sender(FW_OPTIONAL_NAME("SerialPortsActive.sender"));
 
 }
 

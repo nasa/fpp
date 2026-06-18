@@ -46,7 +46,7 @@ std::ostream& operator<<(std::ostream& os, const E& obj) {
 bool E ::
   isValid() const
 {
-  return ((e >= X) && (e <= Z));
+  return E::isValid(this->e);
 }
 
 Fw::SerializeStatus E ::
@@ -70,11 +70,11 @@ Fw::SerializeStatus E ::
 {
   SerialType es;
   Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
+  if ((status == Fw::FW_SERIALIZE_OK) && !E::isValid(es)) {
+    status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
+  }
   if (status == Fw::FW_SERIALIZE_OK) {
     this->e = static_cast<enum T>(es);
-    if (!this->isValid()) {
-      status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
-    }
   }
   return status;
 }
@@ -111,3 +111,13 @@ void E ::
 }
 
 #endif
+
+// ----------------------------------------------------------------------
+// Static functions
+// ----------------------------------------------------------------------
+
+bool E ::
+  isValid(SerialType serialTypeValue)
+{
+  return ((serialTypeValue >= X) && (serialTypeValue <= Z));
+}
