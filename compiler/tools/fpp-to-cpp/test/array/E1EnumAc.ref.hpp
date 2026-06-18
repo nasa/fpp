@@ -24,7 +24,7 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! The serial representation type
-      typedef I32 SerialType;
+      using SerialType = I32;
 
       //! The raw enum type
       enum T {
@@ -35,7 +35,7 @@ namespace M {
       };
 
       //! For backwards compatibility
-      typedef enum T t;
+      using t = enum T;
 
     public:
 
@@ -151,6 +151,17 @@ namespace M {
       ) const;
 
 #endif
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Static functions
+      // ----------------------------------------------------------------------
+
+      //! Check serial type value for validity
+      static bool isValid(
+          SerialType serialTypeValue //!< The serial type value
+      );
 
     public:
 

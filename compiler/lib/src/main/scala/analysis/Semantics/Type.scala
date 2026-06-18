@@ -106,6 +106,14 @@ object Type {
       case PrimitiveInt.U32 => PrimitiveInt.Unsigned
       case PrimitiveInt.U64 => PrimitiveInt.Unsigned
     }
+    def minValue: BigInt = signedness match {
+      case PrimitiveInt.Signed => -(BigInt(1) << (bitWidth - 1))
+      case PrimitiveInt.Unsigned => BigInt(0)
+    }
+    def maxValue: BigInt = signedness match {
+      case PrimitiveInt.Signed => (BigInt(1) << (bitWidth - 1)) - 1
+      case PrimitiveInt.Unsigned => (BigInt(1) << bitWidth) - 1
+    }
   }
 
   object PrimitiveInt {
