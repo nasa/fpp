@@ -1,0 +1,44 @@
+== Template Parameter Lists
+
+A *template parameter list* is an
+<<Element-Sequences,element sequence>>
+in which the elements are template parameters,
+and the terminating punctuation is a comma.
+
+A *template parameter* is a name to which a 
+<<Specifiers_Template-Expansion-Specifiers,template argument>>
+becomes bound when a <<Expansion-of-Templates,template is expanded>>.
+Within the scope of an expanded template, a the bound parameter is a
+<<Definitions,definition>>.
+
+=== Syntax
+
+Each template parameter is one of the following:
+
+* A *constant template parameter* `constant`
+  <<Lexical-Elements_Identifiers,_identifier_>> `:` <<Type-Names,_type-name_>>
+
+* A *port interface instance template parameter* `instance`
+  <<Lexical-Elements_Identifiers,_identifier_>> `:`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+
+* A *type template parameter* `type`
+  <<Lexical-Elements_Identifiers,_identifier_>>
+
+=== Semantics
+
+The type name in a constant template parameter must be
+a <<Type-Names,valid type name>>.
+
+The qualified identifier in a port interface instance template parameter
+must <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
+a <<Definitions_Port-Interface-Definitions,port interface definition>>.
+
+=== Examples
+
+[source,fpp]
+----
+constant c: U32
+instance cmdDisp: Svc.CmdDispatcher
+type T
+----

@@ -43,6 +43,7 @@ object Token {
   final case class EVENT() extends Token
   final case class EVERY() extends Token
   final case class EXIT() extends Token
+  final case class EXPAND() extends Token
   final case class EXTERNAL() extends Token
   final case class F32() extends Token
   final case class F64() extends Token
@@ -62,8 +63,8 @@ object Token {
   final case class I8() extends Token
   final case class ID() extends Token
   final case class IDENTIFIER(str: String) extends Token
-  final case class IMPLEMENTS() extends Token
   final case class IF() extends Token
+  final case class IMPLEMENTS() extends Token
   final case class IMPORT() extends Token
   final case class INCLUDE() extends Token
   final case class INITIAL() extends Token
@@ -129,6 +130,7 @@ object Token {
   final case class STRUCT() extends Token
   final case class SYNC() extends Token
   final case class TELEMETRY() extends Token
+  final case class TEMPLATE() extends Token
   final case class TEXT() extends Token
   final case class THROTTLE() extends Token
   final case class TIME() extends Token
@@ -174,6 +176,7 @@ enum TokenId {
   case BLOCK
   case BOOL
   case CHANGE
+  case CHOICE
   case COMMAND
   case COMPONENT
   case CONNECTIONS
@@ -192,6 +195,7 @@ enum TokenId {
   case EVENT
   case EVERY
   case EXIT
+  case EXPAND
   case EXTERNAL
   case F32
   case F64
@@ -211,15 +215,14 @@ enum TokenId {
   case I8
   case ID
   case IF
-  case IMPORT
   case IMPLEMENTS
+  case IMPORT
   case INCLUDE
   case INITIAL
   case INPUT
   case INSTANCE
   case INTERFACE
   case INTERNAL
-  case CHOICE
   case LOCATE
   case LOW
   case MACHINE
@@ -261,6 +264,7 @@ enum TokenId {
   case STRUCT
   case SYNC
   case TELEMETRY
+  case TEMPLATE
   case TEXT
   case THROTTLE
   case TIME
