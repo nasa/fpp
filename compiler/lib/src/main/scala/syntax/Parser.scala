@@ -289,13 +289,13 @@ object Parser extends Parsers {
         val binop =
           op match {
             case Token.LSHIFT() =>
-              AstNode.create(Ast.ExprBinop(e1, Ast.Binop.Shift(Ast.ShiftType.LShift), e2))
+              AstNode.create(Ast.ExprBinop(e1, Ast.Binop.LShift, e2))
             case Token.MINUS() =>
               AstNode.create(Ast.ExprBinop(e1, Ast.Binop.Sub, e2))
             case Token.PLUS() =>
               AstNode.create(Ast.ExprBinop(e1, Ast.Binop.Add, e2))
             case Token.RSHIFT() =>
-              AstNode.create(Ast.ExprBinop(e1, Ast.Binop.Shift(Ast.ShiftType.RShift), e2))
+              AstNode.create(Ast.ExprBinop(e1, Ast.Binop.RShift, e2))
             case Token.SLASH() =>
               AstNode.create(Ast.ExprBinop(e1, Ast.Binop.Div, e2))
             case Token.STAR() =>

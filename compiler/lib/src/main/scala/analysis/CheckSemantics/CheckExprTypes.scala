@@ -159,7 +159,7 @@ object CheckExprTypes extends UseAnalyzer {
     for {
       a <- super.exprBinopNode(a, node, e)
       t <- e.op match {
-        case Ast.Binop.Shift(_) =>
+        case Ast.Binop.LShift | Ast.Binop.RShift =>
           /** Shift operation is special, for this we idependently check for both operands to be integer */
          for {
           _ <- checkIntegerOrEnumType(a, e.e1)

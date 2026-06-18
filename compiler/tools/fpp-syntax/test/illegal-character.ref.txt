@@ -15,3 +15,18 @@ fpp-syntax
 tok2 \ illegal
        ^
 error: invalid token: expected line continuation
+fpp-syntax
+[ local path prefix ]/compiler/tools/fpp-syntax/test/illegal-character.fpp:5.1
+> < >
+^
+error: invalid token: '>'
+fpp-syntax
+[ local path prefix ]/compiler/tools/fpp-syntax/test/illegal-character.fpp:5.3
+> < >
+  ^
+error: invalid token: '<'
+fpp-syntax
+[ local path prefix ]/compiler/tools/fpp-syntax/test/illegal-character.fpp:5.5
+> < >
+    ^
+error: invalid token: '>'

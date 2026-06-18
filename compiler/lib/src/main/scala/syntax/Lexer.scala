@@ -555,11 +555,15 @@ object Lexer {
           if ch == '<' then
             token = LSHIFT
             nextChar()
+          else
+            error("'<'")
         case '>' =>
           nextChar()
           if ch == '>' then
             token = RSHIFT
             nextChar()
+          else
+            error("'>'")
         case '=' =>
           nextChar()
           token = EQUALS
