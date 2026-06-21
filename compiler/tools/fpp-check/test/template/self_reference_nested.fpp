@@ -1,5 +1,5 @@
-template Outer(constant c1: U32) {
-    template Inner(constant c2: U32) {
+module template Outer(constant c1: U32) {
+    module template Inner(constant c2: U32) {
         constant k1 = c2 * 2
     }
 

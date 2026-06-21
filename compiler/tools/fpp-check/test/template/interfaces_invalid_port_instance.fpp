@@ -30,7 +30,7 @@ instance a2: A2 base id 20 queue size 10 stack size 1024
 
 instance b: B base id 100 queue size 10 stack size 1024
 
-template T(interface i: A_I, constant idx: U32) {
+module template T(interface i: A_I, constant idx: U32) {
     topology P {
         instance i
         instance b

@@ -31,8 +31,6 @@ object ResolveTopologyInstances {
               for {
                 ii <- a.getInterfaceInstance(symI._1.value.id)
                 iface <- a.getInterface(tip.paramDef.interface.id)
-                // Make sure that we can bind ii to iface
-                _ <- ii.getInterface.implements(iface.portInterface)
               } yield t.addInstance(InterfaceInstance.fromTemplateArg(
                 tip.paramDef,
                 iface.portInterface,

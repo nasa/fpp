@@ -30,7 +30,7 @@ active component B {
 instance a1: A1 base id 10 queue size 10 stack size 1024
 instance b: B base id 100 queue size 10 stack size 1024
 
-template T(interface i: A_I1, constant idx: U32) {
+module template T(interface i: A_I1, constant idx: U32) {
     template Inner(interface innerInstance: A_I2) {
         topology InnerTop {
             instance innerInstance

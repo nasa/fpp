@@ -2,7 +2,7 @@ interface I {
 
 }
 
-template T(interface i: I) {
+module template T(interface i: I) {
     topology P {
         instance i
     }

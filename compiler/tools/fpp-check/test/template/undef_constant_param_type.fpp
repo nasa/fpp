@@ -1,1 +1,1 @@
-template T(constant c: S) {}
+module template T(constant c: S) {}

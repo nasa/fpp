@@ -290,10 +290,7 @@ case class Analysis(
             for {
               ii <- getInterfaceInstance(ts.value.id)
               iface <- this.getInterface(ts.paramDef.interface.id)
-
-              // Validate the interface instance meets the port interface constraints
-              _ <- ii.getInterface.implements(iface.portInterface)
-            } yield ii
+            } yield InterfaceInstance.fromTemplateArg(ts.paramDef, iface.portInterface, ii)
         }
       }
     } yield ii

@@ -3,7 +3,7 @@ array B = [2] U32
 
 struct S { a: A, b: B }
 
-template M(constant s: S) {
+module template M(constant s: S) {
   constant c = [ s.a, s.b[0] ]
 }
 

@@ -5,7 +5,7 @@ module Fw {
 
 }
 
-template T(type P) {
+module template T(type P) {
     port POut(p: P) -> P
 
     passive component C {

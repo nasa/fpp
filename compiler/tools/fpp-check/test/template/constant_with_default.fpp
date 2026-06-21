@@ -10,7 +10,7 @@ struct ParamTy {
     field3 = [ "field3[0]", "field3[1]", "field3[2]" ]
 }
 
-template T(
+module template T(
     constant p: ParamTy
 ) {
     constant newField = p.field2

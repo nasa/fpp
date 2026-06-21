@@ -219,8 +219,8 @@ case class Topology(
             Right(this.copy(directTopologies = map))
         }
 
-      case param: Symbol.TemplateInterfaceArg =>
-        directTemplateArgs.get(param) match {
+      case arg: Symbol.TemplateInterfaceArg =>
+        directTemplateArgs.get(arg) match {
           case Some(prevLoc) => Left(
             SemanticError.DuplicateInstance(
               symbol.getUnqualifiedName,
@@ -229,7 +229,7 @@ case class Topology(
             )
           )
           case None =>
-            val map = directTemplateArgs + (param -> loc)
+            val map = directTemplateArgs + (arg -> loc)
             Right(this.copy(directTemplateArgs = map))
         }
     }
@@ -303,7 +303,7 @@ case class Topology(
   lazy val componentInstanceMap: Map[ComponentInstance, Location] = {
     instanceMap collect {
       case (InterfaceInstance.InterfaceComponentInstance(ci), loc) => (ci, loc)
-      case (InterfaceInstance.InterfaceComponentInstance(ci), loc) => (ci, loc)
+      case (InterfaceInstance.InterfaceTemplateArg(_, _, InterfaceInstance.InterfaceComponentInstance(ci)), loc) => (ci, loc)
     }
   }
 
