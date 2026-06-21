@@ -11,3 +11,5 @@ const char *const s1 = "\"Hello,\" he said.";
 const char *const s2 = "Line 1.\nLine 2.";
 
 const char *const s3 = "\\";
+
+const char *const s4 = "ab";

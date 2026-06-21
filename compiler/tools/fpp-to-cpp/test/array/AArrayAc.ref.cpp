@@ -13,9 +13,10 @@
 
 A ::
   A() :
-    Serializable()
+    Serializable(),
+    elements()
 {
-  *this = A(0);
+
 }
 
 A ::
@@ -141,7 +142,7 @@ std::ostream& operator<<(std::ostream& os, const A& obj) {
 
 Fw::SerializeStatus A ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -157,7 +158,7 @@ Fw::SerializeStatus A ::
 
 Fw::SerializeStatus A ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {
@@ -186,31 +187,21 @@ void A ::
   sb = "";
 
   // Array prefix
-  if (sb.length() + 2 <= sb.maxLength()) {
-    sb += "[ ";
-  } else {
-    return;
-  }
+  sb += "[ ";
 
   for (FwSizeType index = 0; index < SIZE; index++) {
+    // Array data
     Fw::String tmp;
     tmp.format("%" PRIu32 "", this->elements[index]);
 
-    FwSizeType size = tmp.length() + (index > 0 ? 2 : 0);
-    if ((size + sb.length()) <= sb.maxLength()) {
-      if (index > 0) {
-        sb += ", ";
-      }
-      sb += tmp;
-    } else {
-      break;
+    if (index > 0) {
+      sb += ", ";
     }
+    sb += tmp;
   }
 
   // Array suffix
-  if (sb.length() + 2 <= sb.maxLength()) {
-    sb += " ]";
-  }
+  sb += " ]";
 }
 
 #endif

@@ -1,0 +1,15 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/type/alias_dictionary_not_displayable.fpp:2.1
+dictionary type T2 = T1
+^
+error: dictionary type is not displayable
+
+[ local path prefix ]/compiler/tools/fpp-check/test/type/alias_dictionary_not_displayable.fpp:2.22
+dictionary type T2 = T1
+                     ^
+because this type is not displayable
+
+[ local path prefix ]/compiler/tools/fpp-check/test/type/alias_dictionary_not_displayable.fpp:1.1
+type T1
+^
+Type is defined here

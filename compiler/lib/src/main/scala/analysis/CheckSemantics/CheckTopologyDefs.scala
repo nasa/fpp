@@ -18,19 +18,22 @@ object CheckTopologyDefs
     a.topologyMap.get(symbol) match {
       case None =>
         // Topology is not in the map: visit it
-        val a1 = a.copy(topology = Some(Topology(aNode, a.getQualifiedName(symbol))))
         for {
-          // Visit topology members and compute unresolved top
-          a <- super.defTopologyAnnotatedNode(a1, aNode)
-          top <- Right(a.topology.get)
+          // Resolve connections on topologies directly imported into this topology
           a <- {
             // Resolve topologies directly imported by top, updating a
+            val top = a.partialTopologyMap(symbol)
             val tops = top.directTopologies.toList
             Result.foldLeft (tops) (a) ((a, tl) => {
               defTopologyAnnotatedNode(a, tl._1.node)
             })
           }
+
+          // Visit topology members and compute unresolved top
+          a <- Right(a.copy(topology = Some(a.partialTopologyMap(symbol))))
+          a <- super.defTopologyAnnotatedNode(a, aNode)
           // Use the updated analysis to resolve top
+          top <- Right(a.topology.get)
           top <- ResolveTopology.resolve(a, top)
         }
         yield a.copy(topologyMap = a.topologyMap + (symbol -> top))
@@ -39,26 +42,6 @@ object CheckTopologyDefs
         Right(a)
       }
     }
-  }
-
-  override def specTopPortAnnotatedNode(
-    a: Analysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTopPort]]
-  ) = {
-    Right(a.copy(topology = Some(a.topology.get.addPortNode(aNode))))
-  }
-
-  override def specInstanceAnnotatedNode(
-    a: Analysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecInstance]]
-  ) = {
-    val node = aNode._2
-    val instanceNode = node.data.instance
-    for {
-      symbol <- a.getInterfaceInstanceSymbol(instanceNode.id)
-      topology <- a.topology.get.addInstanceSymbol(symbol, Locations.get(node.id))
-    }
-    yield a.copy(topology = Some(topology))
   }
 
   override def specConnectionGraphAnnotatedNode(

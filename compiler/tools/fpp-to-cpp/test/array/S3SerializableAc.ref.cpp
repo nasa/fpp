@@ -16,11 +16,10 @@ namespace S {
   S3 ::
     S3() :
       Serializable(),
-      m_mF64(0.0)
+      m_mU32Array(),
+      m_mF64()
   {
-    for (FwSizeType i = 0; i < 3; i++) {
-      this->m_mU32Array[i] = 0;
-    }
+
   }
 
   S3 ::
@@ -117,7 +116,7 @@ namespace S {
 
   Fw::SerializeStatus S3 ::
     serializeTo(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     ) const
   {
@@ -139,7 +138,7 @@ namespace S {
 
   Fw::SerializeStatus S3 ::
     deserializeFrom(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     )
   {

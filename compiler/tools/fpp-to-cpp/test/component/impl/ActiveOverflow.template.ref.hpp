@@ -100,7 +100,7 @@ class ActiveOverflow final :
     //! A serial async input port with overflow hook
     void serialAsyncHook_handler(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     ) override;
 
   private:
@@ -164,7 +164,7 @@ class ActiveOverflow final :
     //! Overflow hook implementation for serialAsyncHook
     void serialAsyncHook_overflowHook(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     ) override;
 
   private:

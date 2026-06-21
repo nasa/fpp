@@ -14,7 +14,6 @@ object FPPToDict {
         files: List[File] = Nil,
         imports: List[File] = Nil,
         dir: Option[String] = None,
-        defaultStringSize: Int = DictionaryJsonEncoderState.defaultDefaultStringSize,
         frameworkVersion: String = "",
         projectVersion: String = "",
         libraryVersions: List[String] = Nil,
@@ -35,14 +34,10 @@ object FPPToDict {
             dictionarySpecVersion=options.dictionarySpecVersion
         )
         for {
-            tulFiles <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
-            aTulFiles <- ResolveSpecInclude.transformList(
-                a,
-                tulFiles, 
-                ResolveSpecInclude.transUnit
-            )
-            tulFiles <- Right(aTulFiles._2)
-            tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
+            aTulTul <- ToolUtils.parseFilesAndResolveAsts(a, files, options.imports)
+            a <- Right(aTulTul._1)
+            tulFiles <- Right(aTulTul._2)
+            tulImports <- Right(aTulTul._3)
             a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
             state <- {
                 val dir = options.dir match {
@@ -50,7 +45,7 @@ object FPPToDict {
                     case None => "."
                 }
                 ComputeDictionaryFiles.visitList(
-                    DictionaryJsonEncoderState(a=a, dir=dir, defaultStringSize=options.defaultStringSize, metadata=metadata),
+                    DictionaryJsonEncoderState(a=a, dir=dir, metadata=metadata),
                     tulFiles, 
                     ComputeDictionaryFiles.transUnit
                 )
@@ -85,11 +80,6 @@ object FPPToDict {
                 .valueName("<dir>")
                 .action((d, c) => c.copy(dir = Some(d)))
                 .text("output directory"),
-            opt[Int]('s', "size")
-                .valueName("<size>")
-                .validate(s => if (s > 0) success else failure("size must be greater than zero"))
-                .action((s, c) => c.copy(defaultStringSize = s))
-                .text("default string size"),
             opt[String]('f', "frameworkVersion")
                 .valueName("<frameworkVersion>")
                 .action((f, c) => c.copy(frameworkVersion = f))

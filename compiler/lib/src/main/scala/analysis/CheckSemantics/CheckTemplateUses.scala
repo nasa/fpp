@@ -24,7 +24,7 @@ object CheckTemplateUses
     for {
       symbol <- {
         val mapping = a.nestedScope.get (NameGroup.Value) _
-        helpers.getSymbolForName(mapping)(node.id, name)
+        helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)
       }
       a <- {
         val scope = a.symbolScopeMap(symbol)

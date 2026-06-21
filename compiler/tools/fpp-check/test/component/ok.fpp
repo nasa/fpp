@@ -39,7 +39,7 @@ active component C {
 
   telemetry port tlmOut
 
-  state machine S
-  state machine instance s: S
+  state machine M
+  state machine instance s: M
 
 }

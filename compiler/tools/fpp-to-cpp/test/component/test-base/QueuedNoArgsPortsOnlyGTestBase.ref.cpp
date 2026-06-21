@@ -4,7 +4,7 @@
 // \brief  cpp file for QueuedNoArgsPortsOnly component Google Test harness base class
 // ======================================================================
 
-#include "test-base/QueuedNoArgsPortsOnlyGTestBase.hpp"
+#include "QueuedNoArgsPortsOnlyGTestBase.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

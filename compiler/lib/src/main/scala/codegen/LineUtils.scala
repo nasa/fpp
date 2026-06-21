@@ -23,6 +23,13 @@ trait LineUtils {
 
   val addBlankPostfix: List[Line] => List[Line] = Line.addPostfixLine(Line.blank)
 
+  /** Add separators to a list of lines */
+  def addSeparators (sep: String) (ll: List[Line]): List[Line] =
+    ll.zipWithIndex.map {
+      case (l @ Line(string, indent), n) =>
+        if n + 1 < ll.size then Line(string + sep, indent) else l
+    }
+
   val flattenWithBlankPrefix: List[List[Line]] => List[Line] = Line.flattenWithPrefixLine(Line.blank)
 
   /** Insert element between each element of list l */

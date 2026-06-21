@@ -5,13 +5,14 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/ExternalString.hpp"
 #include "ReturnTypePortAc.hpp"
 
 namespace M {
 
+#if !FW_DIRECT_PORT_CALLS
+
   // ----------------------------------------------------------------------
-  // Input Port Member functions
+  // Public constructors for InputReturnTypePort
   // ----------------------------------------------------------------------
 
   InputReturnTypePort ::
@@ -21,6 +22,10 @@ namespace M {
   {
 
   }
+
+  // ----------------------------------------------------------------------
+  // Public member functions for InputReturnTypePort
+  // ----------------------------------------------------------------------
 
   void InputReturnTypePort ::
     init()
@@ -55,10 +60,14 @@ namespace M {
     return this->m_func(this->m_comp, this->m_portNum, u);
   }
 
+  // ----------------------------------------------------------------------
+  // Private member functions for InputReturnTypePort
+  // ----------------------------------------------------------------------
+
 #if FW_PORT_SERIALIZATION == 1
 
   Fw::SerializeStatus InputReturnTypePort ::
-    invokeSerial(Fw::SerializeBufferBase& _buffer)
+    invokeSerial(Fw::LinearBufferBase& _buffer)
   {
     // For ports with a return type, invokeSerial is not used
     (void) _buffer;
@@ -70,7 +79,7 @@ namespace M {
 #endif
 
   // ----------------------------------------------------------------------
-  // Output Port Member functions
+  // Public constructors for OutputReturnTypePort
   // ----------------------------------------------------------------------
 
   OutputReturnTypePort ::
@@ -80,6 +89,10 @@ namespace M {
   {
 
   }
+
+  // ----------------------------------------------------------------------
+  // Public member functions for OutputReturnTypePort
+  // ----------------------------------------------------------------------
 
   void OutputReturnTypePort ::
     init()
@@ -110,5 +123,7 @@ namespace M {
     FW_ASSERT(this->m_port != nullptr);
     return this->m_port->invoke(u);
   }
+
+#endif
 
 }

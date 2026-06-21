@@ -425,6 +425,7 @@ var IN_GLOBAL_SCOPE = false;
           "cpu," +
           "default," +
           "diagnostic," +
+          "dictionary," +
           "do," +
           "drop," +
           "else," +
@@ -434,6 +435,7 @@ var IN_GLOBAL_SCOPE = false;
           "event," +
           "every," +
           "exit," +
+          "expand," +
           "external," +
           "fatal," +
           "format," +
@@ -446,6 +448,7 @@ var IN_GLOBAL_SCOPE = false;
           "hook," +
           "id," +
           "if," +
+          "implements," +
           "import," +
           "include," +
           "initial," +
@@ -487,12 +490,14 @@ var IN_GLOBAL_SCOPE = false;
           "severity," +
           "signal," +
           "size," +
+          "sizeof," +
           "stack," +
           "state," +
           "string," +
           "struct," +
           "sync," +
           "telemetry," +
+          "template," +
           "text," +
           "throttle," +
           "time," +

@@ -180,8 +180,8 @@ case class ComponentExternalStateMachines(
        |// Make sure there was no data left over.
        |// That means the buffer size was incorrect.
        |FW_ASSERT(
-       |  _msg.getBuffLeft() == 0,
-       |  static_cast<FwAssertArgType>(_msg.getBuffLeft())
+       |  _msg.getDeserializeSizeLeft() == 0,
+       |  static_cast<FwAssertArgType>(_msg.getDeserializeSizeLeft())
        |);"""
   )
 

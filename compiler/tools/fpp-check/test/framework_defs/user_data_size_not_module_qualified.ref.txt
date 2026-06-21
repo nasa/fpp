@@ -1,0 +1,10 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/framework_defs/user_data_size_not_module_qualified.fpp:5.5
+    constant CONTAINER_USER_DATA_SIZE = 10
+    ^
+error: invalid qualifier Fw.DpCfg: not a module symbol
+symbol is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/framework_defs/user_data_size_not_module_qualified.fpp:3.3
+  passive component DpCfg {
+  ^
+note: framework definition Fw.DpCfg.CONTAINER_USER_DATA_SIZE must have module qualifiers

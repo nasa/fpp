@@ -5,6 +5,9 @@ it.
 
 ==== Syntax
 
+_[_
+`dictionary`
+_]_
 `array` <<Lexical-Elements_Identifiers,_identifier_>> `=`
 `[` <<Expressions,_expression_>> `]` <<Type-Names,_type-name_>>
 _[_
@@ -36,6 +39,10 @@ The optional format specifier specifies a <<Format-Strings,format string>>.
 When displaying the array, the format is applied to each element of the array.
 There is one argument to the format string, which is an array member.
 
+If the optional keyword `dictionary` is present, then the
+definition must conform to the rules stated in the
+<<Definitions_Dictionary-Definitions,dictionary definitions>> section.
+
 ==== Examples
 
 [source,fpp]
@@ -54,7 +61,7 @@ array C = [3] F32 default [ 1, 2, 3 ]
 # [ 1, 1, 1 ] after promoting 1 to [ 1, 1, 1 ]
 array D = [3] U32 default 1
 
-# Defines an array type E of 3 U32 values with default value
+# Defines an array type E of 3 F32 values with default value
 # [ 1, 1, 1, ] and element format {.03f}
-array E = [3] U32 default 1 format "{.03f}"
+array E = [3] F32 default 1 format "{.03f}"
 ----

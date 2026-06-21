@@ -9,37 +9,6 @@
   },
   "typeDefinitions" : [
     {
-      "kind" : "struct",
-      "qualifiedName" : "FppTest.DpTestComponent.Complex",
-      "members" : {
-        "f1" : {
-          "type" : {
-            "name" : "FppTest.DpTestComponent.Data",
-            "kind" : "qualifiedIdentifier"
-          },
-          "index" : 0,
-          "annotation" : "A struct in the struct"
-        },
-        "f2" : {
-          "type" : {
-            "name" : "U32",
-            "kind" : "integer",
-            "size" : 32,
-            "signed" : false
-          },
-          "index" : 1,
-          "annotation" : "A simple U32 field"
-        }
-      },
-      "default" : {
-        "f1" : {
-          "u16Field" : 0
-        },
-        "f2" : 0
-      },
-      "annotation" : "Data for a ComplexRecord"
-    },
-    {
       "kind" : "alias",
       "qualifiedName" : "FwTlmPacketizeIdType",
       "type" : {
@@ -84,24 +53,57 @@
       "default" : "Fw.DpState.UNTRANSMITTED"
     },
     {
-      "kind" : "alias",
-      "qualifiedName" : "FwEventIdType",
-      "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
+      "kind" : "struct",
+      "qualifiedName" : "FppTest.DpTestComponent.Complex",
+      "members" : {
+        "f1" : {
+          "type" : {
+            "name" : "FppTest.DpTestComponent.Data",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 0,
+          "size" : 2,
+          "annotation" : "A struct in the struct"
+        },
+        "f2" : {
+          "type" : {
+            "name" : "U32",
+            "kind" : "integer",
+            "size" : 32,
+            "signed" : false
+          },
+          "index" : 1,
+          "annotation" : "A simple U32 field"
+        }
       },
-      "underlyingType" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      }
+      "default" : {
+        "f1" : [
+          {
+            "u16Field" : [
+              10,
+              10,
+              10,
+              10,
+              10
+            ]
+          },
+          {
+            "u16Field" : [
+              10,
+              10,
+              10,
+              10,
+              10
+            ]
+          }
+        ],
+        "f2" : 0
+      },
+      "annotation" : "Data for a ComplexRecord"
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "FwSizeType",
+      "qualifiedName" : "BaseIdType",
       "type" : {
         "name" : "U32",
         "kind" : "integer",
@@ -134,12 +136,10 @@
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "FwDpIdType",
+      "qualifiedName" : "FwEventIdType",
       "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
       },
       "underlyingType" : {
         "name" : "U32",
@@ -195,22 +195,6 @@
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "FwPacketDescriptorType",
-      "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      },
-      "underlyingType" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      }
-    },
-    {
-      "kind" : "alias",
       "qualifiedName" : "FppTest.DpTestComponent.AliasU16",
       "type" : {
         "name" : "U16",
@@ -228,12 +212,10 @@
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "FwDpPriorityType",
+      "qualifiedName" : "FwPacketDescriptorType",
       "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
       },
       "underlyingType" : {
         "name" : "U32",
@@ -243,29 +225,36 @@
       }
     },
     {
-      "kind" : "alias",
-      "qualifiedName" : "FwOpcodeType",
-      "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
+      "kind" : "struct",
+      "qualifiedName" : "FppTest.DpTestComponent.Data",
+      "members" : {
+        "u16Field" : {
+          "type" : {
+            "name" : "FppTest.DpTestComponent.AliasU16",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 0,
+          "size" : 5,
+          "annotation" : "A U16 field"
+        }
       },
-      "underlyingType" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      }
+      "default" : {
+        "u16Field" : [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "annotation" : "Data for a DataRecord"
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "FwChanIdType",
+      "qualifiedName" : "FwDpIdType",
       "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
       },
       "underlyingType" : {
         "name" : "U32",
@@ -292,25 +281,74 @@
       "annotation" : "The type used to serialize a time base value"
     },
     {
-      "kind" : "struct",
-      "qualifiedName" : "FppTest.DpTestComponent.Data",
-      "members" : {
-        "u16Field" : {
-          "type" : {
-            "name" : "FppTest.DpTestComponent.AliasU16",
-            "kind" : "qualifiedIdentifier"
-          },
-          "index" : 0,
-          "annotation" : "A U16 field"
-        }
+      "kind" : "alias",
+      "qualifiedName" : "FwChanIdType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
       },
-      "default" : {
-        "u16Field" : 0
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwOpcodeType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
       },
-      "annotation" : "Data for a DataRecord"
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwDpPriorityType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwSizeType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
     }
   ],
   "constants" : [
+    {
+      "kind" : "constant",
+      "qualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 256
+    },
     {
       "kind" : "constant",
       "qualifiedName" : "Fw.DpCfg.CONTAINER_USER_DATA_SIZE",
@@ -322,6 +360,39 @@
       },
       "value" : 32,
       "annotation" : "The container user data size"
+    },
+    {
+      "kind" : "constant",
+      "qualifiedName" : "FW_SERIALIZE_TRUE_VALUE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 255
+    },
+    {
+      "kind" : "constant",
+      "qualifiedName" : "FW_SERIALIZE_FALSE_VALUE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 0
+    },
+    {
+      "kind" : "constant",
+      "qualifiedName" : "STRING_SIZE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 256
     }
   ],
   "commands" : [

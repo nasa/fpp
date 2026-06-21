@@ -15,7 +15,7 @@
 #include "Fw/Prm/PrmExternalTypes.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/PassiveTestComponentAc.hpp"
+#include "PassiveTestComponentAc.hpp"
 
 //! \class PassiveTestTesterBase
 //! \brief Auto-generated base for PassiveTest component test harness
@@ -186,7 +186,7 @@ class PassiveTestTesterBase :
       U32 u32;
       F32 f32;
       bool b;
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1;
       E e;
       A a;
@@ -207,7 +207,7 @@ class PassiveTestTesterBase :
       U32 u32;
       F32 f32;
       bool b;
-      char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str2;
       E e;
       A a;
@@ -356,23 +356,23 @@ class PassiveTestTesterBase :
         // Parameter validity flags
         // ----------------------------------------------------------------------
 
-        //! True if ParamI32Ext was successfully received
-        Fw::ParamValid m_param_ParamI32Ext_valid;
+        //! The validity flag for ParamI32Ext
+        Fw::ParamValid m_param_ParamI32Ext_valid = Fw::ParamValid::UNINIT;
 
-        //! True if ParamF64Ext was successfully received
-        Fw::ParamValid m_param_ParamF64Ext_valid;
+        //! The validity flag for ParamF64Ext
+        Fw::ParamValid m_param_ParamF64Ext_valid = Fw::ParamValid::UNINIT;
 
-        //! True if ParamStringExt was successfully received
-        Fw::ParamValid m_param_ParamStringExt_valid;
+        //! The validity flag for ParamStringExt
+        Fw::ParamValid m_param_ParamStringExt_valid = Fw::ParamValid::UNINIT;
 
-        //! True if ParamEnumExt was successfully received
-        Fw::ParamValid m_param_ParamEnumExt_valid;
+        //! The validity flag for ParamEnumExt
+        Fw::ParamValid m_param_ParamEnumExt_valid = Fw::ParamValid::UNINIT;
 
-        //! True if ParamArrayExt was successfully received
-        Fw::ParamValid m_param_ParamArrayExt_valid;
+        //! The validity flag for ParamArrayExt
+        Fw::ParamValid m_param_ParamArrayExt_valid = Fw::ParamValid::UNINIT;
 
-        //! True if ParamStructExt was successfully received
-        Fw::ParamValid m_param_ParamStructExt_valid;
+        //! The validity flag for ParamStructExt
+        Fw::ParamValid m_param_ParamStructExt_valid = Fw::ParamValid::UNINIT;
 
       public:
 
@@ -422,14 +422,14 @@ class PassiveTestTesterBase :
             const FwPrmIdType baseId, //!< The component base parameter ID to deserialize
             const FwPrmIdType localId, //!< The parameter local ID to deserialize
             const Fw::ParamValid prmStat, //!< The parameter validity status
-            Fw::SerializeBufferBase& buff //!< The buffer containing the parameter to deserialize
+            Fw::SerialBufferBase& buff //!< The buffer containing the parameter to deserialize
         ) override;
 
         //! Parameter serialization function for external parameter unit testing
         Fw::SerializeStatus serializeParam(
             const FwPrmIdType baseId, //!< The component base parameter ID to serialize
             const FwPrmIdType localId, //!< The parameter local ID to serialize
-            Fw::SerializeBufferBase& buff //!< The buffer to serialize the parameter into
+            Fw::SerialBufferBase& buff //!< The buffer to serialize the parameter into
         ) const override;
 
     };
@@ -1227,105 +1227,105 @@ class PassiveTestTesterBase :
     //! \return Whether port to_cmdIn is connected
     bool isConnected_to_cmdIn(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_productRecvIn is connected
     //!
     //! \return Whether port to_productRecvIn is connected
     bool isConnected_to_productRecvIn(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsAliasStringReturnSync is connected
     //!
     //! \return Whether port to_noArgsAliasStringReturnSync is connected
     bool isConnected_to_noArgsAliasStringReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsGuarded is connected
     //!
     //! \return Whether port to_noArgsGuarded is connected
     bool isConnected_to_noArgsGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsReturnGuarded is connected
     //!
     //! \return Whether port to_noArgsReturnGuarded is connected
     bool isConnected_to_noArgsReturnGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsReturnSync is connected
     //!
     //! \return Whether port to_noArgsReturnSync is connected
     bool isConnected_to_noArgsReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsStringReturnSync is connected
     //!
     //! \return Whether port to_noArgsStringReturnSync is connected
     bool isConnected_to_noArgsStringReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsSync is connected
     //!
     //! \return Whether port to_noArgsSync is connected
     bool isConnected_to_noArgsSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAliasGuarded is connected
     //!
     //! \return Whether port to_typedAliasGuarded is connected
     bool isConnected_to_typedAliasGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAliasReturnSync is connected
     //!
     //! \return Whether port to_typedAliasReturnSync is connected
     bool isConnected_to_typedAliasReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAliasStringReturnSync is connected
     //!
     //! \return Whether port to_typedAliasStringReturnSync is connected
     bool isConnected_to_typedAliasStringReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedGuarded is connected
     //!
     //! \return Whether port to_typedGuarded is connected
     bool isConnected_to_typedGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedReturnGuarded is connected
     //!
     //! \return Whether port to_typedReturnGuarded is connected
     bool isConnected_to_typedReturnGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedReturnSync is connected
     //!
     //! \return Whether port to_typedReturnSync is connected
     bool isConnected_to_typedReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedSync is connected
     //!
     //! \return Whether port to_typedSync is connected
     bool isConnected_to_typedSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
   protected:
 
@@ -2367,23 +2367,23 @@ class PassiveTestTesterBase :
     // Parameter validity flags
     // ----------------------------------------------------------------------
 
-    //! True if ParamU32 was successfully received
-    Fw::ParamValid m_param_ParamU32_valid;
+    //! The validity flag for ParamU32
+    Fw::ParamValid m_param_ParamU32_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamF64 was successfully received
-    Fw::ParamValid m_param_ParamF64_valid;
+    //! The validity flag for ParamF64
+    Fw::ParamValid m_param_ParamF64_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamString was successfully received
-    Fw::ParamValid m_param_ParamString_valid;
+    //! The validity flag for ParamString
+    Fw::ParamValid m_param_ParamString_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamEnum was successfully received
-    Fw::ParamValid m_param_ParamEnum_valid;
+    //! The validity flag for ParamEnum
+    Fw::ParamValid m_param_ParamEnum_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamArray was successfully received
-    Fw::ParamValid m_param_ParamArray_valid;
+    //! The validity flag for ParamArray
+    Fw::ParamValid m_param_ParamArray_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamStruct was successfully received
-    Fw::ParamValid m_param_ParamStruct_valid;
+    //! The validity flag for ParamStruct
+    Fw::ParamValid m_param_ParamStruct_valid = Fw::ParamValid::UNINIT;
 
   private:
 

@@ -18,7 +18,6 @@
 
 export LOCAL_CPP_FLAGS="
 -I../impl
--I../test-base
 -I../test-impl
 -I$FPRIME/googletest/googletest/include
 -DBUILD_UT=1

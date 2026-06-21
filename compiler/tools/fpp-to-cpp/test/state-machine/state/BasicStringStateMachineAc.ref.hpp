@@ -7,10 +7,12 @@
 #ifndef FppTest_SmState_BasicStringStateMachineAc_HPP
 #define FppTest_SmState_BasicStringStateMachineAc_HPP
 
+#include "BasicString_StateEnumAc.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 namespace FppTest {
 
@@ -33,21 +35,16 @@ namespace FppTest {
         // ----------------------------------------------------------------------
 
         //! The state type
-        enum class State : FwEnumStoreType {
-          //! The uninitialized state
-          __FPRIME_AC_UNINITIALIZED,
-          //! State S
-          S,
-          //! State T
-          T,
-        };
+        using State = FppTest::SmState::BasicString_State;
 
         //! The signal type
         enum class Signal : FwEnumStoreType {
           //! The initial transition
-          __FPRIME_AC_INITIAL_TRANSITION,
+          __FPRIME_INITIAL_TRANSITION,
           //! Signal s
           s,
+          //! Signal s1
+          s1,
         };
 
       protected:
@@ -90,6 +87,11 @@ namespace FppTest {
 
         //! Signal s
         void sendSignal_s(
+            const Fw::StringBase& value //!< The value
+        );
+
+        //! Signal s1
+        void sendSignal_s1(
             const Fw::StringBase& value //!< The value
         );
 
@@ -136,7 +138,7 @@ namespace FppTest {
         FwEnumStoreType m_id = 0;
 
         //! The state
-        State m_state = State::__FPRIME_AC_UNINITIALIZED;
+        State m_state = State::__FPRIME_UNINITIALIZED;
 
     };
 

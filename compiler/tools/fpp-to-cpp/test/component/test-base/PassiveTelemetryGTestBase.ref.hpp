@@ -7,8 +7,8 @@
 #ifndef PassiveTelemetryGTestBase_HPP
 #define PassiveTelemetryGTestBase_HPP
 
+#include "PassiveTelemetryTesterBase.hpp"
 #include "gtest/gtest.h"
-#include "test-base/PassiveTelemetryTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Macros for typed user from port history assertions

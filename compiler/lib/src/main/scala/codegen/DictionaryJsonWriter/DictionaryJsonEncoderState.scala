@@ -10,8 +10,6 @@ case class DictionaryJsonEncoderState(
   a: Analysis,
   /** The output directory */
   dir: String = ".",
-  /** The default string size */
-  defaultStringSize: Int = DictionaryJsonEncoderState.defaultDefaultStringSize,
   /** The default bool size */
   boolSize: Int = DictionaryJsonEncoderState.boolSize,
   /** The Dictionary metadata */
@@ -29,12 +27,17 @@ case class DictionaryJsonEncoderState(
     }
   }
 
+  def getFwDefaultStringSize: BigInt = {
+    val s = a.frameworkDefinitions.constantMap("FW_FIXED_LENGTH_STRING_SIZE")
+    a.valueMap(s.getNodeId) match {
+      case Value.Integer(value) => value
+      case _ => throw InternalError("expected integer value")
+    }
+  }
+
 }
 
 case object DictionaryJsonEncoderState {
-
-  /** The default string size */
-  val defaultDefaultStringSize = 80
 
   /** The default bool size */
   val boolSize = 8

@@ -24,7 +24,7 @@ namespace M {
   }
 
   Implicit& Implicit ::
-    operator=(T e1)
+    operator=(enum T e1)
   {
     this->e = e1;
     return *this;
@@ -48,12 +48,12 @@ namespace M {
   bool Implicit ::
     isValid() const
   {
-    return ((e >= X) && (e <= Y));
+    return Implicit::isValid(this->e);
   }
 
   Fw::SerializeStatus Implicit ::
     serializeTo(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     ) const
   {
@@ -66,17 +66,17 @@ namespace M {
 
   Fw::SerializeStatus Implicit ::
     deserializeFrom(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     )
   {
     SerialType es;
     Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
+    if ((status == Fw::FW_SERIALIZE_OK) && !Implicit::isValid(es)) {
+      status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
+    }
     if (status == Fw::FW_SERIALIZE_OK) {
-      this->e = static_cast<T>(es);
-      if (!this->isValid()) {
-        status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
-      }
+      this->e = static_cast<enum T>(es);
     }
     return status;
   }
@@ -110,5 +110,15 @@ namespace M {
   }
 
 #endif
+
+  // ----------------------------------------------------------------------
+  // Static functions
+  // ----------------------------------------------------------------------
+
+  bool Implicit ::
+    isValid(SerialType serialTypeValue)
+  {
+    return ((serialTypeValue >= X) && (serialTypeValue <= Y));
+  }
 
 }

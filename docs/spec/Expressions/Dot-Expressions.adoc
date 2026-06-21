@@ -29,7 +29,7 @@ constant definition according to the
 for resolving qualified identifiers>>, then it evaluates to the value
 associated with the corresponding <<Definitions,definition>>.
 
-. Otherwise if stem:[e] is an <<Expressions,expression>> of type stem:[T], 
+. Otherwise if stem:[e] is an <<Expressions,expression>> of type stem:[T],
 where
 stem:[T] is a <<Types_Struct-Types,struct type>>
 or <<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct type>>

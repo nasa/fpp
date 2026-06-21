@@ -130,7 +130,7 @@ case class ComponentTestImplWriter(
         ),
         destructorClassMember(
           Some(s"Destroy object $testImplClassName"),
-          Nil
+          lines("|this->component.deinit();")
         )
       )
     )
@@ -170,22 +170,23 @@ case class ComponentTestImplWriter(
               |"""
         )
       }
-    def writeConnections(ports: List[PortInstance]) = {
-      val connections = addBlankPrefix(
-        intersperseBlankLines(
-          ports.filter(portInstanceIsUsed).map(
-            p => p.getArraySize match {
-              case 1 => writeConnection(p, "0")
-              case size => wrapInForLoop(
-                "FwIndexType i = 0",
-                s"i < $size",
-                "i++",
-                writeConnection(p, "i")
-              )
-            }
+    def writeConnectionArray(p: PortInstance) =
+      Line.blank :: (
+        p.getArraySize match {
+          case 1 => writeConnection(p, "0")
+          case size => wrapInForLoop(
+            "FwIndexType i = 0",
+            s"i < $size",
+            "i++",
+            writeConnection(p, "i")
           )
-        )
+        }
       )
+    def writeConnections(ports: List[PortInstance]) = {
+      val connections =
+        ports.filter(portInstanceIsUsed).flatMap(
+          p => addGuardForPort(p, writeConnectionArray(p))
+        )
       val typeString = getPortListTypeString(ports)
       val dirString = getPortListDirectionString(ports)
       val comment = line(s"// Connect $typeString $dirString ports")

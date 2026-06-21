@@ -41,7 +41,7 @@ if len(sys.argv) != 3:
 with open(str(sys.argv[1])) as ast_json, open(str(sys.argv[2])) as loc_json:
     ast = json.load(ast_json)
     location = json.load(loc_json)
-    loc_map_check_result = check_if_ids_in_loc_map(collect_ids(ast), location)
+    loc_map_check_result = check_if_ids_in_loc_map(collect_ids(ast["ast"]), location["locationMap"])
     if loc_map_check_result is not True:
         sys.exit(1)
     else:

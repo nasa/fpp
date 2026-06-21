@@ -11,12 +11,12 @@ object CheckTemplateInterfaceParams
     Result.foldLeft(a.templateExpansionMap.toList) (()) ((_, expansion) => {
       val (expansionNodeId, t) = expansion
       Result.foldLeft(t.params.values.collect {
-        case param @ Symbol.TemplateInterfaceParam(_, _) => param
-      })(())((_, param) => {
+        case arg @ Symbol.TemplateInterfaceArg(_, _) => arg
+      })(())((_, arg) => {
         for {
           // Make sure this concrete value meets the specified port interface constraints
           // These parameters are already checked if they are used in a topology inside the
-          _ <- a.getInterfaceInstance(param.value.id)
+          _ <- a.getInterfaceInstance(arg.value.id)
         } yield (())
       })
     })

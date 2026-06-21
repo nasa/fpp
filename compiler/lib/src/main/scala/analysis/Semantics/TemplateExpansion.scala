@@ -10,7 +10,7 @@ case class TemplateExpansion(
   /** The AST node expanding the template */
   expansion: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]],
   /** Concrete parameters given to this template during expansion */
-  params: Map[String, Symbol.TemplateParam],
+  params: Map[String, TemplateArgSymbol],
   /** Scope where parameter symbols are entered */
   paramScope: Scope,
   /** Scope where symbols defined in the expansion are entered */

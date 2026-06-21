@@ -2,9 +2,6 @@ package fpp.compiler.codegen
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
-import fpp.compiler.ast.Ast.QualIdent
-import fpp.compiler.ast.Ast.Annotated
-import fpp.compiler.ast.Ast.SpecTemplateExpand
 
 /** Write out an FPP AST */
 object AstWriter extends AstVisitor with LineUtils {
@@ -19,7 +16,7 @@ object AstWriter extends AstVisitor with LineUtils {
     in: Unit,
     aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]): Out = {
       val (_, node, _) = aNode
-      lines("def alias type") ++ (
+      prefixWithDictionary("def alias type", node.data.isDictionaryDef) ++ (
         ident(node.data.name) ++
         typeNameNode(node.data.typeName)
       ).map(indentIn)
@@ -52,7 +49,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines("def array") ++
+    prefixWithDictionary("def array", data.isDictionaryDef) ++
     List.concat(
       ident(data.name),
       addPrefix("size", exprNode) (data.size),
@@ -131,8 +128,10 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines("def constant") ++
-    (ident(data.name) ++ exprNode(data.value)).map(indentIn)
+    prefixWithDictionary("def constant", data.isDictionaryDef) ++ (
+      ident(data.name) ++
+      exprNode(data.value)
+    ).map(indentIn)
   }
 
   override def defEnumAnnotatedNode(
@@ -141,7 +140,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines("def enum") ++
+    prefixWithDictionary("def enum", data.isDictionaryDef) ++
     List.concat(
       ident(data.name),
       linesOpt(typeNameNode, data.typeName),
@@ -177,24 +176,12 @@ object AstWriter extends AstVisitor with LineUtils {
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
   ) = {
-    def templateParam(tp: Ast.DefTemplateParam.Node) = {
-      tp match {
-        case Ast.DefTemplateParam.Constant(name, typeName) =>
-          addPrefix(s"constant $name", typeNameNode) (typeName)
-        case Ast.DefTemplateParam.Type(name) =>
-          lines(s"type $name")
-        case Ast.DefTemplateParam.Interface(name, interface) =>
-          addPrefix(s"interface $name", qualIdent) (interface.data)
-      }
-    }
-
     val (_, node, _) = aNode
     val data = node.data
     lines("def module template") ++
     List.concat(
       ident(data.name),
-      addPrefix("params", (x: List[Ast.Annotated[AstNode[Ast.DefTemplateParam.Node]]]) =>
-        x.flatMap(annotateNode(templateParam))) (data.params),
+      templateParamList(data.params),
       data.members.flatMap(moduleMember)
     ).map(indentIn)
   }
@@ -205,30 +192,11 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-
-    def templateParam(tp: AstNode[Ast.TemplateParameter]): Out = {
-      tp.data match {
-        case Ast.TemplateConstantParameter(e) =>
-          addPrefix("constant", exprNode) (e)
-        case Ast.TemplateTypeParameter(name) =>
-          addPrefix("type", typeNameNode) (name)
-        case Ast.TemplateInterfaceParameter(i) =>
-          addPrefix(s"interface", qualIdent) (i.data)
-      }
-    }
-
     lines("expand") ++
     List.concat(
       qualIdent(data.template.data),
-      data.params.flatMap(templateParam).map(indentIn),
-      data.members match {
-        case Some(members) => List.concat(
-          lines("members"),
-          members.flatMap(moduleMember).map(indentIn)
-        )
-        case None => lines("unexpanded")
-      }
-    )
+      templateArgList(data.args)
+    ).map(indentIn)
   }
 
   override def defPortAnnotatedNode(
@@ -290,7 +258,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines("def struct") ++
+    prefixWithDictionary("def struct", data.isDictionaryDef) ++
     (
       ident(data.name) ++
       data.members.flatMap(annotateNode(structTypeMember)) ++
@@ -395,6 +363,14 @@ object AstWriter extends AstVisitor with LineUtils {
   ) =
     lines("expr paren") ++
     exprNode(e.e).map(indentIn)
+
+  override def exprSizeOfNode(
+    in: In,
+    node: AstNode[Ast.Expr],
+    e: Ast.ExprSizeOf
+  ) =
+    lines("expr sizeof") ++
+    typeNameNode(e.typeName).map(indentIn)
 
   override def exprStructNode(
     in: In,
@@ -791,31 +767,31 @@ object AstWriter extends AstVisitor with LineUtils {
   override def typeNameBoolNode(
     in: In,
     node: AstNode[Ast.TypeName]
-  ) = lines("bool")
+  ) = lines("type name bool")
 
   override def typeNameFloatNode(
     in: In,
     node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat
-  ) = lines(tn.name.toString)
+  ) = lines(s"type name ${tn.name.toString}")
 
   override def typeNameIntNode(
     in: In,
     node: AstNode[Ast.TypeName],
     tn: Ast.TypeNameInt
-  ) = lines(tn.name.toString)
+  ) = lines(s"type name ${tn.name.toString}")
 
   override def typeNameQualIdentNode(
     in: In,
     node: AstNode[Ast.TypeName],
     tn: Ast.TypeNameQualIdent
-  ) = qualIdent(tn.name.data)
+  ) = addPrefix("type name", qualIdent) (tn.name.data)
 
   override def typeNameStringNode(
     in: In,
     node: AstNode[Ast.TypeName],
     tn: Ast.TypeNameString
   ) =
-    lines("string") ++ linesOpt(addPrefix("size", exprNode), tn.size).map(indentIn)
+    lines("type name string") ++ linesOpt(addPrefix("size", exprNode), tn.size).map(indentIn)
 
   private def addPrefixNoIndent[T](
     s: String,
@@ -904,6 +880,43 @@ object AstWriter extends AstVisitor with LineUtils {
 
   private def formalParamList(params: Ast.FormalParamList) =
     params.flatMap(annotateNode(formalParam))
+
+  private def templateParam(tp: Ast.TemplateParam) = {
+    tp match {
+      case Ast.TemplateParam.Constant(name, typeName) =>
+        line("constant template param") ::
+        typeNameNode(typeName).map(indentIn)
+      case Ast.TemplateParam.Type(name) =>
+        line(s"type template param") ::
+        ident(name).map(indentIn)
+      case Ast.TemplateParam.Interface(name, interface) =>
+        line(s"interface template param") ::
+        List.concat(
+          ident(name),
+          qualIdent(interface.data)
+        ).map(indentIn)
+    }
+  }
+
+  private def templateParamList(params: Ast.TemplateParamList) =
+    params.flatMap(annotateNode(templateParam))
+
+  private def templateArg(tp: AstNode[Ast.TemplateArg]) = {
+    tp.data match {
+      case Ast.TemplateArg.Constant(e) =>
+        line("constant template arg") ::
+        exprNode(e).map(indentIn)
+      case Ast.TemplateArg.Type(name) =>
+        line("type template arg") ::
+        typeNameNode(name).map(indentIn)
+      case Ast.TemplateArg.Interface(i) =>
+        line("interface template param") ::
+        qualIdent(i.data).map(indentIn)
+    }
+  }
+
+  private def templateArgList(args: Ast.TemplateArgList) =
+    args.flatMap(templateArg)
 
   private def ident(s: String) = lines("ident " ++ s)
 
@@ -1013,8 +1026,13 @@ object AstWriter extends AstVisitor with LineUtils {
   private def tuMember(tum: Ast.TUMember) = moduleMember(tum)
 
   private def typeNameNode(node: AstNode[Ast.TypeName]) =
-    addPrefix("type name", matchTypeNameNode((), _)) (node)
+    matchTypeNameNode((), node)
 
   private def unop(op: Ast.Unop) = lines(s"unop ${op.toString}")
 
+  private def prefixWithDictionary(s: String, isDictionaryDef: Boolean) =
+    if isDictionaryDef then
+      lines(s"dictionary $s")
+    else
+      lines(s)
 }

@@ -23,7 +23,7 @@ class E2 :
     // ----------------------------------------------------------------------
 
     //! The serial representation type
-    typedef I32 SerialType;
+    using SerialType = I32;
 
     //! The raw enum type
     enum T {
@@ -34,7 +34,7 @@ class E2 :
     };
 
     //! For backwards compatibility
-    typedef T t;
+    using t = enum T;
 
   public:
 
@@ -63,7 +63,7 @@ class E2 :
 
     //! Constructor (user-provided value)
     E2(
-        const T e1 //!< The raw enum value
+        const enum T e1 //!< The raw enum value
     )
     {
       this->e = e1;
@@ -90,23 +90,23 @@ class E2 :
 
     //! Copy assignment operator (raw enum)
     E2& operator=(
-        T e1 //!< The enum value
+        enum T e1 //!< The enum value
     );
 
     //! Conversion operator
-    operator T() const
+    operator enum T() const
     {
       return this->e;
     }
 
     //! Equality operator
-    bool operator==(T e1) const
+    bool operator==(enum T e1) const
     {
       return this->e == e1;
     }
 
     //! Inequality operator
-    bool operator!=(T e1) const
+    bool operator!=(enum T e1) const
     {
       return !(*this == e1);
     }
@@ -132,13 +132,13 @@ class E2 :
 
     //! Serialize raw enum value to SerialType
     Fw::SerializeStatus serializeTo(
-        Fw::SerializeBufferBase& buffer, //!< The serial buffer
+        Fw::SerialBufferBase& buffer, //!< The serial buffer
         Fw::Endianness mode = Fw::Endianness::BIG //!< Endianness of serialized buffer
     ) const;
 
     //! Deserialize raw enum value from SerialType
     Fw::SerializeStatus deserializeFrom(
-        Fw::SerializeBufferBase& buffer, //!< The serial buffer
+        Fw::SerialBufferBase& buffer, //!< The serial buffer
         Fw::Endianness mode = Fw::Endianness::BIG //!< Endianness of serialized buffer
     );
 
@@ -154,11 +154,22 @@ class E2 :
   public:
 
     // ----------------------------------------------------------------------
+    // Static functions
+    // ----------------------------------------------------------------------
+
+    //! Check serial type value for validity
+    static bool isValid(
+        SerialType serialTypeValue //!< The serial type value
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Member variables
     // ----------------------------------------------------------------------
 
     //! The raw enum value
-    T e;
+    enum T e;
 
 };
 

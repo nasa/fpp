@@ -1,6 +1,10 @@
 @ Definitions and specifiers
 module DefinitionsAndSpecifiers {
 
+  type FwSizeStoreType = U16
+
+  constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
   @ Abstract type definition
   type T @< Abstract type definition
 
@@ -275,14 +279,14 @@ module DefinitionsAndSpecifiers {
   @ Location specifier
   locate instance i at "instances.fpp" @< Location specifier
 
-  template Tmpl(
-                 @ Constant template parameter
-                 constant c: SomeType @< Constant parameter
-                 @ Type template parameter
-                 type TypeParam @< Type parameter
-                 @ Interface instance template parameter
-                 interface inst: InterfaceDef @< Instance parameter
-               ) {
+  module template Tmpl(
+                        @ Constant template parameter
+                        constant c: SomeType @< Constant parameter
+                        @ Type template parameter
+                        type TypeParam @< Type parameter
+                        @ Interface instance template parameter
+                        interface inst: InterfaceDef @< Instance parameter
+                      ) {
     array Arr = [3] TypeParam
 
     topology Top {
@@ -290,6 +294,7 @@ module DefinitionsAndSpecifiers {
       instance inst
 
     }
+
   }
 
   expand Tmpl(
@@ -375,5 +380,16 @@ module Expressions {
                          b = 2
                          c = 3
                        } @< Struct
+
+  @ SizeOf
+  module SizeOf {
+
+    constant typeFloat = sizeof(F64)
+
+    constant typeQualId = sizeof(TypeNames.typeNameU32)
+
+    constant typeString = sizeof(string size 20)
+
+  } @< SizeOf
 
 } @< Expressions

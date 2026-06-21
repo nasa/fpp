@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test-base/PassiveGetProductPortsOnlyTesterBase.hpp"
+#include "PassiveGetProductPortsOnlyTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization

@@ -10,7 +10,7 @@ case class Component(
   /** The AST node defining the component */
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]],
   /* The port interface of the component */
-  portInterface: PortInterface = PortInterface(),
+  portInterface: PortInterface = PortInterface("component"),
   /** The map from command opcodes to commands */
   commandMap: Map[Command.Opcode, Command] = Map(),
   /** The next default opcode */

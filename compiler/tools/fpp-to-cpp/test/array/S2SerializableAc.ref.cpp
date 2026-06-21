@@ -14,7 +14,7 @@
 S2 ::
   S2() :
     Serializable(),
-    m_s1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String(""))
+    m_s1()
 {
 
 }
@@ -79,7 +79,7 @@ std::ostream& operator<<(std::ostream& os, const S2& obj) {
 
 Fw::SerializeStatus S2 ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -95,7 +95,7 @@ Fw::SerializeStatus S2 ::
 
 Fw::SerializeStatus S2 ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

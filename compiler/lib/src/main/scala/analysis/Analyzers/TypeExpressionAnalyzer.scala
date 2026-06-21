@@ -154,6 +154,9 @@ trait TypeExpressionAnalyzer
 
   override def exprUnopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprUnop) = exprNode(a, e.e)
 
+  override def exprSizeOfNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprSizeOf) = 
+    typeNameNode(a, e.typeName)
+
   override def specCommandAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecCommand]]) = {
     val (_, node1, _) = node
     val data = node1.data
@@ -299,16 +302,16 @@ trait TypeExpressionAnalyzer
     val data = node.data
     Result.foldLeft(data.params) (a) ((a, param) => {
       param._2.data match {
-        case Ast.DefTemplateParam.Constant(name, typeName) =>
+        case Ast.TemplateParam.Constant(name, typeName) =>
           typeNameNode(a, typeName)
         case _ => Right(a)
       }
     })
   }
 
-  override def templateConstantParam(a: Analysis, param: Symbol.TemplateConstantParam) = {
+  override def templateConstantArg(a: Analysis, arg: Symbol.TemplateConstantArg) = {
     for {
-      a <- exprNode(a, param.value)
+      a <- exprNode(a, arg.value)
     } yield a
   }
 

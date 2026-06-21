@@ -1,0 +1,15 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/expr/sizeof_not_displayable.fpp:9.21
+constant c = sizeof(S)
+                    ^
+error: size of type struct S is not known in the model
+
+[ local path prefix ]/compiler/tools/fpp-check/test/expr/sizeof_not_displayable.fpp:6.6
+  x: T
+     ^
+because this type is not displayable
+
+[ local path prefix ]/compiler/tools/fpp-check/test/expr/sizeof_not_displayable.fpp:3.1
+type T
+^
+Type is defined here

@@ -49,16 +49,16 @@ object CheckUseDefCycles extends UseAnalyzer {
     visitDefPost(a, symbol, node, super.defInterfaceAnnotatedNode)
   }
 
-  override def templateConstantParam(a: Analysis, param: Symbol.TemplateConstantParam) = {
-      visitDefPost(a, param, param, super.templateConstantParam)
+  override def templateConstantArg(a: Analysis, arg: Symbol.TemplateConstantArg) = {
+      visitDefPost(a, arg, arg, super.templateConstantArg)
   }
 
-  override def templateTypeParam(a: Analysis, param: Symbol.TemplateTypeParam) = {
-      visitDefPost(a, param, param, super.templateTypeParam)
+  override def templateTypeArg(a: Analysis, arg: Symbol.TemplateTypeArg) = {
+      visitDefPost(a, arg, arg, super.templateTypeArg)
   }
 
-  override def templateInterfaceParam(a: Analysis, param: Symbol.TemplateInterfaceParam) = {
-      visitDefPost(a, param, param, super.templateInterfaceParam)
+  override def templateInterfaceArg(a: Analysis, arg: Symbol.TemplateInterfaceArg) = {
+      visitDefPost(a, arg, arg, super.templateInterfaceArg)
   }
 
   override def interfaceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
@@ -89,9 +89,9 @@ object CheckUseDefCycles extends UseAnalyzer {
       case Symbol.Interface(node) => defInterfaceAnnotatedNode(a, node)
       case Symbol.Struct(node) => defStructAnnotatedNode(a, node)
       case Symbol.Topology(node) => defTopologyAnnotatedNode(a, node)
-      case param: Symbol.TemplateConstantParam => templateConstantParam(a, param)
-      case param: Symbol.TemplateTypeParam => templateTypeParam(a, param)
-      case param: Symbol.TemplateInterfaceParam => templateInterfaceParam(a, param)
+      case arg: Symbol.TemplateConstantArg => templateConstantArg(a, arg)
+      case arg: Symbol.TemplateTypeArg => templateTypeArg(a, arg)
+      case arg: Symbol.TemplateInterfaceArg => templateInterfaceArg(a, arg)
       case _ => Right(a)
     }
   }
@@ -115,7 +115,7 @@ object CheckUseDefCycles extends UseAnalyzer {
     val symbol = a.useDefMap(node.id)
     val m = UseDefMatching(node.id, use, symbol)
     val a1 = a.copy(useDefMatchingList = m :: a.useDefMatchingList)
-    visitDefPre(a1, symbol)
+    for (_ <- visitDefPre(a1, symbol)) yield a
   }
 
 }

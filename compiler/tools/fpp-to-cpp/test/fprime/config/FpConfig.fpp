@@ -40,6 +40,7 @@ type FwQueuePriorityType = PlatformQueuePriorityType
 
 @ The id type.
 type FwIdType = U32
+constant SIZE_OF_FwIdType = 4  @< Size of FwIdType in bytes
 
 @ The type of task priorities used.
 type FwTaskIdType = PlatformTaskIdType
@@ -50,7 +51,8 @@ type FwTaskIdType = PlatformTaskIdType
 ####
 
 @ The type of a telemetry channel identifier
-type FwChanIdType = FwIdType
+dictionary type FwChanIdType = FwIdType
+constant SIZE_OF_FwChanIdType = SIZE_OF_FwIdType  @< Size of FwChanIdType in bytes
 
 @ The type of a data product identifier
 type FwDpIdType = FwIdType
@@ -59,20 +61,22 @@ type FwDpIdType = FwIdType
 type FwDpPriorityType = U32
 
 @ The type of an event identifier
-type FwEventIdType = FwIdType
+dictionary type FwEventIdType = FwIdType
+constant SIZE_OF_FwEventIdType = SIZE_OF_FwIdType  @< Size of FwEventIdType in bytes
 
 @ The type of a command opcode
-type FwOpcodeType = FwIdType
+dictionary type FwOpcodeType = FwIdType
+constant SIZE_OF_FwOpcodeType = SIZE_OF_FwIdType  @< Size of FwOpcodeType in bytes
 
 @ The type of a parameter identifier
 type FwPrmIdType = FwIdType
+constant SIZE_OF_FwPrmIdType = SIZE_OF_FwIdType  @< Size of FwPrmIdType in bytes
 
 @ The type used to serialize a size value
-type FwSizeStoreType = U16
-
+dictionary type FwSizeStoreType = U16
 
 @ The type used to serialize a time context value
-type FwTimeContextStoreType = U8
+dictionary type FwTimeContextStoreType = U8
 
 @ The type of a telemetry packet identifier
 type FwTlmPacketizeIdType = U16
@@ -84,14 +88,14 @@ type FwTraceIdType = U32
 @ FPP enumerations are serialized according to their representation types
 type FwEnumStoreType = I32
 
-
 @ The type used to serialize a time base value
 type FwTimeBaseStoreType = U16
 
 @ Define enumeration for Time base types
-enum TimeBase : FwTimeBaseStoreType {
+dictionary enum TimeBase : FwTimeBaseStoreType {
     TB_NONE = 0              @< No time base has been established (Required)
     TB_PROC_TIME = 1         @< Indicates time is processor cycle time. Not tied to external time
     TB_WORKSTATION_TIME = 2  @< Time as reported on workstation where software is running. For testing. (Required)
+    TB_SC_TIME = 3,          @< Time as reported by the spacecraft clock.
     TB_DONT_CARE = 0xFFFF    @< Don't care value for sequences. If FwTimeBaseStoreType is changed, value should be changed (Required)
 } default TB_NONE;

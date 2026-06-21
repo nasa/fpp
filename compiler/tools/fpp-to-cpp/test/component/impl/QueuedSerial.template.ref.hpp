@@ -261,7 +261,7 @@ class QueuedSerial final :
     //! A serial async input port
     void serialAsync_handler(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     ) override;
 
     //! Handler implementation for serialAsyncAssert
@@ -269,7 +269,7 @@ class QueuedSerial final :
     //! A serial async input port with queue full behavior and priority
     void serialAsyncAssert_handler(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     ) override;
 
     //! Handler implementation for serialAsyncBlockPriority
@@ -277,7 +277,7 @@ class QueuedSerial final :
     //! A serial async input port with queue full behavior and priority
     void serialAsyncBlockPriority_handler(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     ) override;
 
     //! Handler implementation for serialAsyncDropPriority
@@ -285,7 +285,7 @@ class QueuedSerial final :
     //! A serial async input port with queue full behavior and priority
     void serialAsyncDropPriority_handler(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     ) override;
 
     //! Handler implementation for serialGuarded
@@ -293,7 +293,7 @@ class QueuedSerial final :
     //! A serial guarded input
     void serialGuarded_handler(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     ) override;
 
     //! Handler implementation for serialSync
@@ -301,7 +301,7 @@ class QueuedSerial final :
     //! A serial sync input port
     void serialSync_handler(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     ) override;
 
   private:

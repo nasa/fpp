@@ -7,8 +7,8 @@
 #ifndef ActiveExternalParamsGTestBase_HPP
 #define ActiveExternalParamsGTestBase_HPP
 
+#include "ActiveExternalParamsTesterBase.hpp"
 #include "gtest/gtest.h"
-#include "test-base/ActiveExternalParamsTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Macros for typed user from port history assertions

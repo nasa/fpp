@@ -1,0 +1,31 @@
+dictionary def alias type
+  ident T
+  type name U32
+dictionary def array
+  ident A
+  size literal int 2
+  type name F32
+dictionary def struct
+  ident S
+  struct type member
+    ident x
+    array size literal int 3
+    type name U32
+  struct type member
+    ident y
+    type name F32
+  struct type member
+    ident z
+    type name string
+dictionary def enum
+  ident E
+  def enum constant
+    ident X
+  def enum constant
+    ident Y
+  def enum constant
+    ident Z
+  default ident X
+dictionary def constant
+  ident C
+  literal int 1

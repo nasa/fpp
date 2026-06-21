@@ -1,0 +1,11 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/type/string_size_type_shadowed.fpp:5.12
+  type T = string size 100
+           ^
+error: invalid use of symbol M.FwSizeStoreType: it shadows FwSizeStoreType here
+symbol is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/type/string_size_type_shadowed.fpp:3.3
+  type FwSizeStoreType = U16
+  ^
+note: the symbol FwSizeStoreType has an implied use at the point of the error
+note: use of a string type requires this definition

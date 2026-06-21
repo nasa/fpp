@@ -83,9 +83,19 @@ include_parent_dir()
   run_test -ia subdir/include-parent-dir
 }
 
+include_state_machine()
+{
+  run_test -ia include-state-machine
+}
+
 include_subdir()
 {
   run_test -ia include-subdir
+}
+
+include_state_machine()
+{
+  run_test -ia include-state-machine
 }
 
 include_topology()
@@ -145,6 +155,11 @@ two_input_files()
   diff -u two-input-files.ref.txt two-input-files.out.txt > two-input-files.diff.txt 2>&1
 }
 
+dictionary_specifier()
+{
+  run_test -a dictionary-specifier
+}
+
 tests="
 comments
 embedded_tab
@@ -159,6 +174,7 @@ include_missing_file
 include_module
 include_parent_dir
 include_parse_error
+include_state_machine
 include_subdir
 include_topology
 parse_error
@@ -171,6 +187,7 @@ syntax_stdin
 template
 topology_ports
 two_input_files
+dictionary_specifier
 "
 
 run_suite $tests

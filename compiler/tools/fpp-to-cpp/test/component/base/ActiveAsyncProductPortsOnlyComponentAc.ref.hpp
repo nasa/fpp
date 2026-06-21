@@ -12,8 +12,12 @@
 #include "Fw/Dp/DpResponsePortAc.hpp"
 #include "Fw/Dp/DpSendPortAc.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
+#endif
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/OutputSerializePort.hpp"
+#endif
 
 //! \class ActiveAsyncProductPortsOnlyComponentBase
 //! \brief Auto-generated base for ActiveAsyncProductPortsOnly component
@@ -61,6 +65,8 @@ class ActiveAsyncProductPortsOnlyComponentBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -73,6 +79,10 @@ class ActiveAsyncProductPortsOnlyComponentBase :
     Fw::InputDpResponsePort* get_productRecvIn_InputPort(
         FwIndexType portNum //!< The port number
     );
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   public:
 
@@ -92,7 +102,9 @@ class ActiveAsyncProductPortsOnlyComponentBase :
         Fw::InputDpSendPort* port //!< The input port
     );
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
   public:
 
@@ -172,16 +184,20 @@ class ActiveAsyncProductPortsOnlyComponentBase :
     //! \return Whether port productRequestOut is connected
     bool isConnected_productRequestOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port productSendOut is connected
     //!
     //! \return Whether port productSendOut is connected
     bool isConnected_productSendOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
+#if FW_DIRECT_PORT_CALLS
+  public:
+#else
   protected:
+#endif
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for special input ports
@@ -213,26 +229,6 @@ class ActiveAsyncProductPortsOnlyComponentBase :
         FwDpIdType id, //!< The container ID
         const Fw::Buffer& buffer, //!< The buffer
         const Fw::Success& status //!< The status
-    );
-
-  protected:
-
-    // ----------------------------------------------------------------------
-    // Invocation functions for special output ports
-    // ----------------------------------------------------------------------
-
-    //! Invoke output port productRequestOut
-    void productRequestOut_out(
-        FwIndexType portNum, //!< The port number
-        FwDpIdType id, //!< The container ID
-        FwSizeType dataSize //!< The data size of the requested buffer
-    );
-
-    //! Invoke output port productSendOut
-    void productSendOut_out(
-        FwIndexType portNum, //!< The port number
-        FwDpIdType id, //!< The container ID
-        const Fw::Buffer& buffer //!< The buffer
     );
 
   private:
@@ -273,6 +269,8 @@ class ActiveAsyncProductPortsOnlyComponentBase :
         const Fw::Success& status //!< The buffer status
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -281,6 +279,10 @@ class ActiveAsyncProductPortsOnlyComponentBase :
 
     //! Input port productRecvIn
     Fw::InputDpResponsePort m_productRecvIn_InputPort[NUM_PRODUCTRECVIN_INPUT_PORTS];
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   private:
 
@@ -293,6 +295,8 @@ class ActiveAsyncProductPortsOnlyComponentBase :
 
     //! Output port productSendOut
     Fw::OutputDpSendPort m_productSendOut_OutputPort[NUM_PRODUCTSENDOUT_OUTPUT_PORTS];
+
+#endif
 
 };
 

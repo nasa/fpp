@@ -9,5 +9,10 @@ literal_ok
 neg_error
 neg_ok
 paren_ok
+sizeof_not_displayable
+sizeof_ok
+sizeof_string_fw_store_type_not_defined
 struct_duplicate
+string_concat_ok
+string_concat_error
 "

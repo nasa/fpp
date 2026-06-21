@@ -23,7 +23,7 @@ PassiveTestTester ::
 PassiveTestTester ::
   ~PassiveTestTester()
 {
-
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

@@ -7,8 +7,8 @@
 #ifndef PassiveGuardedProductsGTestBase_HPP
 #define PassiveGuardedProductsGTestBase_HPP
 
+#include "PassiveGuardedProductsTesterBase.hpp"
 #include "gtest/gtest.h"
-#include "test-base/PassiveGuardedProductsTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Macros for typed user from port history assertions

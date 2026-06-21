@@ -1,6 +1,9 @@
 @ Definitions and specifiers
 module DefinitionsAndSpecifiers {
 
+  type FwSizeStoreType = U16
+  constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
   @ Abstract type definition
   type T
   @< Abstract type definition
@@ -234,7 +237,7 @@ module DefinitionsAndSpecifiers {
   locate instance i at "instances.fpp"
   @< Location specifier
 
-  template Tmpl(
+  module template Tmpl(
     @ Constant template parameter
     constant c: SomeType @< Constant parameter
 
@@ -330,6 +333,14 @@ module Expressions {
   @ Struct
   constant structExp = { a = 1, b = 2, c = 3 }
   @< Struct
+
+  @ SizeOf
+  module SizeOf {
+    constant typeFloat = sizeof(F64)
+    constant typeQualId = sizeof(TypeNames.typeNameU32)
+    constant typeString = sizeof(string size 20)
+  }
+  @< SizeOf
 
 }
 @< Expressions

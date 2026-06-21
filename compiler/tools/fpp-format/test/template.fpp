@@ -3,7 +3,7 @@ interface Iface {
 }
 
 @ Template Definition
-template T (
+module template T (
     constant c: U32, @< A constant parameter
     type Ty, @< A type parameter
     interface inst: Iface @< An interface parameter

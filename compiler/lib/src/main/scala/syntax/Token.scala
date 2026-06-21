@@ -30,6 +30,7 @@ object Token {
   final case class CPU() extends Token
   final case class DEFAULT() extends Token
   final case class DIAGNOSTIC() extends Token
+  final case class DICTIONARY() extends Token
   final case class DO() extends Token
   final case class DOT() extends Token
   final case class DROP() extends Token
@@ -62,8 +63,8 @@ object Token {
   final case class I8() extends Token
   final case class ID() extends Token
   final case class IDENTIFIER(str: String) extends Token
-  final case class IMPLEMENTS() extends Token
   final case class IF() extends Token
+  final case class IMPLEMENTS() extends Token
   final case class IMPORT() extends Token
   final case class INCLUDE() extends Token
   final case class INITIAL() extends Token
@@ -120,6 +121,7 @@ object Token {
   final case class SEVERITY() extends Token
   final case class SIGNAL() extends Token
   final case class SIZE() extends Token
+  final case class SIZEOF() extends Token
   final case class SLASH() extends Token
   final case class STACK() extends Token
   final case class STAR() extends Token
@@ -174,6 +176,7 @@ enum TokenId {
   case BLOCK
   case BOOL
   case CHANGE
+  case CHOICE
   case COMMAND
   case COMPONENT
   case CONNECTIONS
@@ -182,6 +185,7 @@ enum TokenId {
   case CPU
   case DEFAULT
   case DIAGNOSTIC
+  case DICTIONARY
   case DO
   case DROP
   case ELSE
@@ -211,15 +215,14 @@ enum TokenId {
   case I8
   case ID
   case IF
-  case IMPORT
   case IMPLEMENTS
+  case IMPORT
   case INCLUDE
   case INITIAL
   case INPUT
   case INSTANCE
   case INTERFACE
   case INTERNAL
-  case CHOICE
   case LOCATE
   case LOW
   case MACHINE
@@ -254,6 +257,7 @@ enum TokenId {
   case SEVERITY
   case SIGNAL
   case SIZE
+  case SIZEOF
   case STACK
   case STATE
   case STRING

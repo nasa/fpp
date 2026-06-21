@@ -1,9 +1,11 @@
 tests="
 alias_serial_type
+component
 duplicate
 default
 explicit
 implicit
 serialize_type
-component
+singleton_range
+state_machine
 "

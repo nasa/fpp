@@ -865,7 +865,6 @@ a.p[0] -> b.p[0]
 a.p[1] -> c.p[0]
 --------
 
-
 === Importing Topologies
 
 It is often useful to decompose a flight software project
@@ -1036,6 +1035,431 @@ Cycles in the import graph are not allowed.
 For example, if `A` imports `B` and `B` imports `C`
 and `C` imports `A`, you will get an error.
 
+=== Topology Ports
+
+In the previous section, we explained the most basic way to import a topology 
+`B` into a topology `A`.
+This method of importing topologies erases or flattens the structure implied
+by the separate topologies `A` and `B`.
+In particular, when `B` is imported into `A`,
+
+* All component instances that are part of `B` (directly or by import) are visible in `A`.
+
+* Connections that span `A` and `B` go directly between
+  component instances that are part of `A` and component instances that are 
+  part of `B`.
+
+This approach is simple and flexible.
+It also aligns well with the {cpp} implementation, which is flattened in this 
+way.
+However, when specifying connections in the model,
+it is often useful to preserve the separation between
+an importing topology `A` and an imported topology `B`.
+To do that, FPP has a feature called *topology ports*,
+which we explain in this section.
+
+With topology ports, the code generator still flattens the
+hierarchy of imported topologies into a single topology, as
+described in the previous section.
+However, before this flattening occurs, you can specify
+connections _to and from subtopologies_.
+For example, you can specify a connection from a component instance
+`a` of `A` to a _port_ of topology `B`, and this connection is automatically
+flattened to a connection between `a` and a component instance `b` of `B`.
+In this way, you can think of imported topologies as
+units of function that have their own interfaces and connections.
+
+==== Specifying Topology Ports
+
+*Connections to subtopologies:*
+Consider the following example:
+
+[source,fpp]
+--------
+topology A {
+
+  instance a
+
+  import B
+
+  connections C {
+    a.p -> b.p
+  }
+
+}
+
+topology B {
+
+  instance b
+
+}
+--------
+
+As discussed in the previous section, import resolution produces this
+flattened topology:
+
+[source,fpp]
+--------
+topology A {
+
+  instance a
+  instance b
+
+  connections C {
+    a.p -> b.p
+  }
+
+}
+--------
+
+Notice that in both the original topology and the flattened topology,
+the connection goes directly from `a.p` to `b.p`.
+
+Now let us rewrite this example using topology ports.
+First, we need a way to specify a port of topology `B` and to map it to
+a port of an instance of `B`, so the flattening can occur.
+To do that, we write `port` followed by a name, and equals sign,
+and a port of a component instance, like this:
+
+[source,fpp]
+--------
+topology B {
+
+  instance b
+
+  port p = b.p
+
+}
+--------
+
+Here the FPP analyzer checks that `b.p` is a port of instance `b`;
+if not, an error will occur.
+It is also an error to specify multiple ports with
+the same name in the same topology.
+
+Now in topology `A`, we can write a connection to port `B.p` instead
+of directly to component instance `b.p`, like this:
+
+[source,fpp]
+--------
+topology A {
+
+  instance a
+
+  import B
+
+  connections C {
+    a.p -> B.p
+  }
+
+}
+--------
+
+As usual, the FPP analyzer checks that `a.p` is an output port,
+that `B.p` is a input port, and that the types of the ports
+are compatible.
+Here `B.p` has the direction and type of `b.p`, the actual port to which the 
+topology port `B.p` is mapped.
+If these requirements aren't met, then an error occurs.
+
+After import resolution, the result is the same as before:
+`A` has two instances `a` and `b` and one connection
+from `a.p` to `b.p`.
+However, the source model respects the hierarchical structure
+of `A` and `B`:
+the connection goes to the interface
+of `B`, instead of going directly to an instance of `B`.
+
+*Connections from subtopologies:*
+Connections from subtopologies work in the same way,
+with the arrow reversed.
+For example, if we assume that `B.p` is an output port
+and `a.p` is an input port, then we could write this:
+
+[source,fpp]
+--------
+topology A {
+
+  instance a
+
+  import B
+
+  connections C {
+    B.p -> a.p
+  }
+
+}
+--------
+
+*Connections between subtopologies:*
+Another useful pattern is to have a topology `A` import
+two subtopologies `B1` and `B2` and to specify a connection
+from `B1` to `B2`.
+Here is an example:
+
+[source,fpp]
+--------
+topology B1 {
+
+  instance b1
+
+  port p = b1.p
+
+}
+
+topology B2 {
+
+  instance b2
+
+  port p = b2.p
+
+}
+
+topology A {
+
+  import B1
+  import B2
+
+  connections C {
+    B1.p -> B2.p
+  }
+
+}
+--------
+
+After flattening, topology `A` looks like this:
+
+[source,fpp]
+--------
+topology A {
+
+  instance b1
+  instance b2
+
+  connections {
+    b1.p -> b2.p
+  }
+
+}
+--------
+
+==== Implementing Port Interfaces
+
+A topology is like a component instance, in that it provides
+a port interface.
+We will have more to say about this similarity in the
+<<Defining-Topologies_Topology-Ports_Port-Interface-Instances,
+next section>>.
+
+In the case of an instance of a component _C_, we can
+<<Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces,
+define a port interface _I_>> and make _I_ part of the
+interface of _C_.
+We do that by 
+<<Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Component-Definitions,
+importing>> _I_ into the definition of _C_.
+In the case of a topology _T_, we can't import an interface _I_ in this way,
+because we have to specify a mapping for each of the ports
+in the interface of _T_ to a port of a component instance or an imported 
+topology of _T_.
+However, we can use one or more port interface definitions to specify and check 
+that the actual interface of _T_ provides all the ports that it should.
+To do this, we write the keyword `implements` followed by list of names
+that refer to port interface definitions.
+The FPP analyzer will then check that the topology provides
+all the ports required by each of the interfaces in the definitions.
+
+Here is an example:
+
+[source,fpp]
+----
+port P
+
+interface I {
+  sync input port p: P
+}
+
+passive component C {
+  import I
+}
+
+instance a: C base id 0x100
+
+@ Specify and check that topology T provides the ports of interface I
+topology T implements I {
+
+  instance a
+
+  port p = a.p
+
+}
+----
+
+This code is correct because topology `T` provides the port `p` of interface `I`,
+via the line `port p = a.p`.
+An error would result in each of the following cases:
+
+* We delete `port p = a.p` from the model.
+  In this case, the `implements` clause is violated, because
+  topology `T` provides no port `p`.
+
+* We remove `import I` from the definition of `C` and replace it with `output port p: P`.
+  In this case, topology `T` does provide a port `p`, but the port does 
+  not conform to the interface `I`.
+
+Try these examples in `fpp-check`, and make sure you understand what is 
+happening in each case.
+
+You can also write more than one interface name in an `implements` clause.
+In general the interface names form an
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,element
+sequence>>
+in which the optional terminating punctuation is a comma.
+For example:
+
+[source,fpp]
+----
+port P
+
+port Q
+
+interface I {
+  sync input port p: P
+}
+
+interface J {
+  output port q: Q
+}
+
+passive component C {
+  import I
+  import J
+}
+
+instance a: C base id 0x100
+
+@ Specify and check that topology T provides the ports of interfaces I and J
+topology T implements I, J {
+
+  instance a
+
+  port p = a.p
+
+  port q = a.q
+
+}
+----
+
+Implements clauses are not strictly required: any correct model
+containing an implements clause will also be correct if
+that clause is deleted.
+However, implements clauses are useful for documenting and checking intended 
+behavior.
+For example, suppose the intent of topology `T` in the previous example
+is to provide interfaces `I` and `J`.
+If there were no `implements` clause,
+then a developer could inadvertently change the contract of `T` by removing or
+modifying ports `p` or `q` of `T`.
+Because of the implements clause, this can't happen.
+Instead an error will occur,
+alerting the developer to the fact that an interface contract is
+being changed.
+
+Finally, an implements clause does not require that a topology implement
+_only_ what is in the clause.
+For example, in the code shown above, we could add any number
+of ports to `T` that are not specified in the interfaces `I` and `J`.
+The only requirement is that all the ports specified in `I` and `J`
+are present in the interface.
+
+==== Port Interface Instances
+
+As noted in the previous section, both topologies and component 
+instances provide port interfaces.
+Therefore we refer to both topologies and component instances as *port 
+interface instances*.
+The motivation for this name is as follows:
+
+* A port interface instance is a concrete implementation (an instance)
+of a unit of function that has a port interface.
+
+* The units of function with port interfaces are component
+instances and topologies.
+
+Thus the concept of a port interface instance generalizes
+the concept of a component instance in a way that includes
+the concept of a topology.
+
+The concept of a port interface instance will become more obviously useful
+in a future version of FPP, where we will introduce the following
+features:
+
+* *Module templates* that you can expand several times to generate
+different sections of of FPP code (for example, different topologies) that are 
+largely the same, but that differ in particular ways that you specify.
+
+* *Template parameters* that let you bind concrete values to parameters
+when instantiating templates.
+
+When instantiating templates, it will be useful to treat component
+instances and topologies in the same way, so that a single `instance`
+parameter can be bound to either a component instance or a topology,
+as long as the constraints of the parameter are satisfied.
+
+For now, we note that the concept of a port interface instance exists.
+We also note that imported topologies are port interface instances.
+For this reason, you can use the keyword `instance` to import a topology.
+For example, instead of writing `import A` to import topology `A`,
+you can write `instance A`.
+Here is one of the  FPP models from 
+<<Defining-Topologies_Topology-Ports_Specifying-Topology-Ports,the section on 
+specifying topology ports>>,
+written using `instance` instead of `import`:
+
+[source,fpp]
+--------
+topology B {
+
+  instance b
+
+  port p = b.p
+
+}
+
+topology A {
+
+  instance a
+
+  # Here we write instance B to import topology B into A
+  # Previously we wrote import B
+  # Both are valid syntax as of FPP v3.2.0
+  instance B
+
+  connections C {
+    a.p -> B.p
+  }
+
+}
+--------
+
+Notice how this syntax emphasizes that both the component instance `a`
+and the imported topology `B` provide port interfaces
+that can participate in connections.
+
+The concept of a port interface instance is new as of v3.2.0 of FPP.
+In previous versions, there were no topology ports, so topologies
+were not port interface instances.
+Further, the only way to import a topology was to
+use the `import` keyword, as discussed in the previous sections.
+For backwards compatibility, we do not require you to use `instance`
+when importing a topology; you may still use `import`.
+However, it may be useful to use `instance` in cases where you specify
+connections to and from the ports of an imported topology `T`, without
+specifying any connections directly to or from the instances
+of `T`.
+In this case, you may wish to think of `T` as a pure port interface,
+with the details of its implementation (its component instances,
+imported subtopologies, and connections) abstracted away.
 
 === Include Specifiers
 

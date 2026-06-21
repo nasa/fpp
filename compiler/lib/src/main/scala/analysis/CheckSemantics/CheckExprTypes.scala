@@ -19,7 +19,7 @@ object CheckExprTypes extends UseAnalyzer {
         case Symbol.EnumConstant(node) => Right(a)
         // Template parameter symbol: we are already inside the template expansion
         // therefore this already has a type
-        case Symbol.TemplateConstantParam(_, _) => Right(a)
+        case Symbol.TemplateConstantArg(_, _) => Right(a)
         // Invalid use of a symbol in an expression
         case _ =>
           Left(SemanticError.InvalidSymbol(
@@ -162,7 +162,10 @@ object CheckExprTypes extends UseAnalyzer {
     for {
       a <- super.exprBinopNode(a, node, e)
       t <- a.commonType(e.e1.id, e.e2.id, loc)
-      _ <- convertToNumeric(loc, t)
+      _ <- e.op match {
+        case Ast.Binop.Add => convertToNumericOrString(loc, t)
+        case _ => convertToNumeric(loc, t)
+      }
     } yield a.assignType(node -> t)
   }
 
@@ -181,6 +184,18 @@ object CheckExprTypes extends UseAnalyzer {
   override def exprParenNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprParen) = {
     for (a <- super.exprParenNode(a, node, e))
       yield a.assignType(node -> a.typeMap(e.e.id))
+  }
+
+  override def exprSizeOfNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprSizeOf) = {
+    for {
+      _ <- {
+        val id = e.typeName.id
+        val t = a.typeMap(id)
+        a.checkDisplayableType(id, s"size of type $t is not known in the model")
+      }
+      a <- super.exprSizeOfNode(a, node, e)
+    }
+    yield a.assignType(node -> Type.Integer)
   }
 
   override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) = {
@@ -257,14 +272,14 @@ object CheckExprTypes extends UseAnalyzer {
     } yield a.assignType(node -> t)
   }
 
-  override def templateConstantParam(
+  override def templateConstantArg(
     a: Analysis,
-    param: Symbol.TemplateConstantParam
+    arg: Symbol.TemplateConstantArg
   ) = {
-    val Symbol.TemplateConstantParam(paramDef, value) = param
+    val Symbol.TemplateConstantArg(paramDef, value) = arg
     for {
       // Visit the literal value
-      a <- super.templateConstantParam(a, param)
+      a <- super.templateConstantArg(a, arg)
 
       // Make sure the value can be converted into the type in the template
       ty <- Analysis.convertTypes(
@@ -489,5 +504,17 @@ object CheckExprTypes extends UseAnalyzer {
       Left(error)
     }
   }
+  
+  private def convertToNumericOrString(loc: Location, t: Type): Result.Result[Type] =
+    (t, convertToNumeric(loc, t)) match {
+      case (_, Right(t1)) => Right(t1)
+      case (_: Type.String, _) => Right(t)
+      case _ =>
+        val error = SemanticError.InvalidType(
+          loc,
+          s"cannot convert $t to a numeric or string type"
+        )
+        Left(error)
+    }
 
 }

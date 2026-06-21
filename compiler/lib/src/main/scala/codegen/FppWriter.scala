@@ -4,7 +4,6 @@ import fpp.compiler.ast._
 import fpp.compiler.syntax._
 import fpp.compiler.util._
 import scala.language.implicitConversions
-import fpp.compiler.ast.Ast.Annotated
 
 /** Write out FPP source */
 object FppWriter extends AstVisitor with LineUtils {
@@ -125,7 +124,7 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"type ${ident(data.name)} = ").
+    lines(prefixWithDictionary(s"type ${ident(data.name)} = ", data.isDictionaryDef)).
       join("") (typeNameNode(data.typeName))
   }
 
@@ -154,7 +153,7 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"array ${ident(data.name)} = [").
+    lines(prefixWithDictionary(s"array ${ident(data.name)} = [", data.isDictionaryDef)).
       join ("") (exprNode(data.size)).
       join ("] ") (typeNameNode(data.eltType)).
       joinOpt (data.default) (" default ") (exprNode).
@@ -224,7 +223,8 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"constant ${ident(data.name)}").join (" = ") (exprNode(data.value))
+    lines(prefixWithDictionary(s"constant ${ident(data.name)}", data.isDictionaryDef)).
+      join (" = ") (exprNode(data.value))
   }
 
   override def defEnumAnnotatedNode(
@@ -233,7 +233,7 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"enum ${ident(data.name)}").
+    lines(prefixWithDictionary(s"enum ${ident(data.name)}", data.isDictionaryDef)).
       joinOpt (data.typeName) (": ") (typeNameNode).
       joinNoIndent (" ") (
         addBraces(data.constants.flatMap(annotateNode(defEnumConstant)))
@@ -266,58 +266,24 @@ object FppWriter extends AstVisitor with LineUtils {
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
   ) = {
-    def templateParam(tp: Ast.DefTemplateParam.Node) = {
-      tp match {
-        case Ast.DefTemplateParam.Constant(name, typeName) =>
-          lines(s"constant $name: ").
-            join("") (typeNameNode(typeName))
-        case Ast.DefTemplateParam.Type(name) =>
-          lines(s"type $name")
-        case Ast.DefTemplateParam.Interface(name, interface) =>
-          lines(s"interface $name: ").
-            join("") (qualIdent(interface.data))
-      }
-    }
-
     val (_, node, _) = aNode
     val data = node.data
-    lines (s"template ${ident(data.name)}").
-      join("") (
-        lines("(") ++
-        data.params.flatMap(annotateNode(templateParam)).map(indentIn) ++
-        lines(") {")
-      ) ++
+    lines (s"module template ${ident(data.name)}").
+      join ("") (paramList (templateParam) (data.params)).
+      addSuffix(" {") ++
     ((Line.blankSeparated (moduleMember) (data.members)).map(indentIn)) ++
-    lines("}")
+    List(Line.blank, line("}"))
   }
 
   override def specTemplateExpandAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
   ): Out = {
-    def templateParam(tp: AstNode[Ast.TemplateParameter]) =
-      tp.data match {
-        case Ast.TemplateConstantParameter(e) =>
-          lines("constant").join(" ") (exprNode(e))
-        case Ast.TemplateTypeParameter(name) =>
-          lines("type").join(" ") (typeNameNode(name))
-        case Ast.TemplateInterfaceParameter(i) =>
-          lines("interface").join(" ") (qualIdent(i.data))
-      }
-
-    def templateParamValueList(fpl: List[AstNode[Ast.TemplateParameter]]) =
-      fpl match {
-        case Nil => Nil
-        case _ =>
-          lines("(") ++
-          fpl.flatMap(templateParam).map(indentIn) ++
-          lines(")")
-      }
-
     val (_, node, _) = aNode
     val data = node.data
-    Line.addPrefix("expand ", qualIdent(data.template.data)).
-      join("") (templateParamValueList(data.params))
+    lines("expand").
+      join(" ") (qualIdent(data.template.data)).
+      join ("") (templateArgList(data.args))
   }
 
   override def defPortAnnotatedNode(
@@ -379,7 +345,7 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"struct ${ident(data.name)}").
+    lines(prefixWithDictionary(s"struct ${ident(data.name)}", data.isDictionaryDef)).
     joinNoIndent (" ") (
       addBraces(data.members.flatMap(annotateNode(structTypeMember)))
     ).
@@ -465,6 +431,13 @@ object FppWriter extends AstVisitor with LineUtils {
     node: AstNode[Ast.Expr],
     e: Ast.ExprParen
   ) = Line.addPrefixAndSuffix("(", exprNode(e.e), ")")
+
+  override def exprSizeOfNode(
+    in: In,
+    node: AstNode[Ast.Expr],
+    e: Ast.ExprSizeOf
+  ) =
+    Line.addPrefixAndSuffix("sizeof(", typeNameNode(e.typeName), ")")
 
   override def exprStructNode(
     in: In,
@@ -596,7 +569,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     val kind = data.kind.toString
-    lines(s"locate ${kind}").
+    lines(s"locate ${prefixWithDictionary(kind, data.isDictionaryDef)}").
       join (" ") (qualIdent(data.symbol.data)).
       join (" at ") (string(data.file.data))
   }
@@ -889,14 +862,37 @@ object FppWriter extends AstVisitor with LineUtils {
     lines(name).join (": ") (typeNameNode(fp.typeName))
   }
 
-  private def formalParamList(fpl: Ast.FormalParamList) =
-    fpl match {
+  private val formalParamList = paramList (formalParam)
+
+  private def paramList[T] (f: T => List[Line]) (params: List[Ast.Annotated[AstNode[T]]]) =
+    params match {
       case Nil => Nil
       case _ =>
         lines("(") ++
-        fpl.flatMap(annotateNode(formalParam)).map(indentIn) ++
+        params.flatMap(annotateNode(f)).map(indentIn) ++
         lines(")")
     }
+
+  private def templateArg(arg: Ast.TemplateArg) =
+    arg match {
+      case Ast.TemplateArg.Constant(e) =>
+        lines("constant").join(" ") (exprNode(e))
+      case Ast.TemplateArg.Type(name) =>
+        lines("type").join(" ") (typeNameNode(name))
+      case Ast.TemplateArg.Interface(i) =>
+        lines("interface").join(" ") (qualIdent(i.data))
+    }
+
+  private def argList[T] (f: T => List[Line]) (args: List[AstNode[T]]) =
+    args match {
+      case Nil => Nil
+      case _ =>
+        lines("(") ++
+        args.flatMap({ case node => f(node.data) }).map(indentIn) ++
+        lines(")")
+    }
+
+  private val templateArgList = argList (templateArg)
 
   private def ident(id: Ast.Ident) =
     if (Lexer.reservedWordSet.contains(id)) "$" ++ id else id
@@ -906,6 +902,12 @@ object FppWriter extends AstVisitor with LineUtils {
   private def portInstanceId(pii: Ast.PortInstanceIdentifier) =
     qualIdent(pii.interfaceInstance.data).
     addSuffix(s".${ident(pii.portName.data)}")
+
+  private def prefixWithDictionary(s: String, isDictionaryDef: Boolean) =
+    if isDictionaryDef then
+      s"dictionary $s"
+    else
+      s
 
   private def qualIdent(qid: Ast.QualIdent): Out =
     lines(qualIdentString(qid))
@@ -939,6 +941,19 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOpt (member.size) (" ") (bracketExprNode).
       join (" ") (typeNameNode(member.typeName)).
       joinOpt (member.format) (" format ") (applyToData(string))
+
+  private def templateParam(tp: Ast.TemplateParam) = {
+    tp match {
+      case Ast.TemplateParam.Constant(name, typeName) =>
+        lines(s"constant $name: ").
+          join("") (typeNameNode(typeName))
+      case Ast.TemplateParam.Type(name) =>
+        lines(s"type $name")
+      case Ast.TemplateParam.Interface(name, interface) =>
+        lines(s"interface $name: ").
+          join("") (qualIdent(interface.data))
+    }
+  }
 
   private def tlmChannelId(tci: Ast.TlmChannelIdentifier) =
     qualIdent(tci.componentInstance.data).

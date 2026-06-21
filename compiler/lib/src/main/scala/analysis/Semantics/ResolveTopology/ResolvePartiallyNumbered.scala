@@ -30,7 +30,7 @@ object ResolvePartiallyNumbered {
    * interface constraints on instances */
   private def checkConnectionPorts(t: Topology): Result.Result[Unit] = {
     def checkPortInstanceIdentifier(pii: PortInstanceIdentifier, loc: Location) = {
-      val (pi, ifaceName, _) = t.instanceMap(pii.interfaceInstance)
+      val pi = pii.interfaceInstance.getInterface
       val portName = pii.portInstance.getUnqualifiedName
       pi.portMap.get(portName) match {
         case Some(_) => Right(())
@@ -38,7 +38,8 @@ object ResolvePartiallyNumbered {
           SemanticError.InvalidPortInstanceId(
             loc,
             portName,
-            ifaceName
+            pi.instanceType,
+            pii.interfaceInstance.getUnqualifiedName
           )
         )
       }
@@ -65,10 +66,9 @@ object ResolvePartiallyNumbered {
 
   /** Check that connection instances are legal */
   private def checkPortInstances(t: Topology): Result.Result[Unit] = {
-    def checkPort(i: (PortInstanceIdentifier, Location)) = {
-      val (port, loc) = i
+    def checkPort(i: TopologyPort) = {
       for {
-        _ <- t.lookUpInstanceAt(port.interfaceInstance, loc)
+        _ <- t.lookUpInstanceAt(i.pii.interfaceInstance, i.getUnderlyingPortLoc)
       }
       yield ()
     }
@@ -185,10 +185,10 @@ object ResolvePartiallyNumbered {
   private def resolveInstances(a: Analysis, t: Topology): Result.Result[Topology] = {
     def importInstance(
       t: Topology,
-      mapEntry: (InterfaceInstance, (PortInterface, String, Location))
+      mapEntry: (InterfaceInstance, Location)
     ) = {
-      val (instance, (pi, names, loc)) = mapEntry
-      t.addInstance(instance, pi, names, loc)
+      val (instance, loc) = mapEntry
+      t.addInstance(instance, loc)
     }
     def importInstances(into: Topology, fromSymbol: Symbol.Topology) =
       a.topologyMap(fromSymbol).instanceMap.foldLeft (into) (importInstance)

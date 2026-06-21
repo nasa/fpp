@@ -5,6 +5,9 @@ with it.
 
 ==== Syntax
 
+_[_
+`dictionary`
+_]_
 `struct` <<Lexical-Elements_Identifiers,_identifier_>>
 `{` _struct-type-member-sequence_ `}`
 _[_ `default` <<Expressions,_expression_>> _]_
@@ -31,17 +34,20 @@ The definition associates the name _N_ with a
 of the specified type.  Each
 identifier appearing in the struct type member sequence must be distinct.
 
-The optional expression `[` _e_ `]` for a struct member specifies the
-*size* of the member, i.e., the number of elements stored in the member.
+For each member _m_,
+
+* The type name specifies the type stem:[T_m] of the member.
+
+* The optional expression `[` _e_ `]` specifies the
+*size* of _m_, i.e., the number of elements stored in _m_.
 If present, _e_ must have a
 <<Types_Internal-Types_Numeric-Types,numeric type>>, and it must
-evaluate to a value greater than zero after conversion to
+evaluate to a value stem:[n > 0] after conversion to
 <<Types_Internal-Types_Integer,_Integer_>>.
-If _e_ is not present, then default size is one.
-If a member _m_ has size greater than one, then _m_
-is translated to an array in the implementation language.
+If _e_ is not present, then _m_ represents a single value of type stem:[T_m].
+Otherwise _m_ represents an array of _n_ values of type stem:[T_m].
 
-The optional format specifier for a struct member specifies a
+* The optional format specifier specifies a
 <<Format-Strings,format string>>.
 The format is applied when displaying the struct member.
 There is one argument to the format string, which is the member value.
@@ -55,6 +61,10 @@ The type of the expression must be
 <<Type-Checking_Type-Conversion,convertible to>> _T_.
 If the expression specifies a value for a member with size
 greater than one, then the value is applied to each element.
+
+If the optional keyword `dictionary` is present, then the
+definition must conform to the rules stated in the
+<<Definitions_Dictionary-Definitions,dictionary definitions>> section.
 
 ==== Examples
 

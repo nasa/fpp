@@ -23,22 +23,17 @@ object FPPFilenames {
       case list => list
     }
     for {
-      tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
-      aTul <- ResolveSpecInclude.transformList(
-        Analysis(),
-        tul,
-        ResolveSpecInclude.transUnit
-      )
+      tul <- ToolUtils.parseFilesAndResolveAsts(Analysis(), files).map(_._2)
       files <-
         CppWriter.getMode(options.template, options.unitTest) match {
-          case CppWriter.Autocode => ComputeGeneratedFiles.getAutocodeFiles(aTul._2)
-          case CppWriter.ImplTemplate => ComputeGeneratedFiles.getImplFiles(aTul._2)
+          case CppWriter.Autocode => ComputeGeneratedFiles.getAutocodeFiles(tul)
+          case CppWriter.ImplTemplate => ComputeGeneratedFiles.getImplFiles(tul)
           case CppWriter.UnitTest => ComputeGeneratedFiles.getTestFiles(
-            aTul._2,
+            tul,
             CppWriter.getTestHelperMode(options.autoTestHelpers)
           )
           case CppWriter.UnitTestTemplate => ComputeGeneratedFiles.getTestImplFiles(
-            aTul._2,
+            tul,
             CppWriter.getTestHelperMode(options.autoTestHelpers)
           )
         }

@@ -1,971 +1,1037 @@
-[
-  {
-    "members" : [
-      [
+{
+  "fppVersion" : "[ fpp version ]",
+  "ast" : [
+    {
+      "members" : [
         [
-        ],
-        {
-          "DefModule" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "name" : "Sensors",
-                  "members" : [
-                    [
+          [
+          ],
+          {
+            "DefModule" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "Sensors",
+                    "members" : [
                       [
-                        "A component for sensing engine temperature"
-                      ],
-                      {
-                        "DefComponent" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "kind" : {
-                                  "Passive" : {
-                                    
-                                  }
-                                },
-                                "name" : "EngineTemp",
-                                "members" : [
-                                  [
+                        [
+                          "A component for sensing engine temperature"
+                        ],
+                        {
+                          "DefComponent" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "kind" : {
+                                    "Passive" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "EngineTemp",
+                                  "members" : [
                                     [
-                                      "Schedule input port"
-                                    ],
-                                    {
-                                      "SpecPortInstance" : {
-                                        "node" : {
-                                          "AstNode" : {
-                                            "data" : {
-                                              "General" : {
-                                                "kind" : {
-                                                  "SyncInput" : {
-                                                    
-                                                  }
-                                                },
-                                                "name" : "schedIn",
-                                                "size" : "None",
-                                                "port" : {
-                                                  "Some" : {
-                                                    "AstNode" : {
-                                                      "data" : {
-                                                        "Qualified" : {
-                                                          "qualifier" : {
-                                                            "AstNode" : {
-                                                              "data" : {
-                                                                "Unqualified" : {
-                                                                  "name" : "Svc"
-                                                                }
-                                                              },
-                                                              "id" : 34
-                                                            }
-                                                          },
-                                                          "name" : {
-                                                            "AstNode" : {
-                                                              "data" : "Sched",
-                                                              "id" : 33
+                                      [
+                                        "Schedule input port"
+                                      ],
+                                      {
+                                        "SpecPortInstance" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "General" : {
+                                                  "kind" : {
+                                                    "SyncInput" : {
+                                                      
+                                                    }
+                                                  },
+                                                  "name" : "schedIn",
+                                                  "size" : "None",
+                                                  "port" : {
+                                                    "Some" : {
+                                                      "AstNode" : {
+                                                        "data" : {
+                                                          "Qualified" : {
+                                                            "qualifier" : {
+                                                              "AstNode" : {
+                                                                "data" : {
+                                                                  "Unqualified" : {
+                                                                    "name" : "Svc"
+                                                                  }
+                                                                },
+                                                                "id" : 34
+                                                              }
+                                                            },
+                                                            "name" : {
+                                                              "AstNode" : {
+                                                                "data" : "Sched",
+                                                                "id" : 33
+                                                              }
                                                             }
                                                           }
-                                                        }
-                                                      },
-                                                      "id" : 35
-                                                    }
-                                                  }
-                                                },
-                                                "priority" : "None",
-                                                "queueFull" : "None"
-                                              }
-                                            },
-                                            "id" : 36
-                                          }
-                                        }
-                                      }
-                                    },
-                                    [
-                                    ]
-                                  ],
-                                  [
-                                    [
-                                      "Telemetry port"
-                                    ],
-                                    {
-                                      "SpecPortInstance" : {
-                                        "node" : {
-                                          "AstNode" : {
-                                            "data" : {
-                                              "Special" : {
-                                                "inputKind" : "None",
-                                                "kind" : {
-                                                  "Telemetry" : {
-                                                    
-                                                  }
-                                                },
-                                                "name" : "tlmOut",
-                                                "priority" : "None",
-                                                "queueFull" : "None"
-                                              }
-                                            },
-                                            "id" : 37
-                                          }
-                                        }
-                                      }
-                                    },
-                                    [
-                                    ]
-                                  ],
-                                  [
-                                    [
-                                      "Time get port"
-                                    ],
-                                    {
-                                      "SpecPortInstance" : {
-                                        "node" : {
-                                          "AstNode" : {
-                                            "data" : {
-                                              "Special" : {
-                                                "inputKind" : "None",
-                                                "kind" : {
-                                                  "TimeGet" : {
-                                                    
-                                                  }
-                                                },
-                                                "name" : "timeGetOut",
-                                                "priority" : "None",
-                                                "queueFull" : "None"
-                                              }
-                                            },
-                                            "id" : 38
-                                          }
-                                        }
-                                      }
-                                    },
-                                    [
-                                    ]
-                                  ],
-                                  [
-                                    [
-                                      "Impulse engine temperature"
-                                    ],
-                                    {
-                                      "SpecTlmChannel" : {
-                                        "node" : {
-                                          "AstNode" : {
-                                            "data" : {
-                                              "name" : "ImpulseTemp",
-                                              "typeName" : {
-                                                "AstNode" : {
-                                                  "data" : {
-                                                    "TypeNameFloat" : {
-                                                      "name" : {
-                                                        "F32" : {
-                                                          
-                                                        }
+                                                        },
+                                                        "id" : 35
                                                       }
                                                     }
                                                   },
-                                                  "id" : 39
+                                                  "priority" : "None",
+                                                  "queueFull" : "None"
                                                 }
                                               },
-                                              "id" : "None",
-                                              "update" : "None",
-                                              "format" : "None",
-                                              "low" : [
-                                              ],
-                                              "high" : [
-                                              ]
-                                            },
-                                            "id" : 40
+                                              "id" : 36
+                                            }
                                           }
                                         }
-                                      }
-                                    },
-                                    [
-                                    ]
-                                  ],
-                                  [
-                                    [
-                                      "Warp core temperature"
+                                      },
+                                      [
+                                      ]
                                     ],
-                                    {
-                                      "SpecTlmChannel" : {
-                                        "node" : {
-                                          "AstNode" : {
-                                            "data" : {
-                                              "name" : "WarpTemp",
-                                              "typeName" : {
-                                                "AstNode" : {
-                                                  "data" : {
-                                                    "TypeNameFloat" : {
-                                                      "name" : {
-                                                        "F32" : {
-                                                          
-                                                        }
-                                                      }
+                                    [
+                                      [
+                                        "Telemetry port"
+                                      ],
+                                      {
+                                        "SpecPortInstance" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "Special" : {
+                                                  "inputKind" : "None",
+                                                  "kind" : {
+                                                    "Telemetry" : {
+                                                      
                                                     }
                                                   },
-                                                  "id" : 45
+                                                  "name" : "tlmOut",
+                                                  "priority" : "None",
+                                                  "queueFull" : "None"
                                                 }
                                               },
-                                              "id" : "None",
-                                              "update" : "None",
-                                              "format" : "None",
-                                              "low" : [
-                                              ],
-                                              "high" : [
-                                              ]
-                                            },
-                                            "id" : 46
+                                              "id" : 37
+                                            }
                                           }
                                         }
-                                      }
-                                    },
+                                      },
+                                      [
+                                      ]
+                                    ],
                                     [
+                                      [
+                                        "Time get port"
+                                      ],
+                                      {
+                                        "SpecPortInstance" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "Special" : {
+                                                  "inputKind" : "None",
+                                                  "kind" : {
+                                                    "TimeGet" : {
+                                                      
+                                                    }
+                                                  },
+                                                  "name" : "timeGetOut",
+                                                  "priority" : "None",
+                                                  "queueFull" : "None"
+                                                }
+                                              },
+                                              "id" : 38
+                                            }
+                                          }
+                                        }
+                                      },
+                                      [
+                                      ]
+                                    ],
+                                    [
+                                      [
+                                        "Impulse engine temperature"
+                                      ],
+                                      {
+                                        "SpecTlmChannel" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "name" : "ImpulseTemp",
+                                                "typeName" : {
+                                                  "AstNode" : {
+                                                    "data" : {
+                                                      "TypeNameFloat" : {
+                                                        "name" : {
+                                                          "F32" : {
+                                                            
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    "id" : 39
+                                                  }
+                                                },
+                                                "id" : "None",
+                                                "update" : "None",
+                                                "format" : "None",
+                                                "low" : [
+                                                ],
+                                                "high" : [
+                                                ]
+                                              },
+                                              "id" : 40
+                                            }
+                                          }
+                                        }
+                                      },
+                                      [
+                                      ]
+                                    ],
+                                    [
+                                      [
+                                        "Warp core temperature"
+                                      ],
+                                      {
+                                        "SpecTlmChannel" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "name" : "WarpTemp",
+                                                "typeName" : {
+                                                  "AstNode" : {
+                                                    "data" : {
+                                                      "TypeNameFloat" : {
+                                                        "name" : {
+                                                          "F32" : {
+                                                            
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    "id" : 45
+                                                  }
+                                                },
+                                                "id" : "None",
+                                                "update" : "None",
+                                                "format" : "None",
+                                                "low" : [
+                                                ],
+                                                "high" : [
+                                                ]
+                                              },
+                                              "id" : 46
+                                            }
+                                          }
+                                        }
+                                      },
+                                      [
+                                      ]
                                     ]
                                   ]
-                                ]
-                              },
-                              "id" : 47
+                                },
+                                "id" : 47
+                              }
                             }
                           }
-                        }
-                      },
-                      [
+                        },
+                        [
+                        ]
                       ]
                     ]
-                  ]
-                },
-                "id" : 48
+                  },
+                  "id" : 48
+                }
               }
             }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
+          },
+          [
+          ]
         ],
-        {
-          "DefModule" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "name" : "FSW",
-                  "members" : [
-                    [
+        [
+          [
+          ],
+          {
+            "DefModule" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FSW",
+                    "members" : [
                       [
-                        "Engine temperature instance"
-                      ],
-                      {
-                        "DefComponentInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "engineTemp",
-                                "component" : {
-                                  "AstNode" : {
-                                    "data" : {
-                                      "Qualified" : {
-                                        "qualifier" : {
-                                          "AstNode" : {
-                                            "data" : {
-                                              "Unqualified" : {
-                                                "name" : "Sensors"
-                                              }
-                                            },
-                                            "id" : 63
-                                          }
-                                        },
-                                        "name" : {
-                                          "AstNode" : {
-                                            "data" : "EngineTemp",
-                                            "id" : 62
+                        [
+                          "Engine temperature instance"
+                        ],
+                        {
+                          "DefComponentInstance" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "engineTemp",
+                                  "component" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "Qualified" : {
+                                          "qualifier" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "Unqualified" : {
+                                                  "name" : "Sensors"
+                                                }
+                                              },
+                                              "id" : 63
+                                            }
+                                          },
+                                          "name" : {
+                                            "AstNode" : {
+                                              "data" : "EngineTemp",
+                                              "id" : 62
+                                            }
                                           }
                                         }
-                                      }
-                                    },
-                                    "id" : 64
-                                  }
+                                      },
+                                      "id" : 64
+                                    }
+                                  },
+                                  "baseId" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "0x100"
+                                        }
+                                      },
+                                      "id" : 65
+                                    }
+                                  },
+                                  "implType" : "None",
+                                  "file" : "None",
+                                  "queueSize" : "None",
+                                  "stackSize" : "None",
+                                  "priority" : "None",
+                                  "cpu" : "None",
+                                  "initSpecs" : [
+                                  ]
                                 },
-                                "baseId" : {
-                                  "AstNode" : {
-                                    "data" : {
-                                      "ExprLiteralInt" : {
-                                        "value" : "0x100"
-                                      }
-                                    },
-                                    "id" : 65
-                                  }
+                                "id" : 66
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
+                      ]
+                    ]
+                  },
+                  "id" : 67
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefModule" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "Svc",
+                    "members" : [
+                      [
+                        [
+                        ],
+                        {
+                          "DefPort" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "Sched",
+                                  "params" : [
+                                  ],
+                                  "returnType" : "None"
                                 },
-                                "implType" : "None",
-                                "file" : "None",
-                                "queueSize" : "None",
-                                "stackSize" : "None",
-                                "priority" : "None",
-                                "cpu" : "None",
-                                "initSpecs" : [
-                                ]
-                              },
-                              "id" : 66
+                                "id" : 70
+                              }
                             }
                           }
-                        }
-                      },
-                      [
+                        },
+                        [
+                        ]
                       ]
                     ]
-                  ]
-                },
-                "id" : 67
+                  },
+                  "id" : 71
+                }
               }
             }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
+          },
+          [
+          ]
         ],
-        {
-          "DefModule" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "name" : "Svc",
-                  "members" : [
-                    [
+        [
+          [
+          ],
+          {
+            "DefModule" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "Fw",
+                    "members" : [
                       [
-                      ],
-                      {
-                        "DefPort" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "Sched",
-                                "params" : [
-                                ],
-                                "returnType" : "None"
-                              },
-                              "id" : 70
+                        [
+                        ],
+                        {
+                          "DefPort" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "Tlm",
+                                  "params" : [
+                                  ],
+                                  "returnType" : "None"
+                                },
+                                "id" : 72
+                              }
                             }
                           }
-                        }
-                      },
+                        },
+                        [
+                        ]
+                      ],
                       [
+                        [
+                        ],
+                        {
+                          "DefPort" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "Time",
+                                  "params" : [
+                                  ],
+                                  "returnType" : "None"
+                                },
+                                "id" : 75
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
                       ]
                     ]
-                  ]
-                },
-                "id" : 71
+                  },
+                  "id" : 76
+                }
               }
             }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefModule" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "name" : "Fw",
-                  "members" : [
-                    [
-                      [
-                      ],
-                      {
-                        "DefPort" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "Tlm",
-                                "params" : [
-                                ],
-                                "returnType" : "None"
-                              },
-                              "id" : 72
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                      ],
-                      {
-                        "DefPort" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "Time",
-                                "params" : [
-                                ],
-                                "returnType" : "None"
-                              },
-                              "id" : 75
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ]
-                  ]
-                },
-                "id" : 76
-              }
-            }
-          }
-        },
-        [
+          },
+          [
+          ]
         ]
       ]
-    ]
-  }
-]
+    }
+  ]
+}
 {
-  "0" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.30",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "1" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.34",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "2" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.30",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "3" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.30",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "4" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "5" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "10.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "6" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "13.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "7" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "16.28",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "8" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "16.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "9" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.25",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "10" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "11" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.25",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "12" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "13" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.25",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "14" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "15" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "4.3",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "16" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.30",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "17" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.34",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "18" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.30",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "19" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.30",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "20" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "21" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "10.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "22" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "13.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "23" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "16.28",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "24" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "16.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "25" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.25",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "26" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "27" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.25",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "28" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "29" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.25",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "30" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "31" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "4.3",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "32" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.30",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "33" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.34",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "34" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.30",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "35" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.30",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "36" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "7.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "37" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "10.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "38" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "13.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "39" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "16.28",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "40" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "16.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "41" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.25",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "42" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "43" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.25",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "44" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "45" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.25",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "46" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "19.5",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "47" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "4.3",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "48" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "1.1",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "49" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.24",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "50" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.32",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "51" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.24",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "52" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.24",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "53" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.51",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "54" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.3",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "55" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.24",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "56" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.32",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "57" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.24",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "58" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.24",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "59" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.51",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "60" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.3",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "61" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.24",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "62" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.32",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "63" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.24",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "64" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.24",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "65" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.51",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "66" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "28.3",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "67" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "25.1",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "68" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "33.3",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "69" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "33.3",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "70" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "33.3",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "71" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "32.1",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "72" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "37.3",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "73" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "38.3",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "74" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "38.3",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "75" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "38.3",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
-  },
-  "76" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-    "pos" : "36.1",
-    "includeLoc" : "None",
-    "expandLoc" : "None"
+  "fppVersion" : "[ fpp version ]",
+  "locationMap" : {
+    "0" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "7.30",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "1" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "7.34",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "2" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "7.30",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "3" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "7.30",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "4" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "7.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "5" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "10.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "6" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "13.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "7" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "16.28",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "8" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "16.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "9" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "19.25",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "10" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "19.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "11" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "19.25",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "12" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "19.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "13" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "19.25",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "14" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "19.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "15" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "4.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "16" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "7.30",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "17" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "7.34",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "18" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "7.30",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "19" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "7.30",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "20" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "7.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "21" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "10.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "22" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "13.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "23" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "16.28",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "24" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "16.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "25" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "19.25",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "26" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "19.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "27" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "19.25",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "28" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "19.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "29" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "19.25",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "30" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "19.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "31" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "4.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "32" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "7.30",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "33" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "7.34",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "34" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "7.30",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "35" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "7.30",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "36" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "7.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "37" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "10.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "38" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "13.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "39" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "16.28",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "40" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "16.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "41" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "19.25",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "42" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "19.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "43" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "19.25",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "44" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "19.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "45" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "19.25",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "46" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "19.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "47" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "4.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "48" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "1.1",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "49" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "28.24",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "50" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "28.32",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "51" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "28.24",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "52" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "28.24",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "53" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "28.51",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "54" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "28.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "55" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "28.24",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "56" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "28.32",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "57" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "28.24",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "58" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "28.24",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "59" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "28.51",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "60" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "28.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "61" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "28.24",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "62" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "28.32",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "63" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "28.24",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "64" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "28.24",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "65" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "28.51",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "66" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "28.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "67" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "25.1",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "68" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "33.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "69" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "33.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "70" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "33.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "71" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "32.1",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "72" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "37.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "73" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "38.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "74" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "38.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "75" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "38.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "76" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "36.1",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    }
   }
 }
 {
-  "componentInstanceMap" : {
-    "66" : {
-      "aNode" : {
-        "astNodeId" : 66
-      },
-      "qualifiedName" : {
-        "qualifier" : [
-          "FSW"
-        ],
-        "base" : "engineTemp"
-      },
-      "component" : {
-        "astNodeId" : 47
-      },
-      "baseId" : 256,
-      "maxId" : 257,
-      "file" : "None",
-      "queueSize" : "None",
-      "stackSize" : "None",
-      "priority" : "None",
-      "cpu" : "None",
-      "initSpecifierMap" : {
-        
+  "fppVersion" : "[ fpp version ]",
+  "analysis" : {
+    "componentInstanceMap" : {
+      "66" : {
+        "aNode" : {
+          "astNodeId" : 66
+        },
+        "qualifiedName" : {
+          "qualifier" : [
+            "FSW"
+          ],
+          "base" : "engineTemp"
+        },
+        "component" : {
+          "astNodeId" : 47
+        },
+        "baseId" : 256,
+        "maxId" : 257,
+        "file" : "None",
+        "queueSize" : "None",
+        "stackSize" : "None",
+        "priority" : "None",
+        "cpu" : "None",
+        "initSpecifierMap" : {
+          
+        }
       }
-    }
-  },
-  "componentMap" : {
-    "47" : {
-      "aNode" : {
-        "astNodeId" : 47
-      },
-      "portInterface" : {
-        "portMap" : {
-          "schedIn" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 36
-              },
-              "specifier" : {
-                "kind" : {
-                  "SyncInput" : {
-                    
+    },
+    "componentMap" : {
+      "47" : {
+        "aNode" : {
+          "astNodeId" : 47
+        },
+        "portInterface" : {
+          "instanceType" : "component",
+          "portMap" : {
+            "schedIn" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 36
+                },
+                "specifier" : {
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "schedIn",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 35
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 70,
+                        "unqualifiedName" : "Sched"
+                      }
+                    }
                   }
                 },
-                "name" : "schedIn",
-                "size" : "None",
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 35
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "timeGetOut" : {
+              "Special" : {
+                "aNode" : {
+                  "astNodeId" : 38
+                },
+                "specifier" : {
+                  "inputKind" : "None",
+                  "kind" : {
+                    "TimeGet" : {
+                      
+                    }
+                  },
+                  "name" : "timeGetOut",
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 75,
+                    "unqualifiedName" : "Time"
                   }
                 },
                 "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "SyncInput",
-              "size" : 1,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 70,
-                      "unqualifiedName" : "Sched"
+                "queueFull" : "None",
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "tlmOut" : {
+              "Special" : {
+                "aNode" : {
+                  "astNodeId" : 37
+                },
+                "specifier" : {
+                  "inputKind" : "None",
+                  "kind" : {
+                    "Telemetry" : {
+                      
                     }
+                  },
+                  "name" : "tlmOut",
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 72,
+                    "unqualifiedName" : "Tlm"
                   }
-                }
-              },
-              "importNodeIds" : [
-              ]
+                },
+                "priority" : "None",
+                "queueFull" : "None",
+                "importNodeIds" : [
+                ]
+              }
             }
           },
-          "tlmOut" : {
-            "Special" : {
+          "specialPortMap" : {
+            "telemetry" : {
               "aNode" : {
                 "astNodeId" : 37
               },
@@ -990,10 +1056,8 @@
               "queueFull" : "None",
               "importNodeIds" : [
               ]
-            }
-          },
-          "timeGetOut" : {
-            "Special" : {
+            },
+            "time get" : {
               "aNode" : {
                 "astNodeId" : 38
               },
@@ -1021,437 +1085,399 @@
             }
           }
         },
-        "specialPortMap" : {
-          "telemetry" : {
+        "commandMap" : {
+          
+        },
+        "defaultOpcode" : 0,
+        "tlmChannelMap" : {
+          "0" : {
             "aNode" : {
-              "astNodeId" : 37
+              "astNodeId" : 40
             },
-            "specifier" : {
-              "inputKind" : "None",
-              "kind" : {
-                "Telemetry" : {
-                  
+            "channelType" : {
+              "Primitive" : {
+                "Float" : {
+                  "kind" : {
+                    "F32" : {
+                      
+                    }
+                  }
                 }
-              },
-              "name" : "tlmOut",
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "symbol" : {
-              "Port" : {
-                "nodeId" : 72,
-                "unqualifiedName" : "Tlm"
               }
             },
-            "priority" : "None",
-            "queueFull" : "None",
-            "importNodeIds" : [
-            ]
+            "update" : {
+              "Always" : {
+                
+              }
+            },
+            "format" : "None",
+            "lowLimits" : {
+              
+            },
+            "highLimits" : {
+              
+            }
           },
-          "time get" : {
+          "1" : {
             "aNode" : {
-              "astNodeId" : 38
+              "astNodeId" : 46
             },
-            "specifier" : {
-              "inputKind" : "None",
-              "kind" : {
-                "TimeGet" : {
-                  
-                }
-              },
-              "name" : "timeGetOut",
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "symbol" : {
-              "Port" : {
-                "nodeId" : 75,
-                "unqualifiedName" : "Time"
-              }
-            },
-            "priority" : "None",
-            "queueFull" : "None",
-            "importNodeIds" : [
-            ]
-          }
-        }
-      },
-      "commandMap" : {
-        
-      },
-      "defaultOpcode" : 0,
-      "tlmChannelMap" : {
-        "0" : {
-          "aNode" : {
-            "astNodeId" : 40
-          },
-          "channelType" : {
-            "Primitive" : {
-              "Float" : {
-                "kind" : {
-                  "F32" : {
-                    
+            "channelType" : {
+              "Primitive" : {
+                "Float" : {
+                  "kind" : {
+                    "F32" : {
+                      
+                    }
                   }
                 }
               }
-            }
-          },
-          "update" : {
-            "Always" : {
-              
-            }
-          },
-          "format" : "None",
-          "lowLimits" : {
-            
-          },
-          "highLimits" : {
-            
-          }
-        },
-        "1" : {
-          "aNode" : {
-            "astNodeId" : 46
-          },
-          "channelType" : {
-            "Primitive" : {
-              "Float" : {
-                "kind" : {
-                  "F32" : {
-                    
-                  }
-                }
-              }
-            }
-          },
-          "update" : {
-            "Always" : {
-              
-            }
-          },
-          "format" : "None",
-          "lowLimits" : {
-            
-          },
-          "highLimits" : {
-            
-          }
-        }
-      },
-      "tlmChannelNameMap" : {
-        "ImpulseTemp" : {
-          "aNode" : {
-            "astNodeId" : 40
-          },
-          "channelType" : {
-            "Primitive" : {
-              "Float" : {
-                "kind" : {
-                  "F32" : {
-                    
-                  }
-                }
-              }
-            }
-          },
-          "update" : {
-            "Always" : {
-              
-            }
-          },
-          "format" : "None",
-          "lowLimits" : {
-            
-          },
-          "highLimits" : {
-            
-          }
-        },
-        "WarpTemp" : {
-          "aNode" : {
-            "astNodeId" : 46
-          },
-          "channelType" : {
-            "Primitive" : {
-              "Float" : {
-                "kind" : {
-                  "F32" : {
-                    
-                  }
-                }
-              }
-            }
-          },
-          "update" : {
-            "Always" : {
-              
-            }
-          },
-          "format" : "None",
-          "lowLimits" : {
-            
-          },
-          "highLimits" : {
-            
-          }
-        }
-      },
-      "defaultTlmChannelId" : 2,
-      "eventMap" : {
-        
-      },
-      "defaultEventId" : 0,
-      "paramMap" : {
-        
-      },
-      "specPortMatchingList" : [
-      ],
-      "stateMachineInstanceMap" : {
-        
-      },
-      "portMatchingList" : [
-      ],
-      "defaultParamId" : 0,
-      "containerMap" : {
-        
-      },
-      "defaultContainerId" : 0,
-      "recordMap" : {
-        
-      },
-      "defaultRecordId" : 0
-    }
-  },
-  "includedFileSet" : [
-  ],
-  "inputFileSet" : [
-    "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp"
-  ],
-  "locationSpecifierMap" : [
-  ],
-  "parentSymbolMap" : {
-    "66" : {
-      "Module" : {
-        "nodeId" : 67,
-        "unqualifiedName" : "FSW"
-      }
-    },
-    "72" : {
-      "Module" : {
-        "nodeId" : 76,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "47" : {
-      "Module" : {
-        "nodeId" : 48,
-        "unqualifiedName" : "Sensors"
-      }
-    },
-    "75" : {
-      "Module" : {
-        "nodeId" : 76,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "70" : {
-      "Module" : {
-        "nodeId" : 71,
-        "unqualifiedName" : "Svc"
-      }
-    }
-  },
-  "symbolScopeMap" : {
-    "67" : {
-      "map" : {
-        "PortInterfaceInstance" : {
-          "map" : {
-            "engineTemp" : {
-              "ComponentInstance" : {
-                "nodeId" : 66,
-                "unqualifiedName" : "engineTemp"
-              }
-            }
-          }
-        }
-      }
-    },
-    "71" : {
-      "map" : {
-        "Port" : {
-          "map" : {
-            "Sched" : {
-              "Port" : {
-                "nodeId" : 70,
-                "unqualifiedName" : "Sched"
-              }
-            }
-          }
-        }
-      }
-    },
-    "47" : {
-      "map" : {
-        
-      }
-    },
-    "48" : {
-      "map" : {
-        "Component" : {
-          "map" : {
-            "EngineTemp" : {
-              "Component" : {
-                "nodeId" : 47,
-                "unqualifiedName" : "EngineTemp"
-              }
-            }
-          }
-        },
-        "StateMachine" : {
-          "map" : {
-            "EngineTemp" : {
-              "Component" : {
-                "nodeId" : 47,
-                "unqualifiedName" : "EngineTemp"
-              }
-            }
-          }
-        },
-        "Type" : {
-          "map" : {
-            "EngineTemp" : {
-              "Component" : {
-                "nodeId" : 47,
-                "unqualifiedName" : "EngineTemp"
-              }
-            }
-          }
-        },
-        "Value" : {
-          "map" : {
-            "EngineTemp" : {
-              "Component" : {
-                "nodeId" : 47,
-                "unqualifiedName" : "EngineTemp"
-              }
-            }
-          }
-        }
-      }
-    },
-    "76" : {
-      "map" : {
-        "Port" : {
-          "map" : {
-            "Tlm" : {
-              "Port" : {
-                "nodeId" : 72,
-                "unqualifiedName" : "Tlm"
+            },
+            "update" : {
+              "Always" : {
+                
               }
             },
-            "Time" : {
-              "Port" : {
-                "nodeId" : 75,
-                "unqualifiedName" : "Time"
+            "format" : "None",
+            "lowLimits" : {
+              
+            },
+            "highLimits" : {
+              
+            }
+          }
+        },
+        "tlmChannelNameMap" : {
+          "ImpulseTemp" : {
+            "aNode" : {
+              "astNodeId" : 40
+            },
+            "channelType" : {
+              "Primitive" : {
+                "Float" : {
+                  "kind" : {
+                    "F32" : {
+                      
+                    }
+                  }
+                }
               }
+            },
+            "update" : {
+              "Always" : {
+                
+              }
+            },
+            "format" : "None",
+            "lowLimits" : {
+              
+            },
+            "highLimits" : {
+              
             }
-          }
-        }
-      }
-    }
-  },
-  "topologyMap" : {
-    
-  },
-  "typeMap" : {
-    "39" : {
-      "Primitive" : {
-        "Float" : {
-          "kind" : {
-            "F32" : {
+          },
+          "WarpTemp" : {
+            "aNode" : {
+              "astNodeId" : 46
+            },
+            "channelType" : {
+              "Primitive" : {
+                "Float" : {
+                  "kind" : {
+                    "F32" : {
+                      
+                    }
+                  }
+                }
+              }
+            },
+            "update" : {
+              "Always" : {
+                
+              }
+            },
+            "format" : "None",
+            "lowLimits" : {
+              
+            },
+            "highLimits" : {
               
             }
           }
+        },
+        "defaultTlmChannelId" : 2,
+        "eventMap" : {
+          
+        },
+        "defaultEventId" : 0,
+        "paramMap" : {
+          
+        },
+        "specPortMatchingList" : [
+        ],
+        "stateMachineInstanceMap" : {
+          
+        },
+        "portMatchingList" : [
+        ],
+        "defaultParamId" : 0,
+        "containerMap" : {
+          
+        },
+        "defaultContainerId" : 0,
+        "recordMap" : {
+          
+        },
+        "defaultRecordId" : 0
+      }
+    },
+    "frameworkDefinitions" : {
+      "constantMap" : {
+        
+      },
+      "typeMap" : {
+        
+      }
+    },
+    "includedFileSet" : [
+    ],
+    "inputFileSet" : [
+      "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp"
+    ],
+    "locationSpecifierMap" : [
+    ],
+    "parentSymbolMap" : {
+      "47" : {
+        "Module" : {
+          "nodeId" : 48,
+          "unqualifiedName" : "Sensors"
+        }
+      },
+      "66" : {
+        "Module" : {
+          "nodeId" : 67,
+          "unqualifiedName" : "FSW"
+        }
+      },
+      "70" : {
+        "Module" : {
+          "nodeId" : 71,
+          "unqualifiedName" : "Svc"
+        }
+      },
+      "72" : {
+        "Module" : {
+          "nodeId" : 76,
+          "unqualifiedName" : "Fw"
+        }
+      },
+      "75" : {
+        "Module" : {
+          "nodeId" : 76,
+          "unqualifiedName" : "Fw"
         }
       }
     },
-    "45" : {
-      "Primitive" : {
-        "Float" : {
-          "kind" : {
-            "F32" : {
-              
-            }
-          }
-        }
-      }
-    },
-    "65" : {
-      "Int" : {
-        "Integer" : {
+    "symbolScopeMap" : {
+      "47" : {
+        "map" : {
           
         }
+      },
+      "48" : {
+        "map" : {
+          "Component" : {
+            "map" : {
+              "EngineTemp" : {
+                "Component" : {
+                  "nodeId" : 47,
+                  "unqualifiedName" : "EngineTemp"
+                }
+              }
+            }
+          },
+          "StateMachine" : {
+            "map" : {
+              "EngineTemp" : {
+                "Component" : {
+                  "nodeId" : 47,
+                  "unqualifiedName" : "EngineTemp"
+                }
+              }
+            }
+          },
+          "Type" : {
+            "map" : {
+              "EngineTemp" : {
+                "Component" : {
+                  "nodeId" : 47,
+                  "unqualifiedName" : "EngineTemp"
+                }
+              }
+            }
+          },
+          "Value" : {
+            "map" : {
+              "EngineTemp" : {
+                "Component" : {
+                  "nodeId" : 47,
+                  "unqualifiedName" : "EngineTemp"
+                }
+              }
+            }
+          }
+        }
+      },
+      "67" : {
+        "map" : {
+          "PortInterfaceInstance" : {
+            "map" : {
+              "engineTemp" : {
+                "ComponentInstance" : {
+                  "nodeId" : 66,
+                  "unqualifiedName" : "engineTemp"
+                }
+              }
+            }
+          }
+        }
+      },
+      "71" : {
+        "map" : {
+          "Port" : {
+            "map" : {
+              "Sched" : {
+                "Port" : {
+                  "nodeId" : 70,
+                  "unqualifiedName" : "Sched"
+                }
+              }
+            }
+          }
+        }
+      },
+      "76" : {
+        "map" : {
+          "Port" : {
+            "map" : {
+              "Time" : {
+                "Port" : {
+                  "nodeId" : 75,
+                  "unqualifiedName" : "Time"
+                }
+              },
+              "Tlm" : {
+                "Port" : {
+                  "nodeId" : 72,
+                  "unqualifiedName" : "Tlm"
+                }
+              }
+            }
+          }
+        }
       }
+    },
+    "topologyMap" : {
+      
+    },
+    "typeMap" : {
+      "39" : {
+        "Primitive" : {
+          "Float" : {
+            "kind" : {
+              "F32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "45" : {
+        "Primitive" : {
+          "Float" : {
+            "kind" : {
+              "F32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "65" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      }
+    },
+    "useDefMap" : {
+      "34" : {
+        "Module" : {
+          "nodeId" : 71,
+          "unqualifiedName" : "Svc"
+        }
+      },
+      "35" : {
+        "Port" : {
+          "nodeId" : 70,
+          "unqualifiedName" : "Sched"
+        }
+      },
+      "37" : {
+        "Port" : {
+          "nodeId" : 72,
+          "unqualifiedName" : "Tlm"
+        }
+      },
+      "38" : {
+        "Port" : {
+          "nodeId" : 75,
+          "unqualifiedName" : "Time"
+        }
+      },
+      "63" : {
+        "Module" : {
+          "nodeId" : 48,
+          "unqualifiedName" : "Sensors"
+        }
+      },
+      "64" : {
+        "Component" : {
+          "nodeId" : 47,
+          "unqualifiedName" : "EngineTemp"
+        }
+      },
+      "77" : {
+        "Module" : {
+          "nodeId" : 76,
+          "unqualifiedName" : "Fw"
+        }
+      },
+      "78" : {
+        "Module" : {
+          "nodeId" : 76,
+          "unqualifiedName" : "Fw"
+        }
+      }
+    },
+    "valueMap" : {
+      "65" : {
+        "Integer" : {
+          "value" : 256
+        }
+      }
+    },
+    "stateMachineMap" : {
+      
+    },
+    "dictionarySymbolSet" : [
+    ],
+    "interfaceMap" : {
+      
+    },
+    "dictionaryMap" : {
+      
     }
-  },
-  "useDefMap" : {
-    "34" : {
-      "Module" : {
-        "nodeId" : 71,
-        "unqualifiedName" : "Svc"
-      }
-    },
-    "78" : {
-      "Module" : {
-        "nodeId" : 76,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "77" : {
-      "Module" : {
-        "nodeId" : 76,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "37" : {
-      "Port" : {
-        "nodeId" : 72,
-        "unqualifiedName" : "Tlm"
-      }
-    },
-    "35" : {
-      "Port" : {
-        "nodeId" : 70,
-        "unqualifiedName" : "Sched"
-      }
-    },
-    "64" : {
-      "Component" : {
-        "nodeId" : 47,
-        "unqualifiedName" : "EngineTemp"
-      }
-    },
-    "38" : {
-      "Port" : {
-        "nodeId" : 75,
-        "unqualifiedName" : "Time"
-      }
-    },
-    "63" : {
-      "Module" : {
-        "nodeId" : 48,
-        "unqualifiedName" : "Sensors"
-      }
-    }
-  },
-  "valueMap" : {
-    "65" : {
-      "Integer" : {
-        "value" : 256
-      }
-    }
-  },
-  "stateMachineMap" : {
-    
   }
 }

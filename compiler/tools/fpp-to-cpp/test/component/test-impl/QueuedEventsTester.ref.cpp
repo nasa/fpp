@@ -22,7 +22,7 @@ QueuedEventsTester ::
 QueuedEventsTester ::
   ~QueuedEventsTester()
 {
-
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

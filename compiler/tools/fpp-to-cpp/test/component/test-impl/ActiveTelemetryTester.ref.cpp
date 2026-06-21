@@ -22,7 +22,7 @@ ActiveTelemetryTester ::
 ActiveTelemetryTester ::
   ~ActiveTelemetryTester()
 {
-
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

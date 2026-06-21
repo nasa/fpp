@@ -10,7 +10,7 @@ case class Interface(
   /** The imported interfaces */
   importMap: Map[Symbol.Interface, (AstNode.Id, Location)] = Map(),
   /* The port interface of the component */
-  portInterface: PortInterface = PortInterface(),
+  portInterface: PortInterface = PortInterface("interface"),
 ) {
   /** Add a port instance */
   def addPortInstance(instance: PortInstance): Result.Result[Interface] =

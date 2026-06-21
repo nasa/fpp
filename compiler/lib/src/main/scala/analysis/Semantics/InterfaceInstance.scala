@@ -5,6 +5,9 @@ import fpp.compiler.util._
 
 /** An FPP interface instance */
 sealed trait InterfaceInstance {
+
+  override def toString = getQualifiedName.toString
+
   /** Gets the qualified name of the interface instance */
   def getQualifiedName: Name.Qualified
 
@@ -39,10 +42,27 @@ object InterfaceInstance {
     override def getInterface: PortInterface = top.portInterface
   }
 
+  final case class InterfaceTemplateArg(
+    paramDef: Ast.TemplateParam.Interface,
+    interface: PortInterface,
+    ii: InterfaceInstance,
+  ) extends InterfaceInstance {
+    override def getQualifiedName: Name.Qualified = Name.Qualified.fromIdent(paramDef.name)
+    override def getUnqualifiedName: String = paramDef.name
+    override def getLoc: Location = Locations.get(paramDef.interface.id)
+    override def getInterface: PortInterface = interface
+  }
+
   def fromComponentInstance(ci: ComponentInstance) =
     InterfaceComponentInstance(ci)
 
   def fromTopology(top: Topology) =
     InterfaceTopology(top)
+
+  def fromTemplateArg(
+    paramDef: Ast.TemplateParam.Interface,
+    interface: PortInterface,
+    ii: InterfaceInstance
+  ) = InterfaceTemplateArg(paramDef, interface, ii)
 
 }

@@ -4,8 +4,8 @@
 // \brief  hpp file for C_A array
 // ======================================================================
 
-#ifndef C_C_AArrayAc_HPP
-#define C_C_AArrayAc_HPP
+#ifndef C_AArrayAc_HPP
+#define C_AArrayAc_HPP
 
 #include <initializer_list>
 
@@ -135,13 +135,13 @@ class C_A :
 
     //! Serialization
     Fw::SerializeStatus serializeTo(
-        Fw::SerializeBufferBase& buffer, //!< The serial buffer
+        Fw::SerialBufferBase& buffer, //!< The serial buffer
         Fw::Endianness mode = Fw::Endianness::BIG //!< Endianness of serialized buffer
     ) const;
 
     //! Deserialization
     Fw::SerializeStatus deserializeFrom(
-        Fw::SerializeBufferBase& buffer, //!< The serial buffer
+        Fw::SerialBufferBase& buffer, //!< The serial buffer
         Fw::Endianness mode = Fw::Endianness::BIG //!< Endianness of serialized buffer
     );
 

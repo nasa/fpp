@@ -4,7 +4,7 @@
 // \brief  cpp file for PassiveSerial component Google Test harness base class
 // ======================================================================
 
-#include "test-base/PassiveSerialGTestBase.hpp"
+#include "PassiveSerialGTestBase.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

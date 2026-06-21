@@ -35,12 +35,12 @@ then
     graal_bin="${graal_dir}/Contents/Home/bin"
 fi
 export PATH="${graal_bin}:${PATH}"
-export GRAALVM_JAVA_HOME="$(dirname ${graal_bin})"
+export FPP_GRAALVM_JAVA_HOME="$(dirname ${graal_bin})"
 # Install native image
 ${graal_bin}/gu install native-image
 
 if [ -n "$GITHUB_ENV" ]
 then
     echo PATH="${PATH}" >> $GITHUB_ENV
-    echo GRAALVM_JAVA_HOME="${GRAALVM_JAVA_HOME}" >> $GITHUB_ENV
+    echo FPP_GRAALVM_JAVA_HOME="${FPP_GRAALVM_JAVA_HOME}" >> $GITHUB_ENV
 fi

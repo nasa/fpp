@@ -22,7 +22,7 @@ E& E ::
 }
 
 E& E ::
-  operator=(T e1)
+  operator=(enum T e1)
 {
   this->e = e1;
   return *this;
@@ -46,12 +46,12 @@ std::ostream& operator<<(std::ostream& os, const E& obj) {
 bool E ::
   isValid() const
 {
-  return ((e >= X) && (e <= Y));
+  return E::isValid(this->e);
 }
 
 Fw::SerializeStatus E ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -64,17 +64,17 @@ Fw::SerializeStatus E ::
 
 Fw::SerializeStatus E ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {
   SerialType es;
   Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
+  if ((status == Fw::FW_SERIALIZE_OK) && !E::isValid(es)) {
+    status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
+  }
   if (status == Fw::FW_SERIALIZE_OK) {
-    this->e = static_cast<T>(es);
-    if (!this->isValid()) {
-      status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
-    }
+    this->e = static_cast<enum T>(es);
   }
   return status;
 }
@@ -108,3 +108,13 @@ void E ::
 }
 
 #endif
+
+// ----------------------------------------------------------------------
+// Static functions
+// ----------------------------------------------------------------------
+
+bool E ::
+  isValid(SerialType serialTypeValue)
+{
+  return ((serialTypeValue >= X) && (serialTypeValue <= Y));
+}

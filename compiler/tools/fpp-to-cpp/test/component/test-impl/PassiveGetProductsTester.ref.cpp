@@ -22,7 +22,7 @@ PassiveGetProductsTester ::
 PassiveGetProductsTester ::
   ~PassiveGetProductsTester()
 {
-
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

@@ -3,6 +3,24 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
+
+/** An FPP port instance signature */
+case class PortInstanceSignature(
+  pi: PortInstance
+) {
+  override def equals(obj: Any): Boolean =
+    obj match {
+      case PortInstanceSignature(pi) =>
+        return (
+          this.pi.getDirection == pi.getDirection &&
+          this.pi.getArraySize == pi.getArraySize &&
+          this.pi.getType == pi.getType &&
+          this.pi.getUnqualifiedName == pi.getUnqualifiedName
+        )
+      case _ => false
+    }
+}
+
 /** An FPP port instance */
 sealed trait PortInstance {
 
@@ -23,6 +41,9 @@ sealed trait PortInstance {
   /** Gets the AST node ID of the port instance */
   def getNodeId: AstNode.Id
 
+  /** Gets the special kind of the port instance, if any */
+  def getSpecialKind: Option[Ast.SpecPortInstance.SpecialKind] = None
+
   /**
    * Gets the locations of the import specifiers (if this port was imported)
    * The first item is the import of the parent interface
@@ -42,18 +63,6 @@ sealed trait PortInstance {
   def requireConnectionAt(
     loc: Location // The location whether the connection is requested
   ): Result.Result[Unit] = Right(())
-
-  override def equals(obj: Any): Boolean =
-    obj match {
-      case other: PortInstance =>
-        return (
-          this.getArraySize == other.getArraySize &&
-          this.getDirection == other.getDirection &&
-          this.getType == other.getType &&
-          this.getUnqualifiedName == other.getUnqualifiedName
-        )
-      case _ => false
-    }
 
 }
 
@@ -200,6 +209,8 @@ object PortInstance {
     override def getType = Some(Type.DefPort(symbol))
 
     override def getUnqualifiedName = specifier.name
+
+    override def getSpecialKind = Some(specifier.kind)
 
     def withImportSpecifier(importNode: AstNode.Id): PortInstance =
       this.copy(importNodeIds = importNodeIds :+ importNode)

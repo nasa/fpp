@@ -219,7 +219,7 @@ object FinalizeTypeDefs
             a.valueMap(id),
             Type.Integer
           )
-          if (size > 0 && size <= Int.MaxValue) Right(t)
+          if Type.String.isValidSize(size) then Right(t)
           else {
             val loc = Locations.get(id)
             Left(SemanticError.InvalidStringSize(loc, size))

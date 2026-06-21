@@ -126,7 +126,7 @@ namespace FppTest {
     smInitialNested_stateMachineOverflowHook(
         SmId smId,
         FwEnumStoreType signal,
-        Fw::SerializeBufferBase& buffer
+        Fw::SerialBufferBase& buffer
     )
   {
     // TODO

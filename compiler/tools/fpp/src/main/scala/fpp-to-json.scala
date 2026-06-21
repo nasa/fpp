@@ -12,7 +12,8 @@ object FPPtoJson {
   case class Options(
       syntaxOnly: Boolean = false,
       dir: Option[String] = None,
-      files: List[File] = Nil
+      files: List[File] = Nil,
+      format: Boolean = false,
   )
 
   def command(options: Options) = {
@@ -22,8 +23,7 @@ object FPPtoJson {
       case list => list
     }
     for {
-      tul <- Result.map(files, Parser.parseFile(Parser.transUnit)(None) _)
-      tul <- resolveIncludes(tul)
+      tul <- ToolUtils.parseFilesAndResolveAsts(Analysis(), files).map(_._2)
       _ <- writeAst (options) (tul)
       _ <- writeLocMap (options)
       _ <- writeAnalysis (options) (tul)
@@ -42,7 +42,12 @@ object FPPtoJson {
       java.nio.file.Paths.get(options.dir.getOrElse("."), fileName)
     val file = File.Path(path)
     for (writer <- file.openWrite()) yield {
-      writer.println(json)
+      writer.println(
+        if options.format then
+          json
+        else
+          json.noSpaces
+      )
       writer.close()
     }
   }
@@ -70,16 +75,6 @@ object FPPtoJson {
       case true => Right(())
     }
 
-  def resolveIncludes(tul: List[Ast.TransUnit]):
-    Result.Result[List[Ast.TransUnit]] =
-  for {
-    result <- ResolveSpecInclude.transformList(
-      Analysis(),
-      tul,
-      ResolveSpecInclude.transUnit
-    )
-  } yield result._2
-
   val builder = OParser.builder[Options]
 
   val name = "fpp-to-json"
@@ -92,6 +87,9 @@ object FPPtoJson {
       opt[Unit]('s', "syntax only")
         .action((_, c) => c.copy(syntaxOnly = true))
         .text("emit syntax only (location map and abstract syntax tree)"),
+      opt[Unit]('f', "format")
+        .action((_, c) => c.copy(format = true))
+        .text("format JSON with whitespace indentation and newlines"),
       opt[String]('d', "directory")
         .valueName("<dir>")
         .action((d, c) => c.copy(dir = Some(d)))
