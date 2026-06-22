@@ -38,7 +38,7 @@ module template T(interface i: A_I, constant idx: U32) {
         connections C {
             i.bOut[idx] -> b.bIn[idx]
 
-            # Input port exists on `a1` and `a2` put not in `A_I`
+            # Input port exists on `a1` and `a2` but not in `A_I`
             b.aOut[idx] -> i.aIn2[idx]
         }
     }

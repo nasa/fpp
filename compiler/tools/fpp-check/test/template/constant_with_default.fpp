@@ -1,3 +1,4 @@
+type FwSizeStoreType = U16
 array StringArray = [3] string size 10
 
 struct ParamTy {

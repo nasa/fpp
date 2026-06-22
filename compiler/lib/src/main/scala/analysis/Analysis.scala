@@ -290,7 +290,7 @@ case class Analysis(
             for {
               ii <- getInterfaceInstance(ts.value.id)
               iface <- this.getInterface(ts.paramDef.interface.id)
-            } yield InterfaceInstance.fromTemplateArg(ts.paramDef, iface.portInterface, ii)
+            } yield InterfaceInstance.fromTemplateArg(ts.paramDef, iface, ii)
         }
       }
     } yield ii

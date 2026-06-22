@@ -33,7 +33,7 @@ object ResolveTopologyInstances {
                 iface <- a.getInterface(tip.paramDef.interface.id)
               } yield t.addInstance(InterfaceInstance.fromTemplateArg(
                 tip.paramDef,
-                iface.portInterface,
+                iface,
                 ii
               ), loc)
             })

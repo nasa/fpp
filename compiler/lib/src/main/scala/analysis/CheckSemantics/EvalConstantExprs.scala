@@ -93,18 +93,20 @@ object EvalConstantExprs extends UseAnalyzer {
     arg: Symbol.TemplateConstantArg
   ) = {
     val Symbol.TemplateConstantArg(paramDef, value) = arg
+    val loc = Locations.get(arg.value.id)
     for {
       a <- super.templateConstantArg(a, arg)
       a <- FinalizeTypeDefs.typeNameNode(a, paramDef.typeName)
+      ty <- Right(a.typeMap(paramDef.typeName.id))
+      v <- Right(a.valueMap(value.id))
+      newVal <- {
+        v.convertToType(ty) match {
+          case Some(v) => Right(v)
+          case None => Left(SemanticError.TypeMismatch(loc, s"cannot convert value $v to type $ty"))
+        }
+      }
     } yield {
-      val paramTy = a.typeMap(paramDef.typeName.id)
-      a.assignType(value -> paramTy)
-
-      val newVal = Analysis.convertValueToType(
-        a.valueMap(value.id),
-        paramTy
-      )
-
+      a.assignType(value -> ty)
       a.assignValue(value -> newVal)
     }
   }

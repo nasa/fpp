@@ -44,13 +44,16 @@ object InterfaceInstance {
 
   final case class InterfaceTemplateArg(
     paramDef: Ast.TemplateParam.Interface,
-    interface: PortInterface,
+    interface: Interface,
     ii: InterfaceInstance,
   ) extends InterfaceInstance {
     override def getQualifiedName: Name.Qualified = Name.Qualified.fromIdent(paramDef.name)
     override def getUnqualifiedName: String = paramDef.name
     override def getLoc: Location = Locations.get(paramDef.interface.id)
-    override def getInterface: PortInterface = interface
+    override def getInterface: PortInterface = interface.portInterface
+
+    override def getPortInstance(name: AstNode[Ast.Ident]): Result.Result[PortInstance] =
+      getInterface.getPortInstance(name, interface.getUnqualifiedName)
   }
 
   def fromComponentInstance(ci: ComponentInstance) =
@@ -61,7 +64,7 @@ object InterfaceInstance {
 
   def fromTemplateArg(
     paramDef: Ast.TemplateParam.Interface,
-    interface: PortInterface,
+    interface: Interface,
     ii: InterfaceInstance
   ) = InterfaceTemplateArg(paramDef, interface, ii)
 

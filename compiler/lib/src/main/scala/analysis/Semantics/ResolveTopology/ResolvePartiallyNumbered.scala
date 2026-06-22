@@ -26,44 +26,6 @@ object ResolvePartiallyNumbered {
     yield ()
   }
 
-  /** Check that connection port names are legal within the port
-   * interface constraints on instances */
-  private def checkConnectionPorts(t: Topology): Result.Result[Unit] = {
-    def checkPortInstanceIdentifier(pii: PortInstanceIdentifier, loc: Location) = {
-      val pi = pii.interfaceInstance.getInterface
-      val portName = pii.portInstance.getUnqualifiedName
-      pi.portMap.get(portName) match {
-        case Some(_) => Right(())
-        case None => Left(
-          SemanticError.InvalidPortInstanceId(
-            loc,
-            portName,
-            pi.instanceType,
-            pii.interfaceInstance.getUnqualifiedName
-          )
-        )
-      }
-    }
-
-    def checkConnection(c: Connection) = {
-      for {
-        // Check output port
-        _ <- checkPortInstanceIdentifier(c.from.port, c.from.loc)
-
-        // Check input port
-        _ <- checkPortInstanceIdentifier(c.to.port, c.to.loc)
-      } yield ()
-    }
-
-    for {
-      _ <- Result.map(
-        t.connectionMap.toList.map(_._2).flatten,
-        checkConnection
-      )
-    }
-    yield ()
-  }
-
   /** Check that connection instances are legal */
   private def checkPortInstances(t: Topology): Result.Result[Unit] = {
     def checkPort(i: TopologyPort) = {
@@ -202,7 +164,6 @@ object ResolvePartiallyNumbered {
       t <- resolveInstances(a, t)
       _ <- checkPortInstances(t)
       _ <- checkConnectionInstances(t)
-      _ <- checkConnectionPorts(t)
       t <- resolveInterfacesToComponentInstances(a, t)
       t <- resolveImportedConnections(a, t)
       t <- resolvePatterns(a, t)
