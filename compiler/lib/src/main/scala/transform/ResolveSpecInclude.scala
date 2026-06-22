@@ -9,6 +9,7 @@ import fpp.compiler.util._
 object ResolveSpecInclude extends AstStateTransformer
   with ComponentStateTransformer
   with ModuleStateTransformer
+  with ModuleTemplateStateTransformer
   with StateMachineStateTransformer
   with TopologyStateTransformer
 {
@@ -25,6 +26,14 @@ object ResolveSpecInclude extends AstStateTransformer
     yield (result._1, Ast.TransUnit(result._2.flatten))
   }
 
+  override def defStateMachineAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ): ResultAnnotatedNode[Ast.DefStateMachine] =
+    node._2.data.members match {
+      case Some(members) => defStateMachineAnnotatedNodeInternal(in, node, members)
+      case None => defStateMachineAnnotatedNodeExternal(in, node)
+    }
   override def componentMember(a: Analysis, member: Ast.ComponentMember): Result[List[Ast.ComponentMember]] = {
     val (_, node, _) = member.node
     node match {
@@ -49,6 +58,10 @@ object ResolveSpecInclude extends AstStateTransformer
       )
       case _ => matchModuleMember(a, member)
     }
+  }
+
+  override def moduleTemplateMember(a: Analysis, member: Ast.ModuleMember): Result[List[Ast.ModuleMember]] = {
+    moduleMember(a, member)
   }
 
   override def stateMachineMember(a: Analysis, member: Ast.StateMachineMember): Result[List[Ast.StateMachineMember]] = {
@@ -126,7 +139,6 @@ object ResolveSpecInclude extends AstStateTransformer
   private def checkForCycle(includingLoc: Location, includedPath: String): Result.Result[Unit] = {
     def checkLoc(locOpt: Option[Location], visitedPaths: List[String]): Result.Result[Unit] =
       locOpt match {
-        case None => Right(())
         case Some(loc) => {
           val path = loc.file.toString
           val visitedPaths1 = path :: visitedPaths
@@ -134,8 +146,9 @@ object ResolveSpecInclude extends AstStateTransformer
             val msg = "include cycle:\n" ++ visitedPaths1.map("  " ++ _).mkString(" includes\n")
             Left(IncludeError.Cycle(includingLoc, msg))
           }
-          else checkLoc(loc.includingLoc, visitedPaths1)
+          else checkLoc(loc.includeLoc, visitedPaths1)
         }
+        case _ => Right(())
       }
     includingLoc.file match {
       case File.StdIn => Right(())

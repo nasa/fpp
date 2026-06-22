@@ -32,9 +32,16 @@ object NameGroup {
     override def toString(): String = "type"
   }
 
+  case object Template extends NameGroup {
+    override def toString(): String = "template"
+  }
+
   case object Value extends NameGroup {
     override def toString(): String = "constant"
   }
+
+  // Template parameters can only be referred inside an expansion
+  case object TemplateParam extends NameGroup
 
   val groups: List[NameGroup] = List(
     Component,
@@ -42,6 +49,7 @@ object NameGroup {
     StateMachine,
     PortInterfaceInstance,
     PortInterface,
+    Template,
     Type,
     Value
   )

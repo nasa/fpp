@@ -12,6 +12,11 @@ object EvalConstantExprs extends UseAnalyzer {
       a <- symbol match {
         case Symbol.EnumConstant(node) => defEnumConstantAnnotatedNode(a, node)
         case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
+        // We must be inside a template expansion, the parameter's value
+        // has already been added to the valueMap
+        case Symbol.TemplateConstantArg(paramDef, value) => {
+          Right(a)
+        }
         case _ => throw InternalError(s"invalid constant use symbol ${symbol} (${symbol.getClass.getName()})")
       }
     } yield {
@@ -81,6 +86,29 @@ object EvalConstantExprs extends UseAnalyzer {
       }
     }
     else Right(a)
+  }
+
+  override def templateConstantArg(
+    a: Analysis,
+    arg: Symbol.TemplateConstantArg
+  ) = {
+    val Symbol.TemplateConstantArg(paramDef, value) = arg
+    val loc = Locations.get(arg.value.id)
+    for {
+      a <- super.templateConstantArg(a, arg)
+      a <- FinalizeTypeDefs.typeNameNode(a, paramDef.typeName)
+      ty <- Right(a.typeMap(paramDef.typeName.id))
+      v <- Right(a.valueMap(value.id))
+      newVal <- {
+        v.convertToType(ty) match {
+          case Some(v) => Right(v)
+          case None => Left(SemanticError.TypeMismatch(loc, s"cannot convert value $v to type $ty"))
+        }
+      }
+    } yield {
+      a.assignType(value -> ty)
+      a.assignValue(value -> newVal)
+    }
   }
 
   override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray) =
@@ -158,7 +186,6 @@ object EvalConstantExprs extends UseAnalyzer {
     val v = Value.Boolean(b)
     Right(a.assignValue(node -> v))
   }
-
 
   override def exprLiteralFloatNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat) = {
     val v = Value.Float(e.value.toDouble, Type.Float.F64)

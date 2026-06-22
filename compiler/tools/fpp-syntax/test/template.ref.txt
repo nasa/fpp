@@ -1,0 +1,5 @@
+fpp-syntax
+[ local path prefix ]/compiler/tools/fpp-syntax/test/template.fpp:1.1
+template T(constant p: U32) {
+^
+error: unexpected token

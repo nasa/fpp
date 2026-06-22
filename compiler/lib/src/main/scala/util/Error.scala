@@ -45,6 +45,7 @@ sealed trait Error {
       case CodeGenError.EmptyStruct(loc) =>
         Error.print (Some(loc)) (s"cannot write XML for an empty struct")
       case IncludeError.Cycle(loc, msg) => Error.print (Some(loc)) (msg)
+      case TemplateExpansionError.Cycle(loc, msg) => Error.print (Some(loc)) (msg)
       case FileError.CannotOpen(locOpt, name) =>
         Error.print (locOpt) (s"cannot open file $name")
       case FileError.CannotResolvePath(loc, name) =>
@@ -262,6 +263,24 @@ sealed trait Error {
         System.err.println("conflicting port number is here:")
         System.err.println(p2Loc)
         printMatchingLoc(matchingLoc)
+      case SemanticError.MismatchedTemplateParameters(
+        expandLoc: Location,
+        defLoc: Location,
+        expandLength: Number,
+        defLength: Number,
+      ) =>
+        Error.print (Some(expandLoc)) (s"expected $defLength templates parameter, got $expandLength")
+        System.err.println("template defined here:")
+        System.err.println(defLoc)
+      case SemanticError.InvalidTemplateParameter(
+        paramName: String,
+        expandLoc: Location,
+        defLoc: Location,
+        msg: String,
+      ) =>
+        Error.print (Some(expandLoc)) (s"invalid template parameter value for $paramName: $msg")
+        System.err.println("template defined here:")
+        System.err.println(defLoc)
       case SemanticError.MissingAsync(kind, loc) =>
         Error.print (Some(loc)) (s"$kind component must have async input")
       case SemanticError.MissingConnection(loc, matchingLoc) =>
@@ -405,6 +424,12 @@ object CodeGenError {
 /** An include error */
 object IncludeError {
   /** Include cycle */
+  final case class Cycle(loc: Location, msg: String) extends Error
+}
+
+/** A template expansion error */
+object TemplateExpansionError {
+  /** A template expansion cycle */
   final case class Cycle(loc: Location, msg: String) extends Error
 }
 
@@ -709,6 +734,20 @@ object SemanticError {
     p2Loc: Location,
     p2Number: Int,
     matchingLoc: Location
+  ) extends Error
+  /** Mismatched template parameter */
+  final case class MismatchedTemplateParameters(
+    expandLoc: Location,
+    defLoc: Location,
+    expandLength: Number,
+    defLength: Number,
+  ) extends Error
+  /** Mismatched template parameter */
+  final case class InvalidTemplateParameter(
+    paramName: String,
+    expandLoc: Location,
+    defLoc: Location,
+    msg: String,
   ) extends Error
   /** Missing async input */
   final case class MissingAsync(kind: String, loc: Location) extends Error

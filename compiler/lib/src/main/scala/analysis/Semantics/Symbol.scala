@@ -14,6 +14,9 @@ sealed trait TypeSymbol extends Symbol
 /** A port interface instance symbol */
 sealed trait InterfaceInstanceSymbol extends Symbol
 
+/** A template argument symbol */
+sealed trait TemplateArgSymbol extends Symbol
+
 object Symbol {
 
   final case class AbsType(node: Ast.Annotated[AstNode[Ast.DefAbsType]]) extends TypeSymbol {
@@ -76,6 +79,31 @@ object Symbol {
   final case class Topology(node: Ast.Annotated[AstNode[Ast.DefTopology]]) extends InterfaceInstanceSymbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
+  }
+  final case class Template(node: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]) extends Symbol {
+    override def getNodeId = node._2.id
+    override def getUnqualifiedName = node._2.data.name
+  }
+  final case class TemplateConstantArg(
+    paramDef: Ast.TemplateParam.Constant,
+    value: AstNode[Ast.Expr]
+  ) extends TemplateArgSymbol {
+    override def getUnqualifiedName = paramDef.name
+    override def getNodeId = value.id
+  }
+  final case class TemplateTypeArg(
+    paramDef: Ast.TemplateParam.Type,
+    value: AstNode[Ast.TypeName]
+  ) extends TemplateArgSymbol {
+    override def getUnqualifiedName = paramDef.name
+    override def getNodeId = value.id
+  }
+  final case class TemplateInterfaceArg(
+    paramDef: Ast.TemplateParam.Interface,
+    value: AstNode[Ast.QualIdent]
+  ) extends TemplateArgSymbol, InterfaceInstanceSymbol {
+    override def getUnqualifiedName = paramDef.name
+    override def getNodeId = value.id
   }
 
 }

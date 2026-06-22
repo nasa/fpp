@@ -1,3 +1,54 @@
+Exception in thread "main" internal error: FppExpandTemplates: Transformer not implemented
+	at fpp.compiler.transform.ExpandTemplates$.default(ExpandTemplates.scala:18)
+	at fpp.compiler.transform.ExpandTemplates$.default(ExpandTemplates.scala:17)
+	at fpp.compiler.ast.AstTransformer.exprSizeOfNode(AstTransformer.scala:211)
+	at fpp.compiler.ast.AstTransformer.exprSizeOfNode$(AstTransformer.scala:6)
+	at fpp.compiler.transform.ExpandTemplates$.exprSizeOfNode(ExpandTemplates.scala:8)
+	at fpp.compiler.ast.AstTransformer.matchExprNode(AstTransformer.scala:434)
+	at fpp.compiler.ast.AstTransformer.matchExprNode$(AstTransformer.scala:6)
+	at fpp.compiler.transform.ExpandTemplates$.matchExprNode(ExpandTemplates.scala:8)
+	at fpp.compiler.transform.ExpandTemplates$.exprBinopNode$$anonfun$1(ExpandTemplates.scala:143)
+	at scala.util.Either.flatMap(Either.scala:352)
+	at fpp.compiler.transform.ExpandTemplates$.exprBinopNode(ExpandTemplates.scala:149)
+	at fpp.compiler.transform.ExpandTemplates$.exprBinopNode(ExpandTemplates.scala:140)
+	at fpp.compiler.ast.AstTransformer.matchExprNode(AstTransformer.scala:426)
+	at fpp.compiler.ast.AstTransformer.matchExprNode$(AstTransformer.scala:6)
+	at fpp.compiler.transform.ExpandTemplates$.matchExprNode(ExpandTemplates.scala:8)
+	at fpp.compiler.transform.ExpandTemplates$.defConstantAnnotatedNode(ExpandTemplates.scala:364)
+	at fpp.compiler.transform.ExpandTemplates$.defConstantAnnotatedNode(ExpandTemplates.scala:359)
+	at fpp.compiler.ast.AstTransformer.matchModuleMember(AstTransformer.scala:534)
+	at fpp.compiler.ast.AstTransformer.matchModuleMember$(AstTransformer.scala:6)
+	at fpp.compiler.transform.ExpandTemplates$.matchModuleMember(ExpandTemplates.scala:8)
+	at fpp.compiler.transform.ExpandTemplates$.transUnit$$anonfun$1(ExpandTemplates.scala:44)
+	at fpp.compiler.transform.ExpandTemplates$.helper$1(ExpandTemplates.scala:29)
+	at fpp.compiler.transform.ExpandTemplates$.transformList(ExpandTemplates.scala:35)
+	at fpp.compiler.transform.ExpandTemplates$.transUnit(ExpandTemplates.scala:44)
+	at fpp.compiler.analysis.ResolveTemplates$.pass$$anonfun$2$$anonfun$1(ResolveTemplates.scala:14)
+	at fpp.compiler.transform.ExpandTemplates$.helper$1(ExpandTemplates.scala:29)
+	at fpp.compiler.transform.ExpandTemplates$.transformList(ExpandTemplates.scala:35)
+	at fpp.compiler.analysis.ResolveTemplates$.pass$$anonfun$2(ResolveTemplates.scala:14)
+	at scala.util.Either.flatMap(Either.scala:352)
+	at fpp.compiler.analysis.ResolveTemplates$.pass(ResolveTemplates.scala:17)
+	at fpp.compiler.analysis.ResolveTemplates$.transUnit(ResolveTemplates.scala:25)
+	at fpp.compiler.analysis.CheckSemantics$.tuList$$anonfun$2(CheckSemantics.scala:13)
+	at scala.util.Either.flatMap(Either.scala:352)
+	at fpp.compiler.analysis.CheckSemantics$.tuList(CheckSemantics.scala:40)
+	at fpp.compiler.tools.FPPtoJson$.writeAnalysis(fpp-to-json.scala:72)
+	at fpp.compiler.tools.FPPtoJson$.command$$anonfun$2$$anonfun$1$$anonfun$1(fpp-to-json.scala:29)
+	at scala.util.Either.flatMap(Either.scala:352)
+	at fpp.compiler.tools.FPPtoJson$.command$$anonfun$2$$anonfun$1(fpp-to-json.scala:30)
+	at scala.util.Either.flatMap(Either.scala:352)
+	at fpp.compiler.tools.FPPtoJson$.command$$anonfun$2(fpp-to-json.scala:30)
+	at scala.util.Either.flatMap(Either.scala:352)
+	at fpp.compiler.tools.FPPtoJson$.command(fpp-to-json.scala:30)
+	at fpp.compiler.tools.FPPtoJson$.toolMain$$anonfun$1(fpp-to-json.scala:34)
+	at fpp.compiler.util.Tool.mainMethod(Tool.scala:20)
+	at fpp.compiler.tools.FPPtoJson$.toolMain(fpp-to-json.scala:34)
+	at fpp.compiler.tools.FPP$.command(fpp.scala:24)
+	at fpp.compiler.tools.FPP$.main$$anonfun$1(fpp.scala:37)
+	at fpp.compiler.util.Tool.mainMethod(Tool.scala:20)
+	at fpp.compiler.tools.FPP$.main(fpp.scala:37)
+	at fpp.compiler.tools.FPP.main(fpp.scala)
 {
   "fppVersion" : "[ fpp version ]",
   "ast" : [
@@ -1007,1952 +1058,488 @@
     "0" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "1.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "1" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "1.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "2" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "2.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "3" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "2.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "4" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "4.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "5" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "4.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "6" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "6.16",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "7" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "6.19",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "8" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "6.22",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "9" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "6.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "10" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "6.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "11" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "7.16",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "12" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "7.19",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "13" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "7.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "14" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "7.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "15" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "8.18",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "16" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "8.21",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "17" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "8.16",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "18" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "8.28",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "19" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "8.31",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "20" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "8.26",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "21" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "8.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "22" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "8.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "23" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "10.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "24" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "10.16",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "25" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "10.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "26" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "10.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "27" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "11.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "28" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "11.16",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "29" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "11.19",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "30" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "11.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "31" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "11.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "32" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "11.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "33" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "13.20",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "34" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "13.16",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "35" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "13.27",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "36" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "13.23",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "37" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "13.38",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "38" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "13.34",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "39" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "13.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "40" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "13.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "41" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "14.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "42" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "14.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "43" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "16.22",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "44" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "16.18",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "45" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "16.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "46" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "16.25",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "47" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "16.16",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "48" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "16.40",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "49" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "16.36",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "50" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "16.34",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "51" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "16.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "52" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "16.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "53" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "18.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "54" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "18.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "55" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "19.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "56" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "19.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "57" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "21.15",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "58" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "21.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "59" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "21.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "60" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "22.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "61" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "22.18",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "62" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "22.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "63" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "22.22",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "64" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "22.16",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "65" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "22.20",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "66" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "22.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "67" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "23.15",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "68" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "23.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "69" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "23.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "70" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "25.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "71" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "25.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "72" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "26.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "73" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "26.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "74" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "30.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "75" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "30.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "76" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "30.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "77" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "30.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "78" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "33.21",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "79" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "33.14",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "80" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
       "pos" : "33.1",
-      "includingLoc" : "None"
-    }
-  }
-}
-{
-  "fppVersion" : "[ fpp version ]",
-  "analysis" : {
-    "componentInstanceMap" : {
-      
-    },
-    "componentMap" : {
-      
-    },
-    "frameworkDefinitions" : {
-      "constantMap" : {
-        
-      },
-      "typeMap" : {
-        
-      }
-    },
-    "includedFileSet" : [
-    ],
-    "inputFileSet" : [
-      "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp"
-    ],
-    "locationSpecifierMap" : [
-    ],
-    "parentSymbolMap" : {
-      
-    },
-    "symbolScopeMap" : {
-      
-    },
-    "topologyMap" : {
-      
-    },
-    "typeMap" : {
-      "0" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "1" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "2" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "3" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "4" : {
-        "String" : {
-          "size" : "None"
-        }
-      },
-      "5" : {
-        "String" : {
-          "size" : "None"
-        }
-      },
-      "6" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "7" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "8" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "9" : {
-        "AnonArray" : {
-          "size" : {
-            "Some" : 3
-          },
-          "eltType" : {
-            "Int" : {
-              "Integer" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "10" : {
-        "AnonArray" : {
-          "size" : {
-            "Some" : 3
-          },
-          "eltType" : {
-            "Int" : {
-              "Integer" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "11" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "12" : {
-        "Primitive" : {
-          "Float" : {
-            "kind" : {
-              "F64" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "13" : {
-        "AnonArray" : {
-          "size" : {
-            "Some" : 2
-          },
-          "eltType" : {
-            "Primitive" : {
-              "Float" : {
-                "kind" : {
-                  "F64" : {
-                    
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "14" : {
-        "AnonArray" : {
-          "size" : {
-            "Some" : 2
-          },
-          "eltType" : {
-            "Primitive" : {
-              "Float" : {
-                "kind" : {
-                  "F64" : {
-                    
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "15" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "16" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "17" : {
-        "AnonArray" : {
-          "size" : {
-            "Some" : 2
-          },
-          "eltType" : {
-            "Int" : {
-              "Integer" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "18" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "19" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "20" : {
-        "AnonArray" : {
-          "size" : {
-            "Some" : 2
-          },
-          "eltType" : {
-            "Int" : {
-              "Integer" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "21" : {
-        "AnonArray" : {
-          "size" : {
-            "Some" : 2
-          },
-          "eltType" : {
-            "AnonArray" : {
-              "size" : {
-                "Some" : 2
-              },
-              "eltType" : {
-                "Int" : {
-                  "Integer" : {
-                    
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "22" : {
-        "AnonArray" : {
-          "size" : {
-            "Some" : 2
-          },
-          "eltType" : {
-            "AnonArray" : {
-              "size" : {
-                "Some" : 2
-              },
-              "eltType" : {
-                "Int" : {
-                  "Integer" : {
-                    
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "23" : {
-        "AnonArray" : {
-          "size" : {
-            "Some" : 2
-          },
-          "eltType" : {
-            "AnonArray" : {
-              "size" : {
-                "Some" : 2
-              },
-              "eltType" : {
-                "Int" : {
-                  "Integer" : {
-                    
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "24" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "25" : {
-        "AnonArray" : {
-          "size" : {
-            "Some" : 2
-          },
-          "eltType" : {
-            "Int" : {
-              "Integer" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "26" : {
-        "AnonArray" : {
-          "size" : {
-            "Some" : 2
-          },
-          "eltType" : {
-            "Int" : {
-              "Integer" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "27" : {
-        "AnonArray" : {
-          "size" : {
-            "Some" : 2
-          },
-          "eltType" : {
-            "AnonArray" : {
-              "size" : {
-                "Some" : 2
-              },
-              "eltType" : {
-                "Int" : {
-                  "Integer" : {
-                    
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "28" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "29" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "30" : {
-        "AnonArray" : {
-          "size" : {
-            "Some" : 2
-          },
-          "eltType" : {
-            "Int" : {
-              "Integer" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "31" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "32" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "33" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "35" : {
-        "String" : {
-          "size" : "None"
-        }
-      },
-      "37" : {
-        "Primitive" : {
-          "Boolean" : {
-            
-          }
-        }
-      },
-      "39" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Int" : {
-                "Integer" : {
-                  
-                }
-              }
-            },
-            "y" : {
-              "String" : {
-                "size" : "None"
-              }
-            },
-            "z" : {
-              "Primitive" : {
-                "Boolean" : {
-                  
-                }
-              }
-            }
-          }
-        }
-      },
-      "40" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Int" : {
-                "Integer" : {
-                  
-                }
-              }
-            },
-            "y" : {
-              "String" : {
-                "size" : "None"
-              }
-            },
-            "z" : {
-              "Primitive" : {
-                "Boolean" : {
-                  
-                }
-              }
-            }
-          }
-        }
-      },
-      "41" : {
-        "AnonStruct" : {
-          "members" : {
-            
-          }
-        }
-      },
-      "42" : {
-        "AnonStruct" : {
-          "members" : {
-            
-          }
-        }
-      },
-      "43" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "45" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "47" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Int" : {
-                "Integer" : {
-                  
-                }
-              }
-            },
-            "y" : {
-              "Int" : {
-                "Integer" : {
-                  
-                }
-              }
-            }
-          }
-        }
-      },
-      "48" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "50" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Int" : {
-                "Integer" : {
-                  
-                }
-              }
-            }
-          }
-        }
-      },
-      "51" : {
-        "AnonArray" : {
-          "size" : {
-            "Some" : 2
-          },
-          "eltType" : {
-            "AnonStruct" : {
-              "members" : {
-                "x" : {
-                  "Int" : {
-                    "Integer" : {
-                      
-                    }
-                  }
-                },
-                "y" : {
-                  "Int" : {
-                    "Integer" : {
-                      
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "52" : {
-        "AnonArray" : {
-          "size" : {
-            "Some" : 2
-          },
-          "eltType" : {
-            "AnonStruct" : {
-              "members" : {
-                "x" : {
-                  "Int" : {
-                    "Integer" : {
-                      
-                    }
-                  }
-                },
-                "y" : {
-                  "Int" : {
-                    "Integer" : {
-                      
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "53" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "54" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "55" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "56" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "57" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "58" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "59" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "60" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "61" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "62" : {
-        "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U32" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "63" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "64" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "65" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "66" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "67" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "68" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "69" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "70" : {
-        "Primitive" : {
-          "Boolean" : {
-            
-          }
-        }
-      },
-      "71" : {
-        "Primitive" : {
-          "Boolean" : {
-            
-          }
-        }
-      },
-      "72" : {
-        "Primitive" : {
-          "Boolean" : {
-            
-          }
-        }
-      },
-      "73" : {
-        "Primitive" : {
-          "Boolean" : {
-            
-          }
-        }
-      },
-      "76" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "77" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "78" : {
-        "Primitive" : {
-          "Boolean" : {
-            
-          }
-        }
-      },
-      "79" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "80" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      }
-    },
-    "useDefMap" : {
-      "23" : {
-        "Constant" : {
-          "nodeId" : 22,
-          "unqualifiedName" : "f"
-        }
-      },
-      "27" : {
-        "Constant" : {
-          "nodeId" : 22,
-          "unqualifiedName" : "f"
-        }
-      },
-      "55" : {
-        "Constant" : {
-          "nodeId" : 54,
-          "unqualifiedName" : "l"
-        }
-      }
-    },
-    "valueMap" : {
-      "0" : {
-        "Integer" : {
-          "value" : 1234
-        }
-      },
-      "1" : {
-        "Integer" : {
-          "value" : 1234
-        }
-      },
-      "2" : {
-        "Integer" : {
-          "value" : 43981
-        }
-      },
-      "3" : {
-        "Integer" : {
-          "value" : 43981
-        }
-      },
-      "4" : {
-        "String" : {
-          "value" : "This is a string."
-        }
-      },
-      "5" : {
-        "String" : {
-          "value" : "This is a string."
-        }
-      },
-      "6" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "7" : {
-        "Integer" : {
-          "value" : 2
-        }
-      },
-      "8" : {
-        "Integer" : {
-          "value" : 3
-        }
-      },
-      "9" : {
-        "AnonArray" : {
-          "elements" : [
-            {
-              "Integer" : {
-                "value" : 1
-              }
-            },
-            {
-              "Integer" : {
-                "value" : 2
-              }
-            },
-            {
-              "Integer" : {
-                "value" : 3
-              }
-            }
-          ]
-        }
-      },
-      "10" : {
-        "AnonArray" : {
-          "elements" : [
-            {
-              "Integer" : {
-                "value" : 1
-              }
-            },
-            {
-              "Integer" : {
-                "value" : 2
-              }
-            },
-            {
-              "Integer" : {
-                "value" : 3
-              }
-            }
-          ]
-        }
-      },
-      "11" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "12" : {
-        "Float" : {
-          "value" : 2.0,
-          "kind" : {
-            "F64" : {
-              
-            }
-          }
-        }
-      },
-      "13" : {
-        "AnonArray" : {
-          "elements" : [
-            {
-              "Float" : {
-                "value" : 1.0,
-                "kind" : {
-                  "F64" : {
-                    
-                  }
-                }
-              }
-            },
-            {
-              "Float" : {
-                "value" : 2.0,
-                "kind" : {
-                  "F64" : {
-                    
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "14" : {
-        "AnonArray" : {
-          "elements" : [
-            {
-              "Float" : {
-                "value" : 1.0,
-                "kind" : {
-                  "F64" : {
-                    
-                  }
-                }
-              }
-            },
-            {
-              "Float" : {
-                "value" : 2.0,
-                "kind" : {
-                  "F64" : {
-                    
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "15" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "16" : {
-        "Integer" : {
-          "value" : 2
-        }
-      },
-      "17" : {
-        "AnonArray" : {
-          "elements" : [
-            {
-              "Integer" : {
-                "value" : 1
-              }
-            },
-            {
-              "Integer" : {
-                "value" : 2
-              }
-            }
-          ]
-        }
-      },
-      "18" : {
-        "Integer" : {
-          "value" : 3
-        }
-      },
-      "19" : {
-        "Integer" : {
-          "value" : 4
-        }
-      },
-      "20" : {
-        "AnonArray" : {
-          "elements" : [
-            {
-              "Integer" : {
-                "value" : 3
-              }
-            },
-            {
-              "Integer" : {
-                "value" : 4
-              }
-            }
-          ]
-        }
-      },
-      "21" : {
-        "AnonArray" : {
-          "elements" : [
-            {
-              "AnonArray" : {
-                "elements" : [
-                  {
-                    "Integer" : {
-                      "value" : 1
-                    }
-                  },
-                  {
-                    "Integer" : {
-                      "value" : 2
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "AnonArray" : {
-                "elements" : [
-                  {
-                    "Integer" : {
-                      "value" : 3
-                    }
-                  },
-                  {
-                    "Integer" : {
-                      "value" : 4
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      },
-      "22" : {
-        "AnonArray" : {
-          "elements" : [
-            {
-              "AnonArray" : {
-                "elements" : [
-                  {
-                    "Integer" : {
-                      "value" : 1
-                    }
-                  },
-                  {
-                    "Integer" : {
-                      "value" : 2
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "AnonArray" : {
-                "elements" : [
-                  {
-                    "Integer" : {
-                      "value" : 3
-                    }
-                  },
-                  {
-                    "Integer" : {
-                      "value" : 4
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      },
-      "23" : {
-        "AnonArray" : {
-          "elements" : [
-            {
-              "AnonArray" : {
-                "elements" : [
-                  {
-                    "Integer" : {
-                      "value" : 1
-                    }
-                  },
-                  {
-                    "Integer" : {
-                      "value" : 2
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "AnonArray" : {
-                "elements" : [
-                  {
-                    "Integer" : {
-                      "value" : 3
-                    }
-                  },
-                  {
-                    "Integer" : {
-                      "value" : 4
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      },
-      "24" : {
-        "Integer" : {
-          "value" : 0
-        }
-      },
-      "25" : {
-        "AnonArray" : {
-          "elements" : [
-            {
-              "Integer" : {
-                "value" : 1
-              }
-            },
-            {
-              "Integer" : {
-                "value" : 2
-              }
-            }
-          ]
-        }
-      },
-      "26" : {
-        "AnonArray" : {
-          "elements" : [
-            {
-              "Integer" : {
-                "value" : 1
-              }
-            },
-            {
-              "Integer" : {
-                "value" : 2
-              }
-            }
-          ]
-        }
-      },
-      "27" : {
-        "AnonArray" : {
-          "elements" : [
-            {
-              "AnonArray" : {
-                "elements" : [
-                  {
-                    "Integer" : {
-                      "value" : 1
-                    }
-                  },
-                  {
-                    "Integer" : {
-                      "value" : 2
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "AnonArray" : {
-                "elements" : [
-                  {
-                    "Integer" : {
-                      "value" : 3
-                    }
-                  },
-                  {
-                    "Integer" : {
-                      "value" : 4
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      },
-      "28" : {
-        "Integer" : {
-          "value" : 0
-        }
-      },
-      "29" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "30" : {
-        "AnonArray" : {
-          "elements" : [
-            {
-              "Integer" : {
-                "value" : 1
-              }
-            },
-            {
-              "Integer" : {
-                "value" : 2
-              }
-            }
-          ]
-        }
-      },
-      "31" : {
-        "Integer" : {
-          "value" : 2
-        }
-      },
-      "32" : {
-        "Integer" : {
-          "value" : 2
-        }
-      },
-      "33" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "35" : {
-        "String" : {
-          "value" : "abc"
-        }
-      },
-      "37" : {
-        "Boolean" : {
-          "value" : false
-        }
-      },
-      "39" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Integer" : {
-                "value" : 1
-              }
-            },
-            "y" : {
-              "String" : {
-                "value" : "abc"
-              }
-            },
-            "z" : {
-              "Boolean" : {
-                "value" : false
-              }
-            }
-          }
-        }
-      },
-      "40" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Integer" : {
-                "value" : 1
-              }
-            },
-            "y" : {
-              "String" : {
-                "value" : "abc"
-              }
-            },
-            "z" : {
-              "Boolean" : {
-                "value" : false
-              }
-            }
-          }
-        }
-      },
-      "41" : {
-        "AnonStruct" : {
-          "members" : {
-            
-          }
-        }
-      },
-      "42" : {
-        "AnonStruct" : {
-          "members" : {
-            
-          }
-        }
-      },
-      "43" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "45" : {
-        "Integer" : {
-          "value" : 2
-        }
-      },
-      "47" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Integer" : {
-                "value" : 1
-              }
-            },
-            "y" : {
-              "Integer" : {
-                "value" : 2
-              }
-            }
-          }
-        }
-      },
-      "48" : {
-        "Integer" : {
-          "value" : 3
-        }
-      },
-      "50" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Integer" : {
-                "value" : 3
-              }
-            }
-          }
-        }
-      },
-      "51" : {
-        "AnonArray" : {
-          "elements" : [
-            {
-              "AnonStruct" : {
-                "members" : {
-                  "x" : {
-                    "Integer" : {
-                      "value" : 1
-                    }
-                  },
-                  "y" : {
-                    "Integer" : {
-                      "value" : 2
-                    }
-                  }
-                }
-              }
-            },
-            {
-              "AnonStruct" : {
-                "members" : {
-                  "x" : {
-                    "Integer" : {
-                      "value" : 3
-                    }
-                  },
-                  "y" : {
-                    "Integer" : {
-                      "value" : 0
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "52" : {
-        "AnonArray" : {
-          "elements" : [
-            {
-              "AnonStruct" : {
-                "members" : {
-                  "x" : {
-                    "Integer" : {
-                      "value" : 1
-                    }
-                  },
-                  "y" : {
-                    "Integer" : {
-                      "value" : 2
-                    }
-                  }
-                }
-              }
-            },
-            {
-              "AnonStruct" : {
-                "members" : {
-                  "x" : {
-                    "Integer" : {
-                      "value" : 3
-                    }
-                  },
-                  "y" : {
-                    "Integer" : {
-                      "value" : 0
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      "53" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "54" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "55" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "56" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "57" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "58" : {
-        "Integer" : {
-          "value" : -1
-        }
-      },
-      "59" : {
-        "Integer" : {
-          "value" : -1
-        }
-      },
-      "60" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "61" : {
-        "Integer" : {
-          "value" : 2
-        }
-      },
-      "63" : {
-        "Integer" : {
-          "value" : 4
-        }
-      },
-      "64" : {
-        "Integer" : {
-          "value" : 3
-        }
-      },
-      "65" : {
-        "Integer" : {
-          "value" : 7
-        }
-      },
-      "66" : {
-        "Integer" : {
-          "value" : 7
-        }
-      },
-      "67" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "68" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "69" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "70" : {
-        "Boolean" : {
-          "value" : true
-        }
-      },
-      "71" : {
-        "Boolean" : {
-          "value" : true
-        }
-      },
-      "72" : {
-        "Boolean" : {
-          "value" : false
-        }
-      },
-      "73" : {
-        "Boolean" : {
-          "value" : false
-        }
-      },
-      "76" : {
-        "Integer" : {
-          "value" : 0
-        }
-      },
-      "77" : {
-        "Integer" : {
-          "value" : 0
-        }
-      },
-      "79" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "80" : {
-        "Integer" : {
-          "value" : 1
-        }
-      }
-    },
-    "stateMachineMap" : {
-      
-    },
-    "dictionarySymbolSet" : [
-    ],
-    "interfaceMap" : {
-      
-    },
-    "dictionaryMap" : {
-      
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     }
   }
 }

@@ -29,6 +29,7 @@ update "" illegal-character
 update "" parse-error
 update "" syntax
 update "" syntax-kwd-names
+update -a state-machine
 update -ia topology-ports
 update -a dictionary-specifier
 update -a empty
@@ -46,6 +47,8 @@ update -ia include-state-machine
 update -ia include-state-machine
 update -ia include-subdir
 update -ia include-topology
+update -ia topology-ports
+update -ita template
 update -ia subdir/include-parent-dir
 update -ia syntax syntax-include-ast
 

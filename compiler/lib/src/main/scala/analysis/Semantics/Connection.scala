@@ -217,16 +217,22 @@ object Connection {
 
     /** Get underlying endpoint by stripping off topology port aliases */
     def getUnderlyingEndpoint(): Endpoint = {
-      port.interfaceInstance match {
-        // This endpoint is already a component instance
-        case InterfaceInstance.InterfaceComponentInstance(ci) => this
-        case InterfaceInstance.InterfaceTopology(top) => this.copy(
-          // Look up the mapping for this port instance
-          port = top.portMap(port.portInstance.getUnqualifiedName).pii,
-          topologyPort = Some(this)
-          // Recursively resolve the endpoint to a component instance
-        ).getUnderlyingEndpoint()
+      def underlyingEndpointHelper(ii: InterfaceInstance): Endpoint = {
+        ii match {
+          // This endpoint is already a component instance
+          case InterfaceInstance.InterfaceComponentInstance(ci) => this
+          case InterfaceInstance.InterfaceTopology(top) => this.copy(
+            // Look up the mapping for this port instance
+            port = top.portMap(port.portInstance.getUnqualifiedName).pii,
+            topologyPort = Some(this)
+            // Recursively resolve the endpoint to a component instance
+          ).getUnderlyingEndpoint()
+          case InterfaceInstance.InterfaceTemplateArg(_, _, tii) =>
+            underlyingEndpointHelper(tii)
+        }
       }
+
+      underlyingEndpointHelper(port.interfaceInstance)
     }
 
   }

@@ -13,6 +13,8 @@ case class Topology(
   directTopologies: Map[Symbol.Topology, Location] = Map(),
   /** The directly imported component instances */
   directComponentInstances: Map[Symbol.ComponentInstance, Location] = Map(),
+  /** The directly imported template arguments */
+  directTemplateArgs: Map[Symbol.TemplateInterfaceArg, Location] = Map(),
   /** The transitively imported topologies */
   transitiveImportSet: Set[Symbol.Topology] = Set(),
   /** The instances of this topology */
@@ -172,10 +174,14 @@ case class Topology(
     instance: InterfaceInstance,
     loc: Location
   ): Topology = {
-    val pairOpt = instanceMap.get(instance)
     // Use the previous location, if it exists
-    val mergedLoc = pairOpt.getOrElse(loc)
-    val map = instanceMap + (instance -> mergedLoc)
+    // Take the union of the previous imported port interface
+    val o = instanceMap.get(instance) match {
+      case None => loc
+      case Some(otherLoc) => otherLoc
+    }
+
+    val map = instanceMap + (instance -> o)
     this.copy(instanceMap = map)
   }
 
@@ -211,6 +217,20 @@ case class Topology(
           case None =>
             val map = directTopologies + (top -> loc)
             Right(this.copy(directTopologies = map))
+        }
+
+      case arg: Symbol.TemplateInterfaceArg =>
+        directTemplateArgs.get(arg) match {
+          case Some(prevLoc) => Left(
+            SemanticError.DuplicateInstance(
+              symbol.getUnqualifiedName,
+              loc,
+              prevLoc
+            )
+          )
+          case None =>
+            val map = directTemplateArgs + (arg -> loc)
+            Right(this.copy(directTemplateArgs = map))
         }
     }
 
@@ -281,7 +301,10 @@ case class Topology(
 
   /** Precompute the set of component instances in the topology */
   lazy val componentInstanceMap: Map[ComponentInstance, Location] = {
-    instanceMap collect { case (InterfaceInstance.InterfaceComponentInstance(ci), loc: Location) => (ci, loc) }
+    instanceMap collect {
+      case (InterfaceInstance.InterfaceComponentInstance(ci), loc) => (ci, loc)
+      case (InterfaceInstance.InterfaceTemplateArg(_, _, InterfaceInstance.InterfaceComponentInstance(ci)), loc) => (ci, loc)
+    }
   }
 
   /** Gets the set of used port numbers */

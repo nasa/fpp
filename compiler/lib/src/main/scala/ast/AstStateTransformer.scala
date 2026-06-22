@@ -17,7 +17,7 @@ trait AstStateTransformer extends AstTransformer {
   }
 
   /** Transform a list in sequence, threading state */
-  def transformList[A,B](
+  def transformList[A, B](
     s: State,
     list: List[A],
     transform: (State, A) => Result[B]
