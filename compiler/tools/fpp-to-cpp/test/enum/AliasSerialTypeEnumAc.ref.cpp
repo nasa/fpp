@@ -132,5 +132,5 @@ void AliasSerialType ::
 bool AliasSerialType ::
   isValid(SerialType serialTypeValue)
 {
-  return ((serialTypeValue >= A) && (serialTypeValue <= B));
+  return (serialTypeValue <= B);
 }

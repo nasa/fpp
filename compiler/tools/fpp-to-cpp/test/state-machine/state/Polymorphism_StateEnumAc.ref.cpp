@@ -145,7 +145,7 @@ namespace FppTest {
     bool Polymorphism_State ::
       isValid(SerialType serialTypeValue)
     {
-      return ((serialTypeValue >= __FPRIME_UNINITIALIZED) && (serialTypeValue <= S5));
+      return (serialTypeValue <= S5);
     }
 
   }

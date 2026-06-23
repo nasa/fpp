@@ -139,7 +139,7 @@ namespace FppTest {
     bool BasicGuardString_State ::
       isValid(SerialType serialTypeValue)
     {
-      return ((serialTypeValue >= __FPRIME_UNINITIALIZED) && (serialTypeValue <= T));
+      return (serialTypeValue <= T);
     }
 
   }

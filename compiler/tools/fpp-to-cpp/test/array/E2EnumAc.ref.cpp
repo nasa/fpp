@@ -138,8 +138,8 @@ void E2 ::
 bool E2 ::
   isValid(SerialType serialTypeValue)
 {
-  return ((serialTypeValue >= A) && (serialTypeValue <= A))
-    || ((serialTypeValue >= B) && (serialTypeValue <= B))
-    || ((serialTypeValue >= C) && (serialTypeValue <= C))
-    || ((serialTypeValue >= D) && (serialTypeValue <= D));
+  return (serialTypeValue == A)
+    || (serialTypeValue == B)
+    || (serialTypeValue == C)
+    || (serialTypeValue == D);
 }

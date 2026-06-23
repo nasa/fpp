@@ -136,7 +136,7 @@ namespace FppTest {
     bool Nested_State ::
       isValid(SerialType serialTypeValue)
     {
-      return ((serialTypeValue >= __FPRIME_UNINITIALIZED) && (serialTypeValue <= S_T));
+      return (serialTypeValue <= S_T);
     }
 
   }

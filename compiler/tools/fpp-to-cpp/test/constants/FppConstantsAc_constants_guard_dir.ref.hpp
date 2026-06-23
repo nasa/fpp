@@ -49,6 +49,11 @@ namespace M {
     e = 3
   };
 
+  //! Constant with shift
+  enum {
+    shifted = 65280
+  };
+
 }
 
 //! Constant a
@@ -84,6 +89,16 @@ extern const F64 C_k;
 //! Constant a
 enum {
   SM_a = 0
+};
+
+//! Constant with left shift
+enum {
+  shiftLeft = 16
+};
+
+//! Constant with right shift
+enum {
+  shiftRight = 64
 };
 
 #endif

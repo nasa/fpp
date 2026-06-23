@@ -145,7 +145,7 @@ namespace FppTest {
     bool SequenceU32_State ::
       isValid(SerialType serialTypeValue)
     {
-      return ((serialTypeValue >= __FPRIME_UNINITIALIZED) && (serialTypeValue <= S4));
+      return (serialTypeValue <= S4);
     }
 
   }
