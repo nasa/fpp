@@ -26,3 +26,6 @@ module M {
 
 @ An array of arrays
 array PrimitiveArray = [5] M.PrimitiveF64
+
+@ An bitmask array
+array BitMaskArray = [1 << 3] U32 default 0

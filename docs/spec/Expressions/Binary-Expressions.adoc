@@ -29,6 +29,12 @@ _op_ is one of the following:
 |`/`
 |Division
 
+|`<<`
+|Bitwise left shift
+
+|`>>`
+|Signed bitwise right shift
+
 |======================================
 
 ==== Semantics
@@ -36,30 +42,58 @@ _op_ is one of the following:
 A binary expression must have a valid 
 <<Type-Checking_Binary-Expressions,type>>.
 
-A binary expression stem:[e_1] _op_ stem:[e_2] is evaluated as follows:
+A binary expression stem:[e_1] _op_ stem:[e_2] is
+evaluated as follows:
 
-. Let _T_ be the type of the expression.
+. If _op_ is `+`, `-`, `*`, or `/`, then
 
-. Evaluate stem:[e_1] to a value stem:[v_1].
+.. Let _T_ be the type of the expression.
+
+.. Evaluate stem:[e_1] to a value stem:[v_1].
 <<Type-Checking_Type-Conversion,Convert>>
 stem:[v_1] to a value stem:[v'_1] of type _T_.
 
-. Evaluate stem:[e_2] to a value stem:[v_2].
+.. Evaluate stem:[e_2] to a value stem:[v_2].
 <<Type-Checking_Type-Conversion,Convert>>
 stem:[v_2] to a value stem:[v'_2] of type _T_.
 
-. If _T_ is an <<Types_Internal-Types_Integer-Types,integer type>>, then use 
+.. If _T_ is an <<Types_Internal-Types_Integer-Types,integer type>>, then use 
 integer arithmetic to compute the result of stem:[v'_1] _op_ stem:[v'_2].
 
-. Otherwise if _T_ is a <<Types_Floating-Point-Types,floating-point type>>, 
+.. Otherwise if _T_ is a <<Types_Floating-Point-Types,floating-point type>>, 
 then use floating-point arithmetic
 to compute the result of stem:[v'_1] _op_ stem:[v'_2].
 
-. Otherwise _op_ is `pass:[+]`, and _T_ is a <<Types_String-Types,string 
+.. Otherwise _op_ is `pass:[+]`, and _T_ is a <<Types_String-Types,string 
 type>>.
 Form the <<Values_String-Values,string value>>
 consisting of the characters
 of stem:[v'_1] followed by the characters of stem:[v'_2].
+
+. Otherwise if _op_ is `pass:[<<]`, then
+
+.. Let _T_ be the type of the expression.
+
+.. Evaluate stem:[e_1] to a value stem:[v_1].
+<<Type-Checking_Type-Conversion,Convert>>
+stem:[v_1] to a value stem:[n] of type _T_.
+
+.. Evaluate stem:[e_2] to a value stem:[v_2].
+<<Type-Checking_Type-Conversion,Convert>>
+stem:[v_2] to a value stem:[s] of type _Integer_.
+
+.. Check that stem:[s] lies in the range stem:[[0,255]].
+
+.. Perform a left shift by _s_ places on stem:[n].
+This is equivalent to multiplication by stem:[2^s].
+
+. Otherwise _op_ is `pass:[>>]`
+
+.. Perform the first four steps for a binary operation stem:[e_1] `pass:[<<]` 
+stem:[e_2].
+
+.. Perform a signed right shift by _s_ places on stem:[n].
+This is equivalent to floor division by stem:[2^s].
 
 ==== Examples
 
@@ -72,4 +106,7 @@ constant s1 = "a" + "b" + "c"     # s1 has value "abc"
 constant s2 = "hello " + s1 + "!" # s2 has value "hello abc!"
 
 constant c = 1 + "2" # Error: cannot add Integer and string
+
+constant leftShifted = 2 << 3 # leftShifted has value 16
+constant rightShifted = 8 >> 2 # rightShifted has value 2
 ----

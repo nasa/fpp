@@ -54,6 +54,7 @@ primitive()
   move_cpp PrimitiveF32eArray
   move_cpp PrimitiveF64Array
   move_cpp PrimitiveArrayArray
+  move_cpp BitMaskArrayArray
 }
 
 single_element()
