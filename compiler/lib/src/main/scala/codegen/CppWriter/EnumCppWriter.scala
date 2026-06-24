@@ -29,7 +29,9 @@ case class EnumCppWriter(
 
   private val typeCppWriter = TypeCppWriter(s)
 
-  private val repTypeName = typeCppWriter.write(enumType.repType)
+  private val repType = enumType.repType
+
+  private val repTypeName = typeCppWriter.write(repType)
 
   private val numConstants = data.constants.size
 
@@ -117,6 +119,7 @@ case class EnumCppWriter(
       getConstructorMembers,
       getOperatorMembers,
       getMemberFunctionMembers,
+      StaticFunctionMembers.get,
       getMemberVariableMembers
     ).flatten
 
@@ -147,7 +150,7 @@ case class EnumCppWriter(
           lines(
             s"""|
                 |//! The serial representation type
-                |typedef $repTypeName SerialType;
+                |using SerialType = $repTypeName;
                 |
                 |//! The raw enum type"""
           ),
@@ -166,7 +169,7 @@ case class EnumCppWriter(
           lines(
             s"""|
                 |//! For backwards compatibility
-                |typedef enum T t;"""
+                |using t = enum T;"""
           ),
         ).flatten
       )
@@ -295,11 +298,7 @@ case class EnumCppWriter(
         "isValid",
         Nil,
         CppDoc.Type("bool"),
-        Line.addPrefixAndSuffix(
-          "return ",
-          writeIntervals(intervals),
-          ";"
-        ),
+        lines(s"return $name::isValid(this->e);"),
         CppDoc.Function.NonSV,
         CppDoc.Function.Const
       ),
@@ -350,11 +349,11 @@ case class EnumCppWriter(
         lines(
           s"""|SerialType es;
               |Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
+              |if ((status == Fw::FW_SERIALIZE_OK) && !$name::isValid(es)) {
+              |  status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
+              |}
               |if (status == Fw::FW_SERIALIZE_OK) {
               |  this->e = static_cast<enum T>(es);
-              |  if (!this->isValid()) {
-              |    status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
-              |  }
               |}
               |return status;"""
         )
@@ -432,6 +431,37 @@ case class EnumCppWriter(
         )
       )
 
+  private object StaticFunctionMembers {
+
+    def get: List[CppDoc.Class.Member] =
+      addAccessTagAndComment(
+        "public",
+        "Static functions",
+        List(getIsValidFunction)
+      )
+
+    private def getIsValidFunction =
+      functionClassMember(
+        Some(s"Check serial type value for validity"),
+        "isValid",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("SerialType"),
+            "serialTypeValue",
+            Some("The serial type value")
+          )
+        ),
+        CppDoc.Type("bool"),
+        Line.addPrefixAndSuffix(
+          "return ",
+          writeIntervals("serialTypeValue", intervals),
+          ";"
+        ),
+        CppDoc.Function.Static
+      )
+
+  }
+
   private def getMemberVariableMembers: List[CppDoc.Class.Member] =
     List(
       linesClassMember(
@@ -448,14 +478,17 @@ case class EnumCppWriter(
       )
     )
 
-  private def writeInterval(c: EnumCppWriter.Interval) = {
-    val (lower, upper) = c
-    s"((e >= ${lower._1}) && (e <= ${upper._1}))"
+  private def writeInterval(v: String, c: EnumCppWriter.Interval) = {
+    val ((lowerName, lowerValue), (upperName, upperValue)) = c
+    if lowerValue == upperValue then s"($v == $lowerName)"
+    else if lowerValue <= repType.minValue then s"($v <= $upperName)"
+    else if upperValue >= repType.maxValue then s"($v >= $lowerName)"
+    else s"(($v >= $lowerName) && ($v <= $upperName))"
   }
 
-  private def writeIntervals(cs: List[EnumCppWriter.Interval]) =
-    line(writeInterval(cs.head)) ::
-    cs.tail.map(c => line(s"|| ${writeInterval(c)}")).map(indentIn)
+  private def writeIntervals(v: String, cs: List[EnumCppWriter.Interval]) =
+    line(writeInterval(v, cs.head)) ::
+    cs.tail.map(c => line(s"|| ${writeInterval(v, c)}")).map(indentIn)
 
   private def writeFormatStr = {
     val pit @ Type.PrimitiveInt(_) =

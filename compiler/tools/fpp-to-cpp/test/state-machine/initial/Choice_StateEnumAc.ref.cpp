@@ -50,7 +50,7 @@ namespace FppTest {
     bool Choice_State ::
       isValid() const
     {
-      return ((e >= __FPRIME_UNINITIALIZED) && (e <= T));
+      return Choice_State::isValid(this->e);
     }
 
     Fw::SerializeStatus Choice_State ::
@@ -74,11 +74,11 @@ namespace FppTest {
     {
       SerialType es;
       Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
+      if ((status == Fw::FW_SERIALIZE_OK) && !Choice_State::isValid(es)) {
+        status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
+      }
       if (status == Fw::FW_SERIALIZE_OK) {
         this->e = static_cast<enum T>(es);
-        if (!this->isValid()) {
-          status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
-        }
       }
       return status;
     }
@@ -115,6 +115,16 @@ namespace FppTest {
     }
 
 #endif
+
+    // ----------------------------------------------------------------------
+    // Static functions
+    // ----------------------------------------------------------------------
+
+    bool Choice_State ::
+      isValid(SerialType serialTypeValue)
+    {
+      return (serialTypeValue <= T);
+    }
 
   }
 

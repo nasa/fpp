@@ -1,0 +1,1 @@
+constant a = 2 << -1
