@@ -1503,17 +1503,17 @@ class PassiveSerialTesterBase :
 
     //! Handle event EventDiagnostic
     virtual void logIn_DIAGNOSTIC_EventDiagnostic(
-        E e //!< An enum
+        const E& e //!< An enum
     );
 
     //! Handle event EventFatalThrottled
     virtual void logIn_FATAL_EventFatalThrottled(
-        A a //!< An array
+        const A& a //!< An array
     );
 
     //! Handle event EventWarningHigh
     virtual void logIn_WARNING_HI_EventWarningHigh(
-        S s //!< A struct
+        const S& s //!< A struct
     );
 
     //! Handle event EventWarningLowThrottled
