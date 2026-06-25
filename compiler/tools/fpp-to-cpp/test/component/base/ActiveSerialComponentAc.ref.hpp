@@ -2372,21 +2372,21 @@ class ActiveSerialComponentBase :
     //!
     //! A diagnostic event with enum params
     void log_DIAGNOSTIC_EventDiagnostic(
-        E e //!< An enum
+        const E& e //!< An enum
     ) const;
 
     //! Log event EventFatalThrottled
     //!
     //! A fatal, throttled event with array params
     void log_FATAL_EventFatalThrottled(
-        A a //!< An array
+        const A& a //!< An array
     );
 
     //! Log event EventWarningHigh
     //!
     //! A warning high event with struct params
     void log_WARNING_HI_EventWarningHigh(
-        S s //!< A struct
+        const S& s //!< A struct
     ) const;
 
     //! Log event EventWarningLowThrottled

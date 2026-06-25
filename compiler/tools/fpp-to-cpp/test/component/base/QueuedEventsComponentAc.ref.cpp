@@ -3364,7 +3364,7 @@ void QueuedEventsComponentBase ::
 }
 
 void QueuedEventsComponentBase ::
-  log_DIAGNOSTIC_EventDiagnostic(E e) const
+  log_DIAGNOSTIC_EventDiagnostic(const E& e) const
 {
   // Get the time
   Fw::Time _logTime;
@@ -3449,7 +3449,7 @@ void QueuedEventsComponentBase ::
 }
 
 void QueuedEventsComponentBase ::
-  log_FATAL_EventFatalThrottled(A a)
+  log_FATAL_EventFatalThrottled(const A& a)
 {
   // Check throttle value
   if (this->m_EventFatalThrottledThrottle >= EVENTID_EVENTFATALTHROTTLED_THROTTLE) {
@@ -3555,7 +3555,7 @@ void QueuedEventsComponentBase ::
 }
 
 void QueuedEventsComponentBase ::
-  log_WARNING_HI_EventWarningHigh(S s) const
+  log_WARNING_HI_EventWarningHigh(const S& s) const
 {
   // Get the time
   Fw::Time _logTime;
