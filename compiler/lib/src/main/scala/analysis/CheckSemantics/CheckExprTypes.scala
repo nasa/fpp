@@ -158,8 +158,21 @@ object CheckExprTypes extends UseAnalyzer {
     val loc = Locations.get(node.id)
     for {
       a <- super.exprBinopNode(a, node, e)
-      t <- a.commonType(e.e1.id, e.e2.id, loc)
-      _ <- convertToNumeric(loc, t)
+      t <- e.op match {
+        case Ast.Binop.LShift | Ast.Binop.RShift =>
+          /** Shift operation is special, for this we idependently check for both operands to be integer */
+         for {
+          _ <- checkIntegerOrEnumType(a, e.e1)
+          _ <- checkIntegerOrEnumType(a, e.e2)
+         } yield Type.Integer
+        case _ => for {
+          t <- a.commonType(e.e1.id, e.e2.id, loc)
+          _ <- e.op match {
+            case Ast.Binop.Add => convertToNumericOrString(loc, t)
+            case _ => convertToNumeric(loc, t)
+          }
+        } yield t
+      }
     } yield a.assignType(node -> t)
   }
 
@@ -482,4 +495,27 @@ object CheckExprTypes extends UseAnalyzer {
     }
   }
 
+  private def convertToNumericOrString(loc: Location, t: Type): Result.Result[Type] =
+    (t, convertToNumeric(loc, t)) match {
+      case (_, Right(t1)) => Right(t1)
+      case (_: Type.String, _) => Right(t)
+      case _ =>
+        val error = SemanticError.InvalidType(
+          loc,
+          s"cannot convert $t to a numeric or string type"
+        )
+        Left(error)
+    }
+
+  /** For shifting operations make sure value is integer or enum */
+  private def checkIntegerOrEnumType[T](a: Analysis, node: AstNode[T]): Result.Result[Unit] =
+    val id = node.id
+    val t = a.typeMap(id)
+    val loc = Locations.get(id)
+
+    if (t.isInt || t.isInstanceOf[Type.Enum]) Right(())
+    else {
+      val error = SemanticError.InvalidType(loc, s"$t is not an integer or enum type")
+      Left(error)
+    }
 }

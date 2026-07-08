@@ -4,7 +4,7 @@
 // \brief  cpp file for ActiveTest component Google Test harness base class
 // ======================================================================
 
-#include "test-base/ActiveTestGTestBase.hpp"
+#include "ActiveTestGTestBase.hpp"
 
 namespace M {
 

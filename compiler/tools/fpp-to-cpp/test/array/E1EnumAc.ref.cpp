@@ -7,7 +7,6 @@
 #include <cstring>
 #include <limits>
 
-#include "Fw/Types/Assert.hpp"
 #include "E1EnumAc.hpp"
 
 namespace M {
@@ -20,13 +19,22 @@ namespace M {
     operator=(const E1& obj)
   {
     this->e = obj.e;
+#ifdef BUILD_UT
+    this->m_serializeValueIsSet = obj.m_serializeValueIsSet;
+    this->m_serializeValue = obj.m_serializeValue;
+#endif
     return *this;
   }
 
   E1& E1 ::
     operator=(enum T e1)
   {
+    FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
     this->e = e1;
+#ifdef BUILD_UT
+    this->m_serializeValueIsSet = false;
+    this->m_serializeValue = 0;
+#endif
     return *this;
   }
 
@@ -48,8 +56,7 @@ namespace M {
   bool E1 ::
     isValid() const
   {
-    return ((e >= X) && (e <= Y))
-      || ((e >= Z) && (e <= Z));
+    return E1::isValid(this->e);
   }
 
   Fw::SerializeStatus E1 ::
@@ -58,10 +65,15 @@ namespace M {
         Fw::Endianness mode
     ) const
   {
-    const Fw::SerializeStatus status = buffer.serializeFrom(
-        static_cast<SerialType>(this->e),
-        mode
-    );
+    SerialType es = static_cast<SerialType>(this->e);
+#ifdef BUILD_UT
+    // Unit testing only: On request, override the enum value
+    // with the numeric value, which is allowed to be invalid
+    if (this->m_serializeValueIsSet) {
+      es = this->m_serializeValue;
+    }
+#endif
+    const Fw::SerializeStatus status = buffer.serializeFrom(es, mode);
     return status;
   }
 
@@ -73,11 +85,11 @@ namespace M {
   {
     SerialType es;
     Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
+    if ((status == Fw::FW_SERIALIZE_OK) && !E1::isValid(es)) {
+      status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
+    }
     if (status == Fw::FW_SERIALIZE_OK) {
       this->e = static_cast<enum T>(es);
-      if (!this->isValid()) {
-        status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
-      }
     }
     return status;
   }
@@ -105,14 +117,28 @@ namespace M {
     sb.format("%s (%" PRIi32 ")", s.toChar(), e);
   }
 
-#elif FW_ENABLE_TEXT_LOGGING
+#endif
+
+#ifdef BUILD_UT
 
   void E1 ::
-    toString(Fw::StringBase& sb) const
+    setSerializeValue(SerialType serializeValue)
   {
-    sb.format("%" PRIi32 "", e);
+    this->m_serializeValue = serializeValue;
+    this->m_serializeValueIsSet = true;
   }
 
 #endif
+
+  // ----------------------------------------------------------------------
+  // Static functions
+  // ----------------------------------------------------------------------
+
+  bool E1 ::
+    isValid(SerialType serialTypeValue)
+  {
+    return ((serialTypeValue >= X) && (serialTypeValue <= Y))
+      || (serialTypeValue == Z);
+  }
 
 }

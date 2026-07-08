@@ -82,8 +82,6 @@ bool Modules4 ::
 {
   if (this == &obj) { return true; }
 
-
-
   // Compare array members
   for (FwSizeType i = 0; i < 3; i++) {
     if (!(this->m_arr1[i] == obj.m_arr1[i])) {

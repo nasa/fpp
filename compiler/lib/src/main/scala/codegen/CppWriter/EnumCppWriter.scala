@@ -29,7 +29,9 @@ case class EnumCppWriter(
 
   private val typeCppWriter = TypeCppWriter(s)
 
-  private val repTypeName = typeCppWriter.write(enumType.repType)
+  private val repType = enumType.repType
+
+  private val repTypeName = typeCppWriter.write(repType)
 
   private val numConstants = data.constants.size
 
@@ -84,6 +86,7 @@ case class EnumCppWriter(
   private def getHppIncludes: CppDoc.Member = {
     val strings = List(
       "Fw/FPrimeBasicTypes.hpp",
+      "Fw/Types/Assert.hpp",
       "Fw/Types/Serializable.hpp",
       "Fw/Types/String.hpp"
     )
@@ -95,10 +98,7 @@ case class EnumCppWriter(
 
   private def getCppIncludes: CppDoc.Member = {
     val systemStrings = List("cstring", "limits")
-    val strings = List(
-      "Fw/Types/Assert.hpp",
-      s"${s.getRelativePath(fileName).toString}.hpp"
-    )
+    val strings = List(s.getIncludePath(symbol, fileName))
     linesMember(
       List(
         List(Line.blank),
@@ -111,14 +111,16 @@ case class EnumCppWriter(
   }
 
   private def getClassMembers: List[CppDoc.Class.Member] =
-    List(
+    List.concat(
       getTypeMembers,
       getConstantMembers,
       getConstructorMembers,
       getOperatorMembers,
-      getMemberFunctionMembers,
-      getMemberVariableMembers
-    ).flatten
+      MemberFunctionMembers.get,
+      StaticFunctionMembers.get,
+      getPublicMemberVariableMembers,
+      getPrivateMemberVariableMembers
+    )
 
   private def getConstantMembers: List[CppDoc.Class.Member] =
     List(
@@ -147,7 +149,7 @@ case class EnumCppWriter(
           lines(
             s"""|
                 |//! The serial representation type
-                |typedef $repTypeName SerialType;
+                |using SerialType = $repTypeName;
                 |
                 |//! The raw enum type"""
           ),
@@ -166,7 +168,7 @@ case class EnumCppWriter(
           lines(
             s"""|
                 |//! For backwards compatibility
-                |typedef enum T t;"""
+                |using t = enum T;"""
           ),
         ).flatten
       )
@@ -192,6 +194,7 @@ case class EnumCppWriter(
                 |    const enum T e1 //!< The raw enum value
                 |)
                 |{
+                |  FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
                 |  this->e = e1;
                 |}
                 |
@@ -201,6 +204,10 @@ case class EnumCppWriter(
                 |)
                 |{
                 |  this->e = obj.e;
+                |#ifdef BUILD_UT
+                |this->m_serializeValueIsSet = obj.m_serializeValueIsSet;
+                |this->m_serializeValue = obj.m_serializeValue;
+                |#endif
                 |}"""
 
           )
@@ -228,9 +235,13 @@ case class EnumCppWriter(
           ),
         ),
         CppDoc.Type(s"$name&"),
-        List(
-          line("this->e = obj.e;"),
-          line("return *this;"),
+        lines(
+          """|this->e = obj.e;
+             |#ifdef BUILD_UT
+             |this->m_serializeValueIsSet = obj.m_serializeValueIsSet;
+             |this->m_serializeValue = obj.m_serializeValue;
+             |#endif
+             |return *this;"""
         )
       ),
       functionClassMember(
@@ -244,9 +255,14 @@ case class EnumCppWriter(
           ),
         ),
         CppDoc.Type(s"$name&"),
-        List(
-          line("this->e = e1;"),
-          line("return *this;"),
+        lines(
+          """|FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
+             |this->e = e1;
+             |#ifdef BUILD_UT
+             |this->m_serializeValueIsSet = false;
+             |this->m_serializeValue = 0;
+             |#endif
+             |return *this;"""
         )
       ),
       linesClassMember(
@@ -271,43 +287,49 @@ case class EnumCppWriter(
              |}"""
         )
       ),
-    ) ++ (
-      linesClassMember(
-        List(Line.blank),
-        CppDoc.Lines.Both
-      ) :: writeOstreamOperator(
-        name,
-        lines(
-          """|Fw::String s;
-             |obj.toString(s);
-             |os << s;
-             |return os;"""
-        )
+    ) ++ writeOstreamOperator(
+      name,
+      lines(
+        """|Fw::String s;
+           |obj.toString(s);
+           |os << s;
+           |return os;"""
       )
     )
 
-  private def getMemberFunctionMembers: List[CppDoc.Class.Member] =
-    List(
-      linesClassMember(
-        CppDocHppWriter.writeAccessTag("public")
-      ),
-      linesClassMember(
-        CppDocWriter.writeBannerComment("Member functions"),
-        CppDoc.Lines.Both
-      ),
+  private object MemberFunctionMembers {
+
+    def get: List[CppDoc.Class.Member] =
+      addAccessTagAndComment(
+        "public",
+        "Member functions",
+        getIsValidFunction ::
+        getSerializeToFunction ::
+        getDeserializeFromFunction ::
+        List.concat(
+          wrapClassMembersInIfDirective(
+            "#if FW_SERIALIZABLE_TO_STRING",
+            List(getToStringFunction)
+          ),
+          wrapClassMembersInIfDirective(
+            "#ifdef BUILD_UT",
+            List(getSetSerializeValueFunction)
+          )
+        )
+      )
+
+    private def getIsValidFunction =
       functionClassMember(
         Some(s"Check raw enum value for validity"),
         "isValid",
         Nil,
         CppDoc.Type("bool"),
-        Line.addPrefixAndSuffix(
-          "return ",
-          writeIntervals(intervals),
-          ";"
-        ),
+        lines(s"return $name::isValid(this->e);"),
         CppDoc.Function.NonSV,
         CppDoc.Function.Const
-      ),
+      )
+
+    private def getSerializeToFunction =
       functionClassMember(
         Some(s"Serialize raw enum value to SerialType"),
         "serializeTo",
@@ -326,15 +348,22 @@ case class EnumCppWriter(
         ),
         CppDoc.Type("Fw::SerializeStatus"),
         lines(
-          s"""|const Fw::SerializeStatus status = buffer.serializeFrom(
-              |    static_cast<SerialType>(this->e),
-              |    mode
-              |);
+          s"""|SerialType es = static_cast<SerialType>(this->e);
+              |#ifdef BUILD_UT
+              |// Unit testing only: On request, override the enum value
+              |// with the numeric value, which is allowed to be invalid
+              |if (this->m_serializeValueIsSet) {
+              |  es = this->m_serializeValue;
+              |}
+              |#endif
+              |const Fw::SerializeStatus status = buffer.serializeFrom(es, mode);
               |return status;"""
         ),
         CppDoc.Function.NonSV,
         CppDoc.Function.Const
-      ),
+      )
+
+    private def getDeserializeFromFunction =
       functionClassMember(
         Some(s"Deserialize raw enum value from SerialType"),
         "deserializeFrom",
@@ -355,112 +384,161 @@ case class EnumCppWriter(
         lines(
           s"""|SerialType es;
               |Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
+              |if ((status == Fw::FW_SERIALIZE_OK) && !$name::isValid(es)) {
+              |  status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
+              |}
               |if (status == Fw::FW_SERIALIZE_OK) {
               |  this->e = static_cast<enum T>(es);
-              |  if (!this->isValid()) {
-              |    status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
-              |  }
               |}
               |return status;"""
         )
       )
-    ) ++
-      List.concat(
+
+    private def getToStringFunction =
+      functionClassMember(
+        Some(s"Convert enum to string"),
+        "toString",
         List(
-          linesClassMember(
-            lines("\n#if FW_SERIALIZABLE_TO_STRING"),
-            CppDoc.Lines.Cpp
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::StringBase&"),
+            "sb",
+            Some("The StringBase object to hold the result")
           )
         ),
-        wrapClassMembersInIfDirective(
-          "\n#if FW_SERIALIZABLE_TO_STRING",
-          List(
-            functionClassMember(
-              Some(s"Convert enum to string"),
-              "toString",
-              List(
-                CppDoc.Function.Param(
-                  CppDoc.Type("Fw::StringBase&"),
-                  "sb",
-                  Some("The StringBase object to hold the result")
-                )
-              ),
-              CppDoc.Type("void"),
-              List(
+        CppDoc.Type("void"),
+        List.concat(
+          lines("Fw::String s;"),
+          wrapInScope(
+            "switch (e) {",
+            List.concat(
+              data.constants.flatMap(aNode => {
+                val enumName = aNode._2.data.name
                 lines(
-                  s"""|Fw::String s;"""
-                ),
-                wrapInScope(
-                  "switch (e) {",
-                  data.constants.flatMap(aNode => {
-                    val enumName = aNode._2.data.name
-                    lines(
-                      s"""|case $enumName:
-                          |  s = "$enumName";
-                          |  break;"""
-                    )
-                  }) ++
-                    lines(
-                      """|default:
-                         |  s = "[invalid]";
-                         |  break;"""
-                    ),
-                  "}"
-                ),
-                lines(
-                  s"""|sb.format("%s ($writeFormatStr)", s.toChar(), e);"""
+                  s"""|case $enumName:
+                      |  s = "$enumName";
+                      |  break;"""
                 )
-              ).flatten,
-              CppDoc.Function.NonSV,
-              CppDoc.Function.Const
-            )
+              }),
+              lines(
+                """|default:
+                   |  s = "[invalid]";
+                   |  break;"""
+              )
+            ),
+            "}"
           ),
-          CppDoc.Lines.Hpp
+          lines(s"""sb.format("%s ($writeFormatStr)", s.toChar(), e);""")
         ),
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
+      )
+
+    private def getSetSerializeValueFunction =
+      functionClassMember(
+        Some("Set the value to use for serialization (unit testing only)"),
+        "setSerializeValue",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("SerialType"),
+            "serializeValue",
+            Some("The serialize value")
+          )
+        ),
+        CppDoc.Type("void"),
+        lines(
+          """|this->m_serializeValue = serializeValue;
+             |this->m_serializeValueIsSet = true;"""
+        ),
+        CppDoc.Function.NonSV
+      )
+
+  }
+
+  private object StaticFunctionMembers {
+
+    def get: List[CppDoc.Class.Member] =
+      addAccessTagAndComment(
+        "public",
+        "Static functions",
+        List(getIsValidFunction)
+      )
+
+    private def getIsValidFunction =
+      functionClassMember(
+        Some(s"Check serial type value for validity"),
+        "isValid",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("SerialType"),
+            "serialTypeValue",
+            Some("The serial type value")
+          )
+        ),
+        CppDoc.Type("bool"),
+        Line.addPrefixAndSuffix(
+          "return ",
+          writeIntervals("serialTypeValue", intervals),
+          ";"
+        ),
+        CppDoc.Function.Static
+      )
+
+  }
+
+  private def getPublicMemberVariableMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "public",
+      "Public member variables",
+      List(
+        linesClassMember(
+          lines(
+            s"""|
+                |//! The raw enum value
+                |enum T e;"""
+          )
+        )
+      ),
+      CppDoc.Lines.Hpp
+    )
+
+  private def getPrivateMemberVariableMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "private",
+      "Private member variables",
+      wrapClassMembersInIfDirective(
+        "#ifdef BUILD_UT",
         List(
           linesClassMember(
             lines(
-              s"""|
-                  |#elif FW_ENABLE_TEXT_LOGGING
-                  |
-                  |void $name ::
-                  |  toString(Fw::StringBase& sb) const
-                  |{
-                  |  sb.format("$writeFormatStr", e);
-                  |}
-                  |
-                  |#endif
-                  |"""
-            ),
-            CppDoc.Lines.Cpp
+              """|
+                 |//! Whether the serialize value is set (unit testing only).
+                 |//! When this flag is set to true, the serializeTo function
+                 |//! uses the serialize value instead of the raw enum value
+                 |//! when serializing the enum instance. This allows serialization
+                 |//! of invalid values that can't be represented as the raw enum type.
+                 |bool m_serializeValueIsSet = false;
+                 |
+                 |//! The serialize value
+                 |SerialType m_serializeValue = 0;"""
+            )
           )
-        )
-      )
-
-  private def getMemberVariableMembers: List[CppDoc.Class.Member] =
-    List(
-      linesClassMember(
-        CppDocHppWriter.writeAccessTag("public")
+        ),
+        CppDoc.Lines.Hpp
       ),
-      linesClassMember(
-        CppDocWriter.writeBannerComment("Member variables") ++
-        addBlankPrefix(
-          List(
-            "//! The raw enum value",
-            "enum T e;"
-          ).map(line)
-        )
-      )
+      CppDoc.Lines.Hpp
     )
 
-  private def writeInterval(c: EnumCppWriter.Interval) = {
-    val (lower, upper) = c
-    s"((e >= ${lower._1}) && (e <= ${upper._1}))"
+  private def writeInterval(v: String, c: EnumCppWriter.Interval) = {
+    val ((lowerName, lowerValue), (upperName, upperValue)) = c
+    if lowerValue == upperValue then s"($v == $lowerName)"
+    else if lowerValue <= repType.minValue then s"($v <= $upperName)"
+    else if upperValue >= repType.maxValue then s"($v >= $lowerName)"
+    else s"(($v >= $lowerName) && ($v <= $upperName))"
   }
 
-  private def writeIntervals(cs: List[EnumCppWriter.Interval]) =
-    line(writeInterval(cs.head)) ::
-    cs.tail.map(c => line(s"|| ${writeInterval(c)}")).map(indentIn)
+  private def writeIntervals(v: String, cs: List[EnumCppWriter.Interval]) =
+    line(writeInterval(v, cs.head)) ::
+    cs.tail.map(c => line(s"|| ${writeInterval(v, c)}")).map(indentIn)
 
   private def writeFormatStr = {
     val pit @ Type.PrimitiveInt(_) =

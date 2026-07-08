@@ -100,7 +100,7 @@ case class ArrayCppWriter (
   private def getCppIncludes: CppDoc.Member = {
     val userHeaders = List(
       "Fw/Types/Assert.hpp",
-      s"${s.getRelativePath(fileName).toString}.hpp"
+      s.getIncludePath(symbol, fileName)
     ).sorted.map(CppWriter.headerString).map(line)
     linesMember(Line.blank :: userHeaders, CppDoc.Lines.Cpp)
   }
@@ -557,7 +557,7 @@ case class ArrayCppWriter (
       )
     ) ++
       wrapClassMembersInIfDirective(
-        "\n#if FW_SERIALIZABLE_TO_STRING",
+        "#if FW_SERIALIZABLE_TO_STRING",
         List(
           functionClassMember(
             Some("Convert array to string"),

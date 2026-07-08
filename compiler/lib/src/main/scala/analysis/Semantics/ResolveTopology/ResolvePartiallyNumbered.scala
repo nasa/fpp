@@ -28,10 +28,9 @@ object ResolvePartiallyNumbered {
 
   /** Check that connection instances are legal */
   private def checkPortInstances(t: Topology): Result.Result[Unit] = {
-    def checkPort(i: (PortInstanceIdentifier, Location)) = {
-      val (port, loc) = i
+    def checkPort(i: TopologyPort) = {
       for {
-        _ <- t.lookUpInstanceAt(port.interfaceInstance, loc)
+        _ <- t.lookUpInstanceAt(i.pii.interfaceInstance, i.getUnderlyingPortLoc)
       }
       yield ()
     }

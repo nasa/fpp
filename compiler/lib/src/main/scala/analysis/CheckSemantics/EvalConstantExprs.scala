@@ -147,6 +147,8 @@ object EvalConstantExprs extends UseAnalyzer {
             case Ast.Binop.Div => a.div(e.e1.id, e.e2.id)
             case Ast.Binop.Mul => Right(a.mul(e.e1.id, e.e2.id))
             case Ast.Binop.Sub => Right(a.sub(e.e1.id, e.e2.id))
+            case Ast.Binop.LShift => a.lshift(e.e1.id, e.e2.id)
+            case Ast.Binop.RShift => a.rshift(e.e1.id, e.e2.id)
           }
     } yield a.assignValue(node -> v)
 

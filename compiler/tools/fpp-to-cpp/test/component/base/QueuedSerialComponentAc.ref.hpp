@@ -22,11 +22,13 @@
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Log/LogPortAc.hpp"
 #include "Fw/Log/LogString.hpp"
-#if FW_ENABLE_TEXT_LOGGING == 1
 #include "Fw/Log/LogTextPortAc.hpp"
-#endif
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
+#endif
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/OutputSerializePort.hpp"
+#endif
 #include "Fw/Prm/PrmExternalTypes.hpp"
 #include "Fw/Prm/PrmGetPortAc.hpp"
 #include "Fw/Prm/PrmSetPortAc.hpp"
@@ -252,6 +254,8 @@ class QueuedSerialComponentBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -264,6 +268,10 @@ class QueuedSerialComponentBase :
     Fw::InputCmdPort* get_cmdIn_InputPort(
         FwIndexType portNum //!< The port number
     );
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   public:
 
@@ -404,6 +412,10 @@ class QueuedSerialComponentBase :
         FwIndexType portNum //!< The port number
     );
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -451,6 +463,10 @@ class QueuedSerialComponentBase :
     Fw::InputSerializePort* get_serialSync_InputPort(
         FwIndexType portNum //!< The port number
     );
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   public:
 
@@ -510,6 +526,10 @@ class QueuedSerialComponentBase :
         Fw::InputTlmPort* port //!< The input port
     );
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -564,7 +584,9 @@ class QueuedSerialComponentBase :
         Ports::InputTypedReturnPort* port //!< The input port
     );
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
   public:
 
@@ -620,7 +642,7 @@ class QueuedSerialComponentBase :
 
 #endif
 
-#if FW_PORT_SERIALIZATION
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
   public:
 
@@ -648,12 +670,12 @@ class QueuedSerialComponentBase :
 
 #endif
 
-#if FW_PORT_SERIALIZATION
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
   public:
 
     // ----------------------------------------------------------------------
-    // Connect serial input ports to serial output ports
+    // Connect typed and serial input ports to serial output ports
     // ----------------------------------------------------------------------
 
     //! Connect port to serialOut[portNum]
@@ -1052,35 +1074,35 @@ class QueuedSerialComponentBase :
     //! \return Whether port cmdRegOut is connected
     bool isConnected_cmdRegOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port cmdResponseOut is connected
     //!
     //! \return Whether port cmdResponseOut is connected
     bool isConnected_cmdResponseOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port eventOut is connected
     //!
     //! \return Whether port eventOut is connected
     bool isConnected_eventOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port prmGetOut is connected
     //!
     //! \return Whether port prmGetOut is connected
     bool isConnected_prmGetOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port prmSetOut is connected
     //!
     //! \return Whether port prmSetOut is connected
     bool isConnected_prmSetOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
@@ -1089,7 +1111,7 @@ class QueuedSerialComponentBase :
     //! \return Whether port textEventOut is connected
     bool isConnected_textEventOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
 #endif
 
@@ -1098,14 +1120,14 @@ class QueuedSerialComponentBase :
     //! \return Whether port timeGetOut is connected
     bool isConnected_timeGetOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port tlmOut is connected
     //!
     //! \return Whether port tlmOut is connected
     bool isConnected_tlmOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
   protected:
 
@@ -1118,56 +1140,56 @@ class QueuedSerialComponentBase :
     //! \return Whether port noArgsOut is connected
     bool isConnected_noArgsOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port noArgsReturnOut is connected
     //!
     //! \return Whether port noArgsReturnOut is connected
     bool isConnected_noArgsReturnOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port noArgsStringReturnOut is connected
     //!
     //! \return Whether port noArgsStringReturnOut is connected
     bool isConnected_noArgsStringReturnOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port typedAliasOut is connected
     //!
     //! \return Whether port typedAliasOut is connected
     bool isConnected_typedAliasOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port typedAliasReturnOut is connected
     //!
     //! \return Whether port typedAliasReturnOut is connected
     bool isConnected_typedAliasReturnOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port typedAliasReturnStringOut is connected
     //!
     //! \return Whether port typedAliasReturnStringOut is connected
     bool isConnected_typedAliasReturnStringOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port typedOut is connected
     //!
     //! \return Whether port typedOut is connected
     bool isConnected_typedOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port typedReturnOut is connected
     //!
     //! \return Whether port typedReturnOut is connected
     bool isConnected_typedReturnOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
   protected:
 
@@ -1180,6 +1202,26 @@ class QueuedSerialComponentBase :
     //! \return Whether port serialOut is connected
     bool isConnected_serialOut_OutputPort(
         FwIndexType portNum //!< The port number
+    ) const;
+
+#if FW_DIRECT_PORT_CALLS
+  public:
+#else
+  protected:
+#endif
+
+    // ----------------------------------------------------------------------
+    // Port handler base-class functions for special input ports
+    //
+    // Call these functions directly to bypass the corresponding ports
+    // ----------------------------------------------------------------------
+
+    //! Handler base-class function for input port cmdIn
+    void cmdIn_handlerBase(
+        FwIndexType portNum, //!< The port number
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        Fw::CmdArgBuffer& args //!< The command argument buffer
     );
 
   protected:
@@ -1367,7 +1409,11 @@ class QueuedSerialComponentBase :
         const S& s //!< A struct
     ) = 0;
 
+#if FW_DIRECT_PORT_CALLS
+  public:
+#else
   protected:
+#endif
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
@@ -1596,7 +1642,11 @@ class QueuedSerialComponentBase :
         Fw::LinearBufferBase& buffer //!< The serialization buffer
     ) = 0;
 
+#if FW_DIRECT_PORT_CALLS
+  public:
+#else
   protected:
+#endif
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for serial input ports
@@ -1758,17 +1808,17 @@ class QueuedSerialComponentBase :
     //! Invoke output port noArgsOut
     void noArgsOut_out(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Invoke output port noArgsReturnOut
     U32 noArgsReturnOut_out(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Invoke output port noArgsStringReturnOut
     Fw::String noArgsStringReturnOut_out(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Invoke output port typedAliasOut
     void typedAliasOut_out(
@@ -1780,7 +1830,7 @@ class QueuedSerialComponentBase :
         const AliasEnum& e, //!< An enum
         const AliasArray& a, //!< An array
         const AliasStruct& s //!< A struct
-    );
+    ) const;
 
     //! Invoke output port typedAliasReturnOut
     AliasPrim2 typedAliasReturnOut_out(
@@ -1792,7 +1842,7 @@ class QueuedSerialComponentBase :
         const AliasEnum& e, //!< An enum
         const AliasArray& a, //!< An array
         const AliasStruct& s //!< A struct
-    );
+    ) const;
 
     //! Invoke output port typedAliasReturnStringOut
     Fw::String typedAliasReturnStringOut_out(
@@ -1804,7 +1854,7 @@ class QueuedSerialComponentBase :
         const AliasEnum& e, //!< An enum
         const AliasArray& a, //!< An array
         const AnotherAliasStruct& s //!< A struct
-    );
+    ) const;
 
     //! Invoke output port typedOut
     void typedOut_out(
@@ -1816,7 +1866,7 @@ class QueuedSerialComponentBase :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) const;
 
     //! Invoke output port typedReturnOut
     F32 typedReturnOut_out(
@@ -1828,7 +1878,7 @@ class QueuedSerialComponentBase :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) const;
 
   protected:
 
@@ -2370,6 +2420,22 @@ class QueuedSerialComponentBase :
   protected:
 
     // ----------------------------------------------------------------------
+    // Telemetry serialized write
+    // ----------------------------------------------------------------------
+
+    //! Write telemetry channel given its local id and serialized value.
+    //! Warning: This is a low level telemetry interface that does not guarentee channel type safety.
+    //!          It is up to the caller to make sure the serialized data matches the definition in the model.
+    //!          Update on change semantics are ignored, this telemetry is always written
+    void tlmWrite(
+        FwChanIdType id, //!< The channel id
+        Fw::TlmBuffer& _tlmBuff, //!< The serialized telemetry value
+        Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
+    ) const;
+
+  protected:
+
+    // ----------------------------------------------------------------------
     // Telemetry write functions
     // ----------------------------------------------------------------------
 
@@ -2472,7 +2538,7 @@ class QueuedSerialComponentBase :
   protected:
 
     // ----------------------------------------------------------------------
-    // Parameter update hook
+    // Parameter hook functions
     // ----------------------------------------------------------------------
 
     //! \brief Called whenever a parameter is updated
@@ -2481,10 +2547,6 @@ class QueuedSerialComponentBase :
     virtual void parameterUpdated(
         FwPrmIdType id //!< The parameter ID
     );
-
-    // ----------------------------------------------------------------------
-    // Parameter load hook
-    // ----------------------------------------------------------------------
 
     //! \brief Called whenever parameters are loaded
     //!
@@ -2936,6 +2998,76 @@ class QueuedSerialComponentBase :
   private:
 
     // ----------------------------------------------------------------------
+    // Invocation functions for special output ports
+    // ----------------------------------------------------------------------
+
+    //! Invoke output port cmdRegOut
+    void cmdRegOut_out(
+        FwIndexType portNum, //!< The port number
+        FwOpcodeType opCode //!< Command Op Code
+    ) const;
+
+    //! Invoke output port cmdResponseOut
+    void cmdResponseOut_out(
+        FwIndexType portNum, //!< The port number
+        FwOpcodeType opCode, //!< Command Op Code
+        U32 cmdSeq, //!< Command Sequence
+        const Fw::CmdResponse& response //!< The command response argument
+    ) const;
+
+    //! Invoke output port eventOut
+    void eventOut_out(
+        FwIndexType portNum, //!< The port number
+        FwEventIdType id, //!< Log ID
+        Fw::Time& timeTag, //!< Time Tag
+        const Fw::LogSeverity& severity, //!< The severity argument
+        Fw::LogBuffer& args //!< Buffer containing serialized log entry
+    ) const;
+
+    //! Invoke output port prmGetOut
+    Fw::ParamValid prmGetOut_out(
+        FwIndexType portNum, //!< The port number
+        FwPrmIdType id, //!< Parameter ID
+        Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
+    ) const;
+
+    //! Invoke output port prmSetOut
+    void prmSetOut_out(
+        FwIndexType portNum, //!< The port number
+        FwPrmIdType id, //!< Parameter ID
+        Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
+    ) const;
+
+#if FW_ENABLE_TEXT_LOGGING
+
+    //! Invoke output port textEventOut
+    void textEventOut_out(
+        FwIndexType portNum, //!< The port number
+        FwEventIdType id, //!< Log ID
+        Fw::Time& timeTag, //!< Time Tag
+        const Fw::LogSeverity& severity, //!< The severity argument
+        Fw::TextLogString& text //!< Text of log message
+    ) const;
+
+#endif
+
+    //! Invoke output port timeGetOut
+    void timeGetOut_out(
+        FwIndexType portNum, //!< The port number
+        Fw::Time& time //!< Reference to Time object
+    ) const;
+
+    //! Invoke output port tlmOut
+    void tlmOut_out(
+        FwIndexType portNum, //!< The port number
+        FwChanIdType id, //!< Telemetry Channel ID
+        Fw::Time& timeTag, //!< Time Tag
+        Fw::TlmBuffer& val //!< Buffer containing serialized telemetry value
+    ) const;
+
+  private:
+
+    // ----------------------------------------------------------------------
     // Parameter set functions
     // ----------------------------------------------------------------------
 
@@ -3089,6 +3221,8 @@ class QueuedSerialComponentBase :
     //! \return The command response
     Fw::CmdResponse paramSave_ParamStructExt();
 
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -3097,6 +3231,10 @@ class QueuedSerialComponentBase :
 
     //! Input port cmdIn
     Fw::InputCmdPort m_cmdIn_InputPort[NUM_CMDIN_INPUT_PORTS];
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   private:
 
@@ -3161,6 +3299,10 @@ class QueuedSerialComponentBase :
     //! Input port typedSync
     Ports::InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -3184,6 +3326,10 @@ class QueuedSerialComponentBase :
 
     //! Input port serialSync
     Fw::InputSerializePort m_serialSync_InputPort[NUM_SERIALSYNC_INPUT_PORTS];
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   private:
 
@@ -3219,6 +3365,10 @@ class QueuedSerialComponentBase :
     //! Output port tlmOut
     Fw::OutputTlmPort m_tlmOut_OutputPort[NUM_TLMOUT_OUTPUT_PORTS];
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -3249,6 +3399,10 @@ class QueuedSerialComponentBase :
     //! Output port typedReturnOut
     Ports::OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -3257,6 +3411,8 @@ class QueuedSerialComponentBase :
 
     //! Output port serialOut
     Fw::OutputSerializePort m_serialOut_OutputPort[NUM_SERIALOUT_OUTPUT_PORTS];
+
+#endif
 
   private:
 
@@ -3315,23 +3471,41 @@ class QueuedSerialComponentBase :
     // Parameter validity flags
     // ----------------------------------------------------------------------
 
-    //! True if ParamU32 was successfully received
-    Fw::ParamValid m_param_ParamU32_valid;
+    //! The validity flag for ParamU32
+    Fw::ParamValid m_param_ParamU32_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamF64 was successfully received
-    Fw::ParamValid m_param_ParamF64_valid;
+    //! The validity flag for ParamF64
+    Fw::ParamValid m_param_ParamF64_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamString was successfully received
-    Fw::ParamValid m_param_ParamString_valid;
+    //! The validity flag for ParamString
+    Fw::ParamValid m_param_ParamString_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamEnum was successfully received
-    Fw::ParamValid m_param_ParamEnum_valid;
+    //! The validity flag for ParamEnum
+    Fw::ParamValid m_param_ParamEnum_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamArray was successfully received
-    Fw::ParamValid m_param_ParamArray_valid;
+    //! The validity flag for ParamArray
+    Fw::ParamValid m_param_ParamArray_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamStruct was successfully received
-    Fw::ParamValid m_param_ParamStruct_valid;
+    //! The validity flag for ParamStruct
+    Fw::ParamValid m_param_ParamStruct_valid = Fw::ParamValid::UNINIT;
+
+    //! The validity flag for ParamI32Ext
+    Fw::ParamValid m_param_ParamI32Ext_valid = Fw::ParamValid::UNINIT;
+
+    //! The validity flag for ParamF64Ext
+    Fw::ParamValid m_param_ParamF64Ext_valid = Fw::ParamValid::UNINIT;
+
+    //! The validity flag for ParamStringExt
+    Fw::ParamValid m_param_ParamStringExt_valid = Fw::ParamValid::UNINIT;
+
+    //! The validity flag for ParamEnumExt
+    Fw::ParamValid m_param_ParamEnumExt_valid = Fw::ParamValid::UNINIT;
+
+    //! The validity flag for ParamArrayExt
+    Fw::ParamValid m_param_ParamArrayExt_valid = Fw::ParamValid::UNINIT;
+
+    //! The validity flag for ParamStructExt
+    Fw::ParamValid m_param_ParamStructExt_valid = Fw::ParamValid::UNINIT;
 
   private:
 
@@ -3373,11 +3547,11 @@ class QueuedSerialComponentBase :
   private:
 
     // ----------------------------------------------------------------------
-    // Parameter delegates
+    // Parameter delegate
     // ----------------------------------------------------------------------
 
     //! Delegate to serialize/deserialize an externally stored parameter
-    Fw::ParamExternalDelegate* paramDelegatePtr;
+    Fw::ParamExternalDelegate* paramDelegatePtr = nullptr;
 
   private:
 

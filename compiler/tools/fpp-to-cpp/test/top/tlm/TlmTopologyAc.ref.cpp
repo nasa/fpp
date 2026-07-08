@@ -12,25 +12,25 @@
 
 namespace M {
 
-  M::C c1(FW_OPTIONAL_NAME("c1"));
+  M::C c1(FW_OPTIONAL_NAME("M.c1"));
 
 }
 
 namespace M {
 
-  M::C c2(FW_OPTIONAL_NAME("c2"));
+  M::C c2(FW_OPTIONAL_NAME("M.c2"));
 
 }
 
 namespace M {
 
-  M::NoTlm noTlm(FW_OPTIONAL_NAME("noTlm"));
+  M::NoTlm noTlm(FW_OPTIONAL_NAME("M.noTlm"));
 
 }
 
 namespace M {
 
-  M::TlmManager tlmManager(FW_OPTIONAL_NAME("tlmManager"));
+  M::TlmManager tlmManager(FW_OPTIONAL_NAME("M.tlmManager"));
 
 }
 
@@ -60,11 +60,16 @@ namespace M {
 
   void connectComponents() {
 
+#if !FW_DIRECT_PORT_CALLS
+
     // Tlm
     M::c1.set_tlmOut_OutputPort(
         0,
         M::tlmManager.get_tlmIn_InputPort(0)
     );
+
+#endif
+
   }
 
   void regCommands() {
@@ -125,3 +130,210 @@ namespace M {
   }
 
 }
+
+#if FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Topology-dependent component implementation
+// ----------------------------------------------------------------------
+
+namespace M {
+
+  bool CComponentBase::isConnected_timeGetOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_TIMEGETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_TIMEGETOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+    }
+    return result;
+  }
+
+  bool CComponentBase::isConnected_tlmOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_TLMOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_TLMOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+    }
+    return result;
+  }
+
+  void CComponentBase::timeGetOut_out(
+      FwIndexType portNum,
+      Fw::Time& time
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_TIMEGETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_TIMEGETOUT_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+    }
+  }
+
+  void CComponentBase::tlmOut_out(
+      FwIndexType portNum,
+      FwChanIdType id,
+      Fw::Time& timeTag,
+      Fw::TlmBuffer& val
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_TLMOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_TLMOUT_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          case 0:
+            M::tlmManager.tlmIn_handlerBase(
+              0,
+              id,
+              timeTag,
+              val
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+    }
+  }
+
+}
+
+namespace M {
+
+  bool NoTlmComponentBase::isConnected_timeGetOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_TIMEGETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_TIMEGETOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    switch (portNum) {
+      default:
+        break;
+    }
+    return result;
+  }
+
+  bool NoTlmComponentBase::isConnected_tlmOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_TLMOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_TLMOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    switch (portNum) {
+      default:
+        break;
+    }
+    return result;
+  }
+
+  void NoTlmComponentBase::timeGetOut_out(
+      FwIndexType portNum,
+      Fw::Time& time
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_TIMEGETOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_TIMEGETOUT_OUTPUT_PORTS)
+    );
+    switch (portNum) {
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        break;
+    }
+  }
+
+}
+
+#endif

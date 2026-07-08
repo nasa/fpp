@@ -8,6 +8,7 @@
 #define FppTest_SmState_BasicU32_StateEnumAc_HPP
 
 #include "Fw/FPrimeBasicTypes.hpp"
+#include "Fw/Types/Assert.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
@@ -26,7 +27,7 @@ namespace FppTest {
         // ----------------------------------------------------------------------
 
         //! The serial representation type
-        typedef U8 SerialType;
+        using SerialType = U8;
 
         //! The raw enum type
         enum T {
@@ -39,7 +40,7 @@ namespace FppTest {
         };
 
         //! For backwards compatibility
-        typedef enum T t;
+        using t = enum T;
 
       public:
 
@@ -71,6 +72,7 @@ namespace FppTest {
             const enum T e1 //!< The raw enum value
         )
         {
+          FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
           this->e = e1;
         }
 
@@ -80,6 +82,10 @@ namespace FppTest {
         )
         {
           this->e = obj.e;
+#ifdef BUILD_UT
+        this->m_serializeValueIsSet = obj.m_serializeValueIsSet;
+        this->m_serializeValue = obj.m_serializeValue;
+#endif
         }
 
       public:
@@ -156,14 +162,54 @@ namespace FppTest {
 
 #endif
 
+#ifdef BUILD_UT
+
+        //! Set the value to use for serialization (unit testing only)
+        void setSerializeValue(
+            SerialType serializeValue //!< The serialize value
+        );
+
+#endif
+
       public:
 
         // ----------------------------------------------------------------------
-        // Member variables
+        // Static functions
+        // ----------------------------------------------------------------------
+
+        //! Check serial type value for validity
+        static bool isValid(
+            SerialType serialTypeValue //!< The serial type value
+        );
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Public member variables
         // ----------------------------------------------------------------------
 
         //! The raw enum value
         enum T e;
+
+      private:
+
+        // ----------------------------------------------------------------------
+        // Private member variables
+        // ----------------------------------------------------------------------
+
+#ifdef BUILD_UT
+
+        //! Whether the serialize value is set (unit testing only).
+        //! When this flag is set to true, the serializeTo function
+        //! uses the serialize value instead of the raw enum value
+        //! when serializing the enum instance. This allows serialization
+        //! of invalid values that can't be represented as the raw enum type.
+        bool m_serializeValueIsSet = false;
+
+        //! The serialize value
+        SerialType m_serializeValue = 0;
+
+#endif
 
     };
 

@@ -288,10 +288,14 @@ object Parser extends Parsers {
         val op ~ e2 = op_e2
         val binop =
           op match {
+            case Token.LSHIFT() =>
+              AstNode.create(Ast.ExprBinop(e1, Ast.Binop.LShift, e2))
             case Token.MINUS() =>
               AstNode.create(Ast.ExprBinop(e1, Ast.Binop.Sub, e2))
             case Token.PLUS() =>
               AstNode.create(Ast.ExprBinop(e1, Ast.Binop.Add, e2))
+            case Token.RSHIFT() =>
+              AstNode.create(Ast.ExprBinop(e1, Ast.Binop.RShift, e2))
             case Token.SLASH() =>
               AstNode.create(Ast.ExprBinop(e1, Ast.Binop.Div, e2))
             case Token.STAR() =>
@@ -389,7 +393,12 @@ object Parser extends Parsers {
         leftAssoc(e, es)
       }
 
-    addSubOperand ~ rep((plus | minus) ~! addSubOperand) ^^ { case e ~ es =>
+    def shiftOperand =
+      addSubOperand ~ rep((plus | minus) ~! addSubOperand) ^^  { case e ~ es =>
+        leftAssoc(e, es)
+      }
+
+    shiftOperand ~ rep((lshift | rshift) ~! shiftOperand) ^^ { case e ~ es =>
       leftAssoc(e, es)
     }
   }
@@ -1229,6 +1238,8 @@ object Parser extends Parsers {
 
   private def lparen = accept("(", { case t: Token.LPAREN => t })
 
+  private def lshift = accept("<<", { case t: Token.LSHIFT => t })
+
   private def machine = accept("machine", { case t: Token.MACHINE => t })
 
   private def minus = accept("-", { case t: Token.MINUS => t })
@@ -1256,6 +1267,8 @@ object Parser extends Parsers {
   private def phase = accept("phase", { case t: Token.PHASE => t })
 
   private def plus = accept("+", { case t: Token.PLUS => t })
+
+
 
   private def port = accept("port", { case t: Token.PORT => t })
 
@@ -1294,6 +1307,8 @@ object Parser extends Parsers {
   private def resp = accept("resp", { case t: Token.RESP => t })
 
   private def rparen = accept(")", { case t: Token.RPAREN => t })
+
+  private def rshift = accept(">>", { case t: Token.RSHIFT => t })
 
   private def save = accept("save", { case t: Token.SAVE => t })
 

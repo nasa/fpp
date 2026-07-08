@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/top_ports/interface_instance_not_member.fpp:24.12
+  port b = c2.pIn
+           ^
+error: instance c2 is not a member of topology A

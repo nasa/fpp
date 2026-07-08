@@ -9,11 +9,11 @@
 
 #include <cstdio>
 
+#include "ActiveParamsComponentAc.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-#include "test-base/ActiveParamsComponentAc.hpp"
 
 //! \class ActiveParamsTesterBase
 //! \brief Auto-generated base for ActiveParams component test harness
@@ -1114,140 +1114,140 @@ class ActiveParamsTesterBase :
     //! \return Whether port to_cmdIn is connected
     bool isConnected_to_cmdIn(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_aliasTypedAsync is connected
     //!
     //! \return Whether port to_aliasTypedAsync is connected
     bool isConnected_to_aliasTypedAsync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsAliasStringReturnSync is connected
     //!
     //! \return Whether port to_noArgsAliasStringReturnSync is connected
     bool isConnected_to_noArgsAliasStringReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsAsync is connected
     //!
     //! \return Whether port to_noArgsAsync is connected
     bool isConnected_to_noArgsAsync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsGuarded is connected
     //!
     //! \return Whether port to_noArgsGuarded is connected
     bool isConnected_to_noArgsGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsReturnGuarded is connected
     //!
     //! \return Whether port to_noArgsReturnGuarded is connected
     bool isConnected_to_noArgsReturnGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsReturnSync is connected
     //!
     //! \return Whether port to_noArgsReturnSync is connected
     bool isConnected_to_noArgsReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsStringReturnSync is connected
     //!
     //! \return Whether port to_noArgsStringReturnSync is connected
     bool isConnected_to_noArgsStringReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_noArgsSync is connected
     //!
     //! \return Whether port to_noArgsSync is connected
     bool isConnected_to_noArgsSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAliasGuarded is connected
     //!
     //! \return Whether port to_typedAliasGuarded is connected
     bool isConnected_to_typedAliasGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAliasReturnSync is connected
     //!
     //! \return Whether port to_typedAliasReturnSync is connected
     bool isConnected_to_typedAliasReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAliasStringReturnSync is connected
     //!
     //! \return Whether port to_typedAliasStringReturnSync is connected
     bool isConnected_to_typedAliasStringReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAsync is connected
     //!
     //! \return Whether port to_typedAsync is connected
     bool isConnected_to_typedAsync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAsyncAssert is connected
     //!
     //! \return Whether port to_typedAsyncAssert is connected
     bool isConnected_to_typedAsyncAssert(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAsyncBlockPriority is connected
     //!
     //! \return Whether port to_typedAsyncBlockPriority is connected
     bool isConnected_to_typedAsyncBlockPriority(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedAsyncDropPriority is connected
     //!
     //! \return Whether port to_typedAsyncDropPriority is connected
     bool isConnected_to_typedAsyncDropPriority(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedGuarded is connected
     //!
     //! \return Whether port to_typedGuarded is connected
     bool isConnected_to_typedGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedReturnGuarded is connected
     //!
     //! \return Whether port to_typedReturnGuarded is connected
     bool isConnected_to_typedReturnGuarded(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedReturnSync is connected
     //!
     //! \return Whether port to_typedReturnSync is connected
     bool isConnected_to_typedReturnSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port to_typedSync is connected
     //!
     //! \return Whether port to_typedSync is connected
     bool isConnected_to_typedSync(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
   protected:
 
@@ -1780,23 +1780,23 @@ class ActiveParamsTesterBase :
     // Parameter validity flags
     // ----------------------------------------------------------------------
 
-    //! True if ParamU32 was successfully received
-    Fw::ParamValid m_param_ParamU32_valid;
+    //! The validity flag for ParamU32
+    Fw::ParamValid m_param_ParamU32_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamF64 was successfully received
-    Fw::ParamValid m_param_ParamF64_valid;
+    //! The validity flag for ParamF64
+    Fw::ParamValid m_param_ParamF64_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamString was successfully received
-    Fw::ParamValid m_param_ParamString_valid;
+    //! The validity flag for ParamString
+    Fw::ParamValid m_param_ParamString_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamEnum was successfully received
-    Fw::ParamValid m_param_ParamEnum_valid;
+    //! The validity flag for ParamEnum
+    Fw::ParamValid m_param_ParamEnum_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamArray was successfully received
-    Fw::ParamValid m_param_ParamArray_valid;
+    //! The validity flag for ParamArray
+    Fw::ParamValid m_param_ParamArray_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamStruct was successfully received
-    Fw::ParamValid m_param_ParamStruct_valid;
+    //! The validity flag for ParamStruct
+    Fw::ParamValid m_param_ParamStruct_valid = Fw::ParamValid::UNINIT;
 
   private:
 

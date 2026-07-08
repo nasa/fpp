@@ -2,7 +2,6 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
-import java.lang
 
 /** An FPP value */
 sealed trait Value {
@@ -11,7 +10,8 @@ sealed trait Value {
   final def +(v: Value): Option[Value] = {
     def intOp(v1: BigInt, v2: BigInt) = v1 + v2
     def doubleOp(v1: Double, v2: Double) = v1 + v2
-    binop(Value.Binop(intOp, doubleOp))(v)
+    def stringOp(v1: java.lang.String, v2: java.lang.String) = v1.concat(v2)
+    binop(Value.Binop(intOp, doubleOp, Some(stringOp)))(v)
   }
 
   /** Check whether a value is zero for purposes of division */
@@ -37,6 +37,9 @@ sealed trait Value {
   /** Generic binary operation */
   private[analysis] def binop(op: Value.Binop)(v: Value): Option[Value] = None
 
+  /** Shift-only binary operation */
+  private[analysis] def intShiftOp(op: Value.Binop.intShiftOp)(v: Value): Option[Value] = None
+
   /** Get the type of the value */
   def getType: Type
 
@@ -46,6 +49,12 @@ sealed trait Value {
     def doubleOp(v1: Double, v2: Double) = v1 * v2
     binop(Value.Binop(intOp, doubleOp))(v)
   }
+
+  /** Left shift an integer value*/
+  final def <<(v: Value): Option[Value] = intShiftOp(_ << _)(v)
+
+  /** Right shift an integer value*/
+  final def >>(v: Value): Option[Value] = intShiftOp(_ >> _)(v)
 
   /** Negate a value */
   def unary_- : Option[Value] = None
@@ -124,6 +133,13 @@ object Value {
       case _ => None
     }
 
+    override private[analysis] def intShiftOp(op: Binop.intShiftOp)(v: Value) = v match {
+      case PrimitiveInt(value1, kind1) => Some(PrimitiveInt(op(value, value1.toInt), kind))
+      case Integer(value1) => Some(Integer(op(value, value1.toInt)))
+      case enumConstant: EnumConstant => intShiftOp(op)(enumConstant.convertToRepType)
+      case _ => None
+    }
+
     override def convertToDistinctType(t: Type) =
       t.getUnderlyingType match {
         case Type.PrimitiveInt(kind1) => Some(PrimitiveInt(value, kind1))
@@ -181,6 +197,13 @@ object Value {
       }
       case enumConstant : EnumConstant =>
         binop(op)(enumConstant.convertToRepType)
+      case _ => None
+    }
+
+    override private[analysis] def intShiftOp(op: Binop.intShiftOp)(v: Value) = v match {
+      case PrimitiveInt(value1, kind1) => Some(Integer(op(value, value1.toInt)))
+      case Integer(value1) => Some(Integer(op(value, value1.toInt)))
+      case enumConstant: EnumConstant => intShiftOp(op)(enumConstant.convertToRepType)
       case _ => None
     }
 
@@ -268,6 +291,11 @@ object Value {
 
   /** String values */
   case class String(value: java.lang.String) extends Value {
+
+    override private[analysis] def binop(op: Binop)(v: Value) = v match {
+      case String(value1) => op.stringOpOpt.map(_(value, value1)).map(String(_))
+      case _ => None
+    }
 
     override def convertToDistinctType(t: Type) =
       t.getUnderlyingType match {
@@ -358,6 +386,8 @@ object Value {
   case class EnumConstant(value: (Name.Unqualified, BigInt), t: Type.Enum) extends Value {
 
     override private[analysis] def binop(op: Binop)(v: Value) = convertToRepType.binop(op)(v)
+
+    override private[analysis] def intShiftOp(op: Binop.intShiftOp)(v: Value) = convertToRepType.intShiftOp(op)(v)
 
     /** Convert the enum to the representation type */
     def convertToRepType: PrimitiveInt = PrimitiveInt(value._2, t.repType.kind)
@@ -472,7 +502,9 @@ object Value {
     /** The integer operation */
     intOp: Binop.Op[BigInt], 
     /** The double-precision floating point operation */
-    doubleOp: Binop.Op[Double]
+    doubleOp: Binop.Op[Double],
+    /** The optional string operation */
+    stringOpOpt: Option[Binop.Op[java.lang.String]] = None
   )
 
   private[analysis] object Binop {
@@ -480,6 +512,8 @@ object Value {
     /** A binary operation */
     type Op[T] = (T, T) => T
 
+    /** A shift operation */
+    type intShiftOp = (BigInt, Int) => BigInt
   }
 
 }

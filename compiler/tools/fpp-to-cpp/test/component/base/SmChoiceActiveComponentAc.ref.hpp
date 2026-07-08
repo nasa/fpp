@@ -9,8 +9,12 @@
 
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
+#endif
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/OutputSerializePort.hpp"
+#endif
 #include "SmChoiceActive_BasicStateMachineAc.hpp"
 #include "SmChoiceActive_Basic_StateEnumAc.hpp"
 #include "state-machine/choice/BasicStateMachineAc.hpp"

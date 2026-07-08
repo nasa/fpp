@@ -51,6 +51,7 @@ syn keyword fppKeyword high
 syn keyword fppKeyword hook
 syn keyword fppKeyword id
 syn keyword fppKeyword if
+syn keyword fppKeyword implements
 syn keyword fppKeyword import
 syn keyword fppKeyword include
 syn keyword fppKeyword initial

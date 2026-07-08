@@ -4,7 +4,7 @@
 // \brief  cpp file for ActiveAsyncProductPortsOnly component Google Test harness base class
 // ======================================================================
 
-#include "test-base/ActiveAsyncProductPortsOnlyGTestBase.hpp"
+#include "ActiveAsyncProductPortsOnlyGTestBase.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

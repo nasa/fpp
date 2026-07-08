@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "test-base/PassiveSerialTesterBase.hpp"
+#include "PassiveSerialTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Unit test implementation of external parameter delegate serialization/deserialization
@@ -23,6 +23,7 @@ Fw::SerializeStatus PassiveSerialTesterBase::PassiveSerialComponentBaseParamExte
 {
   Fw::SerializeStatus stat;
   (void) baseId;
+  (void) prmStat;
 
   // Serialize the parameter based on ID
   switch(localId)
@@ -234,7 +235,7 @@ void PassiveSerialTesterBase ::
 #endif
   }
 
-#if FW_ENABLE_TEXT_LOGGING == 1
+#if FW_ENABLE_TEXT_LOGGING
   // Connect input port textEventOut
   for (
     FwIndexType port = 0;
@@ -1261,13 +1262,7 @@ PassiveSerialTesterBase ::
       const char* const compName,
       const U32 maxHistorySize
   ) :
-    Fw::PassiveComponentBase(compName),
-    m_param_ParamU32_valid(Fw::ParamValid::UNINIT),
-    m_param_ParamF64_valid(Fw::ParamValid::UNINIT),
-    m_param_ParamString_valid(Fw::ParamValid::UNINIT),
-    m_param_ParamEnum_valid(Fw::ParamValid::UNINIT),
-    m_param_ParamArray_valid(Fw::ParamValid::UNINIT),
-    m_param_ParamStruct_valid(Fw::ParamValid::UNINIT)
+    Fw::PassiveComponentBase(compName)
 {
   // Initialize port histories
   this->fromPortHistory_typedAliasOut = new History<FromPortEntry_typedAliasOut>(maxHistorySize);
@@ -1964,7 +1959,7 @@ void PassiveSerialTesterBase ::
 // ----------------------------------------------------------------------
 
 bool PassiveSerialTesterBase ::
-  isConnected_to_cmdIn(FwIndexType portNum)
+  isConnected_to_cmdIn(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_cmdIn()),
@@ -1975,7 +1970,7 @@ bool PassiveSerialTesterBase ::
 }
 
 bool PassiveSerialTesterBase ::
-  isConnected_to_noArgsAliasStringReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsAliasStringReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsAliasStringReturnSync()),
@@ -1986,7 +1981,7 @@ bool PassiveSerialTesterBase ::
 }
 
 bool PassiveSerialTesterBase ::
-  isConnected_to_noArgsGuarded(FwIndexType portNum)
+  isConnected_to_noArgsGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsGuarded()),
@@ -1997,7 +1992,7 @@ bool PassiveSerialTesterBase ::
 }
 
 bool PassiveSerialTesterBase ::
-  isConnected_to_noArgsReturnGuarded(FwIndexType portNum)
+  isConnected_to_noArgsReturnGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnGuarded()),
@@ -2008,7 +2003,7 @@ bool PassiveSerialTesterBase ::
 }
 
 bool PassiveSerialTesterBase ::
-  isConnected_to_noArgsReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnSync()),
@@ -2019,7 +2014,7 @@ bool PassiveSerialTesterBase ::
 }
 
 bool PassiveSerialTesterBase ::
-  isConnected_to_noArgsStringReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsStringReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsStringReturnSync()),
@@ -2030,7 +2025,7 @@ bool PassiveSerialTesterBase ::
 }
 
 bool PassiveSerialTesterBase ::
-  isConnected_to_noArgsSync(FwIndexType portNum)
+  isConnected_to_noArgsSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsSync()),
@@ -2041,7 +2036,7 @@ bool PassiveSerialTesterBase ::
 }
 
 bool PassiveSerialTesterBase ::
-  isConnected_to_typedAliasGuarded(FwIndexType portNum)
+  isConnected_to_typedAliasGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAliasGuarded()),
@@ -2052,7 +2047,7 @@ bool PassiveSerialTesterBase ::
 }
 
 bool PassiveSerialTesterBase ::
-  isConnected_to_typedAliasReturnSync(FwIndexType portNum)
+  isConnected_to_typedAliasReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAliasReturnSync()),
@@ -2063,7 +2058,7 @@ bool PassiveSerialTesterBase ::
 }
 
 bool PassiveSerialTesterBase ::
-  isConnected_to_typedAliasStringReturnSync(FwIndexType portNum)
+  isConnected_to_typedAliasStringReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAliasStringReturnSync()),
@@ -2074,7 +2069,7 @@ bool PassiveSerialTesterBase ::
 }
 
 bool PassiveSerialTesterBase ::
-  isConnected_to_typedGuarded(FwIndexType portNum)
+  isConnected_to_typedGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedGuarded()),
@@ -2085,7 +2080,7 @@ bool PassiveSerialTesterBase ::
 }
 
 bool PassiveSerialTesterBase ::
-  isConnected_to_typedReturnGuarded(FwIndexType portNum)
+  isConnected_to_typedReturnGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedReturnGuarded()),
@@ -2096,7 +2091,7 @@ bool PassiveSerialTesterBase ::
 }
 
 bool PassiveSerialTesterBase ::
-  isConnected_to_typedReturnSync(FwIndexType portNum)
+  isConnected_to_typedReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedReturnSync()),
@@ -2107,7 +2102,7 @@ bool PassiveSerialTesterBase ::
 }
 
 bool PassiveSerialTesterBase ::
-  isConnected_to_typedSync(FwIndexType portNum)
+  isConnected_to_typedSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedSync()),
@@ -2118,7 +2113,7 @@ bool PassiveSerialTesterBase ::
 }
 
 bool PassiveSerialTesterBase ::
-  isConnected_to_serialGuarded(FwIndexType portNum)
+  isConnected_to_serialGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_serialGuarded()),
@@ -2129,7 +2124,7 @@ bool PassiveSerialTesterBase ::
 }
 
 bool PassiveSerialTesterBase ::
-  isConnected_to_serialSync(FwIndexType portNum)
+  isConnected_to_serialSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_serialSync()),

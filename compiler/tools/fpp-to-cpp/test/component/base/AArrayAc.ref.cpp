@@ -4,8 +4,8 @@
 // \brief  cpp file for A array
 // ======================================================================
 
+#include "AArrayAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "base/AArrayAc.hpp"
 
 // ----------------------------------------------------------------------
 // Constructors

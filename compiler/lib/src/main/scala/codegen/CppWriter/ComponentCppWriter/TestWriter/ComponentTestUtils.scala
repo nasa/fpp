@@ -96,26 +96,6 @@ abstract class ComponentTestUtils(
       )
     )
 
-  def wrapClassMemberInTextLogGuard(
-    member: CppDoc.Class.Member,
-    output: CppDoc.Lines.Output = CppDoc.Lines.Both
-  ): List[CppDoc.Class.Member] =
-    wrapClassMembersInIfDirective(
-      "\n#if FW_ENABLE_TEXT_LOGGING",
-      List(member),
-      output
-    )
-
-  def wrapClassMembersInTextLogGuard(
-    members: List[CppDoc.Class.Member],
-    output: CppDoc.Lines.Output = CppDoc.Lines.Both
-  ): List[CppDoc.Class.Member] =
-    wrapClassMembersInIfDirective(
-      "\n#if FW_ENABLE_TEXT_LOGGING",
-      members,
-      output
-    )
-
   def writeValue(value: String, t: Type): String =
     t match {
       case Type.String(_) => s"$value.toChar()"

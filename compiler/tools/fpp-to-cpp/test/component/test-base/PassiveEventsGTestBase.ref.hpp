@@ -7,8 +7,8 @@
 #ifndef PassiveEventsGTestBase_HPP
 #define PassiveEventsGTestBase_HPP
 
+#include "PassiveEventsTesterBase.hpp"
 #include "gtest/gtest.h"
-#include "test-base/PassiveEventsTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Macros for typed user from port history assertions
@@ -438,32 +438,32 @@
 #define ASSERT_EVENTS_EventActivityLowThrottled_SIZE(size) \
   this->assertEvents_EventActivityLowThrottled_size(__FILE__, __LINE__, size)
 
-#define ASSERT_EVENTS_EventActivityLowThrottled(size, _u32, _f32, _b) \
-  this->assertEvents_EventActivityLowThrottled(__FILE__, __LINE__, size, _u32, _f32, _b)
+#define ASSERT_EVENTS_EventActivityLowThrottled(index, _u32, _f32, _b) \
+  this->assertEvents_EventActivityLowThrottled(__FILE__, __LINE__, index, _u32, _f32, _b)
 
 #define ASSERT_EVENTS_EventCommand_SIZE(size) \
   this->assertEvents_EventCommand_size(__FILE__, __LINE__, size)
 
-#define ASSERT_EVENTS_EventCommand(size, _str1, _str2) \
-  this->assertEvents_EventCommand(__FILE__, __LINE__, size, _str1, _str2)
+#define ASSERT_EVENTS_EventCommand(index, _str1, _str2) \
+  this->assertEvents_EventCommand(__FILE__, __LINE__, index, _str1, _str2)
 
 #define ASSERT_EVENTS_EventDiagnostic_SIZE(size) \
   this->assertEvents_EventDiagnostic_size(__FILE__, __LINE__, size)
 
-#define ASSERT_EVENTS_EventDiagnostic(size, _e) \
-  this->assertEvents_EventDiagnostic(__FILE__, __LINE__, size, _e)
+#define ASSERT_EVENTS_EventDiagnostic(index, _e) \
+  this->assertEvents_EventDiagnostic(__FILE__, __LINE__, index, _e)
 
 #define ASSERT_EVENTS_EventFatalThrottled_SIZE(size) \
   this->assertEvents_EventFatalThrottled_size(__FILE__, __LINE__, size)
 
-#define ASSERT_EVENTS_EventFatalThrottled(size, _a) \
-  this->assertEvents_EventFatalThrottled(__FILE__, __LINE__, size, _a)
+#define ASSERT_EVENTS_EventFatalThrottled(index, _a) \
+  this->assertEvents_EventFatalThrottled(__FILE__, __LINE__, index, _a)
 
 #define ASSERT_EVENTS_EventWarningHigh_SIZE(size) \
   this->assertEvents_EventWarningHigh_size(__FILE__, __LINE__, size)
 
-#define ASSERT_EVENTS_EventWarningHigh(size, _s) \
-  this->assertEvents_EventWarningHigh(__FILE__, __LINE__, size, _s)
+#define ASSERT_EVENTS_EventWarningHigh(index, _s) \
+  this->assertEvents_EventWarningHigh(__FILE__, __LINE__, index, _s)
 
 #define ASSERT_EVENTS_EventWarningLowThrottled_SIZE(size) \
   this->assertEvents_EventWarningLowThrottled_size(__FILE__, __LINE__, size)

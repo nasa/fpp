@@ -802,34 +802,6 @@
         "portInterface" : {
           "instanceType" : "component",
           "portMap" : {
-            "cmdRegOut" : {
-              "Special" : {
-                "aNode" : {
-                  "astNodeId" : 4
-                },
-                "specifier" : {
-                  "inputKind" : "None",
-                  "kind" : {
-                    "CommandReg" : {
-                      
-                    }
-                  },
-                  "name" : "cmdRegOut",
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 51,
-                    "unqualifiedName" : "CmdReg"
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None",
-                "importNodeIds" : [
-                ]
-              }
-            },
             "cmdIn" : {
               "Special" : {
                 "aNode" : {
@@ -850,6 +822,34 @@
                   "Port" : {
                     "nodeId" : 50,
                     "unqualifiedName" : "Cmd"
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None",
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "cmdRegOut" : {
+              "Special" : {
+                "aNode" : {
+                  "astNodeId" : 4
+                },
+                "specifier" : {
+                  "inputKind" : "None",
+                  "kind" : {
+                    "CommandReg" : {
+                      
+                    }
+                  },
+                  "name" : "cmdRegOut",
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 51,
+                    "unqualifiedName" : "CmdReg"
                   }
                 },
                 "priority" : "None",
@@ -888,32 +888,6 @@
             }
           },
           "specialPortMap" : {
-            "command reg" : {
-              "aNode" : {
-                "astNodeId" : 4
-              },
-              "specifier" : {
-                "inputKind" : "None",
-                "kind" : {
-                  "CommandReg" : {
-                    
-                  }
-                },
-                "name" : "cmdRegOut",
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "symbol" : {
-                "Port" : {
-                  "nodeId" : 51,
-                  "unqualifiedName" : "CmdReg"
-                }
-              },
-              "priority" : "None",
-              "queueFull" : "None",
-              "importNodeIds" : [
-              ]
-            },
             "command recv" : {
               "aNode" : {
                 "astNodeId" : 5
@@ -933,6 +907,32 @@
                 "Port" : {
                   "nodeId" : 50,
                   "unqualifiedName" : "Cmd"
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None",
+              "importNodeIds" : [
+              ]
+            },
+            "command reg" : {
+              "aNode" : {
+                "astNodeId" : 4
+              },
+              "specifier" : {
+                "inputKind" : "None",
+                "kind" : {
+                  "CommandReg" : {
+                    
+                  }
+                },
+                "name" : "cmdRegOut",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "symbol" : {
+                "Port" : {
+                  "nodeId" : 51,
+                  "unqualifiedName" : "CmdReg"
                 }
               },
               "priority" : "None",
@@ -1142,47 +1142,14 @@
       
     },
     "typeMap" : {
-      "45" : {
+      "0" : {
         "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "56" : {
-        "AliasType" : {
-          "node" : {
-            "astNodeId" : 1
-          },
-          "aliasType" : {
-            "Int" : {
-              "PrimitiveInt" : {
-                "kind" : {
-                  "U16" : {
-                    
-                  }
-                }
+          "PrimitiveInt" : {
+            "kind" : {
+              "U16" : {
+                
               }
             }
-          }
-        }
-      },
-      "46" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "43" : {
-        "String" : {
-          "size" : "None"
-        }
-      },
-      "57" : {
-        "Int" : {
-          "Integer" : {
-            
           }
         }
       },
@@ -1204,25 +1171,14 @@
           }
         }
       },
-      "17" : {
+      "2" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "0" : {
-        "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U16" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "2" : {
+      "3" : {
         "Int" : {
           "Integer" : {
             
@@ -1236,10 +1192,14 @@
           }
         }
       },
-      "3" : {
+      "9" : {
         "Int" : {
-          "Integer" : {
-            
+          "PrimitiveInt" : {
+            "kind" : {
+              "U32" : {
+                
+              }
+            }
           }
         }
       },
@@ -1254,14 +1214,54 @@
           }
         }
       },
-      "9" : {
+      "17" : {
         "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U32" : {
-                
+          "Integer" : {
+            
+          }
+        }
+      },
+      "43" : {
+        "String" : {
+          "size" : "None"
+        }
+      },
+      "45" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "46" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "56" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 1
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U16" : {
+                    
+                  }
+                }
               }
             }
+          }
+        }
+      },
+      "57" : {
+        "Int" : {
+          "Integer" : {
+            
           }
         }
       }
@@ -1273,22 +1273,10 @@
           "unqualifiedName" : "CmdReg"
         }
       },
-      "56" : {
-        "AliasType" : {
-          "nodeId" : 1,
-          "unqualifiedName" : "FwSizeStoreType"
-        }
-      },
       "5" : {
         "Port" : {
           "nodeId" : 50,
           "unqualifiedName" : "Cmd"
-        }
-      },
-      "57" : {
-        "Constant" : {
-          "nodeId" : 3,
-          "unqualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE"
         }
       },
       "6" : {
@@ -1296,9 +1284,41 @@
           "nodeId" : 54,
           "unqualifiedName" : "CmdResponse"
         }
+      },
+      "56" : {
+        "AliasType" : {
+          "nodeId" : 1,
+          "unqualifiedName" : "FwSizeStoreType"
+        }
+      },
+      "57" : {
+        "Constant" : {
+          "nodeId" : 3,
+          "unqualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE"
+        }
       }
     },
     "valueMap" : {
+      "2" : {
+        "Integer" : {
+          "value" : 256
+        }
+      },
+      "3" : {
+        "Integer" : {
+          "value" : 256
+        }
+      },
+      "7" : {
+        "Integer" : {
+          "value" : 10
+        }
+      },
+      "17" : {
+        "Integer" : {
+          "value" : 20
+        }
+      },
       "45" : {
         "Integer" : {
           "value" : 16
@@ -1313,26 +1333,6 @@
         "Integer" : {
           "value" : 256
         }
-      },
-      "17" : {
-        "Integer" : {
-          "value" : 20
-        }
-      },
-      "2" : {
-        "Integer" : {
-          "value" : 256
-        }
-      },
-      "7" : {
-        "Integer" : {
-          "value" : 10
-        }
-      },
-      "3" : {
-        "Integer" : {
-          "value" : 256
-        }
       }
     },
     "stateMachineMap" : {
@@ -1341,6 +1341,9 @@
     "dictionarySymbolSet" : [
     ],
     "interfaceMap" : {
+      
+    },
+    "dictionaryMap" : {
       
     }
   }

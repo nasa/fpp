@@ -31,9 +31,9 @@ class ValueSpec extends AnyWordSpec {
       (anonStruct, anonStructType),
       (struct, structType),
     )
-    pairs.foreach { 
-      pair => s"evaluate ${pair._1} to ${pair._2}" in 
-      assert(pair._1.getType == pair._2) 
+    pairs.foreach {
+      pair => s"evaluate ${pair._1} to ${pair._2}" in
+      assert(pair._1.getType == pair._2)
     }
   }
 
@@ -51,10 +51,135 @@ class ValueSpec extends AnyWordSpec {
       (createI32(1), array, None),
       (createI32(1), anonStruct, None),
       (createI32(1), struct, None),
+      (String("abc"), String("def"), Some(String("abcdef")))
     )
-    triples.foreach { 
-      triple => s"sum ${triple._1} and ${triple._2} to ${triple._3}" in 
-      assert(triple._1 + triple._2 == triple._3) 
+    triples.foreach {
+      triple => s"${triple._1} + ${triple._2} = ${triple._3}" in
+      assert(triple._1 + triple._2 == triple._3)
+    }
+  }
+
+  "sub" should {
+    val triples = List(
+      (createI8(1), createI8(2), Some(createI8(-1))),
+      (createI8(1), Integer(2), Some(Integer(-1))),
+      (createI8(1), createF32(2), Some(createF64(-1))),
+      (createF32(1), createF32(2), Some(createF32(-1))),
+      (createF32(1), createF64(2), Some(createF64(-1))),
+      (enumeration, createI32(1), Some(createI32(-1))),
+      (enumeration, createI16(1), Some(Integer(-1))),
+      (createI32(1), String("abc"), None),
+      (createI32(1), defaultAnonArray3U32, None),
+      (createI32(1), array, None),
+      (createI32(1), anonStruct, None),
+      (createI32(1), struct, None),
+      (String("abc"), String("def"), None)
+    )
+    triples.foreach {
+      triple => s"${triple._1} - ${triple._2} = ${triple._3}" in
+      assert(triple._1 - triple._2 == triple._3)
+    }
+  }
+
+  "mul" should {
+    val triples = List(
+      (createI8(1), createI8(2), Some(createI8(2))),
+      (createI8(1), Integer(2), Some(Integer(2))),
+      (createI8(1), createF32(2), Some(createF64(2))),
+      (createF32(1), createF32(2), Some(createF32(2))),
+      (createF32(1), createF64(2), Some(createF64(2))),
+      (enumeration, createI32(1), Some(createI32(0))),
+      (enumeration, createI16(1), Some(Integer(0))),
+      (createI32(1), String("abc"), None),
+      (createI32(1), defaultAnonArray3U32, None),
+      (createI32(1), array, None),
+      (createI32(1), anonStruct, None),
+      (createI32(1), struct, None),
+      (String("abc"), String("def"), None)
+    )
+    triples.foreach {
+      triple => s"${triple._1} * ${triple._2} = ${triple._3}" in
+      assert(triple._1 * triple._2 == triple._3)
+    }
+  }
+
+  "div" should {
+    val triples = List(
+      (createI8(1), createI8(2), Some(createI8(0))),
+      (createI8(1), Integer(2), Some(Integer(0))),
+      (createI8(1), createF32(2), Some(createF64(0.5))),
+      (createF32(1), createF32(2), Some(createF32(0.5))),
+      (createF32(1), createF64(2), Some(createF64(0.5))),
+      (enumeration, createI32(1), Some(createI32(0))),
+      (enumeration, createI16(1), Some(Integer(0))),
+      (createI32(1), String("abc"), None),
+      (createI32(1), defaultAnonArray3U32, None),
+      (createI32(1), array, None),
+      (createI32(1), anonStruct, None),
+      (createI32(1), struct, None),
+      (String("abc"), String("def"), None)
+    )
+    triples.foreach {
+      triple => s"${triple._1} / ${triple._2} = ${triple._3}" in
+      assert(triple._1 / triple._2 == triple._3)
+    }
+  }
+
+  "lshift" should {
+    val triples = List(
+      (createI8(1), createI8(2), Some(createI8(4))),
+      (createI32(1), createI32(3), Some(createI32(8))),
+      (createI8(-1), createI8(1), Some(createI8(-2))),
+      (createI32(1), Integer(4), Some(Integer(16))),
+      (Integer(1), createI32(5), Some(Integer(32))),
+      (Integer(1), Integer(10), Some(Integer(1024))),
+      (enumeration, createI32(3), Some(createI32(0))),
+      (enumeration, Integer(3), Some(Integer(0))),
+      (createI32(1), enumeration, Some(createI32(1))),
+      (Integer(1), enumeration, Some(Integer(1))),
+      (createI32(1), createF32(2), None),
+      (createF32(1), createI32(2), None),
+      (createI32(1), defaultString, None),
+      (defaultString, createI32(2), None),
+      (createI32(1), defaultBoolean, None),
+      (defaultBoolean, createI32(2), None),
+      (createI32(1), defaultAnonArray3U32, None),
+      (createI32(1), array, None),
+      (createI32(1), anonStruct, None),
+      (createI32(1), struct, None),
+    )
+    triples.foreach {
+      triple => s"${triple._1} << ${triple._2} = ${triple._3}" in
+      assert(triple._1 << triple._2 == triple._3)
+    }
+  }
+
+  "rshift" should {
+    val triples = List(
+      (createI8(8), createI8(1), Some(createI8(4))),
+      (createI32(16), createI32(2), Some(createI32(4))),
+      (createI8(-8), createI8(1), Some(createI8(-4))),
+      (createI32(16), Integer(2), Some(Integer(4))),
+      (Integer(32), createI32(2), Some(Integer(8))),
+      (Integer(64), Integer(3), Some(Integer(8))),
+      (enumeration, createI32(1), Some(createI32(0))),
+      (enumeration, Integer(1), Some(Integer(0))),
+      (createI32(16), enumeration, Some(createI32(16))),
+      (Integer(16), enumeration, Some(Integer(16))),
+      (createI32(16), createF32(2), None),
+      (createF32(16), createI32(2), None),
+      (createI32(16), defaultString, None),
+      (defaultString, createI32(2), None),
+      (createI32(16), defaultBoolean, None),
+      (defaultBoolean, createI32(2), None),
+      (createI32(16), defaultAnonArray3U32, None),
+      (createI32(16), array, None),
+      (createI32(16), anonStruct, None),
+      (createI32(16), struct, None),
+    )
+    triples.foreach {
+      triple => s"${triple._1} >> ${triple._2} = ${triple._3}" in
+      assert(triple._1 >> triple._2 == triple._3)
     }
   }
 
@@ -70,9 +195,9 @@ class ValueSpec extends AnyWordSpec {
       (struct, false),
       (anonStruct, false),
     )
-    pairs.foreach { 
-      pair => s"evaluate ${pair._1} to ${pair._2}" in 
-      assert(pair._1.isZero == pair._2) 
+    pairs.foreach {
+      pair => s"evaluate ${pair._1} to ${pair._2}" in
+      assert(pair._1.isZero == pair._2)
     }
   }
 
@@ -111,9 +236,9 @@ class ValueSpec extends AnyWordSpec {
         Some(AnonStruct(Map("a" -> defaultU32)))
       ),
     )
-    triples.foreach { 
-      triple => s"evaluate ${triple._1} and ${triple._2} to ${triple._3}" in 
-      assert(triple._1.convertToType(triple._2) == triple._3) 
+    triples.foreach {
+      triple => s"evaluate ${triple._1} and ${triple._2} to ${triple._3}" in
+      assert(triple._1.convertToType(triple._2) == triple._3)
     }
   }
 
@@ -127,9 +252,9 @@ class ValueSpec extends AnyWordSpec {
       (anonStruct, None),
       (EnumConstant(("X", 1), Types.defaultEnum), Some(createI32(-1))),
     )
-    pairs.foreach { 
-      pair => s"evaluate ${pair._1} to ${pair._2}" in 
-      assert(- pair._1 == pair._2) 
+    pairs.foreach {
+      pair => s"evaluate ${pair._1} to ${pair._2}" in
+      assert(- pair._1 == pair._2)
     }
   }
 
@@ -146,9 +271,9 @@ class ValueSpec extends AnyWordSpec {
       (createAnonArray(3, createI8(257)), createAnonArray(3, createI8(1))),
       (createAnonArray(3, createU8(-1)), createAnonArray(3, createU8(255))),
     )
-    pairs.foreach { 
-      pair => s"evaluate ${pair._1} to ${pair._2}" in 
-      assert(pair._1.truncate == pair._2) 
+    pairs.foreach {
+      pair => s"evaluate ${pair._1} to ${pair._2}" in
+      assert(pair._1.truncate == pair._2)
     }
   }
 

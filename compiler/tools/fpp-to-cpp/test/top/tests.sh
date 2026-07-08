@@ -8,6 +8,9 @@ nested_namespaces
 no_namespace
 params
 ports
+serial_ports_active
+serial_ports_passive
+serial_ports_queued
 tlm
 tlm_packets
 typed_ports_active

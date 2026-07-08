@@ -4,7 +4,7 @@
 // \brief  cpp file for QueuedAsyncProductPortsOnly component Google Test harness base class
 // ======================================================================
 
-#include "test-base/QueuedAsyncProductPortsOnlyGTestBase.hpp"
+#include "QueuedAsyncProductPortsOnlyGTestBase.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

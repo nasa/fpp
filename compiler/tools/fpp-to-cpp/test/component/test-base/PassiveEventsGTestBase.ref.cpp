@@ -4,7 +4,7 @@
 // \brief  cpp file for PassiveEvents component Google Test harness base class
 // ======================================================================
 
-#include "test-base/PassiveEventsGTestBase.hpp"
+#include "PassiveEventsGTestBase.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction
