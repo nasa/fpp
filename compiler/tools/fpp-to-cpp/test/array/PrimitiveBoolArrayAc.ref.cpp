@@ -138,7 +138,6 @@ namespace M {
       }
 
       os << obj.elements[index];
-                  
     }
     os << "]";
     return os;

@@ -142,7 +142,6 @@ std::ostream& operator<<(std::ostream& os, const String1& obj) {
     }
 
     os << obj.elements[index];
-                
   }
   os << "]";
   return os;

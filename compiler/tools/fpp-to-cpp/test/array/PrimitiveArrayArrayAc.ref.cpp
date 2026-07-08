@@ -136,7 +136,6 @@ std::ostream& operator<<(std::ostream& os, const PrimitiveArray& obj) {
     }
 
     os << obj.elements[index];
-                
   }
   os << "]";
   return os;

@@ -424,10 +424,7 @@ case class ArrayCppWriter (
         CppDoc.Function.Const,
       )
     ) ++ (
-      linesClassMember(
-        List(Line.blank),
-        CppDoc.Lines.Both
-      ) :: writeOstreamOperator(
+      writeOstreamOperator(
         name,
         List.concat(
           lines(s"""|os << "[";
@@ -437,8 +434,7 @@ case class ArrayCppWriter (
                 |  os << ", ";
                 |}
                 |
-                |os << obj.elements[index];
-            """)),
+                |os << obj.elements[index];""")),
           lines("""|os << "]";
                    |return os;""")
         )

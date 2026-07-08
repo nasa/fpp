@@ -136,7 +136,6 @@ std::ostream& operator<<(std::ostream& os, const Struct1& obj) {
     }
 
     os << obj.elements[index];
-                
   }
   os << "]";
   return os;

@@ -350,12 +350,7 @@ case class StructCppWriter(
   private def getOstreamOperator =
     writeOstreamOperator(
       structName,
-      lines(
-        """|Fw::String s;
-           |obj.toString(s);
-           |os << s.toChar();
-           |return os;"""
-      )
+      writeOstreamBody
     )
 
   private def getScalarArrayConstructor =
@@ -472,66 +467,6 @@ case class StructCppWriter(
     addAccessTagAndComment("public", "Types", members, CppDoc.Lines.Hpp)
   }
 
-  private def getConstructorMembers: List[CppDoc.Class.Member] = {
-    // Write this constructor only if the struct has an array member
-    // In this case, the constructor provides scalar initialization
-    // of the array members.
-    val scalarConstructor =
-      if sizes.isEmpty then None
-      else Some(
-        constructorClassMember(
-          Some("Member constructor (scalar values for arrays)"),
-          memberList.map(writeMemberAsParamScalar),
-          writeInitializerList(n => n),
-          writeArraySetters(n => n)
-        )
-      )
-
-    List(
-      linesClassMember(
-        CppDocHppWriter.writeAccessTag("public")
-      ),
-      linesClassMember(
-        CppDocWriter.writeBannerComment("Constructors"),
-        CppDoc.Lines.Both
-      ),
-      constructorClassMember(
-        Some("Constructor (default value)"),
-        Nil,
-        "Serializable()" :: initializerListMemberNames.map(n => {
-          if defaultMemberNames.contains(n) then s"m_$n()"
-          else defaultValueMembers(n) match {
-            case v: Value.Struct => s"m_$n(${ValueCppWriter.writeStructMembers(s, v)})"
-            case _: Value.AbsType => s"m_$n()"
-            case v => writeInitializer(n, ValueCppWriter.write(s, v))
-          }
-        }),
-        nonInitializerListArrayMemberNames.flatMap(n => writeArrayMemberSetter(
-          n, ValueCppWriter.write(s, defaultValueMembers(n)
-        )))
-      ),
-      constructorClassMember(
-        Some("Member constructor"),
-        memberList.map(writeMemberAsParam),
-        writeInitializerList(n => n),
-        writeArraySetters(n => s"$n[i]")
-      ),
-      constructorClassMember(
-        Some("Copy constructor"),
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type(s"const $name&"),
-            "obj",
-            Some("The source object")
-          )
-        ),
-        writeInitializerList(n => s"obj.m_$n"),
-        writeArraySetters(n => s"obj.m_$n[i]")
-      ),
-    ) ++
-      scalarConstructor
-  }
-
   private def writeOstreamBody: List[Line] = {
     val memberOutputs = memberList.zipWithIndex.flatMap { case ((n, tn), idx) =>
       val prefix = if idx > 0 then lines("""os << ", ";""") else Nil
@@ -561,126 +496,6 @@ case class StructCppWriter(
       lines("return os;")
     )
   }
-
-  private def getOperatorMembers: List[CppDoc.Class.Member] = {
-    val nonArrayMemberCheck = lines(
-      nonArrayMemberNames.map(n => s"(this->m_$n == obj.m_$n)"
-      ).mkString(" &&\n"))
-    val addressEqualityCheck = lines("if (this == &obj) { return true; }")
-    lazy val emptySizes =
-      if nonArrayMemberNames.length == 1 then
-        lines(s"return ${nonArrayMemberCheck.head};")
-      else List.concat(
-        addressEqualityCheck,
-        wrapInScope(
-          "return (",
-          nonArrayMemberCheck,
-          ");"
-        )
-      )
-    lazy val nonEmptySizes = List.concat(
-      addBlankPostfix(addressEqualityCheck),
-      if nonArrayMemberNames.length > 0
-      then List.concat(
-        lines("// Compare non-array members"),
-        if nonArrayMemberNames.length == 1 then
-          wrapInIf(
-            s"!${nonArrayMemberCheck.head}",
-            lines("return false;")
-          )
-        else List.concat(
-          lines("if (!("),
-          nonArrayMemberCheck.map(indentIn),
-          lines(
-            """|)) {
-               |  return false;
-               |}"""
-          )
-        )
-      )
-      else lines(s""),
-      Line.blank :: lines("// Compare array members"),
-      arrayMemberNames.flatMap(n =>
-        iterateN(
-          sizes(n),
-          wrapInIf(
-            s"!(this->m_$n[i] == obj.m_$n[i])",
-            lines("return false;")
-          )
-        )
-      ),
-      Line.blank :: lines("return true;"),
-    )
-    val equalityOpBody = 
-      // Simplify syntax if there are no array members
-      if sizes.isEmpty then emptySizes else nonEmptySizes
-
-    List(
-      linesClassMember(
-        CppDocHppWriter.writeAccessTag("public")
-      ),
-      linesClassMember(
-        CppDocWriter.writeBannerComment("Operators"),
-        CppDoc.Lines.Both
-      ),
-      functionClassMember(
-        Some("Copy assignment operator"),
-        "operator=",
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type(s"const $name&"),
-            "obj",
-            Some("The source object")
-          ),
-        ),
-        CppDoc.Type(s"$name&"),
-        List(
-          wrapInIf("this == &obj", lines("return *this;")),
-          Line.blank :: lines(
-            s"set(${memberNames.map(n => s"obj.m_$n").mkString(", ")});"
-          ),
-          lines("return *this;"),
-        ).flatten
-      ),
-      functionClassMember(
-        Some("Equality operator"),
-        "operator==",
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type(s"const $name&"),
-            "obj",
-            Some("The other object")
-          )
-        ),
-        CppDoc.Type("bool"),
-        equalityOpBody,
-        CppDoc.Function.NonSV,
-        CppDoc.Function.Const
-      ),
-      functionClassMember(
-        Some("Inequality operator"),
-        "operator!=",
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type(s"const $name&"),
-            "obj",
-            Some("The other object")
-          )
-        ),
-        CppDoc.Type("bool"),
-        lines("return !(*this == obj);"),
-        CppDoc.Function.NonSV,
-        CppDoc.Function.Const
-      ),
-    ) ++ (
-      linesClassMember(
-        List(Line.blank),
-        CppDoc.Lines.Both
-      ) :: writeOstreamOperator(
-        name,
-        writeOstreamBody
-      )
-    )
 
   private def getVariableMember(n: String, tn: String): List[Line] =
     lines(
@@ -987,7 +802,6 @@ case class StructCppWriter(
       )
 
   }
-
 
   /** Object for generating the toString function member */
   private object ToStringFunctionMember {
