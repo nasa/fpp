@@ -163,8 +163,8 @@ object Ast {
     final case class DefPort(node: AstNode[Ast.DefPort]) extends Node
     final case class DefStateMachine(node: AstNode[Ast.DefStateMachine]) extends Node
     final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
-    final case class DefTopology(node: AstNode[Ast.DefTopology]) extends Node
     final case class DefSystem(node: AstNode[Ast.DefSystem]) extends Node
+    final case class DefTopology(node: AstNode[Ast.DefTopology]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
     final case class SpecLoc(node: AstNode[Ast.SpecLoc]) extends Node
   }
