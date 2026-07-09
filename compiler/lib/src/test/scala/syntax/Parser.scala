@@ -242,6 +242,24 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
+  "def system OK" should {
+    parseAllOK(
+      Parser.defSystem,
+      List(
+        "system S { deployment T }",
+        "system S { deployment M.T }",
+        """system S {
+          deployment T1
+          deployment T2
+        }""",
+        """system S {
+          @ Pre
+          deployment T @< Post
+        }"""
+      )
+    )
+  }
+
   "def tlmPacket OK" should {
     parseAllOK(
       Parser.specTlmPacket,
@@ -470,6 +488,17 @@ class ParserSpec extends AnyWordSpec {
         "product container C",
         "product container C id 0x100",
         "product container C id 0x100 default priority 10"
+      )
+    )
+  }
+
+  "spec deployment OK" should {
+    parseAllOK(
+      Parser.specDeployment,
+      List(
+        "deployment T",
+        "deployment M.T",
+        "deployment M1.M2.T"
       )
     )
   }
