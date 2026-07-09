@@ -444,8 +444,9 @@ treats the definition of _T_ as if it contained
 several <<Definitions_Framework-Definitions,
 framework definitions>> required by the dictionary.
 Those framework definitions are specified
-in the https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/[F Prime
-dictionary specification].
+in the 
+https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/#framework-definitions-required-by-the-dictionary[F 
+Prime dictionary specification].
 
 ==== Examples
 
