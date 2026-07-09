@@ -53,7 +53,8 @@ primitive()
     diff_cpp PrimitiveF32fArray && \
     diff_cpp PrimitiveF32eArray && \
     diff_cpp PrimitiveF64Array && \
-    diff_cpp PrimitiveArrayArray
+    diff_cpp PrimitiveArrayArray && \
+    diff_cpp BitMaskArrayArray
 }
 
 single_element()

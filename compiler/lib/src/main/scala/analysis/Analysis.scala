@@ -209,6 +209,41 @@ case class Analysis(
     }
   }
 
+  /** Left shift an integer value */
+  def lshift(id1: AstNode.Id, id2: AstNode.Id): Result.Result[Value] =
+    shift(id1, id2, _ << _, "left shift")
+
+  /** Right shift an integer value */
+  def rshift(id1: AstNode.Id, id2: AstNode.Id): Result.Result[Value] =
+    shift(id1, id2, _ >> _, "right shift")
+
+  /** Helper method to shift v1 by v2, checking that v2 is a valid shift amount */
+  private def shift(
+    id1: AstNode.Id,
+    id2: AstNode.Id,
+    op: (Value, Value) => Option[Value],
+    opName: String
+  ): Result.Result[Value] = {
+    val v1 = valueMap(id1)
+    val v2 = valueMap(id2)
+
+    val shiftAmount = v2 match {
+      case Value.PrimitiveInt(v, _) => v
+      case Value.Integer(v) => v
+      case Value.EnumConstant((_, v), _) => v
+      case _ => throw InternalError(s"$opName: shift amount is not an integer")
+    }
+
+    if (shiftAmount < 0 || shiftAmount > 255) {
+      val loc = Locations.get(id2)
+      Left(SemanticError.InvalidShiftAmount(loc))
+    }
+    else op(v1, v2) match {
+      case Some(v) => Right(v)
+      case None => throw InternalError(s"$opName failed")
+    }
+  }
+
   /** Negate a value */
   def neg(id: AstNode.Id): Value = {
     val v = valueMap(id)
