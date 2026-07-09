@@ -2894,6 +2894,9 @@ A module member is one of the following:</p>
 <p>A <a href="#Definitions_Struct-Definitions">struct definition</a></p>
 </li>
 <li>
+<p>A <a href="#Definitions_System-Definitions">system definition</a></p>
+</li>
+<li>
 <p>A <a href="#Definitions_Topology-Definitions">topology definition</a></p>
 </li>
 <li>
@@ -3804,38 +3807,71 @@ struct D {
 <div class="sect2">
 <h3 id="Definitions_System-Definitions">5.14. System Definitions</h3>
 <div class="paragraph">
-<p>A <strong>system definition</strong> defines a flight software system consisting
+<p>A <strong>system definition</strong> defines an embedded software system consisting
 of one or more <a href="#Specifiers_Deployment-Specifiers">deployments</a>.
-The simplest kind of system consists of a single deployment.
-This kind of system is fully modeled.
+The simplest kind of system is a
+<strong>single-deployment system</strong> consisting of a single deployment.
+This kind of system is fully supported.
 A system with more than one deployment is called
 <strong>multi-deployment system</strong>.
 Currently, multi-deployment systems are supported in a limited way:
 you can specify a system \$S\$ with two or more deployments \${ D_i }\$
 and use the
-specification to generate a ground dictionary for \$S\$, but to generate code
+specification to generate a ground dictionary for \$S\$.
+However, to run the system
 you must manually decompose \$S\$ into a set of single-deployment systems
 \${ S_i }\$, separately generate code for each system \$S_i\$, and
-connect the systems using the F Prime hub pattern.
-In a future version of FPP, we will provide fuller support
+manually connect the systems using the F Prime hub pattern.
+In a future version of FPP, we will provide more support
 for modeling multi-deployment systems.</p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_System-Definitions_Syntax">5.14.1. Syntax</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p><code>system</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>{</code> <em>system-member-sequence</em> <code>}</code></p>
+</div>
+<div class="paragraph">
+<p><em>system-member-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is a <strong>system member</strong>,
+and the terminating punctuation is a semicolon.
+Currently a system member is a
+<a href="#Specifiers_Deployment-Specifiers">deployment specifier</a>.
+In the future we plan to add other system members for
+specifying multi-deployment systems.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Definitions_System-Definitions_Semantics">5.14.2. Semantics</h4>
-<div class="paragraph">
-<p>TODO</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A system definition must contain one or more deployment specifiers.</p>
+</li>
+<li>
+<p>An FPP model may contain at most one system definition.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Definitions_System-Definitions_Examples">5.14.3. Examples</h4>
-<div class="paragraph">
-<p>TODO</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ The system for a spacecraft consisting of two deployments,
+@ each on a separate computer
+system Spacecraft {
+
+  @ The deployment for the main computer
+  deployment MainComputer.Topology
+
+  @ The deployment for the coprocessor
+  deployment Coprocessor.Topology
+
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -7428,6 +7464,11 @@ of a <a href="#Definitions">definition</a>.</p>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
+<p>A <strong>system location specifier</strong> <code>locate</code> <code>system</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
+<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+</li>
+<li>
 <p>A <strong>type location specifier</strong> <code>locate</code>
 <em>[</em>
 <code>dictionary</code>
@@ -7480,6 +7521,10 @@ as follows:</p>
 <li>
 <p>A state machine location specifier refers to a
 <a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
+</li>
+<li>
+<p>A system location specifier refers to a
+<a href="#Definitions_System-Definitions">system definition</a>.</p>
 </li>
 <li>
 <p>A topology location specifier refers to a
@@ -10613,6 +10658,9 @@ reside in the following <strong>name groups</strong>:</p>
 <p>The <strong>state machine name group</strong></p>
 </li>
 <li>
+<p>The <strong>system name group</strong></p>
+</li>
+<li>
 <p>The <strong>type name group</strong></p>
 </li>
 <li>
@@ -10668,7 +10716,7 @@ the value name group, and the type name group.</p>
 <p>Struct type definitions reside in the type name group.</p>
 </li>
 <li>
-<p>Module template definitions reside in all name groups.</p>
+<p>System definitions reside in the system name group.</p>
 </li>
 <li>
 <p>Topology definitions reside in the topology name group.</p>
@@ -13316,7 +13364,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-09 09:43:24 -0700
+Last updated 2026-07-09 10:23:45 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
