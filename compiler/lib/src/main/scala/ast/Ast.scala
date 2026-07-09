@@ -164,6 +164,7 @@ object Ast {
     final case class DefStateMachine(node: AstNode[Ast.DefStateMachine]) extends Node
     final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
     final case class DefTopology(node: AstNode[Ast.DefTopology]) extends Node
+    final case class DefSystem(node: AstNode[Ast.DefSystem]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
     final case class SpecLoc(node: AstNode[Ast.SpecLoc]) extends Node
   }
@@ -336,6 +337,19 @@ object Ast {
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
     final case class SpecTopPort(node: AstNode[Ast.SpecTopPort]) extends Node
     final case class SpecTlmPacketSet(node: AstNode[Ast.SpecTlmPacketSet]) extends Node
+  }
+
+  /** System definition */
+  final case class DefSystem(
+    name: Ident,
+    members: List[SystemMember]
+  )
+
+  /** System member */
+  final case class SystemMember(node: Annotated[SystemMember.Node])
+  object SystemMember {
+    sealed trait Node
+    final case class SpecDeployment(node: AstNode[Ast.SpecDeployment]) extends Node
   }
 
   /** Formal parameter */
@@ -814,6 +828,11 @@ object Ast {
   final case class SpecTopPort(
     name: Ident,
     underlyingPort: AstNode[PortInstanceIdentifier],
+  )
+
+  /** Deployment specifier */
+  final case class SpecDeployment(
+    topology: AstNode[QualIdent]
   )
 
   /** Import specifier */

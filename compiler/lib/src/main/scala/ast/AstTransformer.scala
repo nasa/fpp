@@ -118,6 +118,11 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.DefStruct]]
   ): ResultAnnotatedNode[Ast.DefStruct] = Right(default(in), node)
 
+  def defSystemAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefSystem]]
+  ): ResultAnnotatedNode[Ast.DefSystem] = Right(default(in), node)
+
   def defTopologyAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefTopology]]
@@ -181,6 +186,11 @@ trait AstTransformer {
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecContainer]]
   ): ResultAnnotatedNode[Ast.SpecContainer] = Right(default(in), node)
+
+  def specDeploymentAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecDeployment]]
+  ): ResultAnnotatedNode[Ast.SpecDeployment] = Right(default(in), node)
 
   def specEventAnnotatedNode(
     in: In,
@@ -494,6 +504,8 @@ trait AstTransformer {
         transform(defStateMachineAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefStateMachine(_))
       case Ast.ModuleMember.DefStruct(node1) =>
         transform(defStructAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefStruct(_))
+      case Ast.ModuleMember.DefSystem(node1) =>
+        transform(defSystemAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefSystem(_))
       case Ast.ModuleMember.DefTopology(node1) =>
         transform(defTopologyAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefTopology(_))
       case Ast.ModuleMember.SpecInclude(node1) =>
@@ -519,6 +531,23 @@ trait AstTransformer {
         transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.TlmPacketSetMember.SpecInclude(_))
       case Ast.TlmPacketSetMember.SpecTlmPacket(node1) =>
         transform(specTlmPacketAnnotatedNode(in, (pre, node1, post)), Ast.TlmPacketSetMember.SpecTlmPacket(_))
+    }
+  }
+
+  final def matchSystemMember(in: In, member: Ast.SystemMember): Result[List[Ast.SystemMember]] = {
+    def transform[T](
+      result: ResultAnnotatedNode[T],
+      f: AstNode[T] => Ast.SystemMember.Node
+    ) = {
+      for (pair <- result) yield {
+        val (out, (pre, node, post)) = pair
+        (out, List(Ast.SystemMember(pre, f(node), post)))
+      }
+    }
+    val (pre, node, post) = member.node
+    node match {
+      case Ast.SystemMember.SpecDeployment(node1) =>
+        transform(specDeploymentAnnotatedNode(in, (pre, node1, post)), Ast.SystemMember.SpecDeployment(_))
     }
   }
 
