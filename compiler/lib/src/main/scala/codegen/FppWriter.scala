@@ -92,6 +92,12 @@ object FppWriter extends AstVisitor with LineUtils {
     annotate(a1, l, a2)
   }
 
+  def systemMember(member: Ast.SystemMember): Out = {
+    val (a1, _, a2) = member.node
+    val l = matchSystemMember((), member)
+    annotate(a1, l, a2)
+  }
+
   def tlmPacketSetMember(member: Ast.TlmPacketSetMember): Out = {
     val (a1, _, a2) = member.node
     val l = matchTlmPacketSetMember((), member)
@@ -328,6 +334,18 @@ object FppWriter extends AstVisitor with LineUtils {
     joinOpt (data.default) (" default ") (exprNode)
   }
 
+  override def defSystemAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefSystem]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"system ${ident(data.name)} {") ++
+      List(Line.blank) ++
+      Line.blankSeparated (systemMember) (data.members).map(indentIn) ++
+      List(Line.blank, line("}"))
+  }
+
   override def defTopologyAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
@@ -485,6 +503,15 @@ object FppWriter extends AstVisitor with LineUtils {
     lines(s"product container ${ident(data.name)}").
       joinOpt (data.id) (" id ") (exprNode).
       joinOpt (data.defaultPriority) (" default priority ") (exprNode)
+  }
+
+  override def specDeploymentAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecDeployment]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("deployment").join (" ") (qualIdent(data.topology.data))
   }
 
   override def specEventAnnotatedNode(
