@@ -1,57 +1,32 @@
 === System Definitions
 
-A *system definition* defines an embedded software system consisting
-of one or more <<Specifiers_Deployment-Specifiers,deployments>>.
-The simplest kind of system is a
-*single-deployment system* consisting of a single deployment.
-This kind of system is fully supported.
-A system with more than one deployment is called 
-*multi-deployment system*.
-Currently, multi-deployment systems are supported in a limited way:
-you can specify a system stem:[S] with two or more deployments stem:[{ D_i }]
-and use the
-specification to generate a ground dictionary for stem:[S].
-However, to run the system
-you must manually decompose stem:[S] into a set of single-deployment systems
-stem:[{ S_i }], separately generate code for each system stem:[S_i], and
-manually connect the systems using the F Prime hub pattern.
-In a future version of FPP, we will provide more support
-for modeling multi-deployment systems.
+A *system definition* defines an embedded software system.
+When a system definition appears in the model, it
+causes code and a ground dictionary to be generated.
 
 ==== Syntax
 
 `system`
 <<Lexical-Elements_Identifiers,_identifier_>>
-`{` _system-member-sequence_ `}`
-
-_system-member-sequence_ is an
-<<Element-Sequences,element sequence>> in
-which each element is a *system member*,
-and the terminating punctuation is a semicolon.
-Currently a system member is a
-<<Specifiers_Deployment-Specifiers,deployment specifier>>.
-In the future we plan to add other system members for
-specifying multi-deployment systems.
+`:`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 
 ==== Semantics
 
-. A system definition must contain one or more deployment specifiers.
-
 . An FPP model may contain at most one system definition.
+
+The qualified identifier must
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
+a
+<<Definitions_Topology-Definitions,topology definition>>.
 
 ==== Examples
 
 [source,fpp]
 ----
-@ The system for a spacecraft consisting of two deployments,
-@ each on a separate computer
-system Spacecraft {
+@ The spacecraft system
+system Spacecraft: SpacecraftTopology
 
-  @ The deployment for the main computer
-  deployment MainComputer.Topology
-
-  @ The deployment for the coprocessor
-  deployment Coprocessor.Topology
-
-}
+@ The topology for the system
+topology SpacecraftTopology { ... }
 ----
