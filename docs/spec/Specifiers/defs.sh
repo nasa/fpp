@@ -11,6 +11,7 @@ Introduction.adoc
 Command-Specifiers.adoc
 Connection-Graph-Specifiers.adoc
 Container-Specifiers.adoc
+Deployment-Specifiers.adoc
 Event-Specifiers.adoc
 Include-Specifiers.adoc
 Init-Specifiers.adoc

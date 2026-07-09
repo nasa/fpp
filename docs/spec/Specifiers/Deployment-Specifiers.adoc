@@ -1,0 +1,19 @@
+=== Deployment Specifiers
+
+A *deployment specifier* specifies a deployment as part of a
+<<Definitions_System-Definitions,system definition>>.
+A deployment is an executable program described by a
+<<Definitions_Topology-Definitions,topology definition>>.
+
+==== Syntax
+
+`deployment`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+
+==== Semantics
+
+TODO
+
+==== Examples
+
+TODO

@@ -1,7 +1,20 @@
 === System Definitions
 
 A *system definition* defines a flight software system consisting
-of one or more <<Definitions_Topology-Definitions,topologies>>.
+of one or more <<Specifiers_Deployment-Specifiers,deployments>>.
+The simplest kind of system consists of a single deployment.
+This kind of system is fully modeled.
+A system with more than one deployment is called 
+*multi-deployment system*.
+Currently, multi-deployment systems are supported in a limited way:
+you can specify a system stem:[S] with two or more deployments stem:[{ D_i }]
+and use the
+specification to generate a ground dictionary for stem:[S], but to generate code
+you must manually decompose stem:[S] into a set of single-deployment systems
+stem:[{ S_i }], separately generate code for each system stem:[S_i], and
+connect the systems using the F Prime hub pattern.
+In a future version of FPP, we will provide fuller support
+for modeling multi-deployment systems.
 
 ==== Syntax
 
