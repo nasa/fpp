@@ -495,6 +495,7 @@ var IN_GLOBAL_SCOPE = false;
           "string," +
           "struct," +
           "sync," +
+          "system," +
           "telemetry," +
           "text," +
           "throttle," +

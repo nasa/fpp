@@ -98,6 +98,7 @@ syn keyword fppKeyword stack
 syn keyword fppKeyword state
 syn keyword fppKeyword struct
 syn keyword fppKeyword sync
+syn keyword fppKeyword system
 syn keyword fppKeyword telemetry
 syn keyword fppKeyword text
 syn keyword fppKeyword throttle
