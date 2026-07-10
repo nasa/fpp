@@ -17,7 +17,7 @@ case class Topology(
   /** The transitively imported topologies */
   transitiveImportSet: Set[Symbol.Topology] = Set(),
   /** The instances of this topology */
-  instanceMap: TreeMap[InterfaceInstance, Location] = TreeMap()(Ordering.by[InterfaceInstance,String](_.getQualifiedName.toString)),
+  instanceMap: TreeMap[InterfaceInstance, Location] = TreeMap(),
   /** List of the ports in the topology to resolve later */
   ports: List[Ast.Annotated[AstNode[Ast.SpecTopPort]]] = List(),
   /** The ports in the topology resolved to their port instance identifiers */
