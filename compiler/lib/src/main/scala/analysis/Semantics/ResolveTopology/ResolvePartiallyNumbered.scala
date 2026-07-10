@@ -20,7 +20,7 @@ object ResolvePartiallyNumbered {
     }
     for {
       _ <- Result.map(
-        t.connectionMap.toList.map(_._2).flatten,
+        t.connectionMap.toList.flatMap(_._2),
         checkConnection
       )
     }
@@ -109,12 +109,13 @@ object ResolvePartiallyNumbered {
       endpointExists(connection.from) &&
       endpointExists(connection.to)
     // Import connections from transitively imported topologies
-    val result = t.transitiveImportSet.
-      map(a.topologyMap(_).localConnectionMap).flatten.
-      foldLeft (t) ({ case (t, (name, cs)) =>
-        cs.foldLeft (t) ((t1, c) =>
-          if (exists(c)) t1.addConnection(name, c) else t1
-        )
+    val result = t.transitiveImportSet.foldLeft (t) ({
+      case (t, s) => a.topologyMap(s).localConnectionMap.foldLeft (t) ({
+        case (t, (name, cs)) =>
+          cs.foldLeft (t) ((t1, c) =>
+            if (exists(c)) t1.addConnection(name, c) else t1
+          )
+        })
       })
     Right(result)
   }
