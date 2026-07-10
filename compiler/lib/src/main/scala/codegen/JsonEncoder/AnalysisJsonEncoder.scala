@@ -9,6 +9,7 @@ import io.circe._
 import io.circe.generic.semiauto._
 import io.circe.generic.auto._
 import scala.util.parsing.input.Position
+import scala.collection.immutable.{TreeMap, TreeSet}
 import AstJsonEncoder._
 import LocMapJsonEncoder._
 
@@ -264,18 +265,18 @@ object AnalysisJsonEncoder extends JsonEncoder{
     }
 
   private implicit val interfaceInstanceLocationMapEncoder:
-    Encoder[Map[InterfaceInstance, Location]] =
+    Encoder[TreeMap[InterfaceInstance, Location]] =
     Encoder.instance(_.toList.sortBy(_._2).asJson)
 
   private implicit val connectionMapEncoder:
-    Encoder[Map[PortInstanceIdentifier, Set[Connection]]] =
+    Encoder[TreeMap[PortInstanceIdentifier, TreeSet[Connection]]] =
     Encoder.instance(_.toList.asJson)
 
   private implicit val locationSpecifierMapEncoder:
     Encoder[Map[(Ast.SpecLoc.Kind, Name.Qualified), AstNode[Ast.SpecLoc]]] =
     Encoder.instance(_.toList.asJson)
 
-  private implicit val portNumberMapEncoder: Encoder[Map[Connection, Int]] =
+  private implicit val portNumberMapEncoder: Encoder[TreeMap[Connection, Int]] =
     Encoder.instance(_.toList.asJson)
 
   private implicit val stateMachineAnalysisEncoder: Encoder[StateMachineAnalysis] = {

@@ -2,6 +2,7 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
+import scala.collection.immutable.TreeMap
 
 /** Resolve a partially numbered topology */
 object ResolvePartiallyNumbered {
@@ -136,10 +137,10 @@ object ResolvePartiallyNumbered {
     Right(t.localConnectionMap.foldLeft (t.copy(
       localConnectionMap = Map(),
       connectionMap = Map(),
-      outputConnectionMap = Map(),
-      inputConnectionMap = Map(),
-      fromPortNumberMap = Map(),
-      toPortNumberMap = Map()
+      outputConnectionMap = TreeMap(),
+      inputConnectionMap = TreeMap(),
+      fromPortNumberMap = TreeMap.empty[Connection, Int],
+      toPortNumberMap = TreeMap.empty[Connection, Int]
     )) (visitConnectionGraph))
   }
 

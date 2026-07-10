@@ -2,6 +2,7 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
+import scala.collection.immutable.{TreeMap, TreeSet}
 
 /** An FPP topology */
 case class Topology(
@@ -16,7 +17,7 @@ case class Topology(
   /** The transitively imported topologies */
   transitiveImportSet: Set[Symbol.Topology] = Set(),
   /** The instances of this topology */
-  instanceMap: Map[InterfaceInstance, Location] = Map(),
+  instanceMap: TreeMap[InterfaceInstance, Location] = TreeMap()(Ordering.by[InterfaceInstance,String](_.getQualifiedName.toString)),
   /** List of the ports in the topology to resolve later */
   ports: List[Ast.Annotated[AstNode[Ast.SpecTopPort]]] = List(),
   /** The ports in the topology resolved to their port instance identifiers */
@@ -30,15 +31,15 @@ case class Topology(
   /** The connections defined locally, not imported */
   localConnectionMap: Map[Name.Unqualified, List[Connection]] = Map(),
   /** The output connections going from each port */
-  outputConnectionMap: Map[PortInstanceIdentifier, Set[Connection]] = Map(),
+  outputConnectionMap: TreeMap[PortInstanceIdentifier, TreeSet[Connection]] = TreeMap(),
   /** The input connections going to each port */
-  inputConnectionMap: Map[PortInstanceIdentifier, Set[Connection]] = Map(),
+  inputConnectionMap: TreeMap[PortInstanceIdentifier, TreeSet[Connection]] = TreeMap(),
   /** The mapping between connections and from port numbers */
-  fromPortNumberMap: Map[Connection, Int] = Map(),
+  fromPortNumberMap: TreeMap[Connection, Int] = TreeMap(),
   /** The mapping between connections and to port numbers */
-  toPortNumberMap: Map[Connection, Int] = Map(),
+  toPortNumberMap: TreeMap[Connection, Int] = TreeMap(),
   /** The unconnected port instances */
-  unconnectedPortSet: Set[PortInstanceIdentifier] = Set()
+  unconnectedPortSet: TreeSet[PortInstanceIdentifier] = TreeSet()
 ) {
 
   /** Gets the name of the topology */
@@ -112,12 +113,12 @@ case class Topology(
     }
     val ocMap = {
       val from = connection.from.port
-      val connections = outputConnectionMap.getOrElse(from, Set())
+      val connections = outputConnectionMap.getOrElse(from, TreeSet.empty[Connection])
       outputConnectionMap + (from -> (connections + connection))
     }
     val icMap = {
       val to = connection.to.port
-      val connections = inputConnectionMap.getOrElse(to, Set())
+      val connections = inputConnectionMap.getOrElse(to, TreeSet.empty[Connection])
       inputConnectionMap + (to -> (connections + connection))
     }
     val fpnMap = connection.from.portNumber match {
@@ -250,24 +251,24 @@ case class Topology(
   def getConnectionsBetween(
     from: PortInstanceIdentifier,
     to: PortInstanceIdentifier
-    ): Set[Connection] = getConnectionsFrom(from).filter(c => c.to.port == to)
+    ): TreeSet[Connection] = getConnectionsFrom(from).filter(c => c.to.port == to)
 
   /** Get the connections from a port */
-  def getConnectionsFrom(from: PortInstanceIdentifier): Set[Connection] =
-    outputConnectionMap.getOrElse(from, Set())
+  def getConnectionsFrom(from: PortInstanceIdentifier): TreeSet[Connection] =
+    outputConnectionMap.getOrElse(from, TreeSet.empty[Connection])
 
   /** Get the connections to a port */
-  def getConnectionsTo(to: PortInstanceIdentifier): Set[Connection] =
-    inputConnectionMap.getOrElse(to, Set())
+  def getConnectionsTo(to: PortInstanceIdentifier): TreeSet[Connection] =
+    inputConnectionMap.getOrElse(to, TreeSet.empty[Connection])
 
   /** Get the connections at a port instance */
-  def getConnectionsAt(pii: PortInstanceIdentifier): Set[_ <: Connection] = {
+  def getConnectionsAt(pii: PortInstanceIdentifier): scala.collection.immutable.SortedSet[_ <: Connection] = {
     import PortInstance.Direction._
     val pi = pii.portInstance
     pi.getDirection match {
-      case Some(Input) => inputConnectionMap.getOrElse(pii, Set())
-      case Some(Output) => outputConnectionMap.getOrElse(pii, Set())
-      case None => Set()
+      case Some(Input) => inputConnectionMap.getOrElse(pii, TreeSet.empty[Connection])
+      case Some(Output) => outputConnectionMap.getOrElse(pii, TreeSet.empty[Connection])
+      case None => TreeSet.empty[Connection]
     }
   }
 
