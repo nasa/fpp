@@ -2,7 +2,6 @@ package fpp.compiler.codegen
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
-import fpp.compiler.ast.Ast.QualIdent
 
 /** Write out an FPP AST */
 object AstWriter extends AstVisitor with LineUtils {
@@ -171,6 +170,33 @@ object AstWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines("def module") ++
     (ident(data.name) ++ data.members.flatMap(moduleMember)).map(indentIn)
+  }
+
+  override def defModuleTemplateAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("def module template") ++
+    List.concat(
+      ident(data.name),
+      templateParamList(data.params),
+      data.members.flatMap(moduleMember)
+    ).map(indentIn)
+  }
+
+  override def specTemplateExpandAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("expand") ++
+    List.concat(
+      qualIdent(data.template.data),
+      templateArgList(data.args)
+    ).map(indentIn)
   }
 
   override def defPortAnnotatedNode(
@@ -854,6 +880,43 @@ object AstWriter extends AstVisitor with LineUtils {
 
   private def formalParamList(params: Ast.FormalParamList) =
     params.flatMap(annotateNode(formalParam))
+
+  private def templateParam(tp: Ast.TemplateParam) = {
+    tp match {
+      case Ast.TemplateParam.Constant(name, typeName) =>
+        line("constant template param") ::
+        typeNameNode(typeName).map(indentIn)
+      case Ast.TemplateParam.Type(name) =>
+        line(s"type template param") ::
+        ident(name).map(indentIn)
+      case Ast.TemplateParam.Interface(name, interface) =>
+        line(s"interface template param") ::
+        List.concat(
+          ident(name),
+          qualIdent(interface.data)
+        ).map(indentIn)
+    }
+  }
+
+  private def templateParamList(params: Ast.TemplateParamList) =
+    params.flatMap(annotateNode(templateParam))
+
+  private def templateArg(tp: AstNode[Ast.TemplateArg]) = {
+    tp.data match {
+      case Ast.TemplateArg.Constant(e) =>
+        line("constant template arg") ::
+        exprNode(e).map(indentIn)
+      case Ast.TemplateArg.Type(name) =>
+        line("type template arg") ::
+        typeNameNode(name).map(indentIn)
+      case Ast.TemplateArg.Interface(i) =>
+        line("interface template param") ::
+        qualIdent(i.data).map(indentIn)
+    }
+  }
+
+  private def templateArgList(args: Ast.TemplateArgList) =
+    args.flatMap(templateArg)
 
   private def ident(s: String) = lines("ident " ++ s)
 
