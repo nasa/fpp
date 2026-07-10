@@ -140,8 +140,8 @@ object ResolvePartiallyNumbered {
       connectionMap = Map(),
       outputConnectionMap = TreeMap(),
       inputConnectionMap = TreeMap(),
-      fromPortNumberMap = TreeMap.empty[Connection, Int],
-      toPortNumberMap = TreeMap.empty[Connection, Int]
+      fromPortNumberMap = TreeMap(),
+      toPortNumberMap = TreeMap()
     )) (visitConnectionGraph))
   }
 
