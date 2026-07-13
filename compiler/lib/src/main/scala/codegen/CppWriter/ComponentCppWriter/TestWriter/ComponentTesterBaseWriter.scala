@@ -1052,8 +1052,7 @@ case class ComponentTesterBaseWriter(
         eventHandlerName(event),
         formalParamsCppWriter.write(
           event.aNode._2.data.params,
-          "Fw::StringBase",
-          FormalParamsCppWriter.Value
+          "Fw::StringBase"
         ),
         CppDoc.Type("void"),
         List.concat(

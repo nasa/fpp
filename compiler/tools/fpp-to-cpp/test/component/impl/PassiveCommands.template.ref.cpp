@@ -211,7 +211,7 @@ void PassiveCommands ::
   CMD_SYNC_ENUM_cmdHandler(
       FwOpcodeType opCode,
       U32 cmdSeq,
-      E e
+      const E& e
   )
 {
   // TODO
@@ -222,7 +222,7 @@ void PassiveCommands ::
   CMD_SYNC_ARRAY_cmdHandler(
       FwOpcodeType opCode,
       U32 cmdSeq,
-      A a
+      const A& a
   )
 {
   // TODO
@@ -233,7 +233,7 @@ void PassiveCommands ::
   CMD_SYNC_STRUCT_cmdHandler(
       FwOpcodeType opCode,
       U32 cmdSeq,
-      S s
+      const S& s
   )
 {
   // TODO
@@ -279,7 +279,7 @@ void PassiveCommands ::
   CMD_GUARDED_ENUM_cmdHandler(
       FwOpcodeType opCode,
       U32 cmdSeq,
-      E e
+      const E& e
   )
 {
   // TODO
@@ -290,7 +290,7 @@ void PassiveCommands ::
   CMD_GUARDED_ARRAY_cmdHandler(
       FwOpcodeType opCode,
       U32 cmdSeq,
-      A a
+      const A& a
   )
 {
   // TODO
@@ -301,7 +301,7 @@ void PassiveCommands ::
   CMD_GUARDED_STRUCT_cmdHandler(
       FwOpcodeType opCode,
       U32 cmdSeq,
-      S s
+      const S& s
   )
 {
   // TODO
