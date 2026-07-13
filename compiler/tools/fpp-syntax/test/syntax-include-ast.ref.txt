@@ -420,20 +420,6 @@ def module
       qual ident I
       qual ident I
   @< Topology definition with two implements
-  @ System definition
-  def system
-    ident S
-    @ Deployment specifier
-    spec deployment
-      qual ident T
-    @< Deployment specifier
-  @< System definition
-  @ System definition with qualified identifier
-  def system
-    ident S
-    spec deployment
-      qual ident DefinitionsAndSpecifiers.T
-  @< System definition with qualified identifier
   @ Location specifier
   spec loc
     kind instance

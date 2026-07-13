@@ -240,15 +240,15 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
-  override def defSystemAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.DefSystem]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    lines("def system") ++
-    (ident(data.name) ++ data.members.flatMap(systemMember)).map(indentIn)
-  }
+  // override def defSystemAnnotatedNode(
+  //   in: In,
+  //   aNode: Ast.Annotated[AstNode[Ast.DefSystem]]
+  // ) = {
+  //   val (_, node, _) = aNode
+  //   val data = node.data
+  //   lines("def system") ++
+  //   (ident(data.name) ++ data.members.flatMap(systemMember)).map(indentIn)
+  // }
 
   override def defTopologyAnnotatedNode(
     in: In,
@@ -447,15 +447,15 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
-  override def specDeploymentAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecDeployment]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    lines("spec deployment") ++
-    qualIdent(data.topology.data).map(indentIn)
-  }
+  // override def specDeploymentAnnotatedNode(
+  //   in: In,
+  //   aNode: Ast.Annotated[AstNode[Ast.SpecDeployment]]
+  // ) = {
+  //   val (_, node, _) = aNode
+  //   val data = node.data
+  //   lines("spec deployment") ++
+  //   qualIdent(data.topology.data).map(indentIn)
+  // }
 
   override def specEventAnnotatedNode(
     in: In,
@@ -961,11 +961,11 @@ object AstWriter extends AstVisitor with LineUtils {
 
   private def todo = lines("TODO")
 
-  private def systemMember(sm: Ast.SystemMember) = {
-    val l = matchSystemMember((), sm)
-    val (a1, _, a2) = sm.node
-    annotate(a1, l, a2)
-  }
+  // private def systemMember(sm: Ast.SystemMember) = {
+  //   val l = matchSystemMember((), sm)
+  //   val (a1, _, a2) = sm.node
+  //   annotate(a1, l, a2)
+  // }
 
   private def topologyMember(tm: Ast.TopologyMember) = {
     val l = matchTopologyMember((), tm)

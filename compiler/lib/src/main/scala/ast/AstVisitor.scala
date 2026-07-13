@@ -58,7 +58,7 @@ trait AstVisitor {
 
   def defStructAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefStruct]]): Out = default(in)
 
-  def defSystemAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefSystem]]): Out = default(in)
+  // def defSystemAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefSystem]]): Out = default(in)
 
   def defTopologyAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefTopology]]): Out = default(in)
 
@@ -96,7 +96,7 @@ trait AstVisitor {
 
   def specContainerAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecContainer]]): Out = default(in)
 
-  def specDeploymentAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecDeployment]]): Out = default(in)
+  // def specDeploymentAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecDeployment]]): Out = default(in)
 
   def specEventAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecEvent]]): Out = default(in)
 
@@ -213,7 +213,7 @@ trait AstVisitor {
       case Ast.ModuleMember.DefPort(node1) => defPortAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefStateMachine(node1) => defStateMachineAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefStruct(node1) => defStructAnnotatedNode(in, (pre, node1, post))
-      case Ast.ModuleMember.DefSystem(node1) => defSystemAnnotatedNode(in, (pre, node1, post))
+      // case Ast.ModuleMember.DefSystem(node1) => defSystemAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefTopology(node1) => defTopologyAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.SpecInclude(node1) => specIncludeAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.SpecLoc(node1) => specLocAnnotatedNode(in, (pre, node1, post))
@@ -260,12 +260,12 @@ trait AstVisitor {
     }
   }
 
-  final def matchSystemMember(in: In, member: Ast.SystemMember): Out = {
-    val (pre, node, post) = member.node
-    node match {
-      case Ast.SystemMember.SpecDeployment(node1) => specDeploymentAnnotatedNode(in, (pre, node1, post))
-    }
-  }
+  // final def matchSystemMember(in: In, member: Ast.SystemMember): Out = {
+  //   val (pre, node, post) = member.node
+  //   node match {
+  //     case Ast.SystemMember.SpecDeployment(node1) => specDeploymentAnnotatedNode(in, (pre, node1, post))
+  //   }
+  // }
 
   final def matchTopologyMember(in: In, member: Ast.TopologyMember): Out = {
     val (pre, node, post) =  member.node
