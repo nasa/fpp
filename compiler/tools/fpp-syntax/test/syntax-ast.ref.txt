@@ -413,12 +413,28 @@ def module
       qual ident I
       qual ident I
   @< Topology definition with two implements
+  @ System definition
+  def system
+    ident S
+    qual ident T
+  @< System definition
+  @ System definition with qualified identifier
+  def system
+    ident S
+    qual ident DefinitionsAndSpecifiers.T
+  @< System definition with qualified identifier
   @ Location specifier
   spec loc
     kind instance
     symbol qual ident i
     file instances.fpp
   @< Location specifier
+  @ System location specifier
+  spec loc
+    kind system
+    symbol qual ident S
+    file system.fpp
+  @< System location specifier
 @< Definitions and specifiers
 @ Type names
 def module
