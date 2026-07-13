@@ -29,7 +29,6 @@ object Token {
   final case class CONTAINER() extends Token
   final case class CPU() extends Token
   final case class DEFAULT() extends Token
-  // final case class DEPLOYMENT() extends Token
   final case class DIAGNOSTIC() extends Token
   final case class DICTIONARY() extends Token
   final case class DO() extends Token
@@ -131,7 +130,7 @@ object Token {
   final case class STRING() extends Token
   final case class STRUCT() extends Token
   final case class SYNC() extends Token
-  // final case class SYSTEM() extends Token
+  final case class SYSTEM() extends Token
   final case class TELEMETRY() extends Token
   final case class TEXT() extends Token
   final case class THROTTLE() extends Token
@@ -185,7 +184,6 @@ enum TokenId {
   case CONTAINER
   case CPU
   case DEFAULT
-  // case DEPLOYMENT
   case DIAGNOSTIC
   case DICTIONARY
   case DO
@@ -265,7 +263,7 @@ enum TokenId {
   case STRING
   case STRUCT
   case SYNC
-  // case SYSTEM
+  case SYSTEM
   case TELEMETRY
   case TEXT
   case THROTTLE

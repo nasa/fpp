@@ -276,11 +276,11 @@ object Parser extends Parsers {
     }
   }
 
-  // def defSystem: Parser[Ast.DefSystem] = {
-  //   (system ~>! ident) ~! (lbrace ~>! systemMembers <~! rbrace) ^^ {
-  //     case name ~ members => Ast.DefSystem(name, members)
-  //   }
-  // }
+  def defSystem: Parser[Ast.DefSystem] = {
+    (system ~>! ident) ~! (colon ~>! node(qualIdent)) ^^ {
+      case name ~ topology => Ast.DefSystem(name, topology)
+    }
+  }
 
   private def doExpr: Parser[List[AstNode[Ast.Ident]]] = {
     def elts = elementSequence(node(ident), comma)
@@ -450,8 +450,8 @@ object Parser extends Parsers {
       node(defStateMachine) ^^ (n =>
         Ast.ModuleMember.DefStateMachine(n)) |
       node(defStruct) ^^ (n => Ast.ModuleMember.DefStruct(n)) |
+      node(defSystem) ^^ (n => Ast.ModuleMember.DefSystem(n)) |
       node(defTopology) ^^ (n => Ast.ModuleMember.DefTopology(n)) |
-      // node(defSystem) ^^ (n => Ast.ModuleMember.DefSystem(n)) |
       node(specInclude) ^^ (n => Ast.ModuleMember.SpecInclude(n)) |
       node(specLoc) ^^ (n => Ast.ModuleMember.SpecLoc(n)) |
       failure("module member expected")
@@ -700,6 +700,7 @@ object Parser extends Parsers {
       instance ^^ (_ => Ast.SpecLoc.Instance) |
       port ^^ (_ => Ast.SpecLoc.Port) |
       state ~! machine ^^ (_ => Ast.SpecLoc.StateMachine) |
+      system ^^ (_ => Ast.SpecLoc.System) |
       interface ^^ (_ => Ast.SpecLoc.Interface)
     def maybeDictPair =
       opt(dictionary) ~ maybeDictKind ^^ {
@@ -891,12 +892,6 @@ object Parser extends Parsers {
       case name ~ underlying => Ast.SpecTopPort(name, underlying)
     }
 
-  // def specDeployment: Parser[Ast.SpecDeployment] = {
-  //   (deployment ~>! node(qualIdent)) ^^ { topology =>
-  //     Ast.SpecDeployment(topology)
-  //   }
-  // }
-
   def specImport: Parser[Ast.SpecImport] =
     importToken ~>! node(qualIdent) ^^ (top => Ast.SpecImport(top))
 
@@ -1002,14 +997,6 @@ object Parser extends Parsers {
 
   def topologyMembers: Parser[List[Ast.TopologyMember]] =
     annotatedElementSequence(topologyMemberNode, semi, Ast.TopologyMember(_))
-
-  // private def systemMemberNode: Parser[Ast.SystemMember.Node] = {
-  //   node(specDeployment) ^^ (n => Ast.SystemMember.SpecDeployment(n)) |
-  //     failure("system member expected")
-  // }
-
-  // def systemMembers: Parser[List[Ast.SystemMember]] =
-  //   annotatedElementSequence(systemMemberNode, semi, Ast.SystemMember(_))
 
   def transUnit: Parser[Ast.TransUnit] = {
     tuMembers ^^ (members => Ast.TransUnit(members))
@@ -1157,8 +1144,6 @@ object Parser extends Parsers {
   private def cpu = accept("cpu", { case t: Token.CPU => t })
 
   private def default = accept("default", { case t: Token.DEFAULT => t })
-
-  // private def deployment = accept("deployment", { case t: Token.DEPLOYMENT => t })
 
   private def diagnostic =
     accept("diagnostic", { case t: Token.DIAGNOSTIC => t })
@@ -1365,7 +1350,7 @@ object Parser extends Parsers {
 
   private def sync = accept("sync", { case t: Token.SYNC => t })
 
-  // private def system = accept("system", { case t: Token.SYSTEM => t })
+  private def system = accept("system", { case t: Token.SYSTEM => t })
 
   private def telemetry = accept("telemetry", { case t: Token.TELEMETRY => t })
 
