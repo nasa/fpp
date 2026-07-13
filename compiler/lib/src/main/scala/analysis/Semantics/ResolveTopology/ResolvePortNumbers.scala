@@ -2,6 +2,7 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
+import scala.collection.immutable.TreeSet
 
 /** Resolve port numbers */
 object ResolvePortNumbers {
@@ -19,7 +20,7 @@ object ResolvePortNumbers {
   /** Check that there are no duplicate port numbers at any output
    *  ports. */
   private def checkDuplicateOutputConnections(
-    connections: Set[Connection]
+    connections: TreeSet[Connection]
   ): Result.Result[Unit] = {
     val portNumMap: Map[Int, Connection] = Map()
     for {
@@ -46,7 +47,7 @@ object ResolvePortNumbers {
   /** Check the bounds on the number of output connections */
   private def checkOutputSizeBounds(
     pii: PortInstanceIdentifier,
-    connections: Set[Connection]
+    connections: TreeSet[Connection]
   ): Result.Result[Unit] = {
     val pi = pii.portInstance
     val arraySize = pi.getArraySize
