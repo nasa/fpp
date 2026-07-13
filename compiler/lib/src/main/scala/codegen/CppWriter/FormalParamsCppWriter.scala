@@ -9,16 +9,11 @@ case class FormalParamsCppWriter(s: CppWriterState) {
   /** Writes a list of formal parameters as a list of CppDoc Function Params */
   def write(
     params: Ast.FormalParamList,
-    strName: String,
-    passingConvention: FormalParamsCppWriter.SerializablePassingConvention = FormalParamsCppWriter.ConstRef
+    strName: String
   ): List[CppDoc.Function.Param] =
     params.map(aNode => {
       CppDoc.Function.Param(
-        getFormalParamType(
-          aNode._2.data,
-          strName,
-          passingConvention
-        ),
+        getFormalParamType(aNode._2.data, strName),
         aNode._2.data.name,
         AnnotationCppWriter.asStringOpt(aNode)
       )
@@ -27,8 +22,7 @@ case class FormalParamsCppWriter(s: CppWriterState) {
   /** Writes a formal parameter as a C++ parameter */
   def getFormalParamType(
     param: Ast.FormalParam,
-    strName: String,
-    passingConvention: FormalParamsCppWriter.SerializablePassingConvention = FormalParamsCppWriter.ConstRef
+    strName: String
   ): CppDoc.Type = {
     val t = s.a.typeMap(param.typeName.id)
     val typeName = TypeCppWriter(s, strName).write(t)
@@ -38,13 +32,8 @@ case class FormalParamsCppWriter(s: CppWriterState) {
       case Ast.FormalParam.Value => t.getUnderlyingType match {
         // Primitive, non-reference formal parameters become C++ value parameters
         case t if s.isPrimitive(t, typeName) => typeName
-        // String formal parameters become constant C++ reference parameters
-        case _: Type.String => s"const $typeName&"
-        // Serializable formal parameters become C++ value or constant reference parameters
-        case _ => passingConvention match {
-          case FormalParamsCppWriter.ConstRef => s"const $typeName&"
-          case FormalParamsCppWriter.Value => typeName
-        }
+        // Other formal parameters become constant C++ reference parameters
+        case _ => s"const $typeName&"
       }
     }
 

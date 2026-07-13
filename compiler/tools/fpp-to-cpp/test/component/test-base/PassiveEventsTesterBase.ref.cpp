@@ -2124,7 +2124,7 @@ void PassiveEventsTesterBase ::
 }
 
 void PassiveEventsTesterBase ::
-  logIn_DIAGNOSTIC_EventDiagnostic(E e)
+  logIn_DIAGNOSTIC_EventDiagnostic(const E& e)
 {
   EventEntry_EventDiagnostic _e = {
     e
@@ -2134,7 +2134,7 @@ void PassiveEventsTesterBase ::
 }
 
 void PassiveEventsTesterBase ::
-  logIn_FATAL_EventFatalThrottled(A a)
+  logIn_FATAL_EventFatalThrottled(const A& a)
 {
   EventEntry_EventFatalThrottled _e = {
     a
@@ -2144,7 +2144,7 @@ void PassiveEventsTesterBase ::
 }
 
 void PassiveEventsTesterBase ::
-  logIn_WARNING_HI_EventWarningHigh(S s)
+  logIn_WARNING_HI_EventWarningHigh(const S& s)
 {
   EventEntry_EventWarningHigh _e = {
     s
