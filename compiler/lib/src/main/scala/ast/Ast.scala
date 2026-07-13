@@ -826,11 +826,6 @@ object Ast {
     underlyingPort: AstNode[PortInstanceIdentifier],
   )
 
-  // /** Deployment specifier */
-  // final case class SpecDeployment(
-  //   topology: AstNode[QualIdent]
-  // )
-
   /** Import specifier */
   final case class SpecImport(sym: AstNode[QualIdent])
 
