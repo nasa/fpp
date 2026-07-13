@@ -232,12 +232,8 @@ module DefinitionsAndSpecifiers {
   @< Topology definition with two implements
 
   @ System definition
-  system S: T
+  system S: M.T
   @< System definition
-
-  @ System definition with qualified identifier
-  system S: DefinitionsAndSpecifiers.T
-  @< System definition with qualified identifier
 
   @ Location specifier
   locate instance i at "instances.fpp"

@@ -416,13 +416,8 @@ def module
   @ System definition
   def system
     ident S
-    qual ident T
+    qual ident M.T
   @< System definition
-  @ System definition with qualified identifier
-  def system
-    ident S
-    qual ident DefinitionsAndSpecifiers.T
-  @< System definition with qualified identifier
   @ Location specifier
   spec loc
     kind instance
