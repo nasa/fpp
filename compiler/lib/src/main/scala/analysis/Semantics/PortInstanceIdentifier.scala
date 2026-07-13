@@ -9,9 +9,14 @@ case class PortInstanceIdentifier(
   interfaceInstance: InterfaceInstance,
   /** The port instance */
   portInstance: PortInstance
-) {
+) extends Ordered[PortInstanceIdentifier] {
 
   override def toString = getQualifiedName.toString
+
+  /** Compare two port instance identifiers */
+  override def compare(that: PortInstanceIdentifier) = {
+    this.toString.compare(that.toString)
+  }
 
   /** Gets the qualified name */
   def getQualifiedName: Name.Qualified = {

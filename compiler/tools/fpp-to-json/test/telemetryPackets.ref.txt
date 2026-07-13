@@ -1633,6 +1633,50 @@
             "portInstance" : {
               "General" : {
                 "aNode" : {
+                  "astNodeId" : 8
+                },
+                "specifier" : {
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "pIn",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 7
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 5,
+                        "unqualifiedName" : "P"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            }
+          },
+          {
+            "interfaceInstance" : {
+              "InterfaceComponentInstance" : {
+                "astNodeId" : 24
+              }
+            },
+            "portInstance" : {
+              "General" : {
+                "aNode" : {
                   "astNodeId" : 11
                 },
                 "specifier" : {
@@ -1671,7 +1715,42 @@
           {
             "interfaceInstance" : {
               "InterfaceComponentInstance" : {
-                "astNodeId" : 28
+                "astNodeId" : 24
+              }
+            },
+            "portInstance" : {
+              "Special" : {
+                "aNode" : {
+                  "astNodeId" : 13
+                },
+                "specifier" : {
+                  "inputKind" : "None",
+                  "kind" : {
+                    "TimeGet" : {
+                      
+                    }
+                  },
+                  "name" : "timeGetOut",
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 3,
+                    "unqualifiedName" : "Time"
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None",
+                "importNodeIds" : [
+                ]
+              }
+            }
+          },
+          {
+            "interfaceInstance" : {
+              "InterfaceComponentInstance" : {
+                "astNodeId" : 24
               }
             },
             "portInstance" : {
@@ -1706,7 +1785,7 @@
           {
             "interfaceInstance" : {
               "InterfaceComponentInstance" : {
-                "astNodeId" : 24
+                "astNodeId" : 28
               }
             },
             "portInstance" : {
@@ -1830,85 +1909,6 @@
             "interfaceInstance" : {
               "InterfaceComponentInstance" : {
                 "astNodeId" : 28
-              }
-            },
-            "portInstance" : {
-              "General" : {
-                "aNode" : {
-                  "astNodeId" : 8
-                },
-                "specifier" : {
-                  "kind" : {
-                    "SyncInput" : {
-                      
-                    }
-                  },
-                  "name" : "pIn",
-                  "size" : "None",
-                  "port" : {
-                    "Some" : {
-                      "astNodeId" : 7
-                    }
-                  },
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "kind" : "SyncInput",
-                "size" : 1,
-                "ty" : {
-                  "DefPort" : {
-                    "symbol" : {
-                      "Port" : {
-                        "nodeId" : 5,
-                        "unqualifiedName" : "P"
-                      }
-                    }
-                  }
-                },
-                "importNodeIds" : [
-                ]
-              }
-            }
-          },
-          {
-            "interfaceInstance" : {
-              "InterfaceComponentInstance" : {
-                "astNodeId" : 24
-              }
-            },
-            "portInstance" : {
-              "Special" : {
-                "aNode" : {
-                  "astNodeId" : 13
-                },
-                "specifier" : {
-                  "inputKind" : "None",
-                  "kind" : {
-                    "TimeGet" : {
-                      
-                    }
-                  },
-                  "name" : "timeGetOut",
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 3,
-                    "unqualifiedName" : "Time"
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None",
-                "importNodeIds" : [
-                ]
-              }
-            }
-          },
-          {
-            "interfaceInstance" : {
-              "InterfaceComponentInstance" : {
-                "astNodeId" : 24
               }
             },
             "portInstance" : {
