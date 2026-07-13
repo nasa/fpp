@@ -2045,23 +2045,23 @@
             "portInstance" : {
               "Special" : {
                 "aNode" : {
-                  "astNodeId" : 0
+                  "astNodeId" : 1
                 },
                 "specifier" : {
                   "inputKind" : "None",
                   "kind" : {
-                    "Telemetry" : {
+                    "TimeGet" : {
                       
                     }
                   },
-                  "name" : "tlmOut",
+                  "name" : "timeGetOut",
                   "priority" : "None",
                   "queueFull" : "None"
                 },
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 59,
-                    "unqualifiedName" : "Tlm"
+                    "nodeId" : 62,
+                    "unqualifiedName" : "Time"
                   }
                 },
                 "priority" : "None",
@@ -2080,23 +2080,23 @@
             "portInstance" : {
               "Special" : {
                 "aNode" : {
-                  "astNodeId" : 1
+                  "astNodeId" : 0
                 },
                 "specifier" : {
                   "inputKind" : "None",
                   "kind" : {
-                    "TimeGet" : {
+                    "Telemetry" : {
                       
                     }
                   },
-                  "name" : "timeGetOut",
+                  "name" : "tlmOut",
                   "priority" : "None",
                   "queueFull" : "None"
                 },
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 62,
-                    "unqualifiedName" : "Time"
+                    "nodeId" : 59,
+                    "unqualifiedName" : "Tlm"
                   }
                 },
                 "priority" : "None",
