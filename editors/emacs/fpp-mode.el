@@ -42,9 +42,9 @@
 (defconst fpp-mode-keywords
   '("action" "active" "activity" "always"  "assert"
     "at" "base" "block" "change" "choice" "command"
-    "connections" "cpu" "default" "deployment" "diagnostic"
-    "dictionary" "do" "drop" "else" "entry" "event" "every"
-    "exit" "external" "false" "fatal" "format" "get" "guard"
+    "connections" "cpu" "default" "diagnostic" "dictionary" "do"
+    "drop" "else" "entry" "event" "every" "exit" "external"
+    "false" "fatal" "format" "get" "guard"
     "guarded" "health" "high" "hook" "id" "if" "import" "implements"
     "include" "initial" "input" "interface" "internal"
     "locate" "low" "match" "on"  "opcode" "orange"

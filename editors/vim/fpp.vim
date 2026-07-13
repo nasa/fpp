@@ -27,7 +27,6 @@ syn keyword fppKeyword constant
 syn keyword fppKeyword container
 syn keyword fppKeyword cpu
 syn keyword fppKeyword default
-syn keyword fppKeyword deployment
 syn keyword fppKeyword diagnostic
 syn keyword fppKeyword dictionary
 syn keyword fppKeyword do
