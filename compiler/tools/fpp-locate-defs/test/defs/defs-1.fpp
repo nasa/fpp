@@ -45,3 +45,5 @@ instance c: C base id 0x100
 topology T { 
 
 }
+
+system S: T
