@@ -111,6 +111,4 @@ state machine SM1 {
 
 }
 
-system S1: T3
-
-system S2: M.T3
+system S1: M.T3

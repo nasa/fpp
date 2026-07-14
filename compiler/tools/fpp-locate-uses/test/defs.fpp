@@ -68,10 +68,6 @@ topology T1 {
 
 }
 
-topology T3 {
-
-}
-
 module M {
 
   passive component C1 {
