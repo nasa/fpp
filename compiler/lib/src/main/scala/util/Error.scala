@@ -120,6 +120,10 @@ sealed trait Error {
         Error.print (Some(loc)) (s"duplicate struct member ${name}")
         System.err.println("previous member is here:")
         System.err.println(prevLoc)
+      case SemanticError.DuplicateSystemDefinition(loc, prevLoc) =>
+        Error.print (Some(loc)) ("duplicate system definition")
+        System.err.println("previous definition is here:")
+        System.err.println(prevLoc)
       case SemanticError.DuplicateTlmPacketSet(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate telemetry packet set ${name}")
         System.err.println("previous set is here:")
@@ -525,6 +529,11 @@ object SemanticError {
   /** Duplicate struct member */
   final case class DuplicateStructMember(
     name: String,
+    loc: Location,
+    prevLoc: Location
+  ) extends Error
+  /** Duplicate system definition */
+  final case class DuplicateSystemDefinition(
     loc: Location,
     prevLoc: Location
   ) extends Error
