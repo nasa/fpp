@@ -68,6 +68,10 @@ topology T1 {
 
 }
 
+topology T3 {
+
+}
+
 module M {
 
   passive component C1 {
@@ -82,6 +86,10 @@ module M {
   instance c11: C1 base id 0x100
 
   topology T1 {
+
+  }
+
+  topology T3 {
 
   }
 
