@@ -124,6 +124,7 @@ sealed trait Error {
         Error.print (Some(loc)) ("duplicate system definition")
         System.err.println("previous definition is here:")
         System.err.println(prevLoc)
+        printNote("each model may have at most one system definition")
       case SemanticError.DuplicateTlmPacketSet(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate telemetry packet set ${name}")
         System.err.println("previous set is here:")
