@@ -52,9 +52,8 @@ bool Empty ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const Empty& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s.toChar();
+  os << "{ ";
+  os << " }";
   return os;
 }
 

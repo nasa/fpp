@@ -102,9 +102,20 @@ namespace S {
 #ifdef BUILD_UT
 
   std::ostream& operator<<(std::ostream& os, const S3& obj) {
-    Fw::String s;
-    obj.toString(s);
-    os << s.toChar();
+    os << "{ ";
+    os << "mU32Array = ";
+    os << "[ ";
+    for (FwSizeType i = 0; i < 3; i++) {
+      if (i > 0) {
+        os << ", ";
+      }
+      os << obj.m_mU32Array[i];
+    }
+    os << " ]";
+    os << ", ";
+    os << "mF64 = ";
+    os << obj.m_mF64;
+    os << " }";
     return os;
   }
 

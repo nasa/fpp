@@ -65,9 +65,10 @@ bool SDefault ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const SDefault& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s.toChar();
+  os << "{ ";
+  os << "x = ";
+  os << obj.m_x;
+  os << " }";
   return os;
 }
 

@@ -127,9 +127,43 @@ namespace M {
 #ifdef BUILD_UT
 
   std::ostream& operator<<(std::ostream& os, const S1& obj) {
-    Fw::String s;
-    obj.toString(s);
-    os << s.toChar();
+    os << "{ ";
+    os << "mF32 = ";
+    os << obj.m_mF32;
+    os << ", ";
+    os << "mF64 = ";
+    os << obj.m_mF64;
+    os << ", ";
+    os << "mI16 = ";
+    os << obj.m_mI16;
+    os << ", ";
+    os << "mI32 = ";
+    os << obj.m_mI32;
+    os << ", ";
+    os << "mI64 = ";
+    os << obj.m_mI64;
+    os << ", ";
+    os << "mI8 = ";
+    os << obj.m_mI8;
+    os << ", ";
+    os << "mU16 = ";
+    os << obj.m_mU16;
+    os << ", ";
+    os << "mU32 = ";
+    os << obj.m_mU32;
+    os << ", ";
+    os << "mU64 = ";
+    os << obj.m_mU64;
+    os << ", ";
+    os << "mU8 = ";
+    os << obj.m_mU8;
+    os << ", ";
+    os << "mBool = ";
+    os << obj.m_mBool;
+    os << ", ";
+    os << "mString = ";
+    os << obj.m_mString;
+    os << " }";
     return os;
   }
 

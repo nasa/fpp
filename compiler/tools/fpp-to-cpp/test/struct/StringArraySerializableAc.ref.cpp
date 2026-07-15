@@ -113,9 +113,20 @@ bool StringArray ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const StringArray& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s.toChar();
+  os << "{ ";
+  os << "s1 = ";
+  os << obj.m_s1;
+  os << ", ";
+  os << "s2 = ";
+  os << "[ ";
+  for (FwSizeType i = 0; i < 16; i++) {
+    if (i > 0) {
+      os << ", ";
+    }
+    os << obj.m_s2[i];
+  }
+  os << " ]";
+  os << " }";
   return os;
 }
 
