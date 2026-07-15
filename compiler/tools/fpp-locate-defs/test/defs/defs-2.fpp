@@ -41,4 +41,6 @@ module M {
 
   }
 
+  system S: T
+
 }

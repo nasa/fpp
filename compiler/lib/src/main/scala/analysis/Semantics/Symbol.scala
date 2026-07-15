@@ -73,6 +73,10 @@ object Symbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }
+  final case class System(node: Ast.Annotated[AstNode[Ast.DefSystem]]) extends Symbol {
+    override def getNodeId = node._2.id
+    override def getUnqualifiedName = node._2.data.name
+  }
   final case class Topology(node: Ast.Annotated[AstNode[Ast.DefTopology]]) extends InterfaceInstanceSymbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name

@@ -110,3 +110,5 @@ state machine SM1 {
   state S
 
 }
+
+system S1: M.T3

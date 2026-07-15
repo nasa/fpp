@@ -8,6 +8,7 @@ def_interface
 def_port
 def_state_machine
 def_struct
+def_system
 dictionary
 dictionary_no_top
 direct

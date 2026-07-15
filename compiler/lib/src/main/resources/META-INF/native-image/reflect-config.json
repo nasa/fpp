@@ -2548,6 +2548,10 @@
   "fields":[{"name":"0bitmap$66"}]
 },
 {
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$124",
+  "fields":[{"name":"0bitmap$65"}]
+},
+{
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$125",
   "fields":[{"name":"0bitmap$68"}]
 },

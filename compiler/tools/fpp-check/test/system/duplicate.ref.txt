@@ -1,0 +1,10 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/system/duplicate.fpp:3.1
+system S2: T
+^
+error: duplicate system definition
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/system/duplicate.fpp:2.1
+system S1: T
+^
+note: each model may have at most one system definition

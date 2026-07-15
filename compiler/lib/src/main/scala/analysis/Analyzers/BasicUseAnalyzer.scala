@@ -70,6 +70,9 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     } yield a
   }
 
+  override def defSystemAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefSystem]]) =
+    qualIdentNode (interfaceInstanceUse) (a, aNode._2.data.topology)
+
   override def defStateMachineAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefStateMachine]]) = {
     val id = node._2.id
     for {
