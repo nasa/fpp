@@ -90,8 +90,8 @@ case class Analysis(
   impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map(),
   /** The set of symbols defined with a dictionary specifier */
   dictionarySymbolSet: Set[Symbol] = Set(),
-  /** The FPP system, if the model is a system model */
-  systemOpt: Option[FppSystem] = None
+  /** The mapping from system symbols to systems */
+  systemMap: Map[Symbol.System, FppSystem] = Map(),
 ) {
 
   /** Gets the qualified name of a symbol */

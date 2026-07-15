@@ -11,15 +11,14 @@ object CheckSystemDefs
 
   private def checkDuplicateDef(
     a: Analysis,
-    node: AstNode[Ast.DefSystem]
+    symbol: Symbol.System
   ) =
-    a.systemOpt match {
-      case None => Right(a)
-      case Some(s) =>
-        val loc = Locations.get(node.id)
-        val prevLoc = Locations.get(s.aNode._2.id)
+    a.systemMap.keys.toList match
+      case Nil => Right(a)
+      case prevSymbol :: _ =>
+        val loc = Locations.get(symbol.node._2.id)
+        val prevLoc = Locations.get(prevSymbol.node._2.id)
         Left(SemanticError.DuplicateSystemDefinition(loc, prevLoc))
-    }
 
   override def defSystemAnnotatedNode(
     a: Analysis,
@@ -27,11 +26,12 @@ object CheckSystemDefs
   ) = {
     val node = aNode._2
     val id = node.data.topology.id
+    val ss = Symbol.System(aNode)
     for {
-      _ <- checkDuplicateDef(a, node)
+      _ <- checkDuplicateDef(a, ss)
       t <- a.getTopology(id)
       d <- a.getDictionary(id)
-    } yield a.copy(systemOpt = Some(FppSystem(aNode, t, d)))
+    } yield a.copy(systemMap = Map(ss -> FppSystem(aNode, t, d)))
   }
 
 }
