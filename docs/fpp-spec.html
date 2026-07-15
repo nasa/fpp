@@ -3823,8 +3823,9 @@ causes code and a ground dictionary to be generated.</p>
 <li>
 <p>The qualified identifier must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
-a
-<a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
+a topology definition <em>D</em>.
+<em>D</em> must define a <a href="#Definitions_Topology-Definitions_Semantics">deployment
+topology</a>.</p>
 </li>
 </ol>
 </div>
@@ -3836,8 +3837,8 @@ a
 <pre class="prettyprint highlight"><code data-lang="fpp">@ The spacecraft system
 system Spacecraft: SpacecraftTopology
 
-@ The topology for the system
-topology SpacecraftTopology { ... }</code></pre>
+@ The deployment topology for the system
+deployment topology SpacecraftTopology { ... }</code></pre>
 </div>
 </div>
 </div>
@@ -3866,7 +3867,8 @@ The connections are merged graph by graph.</p>
 <div class="sect3">
 <h4 id="Definitions_Topology-Definitions_Syntax">5.15.1. Syntax</h4>
 <div class="paragraph">
-<p><code>topology</code>
+<p><em>[</em> <code>deployment</code> <em>]</em>
+<code>topology</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em> <code>implements</code> <em>interface-list</em> <em>]</em>
 <code>{</code> <em>topology-member-sequence</em> <code>}</code></p>
@@ -3906,6 +3908,16 @@ instance specifier</a></p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Topology-Definitions_Semantics">5.15.2. Semantics</h4>
+<div class="paragraph">
+<p>If present, the optional keyword <code>deployment</code> indicates that the topology
+is a <strong>deployment topology</strong>.
+A deployment topology is the top-level topology of a deployment; it
+causes deployment code to be generated.
+A topology that is not marked <code>deployment</code> is called an
+<strong>instance topology</strong>.
+It is used as a
+<a href="#Ports_Port-Interface-Instances">port interface instance</a>.</p>
+</div>
 <div class="paragraph">
 <p>The identifier is the name of the topology.</p>
 </div>
@@ -4616,7 +4628,7 @@ topology AttitudeControl {
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ Release topology
-topology Release {
+deployment topology Release {
 
   # ----------------------------------------------------------------------
   # Imported topologies
@@ -8145,6 +8157,11 @@ of FPP.</p>
 a
 <a href="#Ports_Port-Interface-Instances">port interface instance</a>,
 i.e., a component instance definition or a topology definition.</p>
+</div>
+<div class="paragraph">
+<p>If the qualified identifier refers to a topology definition <em>D</em>,
+then <em>D</em> must define an
+<a href="#Definitions_Topology-Definitions_Semantics">instance topology</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -13297,7 +13314,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-09 16:38:27 -0700
+Last updated 2026-07-15 16:28:37 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

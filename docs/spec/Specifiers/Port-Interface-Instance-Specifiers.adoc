@@ -27,6 +27,10 @@ a
 <<Ports_Port-Interface-Instances,port interface instance>>,
 i.e., a component instance definition or a topology definition.
 
+If the qualified identifier refers to a topology definition _D_,
+then _D_ must define an
+<<Definitions_Topology-Definitions_Semantics,instance topology>>.
+
 ==== Example
 
 [source,fpp]

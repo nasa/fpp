@@ -424,6 +424,7 @@ var IN_GLOBAL_SCOPE = false;
           "container," +
           "cpu," +
           "default," +
+          "deployment," +
           "diagnostic," +
           "dictionary," +
           "do," +
