@@ -130,6 +130,7 @@ object Token {
   final case class STRING() extends Token
   final case class STRUCT() extends Token
   final case class SYNC() extends Token
+  final case class SYSTEM() extends Token
   final case class TELEMETRY() extends Token
   final case class TEXT() extends Token
   final case class THROTTLE() extends Token
@@ -262,6 +263,7 @@ enum TokenId {
   case STRING
   case STRUCT
   case SYNC
+  case SYSTEM
   case TELEMETRY
   case TEXT
   case THROTTLE

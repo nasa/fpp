@@ -276,6 +276,12 @@ object Parser extends Parsers {
     }
   }
 
+  def defSystem: Parser[Ast.DefSystem] = {
+    (system ~>! ident) ~! (colon ~>! node(qualIdent)) ^^ {
+      case name ~ topology => Ast.DefSystem(name, topology)
+    }
+  }
+
   private def doExpr: Parser[List[AstNode[Ast.Ident]]] = {
     def elts = elementSequence(node(ident), comma)
 
@@ -444,6 +450,7 @@ object Parser extends Parsers {
       node(defStateMachine) ^^ (n =>
         Ast.ModuleMember.DefStateMachine(n)) |
       node(defStruct) ^^ (n => Ast.ModuleMember.DefStruct(n)) |
+      node(defSystem) ^^ (n => Ast.ModuleMember.DefSystem(n)) |
       node(defTopology) ^^ (n => Ast.ModuleMember.DefTopology(n)) |
       node(specInclude) ^^ (n => Ast.ModuleMember.SpecInclude(n)) |
       node(specLoc) ^^ (n => Ast.ModuleMember.SpecLoc(n)) |
@@ -693,6 +700,7 @@ object Parser extends Parsers {
       instance ^^ (_ => Ast.SpecLoc.Instance) |
       port ^^ (_ => Ast.SpecLoc.Port) |
       state ~! machine ^^ (_ => Ast.SpecLoc.StateMachine) |
+      system ^^ (_ => Ast.SpecLoc.System) |
       interface ^^ (_ => Ast.SpecLoc.Interface)
     def maybeDictPair =
       opt(dictionary) ~ maybeDictKind ^^ {
@@ -1341,6 +1349,8 @@ object Parser extends Parsers {
   private def struct = accept("struct", { case t: Token.STRUCT => t })
 
   private def sync = accept("sync", { case t: Token.SYNC => t })
+
+  private def system = accept("system", { case t: Token.SYSTEM => t })
 
   private def telemetry = accept("telemetry", { case t: Token.TELEMETRY => t })
 

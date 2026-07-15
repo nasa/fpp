@@ -328,6 +328,15 @@ object FppWriter extends AstVisitor with LineUtils {
     joinOpt (data.default) (" default ") (exprNode)
   }
 
+  override def defSystemAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefSystem]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"system ${ident(data.name)}:").join(" ")(qualIdent(data.topology.data))
+  }
+
   override def defTopologyAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]

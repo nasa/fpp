@@ -231,9 +231,17 @@ module DefinitionsAndSpecifiers {
   topology T implements I, I {}
   @< Topology definition with two implements
 
+  @ System definition
+  system S: M.T
+  @< System definition
+
   @ Location specifier
   locate instance i at "instances.fpp"
   @< Location specifier
+
+  @ System location specifier
+  locate system S at "system.fpp"
+  @< System location specifier
 
 }
 @< Definitions and specifiers

@@ -118,6 +118,7 @@ object Lexer {
     ("string", STRING),
     ("struct", STRUCT),
     ("sync", SYNC),
+    ("system", SYSTEM),
     ("telemetry", TELEMETRY),
     ("text", TEXT),
     ("throttle", THROTTLE),
@@ -342,6 +343,7 @@ object Lexer {
         case STRING => Token.STRING()
         case STRUCT => Token.STRUCT()
         case SYNC => Token.SYNC()
+        case SYSTEM => Token.SYSTEM()
         case TELEMETRY => Token.TELEMETRY()
         case TEXT => Token.TEXT()
         case THROTTLE => Token.THROTTLE()

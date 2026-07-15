@@ -420,12 +420,23 @@ def module
       qual ident I
       qual ident I
   @< Topology definition with two implements
+  @ System definition
+  def system
+    ident S
+    qual ident M.T
+  @< System definition
   @ Location specifier
   spec loc
     kind instance
     symbol qual ident i
     file instances.fpp
   @< Location specifier
+  @ System location specifier
+  spec loc
+    kind system
+    symbol qual ident S
+    file system.fpp
+  @< System location specifier
 @< Definitions and specifiers
 @ Type names
 def module

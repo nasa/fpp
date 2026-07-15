@@ -240,6 +240,16 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
+  override def defSystemAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefSystem]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("def system") ++
+    (ident(data.name) ++ qualIdent(data.topology.data)).map(indentIn)
+  }
+
   override def defTopologyAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
