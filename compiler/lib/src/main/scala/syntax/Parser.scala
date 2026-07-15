@@ -270,9 +270,9 @@ object Parser extends Parsers {
   }
 
   def defTopology: Parser[Ast.DefTopology] = {
-    (topology ~>! ident) ~! opt(implements ~>! elementSequence(node(qualIdent), comma)) ~! (lbrace ~>! topologyMembers <~! rbrace) ^^ {
-      case name ~ Some(implements) ~ members => Ast.DefTopology(name, members, implements)
-      case name ~ None ~ members => Ast.DefTopology(name, members, Nil)
+    opt(deployment) ~ (topology ~>! ident) ~! opt(implements ~>! elementSequence(node(qualIdent), comma)) ~! (lbrace ~>! topologyMembers <~! rbrace) ^^ {
+      case deploymentOpt ~ name ~ implements ~ members =>
+        Ast.DefTopology(deploymentOpt.isDefined, name, members, implements.getOrElse(Nil))
     }
   }
 
@@ -810,19 +810,14 @@ object Parser extends Parsers {
   }
 
   def specRecord: Parser[Ast.SpecRecord] = {
-    def arrayOpt = opt(array) ^^ {
-      case Some(_) => true
-      case None => false
-    }
-
     ((product ~ record) ~>! ident) ~!
       (colon ~>! node(typeName)) ~!
-      arrayOpt ~!
+      opt(array) ~!
       opt(id ~>! exprNode) ^^ { case name ~ recordType ~ arrayOpt ~ id =>
       Ast.SpecRecord(
         name,
         recordType,
-        arrayOpt,
+        arrayOpt.isDefined,
         id
       )
     }
@@ -1145,6 +1140,8 @@ object Parser extends Parsers {
 
   private def default = accept("default", { case t: Token.DEFAULT => t })
 
+  private def deployment = accept("deployment", { case t: Token.DEPLOYMENT => t })
+
   private def diagnostic =
     accept("diagnostic", { case t: Token.DIAGNOSTIC => t })
 
@@ -1275,8 +1272,6 @@ object Parser extends Parsers {
   private def phase = accept("phase", { case t: Token.PHASE => t })
 
   private def plus = accept("+", { case t: Token.PLUS => t })
-
-
 
   private def port = accept("port", { case t: Token.PORT => t })
 

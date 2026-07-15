@@ -46,6 +46,7 @@ object Lexer {
     ("container", CONTAINER),
     ("cpu", CPU),
     ("default", DEFAULT),
+    ("deployment", DEPLOYMENT),
     ("diagnostic", DIAGNOSTIC),
     ("dictionary", DICTIONARY),
     ("do", DO),
@@ -241,6 +242,7 @@ object Lexer {
         case CONTAINER => Token.CONTAINER()
         case CPU => Token.CPU()
         case DEFAULT => Token.DEFAULT()
+        case DEPLOYMENT => Token.DEPLOYMENT()
         case DIAGNOSTIC => Token.DIAGNOSTIC()
         case DICTIONARY => Token.DICTIONARY()
         case DO => Token.DO()
