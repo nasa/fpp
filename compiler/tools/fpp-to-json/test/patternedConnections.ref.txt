@@ -1168,6 +1168,7 @@
               "node" : {
                 "AstNode" : {
                   "data" : {
+                    "isDeployment" : false,
                     "name" : "T",
                     "members" : [
                       [

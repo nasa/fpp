@@ -250,6 +250,7 @@
               "node" : {
                 "AstNode" : {
                   "data" : {
+                    "isDeployment" : false,
                     "name" : "Simple",
                     "members" : [
                       [

@@ -387,6 +387,7 @@
               "node" : {
                 "AstNode" : {
                   "data" : {
+                    "isDeployment" : false,
                     "name" : "TelemetryPackets",
                     "members" : [
                       [

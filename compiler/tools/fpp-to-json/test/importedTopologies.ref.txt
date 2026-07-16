@@ -322,6 +322,7 @@
               "node" : {
                 "AstNode" : {
                   "data" : {
+                    "isDeployment" : false,
                     "name" : "Simple1",
                     "members" : [
                       [
@@ -549,6 +550,7 @@
               "node" : {
                 "AstNode" : {
                   "data" : {
+                    "isDeployment" : false,
                     "name" : "Simple2",
                     "members" : [
                       [
@@ -803,6 +805,7 @@
               "node" : {
                 "AstNode" : {
                   "data" : {
+                    "isDeployment" : true,
                     "name" : "Simple3",
                     "members" : [
                       [
