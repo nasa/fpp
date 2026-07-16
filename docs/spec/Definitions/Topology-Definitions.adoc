@@ -52,10 +52,6 @@ If present, the optional keyword `deployment` indicates that the topology
 is a **deployment topology**.
 A deployment topology is the top-level topology of a deployment; it
 causes deployment code to be generated.
-A topology that is not marked `deployment` is called an
-**instance topology**.
-It is used as a
-<<Ports_Port-Interface-Instances,port interface instance>>.
 
 The identifier is the name of the topology.
 

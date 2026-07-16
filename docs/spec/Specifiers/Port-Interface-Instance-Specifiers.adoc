@@ -28,8 +28,8 @@ a
 i.e., a component instance definition or a topology definition.
 
 If the qualified identifier refers to a topology definition _D_,
-then _D_ must define an
-<<Definitions_Topology-Definitions_Semantics,instance topology>>.
+then _D_ must not define a
+<<Definitions_Topology-Definitions_Semantics,deployment topology>>.
 
 ==== Example
 

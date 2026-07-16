@@ -3912,11 +3912,7 @@ instance specifier</a></p>
 <p>If present, the optional keyword <code>deployment</code> indicates that the topology
 is a <strong>deployment topology</strong>.
 A deployment topology is the top-level topology of a deployment; it
-causes deployment code to be generated.
-A topology that is not marked <code>deployment</code> is called an
-<strong>instance topology</strong>.
-It is used as a
-<a href="#Ports_Port-Interface-Instances">port interface instance</a>.</p>
+causes deployment code to be generated.</p>
 </div>
 <div class="paragraph">
 <p>The identifier is the name of the topology.</p>
@@ -8160,8 +8156,8 @@ i.e., a component instance definition or a topology definition.</p>
 </div>
 <div class="paragraph">
 <p>If the qualified identifier refers to a topology definition <em>D</em>,
-then <em>D</em> must define an
-<a href="#Definitions_Topology-Definitions_Semantics">instance topology</a>.</p>
+then <em>D</em> must not define a
+<a href="#Definitions_Topology-Definitions_Semantics">deployment topology</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -13314,7 +13310,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-15 16:28:37 -0700
+Last updated 2026-07-15 18:03:05 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
