@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/system/not_deployment_topology.fpp:2.1
+system S: T
+^
+error: invalid use of symbol T: topology used here must be a deployment topology
+symbol is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/system/not_deployment_topology.fpp:1.1
+topology T {}
+^
