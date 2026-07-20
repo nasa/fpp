@@ -41,8 +41,12 @@ module M {
 
 }
 
-topology T {
+deployment topology T1 {
   telemetry packets P {
 
   }
+}
+
+topology T2 {
+
 }
