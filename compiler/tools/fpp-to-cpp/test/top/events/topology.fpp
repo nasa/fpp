@@ -8,7 +8,7 @@ module M {
 
   instance noEvents: NoEvents base id 0x400
 
-  topology Events {
+  deployment topology Events {
 
     instance c1
     instance c2

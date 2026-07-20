@@ -16,7 +16,7 @@ module M {
 
   instance c3: NoParams base id 0x300
 
-  topology Params {
+  deployment topology Params {
 
     instance c1
     instance c2

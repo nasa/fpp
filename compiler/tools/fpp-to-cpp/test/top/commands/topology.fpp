@@ -14,7 +14,7 @@ module M {
 
   instance noCommands: NoCommands base id 0x400
 
-  topology Commands {
+  deployment topology Commands {
 
     instance c1
     instance c2

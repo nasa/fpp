@@ -1,1 +1,1 @@
-topology NoNamespace { }
+deployment topology NoNamespace { }

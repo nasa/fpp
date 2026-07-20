@@ -3,7 +3,7 @@ module SerialPortsPassive {
   instance sender: Sender base id 0x100
   instance receiver: Receiver base id 0x200
 
-  topology SerialPortsPassive {
+  deployment topology SerialPortsPassive {
 
     instance sender
     instance receiver

@@ -74,7 +74,7 @@ module M {
 
   }
 
-  topology Ports2 {
+  deployment topology Ports2 {
 
     instance Ports1
 
