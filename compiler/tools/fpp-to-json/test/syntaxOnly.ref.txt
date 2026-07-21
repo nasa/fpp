@@ -1056,7 +1056,7 @@
                             "node" : {
                               "AstNode" : {
                                 "data" : {
-                                  "isDeployment" : false,
+                                  "isDeployment" : true,
                                   "name" : "b",
                                   "members" : [
                                     [

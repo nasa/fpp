@@ -75,7 +75,7 @@ module M {
     phase Phases.teardown "code"
   }
 
-  topology T2 {
+  deployment topology T2 {
 
     import T1
     instance c11
