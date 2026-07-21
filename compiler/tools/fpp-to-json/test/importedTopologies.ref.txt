@@ -9216,56 +9216,6 @@
       
     },
     "dictionaryMap" : {
-      "72" : {
-        "usedSymbolSet" : [
-        ],
-        "commandEntryMap" : {
-          
-        },
-        "tlmChannelEntryMap" : {
-          
-        },
-        "eventEntryMap" : {
-          
-        },
-        "paramEntryMap" : {
-          
-        },
-        "recordEntryMap" : {
-          
-        },
-        "containerEntryMap" : {
-          
-        },
-        "tlmPacketSetMap" : {
-          
-        }
-      },
-      "118" : {
-        "usedSymbolSet" : [
-        ],
-        "commandEntryMap" : {
-          
-        },
-        "tlmChannelEntryMap" : {
-          
-        },
-        "eventEntryMap" : {
-          
-        },
-        "paramEntryMap" : {
-          
-        },
-        "recordEntryMap" : {
-          
-        },
-        "containerEntryMap" : {
-          
-        },
-        "tlmPacketSetMap" : {
-          
-        }
-      },
       "128" : {
         "usedSymbolSet" : [
         ],

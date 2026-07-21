@@ -1,4 +1,4 @@
-topology T {
+deployment topology T {
 
   telemetry packets P {
 

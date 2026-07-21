@@ -25,7 +25,7 @@ module M {
     instance I1: C base id 0x100
 }
 
-topology QualifiedCompInst {
+deployment topology QualifiedCompInst {
 
     instance M.I1
 
@@ -33,7 +33,7 @@ topology QualifiedCompInst {
 
 instance I2: M.C base id 0x300
 
-topology UnqualifiedCompInst {
+deployment topology UnqualifiedCompInst {
 
     instance I2
 

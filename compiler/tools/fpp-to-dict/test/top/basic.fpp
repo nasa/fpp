@@ -1,3 +1,3 @@
-topology Basic {
+deployment topology Basic {
     
 }
