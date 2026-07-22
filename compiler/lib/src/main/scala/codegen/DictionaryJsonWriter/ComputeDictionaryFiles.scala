@@ -28,8 +28,7 @@ object ComputeDictionaryFiles extends AstStateVisitor {
     if data.isDeployment
     then
       val loc = Locations.get(node.id)
-      val name = s.getName(Symbol.Topology(aNode))
-      val fileName = DictionaryJsonEncoderState.getTopologyFileName(name)
+      val fileName = DictionaryJsonEncoderState.getTopologyFileName(data.name)
       addMapping(s, fileName, loc)
     else
       Right(s)

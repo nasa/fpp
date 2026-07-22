@@ -28,7 +28,7 @@ object DictionaryJsonWriter extends AstStateVisitor {
         if data.isDeployment
         then
           val topSymbol = Symbol.Topology(aNode)
-          val fileName = DictionaryJsonEncoderState.getTopologyFileName(s.getName(topSymbol))
+          val fileName = DictionaryJsonEncoderState.getTopologyFileName(data.name)
           // Given the topology symbol, look up the dictionary in the dictionary map
           val dictionary = s.a.dictionaryMap(topSymbol)
           // Update metadata to use topology name for the name of the deployment
@@ -41,7 +41,7 @@ object DictionaryJsonWriter extends AstStateVisitor {
     override def transUnit(s: DictionaryJsonEncoderState, tu: Ast.TransUnit) =
         visitList(s, tu.members, matchTuMember)
 
-    def writeJson (s: DictionaryJsonEncoderState, fileName: String, json: io.circe.Json) = {
+    private def writeJson (s: DictionaryJsonEncoderState, fileName: String, json: io.circe.Json) = {
         val path = java.nio.file.Paths.get(s.dir, fileName)
         val file = File.Path(path)
         for (writer <- file.openWrite()) yield {
