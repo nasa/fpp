@@ -9,9 +9,9 @@ object CheckChoiceCycles {
   def stateMachineAnalysis(sma: StateMachineAnalysis): Result.Result[Unit] = {
     val nodes = sma.transitionGraph.arcMap.keys.toList
     for {
-      _ <- Result.foldLeft (nodes) (()) {
+      _ <- Result.foldLeft (nodes) (State(sma)) {
         case (s, TransitionGraph.Node(StateOrChoice.Choice(c))) =>
-          visit(State(sma, c), c)
+          visit(s.clearPath, c)
         case (s, _) => Right(s)
       }
     } yield ()
@@ -19,14 +19,16 @@ object CheckChoiceCycles {
 
   private case class State(
     sma: StateMachineAnalysis,
-    rootChoice: StateMachineSymbol.Choice,
     visited: Set[StateMachineSymbol.Choice] = Set(),
+    pathSet: Set[StateMachineSymbol.Choice] = Set(),
     pathList: List[TransitionGraph.Arc] = Nil
-  )
+  ) {
+    def clearPath: State = this.copy(pathSet = Set(), pathList = Nil)
+  }
 
   private def visit(s: State, c: StateMachineSymbol.Choice):
-  Result.Result[Unit] =
-    if s.visited.contains(c) && c == s.rootChoice
+  Result.Result[State] =
+    if s.pathSet.contains(c)
     then {
       val loc = Locations.get(c.getNodeId)
       val msg = (
@@ -36,21 +38,23 @@ object CheckChoiceCycles {
       Left(SemanticError.StateMachine.ChoiceCycle(loc, msg))
     }
     else {
-      val s1 = s.copy(visited = s.visited + c)
+      val pathSet = s.pathSet
+      val s1 = s.copy(pathSet = pathSet + c)
       val soc = StateOrChoice.Choice(c)
       val node = TransitionGraph.Node(soc)
       val nodes = s.sma.transitionGraph.arcMap(node).toList
       for {
-        _ <- Result.foldLeft (nodes) (()) (
-          (_, a) => a.getEndNode.soc match {
+        s <- Result.foldLeft (nodes) (s1) (
+          (s, a) => a.getEndNode.soc match {
             case StateOrChoice.Choice(c1) => {
-              val s2 = s1.copy(pathList = a :: s.pathList)
+              val s2 = s.copy(pathList = a :: s.pathList)
               visit(s2, c1)
             }
-            case _ => Right(())
+            case _ => Right(s)
           }
         )
-      } yield ()
+      } yield s.copy(visited = s.visited + c, pathSet = pathSet)
     }
 
 }
+
