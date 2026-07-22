@@ -9,9 +9,9 @@ object CheckChoiceCycles {
   def stateMachineAnalysis(sma: StateMachineAnalysis): Result.Result[Unit] = {
     val nodes = sma.transitionGraph.arcMap.keys.toList
     for {
-      _ <- Result.foldLeft (nodes) (State(sma)) {
+      _ <- Result.foldLeft (nodes) (()) {
         case (s, TransitionGraph.Node(StateOrChoice.Choice(c))) =>
-          visit(s.clearPath, c)
+          visit(State(sma, c), c)
         case (s, _) => Right(s)
       }
     } yield ()
@@ -19,16 +19,14 @@ object CheckChoiceCycles {
 
   private case class State(
     sma: StateMachineAnalysis,
+    rootChoice: StateMachineSymbol.Choice,
     visited: Set[StateMachineSymbol.Choice] = Set(),
-    pathSet: Set[StateMachineSymbol.Choice] = Set(),
     pathList: List[TransitionGraph.Arc] = Nil
-  ) {
-    def clearPath: State = this.copy(pathSet = Set(), pathList = Nil)
-  }
+  )
 
   private def visit(s: State, c: StateMachineSymbol.Choice):
-  Result.Result[State] =
-    if s.pathSet.contains(c)
+  Result.Result[Unit] =
+    if s.visited.contains(c) && c == s.rootChoice
     then {
       val loc = Locations.get(c.getNodeId)
       val msg = (
@@ -38,21 +36,21 @@ object CheckChoiceCycles {
       Left(SemanticError.StateMachine.ChoiceCycle(loc, msg))
     }
     else {
-      val s1 = s.copy(pathSet = s.pathSet + c)
+      val s1 = s.copy(visited = s.visited + c)
       val soc = StateOrChoice.Choice(c)
       val node = TransitionGraph.Node(soc)
       val nodes = s.sma.transitionGraph.arcMap(node).toList
       for {
-        s <- Result.foldLeft (nodes) (s1) (
-          (s, a) => a.getEndNode.soc match {
+        _ <- Result.foldLeft (nodes) (()) (
+          (_, a) => a.getEndNode.soc match {
             case StateOrChoice.Choice(c1) => {
-              val s2 = s.copy(pathList = a :: s.pathList)
+              val s2 = s1.copy(pathList = a :: s.pathList)
               visit(s2, c1)
             }
-            case _ => Right(s)
+            case _ => Right(())
           }
         )
-      } yield s.copy(visited = s.visited + c)
+      } yield ()
     }
 
 }
