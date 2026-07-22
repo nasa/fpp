@@ -38,7 +38,8 @@ object CheckChoiceCycles {
       Left(SemanticError.StateMachine.ChoiceCycle(loc, msg))
     }
     else {
-      val s1 = s.copy(pathSet = s.pathSet + c)
+      val pathSet = s.pathSet
+      val s1 = s.copy(pathSet = pathSet + c)
       val soc = StateOrChoice.Choice(c)
       val node = TransitionGraph.Node(soc)
       val nodes = s.sma.transitionGraph.arcMap(node).toList
@@ -52,7 +53,8 @@ object CheckChoiceCycles {
             case _ => Right(s)
           }
         )
-      } yield s.copy(visited = s.visited + c)
+      } yield s.copy(visited = s.visited + c, pathSet = pathSet)
     }
 
 }
+
