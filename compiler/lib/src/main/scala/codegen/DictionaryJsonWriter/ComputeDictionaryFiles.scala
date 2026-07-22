@@ -34,6 +34,15 @@ object ComputeDictionaryFiles extends AstStateVisitor {
       Right(s)
   }
 
+  override def defSystemAnnotatedNode(s: State, aNode: Ast.Annotated[AstNode[Ast.DefSystem]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val loc = Locations.get(node.id)
+    val baseName = s.writeSymbolName(Symbol.System(aNode))
+    val fileName = DictionaryJsonEncoderState.getSystemFileName(baseName)
+    addMapping(s, fileName, loc)
+  }
+
   override def transUnit(s: State, tu: Ast.TransUnit) =
     visitList(s, tu.members, matchTuMember)
 

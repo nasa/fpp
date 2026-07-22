@@ -34,6 +34,7 @@ SM2_StateEnumAc.hpp
 SM2_XAliasAc.hpp
 SSerializableAc.cpp
 SSerializableAc.hpp
+SSystemDictionary.json
 T1TopologyAc.cpp
 T1TopologyAc.hpp
 T1TopologyDictionary.json

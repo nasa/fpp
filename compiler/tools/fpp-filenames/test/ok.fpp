@@ -47,6 +47,8 @@ deployment topology T1 {
   }
 }
 
+system S: T1
+
 topology T2 {
 
 }

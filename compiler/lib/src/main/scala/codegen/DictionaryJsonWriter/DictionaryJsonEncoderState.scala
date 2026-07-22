@@ -29,9 +29,9 @@ case class DictionaryJsonEncoderState(
     }
   }
 
-  /** Writes the name of a symbol with underscores instead of dots */
-  def writeUnderscoreSymbolName(symbol: Symbol) =
-    a.getQualifiedName(symbol).toString.replaceAll(".", "_")
+  /** Writes the name of a symbol */
+  def writeSymbolName(symbol: Symbol, separator: String = "_") =
+    a.getQualifiedName(symbol).toString.replaceAll("\\.", separator)
 
 }
 
