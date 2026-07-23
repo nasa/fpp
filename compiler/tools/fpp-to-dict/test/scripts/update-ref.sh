@@ -43,14 +43,6 @@ move_json()
   done
 }
 
-move_system_json()
-{
-  for file in "$@"
-  do
-    mv $file'SystemDictionary.json' $file'SystemDictionary.ref.json'
-  done
-}
-
 . ./update-ref.sh
 
 for t in $tests

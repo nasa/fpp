@@ -11,14 +11,16 @@ basic()
 {
   run_test "-i config.fpp -p 1.0.0 -f 3.4.3" basic && \
     validate_json_schema Basic && \
-    diff_json Basic
+    diff_json Basic && \
+    diff_system_json Basic
 }
 
 dataProducts()
 {
   run_test "-i builtin.fpp,config.fpp -p 1.0.0 -f 3.4.3" dataProducts && \
     validate_json_schema BasicDp && \
-    diff_json BasicDp
+    diff_json BasicDp && \
+    diff_system_json BasicDp
 }
 
 duplicate()
