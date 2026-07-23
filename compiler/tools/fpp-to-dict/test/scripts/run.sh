@@ -48,6 +48,17 @@ diff_json()
   done
 }
 
+diff_system_json()
+{
+  for file in $@
+  do
+    if ! diff $file'SystemDictionary.json' $file'SystemDictionary.ref.json'
+    then
+      return 1
+    fi
+  done
+}
+
 validate_json_schema()
 { 
   dictFile=$1

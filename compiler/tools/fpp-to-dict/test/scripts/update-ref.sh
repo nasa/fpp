@@ -37,15 +37,17 @@ done > default-update-ref.sh
 
 move_json()
 {
-  if test $# -ne 1
-  then
-    echo 'usage: move_json file' 1>&2
-    exit 1
-  fi
-  file=$1
-  for suffix in json
+  for file in "$@"
   do
-    mv $file'TopologyDictionary.'$suffix $file'TopologyDictionary.ref.'$suffix
+    mv $file'TopologyDictionary.json' $file'TopologyDictionary.ref.json'
+  done
+}
+
+move_system_json()
+{
+  for file in "$@"
+  do
+    mv $file'SystemDictionary.json' $file'SystemDictionary.ref.json'
   done
 }
 
