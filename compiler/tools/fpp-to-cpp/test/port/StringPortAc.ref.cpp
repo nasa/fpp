@@ -15,6 +15,8 @@ StringPortSerializer ::
   StringPortSerializer() :
     m_str80(m___fprime_ac_str80_buffer, sizeof m___fprime_ac_str80_buffer),
     m_str80Ref(m___fprime_ac_str80Ref_buffer, sizeof m___fprime_ac_str80Ref_buffer),
+    m_str0(m___fprime_ac_str0_buffer, sizeof m___fprime_ac_str0_buffer),
+    m_str0Ref(m___fprime_ac_str0Ref_buffer, sizeof m___fprime_ac_str0Ref_buffer),
     m_str100(m___fprime_ac_str100_buffer, sizeof m___fprime_ac_str100_buffer),
     m_str100Ref(m___fprime_ac_str100Ref_buffer, sizeof m___fprime_ac_str100Ref_buffer)
 {
@@ -36,6 +38,12 @@ Fw::SerializeStatus StringPortSerializer ::
     _status = _buffer.deserializeTo(m_str80Ref);
   }
   if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_str0);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.deserializeTo(m_str0Ref);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
     _status = _buffer.deserializeTo(m_str100);
   }
   if (_status == Fw::FW_SERIALIZE_OK) {
@@ -52,6 +60,8 @@ Fw::SerializeStatus StringPortSerializer ::
   serializePortArgs(
       const Fw::StringBase& str80,
       Fw::StringBase& str80Ref,
+      const Fw::StringBase& str0,
+      Fw::StringBase& str0Ref,
       const Fw::StringBase& str100,
       Fw::StringBase& str100Ref,
       Fw::SerialBufferBase& _buffer
@@ -63,6 +73,12 @@ Fw::SerializeStatus StringPortSerializer ::
   }
   if (_status == Fw::FW_SERIALIZE_OK) {
     _status = _buffer.serializeFrom(str80Ref);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(str0);
+  }
+  if (_status == Fw::FW_SERIALIZE_OK) {
+    _status = _buffer.serializeFrom(str0Ref);
   }
   if (_status == Fw::FW_SERIALIZE_OK) {
     _status = _buffer.serializeFrom(str100);
@@ -115,6 +131,8 @@ void InputStringPort ::
   invoke(
       const Fw::StringBase& str80,
       Fw::StringBase& str80Ref,
+      const Fw::StringBase& str0,
+      Fw::StringBase& str0Ref,
       const Fw::StringBase& str100,
       Fw::StringBase& str100Ref
   )
@@ -126,7 +144,7 @@ void InputStringPort ::
   FW_ASSERT(this->m_comp != nullptr);
   FW_ASSERT(this->m_func != nullptr);
 
-  return this->m_func(this->m_comp, this->m_portNum, str80, str80Ref, str100, str100Ref);
+  return this->m_func(this->m_comp, this->m_portNum, str80, str80Ref, str0, str0Ref, str100, str100Ref);
 }
 
 // ----------------------------------------------------------------------
@@ -151,7 +169,7 @@ Fw::SerializeStatus InputStringPort ::
     return _status;
   }
 
-  this->m_func(this->m_comp, this->m_portNum, _serializer.m_str80, _serializer.m_str80Ref, _serializer.m_str100, _serializer.m_str100Ref);
+  this->m_func(this->m_comp, this->m_portNum, _serializer.m_str80, _serializer.m_str80Ref, _serializer.m_str0, _serializer.m_str0Ref, _serializer.m_str100, _serializer.m_str100Ref);
 
   return Fw::FW_SERIALIZE_OK;
 }
@@ -197,6 +215,8 @@ void OutputStringPort ::
   invoke(
       const Fw::StringBase& str80,
       Fw::StringBase& str80Ref,
+      const Fw::StringBase& str0,
+      Fw::StringBase& str0Ref,
       const Fw::StringBase& str100,
       Fw::StringBase& str100Ref
   ) const
@@ -209,13 +229,13 @@ void OutputStringPort ::
   FW_ASSERT((this->m_port != nullptr) || (this->m_serPort != nullptr));
 
   if (this->m_port != nullptr) {
-    this->m_port->invoke(str80, str80Ref, str100, str100Ref);
+    this->m_port->invoke(str80, str80Ref, str0, str0Ref, str100, str100Ref);
   }
   else {
     Fw::SerializeStatus _status;
     StringPortBuffer _buffer;
 
-    _status = StringPortSerializer::serializePortArgs(str80, str80Ref, str100, str100Ref, _buffer);
+    _status = StringPortSerializer::serializePortArgs(str80, str80Ref, str0, str0Ref, str100, str100Ref, _buffer);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
     _status = this->m_serPort->invokeSerial(_buffer);
@@ -223,7 +243,7 @@ void OutputStringPort ::
   }
 #else
   FW_ASSERT(this->m_port != nullptr);
-  this->m_port->invoke(str80, str80Ref, str100, str100Ref);
+  this->m_port->invoke(str80, str80Ref, str0, str0Ref, str100, str100Ref);
 #endif
 }
 
