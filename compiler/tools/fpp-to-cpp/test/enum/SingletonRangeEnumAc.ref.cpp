@@ -25,6 +25,17 @@ SingletonRange& SingletonRange ::
 }
 
 SingletonRange& SingletonRange ::
+  operator=(SerialType e1)
+{
+  this->e = static_cast<enum T>(e1);
+#ifdef BUILD_UT
+  this->m_serializeValueIsSet = false;
+  this->m_serializeValue = 0;
+#endif
+  return *this;
+}
+
+SingletonRange& SingletonRange ::
   operator=(enum T e1)
 {
   FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));

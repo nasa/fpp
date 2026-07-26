@@ -76,6 +76,15 @@ namespace FppTest {
           this->e = e1;
         }
 
+        //! Constructor (serial representation value)
+        //! Call isValid() before using the constructed value.
+        BasicGuardU32_State(
+            const SerialType e1 //!< The serial representation value
+        )
+        {
+          this->e = static_cast<enum T>(e1);
+        }
+
         //! Copy constructor
         BasicGuardU32_State(
             const BasicGuardU32_State& obj //!< The source object
@@ -97,6 +106,11 @@ namespace FppTest {
         //! Copy assignment operator (object)
         BasicGuardU32_State& operator=(
             const BasicGuardU32_State& obj //!< The source object
+        );
+
+        //! Assignment operator (serial representation value)
+        BasicGuardU32_State& operator=(
+            SerialType e1 //!< The serial representation value
         );
 
         //! Copy assignment operator (raw enum)

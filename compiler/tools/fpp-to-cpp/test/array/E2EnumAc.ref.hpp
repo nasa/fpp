@@ -71,6 +71,15 @@ class E2 :
       this->e = e1;
     }
 
+    //! Constructor (serial representation value)
+    //! Call isValid() before using the constructed value.
+    E2(
+        const SerialType e1 //!< The serial representation value
+    )
+    {
+      this->e = static_cast<enum T>(e1);
+    }
+
     //! Copy constructor
     E2(
         const E2& obj //!< The source object
@@ -92,6 +101,11 @@ class E2 :
     //! Copy assignment operator (object)
     E2& operator=(
         const E2& obj //!< The source object
+    );
+
+    //! Assignment operator (serial representation value)
+    E2& operator=(
+        SerialType e1 //!< The serial representation value
     );
 
     //! Copy assignment operator (raw enum)

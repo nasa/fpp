@@ -72,6 +72,15 @@ namespace M {
         this->e = e1;
       }
 
+      //! Constructor (serial representation value)
+      //! Call isValid() before using the constructed value.
+      Explicit(
+          const SerialType e1 //!< The serial representation value
+      )
+      {
+        this->e = static_cast<enum T>(e1);
+      }
+
       //! Copy constructor
       Explicit(
           const Explicit& obj //!< The source object
@@ -93,6 +102,11 @@ namespace M {
       //! Copy assignment operator (object)
       Explicit& operator=(
           const Explicit& obj //!< The source object
+      );
+
+      //! Assignment operator (serial representation value)
+      Explicit& operator=(
+          SerialType e1 //!< The serial representation value
       );
 
       //! Copy assignment operator (raw enum)

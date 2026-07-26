@@ -80,6 +80,15 @@ namespace FppTest {
           this->e = e1;
         }
 
+        //! Constructor (serial representation value)
+        //! Call isValid() before using the constructed value.
+        Sequence_State(
+            const SerialType e1 //!< The serial representation value
+        )
+        {
+          this->e = static_cast<enum T>(e1);
+        }
+
         //! Copy constructor
         Sequence_State(
             const Sequence_State& obj //!< The source object
@@ -101,6 +110,11 @@ namespace FppTest {
         //! Copy assignment operator (object)
         Sequence_State& operator=(
             const Sequence_State& obj //!< The source object
+        );
+
+        //! Assignment operator (serial representation value)
+        Sequence_State& operator=(
+            SerialType e1 //!< The serial representation value
         );
 
         //! Copy assignment operator (raw enum)
