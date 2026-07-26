@@ -273,7 +273,7 @@ case class ComponentDataProducts (
                 }),
                 lines (
                   """|default:
-                     |  FW_ASSERT(0);
+                     |  FW_ASSERT(false);
                      |  break;"""
                 )
               )
@@ -614,4 +614,3 @@ case class ComponentDataProducts (
   }
 
 }
-

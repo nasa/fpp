@@ -241,7 +241,7 @@ case class StateMachineCppWriter(
       leafStateSymbols.flatMap(getSendSignalMemberCaseLines (signal)),
       lines(
         """|default:
-           |  FW_ASSERT(0, static_cast<FwAssertArgType>(this->m_state));
+           |  FW_ASSERT(false, static_cast<FwAssertArgType>(this->m_state));
            |  break;"""
       )
     )

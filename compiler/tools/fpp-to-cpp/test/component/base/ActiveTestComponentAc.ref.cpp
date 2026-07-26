@@ -8188,7 +8188,7 @@ namespace M {
         Fw::CmdArgBuffer& args
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     compPtr->cmdIn_handlerBase(
       portNum,
@@ -8207,7 +8207,7 @@ namespace M {
         const Fw::Success& status
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     compPtr->productRecvIn_handlerBase(
       portNum,
@@ -8234,7 +8234,7 @@ namespace M {
         const AliasStruct& s
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     compPtr->aliasTypedAsync_handlerBase(
       portNum,
@@ -8254,7 +8254,7 @@ namespace M {
         FwIndexType portNum
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     return compPtr->noArgsAliasStringReturnSync_handlerBase(portNum);
   }
@@ -8265,7 +8265,7 @@ namespace M {
         FwIndexType portNum
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     compPtr->noArgsAsync_handlerBase(portNum);
   }
@@ -8276,7 +8276,7 @@ namespace M {
         FwIndexType portNum
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     compPtr->noArgsGuarded_handlerBase(portNum);
   }
@@ -8287,7 +8287,7 @@ namespace M {
         FwIndexType portNum
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     return compPtr->noArgsReturnGuarded_handlerBase(portNum);
   }
@@ -8298,7 +8298,7 @@ namespace M {
         FwIndexType portNum
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     return compPtr->noArgsReturnSync_handlerBase(portNum);
   }
@@ -8309,7 +8309,7 @@ namespace M {
         FwIndexType portNum
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     return compPtr->noArgsStringReturnSync_handlerBase(portNum);
   }
@@ -8320,7 +8320,7 @@ namespace M {
         FwIndexType portNum
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     compPtr->noArgsSync_handlerBase(portNum);
   }
@@ -8338,7 +8338,7 @@ namespace M {
         const AliasStruct& s
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     compPtr->typedAliasGuarded_handlerBase(
       portNum,
@@ -8365,7 +8365,7 @@ namespace M {
         const AliasStruct& s
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     return compPtr->typedAliasReturnSync_handlerBase(
       portNum,
@@ -8392,7 +8392,7 @@ namespace M {
         const AnotherAliasStruct& s
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     return compPtr->typedAliasStringReturnSync_handlerBase(
       portNum,
@@ -8419,7 +8419,7 @@ namespace M {
         const S& s
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     compPtr->typedAsync_handlerBase(
       portNum,
@@ -8446,7 +8446,7 @@ namespace M {
         const S& s
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     compPtr->typedAsyncAssert_handlerBase(
       portNum,
@@ -8473,7 +8473,7 @@ namespace M {
         const S& s
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     compPtr->typedAsyncBlockPriority_handlerBase(
       portNum,
@@ -8500,7 +8500,7 @@ namespace M {
         const S& s
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     compPtr->typedAsyncDropPriority_handlerBase(
       portNum,
@@ -8527,7 +8527,7 @@ namespace M {
         const S& s
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     compPtr->typedGuarded_handlerBase(
       portNum,
@@ -8554,7 +8554,7 @@ namespace M {
         const S& s
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     return compPtr->typedReturnGuarded_handlerBase(
       portNum,
@@ -8581,7 +8581,7 @@ namespace M {
         const S& s
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     return compPtr->typedReturnSync_handlerBase(
       portNum,
@@ -8608,7 +8608,7 @@ namespace M {
         const S& s
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestComponentBase* compPtr = static_cast<ActiveTestComponentBase*>(callComp);
     compPtr->typedSync_handlerBase(
       portNum,
@@ -9616,7 +9616,7 @@ namespace M {
         this->dpRecv_Container5_handler(container, status.e);
         break;
       default:
-        FW_ASSERT(0);
+        FW_ASSERT(false);
         break;
     }
   }
