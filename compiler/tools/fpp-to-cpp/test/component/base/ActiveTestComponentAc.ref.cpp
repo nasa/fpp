@@ -5884,7 +5884,7 @@ namespace M {
 #endif
 
       Fw::TextLogString _logString;
-      _logString.format(
+      (void) _logString.format(
         _formatString,
 #if FW_OBJECT_NAMES == 1
         this->m_objName.toChar(),
@@ -6009,7 +6009,7 @@ namespace M {
 #endif
 
       Fw::TextLogString _logString;
-      _logString.format(
+      (void) _logString.format(
         _formatString,
 #if FW_OBJECT_NAMES == 1
         this->m_objName.toChar(),
@@ -6098,7 +6098,7 @@ namespace M {
 #endif
 
       Fw::TextLogString _logString;
-      _logString.format(
+      (void) _logString.format(
         _formatString,
 #if FW_OBJECT_NAMES == 1
         this->m_objName.toChar(),
@@ -6184,7 +6184,7 @@ namespace M {
       e.toString(eStr);
 
       Fw::TextLogString _logString;
-      _logString.format(
+      (void) _logString.format(
         _formatString,
 #if FW_OBJECT_NAMES == 1
         this->m_objName.toChar(),
@@ -6290,7 +6290,7 @@ namespace M {
       a.toString(aStr);
 
       Fw::TextLogString _logString;
-      _logString.format(
+      (void) _logString.format(
         _formatString,
 #if FW_OBJECT_NAMES == 1
         this->m_objName.toChar(),
@@ -6375,7 +6375,7 @@ namespace M {
       s.toString(sStr);
 
       Fw::TextLogString _logString;
-      _logString.format(
+      (void) _logString.format(
         _formatString,
 #if FW_OBJECT_NAMES == 1
         this->m_objName.toChar(),
@@ -6449,7 +6449,7 @@ namespace M {
 #endif
 
       Fw::TextLogString _logString;
-      _logString.format(
+      (void) _logString.format(
         _formatString,
 #if FW_OBJECT_NAMES == 1
         this->m_objName.toChar(),
@@ -6539,7 +6539,7 @@ namespace M {
 #endif
 
       Fw::TextLogString _logString;
-      _logString.format(
+      (void) _logString.format(
         _formatString,
 #if FW_OBJECT_NAMES == 1
         this->m_objName.toChar(),

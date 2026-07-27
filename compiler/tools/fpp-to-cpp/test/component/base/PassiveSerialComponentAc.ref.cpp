@@ -3950,7 +3950,7 @@ void PassiveSerialComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4075,7 +4075,7 @@ void PassiveSerialComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4164,7 +4164,7 @@ void PassiveSerialComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4250,7 +4250,7 @@ void PassiveSerialComponentBase ::
     e.toString(eStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4356,7 +4356,7 @@ void PassiveSerialComponentBase ::
     a.toString(aStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4441,7 +4441,7 @@ void PassiveSerialComponentBase ::
     s.toString(sStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4515,7 +4515,7 @@ void PassiveSerialComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4605,7 +4605,7 @@ void PassiveSerialComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),

@@ -3128,7 +3128,7 @@ void ActiveEventsComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3253,7 +3253,7 @@ void ActiveEventsComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3342,7 +3342,7 @@ void ActiveEventsComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3428,7 +3428,7 @@ void ActiveEventsComponentBase ::
     e.toString(eStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3534,7 +3534,7 @@ void ActiveEventsComponentBase ::
     a.toString(aStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3619,7 +3619,7 @@ void ActiveEventsComponentBase ::
     s.toString(sStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3693,7 +3693,7 @@ void ActiveEventsComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3783,7 +3783,7 @@ void ActiveEventsComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),

@@ -5882,7 +5882,7 @@ void QueuedTestComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6007,7 +6007,7 @@ void QueuedTestComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6096,7 +6096,7 @@ void QueuedTestComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6182,7 +6182,7 @@ void QueuedTestComponentBase ::
     e.toString(eStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6288,7 +6288,7 @@ void QueuedTestComponentBase ::
     a.toString(aStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6373,7 +6373,7 @@ void QueuedTestComponentBase ::
     s.toString(sStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6447,7 +6447,7 @@ void QueuedTestComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6537,7 +6537,7 @@ void QueuedTestComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
