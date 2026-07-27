@@ -18,9 +18,7 @@ case class DictionaryJsonEncoderState(
   locationMap: Map[String, Location] = Map()
 ) {
 
-  /** Gets the unqualified name associated with a symbol. */
-  def getName(symbol: Symbol): String = symbol.getUnqualifiedName
-
+  /** Gets the F Prime default string size */
   def getFwDefaultStringSize: BigInt = {
     val s = a.frameworkDefinitions.constantMap("FW_FIXED_LENGTH_STRING_SIZE")
     a.valueMap(s.getNodeId) match {
