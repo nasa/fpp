@@ -54,7 +54,7 @@ Fw::SerializeStatus ActiveExternalParamsTesterBase::ActiveExternalParamsComponen
       break;
     default:
       // Unknown ID; should not have gotten here
-      FW_ASSERT(0, static_cast<FwAssertArgType>(localId));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(localId));
   }
 
   return stat;
@@ -99,7 +99,7 @@ Fw::SerializeStatus ActiveExternalParamsTesterBase::ActiveExternalParamsComponen
       break;
     default:
       // Unknown ID; should not have gotten here
-      FW_ASSERT(0, static_cast<FwAssertArgType>(localId));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(localId));
   }
 
   return stat;
@@ -2943,7 +2943,7 @@ Fw::ParamValid ActiveExternalParamsTesterBase ::
     };
 
     default:
-      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(id));
       break;
   }
 
@@ -3054,7 +3054,7 @@ void ActiveExternalParamsTesterBase ::
     };
 
     default:
-      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(id));
       break;
   }
 }

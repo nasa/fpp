@@ -77,7 +77,7 @@ case class TopComponentCppWriter (
             lines(
               """|default:
                  |#ifdef FW_STRICT_ASSERTIONS
-                 |  FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+                 |  FW_ASSERT(false, static_cast<FwAssertArgType>(instance));
                  |  break;
                  |#else
                  |  // Fall through
@@ -140,7 +140,7 @@ case class TopComponentCppWriter (
       writeInstanceSwitch(
         componentInstanceMap,
         writeOutFnCase,
-        lines("FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));")
+        lines("FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));")
       ),
       guardedList (nonVoidReturn) (lines(s"return _result;"))
     )
