@@ -54,7 +54,7 @@ Fw::SerializeStatus PassiveSerialTesterBase::PassiveSerialComponentBaseParamExte
       break;
     default:
       // Unknown ID; should not have gotten here
-      FW_ASSERT(0, static_cast<FwAssertArgType>(localId));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(localId));
   }
 
   return stat;
@@ -99,7 +99,7 @@ Fw::SerializeStatus PassiveSerialTesterBase::PassiveSerialComponentBaseParamExte
       break;
     default:
       // Unknown ID; should not have gotten here
-      FW_ASSERT(0, static_cast<FwAssertArgType>(localId));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(localId));
   }
 
   return stat;
@@ -2987,7 +2987,7 @@ void PassiveSerialTesterBase ::
     }
 
     default: {
-      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(id));
       break;
     }
   }
@@ -3268,7 +3268,7 @@ void PassiveSerialTesterBase ::
     }
 
     default: {
-      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(id));
       break;
     }
   }
@@ -4573,7 +4573,7 @@ Fw::ParamValid PassiveSerialTesterBase ::
     };
 
     default:
-      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(id));
       break;
   }
 
@@ -4768,7 +4768,7 @@ void PassiveSerialTesterBase ::
     };
 
     default:
-      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(id));
       break;
   }
 }

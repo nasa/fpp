@@ -270,7 +270,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
       const Fw::Success& status
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSyncProductPortsOnlyComponentBase* compPtr = static_cast<PassiveSyncProductPortsOnlyComponentBase*>(callComp);
   compPtr->productRecvIn_handlerBase(
     portNum,

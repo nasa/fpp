@@ -2507,7 +2507,7 @@ void PassiveTelemetryComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTelemetryComponentBase* compPtr = static_cast<PassiveTelemetryComponentBase*>(callComp);
   compPtr->cmdIn_handlerBase(
     portNum,
@@ -2527,7 +2527,7 @@ Fw::String PassiveTelemetryComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTelemetryComponentBase* compPtr = static_cast<PassiveTelemetryComponentBase*>(callComp);
   return compPtr->noArgsAliasStringReturnSync_handlerBase(portNum);
 }
@@ -2538,7 +2538,7 @@ void PassiveTelemetryComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTelemetryComponentBase* compPtr = static_cast<PassiveTelemetryComponentBase*>(callComp);
   compPtr->noArgsGuarded_handlerBase(portNum);
 }
@@ -2549,7 +2549,7 @@ U32 PassiveTelemetryComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTelemetryComponentBase* compPtr = static_cast<PassiveTelemetryComponentBase*>(callComp);
   return compPtr->noArgsReturnGuarded_handlerBase(portNum);
 }
@@ -2560,7 +2560,7 @@ U32 PassiveTelemetryComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTelemetryComponentBase* compPtr = static_cast<PassiveTelemetryComponentBase*>(callComp);
   return compPtr->noArgsReturnSync_handlerBase(portNum);
 }
@@ -2571,7 +2571,7 @@ Fw::String PassiveTelemetryComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTelemetryComponentBase* compPtr = static_cast<PassiveTelemetryComponentBase*>(callComp);
   return compPtr->noArgsStringReturnSync_handlerBase(portNum);
 }
@@ -2582,7 +2582,7 @@ void PassiveTelemetryComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTelemetryComponentBase* compPtr = static_cast<PassiveTelemetryComponentBase*>(callComp);
   compPtr->noArgsSync_handlerBase(portNum);
 }
@@ -2600,7 +2600,7 @@ void PassiveTelemetryComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTelemetryComponentBase* compPtr = static_cast<PassiveTelemetryComponentBase*>(callComp);
   compPtr->typedAliasGuarded_handlerBase(
     portNum,
@@ -2627,7 +2627,7 @@ AliasPrim2 PassiveTelemetryComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTelemetryComponentBase* compPtr = static_cast<PassiveTelemetryComponentBase*>(callComp);
   return compPtr->typedAliasReturnSync_handlerBase(
     portNum,
@@ -2654,7 +2654,7 @@ Fw::String PassiveTelemetryComponentBase ::
       const AnotherAliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTelemetryComponentBase* compPtr = static_cast<PassiveTelemetryComponentBase*>(callComp);
   return compPtr->typedAliasStringReturnSync_handlerBase(
     portNum,
@@ -2681,7 +2681,7 @@ void PassiveTelemetryComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTelemetryComponentBase* compPtr = static_cast<PassiveTelemetryComponentBase*>(callComp);
   compPtr->typedGuarded_handlerBase(
     portNum,
@@ -2708,7 +2708,7 @@ F32 PassiveTelemetryComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTelemetryComponentBase* compPtr = static_cast<PassiveTelemetryComponentBase*>(callComp);
   return compPtr->typedReturnGuarded_handlerBase(
     portNum,
@@ -2735,7 +2735,7 @@ F32 PassiveTelemetryComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTelemetryComponentBase* compPtr = static_cast<PassiveTelemetryComponentBase*>(callComp);
   return compPtr->typedReturnSync_handlerBase(
     portNum,
@@ -2762,7 +2762,7 @@ void PassiveTelemetryComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTelemetryComponentBase* compPtr = static_cast<PassiveTelemetryComponentBase*>(callComp);
   compPtr->typedSync_handlerBase(
     portNum,

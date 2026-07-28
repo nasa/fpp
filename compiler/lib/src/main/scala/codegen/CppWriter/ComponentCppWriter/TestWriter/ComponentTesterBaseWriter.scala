@@ -963,7 +963,7 @@ case class ComponentTesterBaseWriter(
         sortedEvents.map((id, event) => writeSwitchCase(id, event)) ++ List(
           lines(
             """|default: {
-               |  FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+               |  FW_ASSERT(false, static_cast<FwAssertArgType>(id));
                |  break;
                |}
                |"""
@@ -1114,7 +1114,7 @@ case class ComponentTesterBaseWriter(
           wrapInScope(
             "default: {",
             lines(
-              """|FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+              """|FW_ASSERT(false, static_cast<FwAssertArgType>(id));
                  |break;
                  |"""
             ),
@@ -1377,7 +1377,7 @@ case class ComponentTesterBaseWriter(
             ) ++ List(
               lines(
                 """|default:
-                   |  FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+                   |  FW_ASSERT(false, static_cast<FwAssertArgType>(id));
                    |  break;
                    |"""
               )
@@ -1433,7 +1433,7 @@ case class ComponentTesterBaseWriter(
           }) ++ List(
             lines(
               s"""|default:
-                  |  FW_ASSERT(0, static_cast<FwAssertArgType>($id));
+                  |  FW_ASSERT(false, static_cast<FwAssertArgType>($id));
                   |  break;
                   |"""
             )
@@ -1739,7 +1739,7 @@ case class ExternalParameterDelegate(
             lines(
               """|  default:
                  |    // Unknown ID; should not have gotten here
-                 |    FW_ASSERT(0, static_cast<FwAssertArgType>(localId));
+                 |    FW_ASSERT(false, static_cast<FwAssertArgType>(localId));
                  |}
                  |
                  |return stat;
@@ -1795,7 +1795,7 @@ case class ExternalParameterDelegate(
             lines(
               """|  default:
                  |    // Unknown ID; should not have gotten here
-                 |    FW_ASSERT(0, static_cast<FwAssertArgType>(localId));
+                 |    FW_ASSERT(false, static_cast<FwAssertArgType>(localId));
                  |}
                  |
                  |return stat;

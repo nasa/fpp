@@ -1839,7 +1839,7 @@ void PassiveTelemetryTesterBase ::
     }
 
     default: {
-      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(id));
       break;
     }
   }

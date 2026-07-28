@@ -176,7 +176,7 @@ namespace M {
     switch (instance) {
       default:
 #ifdef FW_STRICT_ASSERTIONS
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(instance));
         break;
 #else
         // Fall through
@@ -216,7 +216,7 @@ namespace M {
     switch (instance) {
       default:
 #ifdef FW_STRICT_ASSERTIONS
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(instance));
         break;
 #else
         // Fall through
@@ -230,7 +230,7 @@ namespace M {
             );
             break;
           default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
             break;
         }
         break;
@@ -243,7 +243,7 @@ namespace M {
             );
             break;
           default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
             break;
         }
         break;
@@ -297,7 +297,7 @@ namespace Svc {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
   }

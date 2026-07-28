@@ -485,7 +485,7 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
       const Fw::Success& status
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveAsyncProductPortsOnlyComponentBase* compPtr = static_cast<ActiveAsyncProductPortsOnlyComponentBase*>(callComp);
   compPtr->productRecvIn_handlerBase(
     portNum,
