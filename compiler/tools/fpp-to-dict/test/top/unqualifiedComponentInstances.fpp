@@ -38,3 +38,5 @@ deployment topology UnqualifiedCompInst {
     instance I2
 
 }
+
+system UnqualifiedCompInst: UnqualifiedCompInst

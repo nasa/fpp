@@ -49,3 +49,5 @@ constant C3 = 1
 deployment topology DictionaryDefs {
 
 }
+
+system DictionaryDefs: DictionaryDefs

@@ -17,7 +17,7 @@ update()
   $fpp_to_dict $args $infile.fpp 2>&1 | remove_path_prefix > $outfile.ref.txt
 }
 
-for file in `find . -name '*.ref.txt'`
+for file in `find . -name '*.ref.txt' -or -name '*.ref.json'`
 do
   rm $file
 done
@@ -40,6 +40,14 @@ move_json()
   for file in "$@"
   do
     mv $file'TopologyDictionary.json' $file'TopologyDictionary.ref.json'
+  done
+}
+
+move_system_json()
+{
+  for file in "$@"
+  do
+    mv $file'SystemDictionary.json' $file'SystemDictionary.ref.json'
   done
 }
 

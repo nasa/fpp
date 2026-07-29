@@ -1,5 +1,9 @@
-deployment topology Basic {
-    
-}
+module M {
 
-system Basic: Basic
+  deployment topology Basic {
+
+  }
+
+  system Basic: Basic
+
+}

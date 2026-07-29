@@ -52,7 +52,7 @@ diff_system_json()
 {
   for file in $@
   do
-    if ! diff -u $file'SystemDictionary.json' $file'TopologyDictionary.ref.json'
+    if ! diff -u $file'SystemDictionary.json' $file'SystemDictionary.ref.json'
     then
       return 1
     fi
