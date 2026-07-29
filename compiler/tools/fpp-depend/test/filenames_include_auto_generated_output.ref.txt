@@ -19,6 +19,7 @@ EEnumAc.hpp
 FppConstantsAc.cpp
 FppConstantsAc.hpp
 FwOpcodeTypeAliasAc.hpp
+M_SSystemDictionary.json
 PPortAc.cpp
 PPortAc.hpp
 SM2StateMachineAc.cpp
@@ -34,7 +35,6 @@ SM2_StateEnumAc.hpp
 SM2_XAliasAc.hpp
 SSerializableAc.cpp
 SSerializableAc.hpp
-SSystemDictionary.json
 T1TopologyAc.cpp
 T1TopologyAc.hpp
 T1TopologyDictionary.json
