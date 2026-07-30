@@ -67,7 +67,7 @@ object CheckSpecLocs
   override def defSystemAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefSystem]]
-  ) = checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.System(aNode))
+  ) = checkSpecLoc(a, Ast.SpecLoc.System, Symbol.System(aNode))
 
   override def defTopologyAnnotatedNode(
     a: Analysis,
