@@ -4130,7 +4130,7 @@ void PassiveTestComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4255,7 +4255,7 @@ void PassiveTestComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4344,7 +4344,7 @@ void PassiveTestComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4430,7 +4430,7 @@ void PassiveTestComponentBase ::
     e.toString(eStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4536,7 +4536,7 @@ void PassiveTestComponentBase ::
     a.toString(aStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4621,7 +4621,7 @@ void PassiveTestComponentBase ::
     s.toString(sStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4695,7 +4695,7 @@ void PassiveTestComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4785,7 +4785,7 @@ void PassiveTestComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -5528,7 +5528,7 @@ void PassiveTestComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTestComponentBase* compPtr = static_cast<PassiveTestComponentBase*>(callComp);
   compPtr->cmdIn_handlerBase(
     portNum,
@@ -5547,7 +5547,7 @@ void PassiveTestComponentBase ::
       const Fw::Success& status
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTestComponentBase* compPtr = static_cast<PassiveTestComponentBase*>(callComp);
   compPtr->productRecvIn_handlerBase(
     portNum,
@@ -5567,7 +5567,7 @@ Fw::String PassiveTestComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTestComponentBase* compPtr = static_cast<PassiveTestComponentBase*>(callComp);
   return compPtr->noArgsAliasStringReturnSync_handlerBase(portNum);
 }
@@ -5578,7 +5578,7 @@ void PassiveTestComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTestComponentBase* compPtr = static_cast<PassiveTestComponentBase*>(callComp);
   compPtr->noArgsGuarded_handlerBase(portNum);
 }
@@ -5589,7 +5589,7 @@ U32 PassiveTestComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTestComponentBase* compPtr = static_cast<PassiveTestComponentBase*>(callComp);
   return compPtr->noArgsReturnGuarded_handlerBase(portNum);
 }
@@ -5600,7 +5600,7 @@ U32 PassiveTestComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTestComponentBase* compPtr = static_cast<PassiveTestComponentBase*>(callComp);
   return compPtr->noArgsReturnSync_handlerBase(portNum);
 }
@@ -5611,7 +5611,7 @@ Fw::String PassiveTestComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTestComponentBase* compPtr = static_cast<PassiveTestComponentBase*>(callComp);
   return compPtr->noArgsStringReturnSync_handlerBase(portNum);
 }
@@ -5622,7 +5622,7 @@ void PassiveTestComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTestComponentBase* compPtr = static_cast<PassiveTestComponentBase*>(callComp);
   compPtr->noArgsSync_handlerBase(portNum);
 }
@@ -5640,7 +5640,7 @@ void PassiveTestComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTestComponentBase* compPtr = static_cast<PassiveTestComponentBase*>(callComp);
   compPtr->typedAliasGuarded_handlerBase(
     portNum,
@@ -5667,7 +5667,7 @@ AliasPrim2 PassiveTestComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTestComponentBase* compPtr = static_cast<PassiveTestComponentBase*>(callComp);
   return compPtr->typedAliasReturnSync_handlerBase(
     portNum,
@@ -5694,7 +5694,7 @@ Fw::String PassiveTestComponentBase ::
       const AnotherAliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTestComponentBase* compPtr = static_cast<PassiveTestComponentBase*>(callComp);
   return compPtr->typedAliasStringReturnSync_handlerBase(
     portNum,
@@ -5721,7 +5721,7 @@ void PassiveTestComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTestComponentBase* compPtr = static_cast<PassiveTestComponentBase*>(callComp);
   compPtr->typedGuarded_handlerBase(
     portNum,
@@ -5748,7 +5748,7 @@ F32 PassiveTestComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTestComponentBase* compPtr = static_cast<PassiveTestComponentBase*>(callComp);
   return compPtr->typedReturnGuarded_handlerBase(
     portNum,
@@ -5775,7 +5775,7 @@ F32 PassiveTestComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTestComponentBase* compPtr = static_cast<PassiveTestComponentBase*>(callComp);
   return compPtr->typedReturnSync_handlerBase(
     portNum,
@@ -5802,7 +5802,7 @@ void PassiveTestComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTestComponentBase* compPtr = static_cast<PassiveTestComponentBase*>(callComp);
   compPtr->typedSync_handlerBase(
     portNum,
@@ -6810,7 +6810,7 @@ void PassiveTestComponentBase ::
       this->dpRecv_Container5_handler(container, status.e);
       break;
     default:
-      FW_ASSERT(0);
+      FW_ASSERT(false);
       break;
   }
 }

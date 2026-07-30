@@ -2406,7 +2406,7 @@ Fw::ParamValid PassiveParamsTesterBase ::
     };
 
     default:
-      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(id));
       break;
   }
 
@@ -2517,7 +2517,7 @@ void PassiveParamsTesterBase ::
     };
 
     default:
-      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(id));
       break;
   }
 }

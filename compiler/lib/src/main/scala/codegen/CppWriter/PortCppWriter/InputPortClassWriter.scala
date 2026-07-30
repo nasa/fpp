@@ -193,7 +193,7 @@ case class InputPortClassWriter(
       """|// For ports with a return type, invokeSerial is not used
          |(void) _buffer;
          |
-         |FW_ASSERT(0);
+         |FW_ASSERT(false);
          |return Fw::FW_SERIALIZE_OK;
          |"""
     )

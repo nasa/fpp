@@ -5882,7 +5882,7 @@ void QueuedTestComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6007,7 +6007,7 @@ void QueuedTestComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6096,7 +6096,7 @@ void QueuedTestComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6182,7 +6182,7 @@ void QueuedTestComponentBase ::
     e.toString(eStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6288,7 +6288,7 @@ void QueuedTestComponentBase ::
     a.toString(aStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6373,7 +6373,7 @@ void QueuedTestComponentBase ::
     s.toString(sStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6447,7 +6447,7 @@ void QueuedTestComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6537,7 +6537,7 @@ void QueuedTestComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -8210,7 +8210,7 @@ void QueuedTestComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   compPtr->cmdIn_handlerBase(
     portNum,
@@ -8229,7 +8229,7 @@ void QueuedTestComponentBase ::
       const Fw::Success& status
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   compPtr->productRecvIn_handlerBase(
     portNum,
@@ -8256,7 +8256,7 @@ void QueuedTestComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   compPtr->aliasTypedAsync_handlerBase(
     portNum,
@@ -8276,7 +8276,7 @@ Fw::String QueuedTestComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   return compPtr->noArgsAliasStringReturnSync_handlerBase(portNum);
 }
@@ -8287,7 +8287,7 @@ void QueuedTestComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   compPtr->noArgsAsync_handlerBase(portNum);
 }
@@ -8298,7 +8298,7 @@ void QueuedTestComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   compPtr->noArgsGuarded_handlerBase(portNum);
 }
@@ -8309,7 +8309,7 @@ U32 QueuedTestComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   return compPtr->noArgsReturnGuarded_handlerBase(portNum);
 }
@@ -8320,7 +8320,7 @@ U32 QueuedTestComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   return compPtr->noArgsReturnSync_handlerBase(portNum);
 }
@@ -8331,7 +8331,7 @@ Fw::String QueuedTestComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   return compPtr->noArgsStringReturnSync_handlerBase(portNum);
 }
@@ -8342,7 +8342,7 @@ void QueuedTestComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   compPtr->noArgsSync_handlerBase(portNum);
 }
@@ -8360,7 +8360,7 @@ void QueuedTestComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   compPtr->typedAliasGuarded_handlerBase(
     portNum,
@@ -8387,7 +8387,7 @@ AliasPrim2 QueuedTestComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   return compPtr->typedAliasReturnSync_handlerBase(
     portNum,
@@ -8414,7 +8414,7 @@ Fw::String QueuedTestComponentBase ::
       const AnotherAliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   return compPtr->typedAliasStringReturnSync_handlerBase(
     portNum,
@@ -8441,7 +8441,7 @@ void QueuedTestComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   compPtr->typedAsync_handlerBase(
     portNum,
@@ -8468,7 +8468,7 @@ void QueuedTestComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   compPtr->typedAsyncAssert_handlerBase(
     portNum,
@@ -8495,7 +8495,7 @@ void QueuedTestComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   compPtr->typedAsyncBlockPriority_handlerBase(
     portNum,
@@ -8522,7 +8522,7 @@ void QueuedTestComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   compPtr->typedAsyncDropPriority_handlerBase(
     portNum,
@@ -8549,7 +8549,7 @@ void QueuedTestComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   compPtr->typedGuarded_handlerBase(
     portNum,
@@ -8576,7 +8576,7 @@ F32 QueuedTestComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   return compPtr->typedReturnGuarded_handlerBase(
     portNum,
@@ -8603,7 +8603,7 @@ F32 QueuedTestComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   return compPtr->typedReturnSync_handlerBase(
     portNum,
@@ -8630,7 +8630,7 @@ void QueuedTestComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestComponentBase* compPtr = static_cast<QueuedTestComponentBase*>(callComp);
   compPtr->typedSync_handlerBase(
     portNum,
@@ -9638,7 +9638,7 @@ void QueuedTestComponentBase ::
       this->dpRecv_Container5_handler(container, status.e);
       break;
     default:
-      FW_ASSERT(0);
+      FW_ASSERT(false);
       break;
   }
 }

@@ -68,7 +68,7 @@ namespace FppTest {
         case State::S4:
           break;
         default:
-          FW_ASSERT(0, static_cast<FwAssertArgType>(this->m_state));
+          FW_ASSERT(false, static_cast<FwAssertArgType>(this->m_state));
           break;
       }
     }
