@@ -77,11 +77,11 @@ namespace FppTest {
         }
 
         //! Constructor (serial representation value)
-        //! Call isValid() before using the constructed value.
         BasicString_State(
             const SerialType e1 //!< The serial representation value
         )
         {
+          FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
           this->e = static_cast<enum T>(e1);
         }
 

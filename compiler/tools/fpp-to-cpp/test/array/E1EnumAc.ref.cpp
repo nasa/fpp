@@ -29,6 +29,7 @@ namespace M {
   E1& E1 ::
     operator=(SerialType e1)
   {
+    FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
     this->e = static_cast<enum T>(e1);
 #ifdef BUILD_UT
     this->m_serializeValueIsSet = false;
