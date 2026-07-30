@@ -183,7 +183,7 @@ object Type {
 
   object String {
 
-    def isValidSize(size: BigInt) = size > 0 && size <= Int.MaxValue
+    def isValidSize(size: BigInt) = size >= 0 && size <= Int.MaxValue
 
   }
 
