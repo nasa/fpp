@@ -1,4 +1,4 @@
-template T() {
+module template T() {
     include "../../../../../../tools/fpp-syntax/test/syntax.fpp"
 }
 
