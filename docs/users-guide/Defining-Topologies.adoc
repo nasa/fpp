@@ -62,8 +62,7 @@ We define two  <<Defining-Component-Instances,instances>> of
 `C`, `c1` and `c2`.
 We put these instances into a topology called `Simple`.
 
-Next we define a 
-*deployment topology*.
+Next we define a *deployment topology*.
 This is the the top-level topology of an F Prime
 *deployment*, or executable program.
 To do this, we write the keywords `deployment topology`.

@@ -12,6 +12,7 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 #include "SAliasAliasAc.hpp"
+#include "SAliasZeroAliasAc.hpp"
 #include "TAliasAliasAc.hpp"
 #include "U16AliasAliasAc.hpp"
 
@@ -28,6 +29,9 @@ class AliasType :
     //! The type of z
     using Type_of_z = Fw::ExternalString[10];
 
+    //! The type of z0
+    using Type_of_z0 = Fw::ExternalString[10];
+
   public:
 
     // ----------------------------------------------------------------------
@@ -39,7 +43,8 @@ class AliasType :
       SERIALIZED_SIZE =
         sizeof(U16Alias) +
         TAlias::SERIALIZED_SIZE +
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(50) * 10
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(50) * 10 +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(0) * 10
     };
 
   public:
@@ -55,7 +60,8 @@ class AliasType :
     AliasType(
         U16Alias x,
         const TAlias& y,
-        const Type_of_z& z
+        const Type_of_z& z,
+        const Type_of_z0& z0
     );
 
     //! Copy constructor
@@ -67,7 +73,8 @@ class AliasType :
     AliasType(
         U16Alias x,
         const TAlias& y,
-        const Fw::StringBase& z
+        const Fw::StringBase& z,
+        const Fw::StringBase& z0
     );
 
   public:
@@ -165,6 +172,18 @@ class AliasType :
       return this->m_z;
     }
 
+    //! Get member z0
+    Type_of_z0& get_z0()
+    {
+      return this->m_z0;
+    }
+
+    //! Get member z0 (const)
+    const Type_of_z0& get_z0() const
+    {
+      return this->m_z0;
+    }
+
     // ----------------------------------------------------------------------
     // Setter functions
     // ----------------------------------------------------------------------
@@ -173,7 +192,8 @@ class AliasType :
     void set(
         U16Alias x,
         const TAlias& y,
-        const Type_of_z& z
+        const Type_of_z& z,
+        const Type_of_z0& z0
     );
 
     //! Set member x
@@ -185,6 +205,9 @@ class AliasType :
     //! Set member z
     void set_z(const Type_of_z& z);
 
+    //! Set member z0
+    void set_z0(const Type_of_z0& z0);
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -195,6 +218,8 @@ class AliasType :
     TAlias m_y;
     char m___fprime_ac_z_buffer[10][Fw::StringBase::BUFFER_SIZE(50)];
     Fw::ExternalString m_z[10];
+    char m___fprime_ac_z0_buffer[10][Fw::StringBase::BUFFER_SIZE(0)];
+    Fw::ExternalString m_z0[10];
 
 };
 
