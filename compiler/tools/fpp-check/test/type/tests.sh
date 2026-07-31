@@ -8,7 +8,7 @@ string_missing_fw_size_store_type
 string_size_negative
 string_size_not_numeric
 string_size_too_large
+string_size_zero_ok
 string_size_type_shadowed
 uses_ok
 "
-

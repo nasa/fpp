@@ -2330,6 +2330,16 @@ its element type; this situation is discussed further below.</p>
 </ul>
 </div>
 <div class="paragraph">
+<p>The maximum size of a string type is the maximum 32-bit signed integer
+value (2<sup>31</sup> - 1).
+The minimum value is zero.
+String types of size zero can&#8217;t store any string data.
+However, it is occasionally useful to set the size to zero,
+for example, to configure the size of a string that
+is required to exist in a library but will never actually be used in
+a particular application that uses the library.</p>
+</div>
+<div class="paragraph">
 <p>An array type definition may not refer to itself (array type definitions are not
 recursive). For example, this definition is illegal:</p>
 </div>
@@ -17104,7 +17114,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-08 17:36:24 -0700
+Last updated 2026-07-31 14:56:04 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
