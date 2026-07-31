@@ -680,6 +680,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Topologies_Importing-Topologies_Importing-Instances-and-Connections">14.4.1. Importing Instances and Connections</a></li>
 <li><a href="#Defining-Topologies_Importing-Topologies_Multiple-Imports">14.4.2. Multiple Imports</a></li>
 <li><a href="#Defining-Topologies_Importing-Topologies_Transitive-Imports">14.4.3. Transitive Imports</a></li>
+<li><a href="#Defining-Topologies_Importing-Topologies_Using-an-Imported-Topology-in-a-Deployment">14.4.4. Using an Imported Topology in a Deployment</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Topologies_Topology-Ports">14.5. Topology Ports</a>
@@ -10955,7 +10956,8 @@ are used in the application and how their
 are connected.</p>
 </div>
 <div class="paragraph">
-<p>An F Prime FSW application consists of a topology <em>T</em>;
+<p>An F Prime <strong>deployment</strong>, or executable binary program,
+consists of a topology <em>T</em>;
 all the types, ports, and components used by <em>T</em>;
 and a small amount of top-level C&#43;&#43; code that you write by hand.
 In the section on
@@ -11012,8 +11014,7 @@ We put these instances into a topology called <code>Simple</code>.</p>
 </div>
 <div class="paragraph">
 <p>Next we define a <strong>deployment topology</strong>.
-This is the the top-level topology of an F Prime
-<strong>deployment</strong>, or executable program.
+This is the the top-level topology of an F Prime deployment.
 To do this, we write the keywords <code>deployment topology</code>.
 Then we write the name of the topology and
 the members of the topology
@@ -11819,7 +11820,7 @@ passive component Target {
 instance source: Source base id 0x100
 instance target: Target base id 0x200
 
-topology T {
+deployment topology T {
 
   instance source
   instance target
@@ -11995,12 +11996,33 @@ In this section of the User Guide, we explain how to do that.</p>
 <div class="sect3">
 <h4 id="Defining-Topologies_Importing-Topologies_Importing-Instances-and-Connections">14.4.1. Importing Instances and Connections</h4>
 <div class="paragraph">
-<p>To import a topology <code>A</code> into a topology <code>B</code>, you write
-<code>import A</code> inside topology <code>B</code>, like this:</p>
+<p>To import a topology <code>A</code> into a topology <code>B</code>, you do the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Define the topology <code>A</code> as described in the previous sections,
+but without the keyword <code>deployment</code> at the start of the definition.
+Omitting the keyword <code>deployment</code> tells the analyzer that the
+topology definition <code>A</code> is for import, and not for code generation.</p>
+</li>
+<li>
+<p>Inside topology <code>B</code>, write <code>import A</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">topology B {
+<pre class="prettyprint highlight"><code data-lang="fpp">deployment topology A {
+
+  ...
+
+}
+
+topology B {
 
   import A
 
@@ -12059,7 +12081,7 @@ as follows:</p>
 
 }
 
-topology B {
+deployment topology B {
 
   import A
 
@@ -12081,7 +12103,7 @@ topology B {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">topology B {
+<pre class="prettyprint highlight"><code data-lang="fpp">deployment topology B {
 
   instance a
   instance b
@@ -12112,7 +12134,7 @@ For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+<pre class="prettyprint highlight"><code data-lang="fpp">deployment topology A {
 
   import B
   import C
@@ -12133,7 +12155,7 @@ For example, this is incorrect:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+<pre class="prettyprint highlight"><code data-lang="fpp">deployment topology A {
 
   import B
   import B # Error: B imported twice
@@ -12148,14 +12170,59 @@ For example, this is incorrect:</p>
 <p>In general, transitive imports are allowed.
 For example, topology <code>A</code> may import topology <code>B</code>,
 and topology <code>B</code> may import topology <code>C</code>.
-Resolution works bottom-up on the import graph:
-for example, first we resolve <code>C</code>, and then we resolve <code>B</code>,
-and then we resolve <code>A</code>.</p>
+In this case, <code>A</code> may or may not be a deployment
+topology; neither <code>B</code> nor <code>C</code> may be a deployment
+topology.</p>
 </div>
 <div class="paragraph">
-<p>Cycles in the import graph are not allowed.
+<p>Resolution works bottom-up on the import graph:
+for example, first we resolve <code>C</code>, and then we resolve <code>B</code>,
+and then we resolve <code>A</code>.
+Cycles in the import graph are not allowed.
 For example, if <code>A</code> imports <code>B</code> and <code>B</code> imports <code>C</code>
 and <code>C</code> imports <code>A</code>, you will get an error.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Topologies_Importing-Topologies_Using-an-Imported-Topology-in-a-Deployment">14.4.4. Using an Imported Topology in a Deployment</h4>
+<div class="paragraph">
+<p>Sometimes it is useful to import a topology <code>B</code> into a
+topology <code>A</code> and also to use <code>B</code> as a deployment topology.
+For example, <code>A</code> may be a system topology <code>System</code>, <code>B</code> may be
+a subsystem topology <code>Subsystem</code>, and it may be useful to create
+a subsystem deployment for testing the subsystem.
+In this case you can do the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Define <code>System</code> as a deployment topology.</p>
+</li>
+<li>
+<p>Define <code>Subsystem</code> as a non-deployment topology and import <code>System</code>
+into <code>System</code>, as described in the previous sections.</p>
+</li>
+<li>
+<p>Define a deployment topology <code>SubsystemDeployment</code> that imports
+<code>Subsystem</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology Subsystem { }
+
+deployment topology System { import Subsystem }
+
+deployment topology SubsystemDeployment { import Subsystem }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now you can use <code>Subsystem</code> as an imported subsystem and <code>SubsystemDeployment</code>
+as a subsystem deployment.</p>
 </div>
 </div>
 </div>
@@ -12679,7 +12746,8 @@ In this section we explain how to specify telemetry packets in FPP.</p>
 <div class="sect3">
 <h4 id="Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Sets">14.7.1. Telemetry Packet Sets</h4>
 <div class="paragraph">
-<p>To group the channels of a topology <em>T</em> into packets, you write a
+<p>To group the channels of a deployment topology <em>T</em> into packets,
+you write a
 <strong>telemetry packet set</strong> as part of the definition of <em>T</em>.
 Here is a simple example showing a complete topology with a
 telemetry packet set:</p>
@@ -12829,6 +12897,13 @@ For example, if we had written</p>
 then in the topology <code>T</code> we would write
 <code>instance M.c1</code> instead of <code>instance c</code>, and we would write
 channel <code>M.c1.T</code> instead of channel <code>c1.T</code>.</p>
+</div>
+<div class="paragraph">
+<p>Note that telemetry packet sets are permitted only inside
+deployment topologies.
+If you define a topology without the <code>import</code> keyword
+and the definition includes a telemetry packet set,
+then you will get an error.</p>
 </div>
 </div>
 <div class="sect3">
@@ -17118,7 +17193,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-31 15:44:28 -0700
+Last updated 2026-07-31 16:20:45 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
