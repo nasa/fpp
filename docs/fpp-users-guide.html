@@ -10971,8 +10971,8 @@ passive component C {
 instance c1: C base id 0x100
 instance c2: C base id 0x200
 
-@ A simple topology
-topology Simple {
+@ A simple deployment topology
+deployment topology Simple {
 
   @ This specifier says that instance c1 is part of the topology
   instance c1
@@ -11001,8 +11001,13 @@ We define two  <a href="#Defining-Component-Instances">instances</a> of
 We put these instances into a topology called <code>Simple</code>.</p>
 </div>
 <div class="paragraph">
-<p>As shown, to define a topology, you write the keyword <code>topology</code>,
-the name of the topology, and the members of the topology
+<p>Next we define a
+<strong>deployment topology</strong>.
+This is the the top-level topology of an F Prime
+<strong>deployment</strong>, or executable program.
+To do this, we write the keywords <code>deployment topology</code>.
+Then we write the name of the topology and
+the members of the topology
 definition enclosed in curly braces.
 In this case, the topology has two kinds of members:</p>
 </div>
@@ -12687,7 +12692,7 @@ telemetry packet set:</p>
 instance c1: C base id 0x100
 instance c2: C base id 0x200
 
-topology T {
+deployment topology T {
 
   instance c1
   instance c2
@@ -12888,7 +12893,7 @@ Here is an example:</p>
 instance c1: C base id 0x100
 instance c2: C base id 0x200
 
-topology T {
+deployment topology T {
 
   instance c1
   instance c2
@@ -12940,7 +12945,7 @@ For example:</p>
 instance c1: C base id 0x100
 instance c2: C base id 0x200
 
-topology T {
+deployment topology T {
 
   instance c1
   instance c2
@@ -17104,7 +17109,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-08 17:36:24 -0700
+Last updated 2026-07-30 15:13:44 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
