@@ -1,15 +1,15 @@
 == Defining Topologies
 
 In F Prime, a *topology* or connection graph is the
-highest level of software architecture in a FSW application.
+highest level of software architecture in a
+*deployment*, or executable binary program.
 A topology specifies what
 <<Defining-Component-Instances,component instances>>
 are used in the application and how their
 <<Defining-Components_Port-Instances,port instances>>
 are connected.
 
-An F Prime *deployment*, or executable binary program,
-consists of a topology _T_;
+An F Prime deployment consists of a topology _T_;
 all the types, ports, and components used by _T_;
 and a small amount of top-level {cpp} code that you write by hand.
 In the section on
