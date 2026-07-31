@@ -3950,7 +3950,7 @@ void PassiveSerialComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4075,7 +4075,7 @@ void PassiveSerialComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4164,7 +4164,7 @@ void PassiveSerialComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4186,7 +4186,7 @@ void PassiveSerialComponentBase ::
 }
 
 void PassiveSerialComponentBase ::
-  log_DIAGNOSTIC_EventDiagnostic(E e) const
+  log_DIAGNOSTIC_EventDiagnostic(const E& e) const
 {
   // Get the time
   Fw::Time _logTime;
@@ -4250,7 +4250,7 @@ void PassiveSerialComponentBase ::
     e.toString(eStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4271,7 +4271,7 @@ void PassiveSerialComponentBase ::
 }
 
 void PassiveSerialComponentBase ::
-  log_FATAL_EventFatalThrottled(A a)
+  log_FATAL_EventFatalThrottled(const A& a)
 {
   // Check throttle value
   if (this->m_EventFatalThrottledThrottle >= EVENTID_EVENTFATALTHROTTLED_THROTTLE) {
@@ -4356,7 +4356,7 @@ void PassiveSerialComponentBase ::
     a.toString(aStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4377,7 +4377,7 @@ void PassiveSerialComponentBase ::
 }
 
 void PassiveSerialComponentBase ::
-  log_WARNING_HI_EventWarningHigh(S s) const
+  log_WARNING_HI_EventWarningHigh(const S& s) const
 {
   // Get the time
   Fw::Time _logTime;
@@ -4441,7 +4441,7 @@ void PassiveSerialComponentBase ::
     s.toString(sStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4515,7 +4515,7 @@ void PassiveSerialComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4605,7 +4605,7 @@ void PassiveSerialComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -5318,7 +5318,7 @@ void PassiveSerialComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialComponentBase* compPtr = static_cast<PassiveSerialComponentBase*>(callComp);
   compPtr->cmdIn_handlerBase(
     portNum,
@@ -5338,7 +5338,7 @@ Fw::String PassiveSerialComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialComponentBase* compPtr = static_cast<PassiveSerialComponentBase*>(callComp);
   return compPtr->noArgsAliasStringReturnSync_handlerBase(portNum);
 }
@@ -5349,7 +5349,7 @@ void PassiveSerialComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialComponentBase* compPtr = static_cast<PassiveSerialComponentBase*>(callComp);
   compPtr->noArgsGuarded_handlerBase(portNum);
 }
@@ -5360,7 +5360,7 @@ U32 PassiveSerialComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialComponentBase* compPtr = static_cast<PassiveSerialComponentBase*>(callComp);
   return compPtr->noArgsReturnGuarded_handlerBase(portNum);
 }
@@ -5371,7 +5371,7 @@ U32 PassiveSerialComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialComponentBase* compPtr = static_cast<PassiveSerialComponentBase*>(callComp);
   return compPtr->noArgsReturnSync_handlerBase(portNum);
 }
@@ -5382,7 +5382,7 @@ Fw::String PassiveSerialComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialComponentBase* compPtr = static_cast<PassiveSerialComponentBase*>(callComp);
   return compPtr->noArgsStringReturnSync_handlerBase(portNum);
 }
@@ -5393,7 +5393,7 @@ void PassiveSerialComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialComponentBase* compPtr = static_cast<PassiveSerialComponentBase*>(callComp);
   compPtr->noArgsSync_handlerBase(portNum);
 }
@@ -5411,7 +5411,7 @@ void PassiveSerialComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialComponentBase* compPtr = static_cast<PassiveSerialComponentBase*>(callComp);
   compPtr->typedAliasGuarded_handlerBase(
     portNum,
@@ -5438,7 +5438,7 @@ AliasPrim2 PassiveSerialComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialComponentBase* compPtr = static_cast<PassiveSerialComponentBase*>(callComp);
   return compPtr->typedAliasReturnSync_handlerBase(
     portNum,
@@ -5465,7 +5465,7 @@ Fw::String PassiveSerialComponentBase ::
       const AnotherAliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialComponentBase* compPtr = static_cast<PassiveSerialComponentBase*>(callComp);
   return compPtr->typedAliasStringReturnSync_handlerBase(
     portNum,
@@ -5492,7 +5492,7 @@ void PassiveSerialComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialComponentBase* compPtr = static_cast<PassiveSerialComponentBase*>(callComp);
   compPtr->typedGuarded_handlerBase(
     portNum,
@@ -5519,7 +5519,7 @@ F32 PassiveSerialComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialComponentBase* compPtr = static_cast<PassiveSerialComponentBase*>(callComp);
   return compPtr->typedReturnGuarded_handlerBase(
     portNum,
@@ -5546,7 +5546,7 @@ F32 PassiveSerialComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialComponentBase* compPtr = static_cast<PassiveSerialComponentBase*>(callComp);
   return compPtr->typedReturnSync_handlerBase(
     portNum,
@@ -5573,7 +5573,7 @@ void PassiveSerialComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialComponentBase* compPtr = static_cast<PassiveSerialComponentBase*>(callComp);
   compPtr->typedSync_handlerBase(
     portNum,
@@ -5600,7 +5600,7 @@ void PassiveSerialComponentBase ::
       Fw::LinearBufferBase& buffer
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialComponentBase* compPtr = static_cast<PassiveSerialComponentBase*>(callComp);
   compPtr->serialGuarded_handlerBase(
     portNum,
@@ -5615,7 +5615,7 @@ void PassiveSerialComponentBase ::
       Fw::LinearBufferBase& buffer
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialComponentBase* compPtr = static_cast<PassiveSerialComponentBase*>(callComp);
   compPtr->serialSync_handlerBase(
     portNum,

@@ -2145,39 +2145,6 @@
             "portInstance" : {
               "Special" : {
                 "aNode" : {
-                  "astNodeId" : 0
-                },
-                "specifier" : {
-                  "inputKind" : "None",
-                  "kind" : {
-                    "Telemetry" : {
-                      
-                    }
-                  },
-                  "name" : "tlmOut",
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 59,
-                    "unqualifiedName" : "Tlm"
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None",
-                "importNodeIds" : [
-                ]
-              }
-            }
-          },
-          {
-            "interfaceInstance" : {
-              "InterfaceComponentInstance" : 67
-            },
-            "portInstance" : {
-              "Special" : {
-                "aNode" : {
                   "astNodeId" : 1
                 },
                 "specifier" : {
@@ -2195,6 +2162,39 @@
                   "Port" : {
                     "nodeId" : 62,
                     "unqualifiedName" : "Time"
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None",
+                "importNodeIds" : [
+                ]
+              }
+            }
+          },
+          {
+            "interfaceInstance" : {
+              "InterfaceComponentInstance" : 67
+            },
+            "portInstance" : {
+              "Special" : {
+                "aNode" : {
+                  "astNodeId" : 0
+                },
+                "specifier" : {
+                  "inputKind" : "None",
+                  "kind" : {
+                    "Telemetry" : {
+                      
+                    }
+                  },
+                  "name" : "tlmOut",
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 59,
+                    "unqualifiedName" : "Tlm"
                   }
                 },
                 "priority" : "None",

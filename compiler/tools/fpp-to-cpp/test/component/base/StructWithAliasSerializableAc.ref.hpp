@@ -12,6 +12,7 @@
 #include "AliasArrayAliasArrayAliasAc.hpp"
 #include "AliasPrim1AliasAc.hpp"
 #include "AliasStringAliasAc.hpp"
+#include "AliasStringZeroAliasAc.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
@@ -32,6 +33,7 @@ class StructWithAlias :
       SERIALIZED_SIZE =
         sizeof(AliasPrim1) +
         Fw::StringBase::STATIC_SERIALIZED_SIZE(32) +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(0) +
         AliasArray::SERIALIZED_SIZE +
         AliasAliasArray::SERIALIZED_SIZE +
         AliasArrayAliasArray::SERIALIZED_SIZE
@@ -50,6 +52,7 @@ class StructWithAlias :
     StructWithAlias(
         AliasPrim1 x,
         const Fw::StringBase& y,
+        const Fw::StringBase& y0,
         const AliasArray& z,
         const AliasAliasArray& w,
         const AliasArrayAliasArray& q
@@ -143,6 +146,18 @@ class StructWithAlias :
       return this->m_y;
     }
 
+    //! Get member y0
+    Fw::ExternalString& get_y0()
+    {
+      return this->m_y0;
+    }
+
+    //! Get member y0 (const)
+    const Fw::ExternalString& get_y0() const
+    {
+      return this->m_y0;
+    }
+
     //! Get member z
     AliasArray& get_z()
     {
@@ -187,6 +202,7 @@ class StructWithAlias :
     void set(
         AliasPrim1 x,
         const Fw::StringBase& y,
+        const Fw::StringBase& y0,
         const AliasArray& z,
         const AliasAliasArray& w,
         const AliasArrayAliasArray& q
@@ -197,6 +213,9 @@ class StructWithAlias :
 
     //! Set member y
     void set_y(const Fw::StringBase& y);
+
+    //! Set member y0
+    void set_y0(const Fw::StringBase& y0);
 
     //! Set member z
     void set_z(const AliasArray& z);
@@ -216,6 +235,8 @@ class StructWithAlias :
     AliasPrim1 m_x;
     char m___fprime_ac_y_buffer[Fw::StringBase::BUFFER_SIZE(32)];
     Fw::ExternalString m_y;
+    char m___fprime_ac_y0_buffer[Fw::StringBase::BUFFER_SIZE(0)];
+    Fw::ExternalString m_y0;
     AliasArray m_z;
     AliasAliasArray m_w;
     AliasArrayAliasArray m_q;

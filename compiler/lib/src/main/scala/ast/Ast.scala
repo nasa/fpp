@@ -37,6 +37,12 @@ object Ast {
     case object Sub extends Binop {
       override def toString = "-"
     }
+    case object LShift extends Binop {
+      override def toString = "<<"
+    }
+    case object RShift extends Binop {
+      override def toString = ">>"
+    }
   }
 
   /** Component kind */

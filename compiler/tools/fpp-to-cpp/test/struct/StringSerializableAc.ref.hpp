@@ -27,7 +27,8 @@ class String :
       //! The size of the serial representation
       SERIALIZED_SIZE =
         Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(40)
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(40) +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(0)
     };
 
   public:
@@ -42,7 +43,8 @@ class String :
     //! Member constructor
     String(
         const Fw::StringBase& s1,
-        const Fw::StringBase& s2
+        const Fw::StringBase& s2,
+        const Fw::StringBase& s0
     );
 
     //! Copy constructor
@@ -139,6 +141,18 @@ class String :
       return this->m_s2;
     }
 
+    //! Get member s0
+    Fw::ExternalString& get_s0()
+    {
+      return this->m_s0;
+    }
+
+    //! Get member s0 (const)
+    const Fw::ExternalString& get_s0() const
+    {
+      return this->m_s0;
+    }
+
     // ----------------------------------------------------------------------
     // Setter functions
     // ----------------------------------------------------------------------
@@ -146,7 +160,8 @@ class String :
     //! Set all members
     void set(
         const Fw::StringBase& s1,
-        const Fw::StringBase& s2
+        const Fw::StringBase& s2,
+        const Fw::StringBase& s0
     );
 
     //! Set member s1
@@ -154,6 +169,9 @@ class String :
 
     //! Set member s2
     void set_s2(const Fw::StringBase& s2);
+
+    //! Set member s0
+    void set_s0(const Fw::StringBase& s0);
 
   protected:
 
@@ -165,6 +183,8 @@ class String :
     Fw::ExternalString m_s1;
     char m___fprime_ac_s2_buffer[Fw::StringBase::BUFFER_SIZE(40)];
     Fw::ExternalString m_s2;
+    char m___fprime_ac_s0_buffer[Fw::StringBase::BUFFER_SIZE(0)];
+    Fw::ExternalString m_s0;
 
 };
 

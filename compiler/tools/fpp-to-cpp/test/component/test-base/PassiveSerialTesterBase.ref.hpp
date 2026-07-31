@@ -1398,21 +1398,21 @@ class PassiveSerialTesterBase :
     void sendCmd_CMD_SYNC_ENUM(
         const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
-        E e //!< An enum
+        const E& e //!< An enum
     );
 
     //! Send a CMD_SYNC_ARRAY command
     void sendCmd_CMD_SYNC_ARRAY(
         const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
-        A a //!< An array
+        const A& a //!< An array
     );
 
     //! Send a CMD_SYNC_STRUCT command
     void sendCmd_CMD_SYNC_STRUCT(
         const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
-        S s //!< A struct
+        const S& s //!< A struct
     );
 
     //! Send a CMD_GUARDED command
@@ -1442,21 +1442,21 @@ class PassiveSerialTesterBase :
     void sendCmd_CMD_GUARDED_ENUM(
         const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
-        E e //!< An enum
+        const E& e //!< An enum
     );
 
     //! Send a CMD_GUARDED_ARRAY command
     void sendCmd_CMD_GUARDED_ARRAY(
         const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
-        A a //!< An array
+        const A& a //!< An array
     );
 
     //! Send a CMD_GUARDED_STRUCT command
     void sendCmd_CMD_GUARDED_STRUCT(
         const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
-        S s //!< A struct
+        const S& s //!< A struct
     );
 
   protected:
@@ -1503,17 +1503,17 @@ class PassiveSerialTesterBase :
 
     //! Handle event EventDiagnostic
     virtual void logIn_DIAGNOSTIC_EventDiagnostic(
-        E e //!< An enum
+        const E& e //!< An enum
     );
 
     //! Handle event EventFatalThrottled
     virtual void logIn_FATAL_EventFatalThrottled(
-        A a //!< An array
+        const A& a //!< An array
     );
 
     //! Handle event EventWarningHigh
     virtual void logIn_WARNING_HI_EventWarningHigh(
-        S s //!< A struct
+        const S& s //!< A struct
     );
 
     //! Handle event EventWarningLowThrottled

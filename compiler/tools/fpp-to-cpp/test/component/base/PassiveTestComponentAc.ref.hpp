@@ -1564,7 +1564,7 @@ class PassiveTestComponentBase :
     virtual void CMD_SYNC_ENUM_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        E e //!< An enum
+        const E& e //!< An enum
     ) = 0;
 
     //! Handler for command CMD_SYNC_ARRAY
@@ -1573,7 +1573,7 @@ class PassiveTestComponentBase :
     virtual void CMD_SYNC_ARRAY_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        A a //!< An array
+        const A& a //!< An array
     ) = 0;
 
     //! Handler for command CMD_SYNC_STRUCT
@@ -1582,7 +1582,7 @@ class PassiveTestComponentBase :
     virtual void CMD_SYNC_STRUCT_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        S s //!< A struct
+        const S& s //!< A struct
     ) = 0;
 
     //! Handler for command CMD_GUARDED
@@ -1620,7 +1620,7 @@ class PassiveTestComponentBase :
     virtual void CMD_GUARDED_ENUM_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        E e //!< An enum
+        const E& e //!< An enum
     ) = 0;
 
     //! Handler for command CMD_GUARDED_ARRAY
@@ -1629,7 +1629,7 @@ class PassiveTestComponentBase :
     virtual void CMD_GUARDED_ARRAY_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        A a //!< An array
+        const A& a //!< An array
     ) = 0;
 
     //! Handler for command CMD_GUARDED_STRUCT
@@ -1638,7 +1638,7 @@ class PassiveTestComponentBase :
     virtual void CMD_GUARDED_STRUCT_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        S s //!< A struct
+        const S& s //!< A struct
     ) = 0;
 
   protected:
@@ -1789,21 +1789,21 @@ class PassiveTestComponentBase :
     //!
     //! A diagnostic event with enum params
     void log_DIAGNOSTIC_EventDiagnostic(
-        E e //!< An enum
+        const E& e //!< An enum
     ) const;
 
     //! Log event EventFatalThrottled
     //!
     //! A fatal, throttled event with array params
     void log_FATAL_EventFatalThrottled(
-        A a //!< An array
+        const A& a //!< An array
     );
 
     //! Log event EventWarningHigh
     //!
     //! A warning high event with struct params
     void log_WARNING_HI_EventWarningHigh(
-        S s //!< A struct
+        const S& s //!< A struct
     ) const;
 
     //! Log event EventWarningLowThrottled

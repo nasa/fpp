@@ -1897,159 +1897,6 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : 22
-              },
-              "portInstance" : {
-                "General" : {
-                  "aNode" : {
-                    "astNodeId" : 4
-                  },
-                  "specifier" : {
-                    "kind" : {
-                      "SyncInput" : {
-                        
-                      }
-                    },
-                    "name" : "pIn",
-                    "size" : "None",
-                    "port" : {
-                      "Some" : {
-                        "astNodeId" : 3
-                      }
-                    },
-                    "priority" : "None",
-                    "queueFull" : "None"
-                  },
-                  "kind" : "SyncInput",
-                  "size" : 1,
-                  "ty" : {
-                    "DefPort" : {
-                      "symbol" : {
-                        "Port" : {
-                          "nodeId" : 0,
-                          "unqualifiedName" : "P"
-                        }
-                      }
-                    }
-                  },
-                  "importNodeIds" : [
-                  ]
-                }
-              }
-            },
-            [
-              {
-                "from" : {
-                  "loc" : {
-                    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-                    "pos" : "23.5",
-                    "includeLoc" : "None",
-                    "expandLoc" : "None"
-                  },
-                  "port" : {
-                    "interfaceInstance" : {
-                      "InterfaceComponentInstance" : 18
-                    },
-                    "portInstance" : {
-                      "General" : {
-                        "aNode" : {
-                          "astNodeId" : 13
-                        },
-                        "specifier" : {
-                          "kind" : {
-                            "Output" : {
-                              
-                            }
-                          },
-                          "name" : "pOut",
-                          "size" : "None",
-                          "port" : {
-                            "Some" : {
-                              "astNodeId" : 12
-                            }
-                          },
-                          "priority" : "None",
-                          "queueFull" : "None"
-                        },
-                        "kind" : "Output",
-                        "size" : 1,
-                        "ty" : {
-                          "DefPort" : {
-                            "symbol" : {
-                              "Port" : {
-                                "nodeId" : 0,
-                                "unqualifiedName" : "P"
-                              }
-                            }
-                          }
-                        },
-                        "importNodeIds" : [
-                        ]
-                      }
-                    }
-                  },
-                  "portNumber" : "None",
-                  "topologyPort" : "None"
-                },
-                "to" : {
-                  "loc" : {
-                    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-                    "pos" : "23.16",
-                    "includeLoc" : "None",
-                    "expandLoc" : "None"
-                  },
-                  "port" : {
-                    "interfaceInstance" : {
-                      "InterfaceComponentInstance" : 22
-                    },
-                    "portInstance" : {
-                      "General" : {
-                        "aNode" : {
-                          "astNodeId" : 4
-                        },
-                        "specifier" : {
-                          "kind" : {
-                            "SyncInput" : {
-                              
-                            }
-                          },
-                          "name" : "pIn",
-                          "size" : "None",
-                          "port" : {
-                            "Some" : {
-                              "astNodeId" : 3
-                            }
-                          },
-                          "priority" : "None",
-                          "queueFull" : "None"
-                        },
-                        "kind" : "SyncInput",
-                        "size" : 1,
-                        "ty" : {
-                          "DefPort" : {
-                            "symbol" : {
-                              "Port" : {
-                                "nodeId" : 0,
-                                "unqualifiedName" : "P"
-                              }
-                            }
-                          }
-                        },
-                        "importNodeIds" : [
-                        ]
-                      }
-                    }
-                  },
-                  "portNumber" : "None",
-                  "topologyPort" : "None"
-                },
-                "isUnmatched" : false
-              }
-            ]
-          ],
-          [
-            {
-              "interfaceInstance" : {
                 "InterfaceComponentInstance" : 18
               },
               "portInstance" : {
@@ -2154,6 +2001,159 @@
                   "port" : {
                     "interfaceInstance" : {
                       "InterfaceComponentInstance" : 18
+                    },
+                    "portInstance" : {
+                      "General" : {
+                        "aNode" : {
+                          "astNodeId" : 4
+                        },
+                        "specifier" : {
+                          "kind" : {
+                            "SyncInput" : {
+                              
+                            }
+                          },
+                          "name" : "pIn",
+                          "size" : "None",
+                          "port" : {
+                            "Some" : {
+                              "astNodeId" : 3
+                            }
+                          },
+                          "priority" : "None",
+                          "queueFull" : "None"
+                        },
+                        "kind" : "SyncInput",
+                        "size" : 1,
+                        "ty" : {
+                          "DefPort" : {
+                            "symbol" : {
+                              "Port" : {
+                                "nodeId" : 0,
+                                "unqualifiedName" : "P"
+                              }
+                            }
+                          }
+                        },
+                        "importNodeIds" : [
+                        ]
+                      }
+                    }
+                  },
+                  "portNumber" : "None",
+                  "topologyPort" : "None"
+                },
+                "isUnmatched" : false
+              }
+            ]
+          ],
+          [
+            {
+              "interfaceInstance" : {
+                "InterfaceComponentInstance" : 22
+              },
+              "portInstance" : {
+                "General" : {
+                  "aNode" : {
+                    "astNodeId" : 4
+                  },
+                  "specifier" : {
+                    "kind" : {
+                      "SyncInput" : {
+                        
+                      }
+                    },
+                    "name" : "pIn",
+                    "size" : "None",
+                    "port" : {
+                      "Some" : {
+                        "astNodeId" : 3
+                      }
+                    },
+                    "priority" : "None",
+                    "queueFull" : "None"
+                  },
+                  "kind" : "SyncInput",
+                  "size" : 1,
+                  "ty" : {
+                    "DefPort" : {
+                      "symbol" : {
+                        "Port" : {
+                          "nodeId" : 0,
+                          "unqualifiedName" : "P"
+                        }
+                      }
+                    }
+                  },
+                  "importNodeIds" : [
+                  ]
+                }
+              }
+            },
+            [
+              {
+                "from" : {
+                  "loc" : {
+                    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                    "pos" : "23.5",
+                    "includeLoc" : "None",
+                    "expandLoc" : "None"
+                  },
+                  "port" : {
+                    "interfaceInstance" : {
+                      "InterfaceComponentInstance" : 18
+                    },
+                    "portInstance" : {
+                      "General" : {
+                        "aNode" : {
+                          "astNodeId" : 13
+                        },
+                        "specifier" : {
+                          "kind" : {
+                            "Output" : {
+                              
+                            }
+                          },
+                          "name" : "pOut",
+                          "size" : "None",
+                          "port" : {
+                            "Some" : {
+                              "astNodeId" : 12
+                            }
+                          },
+                          "priority" : "None",
+                          "queueFull" : "None"
+                        },
+                        "kind" : "Output",
+                        "size" : 1,
+                        "ty" : {
+                          "DefPort" : {
+                            "symbol" : {
+                              "Port" : {
+                                "nodeId" : 0,
+                                "unqualifiedName" : "P"
+                              }
+                            }
+                          }
+                        },
+                        "importNodeIds" : [
+                        ]
+                      }
+                    }
+                  },
+                  "portNumber" : "None",
+                  "topologyPort" : "None"
+                },
+                "to" : {
+                  "loc" : {
+                    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                    "pos" : "23.16",
+                    "includeLoc" : "None",
+                    "expandLoc" : "None"
+                  },
+                  "port" : {
+                    "interfaceInstance" : {
+                      "InterfaceComponentInstance" : 22
                     },
                     "portInstance" : {
                       "General" : {
@@ -2429,116 +2429,6 @@
               "from" : {
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-                  "pos" : "28.5",
-                  "includeLoc" : "None",
-                  "expandLoc" : "None"
-                },
-                "port" : {
-                  "interfaceInstance" : {
-                    "InterfaceComponentInstance" : 22
-                  },
-                  "portInstance" : {
-                    "General" : {
-                      "aNode" : {
-                        "astNodeId" : 13
-                      },
-                      "specifier" : {
-                        "kind" : {
-                          "Output" : {
-                            
-                          }
-                        },
-                        "name" : "pOut",
-                        "size" : "None",
-                        "port" : {
-                          "Some" : {
-                            "astNodeId" : 12
-                          }
-                        },
-                        "priority" : "None",
-                        "queueFull" : "None"
-                      },
-                      "kind" : "Output",
-                      "size" : 1,
-                      "ty" : {
-                        "DefPort" : {
-                          "symbol" : {
-                            "Port" : {
-                              "nodeId" : 0,
-                              "unqualifiedName" : "P"
-                            }
-                          }
-                        }
-                      },
-                      "importNodeIds" : [
-                      ]
-                    }
-                  }
-                },
-                "portNumber" : "None",
-                "topologyPort" : "None"
-              },
-              "to" : {
-                "loc" : {
-                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-                  "pos" : "28.16",
-                  "includeLoc" : "None",
-                  "expandLoc" : "None"
-                },
-                "port" : {
-                  "interfaceInstance" : {
-                    "InterfaceComponentInstance" : 18
-                  },
-                  "portInstance" : {
-                    "General" : {
-                      "aNode" : {
-                        "astNodeId" : 4
-                      },
-                      "specifier" : {
-                        "kind" : {
-                          "SyncInput" : {
-                            
-                          }
-                        },
-                        "name" : "pIn",
-                        "size" : "None",
-                        "port" : {
-                          "Some" : {
-                            "astNodeId" : 3
-                          }
-                        },
-                        "priority" : "None",
-                        "queueFull" : "None"
-                      },
-                      "kind" : "SyncInput",
-                      "size" : 1,
-                      "ty" : {
-                        "DefPort" : {
-                          "symbol" : {
-                            "Port" : {
-                              "nodeId" : 0,
-                              "unqualifiedName" : "P"
-                            }
-                          }
-                        }
-                      },
-                      "importNodeIds" : [
-                      ]
-                    }
-                  }
-                },
-                "portNumber" : "None",
-                "topologyPort" : "None"
-              },
-              "isUnmatched" : false
-            },
-            0
-          ],
-          [
-            {
-              "from" : {
-                "loc" : {
-                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                   "pos" : "23.5",
                   "includeLoc" : "None",
                   "expandLoc" : "None"
@@ -2598,6 +2488,116 @@
                 "port" : {
                   "interfaceInstance" : {
                     "InterfaceComponentInstance" : 22
+                  },
+                  "portInstance" : {
+                    "General" : {
+                      "aNode" : {
+                        "astNodeId" : 4
+                      },
+                      "specifier" : {
+                        "kind" : {
+                          "SyncInput" : {
+                            
+                          }
+                        },
+                        "name" : "pIn",
+                        "size" : "None",
+                        "port" : {
+                          "Some" : {
+                            "astNodeId" : 3
+                          }
+                        },
+                        "priority" : "None",
+                        "queueFull" : "None"
+                      },
+                      "kind" : "SyncInput",
+                      "size" : 1,
+                      "ty" : {
+                        "DefPort" : {
+                          "symbol" : {
+                            "Port" : {
+                              "nodeId" : 0,
+                              "unqualifiedName" : "P"
+                            }
+                          }
+                        }
+                      },
+                      "importNodeIds" : [
+                      ]
+                    }
+                  }
+                },
+                "portNumber" : "None",
+                "topologyPort" : "None"
+              },
+              "isUnmatched" : false
+            },
+            0
+          ],
+          [
+            {
+              "from" : {
+                "loc" : {
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                  "pos" : "28.5",
+                  "includeLoc" : "None",
+                  "expandLoc" : "None"
+                },
+                "port" : {
+                  "interfaceInstance" : {
+                    "InterfaceComponentInstance" : 22
+                  },
+                  "portInstance" : {
+                    "General" : {
+                      "aNode" : {
+                        "astNodeId" : 13
+                      },
+                      "specifier" : {
+                        "kind" : {
+                          "Output" : {
+                            
+                          }
+                        },
+                        "name" : "pOut",
+                        "size" : "None",
+                        "port" : {
+                          "Some" : {
+                            "astNodeId" : 12
+                          }
+                        },
+                        "priority" : "None",
+                        "queueFull" : "None"
+                      },
+                      "kind" : "Output",
+                      "size" : 1,
+                      "ty" : {
+                        "DefPort" : {
+                          "symbol" : {
+                            "Port" : {
+                              "nodeId" : 0,
+                              "unqualifiedName" : "P"
+                            }
+                          }
+                        }
+                      },
+                      "importNodeIds" : [
+                      ]
+                    }
+                  }
+                },
+                "portNumber" : "None",
+                "topologyPort" : "None"
+              },
+              "to" : {
+                "loc" : {
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                  "pos" : "28.16",
+                  "includeLoc" : "None",
+                  "expandLoc" : "None"
+                },
+                "port" : {
+                  "interfaceInstance" : {
+                    "InterfaceComponentInstance" : 18
                   },
                   "portInstance" : {
                     "General" : {

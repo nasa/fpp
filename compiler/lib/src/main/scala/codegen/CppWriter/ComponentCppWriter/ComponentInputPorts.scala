@@ -395,7 +395,7 @@ case class ComponentInputPorts(
     val handlerBaseName = inputPortHandlerBaseName(p.getUnqualifiedName)
     List.concat(
       lines(
-        s"""|FW_ASSERT(callComp);
+        s"""|FW_ASSERT(callComp != nullptr);
             |$componentClassName* compPtr = static_cast<$componentClassName*>(callComp);
             |
             |"""

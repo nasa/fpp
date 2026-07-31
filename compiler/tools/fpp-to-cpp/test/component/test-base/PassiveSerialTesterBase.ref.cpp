@@ -54,7 +54,7 @@ Fw::SerializeStatus PassiveSerialTesterBase::PassiveSerialComponentBaseParamExte
       break;
     default:
       // Unknown ID; should not have gotten here
-      FW_ASSERT(0, static_cast<FwAssertArgType>(localId));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(localId));
   }
 
   return stat;
@@ -99,7 +99,7 @@ Fw::SerializeStatus PassiveSerialTesterBase::PassiveSerialComponentBaseParamExte
       break;
     default:
       // Unknown ID; should not have gotten here
-      FW_ASSERT(0, static_cast<FwAssertArgType>(localId));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(localId));
   }
 
   return stat;
@@ -2288,7 +2288,7 @@ void PassiveSerialTesterBase ::
   sendCmd_CMD_SYNC_ENUM(
       const FwEnumStoreType instance,
       U32 cmdSeq,
-      E e
+      const E& e
   )
 {
   // Serialize arguments
@@ -2322,7 +2322,7 @@ void PassiveSerialTesterBase ::
   sendCmd_CMD_SYNC_ARRAY(
       const FwEnumStoreType instance,
       U32 cmdSeq,
-      A a
+      const A& a
   )
 {
   // Serialize arguments
@@ -2356,7 +2356,7 @@ void PassiveSerialTesterBase ::
   sendCmd_CMD_SYNC_STRUCT(
       const FwEnumStoreType instance,
       U32 cmdSeq,
-      S s
+      const S& s
   )
 {
   // Serialize arguments
@@ -2504,7 +2504,7 @@ void PassiveSerialTesterBase ::
   sendCmd_CMD_GUARDED_ENUM(
       const FwEnumStoreType instance,
       U32 cmdSeq,
-      E e
+      const E& e
   )
 {
   // Serialize arguments
@@ -2538,7 +2538,7 @@ void PassiveSerialTesterBase ::
   sendCmd_CMD_GUARDED_ARRAY(
       const FwEnumStoreType instance,
       U32 cmdSeq,
-      A a
+      const A& a
   )
 {
   // Serialize arguments
@@ -2572,7 +2572,7 @@ void PassiveSerialTesterBase ::
   sendCmd_CMD_GUARDED_STRUCT(
       const FwEnumStoreType instance,
       U32 cmdSeq,
-      S s
+      const S& s
   )
 {
   // Serialize arguments
@@ -2987,7 +2987,7 @@ void PassiveSerialTesterBase ::
     }
 
     default: {
-      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(id));
       break;
     }
   }
@@ -3047,7 +3047,7 @@ void PassiveSerialTesterBase ::
 }
 
 void PassiveSerialTesterBase ::
-  logIn_DIAGNOSTIC_EventDiagnostic(E e)
+  logIn_DIAGNOSTIC_EventDiagnostic(const E& e)
 {
   EventEntry_EventDiagnostic _e = {
     e
@@ -3057,7 +3057,7 @@ void PassiveSerialTesterBase ::
 }
 
 void PassiveSerialTesterBase ::
-  logIn_FATAL_EventFatalThrottled(A a)
+  logIn_FATAL_EventFatalThrottled(const A& a)
 {
   EventEntry_EventFatalThrottled _e = {
     a
@@ -3067,7 +3067,7 @@ void PassiveSerialTesterBase ::
 }
 
 void PassiveSerialTesterBase ::
-  logIn_WARNING_HI_EventWarningHigh(S s)
+  logIn_WARNING_HI_EventWarningHigh(const S& s)
 {
   EventEntry_EventWarningHigh _e = {
     s
@@ -3268,7 +3268,7 @@ void PassiveSerialTesterBase ::
     }
 
     default: {
-      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(id));
       break;
     }
   }
@@ -4573,7 +4573,7 @@ Fw::ParamValid PassiveSerialTesterBase ::
     };
 
     default:
-      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(id));
       break;
   }
 
@@ -4768,7 +4768,7 @@ void PassiveSerialTesterBase ::
     };
 
     default:
-      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(id));
       break;
   }
 }

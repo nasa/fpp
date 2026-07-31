@@ -37,6 +37,9 @@ sealed trait Value {
   /** Generic binary operation */
   private[analysis] def binop(op: Value.Binop)(v: Value): Option[Value] = None
 
+  /** Shift-only binary operation */
+  private[analysis] def intShiftOp(op: Value.Binop.intShiftOp)(v: Value): Option[Value] = None
+
   /** Get the type of the value */
   def getType: Type
 
@@ -46,6 +49,12 @@ sealed trait Value {
     def doubleOp(v1: Double, v2: Double) = v1 * v2
     binop(Value.Binop(intOp, doubleOp))(v)
   }
+
+  /** Left shift an integer value*/
+  final def <<(v: Value): Option[Value] = intShiftOp(_ << _)(v)
+
+  /** Right shift an integer value*/
+  final def >>(v: Value): Option[Value] = intShiftOp(_ >> _)(v)
 
   /** Negate a value */
   def unary_- : Option[Value] = None
@@ -128,6 +137,13 @@ object Value {
       case _ => None
     }
 
+    override private[analysis] def intShiftOp(op: Binop.intShiftOp)(v: Value) = v match {
+      case PrimitiveInt(value1, kind1) => Some(PrimitiveInt(op(value, value1.toInt), kind))
+      case Integer(value1) => Some(Integer(op(value, value1.toInt)))
+      case enumConstant: EnumConstant => intShiftOp(op)(enumConstant.convertToRepType)
+      case _ => None
+    }
+
     override def convertToDistinctType(t: Type) =
       t.getUnderlyingType match {
         case Type.PrimitiveInt(kind1) => Some(PrimitiveInt(value, kind1))
@@ -185,6 +201,13 @@ object Value {
       }
       case enumConstant : EnumConstant =>
         binop(op)(enumConstant.convertToRepType)
+      case _ => None
+    }
+
+    override private[analysis] def intShiftOp(op: Binop.intShiftOp)(v: Value) = v match {
+      case PrimitiveInt(value1, kind1) => Some(Integer(op(value, value1.toInt)))
+      case Integer(value1) => Some(Integer(op(value, value1.toInt)))
+      case enumConstant: EnumConstant => intShiftOp(op)(enumConstant.convertToRepType)
       case _ => None
     }
 
@@ -368,6 +391,8 @@ object Value {
 
     override private[analysis] def binop(op: Binop)(v: Value) = convertToRepType.binop(op)(v)
 
+    override private[analysis] def intShiftOp(op: Binop.intShiftOp)(v: Value) = convertToRepType.intShiftOp(op)(v)
+
     /** Convert the enum to the representation type */
     def convertToRepType: PrimitiveInt = PrimitiveInt(value._2, t.repType.kind)
 
@@ -492,6 +517,8 @@ object Value {
     /** A binary operation */
     type Op[T] = (T, T) => T
 
+    /** A shift operation */
+    type intShiftOp = (BigInt, Int) => BigInt
   }
 
 }

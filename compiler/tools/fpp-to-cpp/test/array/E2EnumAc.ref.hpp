@@ -8,6 +8,7 @@
 #define E2EnumAc_HPP
 
 #include "Fw/FPrimeBasicTypes.hpp"
+#include "Fw/Types/Assert.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
@@ -66,6 +67,7 @@ class E2 :
         const enum T e1 //!< The raw enum value
     )
     {
+      FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
       this->e = e1;
     }
 
@@ -75,6 +77,10 @@ class E2 :
     )
     {
       this->e = obj.e;
+#ifdef BUILD_UT
+    this->m_serializeValueIsSet = obj.m_serializeValueIsSet;
+    this->m_serializeValue = obj.m_serializeValue;
+#endif
     }
 
   public:
@@ -151,6 +157,15 @@ class E2 :
 
 #endif
 
+#ifdef BUILD_UT
+
+    //! Set the value to use for serialization (unit testing only)
+    void setSerializeValue(
+        SerialType serializeValue //!< The serialize value
+    );
+
+#endif
+
   public:
 
     // ----------------------------------------------------------------------
@@ -165,11 +180,31 @@ class E2 :
   public:
 
     // ----------------------------------------------------------------------
-    // Member variables
+    // Public member variables
     // ----------------------------------------------------------------------
 
     //! The raw enum value
     enum T e;
+
+  private:
+
+    // ----------------------------------------------------------------------
+    // Private member variables
+    // ----------------------------------------------------------------------
+
+#ifdef BUILD_UT
+
+    //! Whether the serialize value is set (unit testing only).
+    //! When this flag is set to true, the serializeTo function
+    //! uses the serialize value instead of the raw enum value
+    //! when serializing the enum instance. This allows serialization
+    //! of invalid values that can't be represented as the raw enum type.
+    bool m_serializeValueIsSet = false;
+
+    //! The serialize value
+    SerialType m_serializeValue = 0;
+
+#endif
 
 };
 

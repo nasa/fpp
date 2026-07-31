@@ -311,7 +311,7 @@ case class ComponentEvents (
             List.concat(
               lines(
                 s"""|Fw::TextLogString _logString;
-                    |_logString.format(
+                    |(void) _logString.format(
                     |  _formatString,
                     |#if FW_OBJECT_NAMES == 1
                     |  this->m_objName.toChar(),
@@ -362,8 +362,7 @@ case class ComponentEvents (
       eventLogName(event),
       formalParamsCppWriter.write(
         event.aNode._2.data.params,
-        "Fw::StringBase",
-        FormalParamsCppWriter.Value
+        "Fw::StringBase"
       ),
       CppDoc.Type("void"),
       intersperseBlankLines(

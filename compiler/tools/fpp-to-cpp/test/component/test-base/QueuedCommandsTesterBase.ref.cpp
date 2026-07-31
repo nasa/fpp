@@ -2251,7 +2251,7 @@ void QueuedCommandsTesterBase ::
   sendCmd_CMD_SYNC_ENUM(
       const FwEnumStoreType instance,
       U32 cmdSeq,
-      E e
+      const E& e
   )
 {
   // Serialize arguments
@@ -2285,7 +2285,7 @@ void QueuedCommandsTesterBase ::
   sendCmd_CMD_SYNC_ARRAY(
       const FwEnumStoreType instance,
       U32 cmdSeq,
-      A a
+      const A& a
   )
 {
   // Serialize arguments
@@ -2319,7 +2319,7 @@ void QueuedCommandsTesterBase ::
   sendCmd_CMD_SYNC_STRUCT(
       const FwEnumStoreType instance,
       U32 cmdSeq,
-      S s
+      const S& s
   )
 {
   // Serialize arguments
@@ -2467,7 +2467,7 @@ void QueuedCommandsTesterBase ::
   sendCmd_CMD_GUARDED_ENUM(
       const FwEnumStoreType instance,
       U32 cmdSeq,
-      E e
+      const E& e
   )
 {
   // Serialize arguments
@@ -2501,7 +2501,7 @@ void QueuedCommandsTesterBase ::
   sendCmd_CMD_GUARDED_ARRAY(
       const FwEnumStoreType instance,
       U32 cmdSeq,
-      A a
+      const A& a
   )
 {
   // Serialize arguments
@@ -2535,7 +2535,7 @@ void QueuedCommandsTesterBase ::
   sendCmd_CMD_GUARDED_STRUCT(
       const FwEnumStoreType instance,
       U32 cmdSeq,
-      S s
+      const S& s
   )
 {
   // Serialize arguments
