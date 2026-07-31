@@ -20,3 +20,7 @@ For FPP contributions:
 
 Keep pull requests focused on one approved issue, explain the rationale for
 the change, and run the relevant tests before submitting.
+
+Maintainers may decline or close a contribution that does not align with the
+project's direction, even when the work itself is sound. They will try to
+explain the reasoning and, where possible, suggest a path forward.
