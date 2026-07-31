@@ -21,6 +21,8 @@ For FPP contributions:
 Keep pull requests focused on one approved issue, explain the rationale for
 the change, and run the relevant tests before submitting.
 
-Maintainers may decline or close a contribution that does not align with the
-project's direction, even when the work itself is sound. They will try to
-explain the reasoning and, where possible, suggest a path forward.
+If you don't follow the process above, then we may not be able to accept your
+contribution. In particular, the FPP maintainers may decline or close an
+unsolicited contribution that does not align with the project's direction,
+even if the work itself is sound. In this case, they will try to explain the
+reasoning and, where possible, suggest a path forward.
