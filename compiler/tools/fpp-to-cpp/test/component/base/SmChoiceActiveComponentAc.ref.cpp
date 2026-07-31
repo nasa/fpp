@@ -913,7 +913,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(smId));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(smId));
         break;
     }
   }
@@ -955,7 +955,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -980,7 +980,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -1001,7 +1001,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -1022,7 +1022,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -1058,7 +1058,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -1079,7 +1079,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -1104,7 +1104,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -1125,7 +1125,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }

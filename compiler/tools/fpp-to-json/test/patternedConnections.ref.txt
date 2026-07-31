@@ -5081,13 +5081,13 @@
           {
             "interfaceInstance" : {
               "InterfaceComponentInstance" : {
-                "astNodeId" : 134
+                "astNodeId" : 114
               }
             },
             "portInstance" : {
               "General" : {
                 "aNode" : {
-                  "astNodeId" : 96
+                  "astNodeId" : 11
                 },
                 "specifier" : {
                   "kind" : {
@@ -5095,11 +5095,11 @@
                       
                     }
                   },
-                  "name" : "tlm",
+                  "name" : "timeGetPort",
                   "size" : "None",
                   "port" : {
                     "Some" : {
-                      "astNodeId" : 95
+                      "astNodeId" : 10
                     }
                   },
                   "priority" : "None",
@@ -5111,140 +5111,8 @@
                   "DefPort" : {
                     "symbol" : {
                       "Port" : {
-                        "nodeId" : 294,
-                        "unqualifiedName" : "Tlm"
-                      }
-                    }
-                  }
-                },
-                "importNodeIds" : [
-                ]
-              }
-            }
-          },
-          {
-            "interfaceInstance" : {
-              "InterfaceComponentInstance" : {
-                "astNodeId" : 118
-              }
-            },
-            "portInstance" : {
-              "General" : {
-                "aNode" : {
-                  "astNodeId" : 24
-                },
-                "specifier" : {
-                  "kind" : {
-                    "SyncInput" : {
-                      
-                    }
-                  },
-                  "name" : "cmdResponseOut",
-                  "size" : "None",
-                  "port" : {
-                    "Some" : {
-                      "astNodeId" : 23
-                    }
-                  },
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "kind" : "SyncInput",
-                "size" : 1,
-                "ty" : {
-                  "DefPort" : {
-                    "symbol" : {
-                      "Port" : {
-                        "nodeId" : 288,
-                        "unqualifiedName" : "CmdResponse"
-                      }
-                    }
-                  }
-                },
-                "importNodeIds" : [
-                ]
-              }
-            }
-          },
-          {
-            "interfaceInstance" : {
-              "InterfaceComponentInstance" : {
-                "astNodeId" : 126
-              }
-            },
-            "portInstance" : {
-              "General" : {
-                "aNode" : {
-                  "astNodeId" : 66
-                },
-                "specifier" : {
-                  "kind" : {
-                    "SyncInput" : {
-                      
-                    }
-                  },
-                  "name" : "PingReturn",
-                  "size" : "None",
-                  "port" : {
-                    "Some" : {
-                      "astNodeId" : 65
-                    }
-                  },
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "kind" : "SyncInput",
-                "size" : 1,
-                "ty" : {
-                  "DefPort" : {
-                    "symbol" : {
-                      "Port" : {
-                        "nodeId" : 301,
-                        "unqualifiedName" : "Ping"
-                      }
-                    }
-                  }
-                },
-                "importNodeIds" : [
-                ]
-              }
-            }
-          },
-          {
-            "interfaceInstance" : {
-              "InterfaceComponentInstance" : {
-                "astNodeId" : 118
-              }
-            },
-            "portInstance" : {
-              "General" : {
-                "aNode" : {
-                  "astNodeId" : 36
-                },
-                "specifier" : {
-                  "kind" : {
-                    "Output" : {
-                      
-                    }
-                  },
-                  "name" : "cmdSend",
-                  "size" : "None",
-                  "port" : {
-                    "Some" : {
-                      "astNodeId" : 35
-                    }
-                  },
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "kind" : "Output",
-                "size" : 1,
-                "ty" : {
-                  "DefPort" : {
-                    "symbol" : {
-                      "Port" : {
-                        "nodeId" : 286,
-                        "unqualifiedName" : "Cmd"
+                        "nodeId" : 293,
+                        "unqualifiedName" : "Time"
                       }
                     }
                   }
@@ -5301,94 +5169,6 @@
           {
             "interfaceInstance" : {
               "InterfaceComponentInstance" : {
-                "astNodeId" : 130
-              }
-            },
-            "portInstance" : {
-              "General" : {
-                "aNode" : {
-                  "astNodeId" : 83
-                },
-                "specifier" : {
-                  "kind" : {
-                    "SyncInput" : {
-                      
-                    }
-                  },
-                  "name" : "paramSet",
-                  "size" : "None",
-                  "port" : {
-                    "Some" : {
-                      "astNodeId" : 82
-                    }
-                  },
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "kind" : "SyncInput",
-                "size" : 1,
-                "ty" : {
-                  "DefPort" : {
-                    "symbol" : {
-                      "Port" : {
-                        "nodeId" : 292,
-                        "unqualifiedName" : "PrmSet"
-                      }
-                    }
-                  }
-                },
-                "importNodeIds" : [
-                ]
-              }
-            }
-          },
-          {
-            "interfaceInstance" : {
-              "InterfaceComponentInstance" : {
-                "astNodeId" : 126
-              }
-            },
-            "portInstance" : {
-              "General" : {
-                "aNode" : {
-                  "astNodeId" : 54
-                },
-                "specifier" : {
-                  "kind" : {
-                    "Output" : {
-                      
-                    }
-                  },
-                  "name" : "PingSend",
-                  "size" : "None",
-                  "port" : {
-                    "Some" : {
-                      "astNodeId" : 53
-                    }
-                  },
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "kind" : "Output",
-                "size" : 1,
-                "ty" : {
-                  "DefPort" : {
-                    "symbol" : {
-                      "Port" : {
-                        "nodeId" : 301,
-                        "unqualifiedName" : "Ping"
-                      }
-                    }
-                  }
-                },
-                "importNodeIds" : [
-                ]
-              }
-            }
-          },
-          {
-            "interfaceInstance" : {
-              "InterfaceComponentInstance" : {
                 "astNodeId" : 118
               }
             },
@@ -5433,13 +5213,13 @@
           {
             "interfaceInstance" : {
               "InterfaceComponentInstance" : {
-                "astNodeId" : 138
+                "astNodeId" : 118
               }
             },
             "portInstance" : {
               "General" : {
                 "aNode" : {
-                  "astNodeId" : 109
+                  "astNodeId" : 24
                 },
                 "specifier" : {
                   "kind" : {
@@ -5447,11 +5227,11 @@
                       
                     }
                   },
-                  "name" : "textEventLog",
+                  "name" : "cmdResponseOut",
                   "size" : "None",
                   "port" : {
                     "Some" : {
-                      "astNodeId" : 108
+                      "astNodeId" : 23
                     }
                   },
                   "priority" : "None",
@@ -5463,8 +5243,8 @@
                   "DefPort" : {
                     "symbol" : {
                       "Port" : {
-                        "nodeId" : 290,
-                        "unqualifiedName" : "LogText"
+                        "nodeId" : 288,
+                        "unqualifiedName" : "CmdResponse"
                       }
                     }
                   }
@@ -5477,38 +5257,38 @@
           {
             "interfaceInstance" : {
               "InterfaceComponentInstance" : {
-                "astNodeId" : 114
+                "astNodeId" : 118
               }
             },
             "portInstance" : {
               "General" : {
                 "aNode" : {
-                  "astNodeId" : 11
+                  "astNodeId" : 36
                 },
                 "specifier" : {
                   "kind" : {
-                    "SyncInput" : {
+                    "Output" : {
                       
                     }
                   },
-                  "name" : "timeGetPort",
+                  "name" : "cmdSend",
                   "size" : "None",
                   "port" : {
                     "Some" : {
-                      "astNodeId" : 10
+                      "astNodeId" : 35
                     }
                   },
                   "priority" : "None",
                   "queueFull" : "None"
                 },
-                "kind" : "SyncInput",
+                "kind" : "Output",
                 "size" : 1,
                 "ty" : {
                   "DefPort" : {
                     "symbol" : {
                       "Port" : {
-                        "nodeId" : 293,
-                        "unqualifiedName" : "Time"
+                        "nodeId" : 286,
+                        "unqualifiedName" : "Cmd"
                       }
                     }
                   }
@@ -5565,6 +5345,94 @@
           {
             "interfaceInstance" : {
               "InterfaceComponentInstance" : {
+                "astNodeId" : 126
+              }
+            },
+            "portInstance" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 66
+                },
+                "specifier" : {
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "PingReturn",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 65
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 301,
+                        "unqualifiedName" : "Ping"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            }
+          },
+          {
+            "interfaceInstance" : {
+              "InterfaceComponentInstance" : {
+                "astNodeId" : 126
+              }
+            },
+            "portInstance" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 54
+                },
+                "specifier" : {
+                  "kind" : {
+                    "Output" : {
+                      
+                    }
+                  },
+                  "name" : "PingSend",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 53
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "Output",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 301,
+                        "unqualifiedName" : "Ping"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            }
+          },
+          {
+            "interfaceInstance" : {
+              "InterfaceComponentInstance" : {
                 "astNodeId" : 130
               }
             },
@@ -5597,6 +5465,138 @@
                       "Port" : {
                         "nodeId" : 291,
                         "unqualifiedName" : "PrmGet"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            }
+          },
+          {
+            "interfaceInstance" : {
+              "InterfaceComponentInstance" : {
+                "astNodeId" : 130
+              }
+            },
+            "portInstance" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 83
+                },
+                "specifier" : {
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "paramSet",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 82
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 292,
+                        "unqualifiedName" : "PrmSet"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            }
+          },
+          {
+            "interfaceInstance" : {
+              "InterfaceComponentInstance" : {
+                "astNodeId" : 134
+              }
+            },
+            "portInstance" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 96
+                },
+                "specifier" : {
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "tlm",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 95
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 294,
+                        "unqualifiedName" : "Tlm"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            }
+          },
+          {
+            "interfaceInstance" : {
+              "InterfaceComponentInstance" : {
+                "astNodeId" : 138
+              }
+            },
+            "portInstance" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 109
+                },
+                "specifier" : {
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "textEventLog",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 108
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 290,
+                        "unqualifiedName" : "LogText"
                       }
                     }
                   }

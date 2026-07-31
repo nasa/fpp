@@ -16,6 +16,7 @@ Default ::
     Serializable(),
     m_mU32(54),
     m_mS1(m___fprime_ac_mS1_buffer, sizeof m___fprime_ac_mS1_buffer, Fw::String("hello")),
+    m_mS0(m___fprime_ac_mS0_buffer, sizeof m___fprime_ac_mS0_buffer, Fw::String("")),
     m_mF64()
 {
 
@@ -25,11 +26,13 @@ Default ::
   Default(
       U32 mU32,
       const Fw::StringBase& mS1,
+      const Fw::StringBase& mS0,
       F64 mF64
   ) :
     Serializable(),
     m_mU32(mU32),
     m_mS1(m___fprime_ac_mS1_buffer, sizeof m___fprime_ac_mS1_buffer, mS1),
+    m_mS0(m___fprime_ac_mS0_buffer, sizeof m___fprime_ac_mS0_buffer, mS0),
     m_mF64(mF64)
 {
 
@@ -40,6 +43,7 @@ Default ::
     Serializable(),
     m_mU32(obj.m_mU32),
     m_mS1(m___fprime_ac_mS1_buffer, sizeof m___fprime_ac_mS1_buffer, obj.m_mS1),
+    m_mS0(m___fprime_ac_mS0_buffer, sizeof m___fprime_ac_mS0_buffer, obj.m_mS0),
     m_mF64(obj.m_mF64)
 {
 
@@ -56,7 +60,7 @@ Default& Default ::
     return *this;
   }
 
-  set(obj.m_mU32, obj.m_mS1, obj.m_mF64);
+  set(obj.m_mU32, obj.m_mS1, obj.m_mS0, obj.m_mF64);
   return *this;
 }
 
@@ -67,6 +71,7 @@ bool Default ::
   return (
     (this->m_mU32 == obj.m_mU32) &&
     (this->m_mS1 == obj.m_mS1) &&
+    (this->m_mS0 == obj.m_mS0) &&
     (this->m_mF64 == obj.m_mF64)
   );
 }
@@ -108,6 +113,10 @@ Fw::SerializeStatus Default ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
+  status = buffer.serializeFrom(this->m_mS0, mode);
+  if (status != Fw::FW_SERIALIZE_OK) {
+    return status;
+  }
   status = buffer.serializeFrom(this->m_mF64, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
@@ -132,6 +141,10 @@ Fw::SerializeStatus Default ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
+  status = buffer.deserializeTo(this->m_mS0, mode);
+  if (status != Fw::FW_SERIALIZE_OK) {
+    return status;
+  }
   status = buffer.deserializeTo(this->m_mF64, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
@@ -146,6 +159,7 @@ FwSizeType Default ::
   FwSizeType size = 0;
   size += sizeof(U32);
   size += this->m_mS1.serializedSize();
+  size += this->m_mS0.serializedSize();
   size += sizeof(F64);
   return size;
 }
@@ -169,6 +183,11 @@ void Default ::
   sb += this->m_mS1;
   sb += ", ";
 
+  // Format mS0
+  sb += "mS0 = ";
+  sb += this->m_mS0;
+  sb += ", ";
+
   // Format mF64
   sb += "mF64 = ";
   tmp.format("%f", this->m_mF64);
@@ -186,11 +205,13 @@ void Default ::
   set(
       U32 mU32,
       const Fw::StringBase& mS1,
+      const Fw::StringBase& mS0,
       F64 mF64
   )
 {
   this->m_mU32 = mU32;
   this->m_mS1 = mS1;
+  this->m_mS0 = mS0;
   this->m_mF64 = mF64;
 }
 
@@ -204,6 +225,12 @@ void Default ::
   set_mS1(const Fw::StringBase& mS1)
 {
   this->m_mS1 = mS1;
+}
+
+void Default ::
+  set_mS0(const Fw::StringBase& mS0)
+{
+  this->m_mS0 = mS0;
 }
 
 void Default ::

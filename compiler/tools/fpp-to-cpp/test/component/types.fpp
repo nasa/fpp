@@ -33,10 +33,12 @@ type AliasEnum = E
 
 @ Alias of a string
 type AliasString = string size 32
+type AliasStringZero = string size 0
 
 struct StructWithAlias {
   x: AliasPrim1,
   y: AliasString,
+  y0: AliasStringZero,
   z: AliasArray
   w: AliasAliasArray
   q: AliasArrayAliasArray

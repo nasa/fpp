@@ -28,6 +28,9 @@ sealed trait InterfaceInstance {
 
 object InterfaceInstance {
 
+  implicit val ordering: Ordering[InterfaceInstance] =
+    Ordering.by[InterfaceInstance,String](_.getQualifiedName.toString)
+
   final case class InterfaceComponentInstance(ci: ComponentInstance) extends InterfaceInstance {
     override def getQualifiedName: Name.Qualified = ci.getQualifiedName
     override def getUnqualifiedName: String = ci.getUnqualifiedName

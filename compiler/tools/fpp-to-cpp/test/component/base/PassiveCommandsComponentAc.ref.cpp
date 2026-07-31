@@ -3014,7 +3014,7 @@ void PassiveCommandsComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveCommandsComponentBase* compPtr = static_cast<PassiveCommandsComponentBase*>(callComp);
   compPtr->cmdIn_handlerBase(
     portNum,
@@ -3034,7 +3034,7 @@ Fw::String PassiveCommandsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveCommandsComponentBase* compPtr = static_cast<PassiveCommandsComponentBase*>(callComp);
   return compPtr->noArgsAliasStringReturnSync_handlerBase(portNum);
 }
@@ -3045,7 +3045,7 @@ void PassiveCommandsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveCommandsComponentBase* compPtr = static_cast<PassiveCommandsComponentBase*>(callComp);
   compPtr->noArgsGuarded_handlerBase(portNum);
 }
@@ -3056,7 +3056,7 @@ U32 PassiveCommandsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveCommandsComponentBase* compPtr = static_cast<PassiveCommandsComponentBase*>(callComp);
   return compPtr->noArgsReturnGuarded_handlerBase(portNum);
 }
@@ -3067,7 +3067,7 @@ U32 PassiveCommandsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveCommandsComponentBase* compPtr = static_cast<PassiveCommandsComponentBase*>(callComp);
   return compPtr->noArgsReturnSync_handlerBase(portNum);
 }
@@ -3078,7 +3078,7 @@ Fw::String PassiveCommandsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveCommandsComponentBase* compPtr = static_cast<PassiveCommandsComponentBase*>(callComp);
   return compPtr->noArgsStringReturnSync_handlerBase(portNum);
 }
@@ -3089,7 +3089,7 @@ void PassiveCommandsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveCommandsComponentBase* compPtr = static_cast<PassiveCommandsComponentBase*>(callComp);
   compPtr->noArgsSync_handlerBase(portNum);
 }
@@ -3107,7 +3107,7 @@ void PassiveCommandsComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveCommandsComponentBase* compPtr = static_cast<PassiveCommandsComponentBase*>(callComp);
   compPtr->typedAliasGuarded_handlerBase(
     portNum,
@@ -3134,7 +3134,7 @@ AliasPrim2 PassiveCommandsComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveCommandsComponentBase* compPtr = static_cast<PassiveCommandsComponentBase*>(callComp);
   return compPtr->typedAliasReturnSync_handlerBase(
     portNum,
@@ -3161,7 +3161,7 @@ Fw::String PassiveCommandsComponentBase ::
       const AnotherAliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveCommandsComponentBase* compPtr = static_cast<PassiveCommandsComponentBase*>(callComp);
   return compPtr->typedAliasStringReturnSync_handlerBase(
     portNum,
@@ -3188,7 +3188,7 @@ void PassiveCommandsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveCommandsComponentBase* compPtr = static_cast<PassiveCommandsComponentBase*>(callComp);
   compPtr->typedGuarded_handlerBase(
     portNum,
@@ -3215,7 +3215,7 @@ F32 PassiveCommandsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveCommandsComponentBase* compPtr = static_cast<PassiveCommandsComponentBase*>(callComp);
   return compPtr->typedReturnGuarded_handlerBase(
     portNum,
@@ -3242,7 +3242,7 @@ F32 PassiveCommandsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveCommandsComponentBase* compPtr = static_cast<PassiveCommandsComponentBase*>(callComp);
   return compPtr->typedReturnSync_handlerBase(
     portNum,
@@ -3269,7 +3269,7 @@ void PassiveCommandsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveCommandsComponentBase* compPtr = static_cast<PassiveCommandsComponentBase*>(callComp);
   compPtr->typedSync_handlerBase(
     portNum,

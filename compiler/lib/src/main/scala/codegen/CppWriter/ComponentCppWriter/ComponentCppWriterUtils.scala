@@ -181,8 +181,7 @@ abstract class ComponentCppWriterUtils(
   def getNonParamCmdFormalParams(cmd: Command.NonParam, stringRep: String): List[CppDoc.Function.Param] =
     formalParamsCppWriter.write(
       cmd.aNode._2.data.params,
-      stringRep,
-      FormalParamsCppWriter.Value
+      stringRep
     )
 
   /** Map from command opcodes to command parameters */

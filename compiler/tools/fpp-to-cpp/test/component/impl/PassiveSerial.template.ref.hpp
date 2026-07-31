@@ -236,7 +236,7 @@ class PassiveSerial final :
     void CMD_SYNC_ENUM_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        E e //!< An enum
+        const E& e //!< An enum
     ) override;
 
     //! Handler implementation for command CMD_SYNC_ARRAY
@@ -245,7 +245,7 @@ class PassiveSerial final :
     void CMD_SYNC_ARRAY_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        A a //!< An array
+        const A& a //!< An array
     ) override;
 
     //! Handler implementation for command CMD_SYNC_STRUCT
@@ -254,7 +254,7 @@ class PassiveSerial final :
     void CMD_SYNC_STRUCT_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        S s //!< A struct
+        const S& s //!< A struct
     ) override;
 
     //! Handler implementation for command CMD_GUARDED
@@ -292,7 +292,7 @@ class PassiveSerial final :
     void CMD_GUARDED_ENUM_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        E e //!< An enum
+        const E& e //!< An enum
     ) override;
 
     //! Handler implementation for command CMD_GUARDED_ARRAY
@@ -301,7 +301,7 @@ class PassiveSerial final :
     void CMD_GUARDED_ARRAY_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        A a //!< An array
+        const A& a //!< An array
     ) override;
 
     //! Handler implementation for command CMD_GUARDED_STRUCT
@@ -310,7 +310,7 @@ class PassiveSerial final :
     void CMD_GUARDED_STRUCT_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        S s //!< A struct
+        const S& s //!< A struct
     ) override;
 
 };

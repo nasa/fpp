@@ -17,7 +17,8 @@ Basic ::
     m_A(),
     m_B(),
     m_C(m___fprime_ac_C_buffer, sizeof m___fprime_ac_C_buffer, Fw::String("")),
-    m_D(m___fprime_ac_D_buffer, sizeof m___fprime_ac_D_buffer, Fw::String(""))
+    m_D(m___fprime_ac_D_buffer, sizeof m___fprime_ac_D_buffer, Fw::String("")),
+    m_E(m___fprime_ac_E_buffer, sizeof m___fprime_ac_E_buffer, Fw::String(""))
 {
 
 }
@@ -27,13 +28,15 @@ Basic ::
       TU32 A,
       TF32 B,
       const Fw::StringBase& C,
-      const Fw::StringBase& D
+      const Fw::StringBase& D,
+      const Fw::StringBase& E
   ) :
     Serializable(),
     m_A(A),
     m_B(B),
     m_C(m___fprime_ac_C_buffer, sizeof m___fprime_ac_C_buffer, C),
-    m_D(m___fprime_ac_D_buffer, sizeof m___fprime_ac_D_buffer, D)
+    m_D(m___fprime_ac_D_buffer, sizeof m___fprime_ac_D_buffer, D),
+    m_E(m___fprime_ac_E_buffer, sizeof m___fprime_ac_E_buffer, E)
 {
 
 }
@@ -44,7 +47,8 @@ Basic ::
     m_A(obj.m_A),
     m_B(obj.m_B),
     m_C(m___fprime_ac_C_buffer, sizeof m___fprime_ac_C_buffer, obj.m_C),
-    m_D(m___fprime_ac_D_buffer, sizeof m___fprime_ac_D_buffer, obj.m_D)
+    m_D(m___fprime_ac_D_buffer, sizeof m___fprime_ac_D_buffer, obj.m_D),
+    m_E(m___fprime_ac_E_buffer, sizeof m___fprime_ac_E_buffer, obj.m_E)
 {
 
 }
@@ -60,7 +64,7 @@ Basic& Basic ::
     return *this;
   }
 
-  set(obj.m_A, obj.m_B, obj.m_C, obj.m_D);
+  set(obj.m_A, obj.m_B, obj.m_C, obj.m_D, obj.m_E);
   return *this;
 }
 
@@ -72,7 +76,8 @@ bool Basic ::
     (this->m_A == obj.m_A) &&
     (this->m_B == obj.m_B) &&
     (this->m_C == obj.m_C) &&
-    (this->m_D == obj.m_D)
+    (this->m_D == obj.m_D) &&
+    (this->m_E == obj.m_E)
   );
 }
 
@@ -121,6 +126,10 @@ Fw::SerializeStatus Basic ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
+  status = buffer.serializeFrom(this->m_E, mode);
+  if (status != Fw::FW_SERIALIZE_OK) {
+    return status;
+  }
 
   return status;
 }
@@ -149,6 +158,10 @@ Fw::SerializeStatus Basic ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
+  status = buffer.deserializeTo(this->m_E, mode);
+  if (status != Fw::FW_SERIALIZE_OK) {
+    return status;
+  }
 
   return status;
 }
@@ -161,6 +174,7 @@ FwSizeType Basic ::
   size += sizeof(TF32);
   size += this->m_C.serializedSize();
   size += this->m_D.serializedSize();
+  size += this->m_E.serializedSize();
   return size;
 }
 
@@ -192,6 +206,11 @@ void Basic ::
   // Format D
   sb += "D = ";
   sb += this->m_D;
+  sb += ", ";
+
+  // Format E
+  sb += "E = ";
+  sb += this->m_E;
   sb += " )";
 }
 
@@ -206,13 +225,15 @@ void Basic ::
       TU32 A,
       TF32 B,
       const Fw::StringBase& C,
-      const Fw::StringBase& D
+      const Fw::StringBase& D,
+      const Fw::StringBase& E
   )
 {
   this->m_A = A;
   this->m_B = B;
   this->m_C = C;
   this->m_D = D;
+  this->m_E = E;
 }
 
 void Basic ::
@@ -237,4 +258,10 @@ void Basic ::
   set_D(const Fw::StringBase& D)
 {
   this->m_D = D;
+}
+
+void Basic ::
+  set_E(const Fw::StringBase& E)
+{
+  this->m_E = E;
 }

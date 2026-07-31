@@ -5138,7 +5138,7 @@ void QueuedCommandsComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   compPtr->cmdIn_handlerBase(
     portNum,
@@ -5165,7 +5165,7 @@ void QueuedCommandsComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   compPtr->aliasTypedAsync_handlerBase(
     portNum,
@@ -5185,7 +5185,7 @@ Fw::String QueuedCommandsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   return compPtr->noArgsAliasStringReturnSync_handlerBase(portNum);
 }
@@ -5196,7 +5196,7 @@ void QueuedCommandsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   compPtr->noArgsAsync_handlerBase(portNum);
 }
@@ -5207,7 +5207,7 @@ void QueuedCommandsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   compPtr->noArgsGuarded_handlerBase(portNum);
 }
@@ -5218,7 +5218,7 @@ U32 QueuedCommandsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   return compPtr->noArgsReturnGuarded_handlerBase(portNum);
 }
@@ -5229,7 +5229,7 @@ U32 QueuedCommandsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   return compPtr->noArgsReturnSync_handlerBase(portNum);
 }
@@ -5240,7 +5240,7 @@ Fw::String QueuedCommandsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   return compPtr->noArgsStringReturnSync_handlerBase(portNum);
 }
@@ -5251,7 +5251,7 @@ void QueuedCommandsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   compPtr->noArgsSync_handlerBase(portNum);
 }
@@ -5269,7 +5269,7 @@ void QueuedCommandsComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   compPtr->typedAliasGuarded_handlerBase(
     portNum,
@@ -5296,7 +5296,7 @@ AliasPrim2 QueuedCommandsComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   return compPtr->typedAliasReturnSync_handlerBase(
     portNum,
@@ -5323,7 +5323,7 @@ Fw::String QueuedCommandsComponentBase ::
       const AnotherAliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   return compPtr->typedAliasStringReturnSync_handlerBase(
     portNum,
@@ -5350,7 +5350,7 @@ void QueuedCommandsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   compPtr->typedAsync_handlerBase(
     portNum,
@@ -5377,7 +5377,7 @@ void QueuedCommandsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   compPtr->typedAsyncAssert_handlerBase(
     portNum,
@@ -5404,7 +5404,7 @@ void QueuedCommandsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   compPtr->typedAsyncBlockPriority_handlerBase(
     portNum,
@@ -5431,7 +5431,7 @@ void QueuedCommandsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   compPtr->typedAsyncDropPriority_handlerBase(
     portNum,
@@ -5458,7 +5458,7 @@ void QueuedCommandsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   compPtr->typedGuarded_handlerBase(
     portNum,
@@ -5485,7 +5485,7 @@ F32 QueuedCommandsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   return compPtr->typedReturnGuarded_handlerBase(
     portNum,
@@ -5512,7 +5512,7 @@ F32 QueuedCommandsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   return compPtr->typedReturnSync_handlerBase(
     portNum,
@@ -5539,7 +5539,7 @@ void QueuedCommandsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedCommandsComponentBase* compPtr = static_cast<QueuedCommandsComponentBase*>(callComp);
   compPtr->typedSync_handlerBase(
     portNum,

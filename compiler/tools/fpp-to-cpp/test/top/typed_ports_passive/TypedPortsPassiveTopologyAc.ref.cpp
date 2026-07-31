@@ -382,7 +382,7 @@ namespace TypedPortsPassive {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
   }
@@ -411,7 +411,7 @@ namespace TypedPortsPassive {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -441,7 +441,7 @@ namespace TypedPortsPassive {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -471,7 +471,7 @@ namespace TypedPortsPassive {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -501,7 +501,7 @@ namespace TypedPortsPassive {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -531,7 +531,7 @@ namespace TypedPortsPassive {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -561,7 +561,7 @@ namespace TypedPortsPassive {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -591,7 +591,7 @@ namespace TypedPortsPassive {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
