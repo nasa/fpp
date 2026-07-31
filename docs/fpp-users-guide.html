@@ -680,7 +680,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Topologies_Importing-Topologies_Importing-Instances-and-Connections">14.4.1. Importing Instances and Connections</a></li>
 <li><a href="#Defining-Topologies_Importing-Topologies_Multiple-Imports">14.4.2. Multiple Imports</a></li>
 <li><a href="#Defining-Topologies_Importing-Topologies_Transitive-Imports">14.4.3. Transitive Imports</a></li>
-<li><a href="#Defining-Topologies_Importing-Topologies_Using-an-Imported-Topology-in-a-Deployment">14.4.4. Using an Imported Topology in a Deployment</a></li>
+<li><a href="#Defining-Topologies_Importing-Topologies_Using-an-Imported-Topology-as-a-Deployment">14.4.4. Using an Imported Topology as a Deployment</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Topologies_Topology-Ports">14.5. Topology Ports</a>
@@ -11014,7 +11014,7 @@ We put these instances into a topology called <code>Simple</code>.</p>
 </div>
 <div class="paragraph">
 <p>Next we define a <strong>deployment topology</strong>.
-This is the the top-level topology of an F Prime deployment.
+This is the topology associated with an F Prime deployment.
 To do this, we write the keywords <code>deployment topology</code>.
 Then we write the name of the topology and
 the members of the topology
@@ -12016,13 +12016,13 @@ topology definition <code>A</code> is for import, and not for code generation.</
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">deployment topology A {
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
 
   ...
 
 }
 
-topology B {
+deployment topology B {
 
   import A
 
@@ -12032,8 +12032,22 @@ topology B {
 </div>
 </div>
 <div class="paragraph">
-<p>You may add instances and connections as usual to <code>B</code>, as shown
-by the dots.</p>
+<p>In this example we have done the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Define a topology <code>A</code> that is for import only and
+is not used in a deployment.</p>
+</li>
+<li>
+<p>Define a topology <code>B</code> that imports <code>A</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You may add instances and connections as usual to both
+<code>A</code> and <code>B</code>, as shown by the dots.</p>
 </div>
 <div class="paragraph">
 <p>When you do this, the FPP translator does the following:</p>
@@ -12184,7 +12198,7 @@ and <code>C</code> imports <code>A</code>, you will get an error.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Importing-Topologies_Using-an-Imported-Topology-in-a-Deployment">14.4.4. Using an Imported Topology in a Deployment</h4>
+<h4 id="Defining-Topologies_Importing-Topologies_Using-an-Imported-Topology-as-a-Deployment">14.4.4. Using an Imported Topology as a Deployment</h4>
 <div class="paragraph">
 <p>Sometimes it is useful to import a topology <code>B</code> into a
 topology <code>A</code> and also to use <code>B</code> as a deployment topology.
@@ -12196,14 +12210,14 @@ In this case you can do the following:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Define <code>System</code> as a deployment topology.</p>
+<p>Define a non-deployment topology <code>Subsystem</code></p>
 </li>
 <li>
-<p>Define <code>Subsystem</code> as a non-deployment topology and import <code>System</code>
-into <code>System</code>, as described in the previous sections.</p>
+<p>Define a deployment topology <code>System</code> that imports <code>Subsystem</code>
+and contains other instances and connections.</p>
 </li>
 <li>
-<p>Define a deployment topology <code>SubsystemDeployment</code> that imports
+<p>Define a deployment topology <code>SubsystemDeployment</code> that just imports
 <code>Subsystem</code>.</p>
 </li>
 </ol>
@@ -12213,11 +12227,18 @@ into <code>System</code>, as described in the previous sections.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">topology Subsystem { }
+<pre class="prettyprint highlight"><code data-lang="fpp">topology Subsystem {
+  # Subsystem instances and connections
+}
 
-deployment topology System { import Subsystem }
+deployment topology System {
+  import Subsystem
+  # System instances and connections
+}
 
-deployment topology SubsystemDeployment { import Subsystem }</code></pre>
+deployment topology SubsystemDeployment {
+  import Subsystem
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -17193,7 +17214,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-31 16:20:45 -0700
+Last updated 2026-07-31 16:37:10 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

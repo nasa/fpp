@@ -64,7 +64,7 @@ We define two  <<Defining-Component-Instances,instances>> of
 We put these instances into a topology called `Simple`.
 
 Next we define a *deployment topology*.
-This is the the top-level topology of an F Prime deployment.
+This is the topology associated with an F Prime deployment.
 To do this, we write the keywords `deployment topology`.
 Then we write the name of the topology and
 the members of the topology
@@ -910,13 +910,13 @@ For example:
 
 [source,fpp]
 --------
-deployment topology A {
+topology A {
 
   ...
 
 }
 
-topology B {
+deployment topology B {
   
   import A
 
@@ -925,8 +925,15 @@ topology B {
 }
 --------
 
-You may add instances and connections as usual to `B`, as shown
-by the dots.
+In this example we have done the following:
+
+. Define a topology `A` that is for import only and
+is not used in a deployment.
+
+. Define a topology `B` that imports `A`.
+
+You may add instances and connections as usual to both
+`A` and `B`, as shown by the dots.
 
 When you do this, the FPP translator does the following:
 
@@ -1056,7 +1063,7 @@ Cycles in the import graph are not allowed.
 For example, if `A` imports `B` and `B` imports `C`
 and `C` imports `A`, you will get an error.
 
-==== Using an Imported Topology in a Deployment
+==== Using an Imported Topology as a Deployment
 
 Sometimes it is useful to import a topology `B` into a
 topology `A` and also to use `B` as a deployment topology.
@@ -1065,23 +1072,30 @@ a subsystem topology `Subsystem`, and it may be useful to create
 a subsystem deployment for testing the subsystem.
 In this case you can do the following:
 
-. Define `System` as a deployment topology.
+. Define a non-deployment topology `Subsystem`
 
-. Define `Subsystem` as a non-deployment topology and import `System`
-into `System`, as described in the previous sections.
+. Define a deployment topology `System` that imports `Subsystem`
+and contains other instances and connections.
 
-. Define a deployment topology `SubsystemDeployment` that imports
+. Define a deployment topology `SubsystemDeployment` that just imports
 `Subsystem`.
 
 For example:
 
 [source,fpp]
 ----
-topology Subsystem { }
+topology Subsystem {
+  # Subsystem instances and connections
+}
 
-deployment topology System { import Subsystem }
+deployment topology System {
+  import Subsystem
+  # System instances and connections
+}
 
-deployment topology SubsystemDeployment { import Subsystem }
+deployment topology SubsystemDeployment {
+  import Subsystem 
+}
 ----
 
 Now you can use `Subsystem` as an imported subsystem and `SubsystemDeployment`
