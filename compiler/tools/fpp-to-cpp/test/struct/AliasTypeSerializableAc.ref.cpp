@@ -23,13 +23,20 @@ AliasType ::
     // Set the array value
     this->m_z[i] = Fw::String("");
   }
+  for (FwSizeType i = 0; i < 10; i++) {
+    // Initialize the external string
+    this->m_z0[i].setBuffer(&m___fprime_ac_z0_buffer[i][0], sizeof m___fprime_ac_z0_buffer[i]);
+    // Set the array value
+    this->m_z0[i] = Fw::String("");
+  }
 }
 
 AliasType ::
   AliasType(
       U16Alias x,
       const TAlias& y,
-      const Type_of_z& z
+      const Type_of_z& z,
+      const Type_of_z0& z0
   ) :
     Serializable(),
     m_x(x),
@@ -40,6 +47,12 @@ AliasType ::
     this->m_z[i].setBuffer(&m___fprime_ac_z_buffer[i][0], sizeof m___fprime_ac_z_buffer[i]);
     // Set the array value
     this->m_z[i] = z[i];
+  }
+  for (FwSizeType i = 0; i < 10; i++) {
+    // Initialize the external string
+    this->m_z0[i].setBuffer(&m___fprime_ac_z0_buffer[i][0], sizeof m___fprime_ac_z0_buffer[i]);
+    // Set the array value
+    this->m_z0[i] = z0[i];
   }
 }
 
@@ -55,13 +68,20 @@ AliasType ::
     // Set the array value
     this->m_z[i] = obj.m_z[i];
   }
+  for (FwSizeType i = 0; i < 10; i++) {
+    // Initialize the external string
+    this->m_z0[i].setBuffer(&m___fprime_ac_z0_buffer[i][0], sizeof m___fprime_ac_z0_buffer[i]);
+    // Set the array value
+    this->m_z0[i] = obj.m_z0[i];
+  }
 }
 
 AliasType ::
   AliasType(
       U16Alias x,
       const TAlias& y,
-      const Fw::StringBase& z
+      const Fw::StringBase& z,
+      const Fw::StringBase& z0
   ) :
     Serializable(),
     m_x(x),
@@ -72,6 +92,12 @@ AliasType ::
     this->m_z[i].setBuffer(&m___fprime_ac_z_buffer[i][0], sizeof m___fprime_ac_z_buffer[i]);
     // Set the array value
     this->m_z[i] = z;
+  }
+  for (FwSizeType i = 0; i < 10; i++) {
+    // Initialize the external string
+    this->m_z0[i].setBuffer(&m___fprime_ac_z0_buffer[i][0], sizeof m___fprime_ac_z0_buffer[i]);
+    // Set the array value
+    this->m_z0[i] = z0;
   }
 }
 
@@ -86,7 +112,7 @@ AliasType& AliasType ::
     return *this;
   }
 
-  set(obj.m_x, obj.m_y, obj.m_z);
+  set(obj.m_x, obj.m_y, obj.m_z, obj.m_z0);
   return *this;
 }
 
@@ -106,6 +132,11 @@ bool AliasType ::
   // Compare array members
   for (FwSizeType i = 0; i < 10; i++) {
     if (!(this->m_z[i] == obj.m_z[i])) {
+      return false;
+    }
+  }
+  for (FwSizeType i = 0; i < 10; i++) {
+    if (!(this->m_z0[i] == obj.m_z0[i])) {
       return false;
     }
   }
@@ -156,6 +187,12 @@ Fw::SerializeStatus AliasType ::
       return status;
     }
   }
+  for (FwSizeType i = 0; i < 10; i++) {
+    status = buffer.serializeFrom(this->m_z0[i], mode);
+    if (status != Fw::FW_SERIALIZE_OK) {
+      return status;
+    }
+  }
 
   return status;
 }
@@ -182,6 +219,12 @@ Fw::SerializeStatus AliasType ::
       return status;
     }
   }
+  for (FwSizeType i = 0; i < 10; i++) {
+    status = buffer.deserializeTo(this->m_z0[i], mode);
+    if (status != Fw::FW_SERIALIZE_OK) {
+      return status;
+    }
+  }
 
   return status;
 }
@@ -194,6 +237,9 @@ FwSizeType AliasType ::
   size += TAlias::SERIALIZED_SIZE;
   for (U32 index = 0; index < 10; index++) {
     size += this->m_z[index].serializedSize();
+  }
+  for (U32 index = 0; index < 10; index++) {
+    size += this->m_z0[index].serializedSize();
   }
   return size;
 }
@@ -229,6 +275,19 @@ void AliasType ::
     sb += tmp;
   }
   sb += " ]";
+  sb += ", ";
+
+  // Format z0
+  sb += "z0 = ";
+  sb += "[ ";
+  for (FwSizeType i = 0; i < 10; i++) {
+    tmp = this->m_z0[i];
+    if (i > 0) {
+      sb += ", ";
+    }
+    sb += tmp;
+  }
+  sb += " ]";
   sb += " )";
 }
 
@@ -242,7 +301,8 @@ void AliasType ::
   set(
       U16Alias x,
       const TAlias& y,
-      const Type_of_z& z
+      const Type_of_z& z,
+      const Type_of_z0& z0
   )
 {
   this->m_x = x;
@@ -253,6 +313,12 @@ void AliasType ::
     this->m_z[i].setBuffer(&m___fprime_ac_z_buffer[i][0], sizeof m___fprime_ac_z_buffer[i]);
     // Set the array value
     this->m_z[i] = z[i];
+  }
+  for (FwSizeType i = 0; i < 10; i++) {
+    // Initialize the external string
+    this->m_z0[i].setBuffer(&m___fprime_ac_z0_buffer[i][0], sizeof m___fprime_ac_z0_buffer[i]);
+    // Set the array value
+    this->m_z0[i] = z0[i];
   }
 }
 
@@ -273,5 +339,13 @@ void AliasType ::
 {
   for (FwSizeType i = 0; i < 10; i++) {
     this->m_z[i] = z[i];
+  }
+}
+
+void AliasType ::
+  set_z0(const Type_of_z0& z0)
+{
+  for (FwSizeType i = 0; i < 10; i++) {
+    this->m_z0[i] = z0[i];
   }
 }

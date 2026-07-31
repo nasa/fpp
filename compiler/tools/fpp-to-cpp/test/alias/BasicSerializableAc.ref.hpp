@@ -14,6 +14,7 @@
 #include "TF32AliasAc.hpp"
 #include "TStringAliasAc.hpp"
 #include "TStringSizeAliasAc.hpp"
+#include "TStringSizeZeroAliasAc.hpp"
 #include "TU32AliasAc.hpp"
 
 class Basic :
@@ -32,7 +33,8 @@ class Basic :
         sizeof(TU32) +
         sizeof(TF32) +
         Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(2)
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(2) +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(0)
     };
 
   public:
@@ -49,7 +51,8 @@ class Basic :
         TU32 A,
         TF32 B,
         const Fw::StringBase& C,
-        const Fw::StringBase& D
+        const Fw::StringBase& D,
+        const Fw::StringBase& E
     );
 
     //! Copy constructor
@@ -158,6 +161,18 @@ class Basic :
       return this->m_D;
     }
 
+    //! Get member E
+    Fw::ExternalString& get_E()
+    {
+      return this->m_E;
+    }
+
+    //! Get member E (const)
+    const Fw::ExternalString& get_E() const
+    {
+      return this->m_E;
+    }
+
     // ----------------------------------------------------------------------
     // Setter functions
     // ----------------------------------------------------------------------
@@ -167,7 +182,8 @@ class Basic :
         TU32 A,
         TF32 B,
         const Fw::StringBase& C,
-        const Fw::StringBase& D
+        const Fw::StringBase& D,
+        const Fw::StringBase& E
     );
 
     //! Set member A
@@ -182,6 +198,9 @@ class Basic :
     //! Set member D
     void set_D(const Fw::StringBase& D);
 
+    //! Set member E
+    void set_E(const Fw::StringBase& E);
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -194,6 +213,8 @@ class Basic :
     Fw::ExternalString m_C;
     char m___fprime_ac_D_buffer[Fw::StringBase::BUFFER_SIZE(2)];
     Fw::ExternalString m_D;
+    char m___fprime_ac_E_buffer[Fw::StringBase::BUFFER_SIZE(0)];
+    Fw::ExternalString m_E;
 
 };
 

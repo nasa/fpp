@@ -22,12 +22,19 @@ StringArray ::
     // Set the array value
     this->m_s2[i] = Fw::String("");
   }
+  for (FwSizeType i = 0; i < 16; i++) {
+    // Initialize the external string
+    this->m_s0[i].setBuffer(&m___fprime_ac_s0_buffer[i][0], sizeof m___fprime_ac_s0_buffer[i]);
+    // Set the array value
+    this->m_s0[i] = Fw::String("");
+  }
 }
 
 StringArray ::
   StringArray(
       const Fw::StringBase& s1,
-      const Type_of_s2& s2
+      const Type_of_s2& s2,
+      const Type_of_s0& s0
   ) :
     Serializable(),
     m_s1(m___fprime_ac_s1_buffer, sizeof m___fprime_ac_s1_buffer, s1)
@@ -37,6 +44,12 @@ StringArray ::
     this->m_s2[i].setBuffer(&m___fprime_ac_s2_buffer[i][0], sizeof m___fprime_ac_s2_buffer[i]);
     // Set the array value
     this->m_s2[i] = s2[i];
+  }
+  for (FwSizeType i = 0; i < 16; i++) {
+    // Initialize the external string
+    this->m_s0[i].setBuffer(&m___fprime_ac_s0_buffer[i][0], sizeof m___fprime_ac_s0_buffer[i]);
+    // Set the array value
+    this->m_s0[i] = s0[i];
   }
 }
 
@@ -51,12 +64,19 @@ StringArray ::
     // Set the array value
     this->m_s2[i] = obj.m_s2[i];
   }
+  for (FwSizeType i = 0; i < 16; i++) {
+    // Initialize the external string
+    this->m_s0[i].setBuffer(&m___fprime_ac_s0_buffer[i][0], sizeof m___fprime_ac_s0_buffer[i]);
+    // Set the array value
+    this->m_s0[i] = obj.m_s0[i];
+  }
 }
 
 StringArray ::
   StringArray(
       const Fw::StringBase& s1,
-      const Fw::StringBase& s2
+      const Fw::StringBase& s2,
+      const Fw::StringBase& s0
   ) :
     Serializable(),
     m_s1(m___fprime_ac_s1_buffer, sizeof m___fprime_ac_s1_buffer, s1)
@@ -66,6 +86,12 @@ StringArray ::
     this->m_s2[i].setBuffer(&m___fprime_ac_s2_buffer[i][0], sizeof m___fprime_ac_s2_buffer[i]);
     // Set the array value
     this->m_s2[i] = s2;
+  }
+  for (FwSizeType i = 0; i < 16; i++) {
+    // Initialize the external string
+    this->m_s0[i].setBuffer(&m___fprime_ac_s0_buffer[i][0], sizeof m___fprime_ac_s0_buffer[i]);
+    // Set the array value
+    this->m_s0[i] = s0;
   }
 }
 
@@ -80,7 +106,7 @@ StringArray& StringArray ::
     return *this;
   }
 
-  set(obj.m_s1, obj.m_s2);
+  set(obj.m_s1, obj.m_s2, obj.m_s0);
   return *this;
 }
 
@@ -97,6 +123,11 @@ bool StringArray ::
   // Compare array members
   for (FwSizeType i = 0; i < 16; i++) {
     if (!(this->m_s2[i] == obj.m_s2[i])) {
+      return false;
+    }
+  }
+  for (FwSizeType i = 0; i < 16; i++) {
+    if (!(this->m_s0[i] == obj.m_s0[i])) {
       return false;
     }
   }
@@ -143,6 +174,12 @@ Fw::SerializeStatus StringArray ::
       return status;
     }
   }
+  for (FwSizeType i = 0; i < 16; i++) {
+    status = buffer.serializeFrom(this->m_s0[i], mode);
+    if (status != Fw::FW_SERIALIZE_OK) {
+      return status;
+    }
+  }
 
   return status;
 }
@@ -165,6 +202,12 @@ Fw::SerializeStatus StringArray ::
       return status;
     }
   }
+  for (FwSizeType i = 0; i < 16; i++) {
+    status = buffer.deserializeTo(this->m_s0[i], mode);
+    if (status != Fw::FW_SERIALIZE_OK) {
+      return status;
+    }
+  }
 
   return status;
 }
@@ -176,6 +219,9 @@ FwSizeType StringArray ::
   size += this->m_s1.serializedSize();
   for (U32 index = 0; index < 16; index++) {
     size += this->m_s2[index].serializedSize();
+  }
+  for (U32 index = 0; index < 16; index++) {
+    size += this->m_s0[index].serializedSize();
   }
   return size;
 }
@@ -204,6 +250,19 @@ void StringArray ::
     sb += tmp;
   }
   sb += " ]";
+  sb += ", ";
+
+  // Format s0
+  sb += "s0 = ";
+  sb += "[ ";
+  for (FwSizeType i = 0; i < 16; i++) {
+    tmp = this->m_s0[i];
+    if (i > 0) {
+      sb += ", ";
+    }
+    sb += tmp;
+  }
+  sb += " ]";
   sb += " )";
 }
 
@@ -216,7 +275,8 @@ void StringArray ::
 void StringArray ::
   set(
       const Fw::StringBase& s1,
-      const Type_of_s2& s2
+      const Type_of_s2& s2,
+      const Type_of_s0& s0
   )
 {
   this->m_s1 = s1;
@@ -226,6 +286,12 @@ void StringArray ::
     this->m_s2[i].setBuffer(&m___fprime_ac_s2_buffer[i][0], sizeof m___fprime_ac_s2_buffer[i]);
     // Set the array value
     this->m_s2[i] = s2[i];
+  }
+  for (FwSizeType i = 0; i < 16; i++) {
+    // Initialize the external string
+    this->m_s0[i].setBuffer(&m___fprime_ac_s0_buffer[i][0], sizeof m___fprime_ac_s0_buffer[i]);
+    // Set the array value
+    this->m_s0[i] = s0[i];
   }
 }
 
@@ -240,5 +306,13 @@ void StringArray ::
 {
   for (FwSizeType i = 0; i < 16; i++) {
     this->m_s2[i] = s2[i];
+  }
+}
+
+void StringArray ::
+  set_s0(const Type_of_s0& s0)
+{
+  for (FwSizeType i = 0; i < 16; i++) {
+    this->m_s0[i] = s0[i];
   }
 }

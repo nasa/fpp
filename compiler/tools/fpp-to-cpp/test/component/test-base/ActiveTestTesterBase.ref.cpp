@@ -56,7 +56,7 @@ namespace M {
         break;
       default:
         // Unknown ID; should not have gotten here
-        FW_ASSERT(0, static_cast<FwAssertArgType>(localId));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(localId));
     }
 
     return stat;
@@ -101,7 +101,7 @@ namespace M {
         break;
       default:
         // Unknown ID; should not have gotten here
-        FW_ASSERT(0, static_cast<FwAssertArgType>(localId));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(localId));
     }
 
     return stat;
@@ -3483,7 +3483,7 @@ namespace M {
       }
 
       default: {
-        FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(id));
         break;
       }
     }
@@ -3764,7 +3764,7 @@ namespace M {
       }
 
       default: {
-        FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(id));
         break;
       }
     }
@@ -5151,7 +5151,7 @@ namespace M {
       };
 
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(id));
         break;
     }
 
@@ -5346,7 +5346,7 @@ namespace M {
       };
 
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(id));
         break;
     }
   }
