@@ -17,7 +17,7 @@ class TemplatesSpec extends AnyWordSpec {
 
     "simple" should {
         expandUniqueString("""
-        template T(constant c: string) {
+        module template T(constant c: string) {
             constant f = c
         }
 
