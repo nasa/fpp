@@ -1,5 +1,6 @@
 struct Default {
   mU32: U32
   mS1: string size 40
+  mS0: string size 0
   mF64: F64 
 } default { mU32 = 54, mS1 = "hello" }

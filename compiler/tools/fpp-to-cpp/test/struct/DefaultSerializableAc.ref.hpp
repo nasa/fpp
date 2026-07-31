@@ -28,6 +28,7 @@ class Default :
       SERIALIZED_SIZE =
         sizeof(U32) +
         Fw::StringBase::STATIC_SERIALIZED_SIZE(40) +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(0) +
         sizeof(F64)
     };
 
@@ -44,6 +45,7 @@ class Default :
     Default(
         U32 mU32,
         const Fw::StringBase& mS1,
+        const Fw::StringBase& mS0,
         F64 mF64
     );
 
@@ -135,6 +137,18 @@ class Default :
       return this->m_mS1;
     }
 
+    //! Get member mS0
+    Fw::ExternalString& get_mS0()
+    {
+      return this->m_mS0;
+    }
+
+    //! Get member mS0 (const)
+    const Fw::ExternalString& get_mS0() const
+    {
+      return this->m_mS0;
+    }
+
     //! Get member mF64
     F64 get_mF64() const
     {
@@ -149,6 +163,7 @@ class Default :
     void set(
         U32 mU32,
         const Fw::StringBase& mS1,
+        const Fw::StringBase& mS0,
         F64 mF64
     );
 
@@ -157,6 +172,9 @@ class Default :
 
     //! Set member mS1
     void set_mS1(const Fw::StringBase& mS1);
+
+    //! Set member mS0
+    void set_mS0(const Fw::StringBase& mS0);
 
     //! Set member mF64
     void set_mF64(F64 mF64);
@@ -170,6 +188,8 @@ class Default :
     U32 m_mU32;
     char m___fprime_ac_mS1_buffer[Fw::StringBase::BUFFER_SIZE(40)];
     Fw::ExternalString m_mS1;
+    char m___fprime_ac_mS0_buffer[Fw::StringBase::BUFFER_SIZE(0)];
+    Fw::ExternalString m_mS0;
     F64 m_mF64;
 
 };

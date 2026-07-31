@@ -15,7 +15,8 @@ String ::
   String() :
     Serializable(),
     m_s1(m___fprime_ac_s1_buffer, sizeof m___fprime_ac_s1_buffer, Fw::String("hello")),
-    m_s2(m___fprime_ac_s2_buffer, sizeof m___fprime_ac_s2_buffer, Fw::String(""))
+    m_s2(m___fprime_ac_s2_buffer, sizeof m___fprime_ac_s2_buffer, Fw::String("")),
+    m_s0(m___fprime_ac_s0_buffer, sizeof m___fprime_ac_s0_buffer, Fw::String(""))
 {
 
 }
@@ -23,11 +24,13 @@ String ::
 String ::
   String(
       const Fw::StringBase& s1,
-      const Fw::StringBase& s2
+      const Fw::StringBase& s2,
+      const Fw::StringBase& s0
   ) :
     Serializable(),
     m_s1(m___fprime_ac_s1_buffer, sizeof m___fprime_ac_s1_buffer, s1),
-    m_s2(m___fprime_ac_s2_buffer, sizeof m___fprime_ac_s2_buffer, s2)
+    m_s2(m___fprime_ac_s2_buffer, sizeof m___fprime_ac_s2_buffer, s2),
+    m_s0(m___fprime_ac_s0_buffer, sizeof m___fprime_ac_s0_buffer, s0)
 {
 
 }
@@ -36,7 +39,8 @@ String ::
   String(const String& obj) :
     Serializable(),
     m_s1(m___fprime_ac_s1_buffer, sizeof m___fprime_ac_s1_buffer, obj.m_s1),
-    m_s2(m___fprime_ac_s2_buffer, sizeof m___fprime_ac_s2_buffer, obj.m_s2)
+    m_s2(m___fprime_ac_s2_buffer, sizeof m___fprime_ac_s2_buffer, obj.m_s2),
+    m_s0(m___fprime_ac_s0_buffer, sizeof m___fprime_ac_s0_buffer, obj.m_s0)
 {
 
 }
@@ -52,7 +56,7 @@ String& String ::
     return *this;
   }
 
-  set(obj.m_s1, obj.m_s2);
+  set(obj.m_s1, obj.m_s2, obj.m_s0);
   return *this;
 }
 
@@ -62,7 +66,8 @@ bool String ::
   if (this == &obj) { return true; }
   return (
     (this->m_s1 == obj.m_s1) &&
-    (this->m_s2 == obj.m_s2)
+    (this->m_s2 == obj.m_s2) &&
+    (this->m_s0 == obj.m_s0)
   );
 }
 
@@ -103,6 +108,10 @@ Fw::SerializeStatus String ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
+  status = buffer.serializeFrom(this->m_s0, mode);
+  if (status != Fw::FW_SERIALIZE_OK) {
+    return status;
+  }
 
   return status;
 }
@@ -123,6 +132,10 @@ Fw::SerializeStatus String ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
+  status = buffer.deserializeTo(this->m_s0, mode);
+  if (status != Fw::FW_SERIALIZE_OK) {
+    return status;
+  }
 
   return status;
 }
@@ -133,6 +146,7 @@ FwSizeType String ::
   FwSizeType size = 0;
   size += this->m_s1.serializedSize();
   size += this->m_s2.serializedSize();
+  size += this->m_s0.serializedSize();
   return size;
 }
 
@@ -151,6 +165,11 @@ void String ::
   // Format s2
   sb += "s2 = ";
   sb += this->m_s2;
+  sb += ", ";
+
+  // Format s0
+  sb += "s0 = ";
+  sb += this->m_s0;
   sb += " )";
 }
 
@@ -163,11 +182,13 @@ void String ::
 void String ::
   set(
       const Fw::StringBase& s1,
-      const Fw::StringBase& s2
+      const Fw::StringBase& s2,
+      const Fw::StringBase& s0
   )
 {
   this->m_s1 = s1;
   this->m_s2 = s2;
+  this->m_s0 = s0;
 }
 
 void String ::
@@ -180,4 +201,10 @@ void String ::
   set_s2(const Fw::StringBase& s2)
 {
   this->m_s2 = s2;
+}
+
+void String ::
+  set_s0(const Fw::StringBase& s0)
+{
+  this->m_s0 = s0;
 }
