@@ -1,5 +1,6 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/template/undef_constant_param_type.fpp:1.24
-template T(constant c: S) {}
-                       ^
-error: undefined symbol S
+[ local path prefix ]/compiler/tools/fpp-check/test/template/undef_constant_param_type.fpp:1.31
+module template T(constant c: S) {}
+                              ^
+error: symbol S is not defined
+note: looking for a type here

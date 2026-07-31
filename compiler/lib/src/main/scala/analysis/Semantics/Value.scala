@@ -55,10 +55,14 @@ sealed trait Value {
     def promoteToAnonArray(anonArray: Type.AnonArray): Option[Value.AnonArray] = {
       if (this.getType.isPromotableToArray)
         for {
-          size <- anonArray.size
           elt <- this.convertToType(anonArray.eltType)
         }
-        yield Value.AnonArray(List.fill(size)(elt))
+        yield {
+          anonArray.size match {
+            case Some(size) => Value.AnonArray(List.fill(size)(elt), None)
+            case None => Value.AnonArray(Nil, Some(elt))
+          }
+        }
       else None
     }
     def promoteToArray(array: Type.Array): Option[Value.Array] =
@@ -287,7 +291,7 @@ object Value {
   }
 
   /** Anonymous array values */
-  case class AnonArray(elements: List[Value]) extends Value {
+  case class AnonArray(elements: List[Value], scalar: Option[Value] = None) extends Value {
 
     def convertToAnonArray(anonArrayType: Type.AnonArray): Option[Value.AnonArray] = {
       def convertElements(in: List[Value], t: Type, out: List[Value]): Option[List[Value]] =

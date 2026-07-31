@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_valid_port_instance_union.fpp:56.28
+            b.aOut[idx] -> a1.aIn2[idx]
+                           ^
+  expanded at [ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_valid_port_instance_union.fpp:63.5
+error: instance a1 is not a member of topology P

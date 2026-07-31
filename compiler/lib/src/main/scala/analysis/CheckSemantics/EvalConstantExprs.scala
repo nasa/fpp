@@ -116,6 +116,7 @@ object EvalConstantExprs extends UseAnalyzer {
       yield {
         val eltType = a.typeMap(node.id) match {
           case Type.AnonArray(_, eltType) => eltType
+          case Type.Array(_, Type.AnonArray(_, eltType), _, _) => eltType
           case _ => throw InternalError("element type of array expression should be AnonArray")
         }
         def f(node: AstNode[Ast.Expr]) = {
@@ -134,8 +135,8 @@ object EvalConstantExprs extends UseAnalyzer {
 
       elements <- {
         a.valueMap(e.e1.id) match {
-          case Value.AnonArray(elements) => Right(elements)
-          case Value.Array(Value.AnonArray(elements), _) => Right(elements)
+          case Value.AnonArray(elements, None) => Right(elements)
+          case Value.Array(Value.AnonArray(elements, None), _) => Right(elements)
           case _ => throw InternalError("expected array value")
         }
       }
