@@ -1,6 +1,20 @@
-template T(constant p: U32) {
-    constant i1 = p + 2
-    constant i2 = i1 + 3
+module template Tmpl(
+    @ Constant template parameter
+    constant c: SomeType @< Constant parameter
+
+    @ Type template parameter
+    type TypeParam @< Type parameter
+
+    @ Interface instance template parameter
+    interface inst: InterfaceDef @< Instance parameter
+) {
+    array Arr = [3] TypeParam
+
+    topology Top {
+        instance inst
+    }
 }
 
-expand T(10)
+@ Expansion specifier
+expand Tmpl(constant 10, type Type, interface instance1)
+@< Expansion specifier
