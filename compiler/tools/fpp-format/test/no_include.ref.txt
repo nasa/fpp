@@ -86,15 +86,15 @@ module DefinitionsAndSpecifiers {
       assert @< Async product receive port
 
     @ Internal Component State machine definition
-    state machine S @< State machine definition
+    state machine SM @< State machine definition
 
     @ State machine instance 1
-    state machine instance s1: S \
+    state machine instance s1: SM \
       priority 10 \
       drop @< State machine instance 1
 
     @ State machine instance 2
-    state machine instance s2: S @< State machine instance 2
+    state machine instance s2: SM @< State machine instance 2
 
     @ State machine for outside definition
     state machine instance so: SO @< State machine for outside definition
@@ -275,30 +275,6 @@ module DefinitionsAndSpecifiers {
 
   @ Location specifier
   locate instance i at "instances.fpp" @< Location specifier
-
-  module template Tmpl(
-                        @ Constant template parameter
-                        constant c: SomeType @< Constant parameter
-                        @ Type template parameter
-                        type TypeParam @< Type parameter
-                        @ Interface instance template parameter
-                        interface inst: InterfaceDef @< Instance parameter
-                      ) {
-    array Arr = [3] TypeParam
-
-    topology Top {
-
-      instance inst
-
-    }
-
-  }
-
-  expand Tmpl(
-               constant 10
-               type Type
-               interface instance1
-             )
 
 } @< Definitions and specifiers
 
