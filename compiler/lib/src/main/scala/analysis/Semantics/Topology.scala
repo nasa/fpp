@@ -176,7 +176,6 @@ case class Topology(
     loc: Location
   ): Topology = {
     // Use the previous location, if it exists
-    // Take the union of the previous imported port interface
     val o = instanceMap.get(instance) match {
       case None => loc
       case Some(otherLoc) => otherLoc

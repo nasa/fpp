@@ -1,6 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_invalid_port_instance_union.fpp:59.30
-            b.aOut[idx] -> i.aIn2[idx]
-                             ^
-  expanded at [ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_invalid_port_instance_union.fpp:69.5
-error: aIn2 is not a port instance of interface A_I1

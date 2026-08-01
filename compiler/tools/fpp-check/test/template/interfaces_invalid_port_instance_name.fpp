@@ -31,18 +31,10 @@ instance a1: A1 base id 10 queue size 10 stack size 1024
 instance b: B base id 100 queue size 10 stack size 1024
 
 module template T(interface i: A_I1, constant idx: U32) {
-    module template Inner(interface innerInstance: A_I2) {
-        topology InnerTop {
-            instance innerInstance
-        }
-    }
+    constant a = 0
+    constant b = a + 1
 
-    expand Inner(interface a1)
-
-    topology P {
-        # Import `a1` using the `A_I2` interface
-        instance InnerTop
-
+    topology Top {
         # Import `a1` using the `A_I1` interface
         instance i
 
@@ -53,7 +45,10 @@ module template T(interface i: A_I1, constant idx: U32) {
             i.bOut[idx] -> b.bIn[idx]
 
             # Connect to a port inside `A_I2`
-            b.aOut[idx] -> a1.aIn2[idx]
+            b.aOut[idx] -> i.aIn2[idx]
+
+            # Connect to a port outside of `A_I1 | A_I2`
+            b.aOut[idx + 1] -> i.aIn3[idx]
         }
     }
 }
@@ -61,8 +56,4 @@ module template T(interface i: A_I1, constant idx: U32) {
 # Instantiate two topologies that point to separate connections of b
 module M1 {
     expand T(interface a1, constant 0)
-}
-
-topology Top {
-    instance M1.P
 }

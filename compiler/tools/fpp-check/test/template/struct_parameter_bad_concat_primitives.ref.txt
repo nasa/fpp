@@ -1,2 +1,0 @@
-fpp-check
-error: cannot open file [ local path prefix ]/compiler/tools/fpp-check/test/template/struct_parameter_bad_concat_primitives.fpp

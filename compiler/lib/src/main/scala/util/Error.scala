@@ -284,6 +284,13 @@ sealed trait Error {
         Error.print (Some(expandLoc)) (s"invalid template parameter value for $paramName: $msg")
         System.err.println("template defined here:")
         System.err.println(defLoc)
+      case SemanticError.NestedTemplateDefinition(
+        nestedLoc: Location,
+        parentLoc: Location
+      ) =>
+        Error.print (Some(nestedLoc)) ("module template definitions cannot be nested")
+        System.err.println("parent template defined here:")
+        System.err.println(parentLoc)
       case SemanticError.MissingAsync(kind, loc) =>
         Error.print (Some(loc)) (s"$kind component must have async input")
       case SemanticError.MissingConnection(loc, matchingLoc) =>
@@ -753,6 +760,11 @@ object SemanticError {
     expandLoc: Location,
     defLoc: Location,
     msg: String,
+  ) extends Error
+  /** Nested template definition */
+  final case class NestedTemplateDefinition(
+    nestedLoc: Location,
+    parentLoc: Location,
   ) extends Error
   /** Missing async input */
   final case class MissingAsync(kind: String, loc: Location) extends Error

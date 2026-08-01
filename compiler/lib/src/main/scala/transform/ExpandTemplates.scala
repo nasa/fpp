@@ -1052,13 +1052,19 @@ object ExpandTemplates extends AstTransformer
       }
     }
 
-    val oldTemplateDef = a.templateDefinition
-
     for {
+      // Validate no nested template
+      _ <- a.templateDefinition match {
+        case Some(parent) => Left(SemanticError.NestedTemplateDefinition(
+          Locations.get(aNode._2.id),
+          Locations.get(parent)
+        ))
+        case None => Right(())
+      }
       a <- Right(a.copy(templateDefinition = Some(node.id)))
       params <- transformList(a, data.params, templateParam)
       members <- transformList(a, data.members, matchModuleMember)
-      a <- Right(a.copy(templateDefinition = oldTemplateDef))
+      a <- Right(a.copy(templateDefinition = None))
     }
     yield {
       val (_, params1) = params
