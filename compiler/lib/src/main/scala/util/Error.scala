@@ -45,7 +45,6 @@ sealed trait Error {
       case CodeGenError.EmptyStruct(loc) =>
         Error.print (Some(loc)) (s"cannot write XML for an empty struct")
       case IncludeError.Cycle(loc, msg) => Error.print (Some(loc)) (msg)
-      case TemplateExpansionError.Cycle(loc, msg) => Error.print (Some(loc)) (msg)
       case FileError.CannotOpen(locOpt, name) =>
         Error.print (locOpt) (s"cannot open file $name")
       case FileError.CannotResolvePath(loc, name) =>
@@ -291,6 +290,13 @@ sealed trait Error {
         Error.print (Some(nestedLoc)) ("module template definitions cannot be nested")
         System.err.println("parent template defined here:")
         System.err.println(parentLoc)
+      case SemanticError.TemplateExpansionInTemplate(
+        expandLoc: Location,
+        templateLoc: Location
+      ) =>
+        Error.print (Some(expandLoc)) ("template expansion specifiers cannot appear inside a module template")
+        System.err.println("enclosing template defined here:")
+        System.err.println(templateLoc)
       case SemanticError.MissingAsync(kind, loc) =>
         Error.print (Some(loc)) (s"$kind component must have async input")
       case SemanticError.MissingConnection(loc, matchingLoc) =>
@@ -434,12 +440,6 @@ object CodeGenError {
 /** An include error */
 object IncludeError {
   /** Include cycle */
-  final case class Cycle(loc: Location, msg: String) extends Error
-}
-
-/** A template expansion error */
-object TemplateExpansionError {
-  /** A template expansion cycle */
   final case class Cycle(loc: Location, msg: String) extends Error
 }
 
@@ -765,6 +765,11 @@ object SemanticError {
   final case class NestedTemplateDefinition(
     nestedLoc: Location,
     parentLoc: Location,
+  ) extends Error
+  /** Template expansion specifier nested inside a template */
+  final case class TemplateExpansionInTemplate(
+    expandLoc: Location,
+    templateLoc: Location,
   ) extends Error
   /** Missing async input */
   final case class MissingAsync(kind: String, loc: Location) extends Error

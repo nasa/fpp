@@ -1,5 +1,6 @@
 tests="
 basic_constant
+composition_invalid
 constant_with_default
 duplicate_def
 interfaces
