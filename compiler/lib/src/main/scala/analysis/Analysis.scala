@@ -88,8 +88,6 @@ case class Analysis(
   tlmPacketSet: Option[TlmPacketSet] = None,
   /** The mapping from nodes to implied uses */
   impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map(),
-  /** Stack of templates currently being expanded for purposes of cycle detection */
-  templateStack: List[Symbol.Template] = List(),
   /** Node ID of the template expansion currently */
   template: Option[AstNode.Id] = None,
   /** Maps template expansion AST nodes to their */
