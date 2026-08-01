@@ -212,6 +212,10 @@ object ExpandTemplates extends AstTransformer
     for (ec <- matchExprNode(a, e.e))
     yield (ec._1, cloneNode(a, node, Ast.ExprUnop(e.op, ec._2)))
 
+  override def exprSizeOfNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprSizeOf): ResultNode[Ast.Expr] =
+    for (result <- matchTypeName(a, e.typeName))
+    yield (result._1, cloneNode(a, node, Ast.ExprSizeOf(result._2)))
+
   override def typeNameQualIdentNode(
     a: In,
     node: AstNode[Ast.TypeName],
