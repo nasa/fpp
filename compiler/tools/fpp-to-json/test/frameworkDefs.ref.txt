@@ -1490,1082 +1490,1298 @@
     "0" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "1.19",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "1" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "1.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "2" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "2.21",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "3" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "2.21",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "4" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "2.21",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "5" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "2.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "6" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "3.19",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "7" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "3.19",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "8" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "3.19",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "9" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "3.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "10" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "4.25",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "11" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "4.25",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "12" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "4.25",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "13" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "4.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "14" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "5.22",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "15" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "5.22",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "16" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "5.22",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "17" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "5.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "18" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "6.21",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "19" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "6.21",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "20" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "6.21",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "21" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "6.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "22" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "7.31",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "23" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "7.31",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "24" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "7.31",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "25" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "7.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "26" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "8.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "27" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "8.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "28" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "9.19",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "29" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "9.19",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "30" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "9.19",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "31" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "9.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "32" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "10.24",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "33" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "10.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "34" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "13.28",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "35" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "13.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "36" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "16.31",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "37" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "16.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "38" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "19.19",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "39" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "21.9",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "40" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "25.9",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "41" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "27.9",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "42" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "27.9",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "43" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "27.9",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "44" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "28.15",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "45" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "19.5",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "46" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "32.45",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "47" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "32.9",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "48" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "36.24",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "49" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "38.30",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "50" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "38.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "51" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "40.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "52" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "40.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "53" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "54" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "55" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "56" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "57" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "58" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "59" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "36.9",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "60" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "36.24",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "61" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "38.30",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "62" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "38.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "63" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "40.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "64" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "40.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "65" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "66" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "67" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "68" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "69" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "70" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "71" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "36.9",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "72" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "36.24",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "73" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "38.30",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "74" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "38.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "75" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "40.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "76" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "40.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "77" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "78" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "79" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "80" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "81" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "82" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "83" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "36.9",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "84" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "30.5",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "85" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "32.45",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "86" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "32.9",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "87" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "36.24",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "88" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "38.30",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "89" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "38.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "90" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "40.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "91" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "40.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "92" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "93" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "94" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "95" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "96" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "97" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "98" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "36.9",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "99" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "36.24",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "100" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "38.30",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "101" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "38.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "102" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "40.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "103" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "40.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "104" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "105" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "106" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "107" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "108" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "109" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "110" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "36.9",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "111" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "36.24",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "112" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "38.30",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "113" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "38.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "114" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "40.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "115" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "40.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "116" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "117" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "118" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "119" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "120" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "121" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "122" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "36.9",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "123" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "30.5",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "124" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "32.45",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "125" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "32.9",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "126" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "36.24",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "127" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "38.30",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "128" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "38.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "129" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "40.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "130" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "40.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "131" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "132" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "133" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "134" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "135" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "136" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "137" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "36.9",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "138" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "36.24",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "139" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "38.30",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "140" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "38.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "141" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "40.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "142" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "40.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "143" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "144" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "145" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "146" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "147" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "148" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "149" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "36.9",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "150" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "36.24",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "151" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "38.30",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "152" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "38.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "153" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "40.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "154" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "40.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "155" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "156" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "157" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "158" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "159" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.29",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "160" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "42.13",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "161" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "36.9",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "162" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "30.5",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "163" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "18.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "164" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "47.24",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "165" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "47.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "166" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "48.24",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "167" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "48.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "168" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "50.32",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "169" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "50.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "170" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "51.39",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "171" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "51.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "172" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "52.35",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "173" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "52.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "174" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "53.35",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "175" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "53.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "176" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "54.33",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "177" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "54.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "178" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "55.36",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "179" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "55.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "180" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "56.40",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "181" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "56.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "182" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "57.50",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "183" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "57.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "184" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "58.35",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "185" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "58.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "186" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "59.35",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "187" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "59.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "188" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "60.36",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "189" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "60.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "190" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "61.40",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "191" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "61.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "192" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "62.38",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "193" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "62.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "194" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "63.37",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "195" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "63.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "196" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "64.37",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "197" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "64.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "198" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "65.38",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "199" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "65.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "200" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "66.42",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "201" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "66.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "202" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "67.41",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "203" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "67.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "204" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "68.45",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "205" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "68.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "206" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "69.37",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "207" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "69.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "208" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "70.35",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "209" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "70.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "210" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "71.35",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "211" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "71.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "212" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "72.48",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "213" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "72.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "214" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "73.47",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "215" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "73.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     }
   }
 }
@@ -2995,6 +3211,16 @@
             }
           },
           "StateMachine" : {
+            "map" : {
+              "DpCfg" : {
+                "Module" : {
+                  "nodeId" : 162,
+                  "unqualifiedName" : "DpCfg"
+                }
+              }
+            }
+          },
+          "Template" : {
             "map" : {
               "DpCfg" : {
                 "Module" : {

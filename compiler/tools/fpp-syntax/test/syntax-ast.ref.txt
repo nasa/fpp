@@ -142,19 +142,19 @@ def module
     @< Async product receive port
     @ Internal Component State machine definition
     def state machine
-      ident S
+      ident SM
     @< State machine definition
     @ State machine instance 1
     spec state machine instance
       ident s1
-      state machine qual ident S
+      state machine qual ident SM
       priority literal int 10
       queue full drop
     @< State machine instance 1
     @ State machine instance 2
     spec state machine instance
       ident s2
-      state machine qual ident S
+      state machine qual ident SM
     @< State machine instance 2
     @ State machine for outside definition
     spec state machine instance
@@ -304,10 +304,12 @@ def module
       ident x
       literal int 0
   @< Module definition
-  @ Include specifier
-  spec include
-    file constant.fppi
-  @< Include specifier
+  def module
+    ident Constants
+    @ Include specifier
+    spec include
+      file constant.fppi
+    @< Include specifier
   @ Port definition
   def port
     ident P
@@ -402,13 +404,13 @@ def module
   @< Topology definition
   @ Topology definition with one implements
   def topology
-    ident T
+    ident T2
     implements
       qual ident I
   @< Topology definition with one implements
   @ Topology definition with two implements
   def topology
-    ident T
+    ident T3
     implements
       qual ident I
       qual ident I
@@ -419,37 +421,6 @@ def module
     symbol qual ident i
     file instances.fpp
   @< Location specifier
-  def module template
-    ident Tmpl
-    @ Constant template parameter
-    constant template param
-      type name qual ident SomeType
-    @< Constant parameter
-    @ Type template parameter
-    type template param
-      ident TypeParam
-    @< Type parameter
-    @ Interface instance template parameter
-    interface template param
-      ident inst
-      qual ident InterfaceDef
-    @< Instance parameter
-    def array
-      ident Arr
-      size literal int 3
-      type name qual ident TypeParam
-    def topology
-      ident Top
-      spec interface instance
-        qual ident inst
-  expand
-    qual ident Tmpl
-    constant template arg
-      literal int 10
-    type template arg
-      type name qual ident Type
-    interface template param
-      qual ident instance1
 @< Definitions and specifiers
 @ Type names
 def module
@@ -546,7 +517,7 @@ def module
   @< Array Subscript
   @ Array Subscript with member selection
   def constant
-    ident arraySubExp2
+    ident arraySubExp3
     expr array subscript
       expr dot
         expr array subscript

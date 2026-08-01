@@ -1,4 +1,5 @@
 tests="
+array_common_type_conversion
 array_index_negative
 array_index_out_of_bounds
 dictionary_error

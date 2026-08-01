@@ -113,18 +113,18 @@
                                                                     "name" : "Svc"
                                                                   }
                                                                 },
-                                                                "id" : 43
+                                                                "id" : 47
                                                               }
                                                             },
                                                             "name" : {
                                                               "AstNode" : {
                                                                 "data" : "Sched",
-                                                                "id" : 44
+                                                                "id" : 46
                                                               }
                                                             }
                                                           }
                                                         },
-                                                        "id" : 45
+                                                        "id" : 48
                                                       }
                                                     }
                                                   },
@@ -132,7 +132,7 @@
                                                   "queueFull" : "None"
                                                 }
                                               },
-                                              "id" : 46
+                                              "id" : 49
                                             }
                                           }
                                         }
@@ -165,7 +165,7 @@
                                                             "name" : "Calibration"
                                                           }
                                                         },
-                                                        "id" : 48
+                                                        "id" : 51
                                                       }
                                                     }
                                                   },
@@ -173,7 +173,7 @@
                                                   "queueFull" : "None"
                                                 }
                                               },
-                                              "id" : 49
+                                              "id" : 52
                                             }
                                           }
                                         }
@@ -202,7 +202,7 @@
                                                   "queueFull" : "None"
                                                 }
                                               },
-                                              "id" : 50
+                                              "id" : 53
                                             }
                                           }
                                         }
@@ -231,7 +231,7 @@
                                                   "queueFull" : "None"
                                                 }
                                               },
-                                              "id" : 51
+                                              "id" : 54
                                             }
                                           }
                                         }
@@ -260,7 +260,7 @@
                                                         }
                                                       }
                                                     },
-                                                    "id" : 52
+                                                    "id" : 55
                                                   }
                                                 },
                                                 "id" : "None",
@@ -271,7 +271,7 @@
                                                 "high" : [
                                                 ]
                                               },
-                                              "id" : 53
+                                              "id" : 56
                                             }
                                           }
                                         }
@@ -300,7 +300,7 @@
                                                         }
                                                       }
                                                     },
-                                                    "id" : 58
+                                                    "id" : 61
                                                   }
                                                 },
                                                 "id" : "None",
@@ -311,7 +311,7 @@
                                                 "high" : [
                                                 ]
                                               },
-                                              "id" : 59
+                                              "id" : 62
                                             }
                                           }
                                         }
@@ -321,7 +321,7 @@
                                     ]
                                   ]
                                 },
-                                "id" : 60
+                                "id" : 63
                               }
                             }
                           }
@@ -331,7 +331,7 @@
                       ]
                     ]
                   },
-                  "id" : 61
+                  "id" : 64
                 }
               }
             }
@@ -370,18 +370,18 @@
                                                   "name" : "Sensors"
                                                 }
                                               },
-                                              "id" : 74
+                                              "id" : 81
                                             }
                                           },
                                           "name" : {
                                             "AstNode" : {
                                               "data" : "EngineTemp",
-                                              "id" : 75
+                                              "id" : 80
                                             }
                                           }
                                         }
                                       },
-                                      "id" : 76
+                                      "id" : 82
                                     }
                                   },
                                   "baseId" : {
@@ -391,7 +391,7 @@
                                           "value" : "0x100"
                                         }
                                       },
-                                      "id" : 77
+                                      "id" : 83
                                     }
                                   },
                                   "implType" : "None",
@@ -404,7 +404,7 @@
                                             "value" : "10"
                                           }
                                         },
-                                        "id" : 78
+                                        "id" : 84
                                       }
                                     }
                                   },
@@ -414,7 +414,7 @@
                                   "initSpecs" : [
                                   ]
                                 },
-                                "id" : 79
+                                "id" : 85
                               }
                             }
                           }
@@ -424,7 +424,7 @@
                       ]
                     ]
                   },
-                  "id" : 80
+                  "id" : 86
                 }
               }
             }
@@ -455,7 +455,7 @@
                                   ],
                                   "returnType" : "None"
                                 },
-                                "id" : 83
+                                "id" : 89
                               }
                             }
                           }
@@ -465,7 +465,7 @@
                       ]
                     ]
                   },
-                  "id" : 84
+                  "id" : 90
                 }
               }
             }
@@ -496,7 +496,7 @@
                                   ],
                                   "returnType" : "None"
                                 },
-                                "id" : 85
+                                "id" : 91
                               }
                             }
                           }
@@ -517,7 +517,7 @@
                                   ],
                                   "returnType" : "None"
                                 },
-                                "id" : 88
+                                "id" : 94
                               }
                             }
                           }
@@ -527,7 +527,7 @@
                       ]
                     ]
                   },
-                  "id" : 89
+                  "id" : 95
                 }
               }
             }
@@ -545,452 +545,578 @@
     "0" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "4.25",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "1" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "4.20",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "2" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "4.25",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "3" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "4.20",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "4" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "4.25",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "5" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "4.20",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "6" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "4.3",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "7" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "10.30",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "8" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "10.34",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "9" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "10.30",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "10" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "10.5",
-      "includingLoc" : "None"
+      "pos" : "10.30",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "11" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "13.37",
-      "includingLoc" : "None"
+      "pos" : "10.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "12" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "13.37",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "13" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "13.5",
-      "includingLoc" : "None"
+      "pos" : "13.37",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "14" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "16.5",
-      "includingLoc" : "None"
+      "pos" : "13.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "15" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "19.5",
-      "includingLoc" : "None"
+      "pos" : "16.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "16" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "22.28",
-      "includingLoc" : "None"
+      "pos" : "19.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "17" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "22.5",
-      "includingLoc" : "None"
+      "pos" : "22.28",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "18" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "25.25",
-      "includingLoc" : "None"
+      "pos" : "22.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "19" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "25.5",
-      "includingLoc" : "None"
+      "pos" : "25.25",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "20" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "25.25",
-      "includingLoc" : "None"
+      "pos" : "25.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "21" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "25.5",
-      "includingLoc" : "None"
+      "pos" : "25.25",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "22" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "25.25",
-      "includingLoc" : "None"
+      "pos" : "25.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "23" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "25.5",
-      "includingLoc" : "None"
+      "pos" : "25.25",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "24" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "7.3",
-      "includingLoc" : "None"
+      "pos" : "25.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "25" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "10.30",
-      "includingLoc" : "None"
+      "pos" : "7.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "26" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "10.34",
-      "includingLoc" : "None"
+      "pos" : "10.30",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "27" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "10.30",
-      "includingLoc" : "None"
+      "pos" : "10.34",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "28" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "10.5",
-      "includingLoc" : "None"
+      "pos" : "10.30",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "29" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "13.37",
-      "includingLoc" : "None"
+      "pos" : "10.30",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "30" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "13.37",
-      "includingLoc" : "None"
+      "pos" : "10.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "31" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "13.5",
-      "includingLoc" : "None"
+      "pos" : "13.37",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "32" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "16.5",
-      "includingLoc" : "None"
+      "pos" : "13.37",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "33" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "19.5",
-      "includingLoc" : "None"
+      "pos" : "13.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "34" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "22.28",
-      "includingLoc" : "None"
+      "pos" : "16.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "35" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "22.5",
-      "includingLoc" : "None"
+      "pos" : "19.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "36" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "25.25",
-      "includingLoc" : "None"
+      "pos" : "22.28",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "37" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "25.5",
-      "includingLoc" : "None"
+      "pos" : "22.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "38" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "25.25",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "39" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "25.5",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "40" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "25.25",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "41" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "25.5",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "42" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "7.3",
-      "includingLoc" : "None"
+      "pos" : "25.25",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "43" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "10.30",
-      "includingLoc" : "None"
+      "pos" : "25.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "44" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "10.34",
-      "includingLoc" : "None"
+      "pos" : "7.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "45" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "10.30",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "46" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "10.5",
-      "includingLoc" : "None"
+      "pos" : "10.34",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "47" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "13.37",
-      "includingLoc" : "None"
+      "pos" : "10.30",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "48" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "13.37",
-      "includingLoc" : "None"
+      "pos" : "10.30",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "49" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "13.5",
-      "includingLoc" : "None"
+      "pos" : "10.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "50" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "16.5",
-      "includingLoc" : "None"
+      "pos" : "13.37",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "51" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "19.5",
-      "includingLoc" : "None"
+      "pos" : "13.37",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "52" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "22.28",
-      "includingLoc" : "None"
+      "pos" : "13.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "53" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "22.5",
-      "includingLoc" : "None"
+      "pos" : "16.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "54" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "25.25",
-      "includingLoc" : "None"
+      "pos" : "19.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "55" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "25.5",
-      "includingLoc" : "None"
+      "pos" : "22.28",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "56" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "25.25",
-      "includingLoc" : "None"
+      "pos" : "22.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "57" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "25.5",
-      "includingLoc" : "None"
+      "pos" : "25.25",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "58" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "25.25",
-      "includingLoc" : "None"
+      "pos" : "25.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "59" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "25.5",
-      "includingLoc" : "None"
+      "pos" : "25.25",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "60" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "7.3",
-      "includingLoc" : "None"
+      "pos" : "25.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "61" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "1.1",
-      "includingLoc" : "None"
+      "pos" : "25.25",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "62" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "34.24",
-      "includingLoc" : "None"
+      "pos" : "25.5",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "63" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "34.32",
-      "includingLoc" : "None"
+      "pos" : "7.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "64" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "34.24",
-      "includingLoc" : "None"
+      "pos" : "1.1",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "65" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "34.51",
-      "includingLoc" : "None"
+      "pos" : "34.24",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "66" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "35.16",
-      "includingLoc" : "None"
+      "pos" : "34.32",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "67" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "34.3",
-      "includingLoc" : "None"
+      "pos" : "34.24",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "68" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "34.24",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "69" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "34.32",
-      "includingLoc" : "None"
+      "pos" : "34.51",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "70" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "34.24",
-      "includingLoc" : "None"
+      "pos" : "35.16",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "71" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "34.51",
-      "includingLoc" : "None"
+      "pos" : "34.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "72" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "35.16",
-      "includingLoc" : "None"
+      "pos" : "34.24",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "73" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "34.3",
-      "includingLoc" : "None"
+      "pos" : "34.32",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "74" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "34.24",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "75" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "34.32",
-      "includingLoc" : "None"
+      "pos" : "34.24",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "76" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "34.24",
-      "includingLoc" : "None"
+      "pos" : "34.51",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "77" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "34.51",
-      "includingLoc" : "None"
+      "pos" : "35.16",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "78" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "35.16",
-      "includingLoc" : "None"
+      "pos" : "34.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "79" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "34.3",
-      "includingLoc" : "None"
+      "pos" : "34.24",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "80" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "31.1",
-      "includingLoc" : "None"
+      "pos" : "34.32",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "81" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "40.3",
-      "includingLoc" : "None"
+      "pos" : "34.24",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "82" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "40.3",
-      "includingLoc" : "None"
+      "pos" : "34.24",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "83" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "40.3",
-      "includingLoc" : "None"
+      "pos" : "34.51",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "84" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "39.1",
-      "includingLoc" : "None"
+      "pos" : "35.16",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "85" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "44.3",
-      "includingLoc" : "None"
+      "pos" : "34.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "86" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "45.3",
-      "includingLoc" : "None"
+      "pos" : "31.1",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "87" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "45.3",
-      "includingLoc" : "None"
+      "pos" : "40.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "88" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
-      "pos" : "45.3",
-      "includingLoc" : "None"
+      "pos" : "40.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     },
     "89" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
+      "pos" : "40.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "90" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
+      "pos" : "39.1",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "91" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
+      "pos" : "44.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "92" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
+      "pos" : "45.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "93" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
+      "pos" : "45.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "94" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
+      "pos" : "45.3",
+      "includeLoc" : "None",
+      "expandLoc" : "None"
+    },
+    "95" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
       "pos" : "43.1",
-      "includingLoc" : "None"
+      "includeLoc" : "None",
+      "expandLoc" : "None"
     }
   }
 }
@@ -998,9 +1124,9 @@
   "fppVersion" : "[ fpp version ]",
   "analysis" : {
     "componentInstanceMap" : {
-      "79" : {
+      "85" : {
         "aNode" : {
-          "astNodeId" : 79
+          "astNodeId" : 85
         },
         "qualifiedName" : {
           "qualifier" : [
@@ -1009,7 +1135,7 @@
           "base" : "engineTemp"
         },
         "component" : {
-          "astNodeId" : 60
+          "astNodeId" : 63
         },
         "baseId" : 256,
         "maxId" : 257,
@@ -1026,9 +1152,9 @@
       }
     },
     "componentMap" : {
-      "60" : {
+      "63" : {
         "aNode" : {
-          "astNodeId" : 60
+          "astNodeId" : 63
         },
         "portInterface" : {
           "instanceType" : "component",
@@ -1036,7 +1162,7 @@
             "calibrationIn" : {
               "General" : {
                 "aNode" : {
-                  "astNodeId" : 49
+                  "astNodeId" : 52
                 },
                 "specifier" : {
                   "kind" : {
@@ -1048,7 +1174,7 @@
                   "size" : "None",
                   "port" : {
                     "Some" : {
-                      "astNodeId" : 48
+                      "astNodeId" : 51
                     }
                   },
                   "priority" : "None",
@@ -1073,7 +1199,7 @@
             "schedIn" : {
               "General" : {
                 "aNode" : {
-                  "astNodeId" : 46
+                  "astNodeId" : 49
                 },
                 "specifier" : {
                   "kind" : {
@@ -1085,7 +1211,7 @@
                   "size" : "None",
                   "port" : {
                     "Some" : {
-                      "astNodeId" : 45
+                      "astNodeId" : 48
                     }
                   },
                   "priority" : "None",
@@ -1097,7 +1223,7 @@
                   "DefPort" : {
                     "symbol" : {
                       "Port" : {
-                        "nodeId" : 83,
+                        "nodeId" : 89,
                         "unqualifiedName" : "Sched"
                       }
                     }
@@ -1110,7 +1236,7 @@
             "timeGetOut" : {
               "Special" : {
                 "aNode" : {
-                  "astNodeId" : 51
+                  "astNodeId" : 54
                 },
                 "specifier" : {
                   "inputKind" : "None",
@@ -1125,7 +1251,7 @@
                 },
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 88,
+                    "nodeId" : 94,
                     "unqualifiedName" : "Time"
                   }
                 },
@@ -1138,7 +1264,7 @@
             "tlmOut" : {
               "Special" : {
                 "aNode" : {
-                  "astNodeId" : 50
+                  "astNodeId" : 53
                 },
                 "specifier" : {
                   "inputKind" : "None",
@@ -1153,7 +1279,7 @@
                 },
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 85,
+                    "nodeId" : 91,
                     "unqualifiedName" : "Tlm"
                   }
                 },
@@ -1167,7 +1293,7 @@
           "specialPortMap" : {
             "telemetry" : {
               "aNode" : {
-                "astNodeId" : 50
+                "astNodeId" : 53
               },
               "specifier" : {
                 "inputKind" : "None",
@@ -1182,7 +1308,7 @@
               },
               "symbol" : {
                 "Port" : {
-                  "nodeId" : 85,
+                  "nodeId" : 91,
                   "unqualifiedName" : "Tlm"
                 }
               },
@@ -1193,7 +1319,7 @@
             },
             "time get" : {
               "aNode" : {
-                "astNodeId" : 51
+                "astNodeId" : 54
               },
               "specifier" : {
                 "inputKind" : "None",
@@ -1208,7 +1334,7 @@
               },
               "symbol" : {
                 "Port" : {
-                  "nodeId" : 88,
+                  "nodeId" : 94,
                   "unqualifiedName" : "Time"
                 }
               },
@@ -1226,7 +1352,7 @@
         "tlmChannelMap" : {
           "0" : {
             "aNode" : {
-              "astNodeId" : 53
+              "astNodeId" : 56
             },
             "channelType" : {
               "Primitive" : {
@@ -1254,7 +1380,7 @@
           },
           "1" : {
             "aNode" : {
-              "astNodeId" : 59
+              "astNodeId" : 62
             },
             "channelType" : {
               "Primitive" : {
@@ -1284,7 +1410,7 @@
         "tlmChannelNameMap" : {
           "ImpulseTemp" : {
             "aNode" : {
-              "astNodeId" : 53
+              "astNodeId" : 56
             },
             "channelType" : {
               "Primitive" : {
@@ -1312,7 +1438,7 @@
           },
           "WarpTemp" : {
             "aNode" : {
-              "astNodeId" : 59
+              "astNodeId" : 62
             },
             "channelType" : {
               "Primitive" : {
@@ -1383,54 +1509,54 @@
     "parentSymbolMap" : {
       "6" : {
         "Module" : {
-          "nodeId" : 61,
+          "nodeId" : 64,
           "unqualifiedName" : "Sensors"
         }
       },
-      "60" : {
+      "63" : {
         "Module" : {
-          "nodeId" : 61,
+          "nodeId" : 64,
           "unqualifiedName" : "Sensors"
-        }
-      },
-      "79" : {
-        "Module" : {
-          "nodeId" : 80,
-          "unqualifiedName" : "FSW"
-        }
-      },
-      "83" : {
-        "Module" : {
-          "nodeId" : 84,
-          "unqualifiedName" : "Svc"
         }
       },
       "85" : {
         "Module" : {
-          "nodeId" : 89,
+          "nodeId" : 86,
+          "unqualifiedName" : "FSW"
+        }
+      },
+      "89" : {
+        "Module" : {
+          "nodeId" : 90,
+          "unqualifiedName" : "Svc"
+        }
+      },
+      "91" : {
+        "Module" : {
+          "nodeId" : 95,
           "unqualifiedName" : "Fw"
         }
       },
-      "88" : {
+      "94" : {
         "Module" : {
-          "nodeId" : 89,
+          "nodeId" : 95,
           "unqualifiedName" : "Fw"
         }
       }
     },
     "symbolScopeMap" : {
-      "60" : {
+      "63" : {
         "map" : {
           
         }
       },
-      "61" : {
+      "64" : {
         "map" : {
           "Component" : {
             "map" : {
               "EngineTemp" : {
                 "Component" : {
-                  "nodeId" : 60,
+                  "nodeId" : 63,
                   "unqualifiedName" : "EngineTemp"
                 }
               }
@@ -1450,7 +1576,7 @@
             "map" : {
               "EngineTemp" : {
                 "Component" : {
-                  "nodeId" : 60,
+                  "nodeId" : 63,
                   "unqualifiedName" : "EngineTemp"
                 }
               }
@@ -1460,7 +1586,7 @@
             "map" : {
               "EngineTemp" : {
                 "Component" : {
-                  "nodeId" : 60,
+                  "nodeId" : 63,
                   "unqualifiedName" : "EngineTemp"
                 }
               }
@@ -1470,7 +1596,7 @@
             "map" : {
               "EngineTemp" : {
                 "Component" : {
-                  "nodeId" : 60,
+                  "nodeId" : 63,
                   "unqualifiedName" : "EngineTemp"
                 }
               }
@@ -1478,13 +1604,13 @@
           }
         }
       },
-      "80" : {
+      "86" : {
         "map" : {
           "PortInterfaceInstance" : {
             "map" : {
               "engineTemp" : {
                 "ComponentInstance" : {
-                  "nodeId" : 79,
+                  "nodeId" : 85,
                   "unqualifiedName" : "engineTemp"
                 }
               }
@@ -1492,13 +1618,13 @@
           }
         }
       },
-      "84" : {
+      "90" : {
         "map" : {
           "Port" : {
             "map" : {
               "Sched" : {
                 "Port" : {
-                  "nodeId" : 83,
+                  "nodeId" : 89,
                   "unqualifiedName" : "Sched"
                 }
               }
@@ -1506,19 +1632,19 @@
           }
         }
       },
-      "89" : {
+      "95" : {
         "map" : {
           "Port" : {
             "map" : {
               "Time" : {
                 "Port" : {
-                  "nodeId" : 88,
+                  "nodeId" : 94,
                   "unqualifiedName" : "Time"
                 }
               },
               "Tlm" : {
                 "Port" : {
-                  "nodeId" : 85,
+                  "nodeId" : 91,
                   "unqualifiedName" : "Tlm"
                 }
               }
@@ -1542,7 +1668,7 @@
           }
         }
       },
-      "52" : {
+      "55" : {
         "Primitive" : {
           "Float" : {
             "kind" : {
@@ -1553,7 +1679,7 @@
           }
         }
       },
-      "58" : {
+      "61" : {
         "Primitive" : {
           "Float" : {
             "kind" : {
@@ -1564,14 +1690,14 @@
           }
         }
       },
-      "77" : {
+      "83" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "78" : {
+      "84" : {
         "Int" : {
           "Integer" : {
             
@@ -1580,56 +1706,68 @@
       }
     },
     "useDefMap" : {
-      "43" : {
+      "47" : {
         "Module" : {
-          "nodeId" : 84,
+          "nodeId" : 90,
           "unqualifiedName" : "Svc"
         }
       },
-      "45" : {
+      "48" : {
         "Port" : {
-          "nodeId" : 83,
+          "nodeId" : 89,
           "unqualifiedName" : "Sched"
         }
       },
-      "48" : {
+      "51" : {
         "Port" : {
           "nodeId" : 6,
           "unqualifiedName" : "Calibration"
         }
       },
-      "50" : {
+      "53" : {
         "Port" : {
-          "nodeId" : 85,
+          "nodeId" : 91,
           "unqualifiedName" : "Tlm"
         }
       },
-      "51" : {
+      "54" : {
         "Port" : {
-          "nodeId" : 88,
+          "nodeId" : 94,
           "unqualifiedName" : "Time"
         }
       },
-      "74" : {
+      "81" : {
         "Module" : {
-          "nodeId" : 61,
+          "nodeId" : 64,
           "unqualifiedName" : "Sensors"
         }
       },
-      "76" : {
+      "82" : {
         "Component" : {
-          "nodeId" : 60,
+          "nodeId" : 63,
           "unqualifiedName" : "EngineTemp"
+        }
+      },
+      "96" : {
+        "Module" : {
+          "nodeId" : 95,
+          "unqualifiedName" : "Fw"
+        }
+      },
+      "97" : {
+        "Module" : {
+          "nodeId" : 95,
+          "unqualifiedName" : "Fw"
         }
       }
     },
     "valueMap" : {
-      "77" : {
+      "83" : {
         "Integer" : {
           "value" : 256
         }
       },
-      "78" : {
+      "84" : {
         "Integer" : {
           "value" : 10
         }

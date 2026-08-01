@@ -183,9 +183,11 @@ object Ast {
       name: Ident,
       typeName: AstNode[Ast.TypeName]
     ) extends TemplateParam
+
     final case class Type(
       name: Ident
     ) extends TemplateParam
+
     final case class Interface(
       name: Ident,
       interface: AstNode[QualIdent],
@@ -428,8 +430,16 @@ object Ast {
       QualIdent.NodeList.split(nodeList) match {
         case (Nil, name) => QualIdent.Unqualified(name.data)
         case (qualifier, name) => {
+          // TODO(tumbar) Don't duplicate node ids
           val qualifier1 = fromNodeList(qualifier)
-          val node = AstNode.create(qualifier1, QualIdent.NodeList.name(qualifier).id)
+          val id = QualIdent.NodeList.name(qualifier).id
+          val node = AstNode.create(qualifier1)
+          Locations.getOpt(id) match {
+            case None => ()
+            case Some(loc) =>
+              Locations.put(node.id, loc)
+              ()
+          }
           QualIdent.Qualified(node, name)
         }
       }
@@ -659,6 +669,9 @@ object Ast {
     case object Interface extends Kind {
       override def toString = "interface"
     }
+    case object Template extends Kind {
+      override def toString = "template"
+    }
   }
 
   /** Parameter specifier */
@@ -799,7 +812,8 @@ object Ast {
   /** Template expansion specifier */
   final case class SpecTemplateExpand(
     template: AstNode[QualIdent],
-    args: TemplateArgList
+    args: TemplateArgList,
+    members: Option[List[ModuleMember]]
   )
 
   /** Telemetry channel specifier */

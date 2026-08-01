@@ -694,6 +694,7 @@ object Parser extends Parsers {
       instance ^^ (_ => Ast.SpecLoc.Instance) |
       port ^^ (_ => Ast.SpecLoc.Port) |
       state ~! machine ^^ (_ => Ast.SpecLoc.StateMachine) |
+      template ^^ (_ => Ast.SpecLoc.Template) |
       interface ^^ (_ => Ast.SpecLoc.Interface)
     def maybeDictPair =
       opt(dictionary) ~ maybeDictKind ^^ {
@@ -1089,7 +1090,7 @@ object Parser extends Parsers {
 
   def specTemplateExpand: Parser[Ast.SpecTemplateExpand] = {
     (expand ~>! node(qualIdent)) ~! templateArgList ^^ {
-      case id ~ args => Ast.SpecTemplateExpand(id, args)
+      case id ~ args => Ast.SpecTemplateExpand(id, args, None)
     }
   }
 
