@@ -13144,10 +13144,15 @@ In the current version of FPP, there is a close coupling
 between systems and <a href="#Defining-Topologies_A-Simple-Example">deployment
 topologies</a>; in fact, a system
 is just a thin wrapper around a single deployment topology.
-This is because in the current modeling approach, only single-deployment
+This is because in the current version of FPP, only single-deployment
 systems are modeled.
-To construct a multi-deployment system, you have to manually connect
-several single-deployment systems.
+To construct a multi-deployment system (for example, a system
+with one deployment on a main computer and a second deployment
+on a coprocessor), you have to model several single-deployment
+systems, generate code separately for each system, and manually
+connect the systems using a pattern called the
+<a href="https://fprime.jpl.nasa.gov/latest/docs/user-manual/design-patterns/hub-pattern/">F
+Prime hub pattern</a>.
 In a future version of FPP, we will provide a more direct way
 to model a system consisting of multiple deployments.</p>
 </div>
@@ -13167,16 +13172,33 @@ system S: T</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Currently, the FPP tools use the topology <code>T</code> to generate a
+<p>This code does the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Define a deployment topology <code>T</code>.</p>
+</li>
+<li>
+<p>Define a system <code>S</code> whose deployment topology is <code>T</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The FPP tools can then use the topology <code>T</code> to generate a
 system dictionary for <code>S</code>.
-In the future, you will be able to do the following:</p>
+We explain in a later section how to generate a system dictionary.</p>
+</div>
+<div class="paragraph">
+<p>In the future, you will be able to do the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>Specify a system consisting of multiple deployment topologies
 and connections between them.
-The translator will automatically generate code for
+The translator will automatically generate connections to
+and from hub component instances for
 implementing the connections that span the deployments.</p>
 </li>
 <li>
@@ -17275,7 +17297,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-31 17:19:48 -0700
+Last updated 2026-07-31 17:33:25 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
