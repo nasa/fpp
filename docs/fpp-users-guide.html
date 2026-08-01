@@ -13138,7 +13138,58 @@ from other files, if you wish.</p>
 <h2 id="Defining-Systems">15. Defining Systems</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>A <strong>system</strong> represents the highest level of architecture in an F Prime
+application.
+In the current version of FPP, there is a close coupling
+between systems and <a href="#Defining-Topologies_A-Simple-Example">deployment
+topologies</a>; in fact, a system
+is just a thin wrapper around a single deployment topology.
+This is because in the current modeling approach, only single-deployment
+systems are modeled.
+To construct a multi-deployment system, you have to manually connect
+several single-deployment systems.
+In a future version of FPP, we will provide a more direct way
+to model a system consisting of multiple deployments.</p>
+</div>
+<div class="paragraph">
+<p>To define a system, you write the keyword <code>system</code> followed
+by a name, a colon, and the name of a <a href="#Defining-Topologies">topology</a>.
+The topology must be a deployment topology.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">deployment topology T {
+
+}
+
+system S: T</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Currently, the FPP tools use the topology <code>T</code> to generate a
+system dictionary for <code>S</code>.
+In the future, you will be able to do the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Specify a system consisting of multiple deployment topologies
+and connections between them.
+The translator will automatically generate code for
+implementing the connections that span the deployments.</p>
+</li>
+<li>
+<p>Specify <a href="#Defining-Topologies_Telemetry-Packets">telemetry packets</a>
+at the system level.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>A system definition may appear at the top level or inside a
+<a href="#Defining-Modules">module definition</a>.
+A system definition is an
+<a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.</p>
 </div>
 </div>
 </div>
@@ -13553,7 +13604,8 @@ locate constant a at "a.fpp"</code></pre>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>instance</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Component-Instances">component instance definition</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Component-Instances">component instance definition</a> or
+<a href="#Defining-Topologies">topology definition</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>interface</code></p></td>
@@ -13564,12 +13616,12 @@ locate constant a at "a.fpp"</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Ports">port definition</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>state</code> <code>machine</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>state machine</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-State-Machines">state machine definition</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>topology</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Topologies">topology definition</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>system</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Systems">system definition</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
@@ -17223,7 +17275,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-31 16:52:37 -0700
+Last updated 2026-07-31 17:19:48 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
