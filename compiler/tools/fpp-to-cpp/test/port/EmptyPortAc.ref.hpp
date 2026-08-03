@@ -17,69 +17,31 @@
 
 //! Serialization buffer for Empty port
 //! An empty port
-class EmptyPortBuffer :
-  public Fw::LinearBufferBase
-{
-
+class EmptyPortBuffer : public Fw::LinearBufferBase {
   public:
-
     // ----------------------------------------------------------------------
     // Public constants for EmptyPortBuffer
     // ----------------------------------------------------------------------
 
     //! The buffer capacity. This is the sum of the static serialized
     //! sizes of the port arguments.
-    static constexpr FwSizeType CAPACITY =
-      0;
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Public member functions for EmptyPortBuffer
-    // ----------------------------------------------------------------------
-
-    //! Get the capacity of the buffer
-    //! \return The capacity
-    Fw::Serializable::SizeType getCapacity() const override {
-      return CAPACITY;
-    }
-
-    //! Get the buffer address (non-const)
-    //! \return The buffer address
-    U8* getBuffAddr() override {
-      return nullptr;
-    }
-
-    //! Get the buffer address (const)
-    //! \return The buffer address
-    const U8* getBuffAddr() const override {
-      return nullptr;
-    }
-
+    static constexpr FwSizeType CAPACITY = 0;
 };
 
 #if !FW_DIRECT_PORT_CALLS
 
 //! Input Empty port
 //! An empty port
-class InputEmptyPort :
-  public Fw::InputPortBase
-{
-
+class InputEmptyPort : public Fw::InputPortBase {
   public:
-
     // ----------------------------------------------------------------------
     // Public types for InputEmptyPort
     // ----------------------------------------------------------------------
 
     //! The port callback function type
-    typedef void (*CompFuncPtr)(
-      Fw::PassiveComponentBase* callComp,
-      FwIndexType portNum
-    );
+    typedef void (*CompFuncPtr)(Fw::PassiveComponentBase* callComp, FwIndexType portNum);
 
   public:
-
     // ----------------------------------------------------------------------
     // Public constructors for InputEmptyPort
     // ----------------------------------------------------------------------
@@ -88,7 +50,6 @@ class InputEmptyPort :
     InputEmptyPort();
 
   public:
-
     // ----------------------------------------------------------------------
     // Public member functions for InputEmptyPort
     // ----------------------------------------------------------------------
@@ -97,16 +58,14 @@ class InputEmptyPort :
     void init();
 
     //! Register a component
-    void addCallComp(
-        Fw::PassiveComponentBase* callComp, //!< The containing component
-        CompFuncPtr funcPtr //!< The port callback function
+    void addCallComp(Fw::PassiveComponentBase* callComp,  //!< The containing component
+                     CompFuncPtr funcPtr                  //!< The port callback function
     );
 
     //! Invoke a port interface
     void invoke();
 
   private:
-
     // ----------------------------------------------------------------------
     // Private member functions for InputEmptyPort
     // ----------------------------------------------------------------------
@@ -115,31 +74,24 @@ class InputEmptyPort :
 
     //! Invoke the port with serialized arguments
     //! \return The serialize status
-    Fw::SerializeStatus invokeSerial(
-        Fw::LinearBufferBase& _buffer //!< The serial buffer
+    Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer  //!< The serial buffer
     );
 
 #endif
 
   private:
-
     // ----------------------------------------------------------------------
     // Private member variables for InputEmptyPort
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function
     CompFuncPtr m_func;
-
 };
 
 //! Output Empty port
 //! An empty port
-class OutputEmptyPort :
-  public Fw::OutputPortBase
-{
-
+class OutputEmptyPort : public Fw::OutputPortBase {
   public:
-
     // ----------------------------------------------------------------------
     // Public constructors for OutputEmptyPort
     // ----------------------------------------------------------------------
@@ -148,7 +100,6 @@ class OutputEmptyPort :
     OutputEmptyPort();
 
   public:
-
     // ----------------------------------------------------------------------
     // Public member functions for OutputEmptyPort
     // ----------------------------------------------------------------------
@@ -157,22 +108,19 @@ class OutputEmptyPort :
     void init();
 
     //! Register an input port
-    void addCallPort(
-        InputEmptyPort* callPort //!< The input port
+    void addCallPort(InputEmptyPort* callPort  //!< The input port
     );
 
     //! Invoke a port connection
     void invoke() const;
 
   private:
-
     // ----------------------------------------------------------------------
     // Private member variables for OutputEmptyPort
     // ----------------------------------------------------------------------
 
     //! The pointer to the input port
     InputEmptyPort* m_port;
-
 };
 
 #endif

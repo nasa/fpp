@@ -12,7 +12,7 @@
 #endif
 
 namespace {
-  enum MsgTypeEnum {
+enum MsgTypeEnum {
     ACTIVEOVERFLOW_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
     PRODUCTRECVINHOOK_DPRESPONSE,
     ASSERTASYNC_TYPED,
@@ -23,433 +23,268 @@ namespace {
     CMD_CMD_HOOK,
     CMD_CMD_PARAMS_PRIORITY_HOOK,
     INT_IF_INTERNALHOOKDROP,
-  };
+};
 
-  // Get the max size by constructing a union of the async input, command, and
-  // internal port serialization sizes
-  union BuffUnion {
+// Get the max size by constructing a union of the async input, command, and
+// internal port serialization sizes
+union BuffUnion {
     BYTE productRecvInHookPortSize[Fw::DpResponsePortBuffer::CAPACITY];
     BYTE assertAsyncPortSize[Ports::TypedPortBuffer::CAPACITY];
     BYTE blockAsyncPortSize[Ports::TypedPortBuffer::CAPACITY];
     BYTE dropAsyncPortSize[Ports::TypedPortBuffer::CAPACITY];
     BYTE hookAsyncPortSize[Ports::TypedPortBuffer::CAPACITY];
     BYTE cmdPortSize[Fw::CmdPortBuffer::CAPACITY];
-  };
+};
 
-  // Define a message buffer class large enough to handle all the
-  // asynchronous inputs to the component
-  class ComponentIpcSerializableBuffer :
-    public Fw::LinearBufferBase
-  {
-
-    public:
-
-      enum {
+// Define a message buffer class large enough to handle all the
+// asynchronous inputs to the component
+class ComponentIpcSerializableBuffer : public Fw::LinearBufferBase {
+  public:
+    enum {
         // Offset into data in buffer: Size of message ID and port number
         DATA_OFFSET = sizeof(FwEnumStoreType) + sizeof(FwIndexType),
         // Max data size
         MAX_DATA_SIZE = sizeof(BuffUnion),
         // Max message size: Size of message id + size of port + max data size
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
-      };
+    };
 
-      Fw::Serializable::SizeType getCapacity() const {
-        return sizeof(m_buff);
-      }
+    ComponentIpcSerializableBuffer() {
+        this->m_buffAddr = m_buff;
+        this->m_capacity = sizeof(m_buff);
+    }
 
-      U8* getBuffAddr() {
-        return m_buff;
-      }
-
-      const U8* getBuffAddr() const {
-        return m_buff;
-      }
-
-    private:
-      // Should be the max of all the input ports serialized sizes...
-      U8 m_buff[SERIALIZATION_SIZE];
-
-  };
-}
+  private:
+    // Should be the max of all the input ports serialized sizes...
+    U8 m_buff[SERIALIZATION_SIZE];
+};
+}  // namespace
 
 // ----------------------------------------------------------------------
 // Component initialization
 // ----------------------------------------------------------------------
 
-void ActiveOverflowComponentBase ::
-  init(
-      FwSizeType queueDepth,
-      FwSizeType msgSize,
-      FwEnumStoreType instance
-  )
-{
-  // Initialize base class
-  Fw::ActiveComponentBase::init(instance);
+void ActiveOverflowComponentBase ::init(FwSizeType queueDepth, FwSizeType msgSize, FwEnumStoreType instance) {
+    // Initialize base class
+    Fw::ActiveComponentBase::init(instance);
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect input port cmdIn
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_cmdIn_InputPorts());
-    port++
-  ) {
-    this->m_cmdIn_InputPort[port].init();
-    this->m_cmdIn_InputPort[port].addCallComp(
-      this,
-      m_p_cmdIn_in
-    );
-    this->m_cmdIn_InputPort[port].setPortNum(port);
+    // Connect input port cmdIn
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_cmdIn_InputPorts()); port++) {
+        this->m_cmdIn_InputPort[port].init();
+        this->m_cmdIn_InputPort[port].addCallComp(this, m_p_cmdIn_in);
+        this->m_cmdIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_cmdIn_InputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_cmdIn_InputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_cmdIn_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_cmdIn_InputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect input port productRecvInHook
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_productRecvInHook_InputPorts());
-    port++
-  ) {
-    this->m_productRecvInHook_InputPort[port].init();
-    this->m_productRecvInHook_InputPort[port].addCallComp(
-      this,
-      m_p_productRecvInHook_in
-    );
-    this->m_productRecvInHook_InputPort[port].setPortNum(port);
+    // Connect input port productRecvInHook
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_productRecvInHook_InputPorts()); port++) {
+        this->m_productRecvInHook_InputPort[port].init();
+        this->m_productRecvInHook_InputPort[port].addCallComp(this, m_p_productRecvInHook_in);
+        this->m_productRecvInHook_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_productRecvInHook_InputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_productRecvInHook_InputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_productRecvInHook_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_productRecvInHook_InputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect input port assertAsync
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_assertAsync_InputPorts());
-    port++
-  ) {
-    this->m_assertAsync_InputPort[port].init();
-    this->m_assertAsync_InputPort[port].addCallComp(
-      this,
-      m_p_assertAsync_in
-    );
-    this->m_assertAsync_InputPort[port].setPortNum(port);
+    // Connect input port assertAsync
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_assertAsync_InputPorts()); port++) {
+        this->m_assertAsync_InputPort[port].init();
+        this->m_assertAsync_InputPort[port].addCallComp(this, m_p_assertAsync_in);
+        this->m_assertAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_assertAsync_InputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_assertAsync_InputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_assertAsync_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_assertAsync_InputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect input port blockAsync
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_blockAsync_InputPorts());
-    port++
-  ) {
-    this->m_blockAsync_InputPort[port].init();
-    this->m_blockAsync_InputPort[port].addCallComp(
-      this,
-      m_p_blockAsync_in
-    );
-    this->m_blockAsync_InputPort[port].setPortNum(port);
+    // Connect input port blockAsync
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_blockAsync_InputPorts()); port++) {
+        this->m_blockAsync_InputPort[port].init();
+        this->m_blockAsync_InputPort[port].addCallComp(this, m_p_blockAsync_in);
+        this->m_blockAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_blockAsync_InputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_blockAsync_InputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_blockAsync_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_blockAsync_InputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect input port dropAsync
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_dropAsync_InputPorts());
-    port++
-  ) {
-    this->m_dropAsync_InputPort[port].init();
-    this->m_dropAsync_InputPort[port].addCallComp(
-      this,
-      m_p_dropAsync_in
-    );
-    this->m_dropAsync_InputPort[port].setPortNum(port);
+    // Connect input port dropAsync
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_dropAsync_InputPorts()); port++) {
+        this->m_dropAsync_InputPort[port].init();
+        this->m_dropAsync_InputPort[port].addCallComp(this, m_p_dropAsync_in);
+        this->m_dropAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_dropAsync_InputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_dropAsync_InputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_dropAsync_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_dropAsync_InputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect input port hookAsync
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_hookAsync_InputPorts());
-    port++
-  ) {
-    this->m_hookAsync_InputPort[port].init();
-    this->m_hookAsync_InputPort[port].addCallComp(
-      this,
-      m_p_hookAsync_in
-    );
-    this->m_hookAsync_InputPort[port].setPortNum(port);
+    // Connect input port hookAsync
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_hookAsync_InputPorts()); port++) {
+        this->m_hookAsync_InputPort[port].init();
+        this->m_hookAsync_InputPort[port].addCallComp(this, m_p_hookAsync_in);
+        this->m_hookAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_hookAsync_InputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_hookAsync_InputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_hookAsync_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_hookAsync_InputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect input port serialAsyncHook
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_serialAsyncHook_InputPorts());
-    port++
-  ) {
-    this->m_serialAsyncHook_InputPort[port].init();
-    this->m_serialAsyncHook_InputPort[port].addCallComp(
-      this,
-      m_p_serialAsyncHook_in
-    );
-    this->m_serialAsyncHook_InputPort[port].setPortNum(port);
+    // Connect input port serialAsyncHook
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_serialAsyncHook_InputPorts()); port++) {
+        this->m_serialAsyncHook_InputPort[port].init();
+        this->m_serialAsyncHook_InputPort[port].addCallComp(this, m_p_serialAsyncHook_in);
+        this->m_serialAsyncHook_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_serialAsyncHook_InputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_serialAsyncHook_InputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_serialAsyncHook_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_serialAsyncHook_InputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect output port cmdRegOut
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_cmdRegOut_OutputPorts());
-    port++
-  ) {
-    this->m_cmdRegOut_OutputPort[port].init();
+    // Connect output port cmdRegOut
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_cmdRegOut_OutputPorts()); port++) {
+        this->m_cmdRegOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_cmdRegOut_OutputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_cmdRegOut_OutputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_cmdRegOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_cmdRegOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect output port cmdResponseOut
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_cmdResponseOut_OutputPorts());
-    port++
-  ) {
-    this->m_cmdResponseOut_OutputPort[port].init();
+    // Connect output port cmdResponseOut
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_cmdResponseOut_OutputPorts()); port++) {
+        this->m_cmdResponseOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_cmdResponseOut_OutputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_cmdResponseOut_OutputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_cmdResponseOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_cmdResponseOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect output port eventOut
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_eventOut_OutputPorts());
-    port++
-  ) {
-    this->m_eventOut_OutputPort[port].init();
+    // Connect output port eventOut
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_eventOut_OutputPorts()); port++) {
+        this->m_eventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_eventOut_OutputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_eventOut_OutputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_eventOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_eventOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect output port prmGetOut
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_prmGetOut_OutputPorts());
-    port++
-  ) {
-    this->m_prmGetOut_OutputPort[port].init();
+    // Connect output port prmGetOut
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_prmGetOut_OutputPorts()); port++) {
+        this->m_prmGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_prmGetOut_OutputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_prmGetOut_OutputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_prmGetOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_prmGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect output port prmSetOut
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_prmSetOut_OutputPorts());
-    port++
-  ) {
-    this->m_prmSetOut_OutputPort[port].init();
+    // Connect output port prmSetOut
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_prmSetOut_OutputPorts()); port++) {
+        this->m_prmSetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_prmSetOut_OutputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_prmSetOut_OutputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_prmSetOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_prmSetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS && FW_ENABLE_TEXT_LOGGING
-  // Connect output port textEventOut
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_textEventOut_OutputPorts());
-    port++
-  ) {
-    this->m_textEventOut_OutputPort[port].init();
+    // Connect output port textEventOut
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_textEventOut_OutputPorts()); port++) {
+        this->m_textEventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_textEventOut_OutputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_textEventOut_OutputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_textEventOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_textEventOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect output port timeGetOut
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_timeGetOut_OutputPorts());
-    port++
-  ) {
-    this->m_timeGetOut_OutputPort[port].init();
+    // Connect output port timeGetOut
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_timeGetOut_OutputPorts()); port++) {
+        this->m_timeGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_timeGetOut_OutputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_timeGetOut_OutputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_timeGetOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_timeGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect output port tlmOut
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_tlmOut_OutputPorts());
-    port++
-  ) {
-    this->m_tlmOut_OutputPort[port].init();
+    // Connect output port tlmOut
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_tlmOut_OutputPorts()); port++) {
+        this->m_tlmOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_tlmOut_OutputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_tlmOut_OutputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_tlmOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_tlmOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
-  // Passed-in size added to port number and message type enumeration sizes.
-  this->m_msgSize = FW_MAX(
-    msgSize +
-    static_cast<FwSizeType>(sizeof(FwIndexType)) +
-    static_cast<FwSizeType>(sizeof(FwEnumStoreType)),
-    static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
-  );
+    // Passed-in size added to port number and message type enumeration sizes.
+    this->m_msgSize = FW_MAX(
+        msgSize + static_cast<FwSizeType>(sizeof(FwIndexType)) + static_cast<FwSizeType>(sizeof(FwEnumStoreType)),
+        static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE));
 
-  // Create the queue
-  Os::Queue::Status qStat = this->createQueue(queueDepth, this->m_msgSize);
-  FW_ASSERT(
-    Os::Queue::Status::OP_OK == qStat,
-    static_cast<FwAssertArgType>(qStat)
-  );
+    // Create the queue
+    Os::Queue::Status qStat = this->createQueue(queueDepth, this->m_msgSize);
+    FW_ASSERT(Os::Queue::Status::OP_OK == qStat, static_cast<FwAssertArgType>(qStat));
 }
 
 #if !FW_DIRECT_PORT_CALLS
@@ -458,26 +293,17 @@ void ActiveOverflowComponentBase ::
 // Getters for special input ports
 // ----------------------------------------------------------------------
 
-Fw::InputCmdPort* ActiveOverflowComponentBase ::
-  get_cmdIn_InputPort(FwIndexType portNum)
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_cmdIn_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+Fw::InputCmdPort* ActiveOverflowComponentBase ::get_cmdIn_InputPort(FwIndexType portNum) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_cmdIn_InputPorts()), static_cast<FwAssertArgType>(portNum));
 
-  return &this->m_cmdIn_InputPort[portNum];
+    return &this->m_cmdIn_InputPort[portNum];
 }
 
-Fw::InputDpResponsePort* ActiveOverflowComponentBase ::
-  get_productRecvInHook_InputPort(FwIndexType portNum)
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_productRecvInHook_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+Fw::InputDpResponsePort* ActiveOverflowComponentBase ::get_productRecvInHook_InputPort(FwIndexType portNum) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_productRecvInHook_InputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  return &this->m_productRecvInHook_InputPort[portNum];
+    return &this->m_productRecvInHook_InputPort[portNum];
 }
 
 #endif
@@ -488,48 +314,30 @@ Fw::InputDpResponsePort* ActiveOverflowComponentBase ::
 // Getters for typed input ports
 // ----------------------------------------------------------------------
 
-Ports::InputTypedPort* ActiveOverflowComponentBase ::
-  get_assertAsync_InputPort(FwIndexType portNum)
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_assertAsync_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+Ports::InputTypedPort* ActiveOverflowComponentBase ::get_assertAsync_InputPort(FwIndexType portNum) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_assertAsync_InputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  return &this->m_assertAsync_InputPort[portNum];
+    return &this->m_assertAsync_InputPort[portNum];
 }
 
-Ports::InputTypedPort* ActiveOverflowComponentBase ::
-  get_blockAsync_InputPort(FwIndexType portNum)
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_blockAsync_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+Ports::InputTypedPort* ActiveOverflowComponentBase ::get_blockAsync_InputPort(FwIndexType portNum) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_blockAsync_InputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  return &this->m_blockAsync_InputPort[portNum];
+    return &this->m_blockAsync_InputPort[portNum];
 }
 
-Ports::InputTypedPort* ActiveOverflowComponentBase ::
-  get_dropAsync_InputPort(FwIndexType portNum)
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_dropAsync_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+Ports::InputTypedPort* ActiveOverflowComponentBase ::get_dropAsync_InputPort(FwIndexType portNum) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_dropAsync_InputPorts()), static_cast<FwAssertArgType>(portNum));
 
-  return &this->m_dropAsync_InputPort[portNum];
+    return &this->m_dropAsync_InputPort[portNum];
 }
 
-Ports::InputTypedPort* ActiveOverflowComponentBase ::
-  get_hookAsync_InputPort(FwIndexType portNum)
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_hookAsync_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+Ports::InputTypedPort* ActiveOverflowComponentBase ::get_hookAsync_InputPort(FwIndexType portNum) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_hookAsync_InputPorts()), static_cast<FwAssertArgType>(portNum));
 
-  return &this->m_hookAsync_InputPort[portNum];
+    return &this->m_hookAsync_InputPort[portNum];
 }
 
 #endif
@@ -540,15 +348,11 @@ Ports::InputTypedPort* ActiveOverflowComponentBase ::
 // Getters for serial input ports
 // ----------------------------------------------------------------------
 
-Fw::InputSerializePort* ActiveOverflowComponentBase ::
-  get_serialAsyncHook_InputPort(FwIndexType portNum)
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_serialAsyncHook_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+Fw::InputSerializePort* ActiveOverflowComponentBase ::get_serialAsyncHook_InputPort(FwIndexType portNum) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_serialAsyncHook_InputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  return &this->m_serialAsyncHook_InputPort[portNum];
+    return &this->m_serialAsyncHook_InputPort[portNum];
 }
 
 #endif
@@ -559,120 +363,62 @@ Fw::InputSerializePort* ActiveOverflowComponentBase ::
 // Connect input ports to special output ports
 // ----------------------------------------------------------------------
 
-void ActiveOverflowComponentBase ::
-  set_cmdRegOut_OutputPort(
-      FwIndexType portNum,
-      Fw::InputCmdRegPort* port
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::set_cmdRegOut_OutputPort(FwIndexType portNum, Fw::InputCmdRegPort* port) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  this->m_cmdRegOut_OutputPort[portNum].addCallPort(port);
+    this->m_cmdRegOut_OutputPort[portNum].addCallPort(port);
 }
 
-void ActiveOverflowComponentBase ::
-  set_cmdResponseOut_OutputPort(
-      FwIndexType portNum,
-      Fw::InputCmdResponsePort* port
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::set_cmdResponseOut_OutputPort(FwIndexType portNum, Fw::InputCmdResponsePort* port) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  this->m_cmdResponseOut_OutputPort[portNum].addCallPort(port);
+    this->m_cmdResponseOut_OutputPort[portNum].addCallPort(port);
 }
 
-void ActiveOverflowComponentBase ::
-  set_eventOut_OutputPort(
-      FwIndexType portNum,
-      Fw::InputLogPort* port
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::set_eventOut_OutputPort(FwIndexType portNum, Fw::InputLogPort* port) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()), static_cast<FwAssertArgType>(portNum));
 
-  this->m_eventOut_OutputPort[portNum].addCallPort(port);
+    this->m_eventOut_OutputPort[portNum].addCallPort(port);
 }
 
-void ActiveOverflowComponentBase ::
-  set_prmGetOut_OutputPort(
-      FwIndexType portNum,
-      Fw::InputPrmGetPort* port
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::set_prmGetOut_OutputPort(FwIndexType portNum, Fw::InputPrmGetPort* port) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  this->m_prmGetOut_OutputPort[portNum].addCallPort(port);
+    this->m_prmGetOut_OutputPort[portNum].addCallPort(port);
 }
 
-void ActiveOverflowComponentBase ::
-  set_prmSetOut_OutputPort(
-      FwIndexType portNum,
-      Fw::InputPrmSetPort* port
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::set_prmSetOut_OutputPort(FwIndexType portNum, Fw::InputPrmSetPort* port) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  this->m_prmSetOut_OutputPort[portNum].addCallPort(port);
+    this->m_prmSetOut_OutputPort[portNum].addCallPort(port);
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
-void ActiveOverflowComponentBase ::
-  set_textEventOut_OutputPort(
-      FwIndexType portNum,
-      Fw::InputLogTextPort* port
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::set_textEventOut_OutputPort(FwIndexType portNum, Fw::InputLogTextPort* port) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  this->m_textEventOut_OutputPort[portNum].addCallPort(port);
+    this->m_textEventOut_OutputPort[portNum].addCallPort(port);
 }
 
 #endif
 
-void ActiveOverflowComponentBase ::
-  set_timeGetOut_OutputPort(
-      FwIndexType portNum,
-      Fw::InputTimePort* port
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::set_timeGetOut_OutputPort(FwIndexType portNum, Fw::InputTimePort* port) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  this->m_timeGetOut_OutputPort[portNum].addCallPort(port);
+    this->m_timeGetOut_OutputPort[portNum].addCallPort(port);
 }
 
-void ActiveOverflowComponentBase ::
-  set_tlmOut_OutputPort(
-      FwIndexType portNum,
-      Fw::InputTlmPort* port
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::set_tlmOut_OutputPort(FwIndexType portNum, Fw::InputTlmPort* port) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()), static_cast<FwAssertArgType>(portNum));
 
-  this->m_tlmOut_OutputPort[portNum].addCallPort(port);
+    this->m_tlmOut_OutputPort[portNum].addCallPort(port);
 }
 
 #endif
@@ -683,106 +429,55 @@ void ActiveOverflowComponentBase ::
 // Connect serial input ports to special output ports
 // ----------------------------------------------------------------------
 
-void ActiveOverflowComponentBase ::
-  set_cmdRegOut_OutputPort(
-      FwIndexType portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::set_cmdRegOut_OutputPort(FwIndexType portNum, Fw::InputSerializePort* port) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  this->m_cmdRegOut_OutputPort[portNum].registerSerialPort(port);
+    this->m_cmdRegOut_OutputPort[portNum].registerSerialPort(port);
 }
 
-void ActiveOverflowComponentBase ::
-  set_cmdResponseOut_OutputPort(
-      FwIndexType portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::set_cmdResponseOut_OutputPort(FwIndexType portNum, Fw::InputSerializePort* port) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  this->m_cmdResponseOut_OutputPort[portNum].registerSerialPort(port);
+    this->m_cmdResponseOut_OutputPort[portNum].registerSerialPort(port);
 }
 
-void ActiveOverflowComponentBase ::
-  set_eventOut_OutputPort(
-      FwIndexType portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::set_eventOut_OutputPort(FwIndexType portNum, Fw::InputSerializePort* port) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()), static_cast<FwAssertArgType>(portNum));
 
-  this->m_eventOut_OutputPort[portNum].registerSerialPort(port);
+    this->m_eventOut_OutputPort[portNum].registerSerialPort(port);
 }
 
-void ActiveOverflowComponentBase ::
-  set_prmSetOut_OutputPort(
-      FwIndexType portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::set_prmSetOut_OutputPort(FwIndexType portNum, Fw::InputSerializePort* port) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  this->m_prmSetOut_OutputPort[portNum].registerSerialPort(port);
+    this->m_prmSetOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
-void ActiveOverflowComponentBase ::
-  set_textEventOut_OutputPort(
-      FwIndexType portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::set_textEventOut_OutputPort(FwIndexType portNum, Fw::InputSerializePort* port) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  this->m_textEventOut_OutputPort[portNum].registerSerialPort(port);
+    this->m_textEventOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 #endif
 
-void ActiveOverflowComponentBase ::
-  set_timeGetOut_OutputPort(
-      FwIndexType portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::set_timeGetOut_OutputPort(FwIndexType portNum, Fw::InputSerializePort* port) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  this->m_timeGetOut_OutputPort[portNum].registerSerialPort(port);
+    this->m_timeGetOut_OutputPort[portNum].registerSerialPort(port);
 }
 
-void ActiveOverflowComponentBase ::
-  set_tlmOut_OutputPort(
-      FwIndexType portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::set_tlmOut_OutputPort(FwIndexType portNum, Fw::InputSerializePort* port) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()), static_cast<FwAssertArgType>(portNum));
 
-  this->m_tlmOut_OutputPort[portNum].registerSerialPort(port);
+    this->m_tlmOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 #endif
@@ -791,38 +486,21 @@ void ActiveOverflowComponentBase ::
 // Command registration
 // ----------------------------------------------------------------------
 
-void ActiveOverflowComponentBase ::
-  regCommands()
-{
-  FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
+void ActiveOverflowComponentBase ::regCommands() {
+    FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
 
-  this->cmdRegOut_out(
-    0,
-    this->getIdBase() + OPCODE_CMD_HOOK
-  );
+    this->cmdRegOut_out(0, this->getIdBase() + OPCODE_CMD_HOOK);
 
-  this->cmdRegOut_out(
-    0,
-    this->getIdBase() + OPCODE_CMD_PARAMS_PRIORITY_HOOK
-  );
+    this->cmdRegOut_out(0, this->getIdBase() + OPCODE_CMD_PARAMS_PRIORITY_HOOK);
 }
 
 // ----------------------------------------------------------------------
 // Component construction and destruction
 // ----------------------------------------------------------------------
 
-ActiveOverflowComponentBase ::
-  ActiveOverflowComponentBase(const char* compName) :
-    Fw::ActiveComponentBase(compName)
-{
+ActiveOverflowComponentBase ::ActiveOverflowComponentBase(const char* compName) : Fw::ActiveComponentBase(compName) {}
 
-}
-
-ActiveOverflowComponentBase ::
-  ~ActiveOverflowComponentBase()
-{
-
-}
+ActiveOverflowComponentBase ::~ActiveOverflowComponentBase() {}
 
 #if !FW_DIRECT_PORT_CALLS
 
@@ -830,96 +508,62 @@ ActiveOverflowComponentBase ::
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 
-bool ActiveOverflowComponentBase ::
-  isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+bool ActiveOverflowComponentBase ::isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  return this->m_cmdRegOut_OutputPort[portNum].isConnected();
+    return this->m_cmdRegOut_OutputPort[portNum].isConnected();
 }
 
-bool ActiveOverflowComponentBase ::
-  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum) const
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+bool ActiveOverflowComponentBase ::isConnected_cmdResponseOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  return this->m_cmdResponseOut_OutputPort[portNum].isConnected();
+    return this->m_cmdResponseOut_OutputPort[portNum].isConnected();
 }
 
-bool ActiveOverflowComponentBase ::
-  isConnected_eventOut_OutputPort(FwIndexType portNum) const
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+bool ActiveOverflowComponentBase ::isConnected_eventOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()), static_cast<FwAssertArgType>(portNum));
 
-  return this->m_eventOut_OutputPort[portNum].isConnected();
+    return this->m_eventOut_OutputPort[portNum].isConnected();
 }
 
-bool ActiveOverflowComponentBase ::
-  isConnected_prmGetOut_OutputPort(FwIndexType portNum) const
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+bool ActiveOverflowComponentBase ::isConnected_prmGetOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  return this->m_prmGetOut_OutputPort[portNum].isConnected();
+    return this->m_prmGetOut_OutputPort[portNum].isConnected();
 }
 
-bool ActiveOverflowComponentBase ::
-  isConnected_prmSetOut_OutputPort(FwIndexType portNum) const
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+bool ActiveOverflowComponentBase ::isConnected_prmSetOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  return this->m_prmSetOut_OutputPort[portNum].isConnected();
+    return this->m_prmSetOut_OutputPort[portNum].isConnected();
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
-bool ActiveOverflowComponentBase ::
-  isConnected_textEventOut_OutputPort(FwIndexType portNum) const
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+bool ActiveOverflowComponentBase ::isConnected_textEventOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  return this->m_textEventOut_OutputPort[portNum].isConnected();
+    return this->m_textEventOut_OutputPort[portNum].isConnected();
 }
 
 #endif
 
-bool ActiveOverflowComponentBase ::
-  isConnected_timeGetOut_OutputPort(FwIndexType portNum) const
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+bool ActiveOverflowComponentBase ::isConnected_timeGetOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  return this->m_timeGetOut_OutputPort[portNum].isConnected();
+    return this->m_timeGetOut_OutputPort[portNum].isConnected();
 }
 
-bool ActiveOverflowComponentBase ::
-  isConnected_tlmOut_OutputPort(FwIndexType portNum) const
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+bool ActiveOverflowComponentBase ::isConnected_tlmOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()), static_cast<FwAssertArgType>(portNum));
 
-  return this->m_tlmOut_OutputPort[portNum].isConnected();
+    return this->m_tlmOut_OutputPort[portNum].isConnected();
 }
 
 #endif
@@ -930,117 +574,73 @@ bool ActiveOverflowComponentBase ::
 // Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
 
-void ActiveOverflowComponentBase ::
-  cmdIn_handlerBase(
-      FwIndexType portNum,
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      Fw::CmdArgBuffer& args
-  )
-{
+void ActiveOverflowComponentBase ::cmdIn_handlerBase(FwIndexType portNum,
+                                                     FwOpcodeType opCode,
+                                                     U32 cmdSeq,
+                                                     Fw::CmdArgBuffer& args) {
+    const U32 idBase = this->getIdBase();
+    FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
 
-  const U32 idBase = this->getIdBase();
-  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+    // Select base class function based on opcode
+    switch (opCode - idBase) {
+        case OPCODE_CMD_HOOK: {
+            this->CMD_HOOK_cmdHandlerBase(opCode, cmdSeq, args);
+            break;
+        }
 
-  // Select base class function based on opcode
-  switch (opCode - idBase) {
-    case OPCODE_CMD_HOOK: {
-      this->CMD_HOOK_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
+        case OPCODE_CMD_PARAMS_PRIORITY_HOOK: {
+            this->CMD_PARAMS_PRIORITY_HOOK_cmdHandlerBase(opCode, cmdSeq, args);
+            break;
+        }
+        default:
+            // Unknown opcode: ignore it
+            break;
     }
-
-    case OPCODE_CMD_PARAMS_PRIORITY_HOOK: {
-      this->CMD_PARAMS_PRIORITY_HOOK_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-    default:
-      // Unknown opcode: ignore it
-      break;
-  }
 }
 
-void ActiveOverflowComponentBase ::
-  productRecvInHook_handlerBase(
-      FwIndexType portNum,
-      FwDpIdType id,
-      const Fw::Buffer& buffer,
-      const Fw::Success& status
-  )
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_productRecvInHook_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::productRecvInHook_handlerBase(FwIndexType portNum,
+                                                                 FwDpIdType id,
+                                                                 const Fw::Buffer& buffer,
+                                                                 const Fw::Success& status) {
+    // Make sure port number is valid
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_productRecvInHook_InputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  // Call pre-message hook
-  productRecvInHook_preMsgHook(
-    portNum,
-    id,
-    buffer,
-    status
-  );
-  ComponentIpcSerializableBuffer msg;
-  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // Call pre-message hook
+    productRecvInHook_preMsgHook(portNum, id, buffer, status);
+    ComponentIpcSerializableBuffer msg;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
-  // Serialize message ID
-  _status = msg.serializeFrom(
-    static_cast<FwEnumStoreType>(PRODUCTRECVINHOOK_DPRESPONSE)
-  );
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize message ID
+    _status = msg.serializeFrom(static_cast<FwEnumStoreType>(PRODUCTRECVINHOOK_DPRESPONSE));
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize port number
-  _status = msg.serializeFrom(portNum);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize port number
+    _status = msg.serializeFrom(portNum);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument id
-  _status = msg.serializeFrom(id);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument id
+    _status = msg.serializeFrom(id);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument buffer
-  _status = msg.serializeFrom(buffer);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument buffer
+    _status = msg.serializeFrom(buffer);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument status
-  _status = msg.serializeFrom(status);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument status
+    _status = msg.serializeFrom(status);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Send message
-  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
-  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
+    // Send message
+    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+    Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
-  if (qStatus == Os::Queue::Status::FULL) {
-    this->productRecvInHook_overflowHook(portNum, id, buffer, status);
-    return;
-  }
+    if (qStatus == Os::Queue::Status::FULL) {
+        this->productRecvInHook_overflowHook(portNum, id, buffer, status);
+        return;
+    }
 
-  FW_ASSERT(
-    qStatus == Os::Queue::OP_OK,
-    static_cast<FwAssertArgType>(qStatus)
-  );
+    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
 }
 
 // ----------------------------------------------------------------------
@@ -1049,442 +649,252 @@ void ActiveOverflowComponentBase ::
 // Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
 
-void ActiveOverflowComponentBase ::
-  assertAsync_handlerBase(
-      FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const Fw::StringBase& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_assertAsync_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::assertAsync_handlerBase(FwIndexType portNum,
+                                                           U32 u32,
+                                                           F32 f32,
+                                                           bool b,
+                                                           const Fw::StringBase& str1,
+                                                           const E& e,
+                                                           const A& a,
+                                                           const S& s) {
+    // Make sure port number is valid
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_assertAsync_InputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  // Call pre-message hook
-  assertAsync_preMsgHook(
-    portNum,
-    u32,
-    f32,
-    b,
-    str1,
-    e,
-    a,
-    s
-  );
-  ComponentIpcSerializableBuffer msg;
-  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // Call pre-message hook
+    assertAsync_preMsgHook(portNum, u32, f32, b, str1, e, a, s);
+    ComponentIpcSerializableBuffer msg;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
-  // Serialize message ID
-  _status = msg.serializeFrom(
-    static_cast<FwEnumStoreType>(ASSERTASYNC_TYPED)
-  );
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize message ID
+    _status = msg.serializeFrom(static_cast<FwEnumStoreType>(ASSERTASYNC_TYPED));
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize port number
-  _status = msg.serializeFrom(portNum);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize port number
+    _status = msg.serializeFrom(portNum);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument u32
-  _status = msg.serializeFrom(u32);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument u32
+    _status = msg.serializeFrom(u32);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument f32
-  _status = msg.serializeFrom(f32);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument f32
+    _status = msg.serializeFrom(f32);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument b
-  _status = msg.serializeFrom(b);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument b
+    _status = msg.serializeFrom(b);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument str1
-  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument str1
+    _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument e
-  _status = msg.serializeFrom(e);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument e
+    _status = msg.serializeFrom(e);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument a
-  _status = msg.serializeFrom(a);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument a
+    _status = msg.serializeFrom(a);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument s
-  _status = msg.serializeFrom(s);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument s
+    _status = msg.serializeFrom(s);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Send message
-  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
-  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
+    // Send message
+    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+    Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
-  FW_ASSERT(
-    qStatus == Os::Queue::OP_OK,
-    static_cast<FwAssertArgType>(qStatus)
-  );
+    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
 }
 
-void ActiveOverflowComponentBase ::
-  blockAsync_handlerBase(
-      FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const Fw::StringBase& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_blockAsync_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::blockAsync_handlerBase(FwIndexType portNum,
+                                                          U32 u32,
+                                                          F32 f32,
+                                                          bool b,
+                                                          const Fw::StringBase& str1,
+                                                          const E& e,
+                                                          const A& a,
+                                                          const S& s) {
+    // Make sure port number is valid
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_blockAsync_InputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  // Call pre-message hook
-  blockAsync_preMsgHook(
-    portNum,
-    u32,
-    f32,
-    b,
-    str1,
-    e,
-    a,
-    s
-  );
-  ComponentIpcSerializableBuffer msg;
-  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // Call pre-message hook
+    blockAsync_preMsgHook(portNum, u32, f32, b, str1, e, a, s);
+    ComponentIpcSerializableBuffer msg;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
-  // Serialize message ID
-  _status = msg.serializeFrom(
-    static_cast<FwEnumStoreType>(BLOCKASYNC_TYPED)
-  );
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize message ID
+    _status = msg.serializeFrom(static_cast<FwEnumStoreType>(BLOCKASYNC_TYPED));
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize port number
-  _status = msg.serializeFrom(portNum);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize port number
+    _status = msg.serializeFrom(portNum);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument u32
-  _status = msg.serializeFrom(u32);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument u32
+    _status = msg.serializeFrom(u32);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument f32
-  _status = msg.serializeFrom(f32);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument f32
+    _status = msg.serializeFrom(f32);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument b
-  _status = msg.serializeFrom(b);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument b
+    _status = msg.serializeFrom(b);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument str1
-  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument str1
+    _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument e
-  _status = msg.serializeFrom(e);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument e
+    _status = msg.serializeFrom(e);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument a
-  _status = msg.serializeFrom(a);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument a
+    _status = msg.serializeFrom(a);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument s
-  _status = msg.serializeFrom(s);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument s
+    _status = msg.serializeFrom(s);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Send message
-  Os::Queue::BlockingType _block = Os::Queue::BLOCKING;
-  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
+    // Send message
+    Os::Queue::BlockingType _block = Os::Queue::BLOCKING;
+    Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
-  FW_ASSERT(
-    qStatus == Os::Queue::OP_OK,
-    static_cast<FwAssertArgType>(qStatus)
-  );
+    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
 }
 
-void ActiveOverflowComponentBase ::
-  dropAsync_handlerBase(
-      FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const Fw::StringBase& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_dropAsync_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::dropAsync_handlerBase(FwIndexType portNum,
+                                                         U32 u32,
+                                                         F32 f32,
+                                                         bool b,
+                                                         const Fw::StringBase& str1,
+                                                         const E& e,
+                                                         const A& a,
+                                                         const S& s) {
+    // Make sure port number is valid
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_dropAsync_InputPorts()), static_cast<FwAssertArgType>(portNum));
 
-  // Call pre-message hook
-  dropAsync_preMsgHook(
-    portNum,
-    u32,
-    f32,
-    b,
-    str1,
-    e,
-    a,
-    s
-  );
-  ComponentIpcSerializableBuffer msg;
-  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // Call pre-message hook
+    dropAsync_preMsgHook(portNum, u32, f32, b, str1, e, a, s);
+    ComponentIpcSerializableBuffer msg;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
-  // Serialize message ID
-  _status = msg.serializeFrom(
-    static_cast<FwEnumStoreType>(DROPASYNC_TYPED)
-  );
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize message ID
+    _status = msg.serializeFrom(static_cast<FwEnumStoreType>(DROPASYNC_TYPED));
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize port number
-  _status = msg.serializeFrom(portNum);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize port number
+    _status = msg.serializeFrom(portNum);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument u32
-  _status = msg.serializeFrom(u32);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument u32
+    _status = msg.serializeFrom(u32);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument f32
-  _status = msg.serializeFrom(f32);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument f32
+    _status = msg.serializeFrom(f32);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument b
-  _status = msg.serializeFrom(b);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument b
+    _status = msg.serializeFrom(b);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument str1
-  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument str1
+    _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument e
-  _status = msg.serializeFrom(e);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument e
+    _status = msg.serializeFrom(e);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument a
-  _status = msg.serializeFrom(a);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument a
+    _status = msg.serializeFrom(a);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument s
-  _status = msg.serializeFrom(s);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument s
+    _status = msg.serializeFrom(s);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Send message
-  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
-  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
+    // Send message
+    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+    Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
-  if (qStatus == Os::Queue::Status::FULL) {
-    this->incNumMsgDropped();
-    return;
-  }
+    if (qStatus == Os::Queue::Status::FULL) {
+        this->incNumMsgDropped();
+        return;
+    }
 
-  FW_ASSERT(
-    qStatus == Os::Queue::OP_OK,
-    static_cast<FwAssertArgType>(qStatus)
-  );
+    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
 }
 
-void ActiveOverflowComponentBase ::
-  hookAsync_handlerBase(
-      FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const Fw::StringBase& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_hookAsync_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::hookAsync_handlerBase(FwIndexType portNum,
+                                                         U32 u32,
+                                                         F32 f32,
+                                                         bool b,
+                                                         const Fw::StringBase& str1,
+                                                         const E& e,
+                                                         const A& a,
+                                                         const S& s) {
+    // Make sure port number is valid
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_hookAsync_InputPorts()), static_cast<FwAssertArgType>(portNum));
 
-  // Call pre-message hook
-  hookAsync_preMsgHook(
-    portNum,
-    u32,
-    f32,
-    b,
-    str1,
-    e,
-    a,
-    s
-  );
-  ComponentIpcSerializableBuffer msg;
-  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // Call pre-message hook
+    hookAsync_preMsgHook(portNum, u32, f32, b, str1, e, a, s);
+    ComponentIpcSerializableBuffer msg;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
-  // Serialize message ID
-  _status = msg.serializeFrom(
-    static_cast<FwEnumStoreType>(HOOKASYNC_TYPED)
-  );
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize message ID
+    _status = msg.serializeFrom(static_cast<FwEnumStoreType>(HOOKASYNC_TYPED));
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize port number
-  _status = msg.serializeFrom(portNum);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize port number
+    _status = msg.serializeFrom(portNum);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument u32
-  _status = msg.serializeFrom(u32);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument u32
+    _status = msg.serializeFrom(u32);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument f32
-  _status = msg.serializeFrom(f32);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument f32
+    _status = msg.serializeFrom(f32);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument b
-  _status = msg.serializeFrom(b);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument b
+    _status = msg.serializeFrom(b);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument str1
-  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument str1
+    _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument e
-  _status = msg.serializeFrom(e);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument e
+    _status = msg.serializeFrom(e);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument a
-  _status = msg.serializeFrom(a);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument a
+    _status = msg.serializeFrom(a);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument s
-  _status = msg.serializeFrom(s);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument s
+    _status = msg.serializeFrom(s);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Send message
-  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
-  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
+    // Send message
+    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+    Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
-  if (qStatus == Os::Queue::Status::FULL) {
-    this->hookAsync_overflowHook(portNum, u32, f32, b, str1, e, a, s);
-    return;
-  }
+    if (qStatus == Os::Queue::Status::FULL) {
+        this->hookAsync_overflowHook(portNum, u32, f32, b, str1, e, a, s);
+        return;
+    }
 
-  FW_ASSERT(
-    qStatus == Os::Queue::OP_OK,
-    static_cast<FwAssertArgType>(qStatus)
-  );
+    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
 }
 
 // ----------------------------------------------------------------------
@@ -1493,62 +903,38 @@ void ActiveOverflowComponentBase ::
 // Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
 
-void ActiveOverflowComponentBase ::
-  serialAsyncHook_handlerBase(
-      FwIndexType portNum,
-      Fw::LinearBufferBase& buffer
-  )
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_serialAsyncHook_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::serialAsyncHook_handlerBase(FwIndexType portNum, Fw::LinearBufferBase& buffer) {
+    // Make sure port number is valid
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_serialAsyncHook_InputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  // Declare buffer for serialAsyncHook
-  U8 msgBuff[this->m_msgSize];
-  Fw::ExternalSerializeBuffer msgSerBuff(
-    msgBuff,
-    static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
-  );
-  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // Declare buffer for serialAsyncHook
+    U8 msgBuff[this->m_msgSize];
+    Fw::ExternalSerializeBuffer msgSerBuff(msgBuff, static_cast<Fw::Serializable::SizeType>(this->m_msgSize));
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
-  // Serialize message ID
-  _status = msgSerBuff.serializeFrom(
-    static_cast<FwEnumStoreType>(SERIALASYNCHOOK_SERIAL)
-  );
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize message ID
+    _status = msgSerBuff.serializeFrom(static_cast<FwEnumStoreType>(SERIALASYNCHOOK_SERIAL));
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize port number
-  _status = msgSerBuff.serializeFrom(portNum);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize port number
+    _status = msgSerBuff.serializeFrom(portNum);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize argument buffer
-  _status = msgSerBuff.serializeFrom(buffer);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize argument buffer
+    _status = msgSerBuff.serializeFrom(buffer);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Send message
-  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
-  Os::Queue::Status qStatus = this->m_queue.send(msgSerBuff, 0, _block);
+    // Send message
+    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+    Os::Queue::Status qStatus = this->m_queue.send(msgSerBuff, 0, _block);
 
-  if (qStatus == Os::Queue::Status::FULL) {
-    this->serialAsyncHook_overflowHook(portNum, buffer);
-    return;
-  }
+    if (qStatus == Os::Queue::Status::FULL) {
+        this->serialAsyncHook_overflowHook(portNum, buffer);
+        return;
+    }
 
-  FW_ASSERT(
-    qStatus == Os::Queue::OP_OK,
-    static_cast<FwAssertArgType>(qStatus)
-  );
+    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
 }
 
 // ----------------------------------------------------------------------
@@ -1559,15 +945,11 @@ void ActiveOverflowComponentBase ::
 // override them to provide specific pre-message behavior.
 // ----------------------------------------------------------------------
 
-void ActiveOverflowComponentBase ::
-  productRecvInHook_preMsgHook(
-      FwIndexType portNum,
-      FwDpIdType id,
-      const Fw::Buffer& buffer,
-      const Fw::Success& status
-  )
-{
-  // Default: no-op
+void ActiveOverflowComponentBase ::productRecvInHook_preMsgHook(FwIndexType portNum,
+                                                                FwDpIdType id,
+                                                                const Fw::Buffer& buffer,
+                                                                const Fw::Success& status) {
+    // Default: no-op
 }
 
 // ----------------------------------------------------------------------
@@ -1578,64 +960,48 @@ void ActiveOverflowComponentBase ::
 // override them to provide specific pre-message behavior.
 // ----------------------------------------------------------------------
 
-void ActiveOverflowComponentBase ::
-  assertAsync_preMsgHook(
-      FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const Fw::StringBase& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  // Default: no-op
+void ActiveOverflowComponentBase ::assertAsync_preMsgHook(FwIndexType portNum,
+                                                          U32 u32,
+                                                          F32 f32,
+                                                          bool b,
+                                                          const Fw::StringBase& str1,
+                                                          const E& e,
+                                                          const A& a,
+                                                          const S& s) {
+    // Default: no-op
 }
 
-void ActiveOverflowComponentBase ::
-  blockAsync_preMsgHook(
-      FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const Fw::StringBase& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  // Default: no-op
+void ActiveOverflowComponentBase ::blockAsync_preMsgHook(FwIndexType portNum,
+                                                         U32 u32,
+                                                         F32 f32,
+                                                         bool b,
+                                                         const Fw::StringBase& str1,
+                                                         const E& e,
+                                                         const A& a,
+                                                         const S& s) {
+    // Default: no-op
 }
 
-void ActiveOverflowComponentBase ::
-  dropAsync_preMsgHook(
-      FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const Fw::StringBase& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  // Default: no-op
+void ActiveOverflowComponentBase ::dropAsync_preMsgHook(FwIndexType portNum,
+                                                        U32 u32,
+                                                        F32 f32,
+                                                        bool b,
+                                                        const Fw::StringBase& str1,
+                                                        const E& e,
+                                                        const A& a,
+                                                        const S& s) {
+    // Default: no-op
 }
 
-void ActiveOverflowComponentBase ::
-  hookAsync_preMsgHook(
-      FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const Fw::StringBase& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  // Default: no-op
+void ActiveOverflowComponentBase ::hookAsync_preMsgHook(FwIndexType portNum,
+                                                        U32 u32,
+                                                        F32 f32,
+                                                        bool b,
+                                                        const Fw::StringBase& str1,
+                                                        const E& e,
+                                                        const A& a,
+                                                        const S& s) {
+    // Default: no-op
 }
 
 // ----------------------------------------------------------------------
@@ -1646,13 +1012,8 @@ void ActiveOverflowComponentBase ::
 // override them to provide specific pre-message behavior.
 // ----------------------------------------------------------------------
 
-void ActiveOverflowComponentBase ::
-  serialAsyncHook_preMsgHook(
-      FwIndexType portNum,
-      Fw::LinearBufferBase& buffer
-  )
-{
-  // Default: no-op
+void ActiveOverflowComponentBase ::serialAsyncHook_preMsgHook(FwIndexType portNum, Fw::LinearBufferBase& buffer) {
+    // Default: no-op
 }
 
 // ----------------------------------------------------------------------
@@ -1667,54 +1028,37 @@ void ActiveOverflowComponentBase ::
 // Internal interface base-class functions
 // ----------------------------------------------------------------------
 
-void ActiveOverflowComponentBase ::
-  internalHookDrop_internalInterfaceInvoke()
-{
-  ComponentIpcSerializableBuffer msg;
-  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+void ActiveOverflowComponentBase ::internalHookDrop_internalInterfaceInvoke() {
+    ComponentIpcSerializableBuffer msg;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
-  // Serialize the message ID
-  _status = msg.serializeFrom(static_cast<FwEnumStoreType>(INT_IF_INTERNALHOOKDROP));
-  FW_ASSERT (
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize the message ID
+    _status = msg.serializeFrom(static_cast<FwEnumStoreType>(INT_IF_INTERNALHOOKDROP));
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Fake port number to make message dequeue work
-  _status = msg.serializeFrom(static_cast<FwIndexType>(0));
-  FW_ASSERT (
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Fake port number to make message dequeue work
+    _status = msg.serializeFrom(static_cast<FwIndexType>(0));
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Send message
-  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
-  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
+    // Send message
+    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+    Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
-  if (qStatus == Os::Queue::Status::FULL) {
-    this->internalHookDrop_overflowHook();
-    return;
-  }
+    if (qStatus == Os::Queue::Status::FULL) {
+        this->internalHookDrop_overflowHook();
+        return;
+    }
 
-  FW_ASSERT(
-    qStatus == Os::Queue::OP_OK,
-    static_cast<FwAssertArgType>(qStatus)
-  );
+    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
 }
 
 // ----------------------------------------------------------------------
 // Command response
 // ----------------------------------------------------------------------
 
-void ActiveOverflowComponentBase ::
-  cmdResponse_out(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      Fw::CmdResponse response
-  )
-{
-  FW_ASSERT(this->isConnected_cmdResponseOut_OutputPort(0));
-  this->cmdResponseOut_out(0, opCode, cmdSeq, response);
+void ActiveOverflowComponentBase ::cmdResponse_out(FwOpcodeType opCode, U32 cmdSeq, Fw::CmdResponse response) {
+    FW_ASSERT(this->isConnected_cmdResponseOut_OutputPort(0));
+    this->cmdResponseOut_out(0, opCode, cmdSeq, response);
 }
 
 // ----------------------------------------------------------------------
@@ -1723,132 +1067,86 @@ void ActiveOverflowComponentBase ::
 // Call these functions directly to bypass the command input port
 // ----------------------------------------------------------------------
 
-void ActiveOverflowComponentBase ::
-  CMD_HOOK_cmdHandlerBase(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      Fw::CmdArgBuffer& args
-  )
-{
-  // Call pre-message hook
-  this->CMD_HOOK_preMsgHook(opCode,cmdSeq);
+void ActiveOverflowComponentBase ::CMD_HOOK_cmdHandlerBase(FwOpcodeType opCode, U32 cmdSeq, Fw::CmdArgBuffer& args) {
+    // Call pre-message hook
+    this->CMD_HOOK_preMsgHook(opCode, cmdSeq);
 
-  // Defer deserializing arguments to the message dispatcher
-  // to avoid deserializing and reserializing just for IPC
-  ComponentIpcSerializableBuffer msg;
-  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // Defer deserializing arguments to the message dispatcher
+    // to avoid deserializing and reserializing just for IPC
+    ComponentIpcSerializableBuffer msg;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
-  // Serialize for IPC
-  _status = msg.serializeFrom(static_cast<FwEnumStoreType>(CMD_CMD_HOOK));
-  FW_ASSERT (
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize for IPC
+    _status = msg.serializeFrom(static_cast<FwEnumStoreType>(CMD_CMD_HOOK));
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Fake port number to make message dequeue work
-  FwIndexType port = 0;
+    // Fake port number to make message dequeue work
+    FwIndexType port = 0;
 
-  _status = msg.serializeFrom(port);
-  FW_ASSERT (
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    _status = msg.serializeFrom(port);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  _status = msg.serializeFrom(opCode);
-  FW_ASSERT (
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    _status = msg.serializeFrom(opCode);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  _status = msg.serializeFrom(cmdSeq);
-  FW_ASSERT (
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    _status = msg.serializeFrom(cmdSeq);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  _status = msg.serializeFrom(args);
-  FW_ASSERT (
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    _status = msg.serializeFrom(args);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Send message
-  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
-  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
+    // Send message
+    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+    Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
-  if (qStatus == Os::Queue::Status::FULL) {
-    this->CMD_HOOK_cmdOverflowHook(opCode, cmdSeq);
-    return;
-  }
+    if (qStatus == Os::Queue::Status::FULL) {
+        this->CMD_HOOK_cmdOverflowHook(opCode, cmdSeq);
+        return;
+    }
 
-  FW_ASSERT(
-    qStatus == Os::Queue::OP_OK,
-    static_cast<FwAssertArgType>(qStatus)
-  );
+    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
 }
 
-void ActiveOverflowComponentBase ::
-  CMD_PARAMS_PRIORITY_HOOK_cmdHandlerBase(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      Fw::CmdArgBuffer& args
-  )
-{
-  // Call pre-message hook
-  this->CMD_PARAMS_PRIORITY_HOOK_preMsgHook(opCode,cmdSeq);
+void ActiveOverflowComponentBase ::CMD_PARAMS_PRIORITY_HOOK_cmdHandlerBase(FwOpcodeType opCode,
+                                                                           U32 cmdSeq,
+                                                                           Fw::CmdArgBuffer& args) {
+    // Call pre-message hook
+    this->CMD_PARAMS_PRIORITY_HOOK_preMsgHook(opCode, cmdSeq);
 
-  // Defer deserializing arguments to the message dispatcher
-  // to avoid deserializing and reserializing just for IPC
-  ComponentIpcSerializableBuffer msg;
-  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // Defer deserializing arguments to the message dispatcher
+    // to avoid deserializing and reserializing just for IPC
+    ComponentIpcSerializableBuffer msg;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
-  // Serialize for IPC
-  _status = msg.serializeFrom(static_cast<FwEnumStoreType>(CMD_CMD_PARAMS_PRIORITY_HOOK));
-  FW_ASSERT (
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize for IPC
+    _status = msg.serializeFrom(static_cast<FwEnumStoreType>(CMD_CMD_PARAMS_PRIORITY_HOOK));
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Fake port number to make message dequeue work
-  FwIndexType port = 0;
+    // Fake port number to make message dequeue work
+    FwIndexType port = 0;
 
-  _status = msg.serializeFrom(port);
-  FW_ASSERT (
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    _status = msg.serializeFrom(port);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  _status = msg.serializeFrom(opCode);
-  FW_ASSERT (
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    _status = msg.serializeFrom(opCode);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  _status = msg.serializeFrom(cmdSeq);
-  FW_ASSERT (
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    _status = msg.serializeFrom(cmdSeq);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  _status = msg.serializeFrom(args);
-  FW_ASSERT (
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    _status = msg.serializeFrom(args);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Send message
-  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
-  Os::Queue::Status qStatus = this->m_queue.send(msg, 30, _block);
+    // Send message
+    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+    Os::Queue::Status qStatus = this->m_queue.send(msg, 30, _block);
 
-  if (qStatus == Os::Queue::Status::FULL) {
-    this->CMD_PARAMS_PRIORITY_HOOK_cmdOverflowHook(opCode, cmdSeq);
-    return;
-  }
+    if (qStatus == Os::Queue::Status::FULL) {
+        this->CMD_PARAMS_PRIORITY_HOOK_cmdOverflowHook(opCode, cmdSeq);
+        return;
+    }
 
-  FW_ASSERT(
-    qStatus == Os::Queue::OP_OK,
-    static_cast<FwAssertArgType>(qStatus)
-  );
+    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
 }
 
 // ----------------------------------------------------------------------
@@ -1859,725 +1157,460 @@ void ActiveOverflowComponentBase ::
 // override them to provide specific pre-command behavior.
 // ----------------------------------------------------------------------
 
-void ActiveOverflowComponentBase ::
-  CMD_HOOK_preMsgHook(
-      FwOpcodeType opCode,
-      U32 cmdSeq
-  )
-{
-  // Defaults to no-op; can be overridden
-  (void) opCode;
-  (void) cmdSeq;
+void ActiveOverflowComponentBase ::CMD_HOOK_preMsgHook(FwOpcodeType opCode, U32 cmdSeq) {
+    // Defaults to no-op; can be overridden
+    (void)opCode;
+    (void)cmdSeq;
 }
 
-void ActiveOverflowComponentBase ::
-  CMD_PARAMS_PRIORITY_HOOK_preMsgHook(
-      FwOpcodeType opCode,
-      U32 cmdSeq
-  )
-{
-  // Defaults to no-op; can be overridden
-  (void) opCode;
-  (void) cmdSeq;
+void ActiveOverflowComponentBase ::CMD_PARAMS_PRIORITY_HOOK_preMsgHook(FwOpcodeType opCode, U32 cmdSeq) {
+    // Defaults to no-op; can be overridden
+    (void)opCode;
+    (void)cmdSeq;
 }
 
 // ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
 
-Fw::Time ActiveOverflowComponentBase ::
-  getTime() const
-{
-  if (this->isConnected_timeGetOut_OutputPort(0)) {
-    Fw::Time _time;
-    this->timeGetOut_out(0, _time);
-    return _time;
-  }
-  else {
-    return Fw::Time(TimeBase::TB_NONE, 0, 0);
-  }
+Fw::Time ActiveOverflowComponentBase ::getTime() const {
+    if (this->isConnected_timeGetOut_OutputPort(0)) {
+        Fw::Time _time;
+        this->timeGetOut_out(0, _time);
+        return _time;
+    } else {
+        return Fw::Time(TimeBase::TB_NONE, 0, 0);
+    }
 }
 
 // ----------------------------------------------------------------------
 // Message dispatch functions
 // ----------------------------------------------------------------------
 
-Fw::QueuedComponentBase::MsgDispatchStatus ActiveOverflowComponentBase ::
-  doDispatch()
-{
-  U8 _msgBuff[this->m_msgSize];
-  Fw::ExternalSerializeBuffer _msg(
-    _msgBuff,
-    static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
-  );
-  FwQueuePriorityType _priority = 0;
+Fw::QueuedComponentBase::MsgDispatchStatus ActiveOverflowComponentBase ::doDispatch() {
+    U8 _msgBuff[this->m_msgSize];
+    Fw::ExternalSerializeBuffer _msg(_msgBuff, static_cast<Fw::Serializable::SizeType>(this->m_msgSize));
+    FwQueuePriorityType _priority = 0;
 
-  Os::Queue::Status _msgStatus = this->m_queue.receive(
-    _msg,
-    Os::Queue::BLOCKING,
-    _priority
-  );
-  FW_ASSERT(
-    _msgStatus == Os::Queue::OP_OK,
-    static_cast<FwAssertArgType>(_msgStatus)
-  );
+    Os::Queue::Status _msgStatus = this->m_queue.receive(_msg, Os::Queue::BLOCKING, _priority);
+    FW_ASSERT(_msgStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(_msgStatus));
 
-  // Reset to beginning of buffer
-  _msg.resetDeser();
+    // Reset to beginning of buffer
+    _msg.resetDeser();
 
-  FwEnumStoreType _desMsg = 0;
-  Fw::SerializeStatus _deserStatus = _msg.deserializeTo(_desMsg);
-  FW_ASSERT(
-    _deserStatus == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_deserStatus)
-  );
+    FwEnumStoreType _desMsg = 0;
+    Fw::SerializeStatus _deserStatus = _msg.deserializeTo(_desMsg);
+    FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
 
-  MsgTypeEnum _msgType = static_cast<MsgTypeEnum>(_desMsg);
+    MsgTypeEnum _msgType = static_cast<MsgTypeEnum>(_desMsg);
 
-  if (_msgType == ACTIVEOVERFLOW_COMPONENT_EXIT) {
-    return MSG_DISPATCH_EXIT;
-  }
-
-  FwIndexType portNum = 0;
-  _deserStatus = _msg.deserializeTo(portNum);
-  FW_ASSERT(
-    _deserStatus == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_deserStatus)
-  );
-
-  switch (_msgType) {
-    // Handle async input port productRecvInHook
-    case PRODUCTRECVINHOOK_DPRESPONSE: {
-      // Deserialize argument id
-      FwDpIdType id;
-      _deserStatus = _msg.deserializeTo(id);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument buffer
-      Fw::Buffer buffer;
-      _deserStatus = _msg.deserializeTo(buffer);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument status
-      Fw::Success status;
-      _deserStatus = _msg.deserializeTo(status);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-      // Call handler function
-      this->productRecvInHook_handler(
-        portNum,
-        id,
-        buffer,
-        status
-      );
-
-      break;
+    if (_msgType == ACTIVEOVERFLOW_COMPONENT_EXIT) {
+        return MSG_DISPATCH_EXIT;
     }
 
-    // Handle async input port assertAsync
-    case ASSERTASYNC_TYPED: {
-      // Deserialize argument u32
-      U32 u32;
-      _deserStatus = _msg.deserializeTo(u32);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
+    FwIndexType portNum = 0;
+    _deserStatus = _msg.deserializeTo(portNum);
+    FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
 
-      // Deserialize argument f32
-      F32 f32;
-      _deserStatus = _msg.deserializeTo(f32);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
+    switch (_msgType) {
+        // Handle async input port productRecvInHook
+        case PRODUCTRECVINHOOK_DPRESPONSE: {
+            // Deserialize argument id
+            FwDpIdType id;
+            _deserStatus = _msg.deserializeTo(id);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
 
-      // Deserialize argument b
-      bool b;
-      _deserStatus = _msg.deserializeTo(b);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
+            // Deserialize argument buffer
+            Fw::Buffer buffer;
+            _deserStatus = _msg.deserializeTo(buffer);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
 
-      // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
-      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
-      _deserStatus = _msg.deserializeTo(str1);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
+            // Deserialize argument status
+            Fw::Success status;
+            _deserStatus = _msg.deserializeTo(status);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+            // Call handler function
+            this->productRecvInHook_handler(portNum, id, buffer, status);
 
-      // Deserialize argument e
-      E e;
-      _deserStatus = _msg.deserializeTo(e);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument a
-      A a;
-      _deserStatus = _msg.deserializeTo(a);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument s
-      S s;
-      _deserStatus = _msg.deserializeTo(s);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-      // Call handler function
-      this->assertAsync_handler(
-        portNum,
-        u32,
-        f32,
-        b,
-        str1,
-        e,
-        a,
-        s
-      );
-
-      break;
-    }
-
-    // Handle async input port blockAsync
-    case BLOCKASYNC_TYPED: {
-      // Deserialize argument u32
-      U32 u32;
-      _deserStatus = _msg.deserializeTo(u32);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument f32
-      F32 f32;
-      _deserStatus = _msg.deserializeTo(f32);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument b
-      bool b;
-      _deserStatus = _msg.deserializeTo(b);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
-      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
-      _deserStatus = _msg.deserializeTo(str1);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument e
-      E e;
-      _deserStatus = _msg.deserializeTo(e);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument a
-      A a;
-      _deserStatus = _msg.deserializeTo(a);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument s
-      S s;
-      _deserStatus = _msg.deserializeTo(s);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-      // Call handler function
-      this->blockAsync_handler(
-        portNum,
-        u32,
-        f32,
-        b,
-        str1,
-        e,
-        a,
-        s
-      );
-
-      break;
-    }
-
-    // Handle async input port dropAsync
-    case DROPASYNC_TYPED: {
-      // Deserialize argument u32
-      U32 u32;
-      _deserStatus = _msg.deserializeTo(u32);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument f32
-      F32 f32;
-      _deserStatus = _msg.deserializeTo(f32);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument b
-      bool b;
-      _deserStatus = _msg.deserializeTo(b);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
-      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
-      _deserStatus = _msg.deserializeTo(str1);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument e
-      E e;
-      _deserStatus = _msg.deserializeTo(e);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument a
-      A a;
-      _deserStatus = _msg.deserializeTo(a);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument s
-      S s;
-      _deserStatus = _msg.deserializeTo(s);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-      // Call handler function
-      this->dropAsync_handler(
-        portNum,
-        u32,
-        f32,
-        b,
-        str1,
-        e,
-        a,
-        s
-      );
-
-      break;
-    }
-
-    // Handle async input port hookAsync
-    case HOOKASYNC_TYPED: {
-      // Deserialize argument u32
-      U32 u32;
-      _deserStatus = _msg.deserializeTo(u32);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument f32
-      F32 f32;
-      _deserStatus = _msg.deserializeTo(f32);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument b
-      bool b;
-      _deserStatus = _msg.deserializeTo(b);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument str1
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
-      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
-      _deserStatus = _msg.deserializeTo(str1);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument e
-      E e;
-      _deserStatus = _msg.deserializeTo(e);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument a
-      A a;
-      _deserStatus = _msg.deserializeTo(a);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize argument s
-      S s;
-      _deserStatus = _msg.deserializeTo(s);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-      // Call handler function
-      this->hookAsync_handler(
-        portNum,
-        u32,
-        f32,
-        b,
-        str1,
-        e,
-        a,
-        s
-      );
-
-      break;
-    }
-
-    // Handle async input port serialAsyncHook
-    case SERIALASYNCHOOK_SERIAL: {
-      // Deserialize serialized buffer into new buffer
-      U8 handBuff[this->m_msgSize];
-      Fw::ExternalSerializeBuffer serHandBuff(
-        handBuff,
-        static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
-      );
-      _deserStatus = _msg.deserializeTo(serHandBuff);
-      FW_ASSERT(
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-      this->serialAsyncHook_handler(portNum, serHandBuff);
-
-      break;
-    }
-
-    // Handle command CMD_HOOK
-    case CMD_CMD_HOOK: {
-      // Deserialize opcode
-      FwOpcodeType _opCode = 0;
-      _deserStatus = _msg.deserializeTo(_opCode);
-      FW_ASSERT (
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize command sequence
-      U32 _cmdSeq = 0;
-      _deserStatus = _msg.deserializeTo(_cmdSeq);
-      FW_ASSERT (
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize command argument buffer
-      Fw::CmdArgBuffer args;
-      _deserStatus = _msg.deserializeTo(args);
-      FW_ASSERT (
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Reset buffer
-      args.resetDeser();
-
-      // Make sure there was no data left over.
-      // That means the argument buffer size was incorrect.
-#if FW_CMD_CHECK_RESIDUAL
-      if (args.getDeserializeSizeLeft() != 0) {
-        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-          this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
+            break;
         }
-        // Don't crash the task if bad arguments were passed from the ground
-        break;
-      }
+
+        // Handle async input port assertAsync
+        case ASSERTASYNC_TYPED: {
+            // Deserialize argument u32
+            U32 u32;
+            _deserStatus = _msg.deserializeTo(u32);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument f32
+            F32 f32;
+            _deserStatus = _msg.deserializeTo(f32);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument b
+            bool b;
+            _deserStatus = _msg.deserializeTo(b);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument str1
+            char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(
+                static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
+            Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
+            _deserStatus = _msg.deserializeTo(str1);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument e
+            E e;
+            _deserStatus = _msg.deserializeTo(e);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument a
+            A a;
+            _deserStatus = _msg.deserializeTo(a);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument s
+            S s;
+            _deserStatus = _msg.deserializeTo(s);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+            // Call handler function
+            this->assertAsync_handler(portNum, u32, f32, b, str1, e, a, s);
+
+            break;
+        }
+
+        // Handle async input port blockAsync
+        case BLOCKASYNC_TYPED: {
+            // Deserialize argument u32
+            U32 u32;
+            _deserStatus = _msg.deserializeTo(u32);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument f32
+            F32 f32;
+            _deserStatus = _msg.deserializeTo(f32);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument b
+            bool b;
+            _deserStatus = _msg.deserializeTo(b);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument str1
+            char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(
+                static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
+            Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
+            _deserStatus = _msg.deserializeTo(str1);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument e
+            E e;
+            _deserStatus = _msg.deserializeTo(e);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument a
+            A a;
+            _deserStatus = _msg.deserializeTo(a);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument s
+            S s;
+            _deserStatus = _msg.deserializeTo(s);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+            // Call handler function
+            this->blockAsync_handler(portNum, u32, f32, b, str1, e, a, s);
+
+            break;
+        }
+
+        // Handle async input port dropAsync
+        case DROPASYNC_TYPED: {
+            // Deserialize argument u32
+            U32 u32;
+            _deserStatus = _msg.deserializeTo(u32);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument f32
+            F32 f32;
+            _deserStatus = _msg.deserializeTo(f32);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument b
+            bool b;
+            _deserStatus = _msg.deserializeTo(b);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument str1
+            char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(
+                static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
+            Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
+            _deserStatus = _msg.deserializeTo(str1);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument e
+            E e;
+            _deserStatus = _msg.deserializeTo(e);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument a
+            A a;
+            _deserStatus = _msg.deserializeTo(a);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument s
+            S s;
+            _deserStatus = _msg.deserializeTo(s);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+            // Call handler function
+            this->dropAsync_handler(portNum, u32, f32, b, str1, e, a, s);
+
+            break;
+        }
+
+        // Handle async input port hookAsync
+        case HOOKASYNC_TYPED: {
+            // Deserialize argument u32
+            U32 u32;
+            _deserStatus = _msg.deserializeTo(u32);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument f32
+            F32 f32;
+            _deserStatus = _msg.deserializeTo(f32);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument b
+            bool b;
+            _deserStatus = _msg.deserializeTo(b);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument str1
+            char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(
+                static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
+            Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
+            _deserStatus = _msg.deserializeTo(str1);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument e
+            E e;
+            _deserStatus = _msg.deserializeTo(e);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument a
+            A a;
+            _deserStatus = _msg.deserializeTo(a);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize argument s
+            S s;
+            _deserStatus = _msg.deserializeTo(s);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+            // Call handler function
+            this->hookAsync_handler(portNum, u32, f32, b, str1, e, a, s);
+
+            break;
+        }
+
+        // Handle async input port serialAsyncHook
+        case SERIALASYNCHOOK_SERIAL: {
+            // Deserialize serialized buffer into new buffer
+            U8 handBuff[this->m_msgSize];
+            Fw::ExternalSerializeBuffer serHandBuff(handBuff, static_cast<Fw::Serializable::SizeType>(this->m_msgSize));
+            _deserStatus = _msg.deserializeTo(serHandBuff);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+            this->serialAsyncHook_handler(portNum, serHandBuff);
+
+            break;
+        }
+
+        // Handle command CMD_HOOK
+        case CMD_CMD_HOOK: {
+            // Deserialize opcode
+            FwOpcodeType _opCode = 0;
+            _deserStatus = _msg.deserializeTo(_opCode);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize command sequence
+            U32 _cmdSeq = 0;
+            _deserStatus = _msg.deserializeTo(_cmdSeq);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize command argument buffer
+            Fw::CmdArgBuffer args;
+            _deserStatus = _msg.deserializeTo(args);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Reset buffer
+            args.resetDeser();
+
+            // Make sure there was no data left over.
+            // That means the argument buffer size was incorrect.
+#if FW_CMD_CHECK_RESIDUAL
+            if (args.getDeserializeSizeLeft() != 0) {
+                if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+                    this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
+                }
+                // Don't crash the task if bad arguments were passed from the ground
+                break;
+            }
 #endif
 
-      // Call handler function
-      this->CMD_HOOK_cmdHandler(_opCode, _cmdSeq);
+            // Call handler function
+            this->CMD_HOOK_cmdHandler(_opCode, _cmdSeq);
 
-      break;
-    }
-
-    // Handle command CMD_PARAMS_PRIORITY_HOOK
-    case CMD_CMD_PARAMS_PRIORITY_HOOK: {
-      // Deserialize opcode
-      FwOpcodeType _opCode = 0;
-      _deserStatus = _msg.deserializeTo(_opCode);
-      FW_ASSERT (
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize command sequence
-      U32 _cmdSeq = 0;
-      _deserStatus = _msg.deserializeTo(_cmdSeq);
-      FW_ASSERT (
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Deserialize command argument buffer
-      Fw::CmdArgBuffer args;
-      _deserStatus = _msg.deserializeTo(args);
-      FW_ASSERT (
-        _deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_deserStatus)
-      );
-
-      // Reset buffer
-      args.resetDeser();
-
-      // Deserialize argument u32
-      U32 u32;
-      _deserStatus = args.deserializeTo(u32);
-      if (_deserStatus != Fw::FW_SERIALIZE_OK) {
-        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-          this->cmdResponse_out(
-              _opCode,
-              _cmdSeq,
-              Fw::CmdResponse::FORMAT_ERROR
-          );
+            break;
         }
-        // Don't crash the task if bad arguments were passed from the ground
-        break;
-      }
 
-      // Make sure there was no data left over.
-      // That means the argument buffer size was incorrect.
+        // Handle command CMD_PARAMS_PRIORITY_HOOK
+        case CMD_CMD_PARAMS_PRIORITY_HOOK: {
+            // Deserialize opcode
+            FwOpcodeType _opCode = 0;
+            _deserStatus = _msg.deserializeTo(_opCode);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize command sequence
+            U32 _cmdSeq = 0;
+            _deserStatus = _msg.deserializeTo(_cmdSeq);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Deserialize command argument buffer
+            Fw::CmdArgBuffer args;
+            _deserStatus = _msg.deserializeTo(args);
+            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+            // Reset buffer
+            args.resetDeser();
+
+            // Deserialize argument u32
+            U32 u32;
+            _deserStatus = args.deserializeTo(u32);
+            if (_deserStatus != Fw::FW_SERIALIZE_OK) {
+                if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+                    this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
+                }
+                // Don't crash the task if bad arguments were passed from the ground
+                break;
+            }
+
+            // Make sure there was no data left over.
+            // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getDeserializeSizeLeft() != 0) {
-        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-          this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
-        }
-        // Don't crash the task if bad arguments were passed from the ground
-        break;
-      }
+            if (args.getDeserializeSizeLeft() != 0) {
+                if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+                    this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
+                }
+                // Don't crash the task if bad arguments were passed from the ground
+                break;
+            }
 #endif
 
-      // Call handler function
-      this->CMD_PARAMS_PRIORITY_HOOK_cmdHandler(
-        _opCode, _cmdSeq,
-        u32
-      );
+            // Call handler function
+            this->CMD_PARAMS_PRIORITY_HOOK_cmdHandler(_opCode, _cmdSeq, u32);
 
-      break;
+            break;
+        }
+
+        // Handle internal interface internalHookDrop
+        case INT_IF_INTERNALHOOKDROP: {
+            // Make sure there was no data left over.
+            // That means the buffer size was incorrect.
+            FW_ASSERT(_msg.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(_msg.getDeserializeSizeLeft()));
+
+            // Call handler function
+            this->internalHookDrop_internalInterfaceHandler();
+
+            break;
+        }
+
+        default:
+            return MSG_DISPATCH_ERROR;
     }
 
-    // Handle internal interface internalHookDrop
-    case INT_IF_INTERNALHOOKDROP: {
-      // Make sure there was no data left over.
-      // That means the buffer size was incorrect.
-      FW_ASSERT(
-        _msg.getDeserializeSizeLeft() == 0,
-        static_cast<FwAssertArgType>(_msg.getDeserializeSizeLeft())
-      );
-
-      // Call handler function
-      this->internalHookDrop_internalInterfaceHandler();
-
-      break;
-    }
-
-    default:
-      return MSG_DISPATCH_ERROR;
-  }
-
-  return MSG_DISPATCH_OK;
+    return MSG_DISPATCH_OK;
 }
 
 // ----------------------------------------------------------------------
 // Calls for messages received on special input ports
 // ----------------------------------------------------------------------
 
-void ActiveOverflowComponentBase ::
-  m_p_cmdIn_in(
-      Fw::PassiveComponentBase* callComp,
-      FwIndexType portNum,
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      Fw::CmdArgBuffer& args
-  )
-{
-  FW_ASSERT(callComp);
-  ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
-  compPtr->cmdIn_handlerBase(
-    portNum,
-    opCode,
-    cmdSeq,
-    args
-  );
+void ActiveOverflowComponentBase ::m_p_cmdIn_in(Fw::PassiveComponentBase* callComp,
+                                                FwIndexType portNum,
+                                                FwOpcodeType opCode,
+                                                U32 cmdSeq,
+                                                Fw::CmdArgBuffer& args) {
+    FW_ASSERT(callComp);
+    ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
+    compPtr->cmdIn_handlerBase(portNum, opCode, cmdSeq, args);
 }
 
-void ActiveOverflowComponentBase ::
-  m_p_productRecvInHook_in(
-      Fw::PassiveComponentBase* callComp,
-      FwIndexType portNum,
-      FwDpIdType id,
-      const Fw::Buffer& buffer,
-      const Fw::Success& status
-  )
-{
-  FW_ASSERT(callComp);
-  ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
-  compPtr->productRecvInHook_handlerBase(
-    portNum,
-    id,
-    buffer,
-    status
-  );
+void ActiveOverflowComponentBase ::m_p_productRecvInHook_in(Fw::PassiveComponentBase* callComp,
+                                                            FwIndexType portNum,
+                                                            FwDpIdType id,
+                                                            const Fw::Buffer& buffer,
+                                                            const Fw::Success& status) {
+    FW_ASSERT(callComp);
+    ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
+    compPtr->productRecvInHook_handlerBase(portNum, id, buffer, status);
 }
 
 // ----------------------------------------------------------------------
 // Calls for messages received on typed input ports
 // ----------------------------------------------------------------------
 
-void ActiveOverflowComponentBase ::
-  m_p_assertAsync_in(
-      Fw::PassiveComponentBase* callComp,
-      FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const Fw::StringBase& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  FW_ASSERT(callComp);
-  ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
-  compPtr->assertAsync_handlerBase(
-    portNum,
-    u32,
-    f32,
-    b,
-    str1,
-    e,
-    a,
-    s
-  );
+void ActiveOverflowComponentBase ::m_p_assertAsync_in(Fw::PassiveComponentBase* callComp,
+                                                      FwIndexType portNum,
+                                                      U32 u32,
+                                                      F32 f32,
+                                                      bool b,
+                                                      const Fw::StringBase& str1,
+                                                      const E& e,
+                                                      const A& a,
+                                                      const S& s) {
+    FW_ASSERT(callComp);
+    ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
+    compPtr->assertAsync_handlerBase(portNum, u32, f32, b, str1, e, a, s);
 }
 
-void ActiveOverflowComponentBase ::
-  m_p_blockAsync_in(
-      Fw::PassiveComponentBase* callComp,
-      FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const Fw::StringBase& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  FW_ASSERT(callComp);
-  ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
-  compPtr->blockAsync_handlerBase(
-    portNum,
-    u32,
-    f32,
-    b,
-    str1,
-    e,
-    a,
-    s
-  );
+void ActiveOverflowComponentBase ::m_p_blockAsync_in(Fw::PassiveComponentBase* callComp,
+                                                     FwIndexType portNum,
+                                                     U32 u32,
+                                                     F32 f32,
+                                                     bool b,
+                                                     const Fw::StringBase& str1,
+                                                     const E& e,
+                                                     const A& a,
+                                                     const S& s) {
+    FW_ASSERT(callComp);
+    ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
+    compPtr->blockAsync_handlerBase(portNum, u32, f32, b, str1, e, a, s);
 }
 
-void ActiveOverflowComponentBase ::
-  m_p_dropAsync_in(
-      Fw::PassiveComponentBase* callComp,
-      FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const Fw::StringBase& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  FW_ASSERT(callComp);
-  ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
-  compPtr->dropAsync_handlerBase(
-    portNum,
-    u32,
-    f32,
-    b,
-    str1,
-    e,
-    a,
-    s
-  );
+void ActiveOverflowComponentBase ::m_p_dropAsync_in(Fw::PassiveComponentBase* callComp,
+                                                    FwIndexType portNum,
+                                                    U32 u32,
+                                                    F32 f32,
+                                                    bool b,
+                                                    const Fw::StringBase& str1,
+                                                    const E& e,
+                                                    const A& a,
+                                                    const S& s) {
+    FW_ASSERT(callComp);
+    ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
+    compPtr->dropAsync_handlerBase(portNum, u32, f32, b, str1, e, a, s);
 }
 
-void ActiveOverflowComponentBase ::
-  m_p_hookAsync_in(
-      Fw::PassiveComponentBase* callComp,
-      FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const Fw::StringBase& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  FW_ASSERT(callComp);
-  ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
-  compPtr->hookAsync_handlerBase(
-    portNum,
-    u32,
-    f32,
-    b,
-    str1,
-    e,
-    a,
-    s
-  );
+void ActiveOverflowComponentBase ::m_p_hookAsync_in(Fw::PassiveComponentBase* callComp,
+                                                    FwIndexType portNum,
+                                                    U32 u32,
+                                                    F32 f32,
+                                                    bool b,
+                                                    const Fw::StringBase& str1,
+                                                    const E& e,
+                                                    const A& a,
+                                                    const S& s) {
+    FW_ASSERT(callComp);
+    ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
+    compPtr->hookAsync_handlerBase(portNum, u32, f32, b, str1, e, a, s);
 }
 
 // ----------------------------------------------------------------------
@@ -2586,19 +1619,12 @@ void ActiveOverflowComponentBase ::
 
 #if FW_PORT_SERIALIZATION
 
-void ActiveOverflowComponentBase ::
-  m_p_serialAsyncHook_in(
-      Fw::PassiveComponentBase* callComp,
-      FwIndexType portNum,
-      Fw::LinearBufferBase& buffer
-  )
-{
-  FW_ASSERT(callComp);
-  ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
-  compPtr->serialAsyncHook_handlerBase(
-    portNum,
-    buffer
-  );
+void ActiveOverflowComponentBase ::m_p_serialAsyncHook_in(Fw::PassiveComponentBase* callComp,
+                                                          FwIndexType portNum,
+                                                          Fw::LinearBufferBase& buffer) {
+    FW_ASSERT(callComp);
+    ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
+    compPtr->serialAsyncHook_handlerBase(portNum, buffer);
 }
 
 #endif
@@ -2609,68 +1635,31 @@ void ActiveOverflowComponentBase ::
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
 
-void ActiveOverflowComponentBase ::
-  cmdRegOut_out(
-      FwIndexType portNum,
-      FwOpcodeType opCode
-  ) const
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::cmdRegOut_out(FwIndexType portNum, FwOpcodeType opCode) const {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  FW_ASSERT(
-    this->m_cmdRegOut_OutputPort[portNum].isConnected(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-  this->m_cmdRegOut_OutputPort[portNum].invoke(
-    opCode
-  );
+    FW_ASSERT(this->m_cmdRegOut_OutputPort[portNum].isConnected(), static_cast<FwAssertArgType>(portNum));
+    this->m_cmdRegOut_OutputPort[portNum].invoke(opCode);
 }
 
-void ActiveOverflowComponentBase ::
-  cmdResponseOut_out(
-      FwIndexType portNum,
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      const Fw::CmdResponse& response
-  ) const
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::cmdResponseOut_out(FwIndexType portNum,
+                                                      FwOpcodeType opCode,
+                                                      U32 cmdSeq,
+                                                      const Fw::CmdResponse& response) const {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  FW_ASSERT(
-    this->m_cmdResponseOut_OutputPort[portNum].isConnected(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-  this->m_cmdResponseOut_OutputPort[portNum].invoke(
-    opCode,
-    cmdSeq,
-    response
-  );
+    FW_ASSERT(this->m_cmdResponseOut_OutputPort[portNum].isConnected(), static_cast<FwAssertArgType>(portNum));
+    this->m_cmdResponseOut_OutputPort[portNum].invoke(opCode, cmdSeq, response);
 }
 
-void ActiveOverflowComponentBase ::
-  timeGetOut_out(
-      FwIndexType portNum,
-      Fw::Time& time
-  ) const
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void ActiveOverflowComponentBase ::timeGetOut_out(FwIndexType portNum, Fw::Time& time) const {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  FW_ASSERT(
-    this->m_timeGetOut_OutputPort[portNum].isConnected(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-  this->m_timeGetOut_OutputPort[portNum].invoke(
-    time
-  );
+    FW_ASSERT(this->m_timeGetOut_OutputPort[portNum].isConnected(), static_cast<FwAssertArgType>(portNum));
+    this->m_timeGetOut_OutputPort[portNum].invoke(time);
 }
 
 #endif
@@ -2679,17 +1668,13 @@ void ActiveOverflowComponentBase ::
 // Private data product handling functions
 // ----------------------------------------------------------------------
 
-void ActiveOverflowComponentBase ::
-  productRecvInHook_handler(
-      const FwIndexType portNum,
-      FwDpIdType id,
-      const Fw::Buffer& buffer,
-      const Fw::Success& status
-  )
-{
-  (void) portNum;
-  (void) id;
-  (void) buffer;
-  (void) status;
-  // No data products defined
+void ActiveOverflowComponentBase ::productRecvInHook_handler(const FwIndexType portNum,
+                                                             FwDpIdType id,
+                                                             const Fw::Buffer& buffer,
+                                                             const Fw::Success& status) {
+    (void)portNum;
+    (void)id;
+    (void)buffer;
+    (void)status;
+    // No data products defined
 }

@@ -58,32 +58,20 @@ case class PortBufferClassWriter(
   private def getPublicMemberFunctions = addAccessTagAndComment(
     "public",
     s"Public member functions for $portBufferName",
-    List(
-      linesClassMember({
-        val buffAddr =
-          if !hasParams then "nullptr" else "m_buff"
-        lines(
-          s"""|
-              |//! Get the capacity of the buffer
-              |//! \\return The capacity
-              |Fw::Serializable::SizeType getCapacity() const override {
-              |  return CAPACITY;
-              |}
-              |
-              |//! Get the buffer address (non-const)
-              |//! \\return The buffer address
-              |U8* getBuffAddr() override {
-              |  return $buffAddr;
-              |}
-              |
-              |//! Get the buffer address (const)
-              |//! \\return The buffer address
-              |const U8* getBuffAddr() const override {
-              |  return $buffAddr;
-              |}
-              |"""
+    guardedList (hasParams) (
+      List(
+        linesClassMember(
+          lines(
+            s"""|
+                |//! Constructor
+                |${portBufferName}() {
+                |  this->m_buffAddr = m_buff;
+                |  this->m_capacity = CAPACITY;
+                |}
+                |"""
+          )
         )
-      })
+      )
     ),
     CppDoc.Lines.Hpp
   )

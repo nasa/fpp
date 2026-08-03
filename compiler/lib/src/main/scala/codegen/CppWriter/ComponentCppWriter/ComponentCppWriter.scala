@@ -411,16 +411,9 @@ case class ComponentCppWriter (
           |      SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
           |    };
           |
-          |    Fw::Serializable::SizeType getCapacity() const {
-          |      return sizeof(m_buff);
-          |    }
-          |
-          |    U8* getBuffAddr() {
-          |      return m_buff;
-          |    }
-          |
-          |    const U8* getBuffAddr() const {
-          |      return m_buff;
+          |    ComponentIpcSerializableBuffer() {
+          |      this->m_buffAddr = m_buff;
+          |      this->m_capacity = sizeof(m_buff);
           |    }
           |
           |  private:

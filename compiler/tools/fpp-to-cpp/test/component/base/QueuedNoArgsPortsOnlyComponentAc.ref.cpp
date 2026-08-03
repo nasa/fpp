@@ -12,215 +12,133 @@
 #include "QueuedNoArgsPortsOnlyComponentAc.hpp"
 
 namespace {
-  enum MsgTypeEnum {
+enum MsgTypeEnum {
     QUEUEDNOARGSPORTSONLY_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
     NOARGSASYNC_NOARGS,
-  };
+};
 
-  // Define a message buffer class large enough to handle all the
-  // asynchronous inputs to the component
-  class ComponentIpcSerializableBuffer :
-    public Fw::LinearBufferBase
-  {
-
-    public:
-
-      enum {
+// Define a message buffer class large enough to handle all the
+// asynchronous inputs to the component
+class ComponentIpcSerializableBuffer : public Fw::LinearBufferBase {
+  public:
+    enum {
         // Offset into data in buffer: Size of message ID and port number
         DATA_OFFSET = sizeof(FwEnumStoreType) + sizeof(FwIndexType),
         // Max data size
         MAX_DATA_SIZE = 0,
         // Max message size: Size of message id + size of port + max data size
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
-      };
+    };
 
-      Fw::Serializable::SizeType getCapacity() const {
-        return sizeof(m_buff);
-      }
+    ComponentIpcSerializableBuffer() {
+        this->m_buffAddr = m_buff;
+        this->m_capacity = sizeof(m_buff);
+    }
 
-      U8* getBuffAddr() {
-        return m_buff;
-      }
-
-      const U8* getBuffAddr() const {
-        return m_buff;
-      }
-
-    private:
-      // Should be the max of all the input ports serialized sizes...
-      U8 m_buff[SERIALIZATION_SIZE];
-
-  };
-}
+  private:
+    // Should be the max of all the input ports serialized sizes...
+    U8 m_buff[SERIALIZATION_SIZE];
+};
+}  // namespace
 
 // ----------------------------------------------------------------------
 // Component initialization
 // ----------------------------------------------------------------------
 
-void QueuedNoArgsPortsOnlyComponentBase ::
-  init(
-      FwSizeType queueDepth,
-      FwEnumStoreType instance
-  )
-{
-  // Initialize base class
-  Fw::QueuedComponentBase::init(instance);
+void QueuedNoArgsPortsOnlyComponentBase ::init(FwSizeType queueDepth, FwEnumStoreType instance) {
+    // Initialize base class
+    Fw::QueuedComponentBase::init(instance);
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect input port noArgsAsync
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_noArgsAsync_InputPorts());
-    port++
-  ) {
-    this->m_noArgsAsync_InputPort[port].init();
-    this->m_noArgsAsync_InputPort[port].addCallComp(
-      this,
-      m_p_noArgsAsync_in
-    );
-    this->m_noArgsAsync_InputPort[port].setPortNum(port);
+    // Connect input port noArgsAsync
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_noArgsAsync_InputPorts()); port++) {
+        this->m_noArgsAsync_InputPort[port].init();
+        this->m_noArgsAsync_InputPort[port].addCallComp(this, m_p_noArgsAsync_in);
+        this->m_noArgsAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_noArgsAsync_InputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_noArgsAsync_InputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_noArgsAsync_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_noArgsAsync_InputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect input port noArgsGuarded
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_noArgsGuarded_InputPorts());
-    port++
-  ) {
-    this->m_noArgsGuarded_InputPort[port].init();
-    this->m_noArgsGuarded_InputPort[port].addCallComp(
-      this,
-      m_p_noArgsGuarded_in
-    );
-    this->m_noArgsGuarded_InputPort[port].setPortNum(port);
+    // Connect input port noArgsGuarded
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_noArgsGuarded_InputPorts()); port++) {
+        this->m_noArgsGuarded_InputPort[port].init();
+        this->m_noArgsGuarded_InputPort[port].addCallComp(this, m_p_noArgsGuarded_in);
+        this->m_noArgsGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_noArgsGuarded_InputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_noArgsGuarded_InputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_noArgsGuarded_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_noArgsGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect input port noArgsReturnGuarded
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_noArgsReturnGuarded_InputPorts());
-    port++
-  ) {
-    this->m_noArgsReturnGuarded_InputPort[port].init();
-    this->m_noArgsReturnGuarded_InputPort[port].addCallComp(
-      this,
-      m_p_noArgsReturnGuarded_in
-    );
-    this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
+    // Connect input port noArgsReturnGuarded
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_noArgsReturnGuarded_InputPorts()); port++) {
+        this->m_noArgsReturnGuarded_InputPort[port].init();
+        this->m_noArgsReturnGuarded_InputPort[port].addCallComp(this, m_p_noArgsReturnGuarded_in);
+        this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_noArgsReturnGuarded_InputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_noArgsReturnGuarded_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect input port noArgsReturnSync
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_noArgsReturnSync_InputPorts());
-    port++
-  ) {
-    this->m_noArgsReturnSync_InputPort[port].init();
-    this->m_noArgsReturnSync_InputPort[port].addCallComp(
-      this,
-      m_p_noArgsReturnSync_in
-    );
-    this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
+    // Connect input port noArgsReturnSync
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_noArgsReturnSync_InputPorts()); port++) {
+        this->m_noArgsReturnSync_InputPort[port].init();
+        this->m_noArgsReturnSync_InputPort[port].addCallComp(this, m_p_noArgsReturnSync_in);
+        this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_noArgsReturnSync_InputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_noArgsReturnSync_InputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_noArgsReturnSync_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_noArgsReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect output port noArgsOut
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_noArgsOut_OutputPorts());
-    port++
-  ) {
-    this->m_noArgsOut_OutputPort[port].init();
+    // Connect output port noArgsOut
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_noArgsOut_OutputPorts()); port++) {
+        this->m_noArgsOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_noArgsOut_OutputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_noArgsOut_OutputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_noArgsOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_noArgsOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-  // Connect output port noArgsReturnOut
-  for (
-    FwIndexType port = 0;
-    port < static_cast<FwIndexType>(this->getNum_noArgsReturnOut_OutputPorts());
-    port++
-  ) {
-    this->m_noArgsReturnOut_OutputPort[port].init();
+    // Connect output port noArgsReturnOut
+    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_noArgsReturnOut_OutputPorts()); port++) {
+        this->m_noArgsReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    Fw::ObjectName portName;
-    portName.format(
-      "%s_noArgsReturnOut_OutputPort[%" PRI_FwIndexType "]",
-      this->m_objName.toChar(),
-      port
-    );
-    this->m_noArgsReturnOut_OutputPort[port].setObjName(portName.toChar());
+        Fw::ObjectName portName;
+        portName.format("%s_noArgsReturnOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
+        this->m_noArgsReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-  }
+    }
 #endif
 
-  // Create the queue
-  Os::Queue::Status qStat = this->createQueue(
-    queueDepth,
-    static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
-  );
-  FW_ASSERT(
-    Os::Queue::Status::OP_OK == qStat,
-    static_cast<FwAssertArgType>(qStat)
-  );
+    // Create the queue
+    Os::Queue::Status qStat =
+        this->createQueue(queueDepth, static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE));
+    FW_ASSERT(Os::Queue::Status::OP_OK == qStat, static_cast<FwAssertArgType>(qStat));
 }
 
 #if !FW_DIRECT_PORT_CALLS
@@ -229,48 +147,33 @@ void QueuedNoArgsPortsOnlyComponentBase ::
 // Getters for typed input ports
 // ----------------------------------------------------------------------
 
-Ports::InputNoArgsPort* QueuedNoArgsPortsOnlyComponentBase ::
-  get_noArgsAsync_InputPort(FwIndexType portNum)
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_noArgsAsync_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+Ports::InputNoArgsPort* QueuedNoArgsPortsOnlyComponentBase ::get_noArgsAsync_InputPort(FwIndexType portNum) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsAsync_InputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  return &this->m_noArgsAsync_InputPort[portNum];
+    return &this->m_noArgsAsync_InputPort[portNum];
 }
 
-Ports::InputNoArgsPort* QueuedNoArgsPortsOnlyComponentBase ::
-  get_noArgsGuarded_InputPort(FwIndexType portNum)
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_noArgsGuarded_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+Ports::InputNoArgsPort* QueuedNoArgsPortsOnlyComponentBase ::get_noArgsGuarded_InputPort(FwIndexType portNum) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsGuarded_InputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  return &this->m_noArgsGuarded_InputPort[portNum];
+    return &this->m_noArgsGuarded_InputPort[portNum];
 }
 
-Ports::InputNoArgsReturnPort* QueuedNoArgsPortsOnlyComponentBase ::
-  get_noArgsReturnGuarded_InputPort(FwIndexType portNum)
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_noArgsReturnGuarded_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+Ports::InputNoArgsReturnPort* QueuedNoArgsPortsOnlyComponentBase ::get_noArgsReturnGuarded_InputPort(
+    FwIndexType portNum) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsReturnGuarded_InputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  return &this->m_noArgsReturnGuarded_InputPort[portNum];
+    return &this->m_noArgsReturnGuarded_InputPort[portNum];
 }
 
-Ports::InputNoArgsReturnPort* QueuedNoArgsPortsOnlyComponentBase ::
-  get_noArgsReturnSync_InputPort(FwIndexType portNum)
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_noArgsReturnSync_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+Ports::InputNoArgsReturnPort* QueuedNoArgsPortsOnlyComponentBase ::get_noArgsReturnSync_InputPort(FwIndexType portNum) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsReturnSync_InputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  return &this->m_noArgsReturnSync_InputPort[portNum];
+    return &this->m_noArgsReturnSync_InputPort[portNum];
 }
 
 #endif
@@ -281,32 +184,19 @@ Ports::InputNoArgsReturnPort* QueuedNoArgsPortsOnlyComponentBase ::
 // Connect typed input ports to typed output ports
 // ----------------------------------------------------------------------
 
-void QueuedNoArgsPortsOnlyComponentBase ::
-  set_noArgsOut_OutputPort(
-      FwIndexType portNum,
-      Ports::InputNoArgsPort* port
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void QueuedNoArgsPortsOnlyComponentBase ::set_noArgsOut_OutputPort(FwIndexType portNum, Ports::InputNoArgsPort* port) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  this->m_noArgsOut_OutputPort[portNum].addCallPort(port);
+    this->m_noArgsOut_OutputPort[portNum].addCallPort(port);
 }
 
-void QueuedNoArgsPortsOnlyComponentBase ::
-  set_noArgsReturnOut_OutputPort(
-      FwIndexType portNum,
-      Ports::InputNoArgsReturnPort* port
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void QueuedNoArgsPortsOnlyComponentBase ::set_noArgsReturnOut_OutputPort(FwIndexType portNum,
+                                                                         Ports::InputNoArgsReturnPort* port) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  this->m_noArgsReturnOut_OutputPort[portNum].addCallPort(port);
+    this->m_noArgsReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
 #endif
@@ -317,18 +207,11 @@ void QueuedNoArgsPortsOnlyComponentBase ::
 // Connect serial input ports to typed output ports
 // ----------------------------------------------------------------------
 
-void QueuedNoArgsPortsOnlyComponentBase ::
-  set_noArgsOut_OutputPort(
-      FwIndexType portNum,
-      Fw::InputSerializePort* port
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void QueuedNoArgsPortsOnlyComponentBase ::set_noArgsOut_OutputPort(FwIndexType portNum, Fw::InputSerializePort* port) {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  this->m_noArgsOut_OutputPort[portNum].registerSerialPort(port);
+    this->m_noArgsOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 #endif
@@ -337,18 +220,10 @@ void QueuedNoArgsPortsOnlyComponentBase ::
 // Component construction and destruction
 // ----------------------------------------------------------------------
 
-QueuedNoArgsPortsOnlyComponentBase ::
-  QueuedNoArgsPortsOnlyComponentBase(const char* compName) :
-    Fw::QueuedComponentBase(compName)
-{
+QueuedNoArgsPortsOnlyComponentBase ::QueuedNoArgsPortsOnlyComponentBase(const char* compName)
+    : Fw::QueuedComponentBase(compName) {}
 
-}
-
-QueuedNoArgsPortsOnlyComponentBase ::
-  ~QueuedNoArgsPortsOnlyComponentBase()
-{
-
-}
+QueuedNoArgsPortsOnlyComponentBase ::~QueuedNoArgsPortsOnlyComponentBase() {}
 
 #if !FW_DIRECT_PORT_CALLS
 
@@ -356,26 +231,18 @@ QueuedNoArgsPortsOnlyComponentBase ::
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
 
-bool QueuedNoArgsPortsOnlyComponentBase ::
-  isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+bool QueuedNoArgsPortsOnlyComponentBase ::isConnected_noArgsOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  return this->m_noArgsOut_OutputPort[portNum].isConnected();
+    return this->m_noArgsOut_OutputPort[portNum].isConnected();
 }
 
-bool QueuedNoArgsPortsOnlyComponentBase ::
-  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum) const
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+bool QueuedNoArgsPortsOnlyComponentBase ::isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  return this->m_noArgsReturnOut_OutputPort[portNum].isConnected();
+    return this->m_noArgsReturnOut_OutputPort[portNum].isConnected();
 }
 
 #endif
@@ -386,103 +253,76 @@ bool QueuedNoArgsPortsOnlyComponentBase ::
 // Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
 
-void QueuedNoArgsPortsOnlyComponentBase ::
-  noArgsAsync_handlerBase(FwIndexType portNum)
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_noArgsAsync_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void QueuedNoArgsPortsOnlyComponentBase ::noArgsAsync_handlerBase(FwIndexType portNum) {
+    // Make sure port number is valid
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsAsync_InputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  // Call pre-message hook
-  noArgsAsync_preMsgHook(portNum);
-  ComponentIpcSerializableBuffer msg;
-  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // Call pre-message hook
+    noArgsAsync_preMsgHook(portNum);
+    ComponentIpcSerializableBuffer msg;
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
-  // Serialize message ID
-  _status = msg.serializeFrom(
-    static_cast<FwEnumStoreType>(NOARGSASYNC_NOARGS)
-  );
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize message ID
+    _status = msg.serializeFrom(static_cast<FwEnumStoreType>(NOARGSASYNC_NOARGS));
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Serialize port number
-  _status = msg.serializeFrom(portNum);
-  FW_ASSERT(
-    _status == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_status)
-  );
+    // Serialize port number
+    _status = msg.serializeFrom(portNum);
+    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-  // Send message
-  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
-  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
+    // Send message
+    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+    Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
-  FW_ASSERT(
-    qStatus == Os::Queue::OP_OK,
-    static_cast<FwAssertArgType>(qStatus)
-  );
+    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
 }
 
-void QueuedNoArgsPortsOnlyComponentBase ::
-  noArgsGuarded_handlerBase(FwIndexType portNum)
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_noArgsGuarded_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void QueuedNoArgsPortsOnlyComponentBase ::noArgsGuarded_handlerBase(FwIndexType portNum) {
+    // Make sure port number is valid
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsGuarded_InputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  // Lock guard mutex before calling
-  this->lock();
+    // Lock guard mutex before calling
+    this->lock();
 
-  // Call handler function
-  this->noArgsGuarded_handler(portNum);
+    // Call handler function
+    this->noArgsGuarded_handler(portNum);
 
-  // Unlock guard mutex
-  this->unLock();
+    // Unlock guard mutex
+    this->unLock();
 }
 
-U32 QueuedNoArgsPortsOnlyComponentBase ::
-  noArgsReturnGuarded_handlerBase(FwIndexType portNum)
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_noArgsReturnGuarded_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+U32 QueuedNoArgsPortsOnlyComponentBase ::noArgsReturnGuarded_handlerBase(FwIndexType portNum) {
+    // Make sure port number is valid
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsReturnGuarded_InputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  U32 retVal;
+    U32 retVal;
 
-  // Lock guard mutex before calling
-  this->lock();
+    // Lock guard mutex before calling
+    this->lock();
 
-  // Call handler function
-  retVal = this->noArgsReturnGuarded_handler(portNum);
+    // Call handler function
+    retVal = this->noArgsReturnGuarded_handler(portNum);
 
-  // Unlock guard mutex
-  this->unLock();
+    // Unlock guard mutex
+    this->unLock();
 
-  return retVal;
+    return retVal;
 }
 
-U32 QueuedNoArgsPortsOnlyComponentBase ::
-  noArgsReturnSync_handlerBase(FwIndexType portNum)
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_noArgsReturnSync_InputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+U32 QueuedNoArgsPortsOnlyComponentBase ::noArgsReturnSync_handlerBase(FwIndexType portNum) {
+    // Make sure port number is valid
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsReturnSync_InputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  U32 retVal;
+    U32 retVal;
 
-  // Call handler function
-  retVal = this->noArgsReturnSync_handler(portNum);
+    // Call handler function
+    retVal = this->noArgsReturnSync_handler(portNum);
 
-  return retVal;
+    return retVal;
 }
 
 // ----------------------------------------------------------------------
@@ -493,10 +333,8 @@ U32 QueuedNoArgsPortsOnlyComponentBase ::
 // override them to provide specific pre-message behavior.
 // ----------------------------------------------------------------------
 
-void QueuedNoArgsPortsOnlyComponentBase ::
-  noArgsAsync_preMsgHook(FwIndexType portNum)
-{
-  // Default: no-op
+void QueuedNoArgsPortsOnlyComponentBase ::noArgsAsync_preMsgHook(FwIndexType portNum) {
+    // Default: no-op
 }
 
 #if !FW_DIRECT_PORT_CALLS
@@ -505,34 +343,20 @@ void QueuedNoArgsPortsOnlyComponentBase ::
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
 
-void QueuedNoArgsPortsOnlyComponentBase ::
-  noArgsOut_out(FwIndexType portNum) const
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+void QueuedNoArgsPortsOnlyComponentBase ::noArgsOut_out(FwIndexType portNum) const {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  FW_ASSERT(
-    this->m_noArgsOut_OutputPort[portNum].isConnected(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-  this->m_noArgsOut_OutputPort[portNum].invoke();
+    FW_ASSERT(this->m_noArgsOut_OutputPort[portNum].isConnected(), static_cast<FwAssertArgType>(portNum));
+    this->m_noArgsOut_OutputPort[portNum].invoke();
 }
 
-U32 QueuedNoArgsPortsOnlyComponentBase ::
-  noArgsReturnOut_out(FwIndexType portNum) const
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
+U32 QueuedNoArgsPortsOnlyComponentBase ::noArgsReturnOut_out(FwIndexType portNum) const {
+    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
+              static_cast<FwAssertArgType>(portNum));
 
-  FW_ASSERT(
-    this->m_noArgsReturnOut_OutputPort[portNum].isConnected(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-  return this->m_noArgsReturnOut_OutputPort[portNum].invoke();
+    FW_ASSERT(this->m_noArgsReturnOut_OutputPort[portNum].isConnected(), static_cast<FwAssertArgType>(portNum));
+    return this->m_noArgsReturnOut_OutputPort[portNum].invoke();
 }
 
 #endif
@@ -544,145 +368,106 @@ U32 QueuedNoArgsPortsOnlyComponentBase ::
 // synchronization
 // ----------------------------------------------------------------------
 
-void QueuedNoArgsPortsOnlyComponentBase ::
-  lock()
-{
-  this->m_guardedPortMutex.lock();
+void QueuedNoArgsPortsOnlyComponentBase ::lock() {
+    this->m_guardedPortMutex.lock();
 }
 
-void QueuedNoArgsPortsOnlyComponentBase ::
-  unLock()
-{
-  this->m_guardedPortMutex.unLock();
+void QueuedNoArgsPortsOnlyComponentBase ::unLock() {
+    this->m_guardedPortMutex.unLock();
 }
 
 // ----------------------------------------------------------------------
 // Message dispatch functions
 // ----------------------------------------------------------------------
 
-Fw::QueuedComponentBase::MsgDispatchStatus QueuedNoArgsPortsOnlyComponentBase ::
-  doDispatch()
-{
-  ComponentIpcSerializableBuffer _msg;
-  FwQueuePriorityType _priority = 0;
+Fw::QueuedComponentBase::MsgDispatchStatus QueuedNoArgsPortsOnlyComponentBase ::doDispatch() {
+    ComponentIpcSerializableBuffer _msg;
+    FwQueuePriorityType _priority = 0;
 
-  Os::Queue::Status _msgStatus = this->m_queue.receive(
-    _msg,
-    Os::Queue::NONBLOCKING,
-    _priority
-  );
-  if (Os::Queue::Status::EMPTY == _msgStatus) {
-    return Fw::QueuedComponentBase::MSG_DISPATCH_EMPTY;
-  }
-  else {
-    FW_ASSERT(
-      _msgStatus == Os::Queue::OP_OK,
-      static_cast<FwAssertArgType>(_msgStatus)
-    );
-  }
-
-  // Reset to beginning of buffer
-  _msg.resetDeser();
-
-  FwEnumStoreType _desMsg = 0;
-  Fw::SerializeStatus _deserStatus = _msg.deserializeTo(_desMsg);
-  FW_ASSERT(
-    _deserStatus == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_deserStatus)
-  );
-
-  MsgTypeEnum _msgType = static_cast<MsgTypeEnum>(_desMsg);
-
-  if (_msgType == QUEUEDNOARGSPORTSONLY_COMPONENT_EXIT) {
-    return MSG_DISPATCH_EXIT;
-  }
-
-  FwIndexType portNum = 0;
-  _deserStatus = _msg.deserializeTo(portNum);
-  FW_ASSERT(
-    _deserStatus == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(_deserStatus)
-  );
-
-  switch (_msgType) {
-    // Handle async input port noArgsAsync
-    case NOARGSASYNC_NOARGS: {
-      // Call handler function
-      this->noArgsAsync_handler(portNum);
-
-      break;
+    Os::Queue::Status _msgStatus = this->m_queue.receive(_msg, Os::Queue::NONBLOCKING, _priority);
+    if (Os::Queue::Status::EMPTY == _msgStatus) {
+        return Fw::QueuedComponentBase::MSG_DISPATCH_EMPTY;
+    } else {
+        FW_ASSERT(_msgStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(_msgStatus));
     }
 
-    default:
-      return MSG_DISPATCH_ERROR;
-  }
+    // Reset to beginning of buffer
+    _msg.resetDeser();
 
-  return MSG_DISPATCH_OK;
+    FwEnumStoreType _desMsg = 0;
+    Fw::SerializeStatus _deserStatus = _msg.deserializeTo(_desMsg);
+    FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+    MsgTypeEnum _msgType = static_cast<MsgTypeEnum>(_desMsg);
+
+    if (_msgType == QUEUEDNOARGSPORTSONLY_COMPONENT_EXIT) {
+        return MSG_DISPATCH_EXIT;
+    }
+
+    FwIndexType portNum = 0;
+    _deserStatus = _msg.deserializeTo(portNum);
+    FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+
+    switch (_msgType) {
+        // Handle async input port noArgsAsync
+        case NOARGSASYNC_NOARGS: {
+            // Call handler function
+            this->noArgsAsync_handler(portNum);
+
+            break;
+        }
+
+        default:
+            return MSG_DISPATCH_ERROR;
+    }
+
+    return MSG_DISPATCH_OK;
 }
 
 // ----------------------------------------------------------------------
 // Helper functions for dispatching current messages
 // ----------------------------------------------------------------------
 
-Fw::QueuedComponentBase::MsgDispatchStatus QueuedNoArgsPortsOnlyComponentBase ::
-  dispatchCurrentMessages()
-{
-  // Dispatch all current messages unless ERROR or EXIT occur
-  const FwSizeType currentMessageCount = this->m_queue.getMessagesAvailable();
-  MsgDispatchStatus messageStatus = MsgDispatchStatus::MSG_DISPATCH_EMPTY;
-  for (FwSizeType i = 0; i < currentMessageCount; i++) {
-    messageStatus = this->doDispatch();
-    if (messageStatus != QueuedComponentBase::MSG_DISPATCH_OK) {
-      break;
+Fw::QueuedComponentBase::MsgDispatchStatus QueuedNoArgsPortsOnlyComponentBase ::dispatchCurrentMessages() {
+    // Dispatch all current messages unless ERROR or EXIT occur
+    const FwSizeType currentMessageCount = this->m_queue.getMessagesAvailable();
+    MsgDispatchStatus messageStatus = MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+    for (FwSizeType i = 0; i < currentMessageCount; i++) {
+        messageStatus = this->doDispatch();
+        if (messageStatus != QueuedComponentBase::MSG_DISPATCH_OK) {
+            break;
+        }
     }
-  }
-  return messageStatus;
+    return messageStatus;
 }
 
 // ----------------------------------------------------------------------
 // Calls for messages received on typed input ports
 // ----------------------------------------------------------------------
 
-void QueuedNoArgsPortsOnlyComponentBase ::
-  m_p_noArgsAsync_in(
-      Fw::PassiveComponentBase* callComp,
-      FwIndexType portNum
-  )
-{
-  FW_ASSERT(callComp);
-  QueuedNoArgsPortsOnlyComponentBase* compPtr = static_cast<QueuedNoArgsPortsOnlyComponentBase*>(callComp);
-  compPtr->noArgsAsync_handlerBase(portNum);
+void QueuedNoArgsPortsOnlyComponentBase ::m_p_noArgsAsync_in(Fw::PassiveComponentBase* callComp, FwIndexType portNum) {
+    FW_ASSERT(callComp);
+    QueuedNoArgsPortsOnlyComponentBase* compPtr = static_cast<QueuedNoArgsPortsOnlyComponentBase*>(callComp);
+    compPtr->noArgsAsync_handlerBase(portNum);
 }
 
-void QueuedNoArgsPortsOnlyComponentBase ::
-  m_p_noArgsGuarded_in(
-      Fw::PassiveComponentBase* callComp,
-      FwIndexType portNum
-  )
-{
-  FW_ASSERT(callComp);
-  QueuedNoArgsPortsOnlyComponentBase* compPtr = static_cast<QueuedNoArgsPortsOnlyComponentBase*>(callComp);
-  compPtr->noArgsGuarded_handlerBase(portNum);
+void QueuedNoArgsPortsOnlyComponentBase ::m_p_noArgsGuarded_in(Fw::PassiveComponentBase* callComp,
+                                                               FwIndexType portNum) {
+    FW_ASSERT(callComp);
+    QueuedNoArgsPortsOnlyComponentBase* compPtr = static_cast<QueuedNoArgsPortsOnlyComponentBase*>(callComp);
+    compPtr->noArgsGuarded_handlerBase(portNum);
 }
 
-U32 QueuedNoArgsPortsOnlyComponentBase ::
-  m_p_noArgsReturnGuarded_in(
-      Fw::PassiveComponentBase* callComp,
-      FwIndexType portNum
-  )
-{
-  FW_ASSERT(callComp);
-  QueuedNoArgsPortsOnlyComponentBase* compPtr = static_cast<QueuedNoArgsPortsOnlyComponentBase*>(callComp);
-  return compPtr->noArgsReturnGuarded_handlerBase(portNum);
+U32 QueuedNoArgsPortsOnlyComponentBase ::m_p_noArgsReturnGuarded_in(Fw::PassiveComponentBase* callComp,
+                                                                    FwIndexType portNum) {
+    FW_ASSERT(callComp);
+    QueuedNoArgsPortsOnlyComponentBase* compPtr = static_cast<QueuedNoArgsPortsOnlyComponentBase*>(callComp);
+    return compPtr->noArgsReturnGuarded_handlerBase(portNum);
 }
 
-U32 QueuedNoArgsPortsOnlyComponentBase ::
-  m_p_noArgsReturnSync_in(
-      Fw::PassiveComponentBase* callComp,
-      FwIndexType portNum
-  )
-{
-  FW_ASSERT(callComp);
-  QueuedNoArgsPortsOnlyComponentBase* compPtr = static_cast<QueuedNoArgsPortsOnlyComponentBase*>(callComp);
-  return compPtr->noArgsReturnSync_handlerBase(portNum);
+U32 QueuedNoArgsPortsOnlyComponentBase ::m_p_noArgsReturnSync_in(Fw::PassiveComponentBase* callComp,
+                                                                 FwIndexType portNum) {
+    FW_ASSERT(callComp);
+    QueuedNoArgsPortsOnlyComponentBase* compPtr = static_cast<QueuedNoArgsPortsOnlyComponentBase*>(callComp);
+    return compPtr->noArgsReturnSync_handlerBase(portNum);
 }

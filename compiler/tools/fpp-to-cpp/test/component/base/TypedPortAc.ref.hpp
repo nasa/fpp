@@ -22,271 +22,216 @@
 
 namespace Ports {
 
-  //! Serialization buffer for Typed port
-  //! A typed port
-  class TypedPortBuffer :
-    public Fw::LinearBufferBase
-  {
+//! Serialization buffer for Typed port
+//! A typed port
+class TypedPortBuffer : public Fw::LinearBufferBase {
+  public:
+    // ----------------------------------------------------------------------
+    // Public constants for TypedPortBuffer
+    // ----------------------------------------------------------------------
 
-    public:
-
-      // ----------------------------------------------------------------------
-      // Public constants for TypedPortBuffer
-      // ----------------------------------------------------------------------
-
-      //! The buffer capacity. This is the sum of the static serialized
-      //! sizes of the port arguments.
-      static constexpr FwSizeType CAPACITY =
-        sizeof(U32) +
-        sizeof(F32) +
-        sizeof(U8) +
+    //! The buffer capacity. This is the sum of the static serialized
+    //! sizes of the port arguments.
+    static constexpr FwSizeType CAPACITY =
+        sizeof(U32) + sizeof(F32) + sizeof(U8) +
         Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
-        E::SERIALIZED_SIZE +
-        A::SERIALIZED_SIZE +
-        S::SERIALIZED_SIZE;
+        E::SERIALIZED_SIZE + A::SERIALIZED_SIZE + S::SERIALIZED_SIZE;
 
-    public:
+  public:
+    // ----------------------------------------------------------------------
+    // Public member functions for TypedPortBuffer
+    // ----------------------------------------------------------------------
 
-      // ----------------------------------------------------------------------
-      // Public member functions for TypedPortBuffer
-      // ----------------------------------------------------------------------
+    //! Constructor
+    TypedPortBuffer() {
+        this->m_buffAddr = m_buff;
+        this->m_capacity = CAPACITY;
+    }
 
-      //! Get the capacity of the buffer
-      //! \return The capacity
-      Fw::Serializable::SizeType getCapacity() const override {
-        return CAPACITY;
-      }
+  private:
+    // ----------------------------------------------------------------------
+    // Private member variables
+    // ----------------------------------------------------------------------
 
-      //! Get the buffer address (non-const)
-      //! \return The buffer address
-      U8* getBuffAddr() override {
-        return m_buff;
-      }
+    U8 m_buff[CAPACITY];
+};
 
-      //! Get the buffer address (const)
-      //! \return The buffer address
-      const U8* getBuffAddr() const override {
-        return m_buff;
-      }
+//! Serializer for Typed port
+//! A typed port
+class TypedPortSerializer {
+  public:
+    // ----------------------------------------------------------------------
+    // Public constructors for TypedPortSerializer
+    // ----------------------------------------------------------------------
 
-    private:
+    //! Constructor
+    TypedPortSerializer();
 
-      // ----------------------------------------------------------------------
-      // Private member variables
-      // ----------------------------------------------------------------------
+  public:
+    // ----------------------------------------------------------------------
+    // Public member functions for TypedPortSerializer
+    // ----------------------------------------------------------------------
 
-      U8 m_buff[CAPACITY];
+    //! Deserialze port arguments into members
+    Fw::SerializeStatus deserializePortArgs(Fw::SerialBufferBase& _buffer  //!< The serial buffer
+    );
 
-  };
+  public:
+    // ----------------------------------------------------------------------
+    // Public static functions for TypedPortSerializer
+    // ----------------------------------------------------------------------
 
-  //! Serializer for Typed port
-  //! A typed port
-  class TypedPortSerializer {
+    //! Serialize port arguments into a buffer
+    static Fw::SerializeStatus serializePortArgs(U32 u32,                       //!< A U32
+                                                 F32 f32,                       //!< An F32
+                                                 bool b,                        //!< A boolean
+                                                 const Fw::StringBase& str1,    //!< A string
+                                                 const E& e,                    //!< An enum
+                                                 const A& a,                    //!< An array
+                                                 const S& s,                    //!< A struct
+                                                 Fw::SerialBufferBase& _buffer  //!< The serial buffer
+    );
 
-    public:
+  private:
+    // ----------------------------------------------------------------------
+    // Private member variables for TypedPortSerializer
+    // ----------------------------------------------------------------------
 
-      // ----------------------------------------------------------------------
-      // Public constructors for TypedPortSerializer
-      // ----------------------------------------------------------------------
+    char m___fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
 
-      //! Constructor
-      TypedPortSerializer();
+  public:
+    // ----------------------------------------------------------------------
+    // Public member variables for TypedPortSerializer
+    // ----------------------------------------------------------------------
 
-    public:
-
-      // ----------------------------------------------------------------------
-      // Public member functions for TypedPortSerializer
-      // ----------------------------------------------------------------------
-
-      //! Deserialze port arguments into members
-      Fw::SerializeStatus deserializePortArgs(
-          Fw::SerialBufferBase& _buffer //!< The serial buffer
-      );
-
-    public:
-
-      // ----------------------------------------------------------------------
-      // Public static functions for TypedPortSerializer
-      // ----------------------------------------------------------------------
-
-      //! Serialize port arguments into a buffer
-      static Fw::SerializeStatus serializePortArgs(
-          U32 u32, //!< A U32
-          F32 f32, //!< An F32
-          bool b, //!< A boolean
-          const Fw::StringBase& str1, //!< A string
-          const E& e, //!< An enum
-          const A& a, //!< An array
-          const S& s, //!< A struct
-          Fw::SerialBufferBase& _buffer //!< The serial buffer
-      );
-
-    private:
-
-      // ----------------------------------------------------------------------
-      // Private member variables for TypedPortSerializer
-      // ----------------------------------------------------------------------
-
-      char m___fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
-
-    public:
-
-      // ----------------------------------------------------------------------
-      // Public member variables for TypedPortSerializer
-      // ----------------------------------------------------------------------
-
-      U32 m_u32;
-      F32 m_f32;
-      bool m_b;
-      Fw::ExternalString m_str1;
-      E m_e;
-      A m_a;
-      S m_s;
-
-  };
+    U32 m_u32;
+    F32 m_f32;
+    bool m_b;
+    Fw::ExternalString m_str1;
+    E m_e;
+    A m_a;
+    S m_s;
+};
 
 #if !FW_DIRECT_PORT_CALLS
 
-  //! Input Typed port
-  //! A typed port
-  class InputTypedPort :
-    public Fw::InputPortBase
-  {
+//! Input Typed port
+//! A typed port
+class InputTypedPort : public Fw::InputPortBase {
+  public:
+    // ----------------------------------------------------------------------
+    // Public types for InputTypedPort
+    // ----------------------------------------------------------------------
 
-    public:
+    //! The port callback function type
+    typedef void (*CompFuncPtr)(Fw::PassiveComponentBase* callComp,
+                                FwIndexType portNum,
+                                U32 u32,
+                                F32 f32,
+                                bool b,
+                                const Fw::StringBase& str1,
+                                const E& e,
+                                const A& a,
+                                const S& s);
 
-      // ----------------------------------------------------------------------
-      // Public types for InputTypedPort
-      // ----------------------------------------------------------------------
+  public:
+    // ----------------------------------------------------------------------
+    // Public constructors for InputTypedPort
+    // ----------------------------------------------------------------------
 
-      //! The port callback function type
-      typedef void (*CompFuncPtr)(
-        Fw::PassiveComponentBase* callComp,
-        FwIndexType portNum,
-        U32 u32,
-        F32 f32,
-        bool b,
-        const Fw::StringBase& str1,
-        const E& e,
-        const A& a,
-        const S& s
-      );
+    //! Constructor
+    InputTypedPort();
 
-    public:
+  public:
+    // ----------------------------------------------------------------------
+    // Public member functions for InputTypedPort
+    // ----------------------------------------------------------------------
 
-      // ----------------------------------------------------------------------
-      // Public constructors for InputTypedPort
-      // ----------------------------------------------------------------------
+    //! Initialization function
+    void init();
 
-      //! Constructor
-      InputTypedPort();
+    //! Register a component
+    void addCallComp(Fw::PassiveComponentBase* callComp,  //!< The containing component
+                     CompFuncPtr funcPtr                  //!< The port callback function
+    );
 
-    public:
+    //! Invoke a port interface
+    void invoke(U32 u32,                     //!< A U32
+                F32 f32,                     //!< An F32
+                bool b,                      //!< A boolean
+                const Fw::StringBase& str1,  //!< A string
+                const E& e,                  //!< An enum
+                const A& a,                  //!< An array
+                const S& s                   //!< A struct
+    );
 
-      // ----------------------------------------------------------------------
-      // Public member functions for InputTypedPort
-      // ----------------------------------------------------------------------
-
-      //! Initialization function
-      void init();
-
-      //! Register a component
-      void addCallComp(
-          Fw::PassiveComponentBase* callComp, //!< The containing component
-          CompFuncPtr funcPtr //!< The port callback function
-      );
-
-      //! Invoke a port interface
-      void invoke(
-          U32 u32, //!< A U32
-          F32 f32, //!< An F32
-          bool b, //!< A boolean
-          const Fw::StringBase& str1, //!< A string
-          const E& e, //!< An enum
-          const A& a, //!< An array
-          const S& s //!< A struct
-      );
-
-    private:
-
-      // ----------------------------------------------------------------------
-      // Private member functions for InputTypedPort
-      // ----------------------------------------------------------------------
+  private:
+    // ----------------------------------------------------------------------
+    // Private member functions for InputTypedPort
+    // ----------------------------------------------------------------------
 
 #if FW_PORT_SERIALIZATION == 1
 
-      //! Invoke the port with serialized arguments
-      //! \return The serialize status
-      Fw::SerializeStatus invokeSerial(
-          Fw::LinearBufferBase& _buffer //!< The serial buffer
-      );
+    //! Invoke the port with serialized arguments
+    //! \return The serialize status
+    Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer  //!< The serial buffer
+    );
 
 #endif
 
-    private:
+  private:
+    // ----------------------------------------------------------------------
+    // Private member variables for InputTypedPort
+    // ----------------------------------------------------------------------
 
-      // ----------------------------------------------------------------------
-      // Private member variables for InputTypedPort
-      // ----------------------------------------------------------------------
+    //! The pointer to the port callback function
+    CompFuncPtr m_func;
+};
 
-      //! The pointer to the port callback function
-      CompFuncPtr m_func;
+//! Output Typed port
+//! A typed port
+class OutputTypedPort : public Fw::OutputPortBase {
+  public:
+    // ----------------------------------------------------------------------
+    // Public constructors for OutputTypedPort
+    // ----------------------------------------------------------------------
 
-  };
+    //! Constructor
+    OutputTypedPort();
 
-  //! Output Typed port
-  //! A typed port
-  class OutputTypedPort :
-    public Fw::OutputPortBase
-  {
+  public:
+    // ----------------------------------------------------------------------
+    // Public member functions for OutputTypedPort
+    // ----------------------------------------------------------------------
 
-    public:
+    //! Initialization function
+    void init();
 
-      // ----------------------------------------------------------------------
-      // Public constructors for OutputTypedPort
-      // ----------------------------------------------------------------------
+    //! Register an input port
+    void addCallPort(InputTypedPort* callPort  //!< The input port
+    );
 
-      //! Constructor
-      OutputTypedPort();
+    //! Invoke a port connection
+    void invoke(U32 u32,                     //!< A U32
+                F32 f32,                     //!< An F32
+                bool b,                      //!< A boolean
+                const Fw::StringBase& str1,  //!< A string
+                const E& e,                  //!< An enum
+                const A& a,                  //!< An array
+                const S& s                   //!< A struct
+    ) const;
 
-    public:
+  private:
+    // ----------------------------------------------------------------------
+    // Private member variables for OutputTypedPort
+    // ----------------------------------------------------------------------
 
-      // ----------------------------------------------------------------------
-      // Public member functions for OutputTypedPort
-      // ----------------------------------------------------------------------
-
-      //! Initialization function
-      void init();
-
-      //! Register an input port
-      void addCallPort(
-          InputTypedPort* callPort //!< The input port
-      );
-
-      //! Invoke a port connection
-      void invoke(
-          U32 u32, //!< A U32
-          F32 f32, //!< An F32
-          bool b, //!< A boolean
-          const Fw::StringBase& str1, //!< A string
-          const E& e, //!< An enum
-          const A& a, //!< An array
-          const S& s //!< A struct
-      ) const;
-
-    private:
-
-      // ----------------------------------------------------------------------
-      // Private member variables for OutputTypedPort
-      // ----------------------------------------------------------------------
-
-      //! The pointer to the input port
-      InputTypedPort* m_port;
-
-  };
+    //! The pointer to the input port
+    InputTypedPort* m_port;
+};
 
 #endif
 
-}
+}  // namespace Ports
 
 #endif
