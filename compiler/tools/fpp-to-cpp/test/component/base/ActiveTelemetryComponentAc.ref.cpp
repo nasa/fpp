@@ -12,7 +12,7 @@
 #endif
 
 namespace {
-enum MsgTypeEnum {
+  enum MsgTypeEnum {
     ACTIVETELEMETRY_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
     ALIASTYPEDASYNC_ALIASTYPED,
     NOARGSASYNC_NOARGS,
@@ -20,575 +20,926 @@ enum MsgTypeEnum {
     TYPEDASYNCASSERT_TYPED,
     TYPEDASYNCBLOCKPRIORITY_TYPED,
     TYPEDASYNCDROPPRIORITY_TYPED,
-};
+  };
 
-// Get the max size by constructing a union of the async input, command, and
-// internal port serialization sizes
-union BuffUnion {
+  // Get the max size by constructing a union of the async input, command, and
+  // internal port serialization sizes
+  union BuffUnion {
     BYTE aliasTypedAsyncPortSize[Ports::AliasTypedPortBuffer::CAPACITY];
     BYTE typedAsyncPortSize[Ports::TypedPortBuffer::CAPACITY];
     BYTE typedAsyncAssertPortSize[Ports::TypedPortBuffer::CAPACITY];
     BYTE typedAsyncBlockPriorityPortSize[Ports::TypedPortBuffer::CAPACITY];
     BYTE typedAsyncDropPriorityPortSize[Ports::TypedPortBuffer::CAPACITY];
     BYTE cmdPortSize[Fw::CmdPortBuffer::CAPACITY];
-};
+  };
 
-// Define a message buffer class large enough to handle all the
-// asynchronous inputs to the component
-class ComponentIpcSerializableBuffer : public Fw::LinearBufferBase {
-  public:
-    enum {
+  // Define a message buffer class large enough to handle all the
+  // asynchronous inputs to the component
+  class ComponentIpcSerializableBuffer :
+    public Fw::LinearBufferBase
+  {
+
+    public:
+
+      enum {
         // Offset into data in buffer: Size of message ID and port number
         DATA_OFFSET = sizeof(FwEnumStoreType) + sizeof(FwIndexType),
         // Max data size
         MAX_DATA_SIZE = sizeof(BuffUnion),
         // Max message size: Size of message id + size of port + max data size
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
-    };
+      };
 
-    ComponentIpcSerializableBuffer() {
+      ComponentIpcSerializableBuffer() {
         this->m_buffAddr = m_buff;
         this->m_capacity = sizeof(m_buff);
-    }
+      }
 
-  private:
-    // Should be the max of all the input ports serialized sizes...
-    U8 m_buff[SERIALIZATION_SIZE];
-};
-}  // namespace
+    private:
+      // Should be the max of all the input ports serialized sizes...
+      U8 m_buff[SERIALIZATION_SIZE];
+
+  };
+}
 
 // ----------------------------------------------------------------------
 // Component initialization
 // ----------------------------------------------------------------------
 
-void ActiveTelemetryComponentBase ::init(FwSizeType queueDepth, FwEnumStoreType instance) {
-    // Initialize base class
-    Fw::ActiveComponentBase::init(instance);
+void ActiveTelemetryComponentBase ::
+  init(
+      FwSizeType queueDepth,
+      FwEnumStoreType instance
+  )
+{
+  // Initialize base class
+  Fw::ActiveComponentBase::init(instance);
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port cmdIn
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_cmdIn_InputPorts()); port++) {
-        this->m_cmdIn_InputPort[port].init();
-        this->m_cmdIn_InputPort[port].addCallComp(this, m_p_cmdIn_in);
-        this->m_cmdIn_InputPort[port].setPortNum(port);
+  // Connect input port cmdIn
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_cmdIn_InputPorts());
+    port++
+  ) {
+    this->m_cmdIn_InputPort[port].init();
+    this->m_cmdIn_InputPort[port].addCallComp(
+      this,
+      m_p_cmdIn_in
+    );
+    this->m_cmdIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_cmdIn_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_cmdIn_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_cmdIn_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_cmdIn_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
-#endif
-
-#if !FW_DIRECT_PORT_CALLS
-    // Connect input port aliasTypedAsync
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_aliasTypedAsync_InputPorts()); port++) {
-        this->m_aliasTypedAsync_InputPort[port].init();
-        this->m_aliasTypedAsync_InputPort[port].addCallComp(this, m_p_aliasTypedAsync_in);
-        this->m_aliasTypedAsync_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_aliasTypedAsync_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_aliasTypedAsync_InputPort[port].setObjName(portName.toChar());
-#endif
-    }
-#endif
-
-#if !FW_DIRECT_PORT_CALLS
-    // Connect input port noArgsAliasStringReturnSync
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_noArgsAliasStringReturnSync_InputPorts());
-         port++) {
-        this->m_noArgsAliasStringReturnSync_InputPort[port].init();
-        this->m_noArgsAliasStringReturnSync_InputPort[port].addCallComp(this, m_p_noArgsAliasStringReturnSync_in);
-        this->m_noArgsAliasStringReturnSync_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_noArgsAliasStringReturnSync_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(),
-                        port);
-        this->m_noArgsAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
-#endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port noArgsAsync
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_noArgsAsync_InputPorts()); port++) {
-        this->m_noArgsAsync_InputPort[port].init();
-        this->m_noArgsAsync_InputPort[port].addCallComp(this, m_p_noArgsAsync_in);
-        this->m_noArgsAsync_InputPort[port].setPortNum(port);
+  // Connect input port aliasTypedAsync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_aliasTypedAsync_InputPorts());
+    port++
+  ) {
+    this->m_aliasTypedAsync_InputPort[port].init();
+    this->m_aliasTypedAsync_InputPort[port].addCallComp(
+      this,
+      m_p_aliasTypedAsync_in
+    );
+    this->m_aliasTypedAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_noArgsAsync_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_noArgsAsync_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_aliasTypedAsync_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_aliasTypedAsync_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port noArgsGuarded
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_noArgsGuarded_InputPorts()); port++) {
-        this->m_noArgsGuarded_InputPort[port].init();
-        this->m_noArgsGuarded_InputPort[port].addCallComp(this, m_p_noArgsGuarded_in);
-        this->m_noArgsGuarded_InputPort[port].setPortNum(port);
+  // Connect input port noArgsAliasStringReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsAliasStringReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsAliasStringReturnSync_InputPort[port].init();
+    this->m_noArgsAliasStringReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsAliasStringReturnSync_in
+    );
+    this->m_noArgsAliasStringReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_noArgsGuarded_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_noArgsGuarded_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_noArgsAliasStringReturnSync_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_noArgsAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port noArgsReturnGuarded
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_noArgsReturnGuarded_InputPorts()); port++) {
-        this->m_noArgsReturnGuarded_InputPort[port].init();
-        this->m_noArgsReturnGuarded_InputPort[port].addCallComp(this, m_p_noArgsReturnGuarded_in);
-        this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
+  // Connect input port noArgsAsync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsAsync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsAsync_InputPort[port].init();
+    this->m_noArgsAsync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsAsync_in
+    );
+    this->m_noArgsAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_noArgsReturnGuarded_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_noArgsAsync_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_noArgsAsync_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port noArgsReturnSync
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_noArgsReturnSync_InputPorts()); port++) {
-        this->m_noArgsReturnSync_InputPort[port].init();
-        this->m_noArgsReturnSync_InputPort[port].addCallComp(this, m_p_noArgsReturnSync_in);
-        this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
+  // Connect input port noArgsGuarded
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsGuarded_InputPorts());
+    port++
+  ) {
+    this->m_noArgsGuarded_InputPort[port].init();
+    this->m_noArgsGuarded_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsGuarded_in
+    );
+    this->m_noArgsGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_noArgsReturnSync_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_noArgsReturnSync_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_noArgsGuarded_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_noArgsGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port noArgsStringReturnSync
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_noArgsStringReturnSync_InputPorts());
-         port++) {
-        this->m_noArgsStringReturnSync_InputPort[port].init();
-        this->m_noArgsStringReturnSync_InputPort[port].addCallComp(this, m_p_noArgsStringReturnSync_in);
-        this->m_noArgsStringReturnSync_InputPort[port].setPortNum(port);
+  // Connect input port noArgsReturnGuarded
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsReturnGuarded_InputPorts());
+    port++
+  ) {
+    this->m_noArgsReturnGuarded_InputPort[port].init();
+    this->m_noArgsReturnGuarded_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsReturnGuarded_in
+    );
+    this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_noArgsStringReturnSync_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_noArgsStringReturnSync_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_noArgsReturnGuarded_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port noArgsSync
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_noArgsSync_InputPorts()); port++) {
-        this->m_noArgsSync_InputPort[port].init();
-        this->m_noArgsSync_InputPort[port].addCallComp(this, m_p_noArgsSync_in);
-        this->m_noArgsSync_InputPort[port].setPortNum(port);
+  // Connect input port noArgsReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsReturnSync_InputPort[port].init();
+    this->m_noArgsReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsReturnSync_in
+    );
+    this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_noArgsSync_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_noArgsSync_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_noArgsReturnSync_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_noArgsReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port typedAliasGuarded
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_typedAliasGuarded_InputPorts()); port++) {
-        this->m_typedAliasGuarded_InputPort[port].init();
-        this->m_typedAliasGuarded_InputPort[port].addCallComp(this, m_p_typedAliasGuarded_in);
-        this->m_typedAliasGuarded_InputPort[port].setPortNum(port);
+  // Connect input port noArgsStringReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsStringReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsStringReturnSync_InputPort[port].init();
+    this->m_noArgsStringReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsStringReturnSync_in
+    );
+    this->m_noArgsStringReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_typedAliasGuarded_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_typedAliasGuarded_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_noArgsStringReturnSync_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_noArgsStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port typedAliasReturnSync
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_typedAliasReturnSync_InputPorts());
-         port++) {
-        this->m_typedAliasReturnSync_InputPort[port].init();
-        this->m_typedAliasReturnSync_InputPort[port].addCallComp(this, m_p_typedAliasReturnSync_in);
-        this->m_typedAliasReturnSync_InputPort[port].setPortNum(port);
+  // Connect input port noArgsSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsSync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsSync_InputPort[port].init();
+    this->m_noArgsSync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsSync_in
+    );
+    this->m_noArgsSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_typedAliasReturnSync_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_typedAliasReturnSync_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_noArgsSync_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_noArgsSync_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port typedAliasStringReturnSync
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_typedAliasStringReturnSync_InputPorts());
-         port++) {
-        this->m_typedAliasStringReturnSync_InputPort[port].init();
-        this->m_typedAliasStringReturnSync_InputPort[port].addCallComp(this, m_p_typedAliasStringReturnSync_in);
-        this->m_typedAliasStringReturnSync_InputPort[port].setPortNum(port);
+  // Connect input port typedAliasGuarded
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasGuarded_InputPorts());
+    port++
+  ) {
+    this->m_typedAliasGuarded_InputPort[port].init();
+    this->m_typedAliasGuarded_InputPort[port].addCallComp(
+      this,
+      m_p_typedAliasGuarded_in
+    );
+    this->m_typedAliasGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_typedAliasStringReturnSync_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(),
-                        port);
-        this->m_typedAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasGuarded_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port typedAsync
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_typedAsync_InputPorts()); port++) {
-        this->m_typedAsync_InputPort[port].init();
-        this->m_typedAsync_InputPort[port].addCallComp(this, m_p_typedAsync_in);
-        this->m_typedAsync_InputPort[port].setPortNum(port);
+  // Connect input port typedAliasReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_typedAliasReturnSync_InputPort[port].init();
+    this->m_typedAliasReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_typedAliasReturnSync_in
+    );
+    this->m_typedAliasReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_typedAsync_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_typedAsync_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasReturnSync_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port typedAsyncAssert
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_typedAsyncAssert_InputPorts()); port++) {
-        this->m_typedAsyncAssert_InputPort[port].init();
-        this->m_typedAsyncAssert_InputPort[port].addCallComp(this, m_p_typedAsyncAssert_in);
-        this->m_typedAsyncAssert_InputPort[port].setPortNum(port);
+  // Connect input port typedAliasStringReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasStringReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_typedAliasStringReturnSync_InputPort[port].init();
+    this->m_typedAliasStringReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_typedAliasStringReturnSync_in
+    );
+    this->m_typedAliasStringReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_typedAsyncAssert_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_typedAsyncAssert_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasStringReturnSync_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port typedAsyncBlockPriority
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_typedAsyncBlockPriority_InputPorts());
-         port++) {
-        this->m_typedAsyncBlockPriority_InputPort[port].init();
-        this->m_typedAsyncBlockPriority_InputPort[port].addCallComp(this, m_p_typedAsyncBlockPriority_in);
-        this->m_typedAsyncBlockPriority_InputPort[port].setPortNum(port);
+  // Connect input port typedAsync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAsync_InputPorts());
+    port++
+  ) {
+    this->m_typedAsync_InputPort[port].init();
+    this->m_typedAsync_InputPort[port].addCallComp(
+      this,
+      m_p_typedAsync_in
+    );
+    this->m_typedAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_typedAsyncBlockPriority_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_typedAsyncBlockPriority_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAsync_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAsync_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port typedAsyncDropPriority
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_typedAsyncDropPriority_InputPorts());
-         port++) {
-        this->m_typedAsyncDropPriority_InputPort[port].init();
-        this->m_typedAsyncDropPriority_InputPort[port].addCallComp(this, m_p_typedAsyncDropPriority_in);
-        this->m_typedAsyncDropPriority_InputPort[port].setPortNum(port);
+  // Connect input port typedAsyncAssert
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAsyncAssert_InputPorts());
+    port++
+  ) {
+    this->m_typedAsyncAssert_InputPort[port].init();
+    this->m_typedAsyncAssert_InputPort[port].addCallComp(
+      this,
+      m_p_typedAsyncAssert_in
+    );
+    this->m_typedAsyncAssert_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_typedAsyncDropPriority_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_typedAsyncDropPriority_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAsyncAssert_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAsyncAssert_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port typedGuarded
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_typedGuarded_InputPorts()); port++) {
-        this->m_typedGuarded_InputPort[port].init();
-        this->m_typedGuarded_InputPort[port].addCallComp(this, m_p_typedGuarded_in);
-        this->m_typedGuarded_InputPort[port].setPortNum(port);
+  // Connect input port typedAsyncBlockPriority
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAsyncBlockPriority_InputPorts());
+    port++
+  ) {
+    this->m_typedAsyncBlockPriority_InputPort[port].init();
+    this->m_typedAsyncBlockPriority_InputPort[port].addCallComp(
+      this,
+      m_p_typedAsyncBlockPriority_in
+    );
+    this->m_typedAsyncBlockPriority_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_typedGuarded_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_typedGuarded_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAsyncBlockPriority_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAsyncBlockPriority_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port typedReturnGuarded
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_typedReturnGuarded_InputPorts()); port++) {
-        this->m_typedReturnGuarded_InputPort[port].init();
-        this->m_typedReturnGuarded_InputPort[port].addCallComp(this, m_p_typedReturnGuarded_in);
-        this->m_typedReturnGuarded_InputPort[port].setPortNum(port);
+  // Connect input port typedAsyncDropPriority
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAsyncDropPriority_InputPorts());
+    port++
+  ) {
+    this->m_typedAsyncDropPriority_InputPort[port].init();
+    this->m_typedAsyncDropPriority_InputPort[port].addCallComp(
+      this,
+      m_p_typedAsyncDropPriority_in
+    );
+    this->m_typedAsyncDropPriority_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_typedReturnGuarded_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_typedReturnGuarded_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAsyncDropPriority_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAsyncDropPriority_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port typedReturnSync
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_typedReturnSync_InputPorts()); port++) {
-        this->m_typedReturnSync_InputPort[port].init();
-        this->m_typedReturnSync_InputPort[port].addCallComp(this, m_p_typedReturnSync_in);
-        this->m_typedReturnSync_InputPort[port].setPortNum(port);
+  // Connect input port typedGuarded
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedGuarded_InputPorts());
+    port++
+  ) {
+    this->m_typedGuarded_InputPort[port].init();
+    this->m_typedGuarded_InputPort[port].addCallComp(
+      this,
+      m_p_typedGuarded_in
+    );
+    this->m_typedGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_typedReturnSync_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_typedReturnSync_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedGuarded_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port typedSync
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_typedSync_InputPorts()); port++) {
-        this->m_typedSync_InputPort[port].init();
-        this->m_typedSync_InputPort[port].addCallComp(this, m_p_typedSync_in);
-        this->m_typedSync_InputPort[port].setPortNum(port);
+  // Connect input port typedReturnGuarded
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedReturnGuarded_InputPorts());
+    port++
+  ) {
+    this->m_typedReturnGuarded_InputPort[port].init();
+    this->m_typedReturnGuarded_InputPort[port].addCallComp(
+      this,
+      m_p_typedReturnGuarded_in
+    );
+    this->m_typedReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_typedSync_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_typedSync_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedReturnGuarded_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect output port cmdRegOut
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_cmdRegOut_OutputPorts()); port++) {
-        this->m_cmdRegOut_OutputPort[port].init();
+  // Connect input port typedReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_typedReturnSync_InputPort[port].init();
+    this->m_typedReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_typedReturnSync_in
+    );
+    this->m_typedReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_cmdRegOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_cmdRegOut_OutputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedReturnSync_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect output port cmdResponseOut
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_cmdResponseOut_OutputPorts()); port++) {
-        this->m_cmdResponseOut_OutputPort[port].init();
+  // Connect input port typedSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedSync_InputPorts());
+    port++
+  ) {
+    this->m_typedSync_InputPort[port].init();
+    this->m_typedSync_InputPort[port].addCallComp(
+      this,
+      m_p_typedSync_in
+    );
+    this->m_typedSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_cmdResponseOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_cmdResponseOut_OutputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedSync_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedSync_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect output port eventOut
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_eventOut_OutputPorts()); port++) {
-        this->m_eventOut_OutputPort[port].init();
+  // Connect output port cmdRegOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_cmdRegOut_OutputPorts());
+    port++
+  ) {
+    this->m_cmdRegOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_eventOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_eventOut_OutputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_cmdRegOut_OutputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_cmdRegOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect output port prmGetOut
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_prmGetOut_OutputPorts()); port++) {
-        this->m_prmGetOut_OutputPort[port].init();
+  // Connect output port cmdResponseOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_cmdResponseOut_OutputPorts());
+    port++
+  ) {
+    this->m_cmdResponseOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_prmGetOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_prmGetOut_OutputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_cmdResponseOut_OutputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_cmdResponseOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect output port prmSetOut
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_prmSetOut_OutputPorts()); port++) {
-        this->m_prmSetOut_OutputPort[port].init();
+  // Connect output port eventOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_eventOut_OutputPorts());
+    port++
+  ) {
+    this->m_eventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_prmSetOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_prmSetOut_OutputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_eventOut_OutputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_eventOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+  // Connect output port prmGetOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_prmGetOut_OutputPorts());
+    port++
+  ) {
+    this->m_prmGetOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_prmGetOut_OutputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_prmGetOut_OutputPort[port].setObjName(portName.toChar());
+#endif
+  }
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+  // Connect output port prmSetOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_prmSetOut_OutputPorts());
+    port++
+  ) {
+    this->m_prmSetOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_prmSetOut_OutputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_prmSetOut_OutputPort[port].setObjName(portName.toChar());
+#endif
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS && FW_ENABLE_TEXT_LOGGING
-    // Connect output port textEventOut
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_textEventOut_OutputPorts()); port++) {
-        this->m_textEventOut_OutputPort[port].init();
+  // Connect output port textEventOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_textEventOut_OutputPorts());
+    port++
+  ) {
+    this->m_textEventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_textEventOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_textEventOut_OutputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_textEventOut_OutputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_textEventOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect output port timeGetOut
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_timeGetOut_OutputPorts()); port++) {
-        this->m_timeGetOut_OutputPort[port].init();
+  // Connect output port timeGetOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_timeGetOut_OutputPorts());
+    port++
+  ) {
+    this->m_timeGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_timeGetOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_timeGetOut_OutputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_timeGetOut_OutputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_timeGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect output port tlmOut
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_tlmOut_OutputPorts()); port++) {
-        this->m_tlmOut_OutputPort[port].init();
+  // Connect output port tlmOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_tlmOut_OutputPorts());
+    port++
+  ) {
+    this->m_tlmOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_tlmOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_tlmOut_OutputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_tlmOut_OutputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_tlmOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect output port noArgsOut
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_noArgsOut_OutputPorts()); port++) {
-        this->m_noArgsOut_OutputPort[port].init();
+  // Connect output port noArgsOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsOut_OutputPorts());
+    port++
+  ) {
+    this->m_noArgsOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_noArgsOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_noArgsOut_OutputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_noArgsOut_OutputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_noArgsOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect output port noArgsReturnOut
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_noArgsReturnOut_OutputPorts()); port++) {
-        this->m_noArgsReturnOut_OutputPort[port].init();
+  // Connect output port noArgsReturnOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsReturnOut_OutputPorts());
+    port++
+  ) {
+    this->m_noArgsReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_noArgsReturnOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_noArgsReturnOut_OutputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_noArgsReturnOut_OutputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_noArgsReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect output port noArgsStringReturnOut
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_noArgsStringReturnOut_OutputPorts());
-         port++) {
-        this->m_noArgsStringReturnOut_OutputPort[port].init();
+  // Connect output port noArgsStringReturnOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsStringReturnOut_OutputPorts());
+    port++
+  ) {
+    this->m_noArgsStringReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_noArgsStringReturnOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_noArgsStringReturnOut_OutputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_noArgsStringReturnOut_OutputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_noArgsStringReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect output port typedAliasOut
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_typedAliasOut_OutputPorts()); port++) {
-        this->m_typedAliasOut_OutputPort[port].init();
+  // Connect output port typedAliasOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasOut_OutputPorts());
+    port++
+  ) {
+    this->m_typedAliasOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_typedAliasOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_typedAliasOut_OutputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasOut_OutputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect output port typedAliasReturnOut
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_typedAliasReturnOut_OutputPorts());
-         port++) {
-        this->m_typedAliasReturnOut_OutputPort[port].init();
+  // Connect output port typedAliasReturnOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasReturnOut_OutputPorts());
+    port++
+  ) {
+    this->m_typedAliasReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_typedAliasReturnOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_typedAliasReturnOut_OutputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasReturnOut_OutputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect output port typedAliasReturnStringOut
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_typedAliasReturnStringOut_OutputPorts());
-         port++) {
-        this->m_typedAliasReturnStringOut_OutputPort[port].init();
+  // Connect output port typedAliasReturnStringOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasReturnStringOut_OutputPorts());
+    port++
+  ) {
+    this->m_typedAliasReturnStringOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_typedAliasReturnStringOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(),
-                        port);
-        this->m_typedAliasReturnStringOut_OutputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasReturnStringOut_OutputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasReturnStringOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect output port typedOut
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_typedOut_OutputPorts()); port++) {
-        this->m_typedOut_OutputPort[port].init();
+  // Connect output port typedOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedOut_OutputPorts());
+    port++
+  ) {
+    this->m_typedOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_typedOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_typedOut_OutputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedOut_OutputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect output port typedReturnOut
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_typedReturnOut_OutputPorts()); port++) {
-        this->m_typedReturnOut_OutputPort[port].init();
+  // Connect output port typedReturnOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedReturnOut_OutputPorts());
+    port++
+  ) {
+    this->m_typedReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_typedReturnOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_typedReturnOut_OutputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedReturnOut_OutputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
-    // Create the queue
-    Os::Queue::Status qStat =
-        this->createQueue(queueDepth, static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE));
-    FW_ASSERT(Os::Queue::Status::OP_OK == qStat, static_cast<FwAssertArgType>(qStat));
+  // Create the queue
+  Os::Queue::Status qStat = this->createQueue(
+    queueDepth,
+    static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
+  );
+  FW_ASSERT(
+    Os::Queue::Status::OP_OK == qStat,
+    static_cast<FwAssertArgType>(qStat)
+  );
 }
 
 #if !FW_DIRECT_PORT_CALLS
@@ -597,10 +948,15 @@ void ActiveTelemetryComponentBase ::init(FwSizeType queueDepth, FwEnumStoreType 
 // Getters for special input ports
 // ----------------------------------------------------------------------
 
-Fw::InputCmdPort* ActiveTelemetryComponentBase ::get_cmdIn_InputPort(FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_cmdIn_InputPorts()), static_cast<FwAssertArgType>(portNum));
+Fw::InputCmdPort* ActiveTelemetryComponentBase ::
+  get_cmdIn_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdIn_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_cmdIn_InputPort[portNum];
+  return &this->m_cmdIn_InputPort[portNum];
 }
 
 #endif
@@ -611,140 +967,213 @@ Fw::InputCmdPort* ActiveTelemetryComponentBase ::get_cmdIn_InputPort(FwIndexType
 // Getters for typed input ports
 // ----------------------------------------------------------------------
 
-Ports::InputAliasTypedPort* ActiveTelemetryComponentBase ::get_aliasTypedAsync_InputPort(FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_aliasTypedAsync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Ports::InputAliasTypedPort* ActiveTelemetryComponentBase ::
+  get_aliasTypedAsync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_aliasTypedAsync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_aliasTypedAsync_InputPort[portNum];
+  return &this->m_aliasTypedAsync_InputPort[portNum];
 }
 
-Ports::InputNoArgsAliasStringReturnPort* ActiveTelemetryComponentBase ::get_noArgsAliasStringReturnSync_InputPort(
-    FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsAliasStringReturnSync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Ports::InputNoArgsAliasStringReturnPort* ActiveTelemetryComponentBase ::
+  get_noArgsAliasStringReturnSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsAliasStringReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_noArgsAliasStringReturnSync_InputPort[portNum];
+  return &this->m_noArgsAliasStringReturnSync_InputPort[portNum];
 }
 
-Ports::InputNoArgsPort* ActiveTelemetryComponentBase ::get_noArgsAsync_InputPort(FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsAsync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Ports::InputNoArgsPort* ActiveTelemetryComponentBase ::
+  get_noArgsAsync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsAsync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_noArgsAsync_InputPort[portNum];
+  return &this->m_noArgsAsync_InputPort[portNum];
 }
 
-Ports::InputNoArgsPort* ActiveTelemetryComponentBase ::get_noArgsGuarded_InputPort(FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsGuarded_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Ports::InputNoArgsPort* ActiveTelemetryComponentBase ::
+  get_noArgsGuarded_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsGuarded_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_noArgsGuarded_InputPort[portNum];
+  return &this->m_noArgsGuarded_InputPort[portNum];
 }
 
-Ports::InputNoArgsReturnPort* ActiveTelemetryComponentBase ::get_noArgsReturnGuarded_InputPort(FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsReturnGuarded_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Ports::InputNoArgsReturnPort* ActiveTelemetryComponentBase ::
+  get_noArgsReturnGuarded_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnGuarded_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_noArgsReturnGuarded_InputPort[portNum];
+  return &this->m_noArgsReturnGuarded_InputPort[portNum];
 }
 
-Ports::InputNoArgsReturnPort* ActiveTelemetryComponentBase ::get_noArgsReturnSync_InputPort(FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsReturnSync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Ports::InputNoArgsReturnPort* ActiveTelemetryComponentBase ::
+  get_noArgsReturnSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_noArgsReturnSync_InputPort[portNum];
+  return &this->m_noArgsReturnSync_InputPort[portNum];
 }
 
-Ports::InputNoArgsStringReturnPort* ActiveTelemetryComponentBase ::get_noArgsStringReturnSync_InputPort(
-    FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsStringReturnSync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Ports::InputNoArgsStringReturnPort* ActiveTelemetryComponentBase ::
+  get_noArgsStringReturnSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_noArgsStringReturnSync_InputPort[portNum];
+  return &this->m_noArgsStringReturnSync_InputPort[portNum];
 }
 
-Ports::InputNoArgsPort* ActiveTelemetryComponentBase ::get_noArgsSync_InputPort(FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsSync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Ports::InputNoArgsPort* ActiveTelemetryComponentBase ::
+  get_noArgsSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_noArgsSync_InputPort[portNum];
+  return &this->m_noArgsSync_InputPort[portNum];
 }
 
-Ports::InputAliasTypedPort* ActiveTelemetryComponentBase ::get_typedAliasGuarded_InputPort(FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAliasGuarded_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Ports::InputAliasTypedPort* ActiveTelemetryComponentBase ::
+  get_typedAliasGuarded_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasGuarded_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_typedAliasGuarded_InputPort[portNum];
+  return &this->m_typedAliasGuarded_InputPort[portNum];
 }
 
-Ports::InputAliasTypedReturnPort* ActiveTelemetryComponentBase ::get_typedAliasReturnSync_InputPort(
-    FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAliasReturnSync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Ports::InputAliasTypedReturnPort* ActiveTelemetryComponentBase ::
+  get_typedAliasReturnSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_typedAliasReturnSync_InputPort[portNum];
+  return &this->m_typedAliasReturnSync_InputPort[portNum];
 }
 
-Ports::InputAliasTypedReturnStringPort* ActiveTelemetryComponentBase ::get_typedAliasStringReturnSync_InputPort(
-    FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAliasStringReturnSync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Ports::InputAliasTypedReturnStringPort* ActiveTelemetryComponentBase ::
+  get_typedAliasStringReturnSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasStringReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_typedAliasStringReturnSync_InputPort[portNum];
+  return &this->m_typedAliasStringReturnSync_InputPort[portNum];
 }
 
-Ports::InputTypedPort* ActiveTelemetryComponentBase ::get_typedAsync_InputPort(FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAsync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Ports::InputTypedPort* ActiveTelemetryComponentBase ::
+  get_typedAsync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAsync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_typedAsync_InputPort[portNum];
+  return &this->m_typedAsync_InputPort[portNum];
 }
 
-Ports::InputTypedPort* ActiveTelemetryComponentBase ::get_typedAsyncAssert_InputPort(FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAsyncAssert_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Ports::InputTypedPort* ActiveTelemetryComponentBase ::
+  get_typedAsyncAssert_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAsyncAssert_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_typedAsyncAssert_InputPort[portNum];
+  return &this->m_typedAsyncAssert_InputPort[portNum];
 }
 
-Ports::InputTypedPort* ActiveTelemetryComponentBase ::get_typedAsyncBlockPriority_InputPort(FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAsyncBlockPriority_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Ports::InputTypedPort* ActiveTelemetryComponentBase ::
+  get_typedAsyncBlockPriority_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAsyncBlockPriority_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_typedAsyncBlockPriority_InputPort[portNum];
+  return &this->m_typedAsyncBlockPriority_InputPort[portNum];
 }
 
-Ports::InputTypedPort* ActiveTelemetryComponentBase ::get_typedAsyncDropPriority_InputPort(FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAsyncDropPriority_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Ports::InputTypedPort* ActiveTelemetryComponentBase ::
+  get_typedAsyncDropPriority_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAsyncDropPriority_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_typedAsyncDropPriority_InputPort[portNum];
+  return &this->m_typedAsyncDropPriority_InputPort[portNum];
 }
 
-Ports::InputTypedPort* ActiveTelemetryComponentBase ::get_typedGuarded_InputPort(FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedGuarded_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Ports::InputTypedPort* ActiveTelemetryComponentBase ::
+  get_typedGuarded_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedGuarded_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_typedGuarded_InputPort[portNum];
+  return &this->m_typedGuarded_InputPort[portNum];
 }
 
-Ports::InputTypedReturnPort* ActiveTelemetryComponentBase ::get_typedReturnGuarded_InputPort(FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedReturnGuarded_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Ports::InputTypedReturnPort* ActiveTelemetryComponentBase ::
+  get_typedReturnGuarded_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedReturnGuarded_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_typedReturnGuarded_InputPort[portNum];
+  return &this->m_typedReturnGuarded_InputPort[portNum];
 }
 
-Ports::InputTypedReturnPort* ActiveTelemetryComponentBase ::get_typedReturnSync_InputPort(FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedReturnSync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Ports::InputTypedReturnPort* ActiveTelemetryComponentBase ::
+  get_typedReturnSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_typedReturnSync_InputPort[portNum];
+  return &this->m_typedReturnSync_InputPort[portNum];
 }
 
-Ports::InputTypedPort* ActiveTelemetryComponentBase ::get_typedSync_InputPort(FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedSync_InputPorts()), static_cast<FwAssertArgType>(portNum));
+Ports::InputTypedPort* ActiveTelemetryComponentBase ::
+  get_typedSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_typedSync_InputPort[portNum];
+  return &this->m_typedSync_InputPort[portNum];
 }
 
 #endif
@@ -755,62 +1184,120 @@ Ports::InputTypedPort* ActiveTelemetryComponentBase ::get_typedSync_InputPort(Fw
 // Connect input ports to special output ports
 // ----------------------------------------------------------------------
 
-void ActiveTelemetryComponentBase ::set_cmdRegOut_OutputPort(FwIndexType portNum, Fw::InputCmdRegPort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_cmdRegOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputCmdRegPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_cmdRegOut_OutputPort[portNum].addCallPort(port);
+  this->m_cmdRegOut_OutputPort[portNum].addCallPort(port);
 }
 
-void ActiveTelemetryComponentBase ::set_cmdResponseOut_OutputPort(FwIndexType portNum, Fw::InputCmdResponsePort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_cmdResponseOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputCmdResponsePort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_cmdResponseOut_OutputPort[portNum].addCallPort(port);
+  this->m_cmdResponseOut_OutputPort[portNum].addCallPort(port);
 }
 
-void ActiveTelemetryComponentBase ::set_eventOut_OutputPort(FwIndexType portNum, Fw::InputLogPort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()), static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_eventOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputLogPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_eventOut_OutputPort[portNum].addCallPort(port);
+  this->m_eventOut_OutputPort[portNum].addCallPort(port);
 }
 
-void ActiveTelemetryComponentBase ::set_prmGetOut_OutputPort(FwIndexType portNum, Fw::InputPrmGetPort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_prmGetOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputPrmGetPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_prmGetOut_OutputPort[portNum].addCallPort(port);
+  this->m_prmGetOut_OutputPort[portNum].addCallPort(port);
 }
 
-void ActiveTelemetryComponentBase ::set_prmSetOut_OutputPort(FwIndexType portNum, Fw::InputPrmSetPort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_prmSetOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputPrmSetPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_prmSetOut_OutputPort[portNum].addCallPort(port);
+  this->m_prmSetOut_OutputPort[portNum].addCallPort(port);
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
-void ActiveTelemetryComponentBase ::set_textEventOut_OutputPort(FwIndexType portNum, Fw::InputLogTextPort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_textEventOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputLogTextPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_textEventOut_OutputPort[portNum].addCallPort(port);
+  this->m_textEventOut_OutputPort[portNum].addCallPort(port);
 }
 
 #endif
 
-void ActiveTelemetryComponentBase ::set_timeGetOut_OutputPort(FwIndexType portNum, Fw::InputTimePort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_timeGetOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputTimePort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_timeGetOut_OutputPort[portNum].addCallPort(port);
+  this->m_timeGetOut_OutputPort[portNum].addCallPort(port);
 }
 
-void ActiveTelemetryComponentBase ::set_tlmOut_OutputPort(FwIndexType portNum, Fw::InputTlmPort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()), static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_tlmOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputTlmPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_tlmOut_OutputPort[portNum].addCallPort(port);
+  this->m_tlmOut_OutputPort[portNum].addCallPort(port);
 }
 
 #endif
@@ -821,66 +1308,116 @@ void ActiveTelemetryComponentBase ::set_tlmOut_OutputPort(FwIndexType portNum, F
 // Connect typed input ports to typed output ports
 // ----------------------------------------------------------------------
 
-void ActiveTelemetryComponentBase ::set_noArgsOut_OutputPort(FwIndexType portNum, Ports::InputNoArgsPort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_noArgsOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputNoArgsPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_noArgsOut_OutputPort[portNum].addCallPort(port);
+  this->m_noArgsOut_OutputPort[portNum].addCallPort(port);
 }
 
-void ActiveTelemetryComponentBase ::set_noArgsReturnOut_OutputPort(FwIndexType portNum,
-                                                                   Ports::InputNoArgsReturnPort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_noArgsReturnOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputNoArgsReturnPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_noArgsReturnOut_OutputPort[portNum].addCallPort(port);
+  this->m_noArgsReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
-void ActiveTelemetryComponentBase ::set_noArgsStringReturnOut_OutputPort(FwIndexType portNum,
-                                                                         Ports::InputNoArgsStringReturnPort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_noArgsStringReturnOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputNoArgsStringReturnPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_noArgsStringReturnOut_OutputPort[portNum].addCallPort(port);
+  this->m_noArgsStringReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
-void ActiveTelemetryComponentBase ::set_typedAliasOut_OutputPort(FwIndexType portNum,
-                                                                 Ports::InputAliasTypedPort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_typedAliasOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputAliasTypedPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_typedAliasOut_OutputPort[portNum].addCallPort(port);
+  this->m_typedAliasOut_OutputPort[portNum].addCallPort(port);
 }
 
-void ActiveTelemetryComponentBase ::set_typedAliasReturnOut_OutputPort(FwIndexType portNum,
-                                                                       Ports::InputAliasTypedReturnPort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_typedAliasReturnOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputAliasTypedReturnPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_typedAliasReturnOut_OutputPort[portNum].addCallPort(port);
+  this->m_typedAliasReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
-void ActiveTelemetryComponentBase ::set_typedAliasReturnStringOut_OutputPort(
-    FwIndexType portNum,
-    Ports::InputAliasTypedReturnStringPort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_typedAliasReturnStringOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputAliasTypedReturnStringPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_typedAliasReturnStringOut_OutputPort[portNum].addCallPort(port);
+  this->m_typedAliasReturnStringOut_OutputPort[portNum].addCallPort(port);
 }
 
-void ActiveTelemetryComponentBase ::set_typedOut_OutputPort(FwIndexType portNum, Ports::InputTypedPort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()), static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_typedOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputTypedPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_typedOut_OutputPort[portNum].addCallPort(port);
+  this->m_typedOut_OutputPort[portNum].addCallPort(port);
 }
 
-void ActiveTelemetryComponentBase ::set_typedReturnOut_OutputPort(FwIndexType portNum,
-                                                                  Ports::InputTypedReturnPort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_typedReturnOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputTypedReturnPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_typedReturnOut_OutputPort[portNum].addCallPort(port);
+  this->m_typedReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
 #endif
@@ -891,55 +1428,106 @@ void ActiveTelemetryComponentBase ::set_typedReturnOut_OutputPort(FwIndexType po
 // Connect serial input ports to special output ports
 // ----------------------------------------------------------------------
 
-void ActiveTelemetryComponentBase ::set_cmdRegOut_OutputPort(FwIndexType portNum, Fw::InputSerializePort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_cmdRegOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_cmdRegOut_OutputPort[portNum].registerSerialPort(port);
+  this->m_cmdRegOut_OutputPort[portNum].registerSerialPort(port);
 }
 
-void ActiveTelemetryComponentBase ::set_cmdResponseOut_OutputPort(FwIndexType portNum, Fw::InputSerializePort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_cmdResponseOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_cmdResponseOut_OutputPort[portNum].registerSerialPort(port);
+  this->m_cmdResponseOut_OutputPort[portNum].registerSerialPort(port);
 }
 
-void ActiveTelemetryComponentBase ::set_eventOut_OutputPort(FwIndexType portNum, Fw::InputSerializePort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()), static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_eventOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_eventOut_OutputPort[portNum].registerSerialPort(port);
+  this->m_eventOut_OutputPort[portNum].registerSerialPort(port);
 }
 
-void ActiveTelemetryComponentBase ::set_prmSetOut_OutputPort(FwIndexType portNum, Fw::InputSerializePort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_prmSetOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_prmSetOut_OutputPort[portNum].registerSerialPort(port);
+  this->m_prmSetOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
-void ActiveTelemetryComponentBase ::set_textEventOut_OutputPort(FwIndexType portNum, Fw::InputSerializePort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_textEventOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_textEventOut_OutputPort[portNum].registerSerialPort(port);
+  this->m_textEventOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 #endif
 
-void ActiveTelemetryComponentBase ::set_timeGetOut_OutputPort(FwIndexType portNum, Fw::InputSerializePort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_timeGetOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_timeGetOut_OutputPort[portNum].registerSerialPort(port);
+  this->m_timeGetOut_OutputPort[portNum].registerSerialPort(port);
 }
 
-void ActiveTelemetryComponentBase ::set_tlmOut_OutputPort(FwIndexType portNum, Fw::InputSerializePort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()), static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_tlmOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_tlmOut_OutputPort[portNum].registerSerialPort(port);
+  this->m_tlmOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 #endif
@@ -950,24 +1538,46 @@ void ActiveTelemetryComponentBase ::set_tlmOut_OutputPort(FwIndexType portNum, F
 // Connect serial input ports to typed output ports
 // ----------------------------------------------------------------------
 
-void ActiveTelemetryComponentBase ::set_noArgsOut_OutputPort(FwIndexType portNum, Fw::InputSerializePort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_noArgsOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_noArgsOut_OutputPort[portNum].registerSerialPort(port);
+  this->m_noArgsOut_OutputPort[portNum].registerSerialPort(port);
 }
 
-void ActiveTelemetryComponentBase ::set_typedAliasOut_OutputPort(FwIndexType portNum, Fw::InputSerializePort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_typedAliasOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_typedAliasOut_OutputPort[portNum].registerSerialPort(port);
+  this->m_typedAliasOut_OutputPort[portNum].registerSerialPort(port);
 }
 
-void ActiveTelemetryComponentBase ::set_typedOut_OutputPort(FwIndexType portNum, Fw::InputSerializePort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()), static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  set_typedOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_typedOut_OutputPort[portNum].registerSerialPort(port);
+  this->m_typedOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 #endif
@@ -976,9 +1586,18 @@ void ActiveTelemetryComponentBase ::set_typedOut_OutputPort(FwIndexType portNum,
 // Component construction and destruction
 // ----------------------------------------------------------------------
 
-ActiveTelemetryComponentBase ::ActiveTelemetryComponentBase(const char* compName) : Fw::ActiveComponentBase(compName) {}
+ActiveTelemetryComponentBase ::
+  ActiveTelemetryComponentBase(const char* compName) :
+    Fw::ActiveComponentBase(compName)
+{
 
-ActiveTelemetryComponentBase ::~ActiveTelemetryComponentBase() {}
+}
+
+ActiveTelemetryComponentBase ::
+  ~ActiveTelemetryComponentBase()
+{
+
+}
 
 #if !FW_DIRECT_PORT_CALLS
 
@@ -986,62 +1605,96 @@ ActiveTelemetryComponentBase ::~ActiveTelemetryComponentBase() {}
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 
-bool ActiveTelemetryComponentBase ::isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+bool ActiveTelemetryComponentBase ::
+  isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return this->m_cmdRegOut_OutputPort[portNum].isConnected();
+  return this->m_cmdRegOut_OutputPort[portNum].isConnected();
 }
 
-bool ActiveTelemetryComponentBase ::isConnected_cmdResponseOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+bool ActiveTelemetryComponentBase ::
+  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return this->m_cmdResponseOut_OutputPort[portNum].isConnected();
+  return this->m_cmdResponseOut_OutputPort[portNum].isConnected();
 }
 
-bool ActiveTelemetryComponentBase ::isConnected_eventOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()), static_cast<FwAssertArgType>(portNum));
+bool ActiveTelemetryComponentBase ::
+  isConnected_eventOut_OutputPort(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return this->m_eventOut_OutputPort[portNum].isConnected();
+  return this->m_eventOut_OutputPort[portNum].isConnected();
 }
 
-bool ActiveTelemetryComponentBase ::isConnected_prmGetOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+bool ActiveTelemetryComponentBase ::
+  isConnected_prmGetOut_OutputPort(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return this->m_prmGetOut_OutputPort[portNum].isConnected();
+  return this->m_prmGetOut_OutputPort[portNum].isConnected();
 }
 
-bool ActiveTelemetryComponentBase ::isConnected_prmSetOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+bool ActiveTelemetryComponentBase ::
+  isConnected_prmSetOut_OutputPort(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return this->m_prmSetOut_OutputPort[portNum].isConnected();
+  return this->m_prmSetOut_OutputPort[portNum].isConnected();
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
-bool ActiveTelemetryComponentBase ::isConnected_textEventOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+bool ActiveTelemetryComponentBase ::
+  isConnected_textEventOut_OutputPort(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return this->m_textEventOut_OutputPort[portNum].isConnected();
+  return this->m_textEventOut_OutputPort[portNum].isConnected();
 }
 
 #endif
 
-bool ActiveTelemetryComponentBase ::isConnected_timeGetOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+bool ActiveTelemetryComponentBase ::
+  isConnected_timeGetOut_OutputPort(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return this->m_timeGetOut_OutputPort[portNum].isConnected();
+  return this->m_timeGetOut_OutputPort[portNum].isConnected();
 }
 
-bool ActiveTelemetryComponentBase ::isConnected_tlmOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()), static_cast<FwAssertArgType>(portNum));
+bool ActiveTelemetryComponentBase ::
+  isConnected_tlmOut_OutputPort(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return this->m_tlmOut_OutputPort[portNum].isConnected();
+  return this->m_tlmOut_OutputPort[portNum].isConnected();
 }
 
 #endif
@@ -1052,59 +1705,92 @@ bool ActiveTelemetryComponentBase ::isConnected_tlmOut_OutputPort(FwIndexType po
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
 
-bool ActiveTelemetryComponentBase ::isConnected_noArgsOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+bool ActiveTelemetryComponentBase ::
+  isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return this->m_noArgsOut_OutputPort[portNum].isConnected();
+  return this->m_noArgsOut_OutputPort[portNum].isConnected();
 }
 
-bool ActiveTelemetryComponentBase ::isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+bool ActiveTelemetryComponentBase ::
+  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return this->m_noArgsReturnOut_OutputPort[portNum].isConnected();
+  return this->m_noArgsReturnOut_OutputPort[portNum].isConnected();
 }
 
-bool ActiveTelemetryComponentBase ::isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+bool ActiveTelemetryComponentBase ::
+  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return this->m_noArgsStringReturnOut_OutputPort[portNum].isConnected();
+  return this->m_noArgsStringReturnOut_OutputPort[portNum].isConnected();
 }
 
-bool ActiveTelemetryComponentBase ::isConnected_typedAliasOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+bool ActiveTelemetryComponentBase ::
+  isConnected_typedAliasOut_OutputPort(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return this->m_typedAliasOut_OutputPort[portNum].isConnected();
+  return this->m_typedAliasOut_OutputPort[portNum].isConnected();
 }
 
-bool ActiveTelemetryComponentBase ::isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+bool ActiveTelemetryComponentBase ::
+  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return this->m_typedAliasReturnOut_OutputPort[portNum].isConnected();
+  return this->m_typedAliasReturnOut_OutputPort[portNum].isConnected();
 }
 
-bool ActiveTelemetryComponentBase ::isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+bool ActiveTelemetryComponentBase ::
+  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return this->m_typedAliasReturnStringOut_OutputPort[portNum].isConnected();
+  return this->m_typedAliasReturnStringOut_OutputPort[portNum].isConnected();
 }
 
-bool ActiveTelemetryComponentBase ::isConnected_typedOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()), static_cast<FwAssertArgType>(portNum));
+bool ActiveTelemetryComponentBase ::
+  isConnected_typedOut_OutputPort(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return this->m_typedOut_OutputPort[portNum].isConnected();
+  return this->m_typedOut_OutputPort[portNum].isConnected();
 }
 
-bool ActiveTelemetryComponentBase ::isConnected_typedReturnOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+bool ActiveTelemetryComponentBase ::
+  isConnected_typedReturnOut_OutputPort(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return this->m_typedReturnOut_OutputPort[portNum].isConnected();
+  return this->m_typedReturnOut_OutputPort[portNum].isConnected();
 }
 
 #endif
@@ -1115,19 +1801,24 @@ bool ActiveTelemetryComponentBase ::isConnected_typedReturnOut_OutputPort(FwInde
 // Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
 
-void ActiveTelemetryComponentBase ::cmdIn_handlerBase(FwIndexType portNum,
-                                                      FwOpcodeType opCode,
-                                                      U32 cmdSeq,
-                                                      Fw::CmdArgBuffer& args) {
-    const U32 idBase = this->getIdBase();
-    FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+void ActiveTelemetryComponentBase ::
+  cmdIn_handlerBase(
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
 
-    // Select base class function based on opcode
-    switch (opCode - idBase) {
-        default:
-            // Unknown opcode: ignore it
-            break;
-    }
+  const U32 idBase = this->getIdBase();
+  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+
+  // Select base class function based on opcode
+  switch (opCode - idBase) {
+    default:
+      // Unknown opcode: ignore it
+      break;
+  }
 }
 
 // ----------------------------------------------------------------------
@@ -1136,561 +1827,941 @@ void ActiveTelemetryComponentBase ::cmdIn_handlerBase(FwIndexType portNum,
 // Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
 
-void ActiveTelemetryComponentBase ::aliasTypedAsync_handlerBase(FwIndexType portNum,
-                                                                AliasPrim1 u32,
-                                                                AliasPrim2 f32,
-                                                                AliasBool b,
-                                                                const Fw::StringBase& str2,
-                                                                const AliasEnum& e,
-                                                                const AliasArray& a,
-                                                                const AliasStruct& s) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_aliasTypedAsync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  aliasTypedAsync_handlerBase(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_aliasTypedAsync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    // Call pre-message hook
-    aliasTypedAsync_preMsgHook(portNum, u32, f32, b, str2, e, a, s);
-    ComponentIpcSerializableBuffer msg;
-    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+  // Call pre-message hook
+  aliasTypedAsync_preMsgHook(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+  ComponentIpcSerializableBuffer msg;
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
-    // Serialize message ID
-    _status = msg.serializeFrom(static_cast<FwEnumStoreType>(ALIASTYPEDASYNC_ALIASTYPED));
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize message ID
+  _status = msg.serializeFrom(
+    static_cast<FwEnumStoreType>(ALIASTYPEDASYNC_ALIASTYPED)
+  );
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize port number
-    _status = msg.serializeFrom(portNum);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize port number
+  _status = msg.serializeFrom(portNum);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument u32
-    _status = msg.serializeFrom(u32);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument u32
+  _status = msg.serializeFrom(u32);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument f32
-    _status = msg.serializeFrom(f32);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument f32
+  _status = msg.serializeFrom(f32);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument b
-    _status = msg.serializeFrom(b);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument b
+  _status = msg.serializeFrom(b);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument str2
-    _status = msg.serializeFrom(str2);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument str2
+  _status = msg.serializeFrom(str2);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument e
-    _status = msg.serializeFrom(e);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument e
+  _status = msg.serializeFrom(e);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument a
-    _status = msg.serializeFrom(a);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument a
+  _status = msg.serializeFrom(a);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument s
-    _status = msg.serializeFrom(s);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument s
+  _status = msg.serializeFrom(s);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Send message
-    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
-    Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
+  // Send message
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
-    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
+  FW_ASSERT(
+    qStatus == Os::Queue::OP_OK,
+    static_cast<FwAssertArgType>(qStatus)
+  );
 }
 
-Fw::String ActiveTelemetryComponentBase ::noArgsAliasStringReturnSync_handlerBase(FwIndexType portNum) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsAliasStringReturnSync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Fw::String ActiveTelemetryComponentBase ::
+  noArgsAliasStringReturnSync_handlerBase(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsAliasStringReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    Fw::String retVal;
+  Fw::String retVal;
 
-    // Call handler function
-    retVal = this->noArgsAliasStringReturnSync_handler(portNum);
+  // Call handler function
+  retVal = this->noArgsAliasStringReturnSync_handler(portNum);
 
-    return retVal;
+  return retVal;
 }
 
-void ActiveTelemetryComponentBase ::noArgsAsync_handlerBase(FwIndexType portNum) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsAsync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  noArgsAsync_handlerBase(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsAsync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    // Call pre-message hook
-    noArgsAsync_preMsgHook(portNum);
-    ComponentIpcSerializableBuffer msg;
-    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+  // Call pre-message hook
+  noArgsAsync_preMsgHook(portNum);
+  ComponentIpcSerializableBuffer msg;
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
-    // Serialize message ID
-    _status = msg.serializeFrom(static_cast<FwEnumStoreType>(NOARGSASYNC_NOARGS));
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize message ID
+  _status = msg.serializeFrom(
+    static_cast<FwEnumStoreType>(NOARGSASYNC_NOARGS)
+  );
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize port number
-    _status = msg.serializeFrom(portNum);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize port number
+  _status = msg.serializeFrom(portNum);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Send message
-    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
-    Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
+  // Send message
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
-    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
+  FW_ASSERT(
+    qStatus == Os::Queue::OP_OK,
+    static_cast<FwAssertArgType>(qStatus)
+  );
 }
 
-void ActiveTelemetryComponentBase ::noArgsGuarded_handlerBase(FwIndexType portNum) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsGuarded_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  noArgsGuarded_handlerBase(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsGuarded_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    // Lock guard mutex before calling
-    this->lock();
+  // Lock guard mutex before calling
+  this->lock();
 
-    // Call handler function
-    this->noArgsGuarded_handler(portNum);
+  // Call handler function
+  this->noArgsGuarded_handler(portNum);
 
-    // Unlock guard mutex
-    this->unLock();
+  // Unlock guard mutex
+  this->unLock();
 }
 
-U32 ActiveTelemetryComponentBase ::noArgsReturnGuarded_handlerBase(FwIndexType portNum) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsReturnGuarded_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+U32 ActiveTelemetryComponentBase ::
+  noArgsReturnGuarded_handlerBase(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnGuarded_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    U32 retVal;
+  U32 retVal;
 
-    // Lock guard mutex before calling
-    this->lock();
+  // Lock guard mutex before calling
+  this->lock();
 
-    // Call handler function
-    retVal = this->noArgsReturnGuarded_handler(portNum);
+  // Call handler function
+  retVal = this->noArgsReturnGuarded_handler(portNum);
 
-    // Unlock guard mutex
-    this->unLock();
+  // Unlock guard mutex
+  this->unLock();
 
-    return retVal;
+  return retVal;
 }
 
-U32 ActiveTelemetryComponentBase ::noArgsReturnSync_handlerBase(FwIndexType portNum) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsReturnSync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+U32 ActiveTelemetryComponentBase ::
+  noArgsReturnSync_handlerBase(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    U32 retVal;
+  U32 retVal;
 
-    // Call handler function
-    retVal = this->noArgsReturnSync_handler(portNum);
+  // Call handler function
+  retVal = this->noArgsReturnSync_handler(portNum);
 
-    return retVal;
+  return retVal;
 }
 
-Fw::String ActiveTelemetryComponentBase ::noArgsStringReturnSync_handlerBase(FwIndexType portNum) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsStringReturnSync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Fw::String ActiveTelemetryComponentBase ::
+  noArgsStringReturnSync_handlerBase(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    Fw::String retVal;
+  Fw::String retVal;
 
-    // Call handler function
-    retVal = this->noArgsStringReturnSync_handler(portNum);
+  // Call handler function
+  retVal = this->noArgsStringReturnSync_handler(portNum);
 
-    return retVal;
+  return retVal;
 }
 
-void ActiveTelemetryComponentBase ::noArgsSync_handlerBase(FwIndexType portNum) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsSync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  noArgsSync_handlerBase(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    // Call handler function
-    this->noArgsSync_handler(portNum);
+  // Call handler function
+  this->noArgsSync_handler(portNum);
 }
 
-void ActiveTelemetryComponentBase ::typedAliasGuarded_handlerBase(FwIndexType portNum,
-                                                                  AliasPrim1 u32,
-                                                                  AliasPrim2 f32,
-                                                                  AliasBool b,
-                                                                  const Fw::StringBase& str2,
-                                                                  const AliasEnum& e,
-                                                                  const AliasArray& a,
-                                                                  const AliasStruct& s) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAliasGuarded_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  typedAliasGuarded_handlerBase(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasGuarded_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    // Lock guard mutex before calling
-    this->lock();
+  // Lock guard mutex before calling
+  this->lock();
 
-    // Call handler function
-    this->typedAliasGuarded_handler(portNum, u32, f32, b, str2, e, a, s);
+  // Call handler function
+  this->typedAliasGuarded_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 
-    // Unlock guard mutex
-    this->unLock();
+  // Unlock guard mutex
+  this->unLock();
 }
 
-AliasPrim2 ActiveTelemetryComponentBase ::typedAliasReturnSync_handlerBase(FwIndexType portNum,
-                                                                           AliasPrim1 u32,
-                                                                           AliasPrim2 f32,
-                                                                           AliasBool b,
-                                                                           const Fw::StringBase& str2,
-                                                                           const AliasEnum& e,
-                                                                           const AliasArray& a,
-                                                                           const AliasStruct& s) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAliasReturnSync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+AliasPrim2 ActiveTelemetryComponentBase ::
+  typedAliasReturnSync_handlerBase(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    AliasPrim2 retVal;
+  AliasPrim2 retVal;
 
-    // Call handler function
-    retVal = this->typedAliasReturnSync_handler(portNum, u32, f32, b, str2, e, a, s);
+  // Call handler function
+  retVal = this->typedAliasReturnSync_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 
-    return retVal;
+  return retVal;
 }
 
-Fw::String ActiveTelemetryComponentBase ::typedAliasStringReturnSync_handlerBase(FwIndexType portNum,
-                                                                                 AliasPrim1 u32,
-                                                                                 AliasPrim2 f32,
-                                                                                 AliasBool b,
-                                                                                 const Fw::StringBase& str2,
-                                                                                 const AliasEnum& e,
-                                                                                 const AliasArray& a,
-                                                                                 const AnotherAliasStruct& s) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAliasStringReturnSync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Fw::String ActiveTelemetryComponentBase ::
+  typedAliasStringReturnSync_handlerBase(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasStringReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    Fw::String retVal;
+  Fw::String retVal;
 
-    // Call handler function
-    retVal = this->typedAliasStringReturnSync_handler(portNum, u32, f32, b, str2, e, a, s);
+  // Call handler function
+  retVal = this->typedAliasStringReturnSync_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 
-    return retVal;
+  return retVal;
 }
 
-void ActiveTelemetryComponentBase ::typedAsync_handlerBase(FwIndexType portNum,
-                                                           U32 u32,
-                                                           F32 f32,
-                                                           bool b,
-                                                           const Fw::StringBase& str1,
-                                                           const E& e,
-                                                           const A& a,
-                                                           const S& s) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAsync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  typedAsync_handlerBase(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAsync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    // Call pre-message hook
-    typedAsync_preMsgHook(portNum, u32, f32, b, str1, e, a, s);
-    ComponentIpcSerializableBuffer msg;
-    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+  // Call pre-message hook
+  typedAsync_preMsgHook(
+    portNum,
+    u32,
+    f32,
+    b,
+    str1,
+    e,
+    a,
+    s
+  );
+  ComponentIpcSerializableBuffer msg;
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
-    // Serialize message ID
-    _status = msg.serializeFrom(static_cast<FwEnumStoreType>(TYPEDASYNC_TYPED));
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize message ID
+  _status = msg.serializeFrom(
+    static_cast<FwEnumStoreType>(TYPEDASYNC_TYPED)
+  );
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize port number
-    _status = msg.serializeFrom(portNum);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize port number
+  _status = msg.serializeFrom(portNum);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument u32
-    _status = msg.serializeFrom(u32);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument u32
+  _status = msg.serializeFrom(u32);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument f32
-    _status = msg.serializeFrom(f32);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument f32
+  _status = msg.serializeFrom(f32);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument b
-    _status = msg.serializeFrom(b);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument b
+  _status = msg.serializeFrom(b);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument str1
-    _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument str1
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument e
-    _status = msg.serializeFrom(e);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument e
+  _status = msg.serializeFrom(e);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument a
-    _status = msg.serializeFrom(a);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument a
+  _status = msg.serializeFrom(a);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument s
-    _status = msg.serializeFrom(s);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument s
+  _status = msg.serializeFrom(s);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Send message
-    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
-    Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
+  // Send message
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
-    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
+  FW_ASSERT(
+    qStatus == Os::Queue::OP_OK,
+    static_cast<FwAssertArgType>(qStatus)
+  );
 }
 
-void ActiveTelemetryComponentBase ::typedAsyncAssert_handlerBase(FwIndexType portNum,
-                                                                 U32 u32,
-                                                                 F32 f32,
-                                                                 bool b,
-                                                                 const Fw::StringBase& str1,
-                                                                 const E& e,
-                                                                 const A& a,
-                                                                 const S& s) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAsyncAssert_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  typedAsyncAssert_handlerBase(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAsyncAssert_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    // Call pre-message hook
-    typedAsyncAssert_preMsgHook(portNum, u32, f32, b, str1, e, a, s);
-    ComponentIpcSerializableBuffer msg;
-    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+  // Call pre-message hook
+  typedAsyncAssert_preMsgHook(
+    portNum,
+    u32,
+    f32,
+    b,
+    str1,
+    e,
+    a,
+    s
+  );
+  ComponentIpcSerializableBuffer msg;
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
-    // Serialize message ID
-    _status = msg.serializeFrom(static_cast<FwEnumStoreType>(TYPEDASYNCASSERT_TYPED));
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize message ID
+  _status = msg.serializeFrom(
+    static_cast<FwEnumStoreType>(TYPEDASYNCASSERT_TYPED)
+  );
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize port number
-    _status = msg.serializeFrom(portNum);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize port number
+  _status = msg.serializeFrom(portNum);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument u32
-    _status = msg.serializeFrom(u32);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument u32
+  _status = msg.serializeFrom(u32);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument f32
-    _status = msg.serializeFrom(f32);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument f32
+  _status = msg.serializeFrom(f32);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument b
-    _status = msg.serializeFrom(b);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument b
+  _status = msg.serializeFrom(b);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument str1
-    _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument str1
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument e
-    _status = msg.serializeFrom(e);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument e
+  _status = msg.serializeFrom(e);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument a
-    _status = msg.serializeFrom(a);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument a
+  _status = msg.serializeFrom(a);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument s
-    _status = msg.serializeFrom(s);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument s
+  _status = msg.serializeFrom(s);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Send message
-    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
-    Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
+  // Send message
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
-    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
+  FW_ASSERT(
+    qStatus == Os::Queue::OP_OK,
+    static_cast<FwAssertArgType>(qStatus)
+  );
 }
 
-void ActiveTelemetryComponentBase ::typedAsyncBlockPriority_handlerBase(FwIndexType portNum,
-                                                                        U32 u32,
-                                                                        F32 f32,
-                                                                        bool b,
-                                                                        const Fw::StringBase& str1,
-                                                                        const E& e,
-                                                                        const A& a,
-                                                                        const S& s) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAsyncBlockPriority_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  typedAsyncBlockPriority_handlerBase(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAsyncBlockPriority_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    // Call pre-message hook
-    typedAsyncBlockPriority_preMsgHook(portNum, u32, f32, b, str1, e, a, s);
-    ComponentIpcSerializableBuffer msg;
-    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+  // Call pre-message hook
+  typedAsyncBlockPriority_preMsgHook(
+    portNum,
+    u32,
+    f32,
+    b,
+    str1,
+    e,
+    a,
+    s
+  );
+  ComponentIpcSerializableBuffer msg;
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
-    // Serialize message ID
-    _status = msg.serializeFrom(static_cast<FwEnumStoreType>(TYPEDASYNCBLOCKPRIORITY_TYPED));
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize message ID
+  _status = msg.serializeFrom(
+    static_cast<FwEnumStoreType>(TYPEDASYNCBLOCKPRIORITY_TYPED)
+  );
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize port number
-    _status = msg.serializeFrom(portNum);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize port number
+  _status = msg.serializeFrom(portNum);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument u32
-    _status = msg.serializeFrom(u32);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument u32
+  _status = msg.serializeFrom(u32);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument f32
-    _status = msg.serializeFrom(f32);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument f32
+  _status = msg.serializeFrom(f32);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument b
-    _status = msg.serializeFrom(b);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument b
+  _status = msg.serializeFrom(b);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument str1
-    _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument str1
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument e
-    _status = msg.serializeFrom(e);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument e
+  _status = msg.serializeFrom(e);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument a
-    _status = msg.serializeFrom(a);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument a
+  _status = msg.serializeFrom(a);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument s
-    _status = msg.serializeFrom(s);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument s
+  _status = msg.serializeFrom(s);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Send message
-    Os::Queue::BlockingType _block = Os::Queue::BLOCKING;
-    Os::Queue::Status qStatus = this->m_queue.send(msg, 10, _block);
+  // Send message
+  Os::Queue::BlockingType _block = Os::Queue::BLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 10, _block);
 
-    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
+  FW_ASSERT(
+    qStatus == Os::Queue::OP_OK,
+    static_cast<FwAssertArgType>(qStatus)
+  );
 }
 
-void ActiveTelemetryComponentBase ::typedAsyncDropPriority_handlerBase(FwIndexType portNum,
-                                                                       U32 u32,
-                                                                       F32 f32,
-                                                                       bool b,
-                                                                       const Fw::StringBase& str1,
-                                                                       const E& e,
-                                                                       const A& a,
-                                                                       const S& s) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAsyncDropPriority_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  typedAsyncDropPriority_handlerBase(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAsyncDropPriority_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    // Call pre-message hook
-    typedAsyncDropPriority_preMsgHook(portNum, u32, f32, b, str1, e, a, s);
-    ComponentIpcSerializableBuffer msg;
-    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+  // Call pre-message hook
+  typedAsyncDropPriority_preMsgHook(
+    portNum,
+    u32,
+    f32,
+    b,
+    str1,
+    e,
+    a,
+    s
+  );
+  ComponentIpcSerializableBuffer msg;
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
-    // Serialize message ID
-    _status = msg.serializeFrom(static_cast<FwEnumStoreType>(TYPEDASYNCDROPPRIORITY_TYPED));
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize message ID
+  _status = msg.serializeFrom(
+    static_cast<FwEnumStoreType>(TYPEDASYNCDROPPRIORITY_TYPED)
+  );
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize port number
-    _status = msg.serializeFrom(portNum);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize port number
+  _status = msg.serializeFrom(portNum);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument u32
-    _status = msg.serializeFrom(u32);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument u32
+  _status = msg.serializeFrom(u32);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument f32
-    _status = msg.serializeFrom(f32);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument f32
+  _status = msg.serializeFrom(f32);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument b
-    _status = msg.serializeFrom(b);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument b
+  _status = msg.serializeFrom(b);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument str1
-    _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument str1
+  _status = str1.serializeTo(msg, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument e
-    _status = msg.serializeFrom(e);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument e
+  _status = msg.serializeFrom(e);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument a
-    _status = msg.serializeFrom(a);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument a
+  _status = msg.serializeFrom(a);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument s
-    _status = msg.serializeFrom(s);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument s
+  _status = msg.serializeFrom(s);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Send message
-    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
-    Os::Queue::Status qStatus = this->m_queue.send(msg, 5, _block);
+  // Send message
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 5, _block);
 
-    if (qStatus == Os::Queue::Status::FULL) {
-        this->incNumMsgDropped();
-        return;
-    }
+  if (qStatus == Os::Queue::Status::FULL) {
+    this->incNumMsgDropped();
+    return;
+  }
 
-    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
+  FW_ASSERT(
+    qStatus == Os::Queue::OP_OK,
+    static_cast<FwAssertArgType>(qStatus)
+  );
 }
 
-void ActiveTelemetryComponentBase ::typedGuarded_handlerBase(FwIndexType portNum,
-                                                             U32 u32,
-                                                             F32 f32,
-                                                             bool b,
-                                                             const Fw::StringBase& str1,
-                                                             const E& e,
-                                                             const A& a,
-                                                             const S& s) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedGuarded_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  typedGuarded_handlerBase(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedGuarded_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    // Lock guard mutex before calling
-    this->lock();
+  // Lock guard mutex before calling
+  this->lock();
 
-    // Call handler function
-    this->typedGuarded_handler(portNum, u32, f32, b, str1, e, a, s);
+  // Call handler function
+  this->typedGuarded_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str1,
+    e,
+    a,
+    s
+  );
 
-    // Unlock guard mutex
-    this->unLock();
+  // Unlock guard mutex
+  this->unLock();
 }
 
-F32 ActiveTelemetryComponentBase ::typedReturnGuarded_handlerBase(FwIndexType portNum,
-                                                                  U32 u32,
-                                                                  F32 f32,
-                                                                  bool b,
-                                                                  const Fw::StringBase& str2,
-                                                                  const E& e,
-                                                                  const A& a,
-                                                                  const S& s) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedReturnGuarded_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+F32 ActiveTelemetryComponentBase ::
+  typedReturnGuarded_handlerBase(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedReturnGuarded_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    F32 retVal;
+  F32 retVal;
 
-    // Lock guard mutex before calling
-    this->lock();
+  // Lock guard mutex before calling
+  this->lock();
 
-    // Call handler function
-    retVal = this->typedReturnGuarded_handler(portNum, u32, f32, b, str2, e, a, s);
+  // Call handler function
+  retVal = this->typedReturnGuarded_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 
-    // Unlock guard mutex
-    this->unLock();
+  // Unlock guard mutex
+  this->unLock();
 
-    return retVal;
+  return retVal;
 }
 
-F32 ActiveTelemetryComponentBase ::typedReturnSync_handlerBase(FwIndexType portNum,
-                                                               U32 u32,
-                                                               F32 f32,
-                                                               bool b,
-                                                               const Fw::StringBase& str2,
-                                                               const E& e,
-                                                               const A& a,
-                                                               const S& s) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedReturnSync_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+F32 ActiveTelemetryComponentBase ::
+  typedReturnSync_handlerBase(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    F32 retVal;
+  F32 retVal;
 
-    // Call handler function
-    retVal = this->typedReturnSync_handler(portNum, u32, f32, b, str2, e, a, s);
+  // Call handler function
+  retVal = this->typedReturnSync_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 
-    return retVal;
+  return retVal;
 }
 
-void ActiveTelemetryComponentBase ::typedSync_handlerBase(FwIndexType portNum,
-                                                          U32 u32,
-                                                          F32 f32,
-                                                          bool b,
-                                                          const Fw::StringBase& str1,
-                                                          const E& e,
-                                                          const A& a,
-                                                          const S& s) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedSync_InputPorts()), static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  typedSync_handlerBase(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    // Call handler function
-    this->typedSync_handler(portNum, u32, f32, b, str1, e, a, s);
+  // Call handler function
+  this->typedSync_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str1,
+    e,
+    a,
+    s
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -1701,63 +2772,85 @@ void ActiveTelemetryComponentBase ::typedSync_handlerBase(FwIndexType portNum,
 // override them to provide specific pre-message behavior.
 // ----------------------------------------------------------------------
 
-void ActiveTelemetryComponentBase ::aliasTypedAsync_preMsgHook(FwIndexType portNum,
-                                                               AliasPrim1 u32,
-                                                               AliasPrim2 f32,
-                                                               AliasBool b,
-                                                               const Fw::StringBase& str2,
-                                                               const AliasEnum& e,
-                                                               const AliasArray& a,
-                                                               const AliasStruct& s) {
-    // Default: no-op
+void ActiveTelemetryComponentBase ::
+  aliasTypedAsync_preMsgHook(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // Default: no-op
 }
 
-void ActiveTelemetryComponentBase ::noArgsAsync_preMsgHook(FwIndexType portNum) {
-    // Default: no-op
+void ActiveTelemetryComponentBase ::
+  noArgsAsync_preMsgHook(FwIndexType portNum)
+{
+  // Default: no-op
 }
 
-void ActiveTelemetryComponentBase ::typedAsync_preMsgHook(FwIndexType portNum,
-                                                          U32 u32,
-                                                          F32 f32,
-                                                          bool b,
-                                                          const Fw::StringBase& str1,
-                                                          const E& e,
-                                                          const A& a,
-                                                          const S& s) {
-    // Default: no-op
+void ActiveTelemetryComponentBase ::
+  typedAsync_preMsgHook(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // Default: no-op
 }
 
-void ActiveTelemetryComponentBase ::typedAsyncAssert_preMsgHook(FwIndexType portNum,
-                                                                U32 u32,
-                                                                F32 f32,
-                                                                bool b,
-                                                                const Fw::StringBase& str1,
-                                                                const E& e,
-                                                                const A& a,
-                                                                const S& s) {
-    // Default: no-op
+void ActiveTelemetryComponentBase ::
+  typedAsyncAssert_preMsgHook(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // Default: no-op
 }
 
-void ActiveTelemetryComponentBase ::typedAsyncBlockPriority_preMsgHook(FwIndexType portNum,
-                                                                       U32 u32,
-                                                                       F32 f32,
-                                                                       bool b,
-                                                                       const Fw::StringBase& str1,
-                                                                       const E& e,
-                                                                       const A& a,
-                                                                       const S& s) {
-    // Default: no-op
+void ActiveTelemetryComponentBase ::
+  typedAsyncBlockPriority_preMsgHook(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // Default: no-op
 }
 
-void ActiveTelemetryComponentBase ::typedAsyncDropPriority_preMsgHook(FwIndexType portNum,
-                                                                      U32 u32,
-                                                                      F32 f32,
-                                                                      bool b,
-                                                                      const Fw::StringBase& str1,
-                                                                      const E& e,
-                                                                      const A& a,
-                                                                      const S& s) {
-    // Default: no-op
+void ActiveTelemetryComponentBase ::
+  typedAsyncDropPriority_preMsgHook(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // Default: no-op
 }
 
 #if !FW_DIRECT_PORT_CALLS
@@ -1766,103 +2859,209 @@ void ActiveTelemetryComponentBase ::typedAsyncDropPriority_preMsgHook(FwIndexTyp
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
 
-void ActiveTelemetryComponentBase ::noArgsOut_out(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  noArgsOut_out(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    FW_ASSERT(this->m_noArgsOut_OutputPort[portNum].isConnected(), static_cast<FwAssertArgType>(portNum));
-    this->m_noArgsOut_OutputPort[portNum].invoke();
+  FW_ASSERT(
+    this->m_noArgsOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_noArgsOut_OutputPort[portNum].invoke();
 }
 
-U32 ActiveTelemetryComponentBase ::noArgsReturnOut_out(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+U32 ActiveTelemetryComponentBase ::
+  noArgsReturnOut_out(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    FW_ASSERT(this->m_noArgsReturnOut_OutputPort[portNum].isConnected(), static_cast<FwAssertArgType>(portNum));
-    return this->m_noArgsReturnOut_OutputPort[portNum].invoke();
+  FW_ASSERT(
+    this->m_noArgsReturnOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_noArgsReturnOut_OutputPort[portNum].invoke();
 }
 
-Fw::String ActiveTelemetryComponentBase ::noArgsStringReturnOut_out(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Fw::String ActiveTelemetryComponentBase ::
+  noArgsStringReturnOut_out(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    FW_ASSERT(this->m_noArgsStringReturnOut_OutputPort[portNum].isConnected(), static_cast<FwAssertArgType>(portNum));
-    return this->m_noArgsStringReturnOut_OutputPort[portNum].invoke();
+  FW_ASSERT(
+    this->m_noArgsStringReturnOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_noArgsStringReturnOut_OutputPort[portNum].invoke();
 }
 
-void ActiveTelemetryComponentBase ::typedAliasOut_out(FwIndexType portNum,
-                                                      AliasPrim1 u32,
-                                                      AliasPrim2 f32,
-                                                      AliasBool b,
-                                                      const Fw::StringBase& str2,
-                                                      const AliasEnum& e,
-                                                      const AliasArray& a,
-                                                      const AliasStruct& s) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  typedAliasOut_out(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    FW_ASSERT(this->m_typedAliasOut_OutputPort[portNum].isConnected(), static_cast<FwAssertArgType>(portNum));
-    this->m_typedAliasOut_OutputPort[portNum].invoke(u32, f32, b, str2, e, a, s);
+  FW_ASSERT(
+    this->m_typedAliasOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_typedAliasOut_OutputPort[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
-AliasPrim2 ActiveTelemetryComponentBase ::typedAliasReturnOut_out(FwIndexType portNum,
-                                                                  AliasPrim1 u32,
-                                                                  AliasPrim2 f32,
-                                                                  AliasBool b,
-                                                                  const Fw::StringBase& str2,
-                                                                  const AliasEnum& e,
-                                                                  const AliasArray& a,
-                                                                  const AliasStruct& s) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+AliasPrim2 ActiveTelemetryComponentBase ::
+  typedAliasReturnOut_out(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    FW_ASSERT(this->m_typedAliasReturnOut_OutputPort[portNum].isConnected(), static_cast<FwAssertArgType>(portNum));
-    return this->m_typedAliasReturnOut_OutputPort[portNum].invoke(u32, f32, b, str2, e, a, s);
+  FW_ASSERT(
+    this->m_typedAliasReturnOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_typedAliasReturnOut_OutputPort[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
-Fw::String ActiveTelemetryComponentBase ::typedAliasReturnStringOut_out(FwIndexType portNum,
-                                                                        AliasPrim1 u32,
-                                                                        AliasPrim2 f32,
-                                                                        AliasBool b,
-                                                                        const Fw::StringBase& str2,
-                                                                        const AliasEnum& e,
-                                                                        const AliasArray& a,
-                                                                        const AnotherAliasStruct& s) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Fw::String ActiveTelemetryComponentBase ::
+  typedAliasReturnStringOut_out(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    FW_ASSERT(this->m_typedAliasReturnStringOut_OutputPort[portNum].isConnected(),
-              static_cast<FwAssertArgType>(portNum));
-    return this->m_typedAliasReturnStringOut_OutputPort[portNum].invoke(u32, f32, b, str2, e, a, s);
+  FW_ASSERT(
+    this->m_typedAliasReturnStringOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_typedAliasReturnStringOut_OutputPort[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
-void ActiveTelemetryComponentBase ::typedOut_out(FwIndexType portNum,
-                                                 U32 u32,
-                                                 F32 f32,
-                                                 bool b,
-                                                 const Fw::StringBase& str1,
-                                                 const E& e,
-                                                 const A& a,
-                                                 const S& s) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()), static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  typedOut_out(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    FW_ASSERT(this->m_typedOut_OutputPort[portNum].isConnected(), static_cast<FwAssertArgType>(portNum));
-    this->m_typedOut_OutputPort[portNum].invoke(u32, f32, b, str1, e, a, s);
+  FW_ASSERT(
+    this->m_typedOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_typedOut_OutputPort[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str1,
+    e,
+    a,
+    s
+  );
 }
 
-F32 ActiveTelemetryComponentBase ::typedReturnOut_out(FwIndexType portNum,
-                                                      U32 u32,
-                                                      F32 f32,
-                                                      bool b,
-                                                      const Fw::StringBase& str2,
-                                                      const E& e,
-                                                      const A& a,
-                                                      const S& s) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+F32 ActiveTelemetryComponentBase ::
+  typedReturnOut_out(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    FW_ASSERT(this->m_typedReturnOut_OutputPort[portNum].isConnected(), static_cast<FwAssertArgType>(portNum));
-    return this->m_typedReturnOut_OutputPort[portNum].invoke(u32, f32, b, str2, e, a, s);
+  FW_ASSERT(
+    this->m_typedReturnOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_typedReturnOut_OutputPort[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
 #endif
@@ -1871,196 +3070,364 @@ F32 ActiveTelemetryComponentBase ::typedReturnOut_out(FwIndexType portNum,
 // Telemetry serialized write
 // ----------------------------------------------------------------------
 
-void ActiveTelemetryComponentBase ::tlmWrite(FwChanIdType id, Fw::TlmBuffer& _tlmBuff, Fw::Time _tlmTime) const {
-    if (this->isConnected_tlmOut_OutputPort(0)) {
-        if (this->isConnected_timeGetOut_OutputPort(0) && (_tlmTime == Fw::ZERO_TIME)) {
-            this->timeGetOut_out(0, _tlmTime);
-        }
-
-        FwChanIdType _id;
-        _id = this->getIdBase() + id;
-
-        this->tlmOut_out(0, _id, _tlmTime, _tlmBuff);
+void ActiveTelemetryComponentBase ::
+  tlmWrite(
+      FwChanIdType id,
+      Fw::TlmBuffer& _tlmBuff,
+      Fw::Time _tlmTime
+  ) const
+{
+  if (this->isConnected_tlmOut_OutputPort(0)) {
+    if (
+      this->isConnected_timeGetOut_OutputPort(0) &&
+      (_tlmTime ==  Fw::ZERO_TIME)
+    ) {
+      this->timeGetOut_out(0, _tlmTime);
     }
+
+    FwChanIdType _id;
+    _id = this->getIdBase() + id;
+
+    this->tlmOut_out(
+      0,
+      _id,
+      _tlmTime,
+      _tlmBuff
+    );
+  }
 }
 
 // ----------------------------------------------------------------------
 // Telemetry write functions
 // ----------------------------------------------------------------------
 
-void ActiveTelemetryComponentBase ::tlmWrite_ChannelU32Format(U32 arg, Fw::Time _tlmTime) const {
-    if (this->isConnected_tlmOut_OutputPort(0)) {
-        Fw::TlmBuffer _tlmBuff;
-        Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
-        FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
+void ActiveTelemetryComponentBase ::
+  tlmWrite_ChannelU32Format(
+      U32 arg,
+      Fw::Time _tlmTime
+  ) const
+{
+  if (this->isConnected_tlmOut_OutputPort(0)) {
+    Fw::TlmBuffer _tlmBuff;
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
+    FW_ASSERT(
+      _stat == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_stat)
+    );
 
-        this->tlmWrite(CHANNELID_CHANNELU32FORMAT, _tlmBuff, _tlmTime);
-    }
+    this->tlmWrite(
+      CHANNELID_CHANNELU32FORMAT,
+      _tlmBuff,
+      _tlmTime
+    );
+  }
 }
 
-void ActiveTelemetryComponentBase ::tlmWrite_ChannelF32Format(F32 arg, Fw::Time _tlmTime) const {
-    if (this->isConnected_tlmOut_OutputPort(0)) {
-        Fw::TlmBuffer _tlmBuff;
-        Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
-        FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
+void ActiveTelemetryComponentBase ::
+  tlmWrite_ChannelF32Format(
+      F32 arg,
+      Fw::Time _tlmTime
+  ) const
+{
+  if (this->isConnected_tlmOut_OutputPort(0)) {
+    Fw::TlmBuffer _tlmBuff;
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
+    FW_ASSERT(
+      _stat == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_stat)
+    );
 
-        this->tlmWrite(CHANNELID_CHANNELF32FORMAT, _tlmBuff, _tlmTime);
-    }
+    this->tlmWrite(
+      CHANNELID_CHANNELF32FORMAT,
+      _tlmBuff,
+      _tlmTime
+    );
+  }
 }
 
-void ActiveTelemetryComponentBase ::tlmWrite_ChannelStringFormat(const Fw::StringBase& arg, Fw::Time _tlmTime) const {
-    if (this->isConnected_tlmOut_OutputPort(0)) {
-        Fw::TlmBuffer _tlmBuff;
-        Fw::SerializeStatus _stat =
-            arg.serializeTo(_tlmBuff, FW_MIN(static_cast<FwSizeType>(FW_TLM_STRING_MAX_SIZE),
-                                             static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)));
-        FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
+void ActiveTelemetryComponentBase ::
+  tlmWrite_ChannelStringFormat(
+      const Fw::StringBase& arg,
+      Fw::Time _tlmTime
+  ) const
+{
+  if (this->isConnected_tlmOut_OutputPort(0)) {
+    Fw::TlmBuffer _tlmBuff;
+    Fw::SerializeStatus _stat = arg.serializeTo(
+      _tlmBuff,
+      FW_MIN(static_cast<FwSizeType>(FW_TLM_STRING_MAX_SIZE), static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))
+    );
+    FW_ASSERT(
+      _stat == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_stat)
+    );
 
-        this->tlmWrite(CHANNELID_CHANNELSTRINGFORMAT, _tlmBuff, _tlmTime);
-    }
+    this->tlmWrite(
+      CHANNELID_CHANNELSTRINGFORMAT,
+      _tlmBuff,
+      _tlmTime
+    );
+  }
 }
 
-void ActiveTelemetryComponentBase ::tlmWrite_ChannelEnum(const E& arg, Fw::Time _tlmTime) const {
-    if (this->isConnected_tlmOut_OutputPort(0)) {
-        Fw::TlmBuffer _tlmBuff;
-        Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
-        FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
+void ActiveTelemetryComponentBase ::
+  tlmWrite_ChannelEnum(
+      const E& arg,
+      Fw::Time _tlmTime
+  ) const
+{
+  if (this->isConnected_tlmOut_OutputPort(0)) {
+    Fw::TlmBuffer _tlmBuff;
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
+    FW_ASSERT(
+      _stat == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_stat)
+    );
 
-        this->tlmWrite(CHANNELID_CHANNELENUM, _tlmBuff, _tlmTime);
-    }
+    this->tlmWrite(
+      CHANNELID_CHANNELENUM,
+      _tlmBuff,
+      _tlmTime
+    );
+  }
 }
 
-void ActiveTelemetryComponentBase ::tlmWrite_ChannelArrayFreq(const A& arg, Fw::Time _tlmTime) const {
-    if (this->isConnected_tlmOut_OutputPort(0)) {
-        Fw::TlmBuffer _tlmBuff;
-        Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
-        FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
+void ActiveTelemetryComponentBase ::
+  tlmWrite_ChannelArrayFreq(
+      const A& arg,
+      Fw::Time _tlmTime
+  ) const
+{
+  if (this->isConnected_tlmOut_OutputPort(0)) {
+    Fw::TlmBuffer _tlmBuff;
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
+    FW_ASSERT(
+      _stat == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_stat)
+    );
 
-        this->tlmWrite(CHANNELID_CHANNELARRAYFREQ, _tlmBuff, _tlmTime);
-    }
+    this->tlmWrite(
+      CHANNELID_CHANNELARRAYFREQ,
+      _tlmBuff,
+      _tlmTime
+    );
+  }
 }
 
-void ActiveTelemetryComponentBase ::tlmWrite_ChannelStructFreq(const S& arg, Fw::Time _tlmTime) const {
-    if (this->isConnected_tlmOut_OutputPort(0)) {
-        Fw::TlmBuffer _tlmBuff;
-        Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
-        FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
+void ActiveTelemetryComponentBase ::
+  tlmWrite_ChannelStructFreq(
+      const S& arg,
+      Fw::Time _tlmTime
+  ) const
+{
+  if (this->isConnected_tlmOut_OutputPort(0)) {
+    Fw::TlmBuffer _tlmBuff;
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
+    FW_ASSERT(
+      _stat == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_stat)
+    );
 
-        this->tlmWrite(CHANNELID_CHANNELSTRUCTFREQ, _tlmBuff, _tlmTime);
-    }
+    this->tlmWrite(
+      CHANNELID_CHANNELSTRUCTFREQ,
+      _tlmBuff,
+      _tlmTime
+    );
+  }
 }
 
-void ActiveTelemetryComponentBase ::tlmWrite_ChannelU32Limits(U32 arg, Fw::Time _tlmTime) const {
-    if (this->isConnected_tlmOut_OutputPort(0)) {
-        Fw::TlmBuffer _tlmBuff;
-        Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
-        FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
+void ActiveTelemetryComponentBase ::
+  tlmWrite_ChannelU32Limits(
+      U32 arg,
+      Fw::Time _tlmTime
+  ) const
+{
+  if (this->isConnected_tlmOut_OutputPort(0)) {
+    Fw::TlmBuffer _tlmBuff;
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
+    FW_ASSERT(
+      _stat == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_stat)
+    );
 
-        this->tlmWrite(CHANNELID_CHANNELU32LIMITS, _tlmBuff, _tlmTime);
-    }
+    this->tlmWrite(
+      CHANNELID_CHANNELU32LIMITS,
+      _tlmBuff,
+      _tlmTime
+    );
+  }
 }
 
-void ActiveTelemetryComponentBase ::tlmWrite_ChannelF32Limits(F32 arg, Fw::Time _tlmTime) const {
-    if (this->isConnected_tlmOut_OutputPort(0)) {
-        Fw::TlmBuffer _tlmBuff;
-        Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
-        FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
+void ActiveTelemetryComponentBase ::
+  tlmWrite_ChannelF32Limits(
+      F32 arg,
+      Fw::Time _tlmTime
+  ) const
+{
+  if (this->isConnected_tlmOut_OutputPort(0)) {
+    Fw::TlmBuffer _tlmBuff;
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
+    FW_ASSERT(
+      _stat == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_stat)
+    );
 
-        this->tlmWrite(CHANNELID_CHANNELF32LIMITS, _tlmBuff, _tlmTime);
-    }
+    this->tlmWrite(
+      CHANNELID_CHANNELF32LIMITS,
+      _tlmBuff,
+      _tlmTime
+    );
+  }
 }
 
-void ActiveTelemetryComponentBase ::tlmWrite_ChannelF64(F64 arg, Fw::Time _tlmTime) const {
-    if (this->isConnected_tlmOut_OutputPort(0)) {
-        Fw::TlmBuffer _tlmBuff;
-        Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
-        FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
+void ActiveTelemetryComponentBase ::
+  tlmWrite_ChannelF64(
+      F64 arg,
+      Fw::Time _tlmTime
+  ) const
+{
+  if (this->isConnected_tlmOut_OutputPort(0)) {
+    Fw::TlmBuffer _tlmBuff;
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
+    FW_ASSERT(
+      _stat == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_stat)
+    );
 
-        this->tlmWrite(CHANNELID_CHANNELF64, _tlmBuff, _tlmTime);
-    }
+    this->tlmWrite(
+      CHANNELID_CHANNELF64,
+      _tlmBuff,
+      _tlmTime
+    );
+  }
 }
 
-void ActiveTelemetryComponentBase ::tlmWrite_ChannelU32OnChange(U32 arg, Fw::Time _tlmTime) {
-    // Check to see if it is the first time
-    if (not this->m_first_update_ChannelU32OnChange) {
-        // Check to see if value has changed. If not, don't write it.
-        if (arg == this->m_last_ChannelU32OnChange) {
-            return;
-        } else {
-            this->m_last_ChannelU32OnChange = arg;
-        }
-    } else {
-        this->m_first_update_ChannelU32OnChange = false;
-        this->m_last_ChannelU32OnChange = arg;
+void ActiveTelemetryComponentBase ::
+  tlmWrite_ChannelU32OnChange(
+      U32 arg,
+      Fw::Time _tlmTime
+  )
+{
+  // Check to see if it is the first time
+  if (not this->m_first_update_ChannelU32OnChange) {
+    // Check to see if value has changed. If not, don't write it.
+    if (arg == this->m_last_ChannelU32OnChange) {
+      return;
     }
-
-    if (this->isConnected_tlmOut_OutputPort(0)) {
-        Fw::TlmBuffer _tlmBuff;
-        Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
-        FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
-
-        this->tlmWrite(CHANNELID_CHANNELU32ONCHANGE, _tlmBuff, _tlmTime);
+    else {
+      this->m_last_ChannelU32OnChange = arg;
     }
+  }
+  else {
+    this->m_first_update_ChannelU32OnChange = false;
+    this->m_last_ChannelU32OnChange = arg;
+  }
+
+  if (this->isConnected_tlmOut_OutputPort(0)) {
+    Fw::TlmBuffer _tlmBuff;
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
+    FW_ASSERT(
+      _stat == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_stat)
+    );
+
+    this->tlmWrite(
+      CHANNELID_CHANNELU32ONCHANGE,
+      _tlmBuff,
+      _tlmTime
+    );
+  }
 }
 
-void ActiveTelemetryComponentBase ::tlmWrite_ChannelEnumOnChange(const E& arg, Fw::Time _tlmTime) {
-    // Check to see if it is the first time
-    if (not this->m_first_update_ChannelEnumOnChange) {
-        // Check to see if value has changed. If not, don't write it.
-        if (arg == this->m_last_ChannelEnumOnChange) {
-            return;
-        } else {
-            this->m_last_ChannelEnumOnChange = arg;
-        }
-    } else {
-        this->m_first_update_ChannelEnumOnChange = false;
-        this->m_last_ChannelEnumOnChange = arg;
+void ActiveTelemetryComponentBase ::
+  tlmWrite_ChannelEnumOnChange(
+      const E& arg,
+      Fw::Time _tlmTime
+  )
+{
+  // Check to see if it is the first time
+  if (not this->m_first_update_ChannelEnumOnChange) {
+    // Check to see if value has changed. If not, don't write it.
+    if (arg == this->m_last_ChannelEnumOnChange) {
+      return;
     }
-
-    if (this->isConnected_tlmOut_OutputPort(0)) {
-        Fw::TlmBuffer _tlmBuff;
-        Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
-        FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
-
-        this->tlmWrite(CHANNELID_CHANNELENUMONCHANGE, _tlmBuff, _tlmTime);
+    else {
+      this->m_last_ChannelEnumOnChange = arg;
     }
+  }
+  else {
+    this->m_first_update_ChannelEnumOnChange = false;
+    this->m_last_ChannelEnumOnChange = arg;
+  }
+
+  if (this->isConnected_tlmOut_OutputPort(0)) {
+    Fw::TlmBuffer _tlmBuff;
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
+    FW_ASSERT(
+      _stat == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_stat)
+    );
+
+    this->tlmWrite(
+      CHANNELID_CHANNELENUMONCHANGE,
+      _tlmBuff,
+      _tlmTime
+    );
+  }
 }
 
-void ActiveTelemetryComponentBase ::tlmWrite_ChannelBoolOnChange(bool arg, Fw::Time _tlmTime) {
-    // Check to see if it is the first time
-    if (not this->m_first_update_ChannelBoolOnChange) {
-        // Check to see if value has changed. If not, don't write it.
-        if (arg == this->m_last_ChannelBoolOnChange) {
-            return;
-        } else {
-            this->m_last_ChannelBoolOnChange = arg;
-        }
-    } else {
-        this->m_first_update_ChannelBoolOnChange = false;
-        this->m_last_ChannelBoolOnChange = arg;
+void ActiveTelemetryComponentBase ::
+  tlmWrite_ChannelBoolOnChange(
+      bool arg,
+      Fw::Time _tlmTime
+  )
+{
+  // Check to see if it is the first time
+  if (not this->m_first_update_ChannelBoolOnChange) {
+    // Check to see if value has changed. If not, don't write it.
+    if (arg == this->m_last_ChannelBoolOnChange) {
+      return;
     }
-
-    if (this->isConnected_tlmOut_OutputPort(0)) {
-        Fw::TlmBuffer _tlmBuff;
-        Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
-        FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
-
-        this->tlmWrite(CHANNELID_CHANNELBOOLONCHANGE, _tlmBuff, _tlmTime);
+    else {
+      this->m_last_ChannelBoolOnChange = arg;
     }
+  }
+  else {
+    this->m_first_update_ChannelBoolOnChange = false;
+    this->m_last_ChannelBoolOnChange = arg;
+  }
+
+  if (this->isConnected_tlmOut_OutputPort(0)) {
+    Fw::TlmBuffer _tlmBuff;
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
+    FW_ASSERT(
+      _stat == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_stat)
+    );
+
+    this->tlmWrite(
+      CHANNELID_CHANNELBOOLONCHANGE,
+      _tlmBuff,
+      _tlmTime
+    );
+  }
 }
 
 // ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
 
-Fw::Time ActiveTelemetryComponentBase ::getTime() const {
-    if (this->isConnected_timeGetOut_OutputPort(0)) {
-        Fw::Time _time;
-        this->timeGetOut_out(0, _time);
-        return _time;
-    } else {
-        return Fw::Time(TimeBase::TB_NONE, 0, 0);
-    }
+Fw::Time ActiveTelemetryComponentBase ::
+  getTime() const
+{
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    Fw::Time _time;
+    this->timeGetOut_out(0, _time);
+    return _time;
+  }
+  else {
+    return Fw::Time(TimeBase::TB_NONE, 0, 0);
+  }
 }
 
 // ----------------------------------------------------------------------
@@ -2070,505 +3437,868 @@ Fw::Time ActiveTelemetryComponentBase ::getTime() const {
 // synchronization
 // ----------------------------------------------------------------------
 
-void ActiveTelemetryComponentBase ::lock() {
-    this->m_guardedPortMutex.lock();
+void ActiveTelemetryComponentBase ::
+  lock()
+{
+  this->m_guardedPortMutex.lock();
 }
 
-void ActiveTelemetryComponentBase ::unLock() {
-    this->m_guardedPortMutex.unLock();
+void ActiveTelemetryComponentBase ::
+  unLock()
+{
+  this->m_guardedPortMutex.unLock();
 }
 
 // ----------------------------------------------------------------------
 // Message dispatch functions
 // ----------------------------------------------------------------------
 
-Fw::QueuedComponentBase::MsgDispatchStatus ActiveTelemetryComponentBase ::doDispatch() {
-    ComponentIpcSerializableBuffer _msg;
-    FwQueuePriorityType _priority = 0;
+Fw::QueuedComponentBase::MsgDispatchStatus ActiveTelemetryComponentBase ::
+  doDispatch()
+{
+  ComponentIpcSerializableBuffer _msg;
+  FwQueuePriorityType _priority = 0;
 
-    Os::Queue::Status _msgStatus = this->m_queue.receive(_msg, Os::Queue::BLOCKING, _priority);
-    FW_ASSERT(_msgStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(_msgStatus));
+  Os::Queue::Status _msgStatus = this->m_queue.receive(
+    _msg,
+    Os::Queue::BLOCKING,
+    _priority
+  );
+  FW_ASSERT(
+    _msgStatus == Os::Queue::OP_OK,
+    static_cast<FwAssertArgType>(_msgStatus)
+  );
 
-    // Reset to beginning of buffer
-    _msg.resetDeser();
+  // Reset to beginning of buffer
+  _msg.resetDeser();
 
-    FwEnumStoreType _desMsg = 0;
-    Fw::SerializeStatus _deserStatus = _msg.deserializeTo(_desMsg);
-    FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+  FwEnumStoreType _desMsg = 0;
+  Fw::SerializeStatus _deserStatus = _msg.deserializeTo(_desMsg);
+  FW_ASSERT(
+    _deserStatus == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_deserStatus)
+  );
 
-    MsgTypeEnum _msgType = static_cast<MsgTypeEnum>(_desMsg);
+  MsgTypeEnum _msgType = static_cast<MsgTypeEnum>(_desMsg);
 
-    if (_msgType == ACTIVETELEMETRY_COMPONENT_EXIT) {
-        return MSG_DISPATCH_EXIT;
+  if (_msgType == ACTIVETELEMETRY_COMPONENT_EXIT) {
+    return MSG_DISPATCH_EXIT;
+  }
+
+  FwIndexType portNum = 0;
+  _deserStatus = _msg.deserializeTo(portNum);
+  FW_ASSERT(
+    _deserStatus == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_deserStatus)
+  );
+
+  switch (_msgType) {
+    // Handle async input port aliasTypedAsync
+    case ALIASTYPEDASYNC_ALIASTYPED: {
+      // Deserialize argument u32
+      AliasPrim1 u32;
+      _deserStatus = _msg.deserializeTo(u32);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument f32
+      AliasPrim2 f32;
+      _deserStatus = _msg.deserializeTo(f32);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument b
+      AliasBool b;
+      _deserStatus = _msg.deserializeTo(b);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument str2
+      char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(32)];
+      Fw::ExternalString str2(__fprime_ac_str2_buffer, sizeof __fprime_ac_str2_buffer);
+      _deserStatus = _msg.deserializeTo(str2);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument e
+      AliasEnum e;
+      _deserStatus = _msg.deserializeTo(e);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument a
+      AliasArray a;
+      _deserStatus = _msg.deserializeTo(a);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument s
+      AliasStruct s;
+      _deserStatus = _msg.deserializeTo(s);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+      // Call handler function
+      this->aliasTypedAsync_handler(
+        portNum,
+        u32,
+        f32,
+        b,
+        str2,
+        e,
+        a,
+        s
+      );
+
+      break;
     }
 
-    FwIndexType portNum = 0;
-    _deserStatus = _msg.deserializeTo(portNum);
-    FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+    // Handle async input port noArgsAsync
+    case NOARGSASYNC_NOARGS: {
+      // Call handler function
+      this->noArgsAsync_handler(portNum);
 
-    switch (_msgType) {
-        // Handle async input port aliasTypedAsync
-        case ALIASTYPEDASYNC_ALIASTYPED: {
-            // Deserialize argument u32
-            AliasPrim1 u32;
-            _deserStatus = _msg.deserializeTo(u32);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument f32
-            AliasPrim2 f32;
-            _deserStatus = _msg.deserializeTo(f32);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument b
-            AliasBool b;
-            _deserStatus = _msg.deserializeTo(b);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument str2
-            char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(32)];
-            Fw::ExternalString str2(__fprime_ac_str2_buffer, sizeof __fprime_ac_str2_buffer);
-            _deserStatus = _msg.deserializeTo(str2);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument e
-            AliasEnum e;
-            _deserStatus = _msg.deserializeTo(e);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument a
-            AliasArray a;
-            _deserStatus = _msg.deserializeTo(a);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument s
-            AliasStruct s;
-            _deserStatus = _msg.deserializeTo(s);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-            // Call handler function
-            this->aliasTypedAsync_handler(portNum, u32, f32, b, str2, e, a, s);
-
-            break;
-        }
-
-        // Handle async input port noArgsAsync
-        case NOARGSASYNC_NOARGS: {
-            // Call handler function
-            this->noArgsAsync_handler(portNum);
-
-            break;
-        }
-
-        // Handle async input port typedAsync
-        case TYPEDASYNC_TYPED: {
-            // Deserialize argument u32
-            U32 u32;
-            _deserStatus = _msg.deserializeTo(u32);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument f32
-            F32 f32;
-            _deserStatus = _msg.deserializeTo(f32);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument b
-            bool b;
-            _deserStatus = _msg.deserializeTo(b);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument str1
-            char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(
-                static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
-            Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
-            _deserStatus = _msg.deserializeTo(str1);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument e
-            E e;
-            _deserStatus = _msg.deserializeTo(e);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument a
-            A a;
-            _deserStatus = _msg.deserializeTo(a);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument s
-            S s;
-            _deserStatus = _msg.deserializeTo(s);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-            // Call handler function
-            this->typedAsync_handler(portNum, u32, f32, b, str1, e, a, s);
-
-            break;
-        }
-
-        // Handle async input port typedAsyncAssert
-        case TYPEDASYNCASSERT_TYPED: {
-            // Deserialize argument u32
-            U32 u32;
-            _deserStatus = _msg.deserializeTo(u32);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument f32
-            F32 f32;
-            _deserStatus = _msg.deserializeTo(f32);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument b
-            bool b;
-            _deserStatus = _msg.deserializeTo(b);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument str1
-            char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(
-                static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
-            Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
-            _deserStatus = _msg.deserializeTo(str1);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument e
-            E e;
-            _deserStatus = _msg.deserializeTo(e);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument a
-            A a;
-            _deserStatus = _msg.deserializeTo(a);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument s
-            S s;
-            _deserStatus = _msg.deserializeTo(s);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-            // Call handler function
-            this->typedAsyncAssert_handler(portNum, u32, f32, b, str1, e, a, s);
-
-            break;
-        }
-
-        // Handle async input port typedAsyncBlockPriority
-        case TYPEDASYNCBLOCKPRIORITY_TYPED: {
-            // Deserialize argument u32
-            U32 u32;
-            _deserStatus = _msg.deserializeTo(u32);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument f32
-            F32 f32;
-            _deserStatus = _msg.deserializeTo(f32);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument b
-            bool b;
-            _deserStatus = _msg.deserializeTo(b);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument str1
-            char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(
-                static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
-            Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
-            _deserStatus = _msg.deserializeTo(str1);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument e
-            E e;
-            _deserStatus = _msg.deserializeTo(e);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument a
-            A a;
-            _deserStatus = _msg.deserializeTo(a);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument s
-            S s;
-            _deserStatus = _msg.deserializeTo(s);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-            // Call handler function
-            this->typedAsyncBlockPriority_handler(portNum, u32, f32, b, str1, e, a, s);
-
-            break;
-        }
-
-        // Handle async input port typedAsyncDropPriority
-        case TYPEDASYNCDROPPRIORITY_TYPED: {
-            // Deserialize argument u32
-            U32 u32;
-            _deserStatus = _msg.deserializeTo(u32);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument f32
-            F32 f32;
-            _deserStatus = _msg.deserializeTo(f32);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument b
-            bool b;
-            _deserStatus = _msg.deserializeTo(b);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument str1
-            char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(
-                static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
-            Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
-            _deserStatus = _msg.deserializeTo(str1);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument e
-            E e;
-            _deserStatus = _msg.deserializeTo(e);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument a
-            A a;
-            _deserStatus = _msg.deserializeTo(a);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument s
-            S s;
-            _deserStatus = _msg.deserializeTo(s);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-            // Call handler function
-            this->typedAsyncDropPriority_handler(portNum, u32, f32, b, str1, e, a, s);
-
-            break;
-        }
-
-        default:
-            return MSG_DISPATCH_ERROR;
+      break;
     }
 
-    return MSG_DISPATCH_OK;
+    // Handle async input port typedAsync
+    case TYPEDASYNC_TYPED: {
+      // Deserialize argument u32
+      U32 u32;
+      _deserStatus = _msg.deserializeTo(u32);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument f32
+      F32 f32;
+      _deserStatus = _msg.deserializeTo(f32);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument b
+      bool b;
+      _deserStatus = _msg.deserializeTo(b);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument str1
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
+      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
+      _deserStatus = _msg.deserializeTo(str1);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument e
+      E e;
+      _deserStatus = _msg.deserializeTo(e);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument a
+      A a;
+      _deserStatus = _msg.deserializeTo(a);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument s
+      S s;
+      _deserStatus = _msg.deserializeTo(s);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+      // Call handler function
+      this->typedAsync_handler(
+        portNum,
+        u32,
+        f32,
+        b,
+        str1,
+        e,
+        a,
+        s
+      );
+
+      break;
+    }
+
+    // Handle async input port typedAsyncAssert
+    case TYPEDASYNCASSERT_TYPED: {
+      // Deserialize argument u32
+      U32 u32;
+      _deserStatus = _msg.deserializeTo(u32);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument f32
+      F32 f32;
+      _deserStatus = _msg.deserializeTo(f32);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument b
+      bool b;
+      _deserStatus = _msg.deserializeTo(b);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument str1
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
+      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
+      _deserStatus = _msg.deserializeTo(str1);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument e
+      E e;
+      _deserStatus = _msg.deserializeTo(e);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument a
+      A a;
+      _deserStatus = _msg.deserializeTo(a);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument s
+      S s;
+      _deserStatus = _msg.deserializeTo(s);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+      // Call handler function
+      this->typedAsyncAssert_handler(
+        portNum,
+        u32,
+        f32,
+        b,
+        str1,
+        e,
+        a,
+        s
+      );
+
+      break;
+    }
+
+    // Handle async input port typedAsyncBlockPriority
+    case TYPEDASYNCBLOCKPRIORITY_TYPED: {
+      // Deserialize argument u32
+      U32 u32;
+      _deserStatus = _msg.deserializeTo(u32);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument f32
+      F32 f32;
+      _deserStatus = _msg.deserializeTo(f32);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument b
+      bool b;
+      _deserStatus = _msg.deserializeTo(b);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument str1
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
+      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
+      _deserStatus = _msg.deserializeTo(str1);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument e
+      E e;
+      _deserStatus = _msg.deserializeTo(e);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument a
+      A a;
+      _deserStatus = _msg.deserializeTo(a);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument s
+      S s;
+      _deserStatus = _msg.deserializeTo(s);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+      // Call handler function
+      this->typedAsyncBlockPriority_handler(
+        portNum,
+        u32,
+        f32,
+        b,
+        str1,
+        e,
+        a,
+        s
+      );
+
+      break;
+    }
+
+    // Handle async input port typedAsyncDropPriority
+    case TYPEDASYNCDROPPRIORITY_TYPED: {
+      // Deserialize argument u32
+      U32 u32;
+      _deserStatus = _msg.deserializeTo(u32);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument f32
+      F32 f32;
+      _deserStatus = _msg.deserializeTo(f32);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument b
+      bool b;
+      _deserStatus = _msg.deserializeTo(b);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument str1
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
+      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
+      _deserStatus = _msg.deserializeTo(str1);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument e
+      E e;
+      _deserStatus = _msg.deserializeTo(e);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument a
+      A a;
+      _deserStatus = _msg.deserializeTo(a);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument s
+      S s;
+      _deserStatus = _msg.deserializeTo(s);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+      // Call handler function
+      this->typedAsyncDropPriority_handler(
+        portNum,
+        u32,
+        f32,
+        b,
+        str1,
+        e,
+        a,
+        s
+      );
+
+      break;
+    }
+
+    default:
+      return MSG_DISPATCH_ERROR;
+  }
+
+  return MSG_DISPATCH_OK;
 }
 
 // ----------------------------------------------------------------------
 // Calls for messages received on special input ports
 // ----------------------------------------------------------------------
 
-void ActiveTelemetryComponentBase ::m_p_cmdIn_in(Fw::PassiveComponentBase* callComp,
-                                                 FwIndexType portNum,
-                                                 FwOpcodeType opCode,
-                                                 U32 cmdSeq,
-                                                 Fw::CmdArgBuffer& args) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    compPtr->cmdIn_handlerBase(portNum, opCode, cmdSeq, args);
+void ActiveTelemetryComponentBase ::
+  m_p_cmdIn_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  compPtr->cmdIn_handlerBase(
+    portNum,
+    opCode,
+    cmdSeq,
+    args
+  );
 }
 
 // ----------------------------------------------------------------------
 // Calls for messages received on typed input ports
 // ----------------------------------------------------------------------
 
-void ActiveTelemetryComponentBase ::m_p_aliasTypedAsync_in(Fw::PassiveComponentBase* callComp,
-                                                           FwIndexType portNum,
-                                                           AliasPrim1 u32,
-                                                           AliasPrim2 f32,
-                                                           AliasBool b,
-                                                           const Fw::StringBase& str2,
-                                                           const AliasEnum& e,
-                                                           const AliasArray& a,
-                                                           const AliasStruct& s) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    compPtr->aliasTypedAsync_handlerBase(portNum, u32, f32, b, str2, e, a, s);
+void ActiveTelemetryComponentBase ::
+  m_p_aliasTypedAsync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  compPtr->aliasTypedAsync_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
-Fw::String ActiveTelemetryComponentBase ::m_p_noArgsAliasStringReturnSync_in(Fw::PassiveComponentBase* callComp,
-                                                                             FwIndexType portNum) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    return compPtr->noArgsAliasStringReturnSync_handlerBase(portNum);
+Fw::String ActiveTelemetryComponentBase ::
+  m_p_noArgsAliasStringReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  return compPtr->noArgsAliasStringReturnSync_handlerBase(portNum);
 }
 
-void ActiveTelemetryComponentBase ::m_p_noArgsAsync_in(Fw::PassiveComponentBase* callComp, FwIndexType portNum) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    compPtr->noArgsAsync_handlerBase(portNum);
+void ActiveTelemetryComponentBase ::
+  m_p_noArgsAsync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  compPtr->noArgsAsync_handlerBase(portNum);
 }
 
-void ActiveTelemetryComponentBase ::m_p_noArgsGuarded_in(Fw::PassiveComponentBase* callComp, FwIndexType portNum) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    compPtr->noArgsGuarded_handlerBase(portNum);
+void ActiveTelemetryComponentBase ::
+  m_p_noArgsGuarded_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  compPtr->noArgsGuarded_handlerBase(portNum);
 }
 
-U32 ActiveTelemetryComponentBase ::m_p_noArgsReturnGuarded_in(Fw::PassiveComponentBase* callComp, FwIndexType portNum) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    return compPtr->noArgsReturnGuarded_handlerBase(portNum);
+U32 ActiveTelemetryComponentBase ::
+  m_p_noArgsReturnGuarded_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  return compPtr->noArgsReturnGuarded_handlerBase(portNum);
 }
 
-U32 ActiveTelemetryComponentBase ::m_p_noArgsReturnSync_in(Fw::PassiveComponentBase* callComp, FwIndexType portNum) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    return compPtr->noArgsReturnSync_handlerBase(portNum);
+U32 ActiveTelemetryComponentBase ::
+  m_p_noArgsReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  return compPtr->noArgsReturnSync_handlerBase(portNum);
 }
 
-Fw::String ActiveTelemetryComponentBase ::m_p_noArgsStringReturnSync_in(Fw::PassiveComponentBase* callComp,
-                                                                        FwIndexType portNum) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    return compPtr->noArgsStringReturnSync_handlerBase(portNum);
+Fw::String ActiveTelemetryComponentBase ::
+  m_p_noArgsStringReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  return compPtr->noArgsStringReturnSync_handlerBase(portNum);
 }
 
-void ActiveTelemetryComponentBase ::m_p_noArgsSync_in(Fw::PassiveComponentBase* callComp, FwIndexType portNum) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    compPtr->noArgsSync_handlerBase(portNum);
+void ActiveTelemetryComponentBase ::
+  m_p_noArgsSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  compPtr->noArgsSync_handlerBase(portNum);
 }
 
-void ActiveTelemetryComponentBase ::m_p_typedAliasGuarded_in(Fw::PassiveComponentBase* callComp,
-                                                             FwIndexType portNum,
-                                                             AliasPrim1 u32,
-                                                             AliasPrim2 f32,
-                                                             AliasBool b,
-                                                             const Fw::StringBase& str2,
-                                                             const AliasEnum& e,
-                                                             const AliasArray& a,
-                                                             const AliasStruct& s) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    compPtr->typedAliasGuarded_handlerBase(portNum, u32, f32, b, str2, e, a, s);
+void ActiveTelemetryComponentBase ::
+  m_p_typedAliasGuarded_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  compPtr->typedAliasGuarded_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
-AliasPrim2 ActiveTelemetryComponentBase ::m_p_typedAliasReturnSync_in(Fw::PassiveComponentBase* callComp,
-                                                                      FwIndexType portNum,
-                                                                      AliasPrim1 u32,
-                                                                      AliasPrim2 f32,
-                                                                      AliasBool b,
-                                                                      const Fw::StringBase& str2,
-                                                                      const AliasEnum& e,
-                                                                      const AliasArray& a,
-                                                                      const AliasStruct& s) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    return compPtr->typedAliasReturnSync_handlerBase(portNum, u32, f32, b, str2, e, a, s);
+AliasPrim2 ActiveTelemetryComponentBase ::
+  m_p_typedAliasReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  return compPtr->typedAliasReturnSync_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
-Fw::String ActiveTelemetryComponentBase ::m_p_typedAliasStringReturnSync_in(Fw::PassiveComponentBase* callComp,
-                                                                            FwIndexType portNum,
-                                                                            AliasPrim1 u32,
-                                                                            AliasPrim2 f32,
-                                                                            AliasBool b,
-                                                                            const Fw::StringBase& str2,
-                                                                            const AliasEnum& e,
-                                                                            const AliasArray& a,
-                                                                            const AnotherAliasStruct& s) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    return compPtr->typedAliasStringReturnSync_handlerBase(portNum, u32, f32, b, str2, e, a, s);
+Fw::String ActiveTelemetryComponentBase ::
+  m_p_typedAliasStringReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  return compPtr->typedAliasStringReturnSync_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
-void ActiveTelemetryComponentBase ::m_p_typedAsync_in(Fw::PassiveComponentBase* callComp,
-                                                      FwIndexType portNum,
-                                                      U32 u32,
-                                                      F32 f32,
-                                                      bool b,
-                                                      const Fw::StringBase& str1,
-                                                      const E& e,
-                                                      const A& a,
-                                                      const S& s) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    compPtr->typedAsync_handlerBase(portNum, u32, f32, b, str1, e, a, s);
+void ActiveTelemetryComponentBase ::
+  m_p_typedAsync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  compPtr->typedAsync_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str1,
+    e,
+    a,
+    s
+  );
 }
 
-void ActiveTelemetryComponentBase ::m_p_typedAsyncAssert_in(Fw::PassiveComponentBase* callComp,
-                                                            FwIndexType portNum,
-                                                            U32 u32,
-                                                            F32 f32,
-                                                            bool b,
-                                                            const Fw::StringBase& str1,
-                                                            const E& e,
-                                                            const A& a,
-                                                            const S& s) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    compPtr->typedAsyncAssert_handlerBase(portNum, u32, f32, b, str1, e, a, s);
+void ActiveTelemetryComponentBase ::
+  m_p_typedAsyncAssert_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  compPtr->typedAsyncAssert_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str1,
+    e,
+    a,
+    s
+  );
 }
 
-void ActiveTelemetryComponentBase ::m_p_typedAsyncBlockPriority_in(Fw::PassiveComponentBase* callComp,
-                                                                   FwIndexType portNum,
-                                                                   U32 u32,
-                                                                   F32 f32,
-                                                                   bool b,
-                                                                   const Fw::StringBase& str1,
-                                                                   const E& e,
-                                                                   const A& a,
-                                                                   const S& s) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    compPtr->typedAsyncBlockPriority_handlerBase(portNum, u32, f32, b, str1, e, a, s);
+void ActiveTelemetryComponentBase ::
+  m_p_typedAsyncBlockPriority_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  compPtr->typedAsyncBlockPriority_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str1,
+    e,
+    a,
+    s
+  );
 }
 
-void ActiveTelemetryComponentBase ::m_p_typedAsyncDropPriority_in(Fw::PassiveComponentBase* callComp,
-                                                                  FwIndexType portNum,
-                                                                  U32 u32,
-                                                                  F32 f32,
-                                                                  bool b,
-                                                                  const Fw::StringBase& str1,
-                                                                  const E& e,
-                                                                  const A& a,
-                                                                  const S& s) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    compPtr->typedAsyncDropPriority_handlerBase(portNum, u32, f32, b, str1, e, a, s);
+void ActiveTelemetryComponentBase ::
+  m_p_typedAsyncDropPriority_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  compPtr->typedAsyncDropPriority_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str1,
+    e,
+    a,
+    s
+  );
 }
 
-void ActiveTelemetryComponentBase ::m_p_typedGuarded_in(Fw::PassiveComponentBase* callComp,
-                                                        FwIndexType portNum,
-                                                        U32 u32,
-                                                        F32 f32,
-                                                        bool b,
-                                                        const Fw::StringBase& str1,
-                                                        const E& e,
-                                                        const A& a,
-                                                        const S& s) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    compPtr->typedGuarded_handlerBase(portNum, u32, f32, b, str1, e, a, s);
+void ActiveTelemetryComponentBase ::
+  m_p_typedGuarded_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  compPtr->typedGuarded_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str1,
+    e,
+    a,
+    s
+  );
 }
 
-F32 ActiveTelemetryComponentBase ::m_p_typedReturnGuarded_in(Fw::PassiveComponentBase* callComp,
-                                                             FwIndexType portNum,
-                                                             U32 u32,
-                                                             F32 f32,
-                                                             bool b,
-                                                             const Fw::StringBase& str2,
-                                                             const E& e,
-                                                             const A& a,
-                                                             const S& s) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    return compPtr->typedReturnGuarded_handlerBase(portNum, u32, f32, b, str2, e, a, s);
+F32 ActiveTelemetryComponentBase ::
+  m_p_typedReturnGuarded_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  return compPtr->typedReturnGuarded_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
-F32 ActiveTelemetryComponentBase ::m_p_typedReturnSync_in(Fw::PassiveComponentBase* callComp,
-                                                          FwIndexType portNum,
-                                                          U32 u32,
-                                                          F32 f32,
-                                                          bool b,
-                                                          const Fw::StringBase& str2,
-                                                          const E& e,
-                                                          const A& a,
-                                                          const S& s) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    return compPtr->typedReturnSync_handlerBase(portNum, u32, f32, b, str2, e, a, s);
+F32 ActiveTelemetryComponentBase ::
+  m_p_typedReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  return compPtr->typedReturnSync_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
-void ActiveTelemetryComponentBase ::m_p_typedSync_in(Fw::PassiveComponentBase* callComp,
-                                                     FwIndexType portNum,
-                                                     U32 u32,
-                                                     F32 f32,
-                                                     bool b,
-                                                     const Fw::StringBase& str1,
-                                                     const E& e,
-                                                     const A& a,
-                                                     const S& s) {
-    FW_ASSERT(callComp);
-    ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
-    compPtr->typedSync_handlerBase(portNum, u32, f32, b, str1, e, a, s);
+void ActiveTelemetryComponentBase ::
+  m_p_typedSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
+  compPtr->typedSync_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str1,
+    e,
+    a,
+    s
+  );
 }
 
 #if !FW_DIRECT_PORT_CALLS
@@ -2577,22 +4307,48 @@ void ActiveTelemetryComponentBase ::m_p_typedSync_in(Fw::PassiveComponentBase* c
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
 
-void ActiveTelemetryComponentBase ::timeGetOut_out(FwIndexType portNum, Fw::Time& time) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  timeGetOut_out(
+      FwIndexType portNum,
+      Fw::Time& time
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    FW_ASSERT(this->m_timeGetOut_OutputPort[portNum].isConnected(), static_cast<FwAssertArgType>(portNum));
-    this->m_timeGetOut_OutputPort[portNum].invoke(time);
+  FW_ASSERT(
+    this->m_timeGetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_timeGetOut_OutputPort[portNum].invoke(
+    time
+  );
 }
 
-void ActiveTelemetryComponentBase ::tlmOut_out(FwIndexType portNum,
-                                               FwChanIdType id,
-                                               Fw::Time& timeTag,
-                                               Fw::TlmBuffer& val) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()), static_cast<FwAssertArgType>(portNum));
+void ActiveTelemetryComponentBase ::
+  tlmOut_out(
+      FwIndexType portNum,
+      FwChanIdType id,
+      Fw::Time& timeTag,
+      Fw::TlmBuffer& val
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    FW_ASSERT(this->m_tlmOut_OutputPort[portNum].isConnected(), static_cast<FwAssertArgType>(portNum));
-    this->m_tlmOut_OutputPort[portNum].invoke(id, timeTag, val);
+  FW_ASSERT(
+    this->m_tlmOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_tlmOut_OutputPort[portNum].invoke(
+    id,
+    timeTag,
+    val
+  );
 }
 
 #endif

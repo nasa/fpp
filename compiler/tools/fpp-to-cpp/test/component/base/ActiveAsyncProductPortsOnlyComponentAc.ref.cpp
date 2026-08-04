@@ -12,94 +12,136 @@
 #endif
 
 namespace {
-enum MsgTypeEnum {
+  enum MsgTypeEnum {
     ACTIVEASYNCPRODUCTPORTSONLY_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
     PRODUCTRECVIN_DPRESPONSE,
-};
+  };
 
-// Get the max size by constructing a union of the async input, command, and
-// internal port serialization sizes
-union BuffUnion {
+  // Get the max size by constructing a union of the async input, command, and
+  // internal port serialization sizes
+  union BuffUnion {
     BYTE productRecvInPortSize[Fw::DpResponsePortBuffer::CAPACITY];
-};
+  };
 
-// Define a message buffer class large enough to handle all the
-// asynchronous inputs to the component
-class ComponentIpcSerializableBuffer : public Fw::LinearBufferBase {
-  public:
-    enum {
+  // Define a message buffer class large enough to handle all the
+  // asynchronous inputs to the component
+  class ComponentIpcSerializableBuffer :
+    public Fw::LinearBufferBase
+  {
+
+    public:
+
+      enum {
         // Offset into data in buffer: Size of message ID and port number
         DATA_OFFSET = sizeof(FwEnumStoreType) + sizeof(FwIndexType),
         // Max data size
         MAX_DATA_SIZE = sizeof(BuffUnion),
         // Max message size: Size of message id + size of port + max data size
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
-    };
+      };
 
-    ComponentIpcSerializableBuffer() {
+      ComponentIpcSerializableBuffer() {
         this->m_buffAddr = m_buff;
         this->m_capacity = sizeof(m_buff);
-    }
+      }
 
-  private:
-    // Should be the max of all the input ports serialized sizes...
-    U8 m_buff[SERIALIZATION_SIZE];
-};
-}  // namespace
+    private:
+      // Should be the max of all the input ports serialized sizes...
+      U8 m_buff[SERIALIZATION_SIZE];
+
+  };
+}
 
 // ----------------------------------------------------------------------
 // Component initialization
 // ----------------------------------------------------------------------
 
-void ActiveAsyncProductPortsOnlyComponentBase ::init(FwSizeType queueDepth, FwEnumStoreType instance) {
-    // Initialize base class
-    Fw::ActiveComponentBase::init(instance);
+void ActiveAsyncProductPortsOnlyComponentBase ::
+  init(
+      FwSizeType queueDepth,
+      FwEnumStoreType instance
+  )
+{
+  // Initialize base class
+  Fw::ActiveComponentBase::init(instance);
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect input port productRecvIn
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_productRecvIn_InputPorts()); port++) {
-        this->m_productRecvIn_InputPort[port].init();
-        this->m_productRecvIn_InputPort[port].addCallComp(this, m_p_productRecvIn_in);
-        this->m_productRecvIn_InputPort[port].setPortNum(port);
+  // Connect input port productRecvIn
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productRecvIn_InputPorts());
+    port++
+  ) {
+    this->m_productRecvIn_InputPort[port].init();
+    this->m_productRecvIn_InputPort[port].addCallComp(
+      this,
+      m_p_productRecvIn_in
+    );
+    this->m_productRecvIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_productRecvIn_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_productRecvIn_InputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_productRecvIn_InputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_productRecvIn_InputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect output port productRequestOut
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_productRequestOut_OutputPorts()); port++) {
-        this->m_productRequestOut_OutputPort[port].init();
+  // Connect output port productRequestOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productRequestOut_OutputPorts());
+    port++
+  ) {
+    this->m_productRequestOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_productRequestOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_productRequestOut_OutputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_productRequestOut_OutputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_productRequestOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
 #if !FW_DIRECT_PORT_CALLS
-    // Connect output port productSendOut
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_productSendOut_OutputPorts()); port++) {
-        this->m_productSendOut_OutputPort[port].init();
+  // Connect output port productSendOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productSendOut_OutputPorts());
+    port++
+  ) {
+    this->m_productSendOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_productSendOut_OutputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_productSendOut_OutputPort[port].setObjName(portName.toChar());
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_productSendOut_OutputPort[%" PRI_FwIndexType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_productSendOut_OutputPort[port].setObjName(portName.toChar());
 #endif
-    }
+  }
 #endif
 
-    // Create the queue
-    Os::Queue::Status qStat =
-        this->createQueue(queueDepth, static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE));
-    FW_ASSERT(Os::Queue::Status::OP_OK == qStat, static_cast<FwAssertArgType>(qStat));
+  // Create the queue
+  Os::Queue::Status qStat = this->createQueue(
+    queueDepth,
+    static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
+  );
+  FW_ASSERT(
+    Os::Queue::Status::OP_OK == qStat,
+    static_cast<FwAssertArgType>(qStat)
+  );
 }
 
 #if !FW_DIRECT_PORT_CALLS
@@ -108,11 +150,15 @@ void ActiveAsyncProductPortsOnlyComponentBase ::init(FwSizeType queueDepth, FwEn
 // Getters for special input ports
 // ----------------------------------------------------------------------
 
-Fw::InputDpResponsePort* ActiveAsyncProductPortsOnlyComponentBase ::get_productRecvIn_InputPort(FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_productRecvIn_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+Fw::InputDpResponsePort* ActiveAsyncProductPortsOnlyComponentBase ::
+  get_productRecvIn_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_productRecvIn_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return &this->m_productRecvIn_InputPort[portNum];
+  return &this->m_productRecvIn_InputPort[portNum];
 }
 
 #endif
@@ -123,20 +169,32 @@ Fw::InputDpResponsePort* ActiveAsyncProductPortsOnlyComponentBase ::get_productR
 // Connect input ports to special output ports
 // ----------------------------------------------------------------------
 
-void ActiveAsyncProductPortsOnlyComponentBase ::set_productRequestOut_OutputPort(FwIndexType portNum,
-                                                                                 Fw::InputDpRequestPort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveAsyncProductPortsOnlyComponentBase ::
+  set_productRequestOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputDpRequestPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_productRequestOut_OutputPort[portNum].addCallPort(port);
+  this->m_productRequestOut_OutputPort[portNum].addCallPort(port);
 }
 
-void ActiveAsyncProductPortsOnlyComponentBase ::set_productSendOut_OutputPort(FwIndexType portNum,
-                                                                              Fw::InputDpSendPort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveAsyncProductPortsOnlyComponentBase ::
+  set_productSendOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputDpSendPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_productSendOut_OutputPort[portNum].addCallPort(port);
+  this->m_productSendOut_OutputPort[portNum].addCallPort(port);
 }
 
 #endif
@@ -147,20 +205,32 @@ void ActiveAsyncProductPortsOnlyComponentBase ::set_productSendOut_OutputPort(Fw
 // Connect serial input ports to special output ports
 // ----------------------------------------------------------------------
 
-void ActiveAsyncProductPortsOnlyComponentBase ::set_productRequestOut_OutputPort(FwIndexType portNum,
-                                                                                 Fw::InputSerializePort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveAsyncProductPortsOnlyComponentBase ::
+  set_productRequestOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_productRequestOut_OutputPort[portNum].registerSerialPort(port);
+  this->m_productRequestOut_OutputPort[portNum].registerSerialPort(port);
 }
 
-void ActiveAsyncProductPortsOnlyComponentBase ::set_productSendOut_OutputPort(FwIndexType portNum,
-                                                                              Fw::InputSerializePort* port) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveAsyncProductPortsOnlyComponentBase ::
+  set_productSendOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    this->m_productSendOut_OutputPort[portNum].registerSerialPort(port);
+  this->m_productSendOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 #endif
@@ -169,10 +239,18 @@ void ActiveAsyncProductPortsOnlyComponentBase ::set_productSendOut_OutputPort(Fw
 // Component construction and destruction
 // ----------------------------------------------------------------------
 
-ActiveAsyncProductPortsOnlyComponentBase ::ActiveAsyncProductPortsOnlyComponentBase(const char* compName)
-    : Fw::ActiveComponentBase(compName) {}
+ActiveAsyncProductPortsOnlyComponentBase ::
+  ActiveAsyncProductPortsOnlyComponentBase(const char* compName) :
+    Fw::ActiveComponentBase(compName)
+{
 
-ActiveAsyncProductPortsOnlyComponentBase ::~ActiveAsyncProductPortsOnlyComponentBase() {}
+}
+
+ActiveAsyncProductPortsOnlyComponentBase ::
+  ~ActiveAsyncProductPortsOnlyComponentBase()
+{
+
+}
 
 #if !FW_DIRECT_PORT_CALLS
 
@@ -180,18 +258,26 @@ ActiveAsyncProductPortsOnlyComponentBase ::~ActiveAsyncProductPortsOnlyComponent
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 
-bool ActiveAsyncProductPortsOnlyComponentBase ::isConnected_productRequestOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+bool ActiveAsyncProductPortsOnlyComponentBase ::
+  isConnected_productRequestOut_OutputPort(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return this->m_productRequestOut_OutputPort[portNum].isConnected();
+  return this->m_productRequestOut_OutputPort[portNum].isConnected();
 }
 
-bool ActiveAsyncProductPortsOnlyComponentBase ::isConnected_productSendOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+bool ActiveAsyncProductPortsOnlyComponentBase ::
+  isConnected_productSendOut_OutputPort(FwIndexType portNum) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    return this->m_productSendOut_OutputPort[portNum].isConnected();
+  return this->m_productSendOut_OutputPort[portNum].isConnected();
 }
 
 #endif
@@ -202,44 +288,75 @@ bool ActiveAsyncProductPortsOnlyComponentBase ::isConnected_productSendOut_Outpu
 // Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
 
-void ActiveAsyncProductPortsOnlyComponentBase ::productRecvIn_handlerBase(FwIndexType portNum,
-                                                                          FwDpIdType id,
-                                                                          const Fw::Buffer& buffer,
-                                                                          const Fw::Success& status) {
-    // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_productRecvIn_InputPorts()),
-              static_cast<FwAssertArgType>(portNum));
+void ActiveAsyncProductPortsOnlyComponentBase ::
+  productRecvIn_handlerBase(
+      FwIndexType portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_productRecvIn_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
 
-    // Call pre-message hook
-    productRecvIn_preMsgHook(portNum, id, buffer, status);
-    ComponentIpcSerializableBuffer msg;
-    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+  // Call pre-message hook
+  productRecvIn_preMsgHook(
+    portNum,
+    id,
+    buffer,
+    status
+  );
+  ComponentIpcSerializableBuffer msg;
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
-    // Serialize message ID
-    _status = msg.serializeFrom(static_cast<FwEnumStoreType>(PRODUCTRECVIN_DPRESPONSE));
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize message ID
+  _status = msg.serializeFrom(
+    static_cast<FwEnumStoreType>(PRODUCTRECVIN_DPRESPONSE)
+  );
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize port number
-    _status = msg.serializeFrom(portNum);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize port number
+  _status = msg.serializeFrom(portNum);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument id
-    _status = msg.serializeFrom(id);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument id
+  _status = msg.serializeFrom(id);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument buffer
-    _status = msg.serializeFrom(buffer);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument buffer
+  _status = msg.serializeFrom(buffer);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Serialize argument status
-    _status = msg.serializeFrom(status);
-    FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
+  // Serialize argument status
+  _status = msg.serializeFrom(status);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
 
-    // Send message
-    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
-    Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
+  // Send message
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
-    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
+  FW_ASSERT(
+    qStatus == Os::Queue::OP_OK,
+    static_cast<FwAssertArgType>(qStatus)
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -250,97 +367,142 @@ void ActiveAsyncProductPortsOnlyComponentBase ::productRecvIn_handlerBase(FwInde
 // override them to provide specific pre-message behavior.
 // ----------------------------------------------------------------------
 
-void ActiveAsyncProductPortsOnlyComponentBase ::productRecvIn_preMsgHook(FwIndexType portNum,
-                                                                         FwDpIdType id,
-                                                                         const Fw::Buffer& buffer,
-                                                                         const Fw::Success& status) {
-    // Default: no-op
+void ActiveAsyncProductPortsOnlyComponentBase ::
+  productRecvIn_preMsgHook(
+      FwIndexType portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  // Default: no-op
 }
 
 // ----------------------------------------------------------------------
 // Message dispatch functions
 // ----------------------------------------------------------------------
 
-Fw::QueuedComponentBase::MsgDispatchStatus ActiveAsyncProductPortsOnlyComponentBase ::doDispatch() {
-    ComponentIpcSerializableBuffer _msg;
-    FwQueuePriorityType _priority = 0;
+Fw::QueuedComponentBase::MsgDispatchStatus ActiveAsyncProductPortsOnlyComponentBase ::
+  doDispatch()
+{
+  ComponentIpcSerializableBuffer _msg;
+  FwQueuePriorityType _priority = 0;
 
-    Os::Queue::Status _msgStatus = this->m_queue.receive(_msg, Os::Queue::BLOCKING, _priority);
-    FW_ASSERT(_msgStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(_msgStatus));
+  Os::Queue::Status _msgStatus = this->m_queue.receive(
+    _msg,
+    Os::Queue::BLOCKING,
+    _priority
+  );
+  FW_ASSERT(
+    _msgStatus == Os::Queue::OP_OK,
+    static_cast<FwAssertArgType>(_msgStatus)
+  );
 
-    // Reset to beginning of buffer
-    _msg.resetDeser();
+  // Reset to beginning of buffer
+  _msg.resetDeser();
 
-    FwEnumStoreType _desMsg = 0;
-    Fw::SerializeStatus _deserStatus = _msg.deserializeTo(_desMsg);
-    FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+  FwEnumStoreType _desMsg = 0;
+  Fw::SerializeStatus _deserStatus = _msg.deserializeTo(_desMsg);
+  FW_ASSERT(
+    _deserStatus == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_deserStatus)
+  );
 
-    MsgTypeEnum _msgType = static_cast<MsgTypeEnum>(_desMsg);
+  MsgTypeEnum _msgType = static_cast<MsgTypeEnum>(_desMsg);
 
-    if (_msgType == ACTIVEASYNCPRODUCTPORTSONLY_COMPONENT_EXIT) {
-        return MSG_DISPATCH_EXIT;
+  if (_msgType == ACTIVEASYNCPRODUCTPORTSONLY_COMPONENT_EXIT) {
+    return MSG_DISPATCH_EXIT;
+  }
+
+  FwIndexType portNum = 0;
+  _deserStatus = _msg.deserializeTo(portNum);
+  FW_ASSERT(
+    _deserStatus == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_deserStatus)
+  );
+
+  switch (_msgType) {
+    // Handle async input port productRecvIn
+    case PRODUCTRECVIN_DPRESPONSE: {
+      // Deserialize argument id
+      FwDpIdType id;
+      _deserStatus = _msg.deserializeTo(id);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument buffer
+      Fw::Buffer buffer;
+      _deserStatus = _msg.deserializeTo(buffer);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument status
+      Fw::Success status;
+      _deserStatus = _msg.deserializeTo(status);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+      // Call handler function
+      this->productRecvIn_handler(
+        portNum,
+        id,
+        buffer,
+        status
+      );
+
+      break;
     }
 
-    FwIndexType portNum = 0;
-    _deserStatus = _msg.deserializeTo(portNum);
-    FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+    default:
+      return MSG_DISPATCH_ERROR;
+  }
 
-    switch (_msgType) {
-        // Handle async input port productRecvIn
-        case PRODUCTRECVIN_DPRESPONSE: {
-            // Deserialize argument id
-            FwDpIdType id;
-            _deserStatus = _msg.deserializeTo(id);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument buffer
-            Fw::Buffer buffer;
-            _deserStatus = _msg.deserializeTo(buffer);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-
-            // Deserialize argument status
-            Fw::Success status;
-            _deserStatus = _msg.deserializeTo(status);
-            FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
-            // Call handler function
-            this->productRecvIn_handler(portNum, id, buffer, status);
-
-            break;
-        }
-
-        default:
-            return MSG_DISPATCH_ERROR;
-    }
-
-    return MSG_DISPATCH_OK;
+  return MSG_DISPATCH_OK;
 }
 
 // ----------------------------------------------------------------------
 // Calls for messages received on special input ports
 // ----------------------------------------------------------------------
 
-void ActiveAsyncProductPortsOnlyComponentBase ::m_p_productRecvIn_in(Fw::PassiveComponentBase* callComp,
-                                                                     FwIndexType portNum,
-                                                                     FwDpIdType id,
-                                                                     const Fw::Buffer& buffer,
-                                                                     const Fw::Success& status) {
-    FW_ASSERT(callComp);
-    ActiveAsyncProductPortsOnlyComponentBase* compPtr =
-        static_cast<ActiveAsyncProductPortsOnlyComponentBase*>(callComp);
-    compPtr->productRecvIn_handlerBase(portNum, id, buffer, status);
+void ActiveAsyncProductPortsOnlyComponentBase ::
+  m_p_productRecvIn_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  FW_ASSERT(callComp);
+  ActiveAsyncProductPortsOnlyComponentBase* compPtr = static_cast<ActiveAsyncProductPortsOnlyComponentBase*>(callComp);
+  compPtr->productRecvIn_handlerBase(
+    portNum,
+    id,
+    buffer,
+    status
+  );
 }
 
 // ----------------------------------------------------------------------
 // Private data product handling functions
 // ----------------------------------------------------------------------
 
-void ActiveAsyncProductPortsOnlyComponentBase ::productRecvIn_handler(const FwIndexType portNum,
-                                                                      FwDpIdType id,
-                                                                      const Fw::Buffer& buffer,
-                                                                      const Fw::Success& status) {
-    (void)portNum;
-    (void)id;
-    (void)buffer;
-    (void)status;
-    // No data products defined
+void ActiveAsyncProductPortsOnlyComponentBase ::
+  productRecvIn_handler(
+      const FwIndexType portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  (void) portNum;
+  (void) id;
+  (void) buffer;
+  (void) status;
+  // No data products defined
 }

@@ -17,39 +17,49 @@
 
 //! Serialization buffer for KwdName port
 //! A port with a keyword name
-class KwdNamePortBuffer : public Fw::LinearBufferBase {
+class KwdNamePortBuffer :
+  public Fw::LinearBufferBase
+{
+
   public:
+
     // ----------------------------------------------------------------------
     // Public constants for KwdNamePortBuffer
     // ----------------------------------------------------------------------
 
     //! The buffer capacity. This is the sum of the static serialized
     //! sizes of the port arguments.
-    static constexpr FwSizeType CAPACITY = sizeof(U32);
+    static constexpr FwSizeType CAPACITY =
+      sizeof(U32);
 
   public:
+
     // ----------------------------------------------------------------------
     // Public member functions for KwdNamePortBuffer
     // ----------------------------------------------------------------------
 
     //! Constructor
     KwdNamePortBuffer() {
-        this->m_buffAddr = m_buff;
-        this->m_capacity = CAPACITY;
+      this->m_buffAddr = m_buff;
+      this->m_capacity = CAPACITY;
     }
 
   private:
+
     // ----------------------------------------------------------------------
     // Private member variables
     // ----------------------------------------------------------------------
 
     U8 m_buff[CAPACITY];
+
 };
 
 //! Serializer for KwdName port
 //! A port with a keyword name
 class KwdNamePortSerializer {
+
   public:
+
     // ----------------------------------------------------------------------
     // Public constructors for KwdNamePortSerializer
     // ----------------------------------------------------------------------
@@ -58,46 +68,61 @@ class KwdNamePortSerializer {
     KwdNamePortSerializer();
 
   public:
+
     // ----------------------------------------------------------------------
     // Public member functions for KwdNamePortSerializer
     // ----------------------------------------------------------------------
 
     //! Deserialze port arguments into members
-    Fw::SerializeStatus deserializePortArgs(Fw::SerialBufferBase& _buffer  //!< The serial buffer
+    Fw::SerializeStatus deserializePortArgs(
+        Fw::SerialBufferBase& _buffer //!< The serial buffer
     );
 
   public:
+
     // ----------------------------------------------------------------------
     // Public static functions for KwdNamePortSerializer
     // ----------------------------------------------------------------------
 
     //! Serialize port arguments into a buffer
-    static Fw::SerializeStatus serializePortArgs(U32& time,
-                                                 Fw::SerialBufferBase& _buffer  //!< The serial buffer
+    static Fw::SerializeStatus serializePortArgs(
+        U32& time,
+        Fw::SerialBufferBase& _buffer //!< The serial buffer
     );
 
   public:
+
     // ----------------------------------------------------------------------
     // Public member variables for KwdNamePortSerializer
     // ----------------------------------------------------------------------
 
     U32 m_time;
+
 };
 
 #if !FW_DIRECT_PORT_CALLS
 
 //! Input KwdName port
 //! A port with a keyword name
-class InputKwdNamePort : public Fw::InputPortBase {
+class InputKwdNamePort :
+  public Fw::InputPortBase
+{
+
   public:
+
     // ----------------------------------------------------------------------
     // Public types for InputKwdNamePort
     // ----------------------------------------------------------------------
 
     //! The port callback function type
-    typedef void (*CompFuncPtr)(Fw::PassiveComponentBase* callComp, FwIndexType portNum, U32& time);
+    typedef void (*CompFuncPtr)(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      U32& time
+    );
 
   public:
+
     // ----------------------------------------------------------------------
     // Public constructors for InputKwdNamePort
     // ----------------------------------------------------------------------
@@ -106,6 +131,7 @@ class InputKwdNamePort : public Fw::InputPortBase {
     InputKwdNamePort();
 
   public:
+
     // ----------------------------------------------------------------------
     // Public member functions for InputKwdNamePort
     // ----------------------------------------------------------------------
@@ -114,14 +140,16 @@ class InputKwdNamePort : public Fw::InputPortBase {
     void init();
 
     //! Register a component
-    void addCallComp(Fw::PassiveComponentBase* callComp,  //!< The containing component
-                     CompFuncPtr funcPtr                  //!< The port callback function
+    void addCallComp(
+        Fw::PassiveComponentBase* callComp, //!< The containing component
+        CompFuncPtr funcPtr //!< The port callback function
     );
 
     //! Invoke a port interface
     void invoke(U32& time);
 
   private:
+
     // ----------------------------------------------------------------------
     // Private member functions for InputKwdNamePort
     // ----------------------------------------------------------------------
@@ -130,24 +158,31 @@ class InputKwdNamePort : public Fw::InputPortBase {
 
     //! Invoke the port with serialized arguments
     //! \return The serialize status
-    Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer  //!< The serial buffer
+    Fw::SerializeStatus invokeSerial(
+        Fw::LinearBufferBase& _buffer //!< The serial buffer
     );
 
 #endif
 
   private:
+
     // ----------------------------------------------------------------------
     // Private member variables for InputKwdNamePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function
     CompFuncPtr m_func;
+
 };
 
 //! Output KwdName port
 //! A port with a keyword name
-class OutputKwdNamePort : public Fw::OutputPortBase {
+class OutputKwdNamePort :
+  public Fw::OutputPortBase
+{
+
   public:
+
     // ----------------------------------------------------------------------
     // Public constructors for OutputKwdNamePort
     // ----------------------------------------------------------------------
@@ -156,6 +191,7 @@ class OutputKwdNamePort : public Fw::OutputPortBase {
     OutputKwdNamePort();
 
   public:
+
     // ----------------------------------------------------------------------
     // Public member functions for OutputKwdNamePort
     // ----------------------------------------------------------------------
@@ -164,19 +200,22 @@ class OutputKwdNamePort : public Fw::OutputPortBase {
     void init();
 
     //! Register an input port
-    void addCallPort(InputKwdNamePort* callPort  //!< The input port
+    void addCallPort(
+        InputKwdNamePort* callPort //!< The input port
     );
 
     //! Invoke a port connection
     void invoke(U32& time) const;
 
   private:
+
     // ----------------------------------------------------------------------
     // Private member variables for OutputKwdNamePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the input port
     InputKwdNamePort* m_port;
+
 };
 
 #endif

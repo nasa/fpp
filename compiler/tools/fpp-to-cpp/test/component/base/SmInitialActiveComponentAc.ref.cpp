@@ -13,166 +13,236 @@
 
 namespace FppTest {
 
-namespace {
+  namespace {
 
-// Constant definitions for the state machine signal buffer
-namespace SmSignalBuffer {
+    // Constant definitions for the state machine signal buffer
+    namespace SmSignalBuffer {
 
-// The serialized size
-static constexpr FwSizeType SERIALIZED_SIZE = 2 * sizeof(FwEnumStoreType);
+      // The serialized size
+      static constexpr FwSizeType SERIALIZED_SIZE =
+        2 * sizeof(FwEnumStoreType);
 
-}  // namespace SmSignalBuffer
-
-enum MsgTypeEnum {
-    SMINITIALACTIVE_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
-    INTERNAL_STATE_MACHINE_SIGNAL,
-};
-
-// Get the max size by constructing a union of the async input, command, and
-// internal port serialization sizes
-union BuffUnion {
-    // Size of buffer for internal state machine signals
-    // The internal SmSignalBuffer stores the state machine id, the
-    // signal id, and the signal data
-    BYTE internalSmBufferSize[SmSignalBuffer::SERIALIZED_SIZE];
-};
-
-// Define a message buffer class large enough to handle all the
-// asynchronous inputs to the component
-class ComponentIpcSerializableBuffer : public Fw::LinearBufferBase {
-  public:
-    enum {
-        // Offset into data in buffer: Size of message ID and port number
-        DATA_OFFSET = sizeof(FwEnumStoreType) + sizeof(FwIndexType),
-        // Max data size
-        MAX_DATA_SIZE = sizeof(BuffUnion),
-        // Max message size: Size of message id + size of port + max data size
-        SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
-    };
-
-    ComponentIpcSerializableBuffer() {
-        this->m_buffAddr = m_buff;
-        this->m_capacity = sizeof(m_buff);
     }
 
-  private:
-    // Should be the max of all the input ports serialized sizes...
-    U8 m_buff[SERIALIZATION_SIZE];
-};
-}  // namespace
+    enum MsgTypeEnum {
+      SMINITIALACTIVE_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
+      INTERNAL_STATE_MACHINE_SIGNAL,
+    };
 
-// ----------------------------------------------------------------------
-// Types for internal state machines
-// ----------------------------------------------------------------------
+    // Get the max size by constructing a union of the async input, command, and
+    // internal port serialization sizes
+    union BuffUnion {
+      // Size of buffer for internal state machine signals
+      // The internal SmSignalBuffer stores the state machine id, the
+      // signal id, and the signal data
+      BYTE internalSmBufferSize[SmSignalBuffer::SERIALIZED_SIZE];
+    };
 
-SmInitialActiveComponentBase::FppTest_SmInitial_Basic ::FppTest_SmInitial_Basic(SmInitialActiveComponentBase& component)
-    : m_component(component) {}
+    // Define a message buffer class large enough to handle all the
+    // asynchronous inputs to the component
+    class ComponentIpcSerializableBuffer :
+      public Fw::LinearBufferBase
+    {
 
-void SmInitialActiveComponentBase::FppTest_SmInitial_Basic ::init(SmInitialActiveComponentBase::SmId smId) {
+      public:
+
+        enum {
+          // Offset into data in buffer: Size of message ID and port number
+          DATA_OFFSET = sizeof(FwEnumStoreType) + sizeof(FwIndexType),
+          // Max data size
+          MAX_DATA_SIZE = sizeof(BuffUnion),
+          // Max message size: Size of message id + size of port + max data size
+          SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
+        };
+
+        ComponentIpcSerializableBuffer() {
+          this->m_buffAddr = m_buff;
+          this->m_capacity = sizeof(m_buff);
+        }
+
+      private:
+        // Should be the max of all the input ports serialized sizes...
+        U8 m_buff[SERIALIZATION_SIZE];
+
+    };
+  }
+
+  // ----------------------------------------------------------------------
+  // Types for internal state machines
+  // ----------------------------------------------------------------------
+
+  SmInitialActiveComponentBase::FppTest_SmInitial_Basic ::
+    FppTest_SmInitial_Basic(SmInitialActiveComponentBase& component) :
+      m_component(component)
+  {
+
+  }
+
+  void SmInitialActiveComponentBase::FppTest_SmInitial_Basic ::
+    init(SmInitialActiveComponentBase::SmId smId)
+  {
     this->initBase(static_cast<FwEnumStoreType>(smId));
-}
+  }
 
-SmInitialActiveComponentBase::SmId SmInitialActiveComponentBase::FppTest_SmInitial_Basic ::getId() const {
+  SmInitialActiveComponentBase::SmId SmInitialActiveComponentBase::FppTest_SmInitial_Basic ::
+    getId() const
+  {
     return static_cast<SmInitialActiveComponentBase::SmId>(this->m_id);
-}
+  }
 
-void SmInitialActiveComponentBase::FppTest_SmInitial_Basic ::action_a(Signal signal) {
+  void SmInitialActiveComponentBase::FppTest_SmInitial_Basic ::
+    action_a(Signal signal)
+  {
     this->m_component.FppTest_SmInitial_Basic_action_a(this->getId(), signal);
-}
+  }
 
-SmInitialActiveComponentBase::FppTest_SmInitial_Choice ::FppTest_SmInitial_Choice(
-    SmInitialActiveComponentBase& component)
-    : m_component(component) {}
+  SmInitialActiveComponentBase::FppTest_SmInitial_Choice ::
+    FppTest_SmInitial_Choice(SmInitialActiveComponentBase& component) :
+      m_component(component)
+  {
 
-void SmInitialActiveComponentBase::FppTest_SmInitial_Choice ::init(SmInitialActiveComponentBase::SmId smId) {
+  }
+
+  void SmInitialActiveComponentBase::FppTest_SmInitial_Choice ::
+    init(SmInitialActiveComponentBase::SmId smId)
+  {
     this->initBase(static_cast<FwEnumStoreType>(smId));
-}
+  }
 
-SmInitialActiveComponentBase::SmId SmInitialActiveComponentBase::FppTest_SmInitial_Choice ::getId() const {
+  SmInitialActiveComponentBase::SmId SmInitialActiveComponentBase::FppTest_SmInitial_Choice ::
+    getId() const
+  {
     return static_cast<SmInitialActiveComponentBase::SmId>(this->m_id);
-}
+  }
 
-void SmInitialActiveComponentBase::FppTest_SmInitial_Choice ::action_a(Signal signal) {
+  void SmInitialActiveComponentBase::FppTest_SmInitial_Choice ::
+    action_a(Signal signal)
+  {
     this->m_component.FppTest_SmInitial_Choice_action_a(this->getId(), signal);
-}
+  }
 
-bool SmInitialActiveComponentBase::FppTest_SmInitial_Choice ::guard_g(Signal signal) const {
+  bool SmInitialActiveComponentBase::FppTest_SmInitial_Choice ::
+    guard_g(Signal signal) const
+  {
     return this->m_component.FppTest_SmInitial_Choice_guard_g(this->getId(), signal);
-}
+  }
 
-SmInitialActiveComponentBase::FppTest_SmInitial_Nested ::FppTest_SmInitial_Nested(
-    SmInitialActiveComponentBase& component)
-    : m_component(component) {}
+  SmInitialActiveComponentBase::FppTest_SmInitial_Nested ::
+    FppTest_SmInitial_Nested(SmInitialActiveComponentBase& component) :
+      m_component(component)
+  {
 
-void SmInitialActiveComponentBase::FppTest_SmInitial_Nested ::init(SmInitialActiveComponentBase::SmId smId) {
+  }
+
+  void SmInitialActiveComponentBase::FppTest_SmInitial_Nested ::
+    init(SmInitialActiveComponentBase::SmId smId)
+  {
     this->initBase(static_cast<FwEnumStoreType>(smId));
-}
+  }
 
-SmInitialActiveComponentBase::SmId SmInitialActiveComponentBase::FppTest_SmInitial_Nested ::getId() const {
+  SmInitialActiveComponentBase::SmId SmInitialActiveComponentBase::FppTest_SmInitial_Nested ::
+    getId() const
+  {
     return static_cast<SmInitialActiveComponentBase::SmId>(this->m_id);
-}
+  }
 
-void SmInitialActiveComponentBase::FppTest_SmInitial_Nested ::action_a(Signal signal) {
+  void SmInitialActiveComponentBase::FppTest_SmInitial_Nested ::
+    action_a(Signal signal)
+  {
     this->m_component.FppTest_SmInitial_Nested_action_a(this->getId(), signal);
-}
+  }
 
-SmInitialActiveComponentBase::FppTest_SmInitialActive_Basic ::FppTest_SmInitialActive_Basic(
-    SmInitialActiveComponentBase& component)
-    : m_component(component) {}
+  SmInitialActiveComponentBase::FppTest_SmInitialActive_Basic ::
+    FppTest_SmInitialActive_Basic(SmInitialActiveComponentBase& component) :
+      m_component(component)
+  {
 
-void SmInitialActiveComponentBase::FppTest_SmInitialActive_Basic ::init(SmInitialActiveComponentBase::SmId smId) {
+  }
+
+  void SmInitialActiveComponentBase::FppTest_SmInitialActive_Basic ::
+    init(SmInitialActiveComponentBase::SmId smId)
+  {
     this->initBase(static_cast<FwEnumStoreType>(smId));
-}
+  }
 
-SmInitialActiveComponentBase::SmId SmInitialActiveComponentBase::FppTest_SmInitialActive_Basic ::getId() const {
+  SmInitialActiveComponentBase::SmId SmInitialActiveComponentBase::FppTest_SmInitialActive_Basic ::
+    getId() const
+  {
     return static_cast<SmInitialActiveComponentBase::SmId>(this->m_id);
-}
+  }
 
-void SmInitialActiveComponentBase::FppTest_SmInitialActive_Basic ::action_a(Signal signal) {
+  void SmInitialActiveComponentBase::FppTest_SmInitialActive_Basic ::
+    action_a(Signal signal)
+  {
     this->m_component.FppTest_SmInitialActive_Basic_action_a(this->getId(), signal);
-}
+  }
 
-SmInitialActiveComponentBase::FppTest_SmInitialActive_Choice ::FppTest_SmInitialActive_Choice(
-    SmInitialActiveComponentBase& component)
-    : m_component(component) {}
+  SmInitialActiveComponentBase::FppTest_SmInitialActive_Choice ::
+    FppTest_SmInitialActive_Choice(SmInitialActiveComponentBase& component) :
+      m_component(component)
+  {
 
-void SmInitialActiveComponentBase::FppTest_SmInitialActive_Choice ::init(SmInitialActiveComponentBase::SmId smId) {
+  }
+
+  void SmInitialActiveComponentBase::FppTest_SmInitialActive_Choice ::
+    init(SmInitialActiveComponentBase::SmId smId)
+  {
     this->initBase(static_cast<FwEnumStoreType>(smId));
-}
+  }
 
-SmInitialActiveComponentBase::SmId SmInitialActiveComponentBase::FppTest_SmInitialActive_Choice ::getId() const {
+  SmInitialActiveComponentBase::SmId SmInitialActiveComponentBase::FppTest_SmInitialActive_Choice ::
+    getId() const
+  {
     return static_cast<SmInitialActiveComponentBase::SmId>(this->m_id);
-}
+  }
 
-void SmInitialActiveComponentBase::FppTest_SmInitialActive_Choice ::action_a(Signal signal) {
+  void SmInitialActiveComponentBase::FppTest_SmInitialActive_Choice ::
+    action_a(Signal signal)
+  {
     this->m_component.FppTest_SmInitialActive_Choice_action_a(this->getId(), signal);
-}
+  }
 
-bool SmInitialActiveComponentBase::FppTest_SmInitialActive_Choice ::guard_g(Signal signal) const {
+  bool SmInitialActiveComponentBase::FppTest_SmInitialActive_Choice ::
+    guard_g(Signal signal) const
+  {
     return this->m_component.FppTest_SmInitialActive_Choice_guard_g(this->getId(), signal);
-}
+  }
 
-SmInitialActiveComponentBase::FppTest_SmInitialActive_Nested ::FppTest_SmInitialActive_Nested(
-    SmInitialActiveComponentBase& component)
-    : m_component(component) {}
+  SmInitialActiveComponentBase::FppTest_SmInitialActive_Nested ::
+    FppTest_SmInitialActive_Nested(SmInitialActiveComponentBase& component) :
+      m_component(component)
+  {
 
-void SmInitialActiveComponentBase::FppTest_SmInitialActive_Nested ::init(SmInitialActiveComponentBase::SmId smId) {
+  }
+
+  void SmInitialActiveComponentBase::FppTest_SmInitialActive_Nested ::
+    init(SmInitialActiveComponentBase::SmId smId)
+  {
     this->initBase(static_cast<FwEnumStoreType>(smId));
-}
+  }
 
-SmInitialActiveComponentBase::SmId SmInitialActiveComponentBase::FppTest_SmInitialActive_Nested ::getId() const {
+  SmInitialActiveComponentBase::SmId SmInitialActiveComponentBase::FppTest_SmInitialActive_Nested ::
+    getId() const
+  {
     return static_cast<SmInitialActiveComponentBase::SmId>(this->m_id);
-}
+  }
 
-void SmInitialActiveComponentBase::FppTest_SmInitialActive_Nested ::action_a(Signal signal) {
+  void SmInitialActiveComponentBase::FppTest_SmInitialActive_Nested ::
+    action_a(Signal signal)
+  {
     this->m_component.FppTest_SmInitialActive_Nested_action_a(this->getId(), signal);
-}
+  }
 
-// ----------------------------------------------------------------------
-// Component initialization
-// ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  // Component initialization
+  // ----------------------------------------------------------------------
 
-void SmInitialActiveComponentBase ::init(FwSizeType queueDepth, FwEnumStoreType instance) {
+  void SmInitialActiveComponentBase ::
+    init(
+        FwSizeType queueDepth,
+        FwEnumStoreType instance
+    )
+  {
     // Initialize base class
     Fw::ActiveComponentBase::init(instance);
 
@@ -187,17 +257,23 @@ void SmInitialActiveComponentBase ::init(FwSizeType queueDepth, FwEnumStoreType 
     this->m_stateMachine_smInitialNested.init(SmId::smInitialNested);
 
     // Create the queue
-    Os::Queue::Status qStat =
-        this->createQueue(queueDepth, static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE));
-    FW_ASSERT(Os::Queue::Status::OP_OK == qStat, static_cast<FwAssertArgType>(qStat));
-}
+    Os::Queue::Status qStat = this->createQueue(
+      queueDepth,
+      static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
+    );
+    FW_ASSERT(
+      Os::Queue::Status::OP_OK == qStat,
+      static_cast<FwAssertArgType>(qStat)
+    );
+  }
 
-// ----------------------------------------------------------------------
-// Component construction and destruction
-// ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  // Component construction and destruction
+  // ----------------------------------------------------------------------
 
-SmInitialActiveComponentBase ::SmInitialActiveComponentBase(const char* compName)
-    : Fw::ActiveComponentBase(compName),
+  SmInitialActiveComponentBase ::
+    SmInitialActiveComponentBase(const char* compName) :
+      Fw::ActiveComponentBase(compName),
       m_stateMachine_basic1(*this),
       m_stateMachine_basic2(*this),
       m_stateMachine_choice(*this),
@@ -205,100 +281,133 @@ SmInitialActiveComponentBase ::SmInitialActiveComponentBase(const char* compName
       m_stateMachine_smInitialBasic1(*this),
       m_stateMachine_smInitialBasic2(*this),
       m_stateMachine_smInitialChoice(*this),
-      m_stateMachine_smInitialNested(*this) {}
+      m_stateMachine_smInitialNested(*this)
+  {
 
-SmInitialActiveComponentBase ::~SmInitialActiveComponentBase() {}
+  }
 
-// ----------------------------------------------------------------------
-// State getter functions
-// ----------------------------------------------------------------------
+  SmInitialActiveComponentBase ::
+    ~SmInitialActiveComponentBase()
+  {
 
-SmInitialActiveComponentBase::FppTest_SmInitialActive_Basic::State SmInitialActiveComponentBase ::basic1_getState()
-    const {
+  }
+
+  // ----------------------------------------------------------------------
+  // State getter functions
+  // ----------------------------------------------------------------------
+
+  SmInitialActiveComponentBase::FppTest_SmInitialActive_Basic::State SmInitialActiveComponentBase ::
+    basic1_getState() const
+  {
     return this->m_stateMachine_basic1.getState();
-}
+  }
 
-SmInitialActiveComponentBase::FppTest_SmInitialActive_Basic::State SmInitialActiveComponentBase ::basic2_getState()
-    const {
+  SmInitialActiveComponentBase::FppTest_SmInitialActive_Basic::State SmInitialActiveComponentBase ::
+    basic2_getState() const
+  {
     return this->m_stateMachine_basic2.getState();
-}
+  }
 
-SmInitialActiveComponentBase::FppTest_SmInitialActive_Choice::State SmInitialActiveComponentBase ::choice_getState()
-    const {
+  SmInitialActiveComponentBase::FppTest_SmInitialActive_Choice::State SmInitialActiveComponentBase ::
+    choice_getState() const
+  {
     return this->m_stateMachine_choice.getState();
-}
+  }
 
-SmInitialActiveComponentBase::FppTest_SmInitialActive_Nested::State SmInitialActiveComponentBase ::nested_getState()
-    const {
+  SmInitialActiveComponentBase::FppTest_SmInitialActive_Nested::State SmInitialActiveComponentBase ::
+    nested_getState() const
+  {
     return this->m_stateMachine_nested.getState();
-}
+  }
 
-SmInitialActiveComponentBase::FppTest_SmInitial_Basic::State SmInitialActiveComponentBase ::smInitialBasic1_getState()
-    const {
+  SmInitialActiveComponentBase::FppTest_SmInitial_Basic::State SmInitialActiveComponentBase ::
+    smInitialBasic1_getState() const
+  {
     return this->m_stateMachine_smInitialBasic1.getState();
-}
+  }
 
-SmInitialActiveComponentBase::FppTest_SmInitial_Basic::State SmInitialActiveComponentBase ::smInitialBasic2_getState()
-    const {
+  SmInitialActiveComponentBase::FppTest_SmInitial_Basic::State SmInitialActiveComponentBase ::
+    smInitialBasic2_getState() const
+  {
     return this->m_stateMachine_smInitialBasic2.getState();
-}
+  }
 
-SmInitialActiveComponentBase::FppTest_SmInitial_Choice::State SmInitialActiveComponentBase ::smInitialChoice_getState()
-    const {
+  SmInitialActiveComponentBase::FppTest_SmInitial_Choice::State SmInitialActiveComponentBase ::
+    smInitialChoice_getState() const
+  {
     return this->m_stateMachine_smInitialChoice.getState();
-}
+  }
 
-SmInitialActiveComponentBase::FppTest_SmInitial_Nested::State SmInitialActiveComponentBase ::smInitialNested_getState()
-    const {
+  SmInitialActiveComponentBase::FppTest_SmInitial_Nested::State SmInitialActiveComponentBase ::
+    smInitialNested_getState() const
+  {
     return this->m_stateMachine_smInitialNested.getState();
-}
+  }
 
-// ----------------------------------------------------------------------
-// Message dispatch functions
-// ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  // Message dispatch functions
+  // ----------------------------------------------------------------------
 
-Fw::QueuedComponentBase::MsgDispatchStatus SmInitialActiveComponentBase ::doDispatch() {
+  Fw::QueuedComponentBase::MsgDispatchStatus SmInitialActiveComponentBase ::
+    doDispatch()
+  {
     ComponentIpcSerializableBuffer _msg;
     FwQueuePriorityType _priority = 0;
 
-    Os::Queue::Status _msgStatus = this->m_queue.receive(_msg, Os::Queue::BLOCKING, _priority);
-    FW_ASSERT(_msgStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(_msgStatus));
+    Os::Queue::Status _msgStatus = this->m_queue.receive(
+      _msg,
+      Os::Queue::BLOCKING,
+      _priority
+    );
+    FW_ASSERT(
+      _msgStatus == Os::Queue::OP_OK,
+      static_cast<FwAssertArgType>(_msgStatus)
+    );
 
     // Reset to beginning of buffer
     _msg.resetDeser();
 
     FwEnumStoreType _desMsg = 0;
     Fw::SerializeStatus _deserStatus = _msg.deserializeTo(_desMsg);
-    FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+    FW_ASSERT(
+      _deserStatus == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_deserStatus)
+    );
 
     MsgTypeEnum _msgType = static_cast<MsgTypeEnum>(_desMsg);
 
     if (_msgType == SMINITIALACTIVE_COMPONENT_EXIT) {
-        return MSG_DISPATCH_EXIT;
+      return MSG_DISPATCH_EXIT;
     }
 
     FwIndexType portNum = 0;
     _deserStatus = _msg.deserializeTo(portNum);
-    FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+    FW_ASSERT(
+      _deserStatus == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_deserStatus)
+    );
 
     switch (_msgType) {
-        // Handle signals to internal state machines
-        case INTERNAL_STATE_MACHINE_SIGNAL:
-            this->smDispatch(_msg);
-            break;
 
-        default:
-            return MSG_DISPATCH_ERROR;
+      // Handle signals to internal state machines
+      case INTERNAL_STATE_MACHINE_SIGNAL:
+        this->smDispatch(_msg);
+        break;
+
+      default:
+        return MSG_DISPATCH_ERROR;
     }
 
     return MSG_DISPATCH_OK;
-}
+  }
 
-// ----------------------------------------------------------------------
-// Helper functions for state machine dispatch
-// ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  // Helper functions for state machine dispatch
+  // ----------------------------------------------------------------------
 
-void SmInitialActiveComponentBase ::smDispatch(Fw::SerialBufferBase& buffer) {
+  void SmInitialActiveComponentBase ::
+    smDispatch(Fw::SerialBufferBase& buffer)
+  {
     // Deserialize the state machine ID and signal
     FwEnumStoreType storedSmId;
     FwEnumStoreType storedSignal;
@@ -307,61 +416,62 @@ void SmInitialActiveComponentBase ::smDispatch(Fw::SerialBufferBase& buffer) {
     // Select the target state machine instance
     const SmId smId = static_cast<SmId>(storedSmId);
     switch (smId) {
-        case SmId::basic1: {
-            const FppTest_SmInitialActive_Basic::Signal signal =
-                static_cast<FppTest_SmInitialActive_Basic::Signal>(storedSignal);
-            this->FppTest_SmInitialActive_Basic_smDispatch(buffer, this->m_stateMachine_basic1, signal);
-            break;
-        }
-        case SmId::basic2: {
-            const FppTest_SmInitialActive_Basic::Signal signal =
-                static_cast<FppTest_SmInitialActive_Basic::Signal>(storedSignal);
-            this->FppTest_SmInitialActive_Basic_smDispatch(buffer, this->m_stateMachine_basic2, signal);
-            break;
-        }
-        case SmId::choice: {
-            const FppTest_SmInitialActive_Choice::Signal signal =
-                static_cast<FppTest_SmInitialActive_Choice::Signal>(storedSignal);
-            this->FppTest_SmInitialActive_Choice_smDispatch(buffer, this->m_stateMachine_choice, signal);
-            break;
-        }
-        case SmId::nested: {
-            const FppTest_SmInitialActive_Nested::Signal signal =
-                static_cast<FppTest_SmInitialActive_Nested::Signal>(storedSignal);
-            this->FppTest_SmInitialActive_Nested_smDispatch(buffer, this->m_stateMachine_nested, signal);
-            break;
-        }
-        case SmId::smInitialBasic1: {
-            const FppTest_SmInitial_Basic::Signal signal = static_cast<FppTest_SmInitial_Basic::Signal>(storedSignal);
-            this->FppTest_SmInitial_Basic_smDispatch(buffer, this->m_stateMachine_smInitialBasic1, signal);
-            break;
-        }
-        case SmId::smInitialBasic2: {
-            const FppTest_SmInitial_Basic::Signal signal = static_cast<FppTest_SmInitial_Basic::Signal>(storedSignal);
-            this->FppTest_SmInitial_Basic_smDispatch(buffer, this->m_stateMachine_smInitialBasic2, signal);
-            break;
-        }
-        case SmId::smInitialChoice: {
-            const FppTest_SmInitial_Choice::Signal signal = static_cast<FppTest_SmInitial_Choice::Signal>(storedSignal);
-            this->FppTest_SmInitial_Choice_smDispatch(buffer, this->m_stateMachine_smInitialChoice, signal);
-            break;
-        }
-        case SmId::smInitialNested: {
-            const FppTest_SmInitial_Nested::Signal signal = static_cast<FppTest_SmInitial_Nested::Signal>(storedSignal);
-            this->FppTest_SmInitial_Nested_smDispatch(buffer, this->m_stateMachine_smInitialNested, signal);
-            break;
-        }
-        default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(smId));
-            break;
+      case SmId::basic1: {
+        const FppTest_SmInitialActive_Basic::Signal signal = static_cast<FppTest_SmInitialActive_Basic::Signal>(storedSignal);
+        this->FppTest_SmInitialActive_Basic_smDispatch(buffer, this->m_stateMachine_basic1, signal);
+        break;
+      }
+      case SmId::basic2: {
+        const FppTest_SmInitialActive_Basic::Signal signal = static_cast<FppTest_SmInitialActive_Basic::Signal>(storedSignal);
+        this->FppTest_SmInitialActive_Basic_smDispatch(buffer, this->m_stateMachine_basic2, signal);
+        break;
+      }
+      case SmId::choice: {
+        const FppTest_SmInitialActive_Choice::Signal signal = static_cast<FppTest_SmInitialActive_Choice::Signal>(storedSignal);
+        this->FppTest_SmInitialActive_Choice_smDispatch(buffer, this->m_stateMachine_choice, signal);
+        break;
+      }
+      case SmId::nested: {
+        const FppTest_SmInitialActive_Nested::Signal signal = static_cast<FppTest_SmInitialActive_Nested::Signal>(storedSignal);
+        this->FppTest_SmInitialActive_Nested_smDispatch(buffer, this->m_stateMachine_nested, signal);
+        break;
+      }
+      case SmId::smInitialBasic1: {
+        const FppTest_SmInitial_Basic::Signal signal = static_cast<FppTest_SmInitial_Basic::Signal>(storedSignal);
+        this->FppTest_SmInitial_Basic_smDispatch(buffer, this->m_stateMachine_smInitialBasic1, signal);
+        break;
+      }
+      case SmId::smInitialBasic2: {
+        const FppTest_SmInitial_Basic::Signal signal = static_cast<FppTest_SmInitial_Basic::Signal>(storedSignal);
+        this->FppTest_SmInitial_Basic_smDispatch(buffer, this->m_stateMachine_smInitialBasic2, signal);
+        break;
+      }
+      case SmId::smInitialChoice: {
+        const FppTest_SmInitial_Choice::Signal signal = static_cast<FppTest_SmInitial_Choice::Signal>(storedSignal);
+        this->FppTest_SmInitial_Choice_smDispatch(buffer, this->m_stateMachine_smInitialChoice, signal);
+        break;
+      }
+      case SmId::smInitialNested: {
+        const FppTest_SmInitial_Nested::Signal signal = static_cast<FppTest_SmInitial_Nested::Signal>(storedSignal);
+        this->FppTest_SmInitial_Nested_smDispatch(buffer, this->m_stateMachine_smInitialNested, signal);
+        break;
+      }
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(smId));
+        break;
     }
-}
+  }
 
-void SmInitialActiveComponentBase ::deserializeSmIdAndSignal(Fw::SerialBufferBase& buffer,
-                                                             FwEnumStoreType& smId,
-                                                             FwEnumStoreType& signal) {
+  void SmInitialActiveComponentBase ::
+    deserializeSmIdAndSignal(
+        Fw::SerialBufferBase& buffer,
+        FwEnumStoreType& smId,
+        FwEnumStoreType& signal
+    )
+  {
     // Move deserialization beyond the message type and port number
-    Fw::SerializeStatus status = buffer.moveDeserToOffset(ComponentIpcSerializableBuffer::DATA_OFFSET);
+    Fw::SerializeStatus status =
+      buffer.moveDeserToOffset(ComponentIpcSerializableBuffer::DATA_OFFSET);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
 
     // Deserialize the state machine ID
@@ -371,69 +481,90 @@ void SmInitialActiveComponentBase ::deserializeSmIdAndSignal(Fw::SerialBufferBas
     // Deserialize the signal
     status = buffer.deserializeTo(signal);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
-}
+  }
 
-void SmInitialActiveComponentBase ::FppTest_SmInitial_Basic_smDispatch(Fw::SerialBufferBase& buffer,
-                                                                       FppTest_SmInitial_Basic& sm,
-                                                                       FppTest_SmInitial_Basic::Signal signal) {
+  void SmInitialActiveComponentBase ::
+    FppTest_SmInitial_Basic_smDispatch(
+        Fw::SerialBufferBase& buffer,
+        FppTest_SmInitial_Basic& sm,
+        FppTest_SmInitial_Basic::Signal signal
+    )
+  {
     switch (signal) {
-        default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
-            break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        break;
     }
-}
+  }
 
-void SmInitialActiveComponentBase ::FppTest_SmInitial_Choice_smDispatch(Fw::SerialBufferBase& buffer,
-                                                                        FppTest_SmInitial_Choice& sm,
-                                                                        FppTest_SmInitial_Choice::Signal signal) {
+  void SmInitialActiveComponentBase ::
+    FppTest_SmInitial_Choice_smDispatch(
+        Fw::SerialBufferBase& buffer,
+        FppTest_SmInitial_Choice& sm,
+        FppTest_SmInitial_Choice::Signal signal
+    )
+  {
     switch (signal) {
-        default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
-            break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        break;
     }
-}
+  }
 
-void SmInitialActiveComponentBase ::FppTest_SmInitial_Nested_smDispatch(Fw::SerialBufferBase& buffer,
-                                                                        FppTest_SmInitial_Nested& sm,
-                                                                        FppTest_SmInitial_Nested::Signal signal) {
+  void SmInitialActiveComponentBase ::
+    FppTest_SmInitial_Nested_smDispatch(
+        Fw::SerialBufferBase& buffer,
+        FppTest_SmInitial_Nested& sm,
+        FppTest_SmInitial_Nested::Signal signal
+    )
+  {
     switch (signal) {
-        default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
-            break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        break;
     }
-}
+  }
 
-void SmInitialActiveComponentBase ::FppTest_SmInitialActive_Basic_smDispatch(
-    Fw::SerialBufferBase& buffer,
-    FppTest_SmInitialActive_Basic& sm,
-    FppTest_SmInitialActive_Basic::Signal signal) {
+  void SmInitialActiveComponentBase ::
+    FppTest_SmInitialActive_Basic_smDispatch(
+        Fw::SerialBufferBase& buffer,
+        FppTest_SmInitialActive_Basic& sm,
+        FppTest_SmInitialActive_Basic::Signal signal
+    )
+  {
     switch (signal) {
-        default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
-            break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        break;
     }
-}
+  }
 
-void SmInitialActiveComponentBase ::FppTest_SmInitialActive_Choice_smDispatch(
-    Fw::SerialBufferBase& buffer,
-    FppTest_SmInitialActive_Choice& sm,
-    FppTest_SmInitialActive_Choice::Signal signal) {
+  void SmInitialActiveComponentBase ::
+    FppTest_SmInitialActive_Choice_smDispatch(
+        Fw::SerialBufferBase& buffer,
+        FppTest_SmInitialActive_Choice& sm,
+        FppTest_SmInitialActive_Choice::Signal signal
+    )
+  {
     switch (signal) {
-        default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
-            break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        break;
     }
-}
+  }
 
-void SmInitialActiveComponentBase ::FppTest_SmInitialActive_Nested_smDispatch(
-    Fw::SerialBufferBase& buffer,
-    FppTest_SmInitialActive_Nested& sm,
-    FppTest_SmInitialActive_Nested::Signal signal) {
+  void SmInitialActiveComponentBase ::
+    FppTest_SmInitialActive_Nested_smDispatch(
+        Fw::SerialBufferBase& buffer,
+        FppTest_SmInitialActive_Nested& sm,
+        FppTest_SmInitialActive_Nested::Signal signal
+    )
+  {
     switch (signal) {
-        default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
-            break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        break;
     }
-}
+  }
 
-}  // namespace FppTest
+}

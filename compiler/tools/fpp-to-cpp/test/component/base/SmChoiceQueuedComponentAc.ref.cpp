@@ -13,280 +13,425 @@
 
 namespace FppTest {
 
-namespace {
+  namespace {
 
-// Constant definitions for the state machine signal buffer
-namespace SmSignalBuffer {
+    // Constant definitions for the state machine signal buffer
+    namespace SmSignalBuffer {
 
-// Union for computing the max size of a signal type
-union SignalTypeUnion {
-    BYTE size_of_U16[sizeof(U16)];
-    BYTE size_of_U32[sizeof(U32)];
-};
+      // Union for computing the max size of a signal type
+      union SignalTypeUnion {
+        BYTE size_of_U16[sizeof(U16)];
+        BYTE size_of_U32[sizeof(U32)];
+      };
 
-// The serialized size
-static constexpr FwSizeType SERIALIZED_SIZE = 2 * sizeof(FwEnumStoreType) + sizeof(SignalTypeUnion);
+      // The serialized size
+      static constexpr FwSizeType SERIALIZED_SIZE =
+        2 * sizeof(FwEnumStoreType) +
+        sizeof(SignalTypeUnion);
 
-}  // namespace SmSignalBuffer
-
-enum MsgTypeEnum {
-    SMCHOICEQUEUED_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
-    INTERNAL_STATE_MACHINE_SIGNAL,
-};
-
-// Get the max size by constructing a union of the async input, command, and
-// internal port serialization sizes
-union BuffUnion {
-    // Size of buffer for internal state machine signals
-    // The internal SmSignalBuffer stores the state machine id, the
-    // signal id, and the signal data
-    BYTE internalSmBufferSize[SmSignalBuffer::SERIALIZED_SIZE];
-};
-
-// Define a message buffer class large enough to handle all the
-// asynchronous inputs to the component
-class ComponentIpcSerializableBuffer : public Fw::LinearBufferBase {
-  public:
-    enum {
-        // Offset into data in buffer: Size of message ID and port number
-        DATA_OFFSET = sizeof(FwEnumStoreType) + sizeof(FwIndexType),
-        // Max data size
-        MAX_DATA_SIZE = sizeof(BuffUnion),
-        // Max message size: Size of message id + size of port + max data size
-        SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
-    };
-
-    ComponentIpcSerializableBuffer() {
-        this->m_buffAddr = m_buff;
-        this->m_capacity = sizeof(m_buff);
     }
 
-  private:
-    // Should be the max of all the input ports serialized sizes...
-    U8 m_buff[SERIALIZATION_SIZE];
-};
-}  // namespace
+    enum MsgTypeEnum {
+      SMCHOICEQUEUED_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
+      INTERNAL_STATE_MACHINE_SIGNAL,
+    };
 
-// ----------------------------------------------------------------------
-// Types for internal state machines
-// ----------------------------------------------------------------------
+    // Get the max size by constructing a union of the async input, command, and
+    // internal port serialization sizes
+    union BuffUnion {
+      // Size of buffer for internal state machine signals
+      // The internal SmSignalBuffer stores the state machine id, the
+      // signal id, and the signal data
+      BYTE internalSmBufferSize[SmSignalBuffer::SERIALIZED_SIZE];
+    };
 
-SmChoiceQueuedComponentBase::FppTest_SmChoice_Basic ::FppTest_SmChoice_Basic(SmChoiceQueuedComponentBase& component)
-    : m_component(component) {}
+    // Define a message buffer class large enough to handle all the
+    // asynchronous inputs to the component
+    class ComponentIpcSerializableBuffer :
+      public Fw::LinearBufferBase
+    {
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_Basic ::init(SmChoiceQueuedComponentBase::SmId smId) {
+      public:
+
+        enum {
+          // Offset into data in buffer: Size of message ID and port number
+          DATA_OFFSET = sizeof(FwEnumStoreType) + sizeof(FwIndexType),
+          // Max data size
+          MAX_DATA_SIZE = sizeof(BuffUnion),
+          // Max message size: Size of message id + size of port + max data size
+          SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
+        };
+
+        ComponentIpcSerializableBuffer() {
+          this->m_buffAddr = m_buff;
+          this->m_capacity = sizeof(m_buff);
+        }
+
+      private:
+        // Should be the max of all the input ports serialized sizes...
+        U8 m_buff[SERIALIZATION_SIZE];
+
+    };
+  }
+
+  // ----------------------------------------------------------------------
+  // Types for internal state machines
+  // ----------------------------------------------------------------------
+
+  SmChoiceQueuedComponentBase::FppTest_SmChoice_Basic ::
+    FppTest_SmChoice_Basic(SmChoiceQueuedComponentBase& component) :
+      m_component(component)
+  {
+
+  }
+
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_Basic ::
+    init(SmChoiceQueuedComponentBase::SmId smId)
+  {
     this->initBase(static_cast<FwEnumStoreType>(smId));
-}
+  }
 
-SmChoiceQueuedComponentBase::SmId SmChoiceQueuedComponentBase::FppTest_SmChoice_Basic ::getId() const {
+  SmChoiceQueuedComponentBase::SmId SmChoiceQueuedComponentBase::FppTest_SmChoice_Basic ::
+    getId() const
+  {
     return static_cast<SmChoiceQueuedComponentBase::SmId>(this->m_id);
-}
+  }
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_Basic ::action_a(Signal signal) {
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_Basic ::
+    action_a(Signal signal)
+  {
     this->m_component.FppTest_SmChoice_Basic_action_a(this->getId(), signal);
-}
+  }
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_Basic ::action_b(Signal signal) {
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_Basic ::
+    action_b(Signal signal)
+  {
     this->m_component.FppTest_SmChoice_Basic_action_b(this->getId(), signal);
-}
+  }
 
-bool SmChoiceQueuedComponentBase::FppTest_SmChoice_Basic ::guard_g(Signal signal) const {
+  bool SmChoiceQueuedComponentBase::FppTest_SmChoice_Basic ::
+    guard_g(Signal signal) const
+  {
     return this->m_component.FppTest_SmChoice_Basic_guard_g(this->getId(), signal);
-}
+  }
 
-SmChoiceQueuedComponentBase::FppTest_SmChoice_BasicU32 ::FppTest_SmChoice_BasicU32(
-    SmChoiceQueuedComponentBase& component)
-    : m_component(component) {}
+  SmChoiceQueuedComponentBase::FppTest_SmChoice_BasicU32 ::
+    FppTest_SmChoice_BasicU32(SmChoiceQueuedComponentBase& component) :
+      m_component(component)
+  {
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_BasicU32 ::init(SmChoiceQueuedComponentBase::SmId smId) {
+  }
+
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_BasicU32 ::
+    init(SmChoiceQueuedComponentBase::SmId smId)
+  {
     this->initBase(static_cast<FwEnumStoreType>(smId));
-}
+  }
 
-SmChoiceQueuedComponentBase::SmId SmChoiceQueuedComponentBase::FppTest_SmChoice_BasicU32 ::getId() const {
+  SmChoiceQueuedComponentBase::SmId SmChoiceQueuedComponentBase::FppTest_SmChoice_BasicU32 ::
+    getId() const
+  {
     return static_cast<SmChoiceQueuedComponentBase::SmId>(this->m_id);
-}
+  }
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_BasicU32 ::action_a(Signal signal, U32 value) {
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_BasicU32 ::
+    action_a(
+        Signal signal,
+        U32 value
+    )
+  {
     this->m_component.FppTest_SmChoice_BasicU32_action_a(this->getId(), signal, value);
-}
+  }
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_BasicU32 ::action_b(Signal signal) {
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_BasicU32 ::
+    action_b(Signal signal)
+  {
     this->m_component.FppTest_SmChoice_BasicU32_action_b(this->getId(), signal);
-}
+  }
 
-bool SmChoiceQueuedComponentBase::FppTest_SmChoice_BasicU32 ::guard_g(Signal signal, U32 value) const {
+  bool SmChoiceQueuedComponentBase::FppTest_SmChoice_BasicU32 ::
+    guard_g(
+        Signal signal,
+        U32 value
+    ) const
+  {
     return this->m_component.FppTest_SmChoice_BasicU32_guard_g(this->getId(), signal, value);
-}
+  }
 
-SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToChoice ::FppTest_SmChoice_ChoiceToChoice(
-    SmChoiceQueuedComponentBase& component)
-    : m_component(component) {}
+  SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToChoice ::
+    FppTest_SmChoice_ChoiceToChoice(SmChoiceQueuedComponentBase& component) :
+      m_component(component)
+  {
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToChoice ::init(SmChoiceQueuedComponentBase::SmId smId) {
+  }
+
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToChoice ::
+    init(SmChoiceQueuedComponentBase::SmId smId)
+  {
     this->initBase(static_cast<FwEnumStoreType>(smId));
-}
+  }
 
-SmChoiceQueuedComponentBase::SmId SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToChoice ::getId() const {
+  SmChoiceQueuedComponentBase::SmId SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToChoice ::
+    getId() const
+  {
     return static_cast<SmChoiceQueuedComponentBase::SmId>(this->m_id);
-}
+  }
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToChoice ::action_exitS1(Signal signal) {
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToChoice ::
+    action_exitS1(Signal signal)
+  {
     this->m_component.FppTest_SmChoice_ChoiceToChoice_action_exitS1(this->getId(), signal);
-}
+  }
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToChoice ::action_a(Signal signal) {
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToChoice ::
+    action_a(Signal signal)
+  {
     this->m_component.FppTest_SmChoice_ChoiceToChoice_action_a(this->getId(), signal);
-}
+  }
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToChoice ::action_enterS2(Signal signal) {
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToChoice ::
+    action_enterS2(Signal signal)
+  {
     this->m_component.FppTest_SmChoice_ChoiceToChoice_action_enterS2(this->getId(), signal);
-}
+  }
 
-bool SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToChoice ::guard_g1(Signal signal) const {
+  bool SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToChoice ::
+    guard_g1(Signal signal) const
+  {
     return this->m_component.FppTest_SmChoice_ChoiceToChoice_guard_g1(this->getId(), signal);
-}
+  }
 
-bool SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToChoice ::guard_g2(Signal signal) const {
+  bool SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToChoice ::
+    guard_g2(Signal signal) const
+  {
     return this->m_component.FppTest_SmChoice_ChoiceToChoice_guard_g2(this->getId(), signal);
-}
+  }
 
-SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToState ::FppTest_SmChoice_ChoiceToState(
-    SmChoiceQueuedComponentBase& component)
-    : m_component(component) {}
+  SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToState ::
+    FppTest_SmChoice_ChoiceToState(SmChoiceQueuedComponentBase& component) :
+      m_component(component)
+  {
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToState ::init(SmChoiceQueuedComponentBase::SmId smId) {
+  }
+
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToState ::
+    init(SmChoiceQueuedComponentBase::SmId smId)
+  {
     this->initBase(static_cast<FwEnumStoreType>(smId));
-}
+  }
 
-SmChoiceQueuedComponentBase::SmId SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToState ::getId() const {
+  SmChoiceQueuedComponentBase::SmId SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToState ::
+    getId() const
+  {
     return static_cast<SmChoiceQueuedComponentBase::SmId>(this->m_id);
-}
+  }
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToState ::action_exitS1(Signal signal) {
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToState ::
+    action_exitS1(Signal signal)
+  {
     this->m_component.FppTest_SmChoice_ChoiceToState_action_exitS1(this->getId(), signal);
-}
+  }
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToState ::action_a(Signal signal) {
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToState ::
+    action_a(Signal signal)
+  {
     this->m_component.FppTest_SmChoice_ChoiceToState_action_a(this->getId(), signal);
-}
+  }
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToState ::action_enterS2(Signal signal) {
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToState ::
+    action_enterS2(Signal signal)
+  {
     this->m_component.FppTest_SmChoice_ChoiceToState_action_enterS2(this->getId(), signal);
-}
+  }
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToState ::action_enterS3(Signal signal) {
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToState ::
+    action_enterS3(Signal signal)
+  {
     this->m_component.FppTest_SmChoice_ChoiceToState_action_enterS3(this->getId(), signal);
-}
+  }
 
-bool SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToState ::guard_g(Signal signal) const {
+  bool SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToState ::
+    guard_g(Signal signal) const
+  {
     return this->m_component.FppTest_SmChoice_ChoiceToState_guard_g(this->getId(), signal);
-}
+  }
 
-SmChoiceQueuedComponentBase::FppTest_SmChoice_InputPairU16U32 ::FppTest_SmChoice_InputPairU16U32(
-    SmChoiceQueuedComponentBase& component)
-    : m_component(component) {}
+  SmChoiceQueuedComponentBase::FppTest_SmChoice_InputPairU16U32 ::
+    FppTest_SmChoice_InputPairU16U32(SmChoiceQueuedComponentBase& component) :
+      m_component(component)
+  {
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_InputPairU16U32 ::init(SmChoiceQueuedComponentBase::SmId smId) {
+  }
+
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_InputPairU16U32 ::
+    init(SmChoiceQueuedComponentBase::SmId smId)
+  {
     this->initBase(static_cast<FwEnumStoreType>(smId));
-}
+  }
 
-SmChoiceQueuedComponentBase::SmId SmChoiceQueuedComponentBase::FppTest_SmChoice_InputPairU16U32 ::getId() const {
+  SmChoiceQueuedComponentBase::SmId SmChoiceQueuedComponentBase::FppTest_SmChoice_InputPairU16U32 ::
+    getId() const
+  {
     return static_cast<SmChoiceQueuedComponentBase::SmId>(this->m_id);
-}
+  }
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_InputPairU16U32 ::action_a(Signal signal, U32 value) {
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_InputPairU16U32 ::
+    action_a(
+        Signal signal,
+        U32 value
+    )
+  {
     this->m_component.FppTest_SmChoice_InputPairU16U32_action_a(this->getId(), signal, value);
-}
+  }
 
-bool SmChoiceQueuedComponentBase::FppTest_SmChoice_InputPairU16U32 ::guard_g(Signal signal, U32 value) const {
+  bool SmChoiceQueuedComponentBase::FppTest_SmChoice_InputPairU16U32 ::
+    guard_g(
+        Signal signal,
+        U32 value
+    ) const
+  {
     return this->m_component.FppTest_SmChoice_InputPairU16U32_guard_g(this->getId(), signal, value);
-}
+  }
 
-SmChoiceQueuedComponentBase::FppTest_SmChoice_Sequence ::FppTest_SmChoice_Sequence(
-    SmChoiceQueuedComponentBase& component)
-    : m_component(component) {}
+  SmChoiceQueuedComponentBase::FppTest_SmChoice_Sequence ::
+    FppTest_SmChoice_Sequence(SmChoiceQueuedComponentBase& component) :
+      m_component(component)
+  {
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_Sequence ::init(SmChoiceQueuedComponentBase::SmId smId) {
+  }
+
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_Sequence ::
+    init(SmChoiceQueuedComponentBase::SmId smId)
+  {
     this->initBase(static_cast<FwEnumStoreType>(smId));
-}
+  }
 
-SmChoiceQueuedComponentBase::SmId SmChoiceQueuedComponentBase::FppTest_SmChoice_Sequence ::getId() const {
+  SmChoiceQueuedComponentBase::SmId SmChoiceQueuedComponentBase::FppTest_SmChoice_Sequence ::
+    getId() const
+  {
     return static_cast<SmChoiceQueuedComponentBase::SmId>(this->m_id);
-}
+  }
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_Sequence ::action_a(Signal signal) {
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_Sequence ::
+    action_a(Signal signal)
+  {
     this->m_component.FppTest_SmChoice_Sequence_action_a(this->getId(), signal);
-}
+  }
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_Sequence ::action_b(Signal signal) {
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_Sequence ::
+    action_b(Signal signal)
+  {
     this->m_component.FppTest_SmChoice_Sequence_action_b(this->getId(), signal);
-}
+  }
 
-bool SmChoiceQueuedComponentBase::FppTest_SmChoice_Sequence ::guard_g1(Signal signal) const {
+  bool SmChoiceQueuedComponentBase::FppTest_SmChoice_Sequence ::
+    guard_g1(Signal signal) const
+  {
     return this->m_component.FppTest_SmChoice_Sequence_guard_g1(this->getId(), signal);
-}
+  }
 
-bool SmChoiceQueuedComponentBase::FppTest_SmChoice_Sequence ::guard_g2(Signal signal) const {
+  bool SmChoiceQueuedComponentBase::FppTest_SmChoice_Sequence ::
+    guard_g2(Signal signal) const
+  {
     return this->m_component.FppTest_SmChoice_Sequence_guard_g2(this->getId(), signal);
-}
+  }
 
-SmChoiceQueuedComponentBase::FppTest_SmChoice_SequenceU32 ::FppTest_SmChoice_SequenceU32(
-    SmChoiceQueuedComponentBase& component)
-    : m_component(component) {}
+  SmChoiceQueuedComponentBase::FppTest_SmChoice_SequenceU32 ::
+    FppTest_SmChoice_SequenceU32(SmChoiceQueuedComponentBase& component) :
+      m_component(component)
+  {
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_SequenceU32 ::init(SmChoiceQueuedComponentBase::SmId smId) {
+  }
+
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_SequenceU32 ::
+    init(SmChoiceQueuedComponentBase::SmId smId)
+  {
     this->initBase(static_cast<FwEnumStoreType>(smId));
-}
+  }
 
-SmChoiceQueuedComponentBase::SmId SmChoiceQueuedComponentBase::FppTest_SmChoice_SequenceU32 ::getId() const {
+  SmChoiceQueuedComponentBase::SmId SmChoiceQueuedComponentBase::FppTest_SmChoice_SequenceU32 ::
+    getId() const
+  {
     return static_cast<SmChoiceQueuedComponentBase::SmId>(this->m_id);
-}
+  }
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_SequenceU32 ::action_a(Signal signal, U32 value) {
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_SequenceU32 ::
+    action_a(
+        Signal signal,
+        U32 value
+    )
+  {
     this->m_component.FppTest_SmChoice_SequenceU32_action_a(this->getId(), signal, value);
-}
+  }
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoice_SequenceU32 ::action_b(Signal signal) {
+  void SmChoiceQueuedComponentBase::FppTest_SmChoice_SequenceU32 ::
+    action_b(Signal signal)
+  {
     this->m_component.FppTest_SmChoice_SequenceU32_action_b(this->getId(), signal);
-}
+  }
 
-bool SmChoiceQueuedComponentBase::FppTest_SmChoice_SequenceU32 ::guard_g1(Signal signal) const {
+  bool SmChoiceQueuedComponentBase::FppTest_SmChoice_SequenceU32 ::
+    guard_g1(Signal signal) const
+  {
     return this->m_component.FppTest_SmChoice_SequenceU32_guard_g1(this->getId(), signal);
-}
+  }
 
-bool SmChoiceQueuedComponentBase::FppTest_SmChoice_SequenceU32 ::guard_g2(Signal signal, U32 value) const {
+  bool SmChoiceQueuedComponentBase::FppTest_SmChoice_SequenceU32 ::
+    guard_g2(
+        Signal signal,
+        U32 value
+    ) const
+  {
     return this->m_component.FppTest_SmChoice_SequenceU32_guard_g2(this->getId(), signal, value);
-}
+  }
 
-SmChoiceQueuedComponentBase::FppTest_SmChoiceQueued_Basic ::FppTest_SmChoiceQueued_Basic(
-    SmChoiceQueuedComponentBase& component)
-    : m_component(component) {}
+  SmChoiceQueuedComponentBase::FppTest_SmChoiceQueued_Basic ::
+    FppTest_SmChoiceQueued_Basic(SmChoiceQueuedComponentBase& component) :
+      m_component(component)
+  {
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoiceQueued_Basic ::init(SmChoiceQueuedComponentBase::SmId smId) {
+  }
+
+  void SmChoiceQueuedComponentBase::FppTest_SmChoiceQueued_Basic ::
+    init(SmChoiceQueuedComponentBase::SmId smId)
+  {
     this->initBase(static_cast<FwEnumStoreType>(smId));
-}
+  }
 
-SmChoiceQueuedComponentBase::SmId SmChoiceQueuedComponentBase::FppTest_SmChoiceQueued_Basic ::getId() const {
+  SmChoiceQueuedComponentBase::SmId SmChoiceQueuedComponentBase::FppTest_SmChoiceQueued_Basic ::
+    getId() const
+  {
     return static_cast<SmChoiceQueuedComponentBase::SmId>(this->m_id);
-}
+  }
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoiceQueued_Basic ::action_a(Signal signal) {
+  void SmChoiceQueuedComponentBase::FppTest_SmChoiceQueued_Basic ::
+    action_a(Signal signal)
+  {
     this->m_component.FppTest_SmChoiceQueued_Basic_action_a(this->getId(), signal);
-}
+  }
 
-void SmChoiceQueuedComponentBase::FppTest_SmChoiceQueued_Basic ::action_b(Signal signal) {
+  void SmChoiceQueuedComponentBase::FppTest_SmChoiceQueued_Basic ::
+    action_b(Signal signal)
+  {
     this->m_component.FppTest_SmChoiceQueued_Basic_action_b(this->getId(), signal);
-}
+  }
 
-bool SmChoiceQueuedComponentBase::FppTest_SmChoiceQueued_Basic ::guard_g(Signal signal) const {
+  bool SmChoiceQueuedComponentBase::FppTest_SmChoiceQueued_Basic ::
+    guard_g(Signal signal) const
+  {
     return this->m_component.FppTest_SmChoiceQueued_Basic_guard_g(this->getId(), signal);
-}
+  }
 
-// ----------------------------------------------------------------------
-// Component initialization
-// ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  // Component initialization
+  // ----------------------------------------------------------------------
 
-void SmChoiceQueuedComponentBase ::init(FwSizeType queueDepth, FwEnumStoreType instance) {
+  void SmChoiceQueuedComponentBase ::
+    init(
+        FwSizeType queueDepth,
+        FwEnumStoreType instance
+    )
+  {
     // Initialize base class
     Fw::QueuedComponentBase::init(instance);
 
@@ -302,45 +447,67 @@ void SmChoiceQueuedComponentBase ::init(FwSizeType queueDepth, FwEnumStoreType i
 
 #if !FW_DIRECT_PORT_CALLS
     // Connect input port schedIn
-    for (FwIndexType port = 0; port < static_cast<FwIndexType>(this->getNum_schedIn_InputPorts()); port++) {
-        this->m_schedIn_InputPort[port].init();
-        this->m_schedIn_InputPort[port].addCallComp(this, m_p_schedIn_in);
-        this->m_schedIn_InputPort[port].setPortNum(port);
+    for (
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_schedIn_InputPorts());
+      port++
+    ) {
+      this->m_schedIn_InputPort[port].init();
+      this->m_schedIn_InputPort[port].addCallComp(
+        this,
+        m_p_schedIn_in
+      );
+      this->m_schedIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-        Fw::ObjectName portName;
-        portName.format("%s_schedIn_InputPort[%" PRI_FwIndexType "]", this->m_objName.toChar(), port);
-        this->m_schedIn_InputPort[port].setObjName(portName.toChar());
+      Fw::ObjectName portName;
+      portName.format(
+        "%s_schedIn_InputPort[%" PRI_FwIndexType "]",
+        this->m_objName.toChar(),
+        port
+      );
+      this->m_schedIn_InputPort[port].setObjName(portName.toChar());
 #endif
     }
 #endif
 
     // Create the queue
-    Os::Queue::Status qStat =
-        this->createQueue(queueDepth, static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE));
-    FW_ASSERT(Os::Queue::Status::OP_OK == qStat, static_cast<FwAssertArgType>(qStat));
-}
+    Os::Queue::Status qStat = this->createQueue(
+      queueDepth,
+      static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
+    );
+    FW_ASSERT(
+      Os::Queue::Status::OP_OK == qStat,
+      static_cast<FwAssertArgType>(qStat)
+    );
+  }
 
 #if !FW_DIRECT_PORT_CALLS
 
-// ----------------------------------------------------------------------
-// Getters for typed input ports
-// ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  // Getters for typed input ports
+  // ----------------------------------------------------------------------
 
-Svc::InputSchedPort* SmChoiceQueuedComponentBase ::get_schedIn_InputPort(FwIndexType portNum) {
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_schedIn_InputPorts()), static_cast<FwAssertArgType>(portNum));
+  Svc::InputSchedPort* SmChoiceQueuedComponentBase ::
+    get_schedIn_InputPort(FwIndexType portNum)
+  {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < this->getNum_schedIn_InputPorts()),
+      static_cast<FwAssertArgType>(portNum)
+    );
 
     return &this->m_schedIn_InputPort[portNum];
-}
+  }
 
 #endif
 
-// ----------------------------------------------------------------------
-// Component construction and destruction
-// ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  // Component construction and destruction
+  // ----------------------------------------------------------------------
 
-SmChoiceQueuedComponentBase ::SmChoiceQueuedComponentBase(const char* compName)
-    : Fw::QueuedComponentBase(compName),
+  SmChoiceQueuedComponentBase ::
+    SmChoiceQueuedComponentBase(const char* compName) :
+      Fw::QueuedComponentBase(compName),
       m_stateMachine_basic(*this),
       m_stateMachine_smChoiceBasic(*this),
       m_stateMachine_smChoiceBasicU32(*this),
@@ -348,175 +515,223 @@ SmChoiceQueuedComponentBase ::SmChoiceQueuedComponentBase(const char* compName)
       m_stateMachine_smChoiceChoiceToState(*this),
       m_stateMachine_smChoiceInputPairU16U32(*this),
       m_stateMachine_smChoiceSequence(*this),
-      m_stateMachine_smChoiceSequenceU32(*this) {}
+      m_stateMachine_smChoiceSequenceU32(*this)
+  {
 
-SmChoiceQueuedComponentBase ::~SmChoiceQueuedComponentBase() {}
+  }
 
-// ----------------------------------------------------------------------
-// Port handler base-class functions for typed input ports
-//
-// Call these functions directly to bypass the corresponding ports
-// ----------------------------------------------------------------------
+  SmChoiceQueuedComponentBase ::
+    ~SmChoiceQueuedComponentBase()
+  {
 
-void SmChoiceQueuedComponentBase ::schedIn_handlerBase(FwIndexType portNum, U32 context) {
+  }
+
+  // ----------------------------------------------------------------------
+  // Port handler base-class functions for typed input ports
+  //
+  // Call these functions directly to bypass the corresponding ports
+  // ----------------------------------------------------------------------
+
+  void SmChoiceQueuedComponentBase ::
+    schedIn_handlerBase(
+        FwIndexType portNum,
+        U32 context
+    )
+  {
     // Make sure port number is valid
-    FW_ASSERT((0 <= portNum) && (portNum < this->getNum_schedIn_InputPorts()), static_cast<FwAssertArgType>(portNum));
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < this->getNum_schedIn_InputPorts()),
+      static_cast<FwAssertArgType>(portNum)
+    );
 
     // Call handler function
-    this->schedIn_handler(portNum, context);
-}
+    this->schedIn_handler(
+      portNum,
+      context
+    );
+  }
 
-// ----------------------------------------------------------------------
-// State getter functions
-// ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  // State getter functions
+  // ----------------------------------------------------------------------
 
-SmChoiceQueuedComponentBase::FppTest_SmChoiceQueued_Basic::State SmChoiceQueuedComponentBase ::basic_getState() const {
+  SmChoiceQueuedComponentBase::FppTest_SmChoiceQueued_Basic::State SmChoiceQueuedComponentBase ::
+    basic_getState() const
+  {
     return this->m_stateMachine_basic.getState();
-}
+  }
 
-SmChoiceQueuedComponentBase::FppTest_SmChoice_Basic::State SmChoiceQueuedComponentBase ::smChoiceBasic_getState()
-    const {
+  SmChoiceQueuedComponentBase::FppTest_SmChoice_Basic::State SmChoiceQueuedComponentBase ::
+    smChoiceBasic_getState() const
+  {
     return this->m_stateMachine_smChoiceBasic.getState();
-}
+  }
 
-SmChoiceQueuedComponentBase::FppTest_SmChoice_BasicU32::State SmChoiceQueuedComponentBase ::smChoiceBasicU32_getState()
-    const {
+  SmChoiceQueuedComponentBase::FppTest_SmChoice_BasicU32::State SmChoiceQueuedComponentBase ::
+    smChoiceBasicU32_getState() const
+  {
     return this->m_stateMachine_smChoiceBasicU32.getState();
-}
+  }
 
-SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToChoice::State
-SmChoiceQueuedComponentBase ::smChoiceChoiceToChoice_getState() const {
+  SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToChoice::State SmChoiceQueuedComponentBase ::
+    smChoiceChoiceToChoice_getState() const
+  {
     return this->m_stateMachine_smChoiceChoiceToChoice.getState();
-}
+  }
 
-SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToState::State
-SmChoiceQueuedComponentBase ::smChoiceChoiceToState_getState() const {
+  SmChoiceQueuedComponentBase::FppTest_SmChoice_ChoiceToState::State SmChoiceQueuedComponentBase ::
+    smChoiceChoiceToState_getState() const
+  {
     return this->m_stateMachine_smChoiceChoiceToState.getState();
-}
+  }
 
-SmChoiceQueuedComponentBase::FppTest_SmChoice_InputPairU16U32::State
-SmChoiceQueuedComponentBase ::smChoiceInputPairU16U32_getState() const {
+  SmChoiceQueuedComponentBase::FppTest_SmChoice_InputPairU16U32::State SmChoiceQueuedComponentBase ::
+    smChoiceInputPairU16U32_getState() const
+  {
     return this->m_stateMachine_smChoiceInputPairU16U32.getState();
-}
+  }
 
-SmChoiceQueuedComponentBase::FppTest_SmChoice_Sequence::State SmChoiceQueuedComponentBase ::smChoiceSequence_getState()
-    const {
+  SmChoiceQueuedComponentBase::FppTest_SmChoice_Sequence::State SmChoiceQueuedComponentBase ::
+    smChoiceSequence_getState() const
+  {
     return this->m_stateMachine_smChoiceSequence.getState();
-}
+  }
 
-SmChoiceQueuedComponentBase::FppTest_SmChoice_SequenceU32::State
-SmChoiceQueuedComponentBase ::smChoiceSequenceU32_getState() const {
+  SmChoiceQueuedComponentBase::FppTest_SmChoice_SequenceU32::State SmChoiceQueuedComponentBase ::
+    smChoiceSequenceU32_getState() const
+  {
     return this->m_stateMachine_smChoiceSequenceU32.getState();
-}
+  }
 
-// ----------------------------------------------------------------------
-// Signal send functions
-// ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  // Signal send functions
+  // ----------------------------------------------------------------------
 
-void SmChoiceQueuedComponentBase ::basic_sendSignal_s() {
+  void SmChoiceQueuedComponentBase ::
+    basic_sendSignal_s()
+  {
     ComponentIpcSerializableBuffer buffer;
     // Serialize the message type, port number, state ID, and signal
     this->sendSignalStart(SmId::basic, static_cast<FwEnumStoreType>(FppTest_SmChoiceQueued_Basic::Signal::s), buffer);
     // Send the message and handle overflow
     this->basic_sendSignalFinish(buffer);
-}
+  }
 
-void SmChoiceQueuedComponentBase ::smChoiceBasic_sendSignal_s() {
+  void SmChoiceQueuedComponentBase ::
+    smChoiceBasic_sendSignal_s()
+  {
     ComponentIpcSerializableBuffer buffer;
     // Serialize the message type, port number, state ID, and signal
     this->sendSignalStart(SmId::smChoiceBasic, static_cast<FwEnumStoreType>(FppTest_SmChoice_Basic::Signal::s), buffer);
     // Send the message and handle overflow
     this->smChoiceBasic_sendSignalFinish(buffer);
-}
+  }
 
-void SmChoiceQueuedComponentBase ::smChoiceBasicU32_sendSignal_s(U32 value) {
+  void SmChoiceQueuedComponentBase ::
+    smChoiceBasicU32_sendSignal_s(U32 value)
+  {
     ComponentIpcSerializableBuffer buffer;
     // Serialize the message type, port number, state ID, and signal
-    this->sendSignalStart(SmId::smChoiceBasicU32, static_cast<FwEnumStoreType>(FppTest_SmChoice_BasicU32::Signal::s),
-                          buffer);
+    this->sendSignalStart(SmId::smChoiceBasicU32, static_cast<FwEnumStoreType>(FppTest_SmChoice_BasicU32::Signal::s), buffer);
     // Serialize the signal data
     const Fw::SerializeStatus status = buffer.serializeFrom(value);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smChoiceBasicU32_sendSignalFinish(buffer);
-}
+  }
 
-void SmChoiceQueuedComponentBase ::smChoiceChoiceToChoice_sendSignal_s() {
+  void SmChoiceQueuedComponentBase ::
+    smChoiceChoiceToChoice_sendSignal_s()
+  {
     ComponentIpcSerializableBuffer buffer;
     // Serialize the message type, port number, state ID, and signal
-    this->sendSignalStart(SmId::smChoiceChoiceToChoice,
-                          static_cast<FwEnumStoreType>(FppTest_SmChoice_ChoiceToChoice::Signal::s), buffer);
+    this->sendSignalStart(SmId::smChoiceChoiceToChoice, static_cast<FwEnumStoreType>(FppTest_SmChoice_ChoiceToChoice::Signal::s), buffer);
     // Send the message and handle overflow
     this->smChoiceChoiceToChoice_sendSignalFinish(buffer);
-}
+  }
 
-void SmChoiceQueuedComponentBase ::smChoiceChoiceToState_sendSignal_s() {
+  void SmChoiceQueuedComponentBase ::
+    smChoiceChoiceToState_sendSignal_s()
+  {
     ComponentIpcSerializableBuffer buffer;
     // Serialize the message type, port number, state ID, and signal
-    this->sendSignalStart(SmId::smChoiceChoiceToState,
-                          static_cast<FwEnumStoreType>(FppTest_SmChoice_ChoiceToState::Signal::s), buffer);
+    this->sendSignalStart(SmId::smChoiceChoiceToState, static_cast<FwEnumStoreType>(FppTest_SmChoice_ChoiceToState::Signal::s), buffer);
     // Send the message and handle overflow
     this->smChoiceChoiceToState_sendSignalFinish(buffer);
-}
+  }
 
-void SmChoiceQueuedComponentBase ::smChoiceInputPairU16U32_sendSignal_s1(U16 value) {
+  void SmChoiceQueuedComponentBase ::
+    smChoiceInputPairU16U32_sendSignal_s1(U16 value)
+  {
     ComponentIpcSerializableBuffer buffer;
     // Serialize the message type, port number, state ID, and signal
-    this->sendSignalStart(SmId::smChoiceInputPairU16U32,
-                          static_cast<FwEnumStoreType>(FppTest_SmChoice_InputPairU16U32::Signal::s1), buffer);
+    this->sendSignalStart(SmId::smChoiceInputPairU16U32, static_cast<FwEnumStoreType>(FppTest_SmChoice_InputPairU16U32::Signal::s1), buffer);
     // Serialize the signal data
     const Fw::SerializeStatus status = buffer.serializeFrom(value);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smChoiceInputPairU16U32_sendSignalFinish(buffer);
-}
+  }
 
-void SmChoiceQueuedComponentBase ::smChoiceInputPairU16U32_sendSignal_s2(U32 value) {
+  void SmChoiceQueuedComponentBase ::
+    smChoiceInputPairU16U32_sendSignal_s2(U32 value)
+  {
     ComponentIpcSerializableBuffer buffer;
     // Serialize the message type, port number, state ID, and signal
-    this->sendSignalStart(SmId::smChoiceInputPairU16U32,
-                          static_cast<FwEnumStoreType>(FppTest_SmChoice_InputPairU16U32::Signal::s2), buffer);
+    this->sendSignalStart(SmId::smChoiceInputPairU16U32, static_cast<FwEnumStoreType>(FppTest_SmChoice_InputPairU16U32::Signal::s2), buffer);
     // Serialize the signal data
     const Fw::SerializeStatus status = buffer.serializeFrom(value);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smChoiceInputPairU16U32_sendSignalFinish(buffer);
-}
+  }
 
-void SmChoiceQueuedComponentBase ::smChoiceSequence_sendSignal_s() {
+  void SmChoiceQueuedComponentBase ::
+    smChoiceSequence_sendSignal_s()
+  {
     ComponentIpcSerializableBuffer buffer;
     // Serialize the message type, port number, state ID, and signal
-    this->sendSignalStart(SmId::smChoiceSequence, static_cast<FwEnumStoreType>(FppTest_SmChoice_Sequence::Signal::s),
-                          buffer);
+    this->sendSignalStart(SmId::smChoiceSequence, static_cast<FwEnumStoreType>(FppTest_SmChoice_Sequence::Signal::s), buffer);
     // Send the message and handle overflow
     this->smChoiceSequence_sendSignalFinish(buffer);
-}
+  }
 
-void SmChoiceQueuedComponentBase ::smChoiceSequenceU32_sendSignal_s(U32 value) {
+  void SmChoiceQueuedComponentBase ::
+    smChoiceSequenceU32_sendSignal_s(U32 value)
+  {
     ComponentIpcSerializableBuffer buffer;
     // Serialize the message type, port number, state ID, and signal
-    this->sendSignalStart(SmId::smChoiceSequenceU32,
-                          static_cast<FwEnumStoreType>(FppTest_SmChoice_SequenceU32::Signal::s), buffer);
+    this->sendSignalStart(SmId::smChoiceSequenceU32, static_cast<FwEnumStoreType>(FppTest_SmChoice_SequenceU32::Signal::s), buffer);
     // Serialize the signal data
     const Fw::SerializeStatus status = buffer.serializeFrom(value);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smChoiceSequenceU32_sendSignalFinish(buffer);
-}
+  }
 
-// ----------------------------------------------------------------------
-// Message dispatch functions
-// ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  // Message dispatch functions
+  // ----------------------------------------------------------------------
 
-Fw::QueuedComponentBase::MsgDispatchStatus SmChoiceQueuedComponentBase ::doDispatch() {
+  Fw::QueuedComponentBase::MsgDispatchStatus SmChoiceQueuedComponentBase ::
+    doDispatch()
+  {
     ComponentIpcSerializableBuffer _msg;
     FwQueuePriorityType _priority = 0;
 
-    Os::Queue::Status _msgStatus = this->m_queue.receive(_msg, Os::Queue::NONBLOCKING, _priority);
+    Os::Queue::Status _msgStatus = this->m_queue.receive(
+      _msg,
+      Os::Queue::NONBLOCKING,
+      _priority
+    );
     if (Os::Queue::Status::EMPTY == _msgStatus) {
-        return Fw::QueuedComponentBase::MSG_DISPATCH_EMPTY;
-    } else {
-        FW_ASSERT(_msgStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(_msgStatus));
+      return Fw::QueuedComponentBase::MSG_DISPATCH_EMPTY;
+    }
+    else {
+      FW_ASSERT(
+        _msgStatus == Os::Queue::OP_OK,
+        static_cast<FwAssertArgType>(_msgStatus)
+      );
     }
 
     // Reset to beginning of buffer
@@ -524,171 +739,237 @@ Fw::QueuedComponentBase::MsgDispatchStatus SmChoiceQueuedComponentBase ::doDispa
 
     FwEnumStoreType _desMsg = 0;
     Fw::SerializeStatus _deserStatus = _msg.deserializeTo(_desMsg);
-    FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+    FW_ASSERT(
+      _deserStatus == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_deserStatus)
+    );
 
     MsgTypeEnum _msgType = static_cast<MsgTypeEnum>(_desMsg);
 
     if (_msgType == SMCHOICEQUEUED_COMPONENT_EXIT) {
-        return MSG_DISPATCH_EXIT;
+      return MSG_DISPATCH_EXIT;
     }
 
     FwIndexType portNum = 0;
     _deserStatus = _msg.deserializeTo(portNum);
-    FW_ASSERT(_deserStatus == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_deserStatus));
+    FW_ASSERT(
+      _deserStatus == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_deserStatus)
+    );
 
     switch (_msgType) {
-        // Handle signals to internal state machines
-        case INTERNAL_STATE_MACHINE_SIGNAL:
-            this->smDispatch(_msg);
-            break;
 
-        default:
-            return MSG_DISPATCH_ERROR;
+      // Handle signals to internal state machines
+      case INTERNAL_STATE_MACHINE_SIGNAL:
+        this->smDispatch(_msg);
+        break;
+
+      default:
+        return MSG_DISPATCH_ERROR;
     }
 
     return MSG_DISPATCH_OK;
-}
+  }
 
-// ----------------------------------------------------------------------
-// Helper functions for dispatching current messages
-// ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  // Helper functions for dispatching current messages
+  // ----------------------------------------------------------------------
 
-Fw::QueuedComponentBase::MsgDispatchStatus SmChoiceQueuedComponentBase ::dispatchCurrentMessages() {
+  Fw::QueuedComponentBase::MsgDispatchStatus SmChoiceQueuedComponentBase ::
+    dispatchCurrentMessages()
+  {
     // Dispatch all current messages unless ERROR or EXIT occur
     const FwSizeType currentMessageCount = this->m_queue.getMessagesAvailable();
     MsgDispatchStatus messageStatus = MsgDispatchStatus::MSG_DISPATCH_EMPTY;
     for (FwSizeType i = 0; i < currentMessageCount; i++) {
-        messageStatus = this->doDispatch();
-        if (messageStatus != QueuedComponentBase::MSG_DISPATCH_OK) {
-            break;
-        }
+      messageStatus = this->doDispatch();
+      if (messageStatus != QueuedComponentBase::MSG_DISPATCH_OK) {
+        break;
+      }
     }
     return messageStatus;
-}
+  }
 
-// ----------------------------------------------------------------------
-// Calls for messages received on typed input ports
-// ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  // Calls for messages received on typed input ports
+  // ----------------------------------------------------------------------
 
-void SmChoiceQueuedComponentBase ::m_p_schedIn_in(Fw::PassiveComponentBase* callComp,
-                                                  FwIndexType portNum,
-                                                  U32 context) {
+  void SmChoiceQueuedComponentBase ::
+    m_p_schedIn_in(
+        Fw::PassiveComponentBase* callComp,
+        FwIndexType portNum,
+        U32 context
+    )
+  {
     FW_ASSERT(callComp);
     SmChoiceQueuedComponentBase* compPtr = static_cast<SmChoiceQueuedComponentBase*>(callComp);
-    compPtr->schedIn_handlerBase(portNum, context);
-}
+    compPtr->schedIn_handlerBase(
+      portNum,
+      context
+    );
+  }
 
-// ----------------------------------------------------------------------
-// Send signal helper functions
-// ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  // Send signal helper functions
+  // ----------------------------------------------------------------------
 
-void SmChoiceQueuedComponentBase ::sendSignalStart(SmId smId, FwEnumStoreType signal, Fw::SerialBufferBase& buffer) {
+  void SmChoiceQueuedComponentBase ::
+    sendSignalStart(
+        SmId smId,
+        FwEnumStoreType signal,
+        Fw::SerialBufferBase& buffer
+    )
+  {
     Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
 
     // Serialize the message type
     status = buffer.serializeFrom(static_cast<FwEnumStoreType>(INTERNAL_STATE_MACHINE_SIGNAL));
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+    FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
 
     // Serialize the port number
     status = buffer.serializeFrom(static_cast<FwIndexType>(0));
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+    FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
 
     // Serialize the state machine ID
     status = buffer.serializeFrom(static_cast<FwEnumStoreType>(smId));
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+    FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
 
     // Serialize the signal
     status = buffer.serializeFrom(static_cast<FwEnumStoreType>(signal));
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
-}
+  }
 
-void SmChoiceQueuedComponentBase ::basic_sendSignalFinish(Fw::LinearBufferBase& buffer) {
+  void SmChoiceQueuedComponentBase ::
+    basic_sendSignalFinish(Fw::LinearBufferBase& buffer)
+  {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
     Os::Queue::Status qStatus = this->m_queue.send(buffer, 0, _block);
 
-    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
-}
+    FW_ASSERT(
+      qStatus == Os::Queue::OP_OK,
+      static_cast<FwAssertArgType>(qStatus)
+    );
+  }
 
-void SmChoiceQueuedComponentBase ::smChoiceBasic_sendSignalFinish(Fw::LinearBufferBase& buffer) {
+  void SmChoiceQueuedComponentBase ::
+    smChoiceBasic_sendSignalFinish(Fw::LinearBufferBase& buffer)
+  {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
     Os::Queue::Status qStatus = this->m_queue.send(buffer, 1, _block);
 
-    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
-}
+    FW_ASSERT(
+      qStatus == Os::Queue::OP_OK,
+      static_cast<FwAssertArgType>(qStatus)
+    );
+  }
 
-void SmChoiceQueuedComponentBase ::smChoiceBasicU32_sendSignalFinish(Fw::LinearBufferBase& buffer) {
+  void SmChoiceQueuedComponentBase ::
+    smChoiceBasicU32_sendSignalFinish(Fw::LinearBufferBase& buffer)
+  {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::BLOCKING;
     Os::Queue::Status qStatus = this->m_queue.send(buffer, 2, _block);
 
-    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
-}
+    FW_ASSERT(
+      qStatus == Os::Queue::OP_OK,
+      static_cast<FwAssertArgType>(qStatus)
+    );
+  }
 
-void SmChoiceQueuedComponentBase ::smChoiceChoiceToChoice_sendSignalFinish(Fw::LinearBufferBase& buffer) {
+  void SmChoiceQueuedComponentBase ::
+    smChoiceChoiceToChoice_sendSignalFinish(Fw::LinearBufferBase& buffer)
+  {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
     Os::Queue::Status qStatus = this->m_queue.send(buffer, 4, _block);
 
     if (qStatus == Os::Queue::Status::FULL) {
-        // Deserialize the state machine ID and signal
-        FwEnumStoreType smId;
-        FwEnumStoreType signal;
-        SmChoiceQueuedComponentBase::deserializeSmIdAndSignal(buffer, smId, signal);
 
-        // Call the overflow hook
-        this->smChoiceChoiceToChoice_stateMachineOverflowHook(static_cast<SmId>(smId), signal, buffer);
+      // Deserialize the state machine ID and signal
+      FwEnumStoreType smId;
+      FwEnumStoreType signal;
+      SmChoiceQueuedComponentBase::deserializeSmIdAndSignal(buffer, smId, signal);
 
-        // Continue execution
-        return;
+      // Call the overflow hook
+      this->smChoiceChoiceToChoice_stateMachineOverflowHook(static_cast<SmId>(smId), signal, buffer);
+
+      // Continue execution
+      return;
+
     }
 
-    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
-}
+    FW_ASSERT(
+      qStatus == Os::Queue::OP_OK,
+      static_cast<FwAssertArgType>(qStatus)
+    );
+  }
 
-void SmChoiceQueuedComponentBase ::smChoiceChoiceToState_sendSignalFinish(Fw::LinearBufferBase& buffer) {
+  void SmChoiceQueuedComponentBase ::
+    smChoiceChoiceToState_sendSignalFinish(Fw::LinearBufferBase& buffer)
+  {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
     Os::Queue::Status qStatus = this->m_queue.send(buffer, 0, _block);
 
-    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
-}
+    FW_ASSERT(
+      qStatus == Os::Queue::OP_OK,
+      static_cast<FwAssertArgType>(qStatus)
+    );
+  }
 
-void SmChoiceQueuedComponentBase ::smChoiceInputPairU16U32_sendSignalFinish(Fw::LinearBufferBase& buffer) {
+  void SmChoiceQueuedComponentBase ::
+    smChoiceInputPairU16U32_sendSignalFinish(Fw::LinearBufferBase& buffer)
+  {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
     Os::Queue::Status qStatus = this->m_queue.send(buffer, 3, _block);
 
     if (qStatus == Os::Queue::Status::FULL) {
-        this->incNumMsgDropped();
-        return;
+      this->incNumMsgDropped();
+      return;
     }
 
-    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
-}
+    FW_ASSERT(
+      qStatus == Os::Queue::OP_OK,
+      static_cast<FwAssertArgType>(qStatus)
+    );
+  }
 
-void SmChoiceQueuedComponentBase ::smChoiceSequence_sendSignalFinish(Fw::LinearBufferBase& buffer) {
+  void SmChoiceQueuedComponentBase ::
+    smChoiceSequence_sendSignalFinish(Fw::LinearBufferBase& buffer)
+  {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
     Os::Queue::Status qStatus = this->m_queue.send(buffer, 0, _block);
 
-    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
-}
+    FW_ASSERT(
+      qStatus == Os::Queue::OP_OK,
+      static_cast<FwAssertArgType>(qStatus)
+    );
+  }
 
-void SmChoiceQueuedComponentBase ::smChoiceSequenceU32_sendSignalFinish(Fw::LinearBufferBase& buffer) {
+  void SmChoiceQueuedComponentBase ::
+    smChoiceSequenceU32_sendSignalFinish(Fw::LinearBufferBase& buffer)
+  {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
     Os::Queue::Status qStatus = this->m_queue.send(buffer, 0, _block);
 
-    FW_ASSERT(qStatus == Os::Queue::OP_OK, static_cast<FwAssertArgType>(qStatus));
-}
+    FW_ASSERT(
+      qStatus == Os::Queue::OP_OK,
+      static_cast<FwAssertArgType>(qStatus)
+    );
+  }
 
-// ----------------------------------------------------------------------
-// Helper functions for state machine dispatch
-// ----------------------------------------------------------------------
+  // ----------------------------------------------------------------------
+  // Helper functions for state machine dispatch
+  // ----------------------------------------------------------------------
 
-void SmChoiceQueuedComponentBase ::smDispatch(Fw::SerialBufferBase& buffer) {
+  void SmChoiceQueuedComponentBase ::
+    smDispatch(Fw::SerialBufferBase& buffer)
+  {
     // Deserialize the state machine ID and signal
     FwEnumStoreType storedSmId;
     FwEnumStoreType storedSignal;
@@ -697,66 +978,62 @@ void SmChoiceQueuedComponentBase ::smDispatch(Fw::SerialBufferBase& buffer) {
     // Select the target state machine instance
     const SmId smId = static_cast<SmId>(storedSmId);
     switch (smId) {
-        case SmId::basic: {
-            const FppTest_SmChoiceQueued_Basic::Signal signal =
-                static_cast<FppTest_SmChoiceQueued_Basic::Signal>(storedSignal);
-            this->FppTest_SmChoiceQueued_Basic_smDispatch(buffer, this->m_stateMachine_basic, signal);
-            break;
-        }
-        case SmId::smChoiceBasic: {
-            const FppTest_SmChoice_Basic::Signal signal = static_cast<FppTest_SmChoice_Basic::Signal>(storedSignal);
-            this->FppTest_SmChoice_Basic_smDispatch(buffer, this->m_stateMachine_smChoiceBasic, signal);
-            break;
-        }
-        case SmId::smChoiceBasicU32: {
-            const FppTest_SmChoice_BasicU32::Signal signal =
-                static_cast<FppTest_SmChoice_BasicU32::Signal>(storedSignal);
-            this->FppTest_SmChoice_BasicU32_smDispatch(buffer, this->m_stateMachine_smChoiceBasicU32, signal);
-            break;
-        }
-        case SmId::smChoiceChoiceToChoice: {
-            const FppTest_SmChoice_ChoiceToChoice::Signal signal =
-                static_cast<FppTest_SmChoice_ChoiceToChoice::Signal>(storedSignal);
-            this->FppTest_SmChoice_ChoiceToChoice_smDispatch(buffer, this->m_stateMachine_smChoiceChoiceToChoice,
-                                                             signal);
-            break;
-        }
-        case SmId::smChoiceChoiceToState: {
-            const FppTest_SmChoice_ChoiceToState::Signal signal =
-                static_cast<FppTest_SmChoice_ChoiceToState::Signal>(storedSignal);
-            this->FppTest_SmChoice_ChoiceToState_smDispatch(buffer, this->m_stateMachine_smChoiceChoiceToState, signal);
-            break;
-        }
-        case SmId::smChoiceInputPairU16U32: {
-            const FppTest_SmChoice_InputPairU16U32::Signal signal =
-                static_cast<FppTest_SmChoice_InputPairU16U32::Signal>(storedSignal);
-            this->FppTest_SmChoice_InputPairU16U32_smDispatch(buffer, this->m_stateMachine_smChoiceInputPairU16U32,
-                                                              signal);
-            break;
-        }
-        case SmId::smChoiceSequence: {
-            const FppTest_SmChoice_Sequence::Signal signal =
-                static_cast<FppTest_SmChoice_Sequence::Signal>(storedSignal);
-            this->FppTest_SmChoice_Sequence_smDispatch(buffer, this->m_stateMachine_smChoiceSequence, signal);
-            break;
-        }
-        case SmId::smChoiceSequenceU32: {
-            const FppTest_SmChoice_SequenceU32::Signal signal =
-                static_cast<FppTest_SmChoice_SequenceU32::Signal>(storedSignal);
-            this->FppTest_SmChoice_SequenceU32_smDispatch(buffer, this->m_stateMachine_smChoiceSequenceU32, signal);
-            break;
-        }
-        default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(smId));
-            break;
+      case SmId::basic: {
+        const FppTest_SmChoiceQueued_Basic::Signal signal = static_cast<FppTest_SmChoiceQueued_Basic::Signal>(storedSignal);
+        this->FppTest_SmChoiceQueued_Basic_smDispatch(buffer, this->m_stateMachine_basic, signal);
+        break;
+      }
+      case SmId::smChoiceBasic: {
+        const FppTest_SmChoice_Basic::Signal signal = static_cast<FppTest_SmChoice_Basic::Signal>(storedSignal);
+        this->FppTest_SmChoice_Basic_smDispatch(buffer, this->m_stateMachine_smChoiceBasic, signal);
+        break;
+      }
+      case SmId::smChoiceBasicU32: {
+        const FppTest_SmChoice_BasicU32::Signal signal = static_cast<FppTest_SmChoice_BasicU32::Signal>(storedSignal);
+        this->FppTest_SmChoice_BasicU32_smDispatch(buffer, this->m_stateMachine_smChoiceBasicU32, signal);
+        break;
+      }
+      case SmId::smChoiceChoiceToChoice: {
+        const FppTest_SmChoice_ChoiceToChoice::Signal signal = static_cast<FppTest_SmChoice_ChoiceToChoice::Signal>(storedSignal);
+        this->FppTest_SmChoice_ChoiceToChoice_smDispatch(buffer, this->m_stateMachine_smChoiceChoiceToChoice, signal);
+        break;
+      }
+      case SmId::smChoiceChoiceToState: {
+        const FppTest_SmChoice_ChoiceToState::Signal signal = static_cast<FppTest_SmChoice_ChoiceToState::Signal>(storedSignal);
+        this->FppTest_SmChoice_ChoiceToState_smDispatch(buffer, this->m_stateMachine_smChoiceChoiceToState, signal);
+        break;
+      }
+      case SmId::smChoiceInputPairU16U32: {
+        const FppTest_SmChoice_InputPairU16U32::Signal signal = static_cast<FppTest_SmChoice_InputPairU16U32::Signal>(storedSignal);
+        this->FppTest_SmChoice_InputPairU16U32_smDispatch(buffer, this->m_stateMachine_smChoiceInputPairU16U32, signal);
+        break;
+      }
+      case SmId::smChoiceSequence: {
+        const FppTest_SmChoice_Sequence::Signal signal = static_cast<FppTest_SmChoice_Sequence::Signal>(storedSignal);
+        this->FppTest_SmChoice_Sequence_smDispatch(buffer, this->m_stateMachine_smChoiceSequence, signal);
+        break;
+      }
+      case SmId::smChoiceSequenceU32: {
+        const FppTest_SmChoice_SequenceU32::Signal signal = static_cast<FppTest_SmChoice_SequenceU32::Signal>(storedSignal);
+        this->FppTest_SmChoice_SequenceU32_smDispatch(buffer, this->m_stateMachine_smChoiceSequenceU32, signal);
+        break;
+      }
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(smId));
+        break;
     }
-}
+  }
 
-void SmChoiceQueuedComponentBase ::deserializeSmIdAndSignal(Fw::SerialBufferBase& buffer,
-                                                            FwEnumStoreType& smId,
-                                                            FwEnumStoreType& signal) {
+  void SmChoiceQueuedComponentBase ::
+    deserializeSmIdAndSignal(
+        Fw::SerialBufferBase& buffer,
+        FwEnumStoreType& smId,
+        FwEnumStoreType& signal
+    )
+  {
     // Move deserialization beyond the message type and port number
-    Fw::SerializeStatus status = buffer.moveDeserToOffset(ComponentIpcSerializableBuffer::DATA_OFFSET);
+    Fw::SerializeStatus status =
+      buffer.moveDeserToOffset(ComponentIpcSerializableBuffer::DATA_OFFSET);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
 
     // Deserialize the state machine ID
@@ -766,179 +1043,197 @@ void SmChoiceQueuedComponentBase ::deserializeSmIdAndSignal(Fw::SerialBufferBase
     // Deserialize the signal
     status = buffer.deserializeTo(signal);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
-}
+  }
 
-void SmChoiceQueuedComponentBase ::FppTest_SmChoice_Basic_smDispatch(Fw::SerialBufferBase& buffer,
-                                                                     FppTest_SmChoice_Basic& sm,
-                                                                     FppTest_SmChoice_Basic::Signal signal) {
+  void SmChoiceQueuedComponentBase ::
+    FppTest_SmChoice_Basic_smDispatch(
+        Fw::SerialBufferBase& buffer,
+        FppTest_SmChoice_Basic& sm,
+        FppTest_SmChoice_Basic::Signal signal
+    )
+  {
     switch (signal) {
-        case FppTest_SmChoice_Basic::Signal::s: {
-            // Assert no data left in buffer
-            FW_ASSERT(buffer.getDeserializeSizeLeft() == 0,
-                      static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
-            // Call the sendSignal function for sm and s
-            sm.sendSignal_s();
-            break;
-        }
-        default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
-            break;
+      case FppTest_SmChoice_Basic::Signal::s: {
+        // Assert no data left in buffer
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
+        // Call the sendSignal function for sm and s
+        sm.sendSignal_s();
+        break;
+      }
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        break;
     }
-}
+  }
 
-void SmChoiceQueuedComponentBase ::FppTest_SmChoice_BasicU32_smDispatch(Fw::SerialBufferBase& buffer,
-                                                                        FppTest_SmChoice_BasicU32& sm,
-                                                                        FppTest_SmChoice_BasicU32::Signal signal) {
+  void SmChoiceQueuedComponentBase ::
+    FppTest_SmChoice_BasicU32_smDispatch(
+        Fw::SerialBufferBase& buffer,
+        FppTest_SmChoice_BasicU32& sm,
+        FppTest_SmChoice_BasicU32::Signal signal
+    )
+  {
     switch (signal) {
-        case FppTest_SmChoice_BasicU32::Signal::s: {
-            // Deserialize the data
-            U32 value;
-            const Fw::SerializeStatus status = buffer.deserializeTo(value);
-            FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
-            // Assert no data left in buffer
-            FW_ASSERT(buffer.getDeserializeSizeLeft() == 0,
-                      static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
-            // Call the sendSignal function for sm and s
-            sm.sendSignal_s(value);
-            break;
-        }
-        default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
-            break;
+      case FppTest_SmChoice_BasicU32::Signal::s: {
+        // Deserialize the data
+        U32 value;
+        const Fw::SerializeStatus status = buffer.deserializeTo(value);
+        FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+        // Assert no data left in buffer
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
+        // Call the sendSignal function for sm and s
+        sm.sendSignal_s(value);
+        break;
+      }
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        break;
     }
-}
+  }
 
-void SmChoiceQueuedComponentBase ::FppTest_SmChoice_ChoiceToChoice_smDispatch(
-    Fw::SerialBufferBase& buffer,
-    FppTest_SmChoice_ChoiceToChoice& sm,
-    FppTest_SmChoice_ChoiceToChoice::Signal signal) {
+  void SmChoiceQueuedComponentBase ::
+    FppTest_SmChoice_ChoiceToChoice_smDispatch(
+        Fw::SerialBufferBase& buffer,
+        FppTest_SmChoice_ChoiceToChoice& sm,
+        FppTest_SmChoice_ChoiceToChoice::Signal signal
+    )
+  {
     switch (signal) {
-        case FppTest_SmChoice_ChoiceToChoice::Signal::s: {
-            // Assert no data left in buffer
-            FW_ASSERT(buffer.getDeserializeSizeLeft() == 0,
-                      static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
-            // Call the sendSignal function for sm and s
-            sm.sendSignal_s();
-            break;
-        }
-        default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
-            break;
+      case FppTest_SmChoice_ChoiceToChoice::Signal::s: {
+        // Assert no data left in buffer
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
+        // Call the sendSignal function for sm and s
+        sm.sendSignal_s();
+        break;
+      }
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        break;
     }
-}
+  }
 
-void SmChoiceQueuedComponentBase ::FppTest_SmChoice_ChoiceToState_smDispatch(
-    Fw::SerialBufferBase& buffer,
-    FppTest_SmChoice_ChoiceToState& sm,
-    FppTest_SmChoice_ChoiceToState::Signal signal) {
+  void SmChoiceQueuedComponentBase ::
+    FppTest_SmChoice_ChoiceToState_smDispatch(
+        Fw::SerialBufferBase& buffer,
+        FppTest_SmChoice_ChoiceToState& sm,
+        FppTest_SmChoice_ChoiceToState::Signal signal
+    )
+  {
     switch (signal) {
-        case FppTest_SmChoice_ChoiceToState::Signal::s: {
-            // Assert no data left in buffer
-            FW_ASSERT(buffer.getDeserializeSizeLeft() == 0,
-                      static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
-            // Call the sendSignal function for sm and s
-            sm.sendSignal_s();
-            break;
-        }
-        default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
-            break;
+      case FppTest_SmChoice_ChoiceToState::Signal::s: {
+        // Assert no data left in buffer
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
+        // Call the sendSignal function for sm and s
+        sm.sendSignal_s();
+        break;
+      }
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        break;
     }
-}
+  }
 
-void SmChoiceQueuedComponentBase ::FppTest_SmChoice_InputPairU16U32_smDispatch(
-    Fw::SerialBufferBase& buffer,
-    FppTest_SmChoice_InputPairU16U32& sm,
-    FppTest_SmChoice_InputPairU16U32::Signal signal) {
+  void SmChoiceQueuedComponentBase ::
+    FppTest_SmChoice_InputPairU16U32_smDispatch(
+        Fw::SerialBufferBase& buffer,
+        FppTest_SmChoice_InputPairU16U32& sm,
+        FppTest_SmChoice_InputPairU16U32::Signal signal
+    )
+  {
     switch (signal) {
-        case FppTest_SmChoice_InputPairU16U32::Signal::s1: {
-            // Deserialize the data
-            U16 value;
-            const Fw::SerializeStatus status = buffer.deserializeTo(value);
-            FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
-            // Assert no data left in buffer
-            FW_ASSERT(buffer.getDeserializeSizeLeft() == 0,
-                      static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
-            // Call the sendSignal function for sm and s1
-            sm.sendSignal_s1(value);
-            break;
-        }
-        case FppTest_SmChoice_InputPairU16U32::Signal::s2: {
-            // Deserialize the data
-            U32 value;
-            const Fw::SerializeStatus status = buffer.deserializeTo(value);
-            FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
-            // Assert no data left in buffer
-            FW_ASSERT(buffer.getDeserializeSizeLeft() == 0,
-                      static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
-            // Call the sendSignal function for sm and s2
-            sm.sendSignal_s2(value);
-            break;
-        }
-        default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
-            break;
+      case FppTest_SmChoice_InputPairU16U32::Signal::s1: {
+        // Deserialize the data
+        U16 value;
+        const Fw::SerializeStatus status = buffer.deserializeTo(value);
+        FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+        // Assert no data left in buffer
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
+        // Call the sendSignal function for sm and s1
+        sm.sendSignal_s1(value);
+        break;
+      }
+      case FppTest_SmChoice_InputPairU16U32::Signal::s2: {
+        // Deserialize the data
+        U32 value;
+        const Fw::SerializeStatus status = buffer.deserializeTo(value);
+        FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+        // Assert no data left in buffer
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
+        // Call the sendSignal function for sm and s2
+        sm.sendSignal_s2(value);
+        break;
+      }
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        break;
     }
-}
+  }
 
-void SmChoiceQueuedComponentBase ::FppTest_SmChoice_Sequence_smDispatch(Fw::SerialBufferBase& buffer,
-                                                                        FppTest_SmChoice_Sequence& sm,
-                                                                        FppTest_SmChoice_Sequence::Signal signal) {
+  void SmChoiceQueuedComponentBase ::
+    FppTest_SmChoice_Sequence_smDispatch(
+        Fw::SerialBufferBase& buffer,
+        FppTest_SmChoice_Sequence& sm,
+        FppTest_SmChoice_Sequence::Signal signal
+    )
+  {
     switch (signal) {
-        case FppTest_SmChoice_Sequence::Signal::s: {
-            // Assert no data left in buffer
-            FW_ASSERT(buffer.getDeserializeSizeLeft() == 0,
-                      static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
-            // Call the sendSignal function for sm and s
-            sm.sendSignal_s();
-            break;
-        }
-        default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
-            break;
+      case FppTest_SmChoice_Sequence::Signal::s: {
+        // Assert no data left in buffer
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
+        // Call the sendSignal function for sm and s
+        sm.sendSignal_s();
+        break;
+      }
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        break;
     }
-}
+  }
 
-void SmChoiceQueuedComponentBase ::FppTest_SmChoice_SequenceU32_smDispatch(
-    Fw::SerialBufferBase& buffer,
-    FppTest_SmChoice_SequenceU32& sm,
-    FppTest_SmChoice_SequenceU32::Signal signal) {
+  void SmChoiceQueuedComponentBase ::
+    FppTest_SmChoice_SequenceU32_smDispatch(
+        Fw::SerialBufferBase& buffer,
+        FppTest_SmChoice_SequenceU32& sm,
+        FppTest_SmChoice_SequenceU32::Signal signal
+    )
+  {
     switch (signal) {
-        case FppTest_SmChoice_SequenceU32::Signal::s: {
-            // Deserialize the data
-            U32 value;
-            const Fw::SerializeStatus status = buffer.deserializeTo(value);
-            FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
-            // Assert no data left in buffer
-            FW_ASSERT(buffer.getDeserializeSizeLeft() == 0,
-                      static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
-            // Call the sendSignal function for sm and s
-            sm.sendSignal_s(value);
-            break;
-        }
-        default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
-            break;
+      case FppTest_SmChoice_SequenceU32::Signal::s: {
+        // Deserialize the data
+        U32 value;
+        const Fw::SerializeStatus status = buffer.deserializeTo(value);
+        FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+        // Assert no data left in buffer
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
+        // Call the sendSignal function for sm and s
+        sm.sendSignal_s(value);
+        break;
+      }
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        break;
     }
-}
+  }
 
-void SmChoiceQueuedComponentBase ::FppTest_SmChoiceQueued_Basic_smDispatch(
-    Fw::SerialBufferBase& buffer,
-    FppTest_SmChoiceQueued_Basic& sm,
-    FppTest_SmChoiceQueued_Basic::Signal signal) {
+  void SmChoiceQueuedComponentBase ::
+    FppTest_SmChoiceQueued_Basic_smDispatch(
+        Fw::SerialBufferBase& buffer,
+        FppTest_SmChoiceQueued_Basic& sm,
+        FppTest_SmChoiceQueued_Basic::Signal signal
+    )
+  {
     switch (signal) {
-        case FppTest_SmChoiceQueued_Basic::Signal::s: {
-            // Assert no data left in buffer
-            FW_ASSERT(buffer.getDeserializeSizeLeft() == 0,
-                      static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
-            // Call the sendSignal function for sm and s
-            sm.sendSignal_s();
-            break;
-        }
-        default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
-            break;
+      case FppTest_SmChoiceQueued_Basic::Signal::s: {
+        // Assert no data left in buffer
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
+        // Call the sendSignal function for sm and s
+        sm.sendSignal_s();
+        break;
+      }
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        break;
     }
-}
+  }
 
-}  // namespace FppTest
+}

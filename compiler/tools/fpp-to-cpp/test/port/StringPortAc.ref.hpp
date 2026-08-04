@@ -19,8 +19,12 @@
 
 //! Serialization buffer for String port
 //! A port with string parameters
-class StringPortBuffer : public Fw::LinearBufferBase {
+class StringPortBuffer :
+  public Fw::LinearBufferBase
+{
+
   public:
+
     // ----------------------------------------------------------------------
     // Public constants for StringPortBuffer
     // ----------------------------------------------------------------------
@@ -28,33 +32,39 @@ class StringPortBuffer : public Fw::LinearBufferBase {
     //! The buffer capacity. This is the sum of the static serialized
     //! sizes of the port arguments.
     static constexpr FwSizeType CAPACITY =
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(100) + Fw::StringBase::STATIC_SERIALIZED_SIZE(100);
+      Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
+      Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
+      Fw::StringBase::STATIC_SERIALIZED_SIZE(100) +
+      Fw::StringBase::STATIC_SERIALIZED_SIZE(100);
 
   public:
+
     // ----------------------------------------------------------------------
     // Public member functions for StringPortBuffer
     // ----------------------------------------------------------------------
 
     //! Constructor
     StringPortBuffer() {
-        this->m_buffAddr = m_buff;
-        this->m_capacity = CAPACITY;
+      this->m_buffAddr = m_buff;
+      this->m_capacity = CAPACITY;
     }
 
   private:
+
     // ----------------------------------------------------------------------
     // Private member variables
     // ----------------------------------------------------------------------
 
     U8 m_buff[CAPACITY];
+
 };
 
 //! Serializer for String port
 //! A port with string parameters
 class StringPortSerializer {
+
   public:
+
     // ----------------------------------------------------------------------
     // Public constructors for StringPortSerializer
     // ----------------------------------------------------------------------
@@ -63,39 +73,44 @@ class StringPortSerializer {
     StringPortSerializer();
 
   public:
+
     // ----------------------------------------------------------------------
     // Public member functions for StringPortSerializer
     // ----------------------------------------------------------------------
 
     //! Deserialze port arguments into members
-    Fw::SerializeStatus deserializePortArgs(Fw::SerialBufferBase& _buffer  //!< The serial buffer
+    Fw::SerializeStatus deserializePortArgs(
+        Fw::SerialBufferBase& _buffer //!< The serial buffer
     );
 
   public:
+
     // ----------------------------------------------------------------------
     // Public static functions for StringPortSerializer
     // ----------------------------------------------------------------------
 
     //! Serialize port arguments into a buffer
-    static Fw::SerializeStatus serializePortArgs(const Fw::StringBase& str80,  //!< A string of size 80
-                                                 Fw::StringBase& str80Ref,
-                                                 const Fw::StringBase& str100,  //!< A string of size 100
-                                                 Fw::StringBase& str100Ref,
-                                                 Fw::SerialBufferBase& _buffer  //!< The serial buffer
+    static Fw::SerializeStatus serializePortArgs(
+        const Fw::StringBase& str80, //!< A string of size 80
+        Fw::StringBase& str80Ref,
+        const Fw::StringBase& str100, //!< A string of size 100
+        Fw::StringBase& str100Ref,
+        Fw::SerialBufferBase& _buffer //!< The serial buffer
     );
 
   private:
+
     // ----------------------------------------------------------------------
     // Private member variables for StringPortSerializer
     // ----------------------------------------------------------------------
 
     char m___fprime_ac_str80_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
-    char m___fprime_ac_str80Ref_buffer[Fw::StringBase::BUFFER_SIZE(
-        static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
+    char m___fprime_ac_str80Ref_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
     char m___fprime_ac_str100_buffer[Fw::StringBase::BUFFER_SIZE(100)];
     char m___fprime_ac_str100Ref_buffer[Fw::StringBase::BUFFER_SIZE(100)];
 
   public:
+
     // ----------------------------------------------------------------------
     // Public member variables for StringPortSerializer
     // ----------------------------------------------------------------------
@@ -104,27 +119,35 @@ class StringPortSerializer {
     Fw::ExternalString m_str80Ref;
     Fw::ExternalString m_str100;
     Fw::ExternalString m_str100Ref;
+
 };
 
 #if !FW_DIRECT_PORT_CALLS
 
 //! Input String port
 //! A port with string parameters
-class InputStringPort : public Fw::InputPortBase {
+class InputStringPort :
+  public Fw::InputPortBase
+{
+
   public:
+
     // ----------------------------------------------------------------------
     // Public types for InputStringPort
     // ----------------------------------------------------------------------
 
     //! The port callback function type
-    typedef void (*CompFuncPtr)(Fw::PassiveComponentBase* callComp,
-                                FwIndexType portNum,
-                                const Fw::StringBase& str80,
-                                Fw::StringBase& str80Ref,
-                                const Fw::StringBase& str100,
-                                Fw::StringBase& str100Ref);
+    typedef void (*CompFuncPtr)(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      const Fw::StringBase& str80,
+      Fw::StringBase& str80Ref,
+      const Fw::StringBase& str100,
+      Fw::StringBase& str100Ref
+    );
 
   public:
+
     // ----------------------------------------------------------------------
     // Public constructors for InputStringPort
     // ----------------------------------------------------------------------
@@ -133,6 +156,7 @@ class InputStringPort : public Fw::InputPortBase {
     InputStringPort();
 
   public:
+
     // ----------------------------------------------------------------------
     // Public member functions for InputStringPort
     // ----------------------------------------------------------------------
@@ -141,17 +165,21 @@ class InputStringPort : public Fw::InputPortBase {
     void init();
 
     //! Register a component
-    void addCallComp(Fw::PassiveComponentBase* callComp,  //!< The containing component
-                     CompFuncPtr funcPtr                  //!< The port callback function
+    void addCallComp(
+        Fw::PassiveComponentBase* callComp, //!< The containing component
+        CompFuncPtr funcPtr //!< The port callback function
     );
 
     //! Invoke a port interface
-    void invoke(const Fw::StringBase& str80,  //!< A string of size 80
-                Fw::StringBase& str80Ref,
-                const Fw::StringBase& str100,  //!< A string of size 100
-                Fw::StringBase& str100Ref);
+    void invoke(
+        const Fw::StringBase& str80, //!< A string of size 80
+        Fw::StringBase& str80Ref,
+        const Fw::StringBase& str100, //!< A string of size 100
+        Fw::StringBase& str100Ref
+    );
 
   private:
+
     // ----------------------------------------------------------------------
     // Private member functions for InputStringPort
     // ----------------------------------------------------------------------
@@ -160,24 +188,31 @@ class InputStringPort : public Fw::InputPortBase {
 
     //! Invoke the port with serialized arguments
     //! \return The serialize status
-    Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer  //!< The serial buffer
+    Fw::SerializeStatus invokeSerial(
+        Fw::LinearBufferBase& _buffer //!< The serial buffer
     );
 
 #endif
 
   private:
+
     // ----------------------------------------------------------------------
     // Private member variables for InputStringPort
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function
     CompFuncPtr m_func;
+
 };
 
 //! Output String port
 //! A port with string parameters
-class OutputStringPort : public Fw::OutputPortBase {
+class OutputStringPort :
+  public Fw::OutputPortBase
+{
+
   public:
+
     // ----------------------------------------------------------------------
     // Public constructors for OutputStringPort
     // ----------------------------------------------------------------------
@@ -186,6 +221,7 @@ class OutputStringPort : public Fw::OutputPortBase {
     OutputStringPort();
 
   public:
+
     // ----------------------------------------------------------------------
     // Public member functions for OutputStringPort
     // ----------------------------------------------------------------------
@@ -194,22 +230,27 @@ class OutputStringPort : public Fw::OutputPortBase {
     void init();
 
     //! Register an input port
-    void addCallPort(InputStringPort* callPort  //!< The input port
+    void addCallPort(
+        InputStringPort* callPort //!< The input port
     );
 
     //! Invoke a port connection
-    void invoke(const Fw::StringBase& str80,  //!< A string of size 80
-                Fw::StringBase& str80Ref,
-                const Fw::StringBase& str100,  //!< A string of size 100
-                Fw::StringBase& str100Ref) const;
+    void invoke(
+        const Fw::StringBase& str80, //!< A string of size 80
+        Fw::StringBase& str80Ref,
+        const Fw::StringBase& str100, //!< A string of size 100
+        Fw::StringBase& str100Ref
+    ) const;
 
   private:
+
     // ----------------------------------------------------------------------
     // Private member variables for OutputStringPort
     // ----------------------------------------------------------------------
 
     //! The pointer to the input port
     InputStringPort* m_port;
+
 };
 
 #endif

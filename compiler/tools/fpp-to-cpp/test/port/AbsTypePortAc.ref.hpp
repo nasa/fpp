@@ -18,39 +18,50 @@
 
 //! Serialization buffer for AbsType port
 //! A port with abstract type parameters
-class AbsTypePortBuffer : public Fw::LinearBufferBase {
+class AbsTypePortBuffer :
+  public Fw::LinearBufferBase
+{
+
   public:
+
     // ----------------------------------------------------------------------
     // Public constants for AbsTypePortBuffer
     // ----------------------------------------------------------------------
 
     //! The buffer capacity. This is the sum of the static serialized
     //! sizes of the port arguments.
-    static constexpr FwSizeType CAPACITY = T::SERIALIZED_SIZE + T::SERIALIZED_SIZE;
+    static constexpr FwSizeType CAPACITY =
+      T::SERIALIZED_SIZE +
+      T::SERIALIZED_SIZE;
 
   public:
+
     // ----------------------------------------------------------------------
     // Public member functions for AbsTypePortBuffer
     // ----------------------------------------------------------------------
 
     //! Constructor
     AbsTypePortBuffer() {
-        this->m_buffAddr = m_buff;
-        this->m_capacity = CAPACITY;
+      this->m_buffAddr = m_buff;
+      this->m_capacity = CAPACITY;
     }
 
   private:
+
     // ----------------------------------------------------------------------
     // Private member variables
     // ----------------------------------------------------------------------
 
     U8 m_buff[CAPACITY];
+
 };
 
 //! Serializer for AbsType port
 //! A port with abstract type parameters
 class AbsTypePortSerializer {
+
   public:
+
     // ----------------------------------------------------------------------
     // Public constructors for AbsTypePortSerializer
     // ----------------------------------------------------------------------
@@ -59,48 +70,64 @@ class AbsTypePortSerializer {
     AbsTypePortSerializer();
 
   public:
+
     // ----------------------------------------------------------------------
     // Public member functions for AbsTypePortSerializer
     // ----------------------------------------------------------------------
 
     //! Deserialze port arguments into members
-    Fw::SerializeStatus deserializePortArgs(Fw::SerialBufferBase& _buffer  //!< The serial buffer
+    Fw::SerializeStatus deserializePortArgs(
+        Fw::SerialBufferBase& _buffer //!< The serial buffer
     );
 
   public:
+
     // ----------------------------------------------------------------------
     // Public static functions for AbsTypePortSerializer
     // ----------------------------------------------------------------------
 
     //! Serialize port arguments into a buffer
-    static Fw::SerializeStatus serializePortArgs(const T& t,
-                                                 T& tRef,
-                                                 Fw::SerialBufferBase& _buffer  //!< The serial buffer
+    static Fw::SerializeStatus serializePortArgs(
+        const T& t,
+        T& tRef,
+        Fw::SerialBufferBase& _buffer //!< The serial buffer
     );
 
   public:
+
     // ----------------------------------------------------------------------
     // Public member variables for AbsTypePortSerializer
     // ----------------------------------------------------------------------
 
     T m_t;
     T m_tRef;
+
 };
 
 #if !FW_DIRECT_PORT_CALLS
 
 //! Input AbsType port
 //! A port with abstract type parameters
-class InputAbsTypePort : public Fw::InputPortBase {
+class InputAbsTypePort :
+  public Fw::InputPortBase
+{
+
   public:
+
     // ----------------------------------------------------------------------
     // Public types for InputAbsTypePort
     // ----------------------------------------------------------------------
 
     //! The port callback function type
-    typedef void (*CompFuncPtr)(Fw::PassiveComponentBase* callComp, FwIndexType portNum, const T& t, T& tRef);
+    typedef void (*CompFuncPtr)(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      const T& t,
+      T& tRef
+    );
 
   public:
+
     // ----------------------------------------------------------------------
     // Public constructors for InputAbsTypePort
     // ----------------------------------------------------------------------
@@ -109,6 +136,7 @@ class InputAbsTypePort : public Fw::InputPortBase {
     InputAbsTypePort();
 
   public:
+
     // ----------------------------------------------------------------------
     // Public member functions for InputAbsTypePort
     // ----------------------------------------------------------------------
@@ -117,14 +145,19 @@ class InputAbsTypePort : public Fw::InputPortBase {
     void init();
 
     //! Register a component
-    void addCallComp(Fw::PassiveComponentBase* callComp,  //!< The containing component
-                     CompFuncPtr funcPtr                  //!< The port callback function
+    void addCallComp(
+        Fw::PassiveComponentBase* callComp, //!< The containing component
+        CompFuncPtr funcPtr //!< The port callback function
     );
 
     //! Invoke a port interface
-    void invoke(const T& t, T& tRef);
+    void invoke(
+        const T& t,
+        T& tRef
+    );
 
   private:
+
     // ----------------------------------------------------------------------
     // Private member functions for InputAbsTypePort
     // ----------------------------------------------------------------------
@@ -133,24 +166,31 @@ class InputAbsTypePort : public Fw::InputPortBase {
 
     //! Invoke the port with serialized arguments
     //! \return The serialize status
-    Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer  //!< The serial buffer
+    Fw::SerializeStatus invokeSerial(
+        Fw::LinearBufferBase& _buffer //!< The serial buffer
     );
 
 #endif
 
   private:
+
     // ----------------------------------------------------------------------
     // Private member variables for InputAbsTypePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the port callback function
     CompFuncPtr m_func;
+
 };
 
 //! Output AbsType port
 //! A port with abstract type parameters
-class OutputAbsTypePort : public Fw::OutputPortBase {
+class OutputAbsTypePort :
+  public Fw::OutputPortBase
+{
+
   public:
+
     // ----------------------------------------------------------------------
     // Public constructors for OutputAbsTypePort
     // ----------------------------------------------------------------------
@@ -159,6 +199,7 @@ class OutputAbsTypePort : public Fw::OutputPortBase {
     OutputAbsTypePort();
 
   public:
+
     // ----------------------------------------------------------------------
     // Public member functions for OutputAbsTypePort
     // ----------------------------------------------------------------------
@@ -167,19 +208,25 @@ class OutputAbsTypePort : public Fw::OutputPortBase {
     void init();
 
     //! Register an input port
-    void addCallPort(InputAbsTypePort* callPort  //!< The input port
+    void addCallPort(
+        InputAbsTypePort* callPort //!< The input port
     );
 
     //! Invoke a port connection
-    void invoke(const T& t, T& tRef) const;
+    void invoke(
+        const T& t,
+        T& tRef
+    ) const;
 
   private:
+
     // ----------------------------------------------------------------------
     // Private member variables for OutputAbsTypePort
     // ----------------------------------------------------------------------
 
     //! The pointer to the input port
     InputAbsTypePort* m_port;
+
 };
 
 #endif
