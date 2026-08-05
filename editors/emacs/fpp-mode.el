@@ -34,7 +34,7 @@
 ;; constants ------------------------------------------------------------------
 
 (defconst fpp-mode-definition-keywords
-  '("type" "array" "component" "instance" "constant"
+  '("type" "array" "component" "instance" "constant" "deployment"
     "enum" "machine" "module" "omit" "packet" "packets"
     "port" "state" "struct" "system" "topology")
   "FPP keywords for definitions.")

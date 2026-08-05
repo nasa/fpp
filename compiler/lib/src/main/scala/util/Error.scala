@@ -709,7 +709,7 @@ object SemanticError {
     channelName: String,
     componentName: String
   ) extends Error
-  /** Invalid telemetry packet */
+  /** Invalid telemetry packet set */
   final case class InvalidTlmPacketSet(
     loc: Location,
     name: String,

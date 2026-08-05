@@ -4,7 +4,7 @@ module TypedPortsQueued {
   instance receiver: Receiver base id 0x200 \
     queue size 10
 
-  topology TypedPortsQueued {
+  deployment topology TypedPortsQueued {
 
     instance sender
     instance receiver

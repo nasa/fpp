@@ -40,6 +40,7 @@ locate_constant_include_no_i
 locate_constant_inconsistent
 locate_constant_modules_1
 locate_constant_modules_2
+locate_system_inconsistent
 missing
 spec_async_input_port
 spec_async_product_recv_port

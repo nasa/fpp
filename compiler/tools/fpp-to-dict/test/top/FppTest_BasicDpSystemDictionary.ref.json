@@ -1,0 +1,604 @@
+{
+  "metadata" : {
+    "deploymentName" : "FppTest.BasicDp",
+    "projectVersion" : "1.0.0",
+    "frameworkVersion" : "3.4.3",
+    "libraryVersions" : [
+    ],
+    "dictionarySpecVersion" : "1.0.0"
+  },
+  "typeDefinitions" : [
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwTlmPacketizeIdType",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "enum",
+      "qualifiedName" : "Fw.DpState",
+      "representationType" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "enumeratedConstants" : [
+        {
+          "name" : "UNTRANSMITTED",
+          "value" : 0,
+          "annotation" : "The untransmitted state"
+        },
+        {
+          "name" : "PARTIAL",
+          "value" : 1,
+          "annotation" : "The partially transmitted state\nA data product is in this state from the start of transmission\nuntil transmission is complete."
+        },
+        {
+          "name" : "TRANSMITTED",
+          "value" : 2,
+          "annotation" : "The transmitted state"
+        }
+      ],
+      "default" : "Fw.DpState.UNTRANSMITTED"
+    },
+    {
+      "kind" : "struct",
+      "qualifiedName" : "FppTest.DpTestComponent.Complex",
+      "members" : {
+        "f1" : {
+          "type" : {
+            "name" : "FppTest.DpTestComponent.Data",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 0,
+          "size" : 2,
+          "annotation" : "A struct in the struct"
+        },
+        "f2" : {
+          "type" : {
+            "name" : "U32",
+            "kind" : "integer",
+            "size" : 32,
+            "signed" : false
+          },
+          "index" : 1,
+          "annotation" : "A simple U32 field"
+        }
+      },
+      "default" : {
+        "f1" : [
+          {
+            "u16Field" : [
+              10,
+              10,
+              10,
+              10,
+              10
+            ]
+          },
+          {
+            "u16Field" : [
+              10,
+              10,
+              10,
+              10,
+              10
+            ]
+          }
+        ],
+        "f2" : 0
+      },
+      "annotation" : "Data for a ComplexRecord"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "BaseIdType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwTimeContextStoreType",
+      "type" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "annotation" : "The type used to serialize a time context value"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwEventIdType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "enum",
+      "qualifiedName" : "Fw.DpCfg.ProcType",
+      "representationType" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "enumeratedConstants" : [
+        {
+          "name" : "PROC_TYPE_ZERO",
+          "value" : 1,
+          "annotation" : "Processing type 0"
+        },
+        {
+          "name" : "PROC_TYPE_ONE",
+          "value" : 2,
+          "annotation" : "Processing type 1"
+        },
+        {
+          "name" : "PROC_TYPE_TWO",
+          "value" : 4,
+          "annotation" : "Processing type 2"
+        }
+      ],
+      "default" : "Fw.DpCfg.ProcType.PROC_TYPE_ZERO",
+      "annotation" : "A bit mask for selecting the type of processing to perform on\na container before writing it to disk."
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwSizeStoreType",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FppTest.DpTestComponent.AliasU16",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "annotation" : "Alias of type U16"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwPacketDescriptorType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "struct",
+      "qualifiedName" : "FppTest.DpTestComponent.Data",
+      "members" : {
+        "u16Field" : {
+          "type" : {
+            "name" : "FppTest.DpTestComponent.AliasU16",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 0,
+          "size" : 5,
+          "annotation" : "A U16 field"
+        }
+      },
+      "default" : {
+        "u16Field" : [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "annotation" : "Data for a DataRecord"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwDpIdType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwTimeBaseStoreType",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "annotation" : "The type used to serialize a time base value"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwChanIdType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwOpcodeType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwDpPriorityType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwSizeType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    }
+  ],
+  "constants" : [
+    {
+      "kind" : "constant",
+      "qualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 256
+    },
+    {
+      "kind" : "constant",
+      "qualifiedName" : "Fw.DpCfg.CONTAINER_USER_DATA_SIZE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 32,
+      "annotation" : "The container user data size"
+    },
+    {
+      "kind" : "constant",
+      "qualifiedName" : "FW_SERIALIZE_TRUE_VALUE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 255
+    },
+    {
+      "kind" : "constant",
+      "qualifiedName" : "FW_SERIALIZE_FALSE_VALUE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 0
+    },
+    {
+      "kind" : "constant",
+      "qualifiedName" : "STRING_SIZE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 256
+    }
+  ],
+  "commands" : [
+  ],
+  "parameters" : [
+  ],
+  "events" : [
+  ],
+  "telemetryChannels" : [
+  ],
+  "records" : [
+    {
+      "name" : "FppTest.c1.U32Record",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "array" : false,
+      "id" : 5100,
+      "annotation" : "Record 1"
+    },
+    {
+      "name" : "FppTest.c1.ComplexRecord",
+      "type" : {
+        "name" : "FppTest.DpTestComponent.Complex",
+        "kind" : "qualifiedIdentifier"
+      },
+      "array" : false,
+      "id" : 5200,
+      "annotation" : "Record 2"
+    },
+    {
+      "name" : "FppTest.c1.U8ArrayRecord",
+      "type" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "array" : true,
+      "id" : 5300,
+      "annotation" : "Record 3"
+    },
+    {
+      "name" : "FppTest.c1.U32ArrayRecord",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "array" : true,
+      "id" : 5400,
+      "annotation" : "Record 4"
+    },
+    {
+      "name" : "FppTest.c1.DataArrayRecord",
+      "type" : {
+        "name" : "FppTest.DpTestComponent.Data",
+        "kind" : "qualifiedIdentifier"
+      },
+      "array" : true,
+      "id" : 5500,
+      "annotation" : "Record 5"
+    },
+    {
+      "name" : "FppTest.c1.ComplexRecord2",
+      "type" : {
+        "name" : "FppTest.DpTestComponent.Complex",
+        "kind" : "qualifiedIdentifier"
+      },
+      "array" : false,
+      "id" : 5600,
+      "annotation" : "Record 6"
+    },
+    {
+      "name" : "FppTest.c2.U32Record",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "array" : false,
+      "id" : 5868,
+      "annotation" : "Record 1"
+    },
+    {
+      "name" : "FppTest.c2.ComplexRecord",
+      "type" : {
+        "name" : "FppTest.DpTestComponent.Complex",
+        "kind" : "qualifiedIdentifier"
+      },
+      "array" : false,
+      "id" : 5968,
+      "annotation" : "Record 2"
+    },
+    {
+      "name" : "FppTest.c2.U8ArrayRecord",
+      "type" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "array" : true,
+      "id" : 6068,
+      "annotation" : "Record 3"
+    },
+    {
+      "name" : "FppTest.c2.U32ArrayRecord",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "array" : true,
+      "id" : 6168,
+      "annotation" : "Record 4"
+    },
+    {
+      "name" : "FppTest.c2.DataArrayRecord",
+      "type" : {
+        "name" : "FppTest.DpTestComponent.Data",
+        "kind" : "qualifiedIdentifier"
+      },
+      "array" : true,
+      "id" : 6268,
+      "annotation" : "Record 5"
+    },
+    {
+      "name" : "FppTest.c2.ComplexRecord2",
+      "type" : {
+        "name" : "FppTest.DpTestComponent.Complex",
+        "kind" : "qualifiedIdentifier"
+      },
+      "array" : false,
+      "id" : 6368,
+      "annotation" : "Record 6"
+    }
+  ],
+  "containers" : [
+    {
+      "name" : "FppTest.c1.Container1",
+      "id" : 5100,
+      "defaultPriority" : 10,
+      "annotation" : "Container 1"
+    },
+    {
+      "name" : "FppTest.c1.Container2",
+      "id" : 5200,
+      "defaultPriority" : 20,
+      "annotation" : "Container 2"
+    },
+    {
+      "name" : "FppTest.c1.Container3",
+      "id" : 5300,
+      "defaultPriority" : 30,
+      "annotation" : "Container 3"
+    },
+    {
+      "name" : "FppTest.c1.Container4",
+      "id" : 5400,
+      "defaultPriority" : 40,
+      "annotation" : "Container 4"
+    },
+    {
+      "name" : "FppTest.c1.Container5",
+      "id" : 5500,
+      "defaultPriority" : 50,
+      "annotation" : "Container 5"
+    },
+    {
+      "name" : "FppTest.c2.Container1",
+      "id" : 5868,
+      "defaultPriority" : 10,
+      "annotation" : "Container 1"
+    },
+    {
+      "name" : "FppTest.c2.Container2",
+      "id" : 5968,
+      "defaultPriority" : 20,
+      "annotation" : "Container 2"
+    },
+    {
+      "name" : "FppTest.c2.Container3",
+      "id" : 6068,
+      "defaultPriority" : 30,
+      "annotation" : "Container 3"
+    },
+    {
+      "name" : "FppTest.c2.Container4",
+      "id" : 6168,
+      "defaultPriority" : 40,
+      "annotation" : "Container 4"
+    },
+    {
+      "name" : "FppTest.c2.Container5",
+      "id" : 6268,
+      "defaultPriority" : 50,
+      "annotation" : "Container 5"
+    }
+  ],
+  "telemetryPacketSets" : [
+  ]
+}

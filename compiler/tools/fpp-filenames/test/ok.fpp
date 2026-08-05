@@ -39,10 +39,16 @@ module M {
     }
   }
 
-}
+  deployment topology T1 {
+    telemetry packets P {
 
-topology T {
-  telemetry packets P {
+    }
+  }
+
+  system S: T1
+
+  topology T2 {
 
   }
+
 }

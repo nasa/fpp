@@ -343,9 +343,11 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
+    val topology = if data.isDeployment
+    then "deployment topology" else "topology"
     val implementsClause = if data.implements.nonEmpty
     then Some(data.implements.map(_.data)) else None
-    lines(s"topology ${ident(data.name)} ${if (implementsClause.isDefined) "implements" else "{"}").
+    lines(s"$topology ${ident(data.name)} ${if (implementsClause.isDefined) "implements" else "{"}").
       joinOptWithBreak (implementsClause) ("") (q => q.flatMap(qualIdent)) ++
       (if (implementsClause.isDefined) List(line("{"), Line.blank) else List(Line.blank)) ++
       Line.blankSeparated (topologyMember) (data.members).map(indentIn) ++

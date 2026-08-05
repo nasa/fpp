@@ -9,7 +9,7 @@ object CheckSystemDefs
   with ModuleAnalyzer
 {
 
-  private def checkDuplicateDef(
+  private def checkNoDuplicateDef(
     a: Analysis,
     symbol: Symbol.System
   ) =
@@ -20,6 +20,21 @@ object CheckSystemDefs
         val prevLoc = Locations.get(prevSymbol.node._2.id)
         Left(SemanticError.DuplicateSystemDefinition(loc, prevLoc))
 
+  private def checkDeploymentTopology(ss: Symbol.System, t: Topology) = {
+    val loc = Locations.get(ss.getNodeId)
+    if t.aNode._2.data.isDeployment then Right(())
+    else 
+      val defLoc = Locations.get(t.aNode._2.id)
+      Left(
+        SemanticError.InvalidSymbol(
+          t.getName,
+          loc,
+          "topology used here must be a deployment topology",
+          defLoc
+        )
+      )
+  }
+
   override def defSystemAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefSystem]]
@@ -28,8 +43,9 @@ object CheckSystemDefs
     val id = node.data.topology.id
     val ss = Symbol.System(aNode)
     for {
-      _ <- checkDuplicateDef(a, ss)
+      _ <- checkNoDuplicateDef(a, ss)
       t <- a.getTopology(id)
+      _ <- checkDeploymentTopology(ss, t)
       d <- a.getDictionary(id)
     } yield a.copy(systemMap = Map(ss -> FppSystem(aNode, t, d)))
   }

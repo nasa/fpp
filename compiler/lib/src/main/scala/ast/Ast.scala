@@ -323,6 +323,7 @@ object Ast {
 
   /** Topology defintion */
   final case class DefTopology(
+    isDeployment: Boolean,
     name: Ident,
     members: List[TopologyMember],
     implements: List[AstNode[QualIdent]],

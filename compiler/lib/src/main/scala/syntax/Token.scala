@@ -29,6 +29,7 @@ object Token {
   final case class CONTAINER() extends Token
   final case class CPU() extends Token
   final case class DEFAULT() extends Token
+  final case class DEPLOYMENT() extends Token
   final case class DIAGNOSTIC() extends Token
   final case class DICTIONARY() extends Token
   final case class DO() extends Token
@@ -184,6 +185,7 @@ enum TokenId {
   case CONTAINER
   case CPU
   case DEFAULT
+  case DEPLOYMENT
   case DIAGNOSTIC
   case DICTIONARY
   case DO

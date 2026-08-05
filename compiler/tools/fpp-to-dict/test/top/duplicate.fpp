@@ -1,8 +1,8 @@
 module M {
 
-  topology Duplicate { 
+  deployment topology Duplicate { 
   }
 }
 
-topology Duplicate { 
+deployment topology Duplicate { 
 }

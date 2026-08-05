@@ -223,6 +223,10 @@ module DefinitionsAndSpecifiers {
   }
   @< Topology definition
 
+  @ Deployment topology
+  deployment topology T {}
+  @< Deployment topology
+
   @ Topology definition with one implements
   topology T implements I {}
   @< Topology definition with one implements

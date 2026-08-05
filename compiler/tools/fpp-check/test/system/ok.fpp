@@ -1,2 +1,2 @@
-topology T {}
+deployment topology T {}
 system S: T

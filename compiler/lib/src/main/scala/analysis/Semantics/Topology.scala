@@ -210,8 +210,20 @@ case class Topology(
             )
           )
           case None =>
-            val map = directTopologies + (top -> loc)
-            Right(this.copy(directTopologies = map))
+            if !top.node._2.data.isDeployment
+            then
+              val map = directTopologies + (top -> loc)
+              Right(this.copy(directTopologies = map))
+            else
+              val defLoc = Locations.get(top.node._2.id)
+              Left(
+                SemanticError.InvalidSymbol(
+                  symbol.getUnqualifiedName,
+                  loc,
+                  "use of deployment topology is not allowed here",
+                  defLoc
+                )
+              )
         }
     }
 

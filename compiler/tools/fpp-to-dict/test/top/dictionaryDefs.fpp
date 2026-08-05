@@ -46,6 +46,8 @@ struct S3 {
 
 constant C3 = 1
 
-topology DictionaryDefs {
+deployment topology DictionaryDefs {
 
 }
+
+system DictionaryDefs: DictionaryDefs

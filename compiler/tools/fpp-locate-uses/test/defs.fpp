@@ -85,7 +85,7 @@ module M {
 
   }
 
-  topology T3 {
+  deployment topology T3 {
 
   }
 
