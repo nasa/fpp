@@ -68,6 +68,15 @@ class C_E :
       this->e = e1;
     }
 
+    //! Constructor (serial representation value)
+    C_E(
+        const SerialType e1 //!< The serial representation value
+    )
+    {
+      FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
+      this->e = static_cast<enum T>(e1);
+    }
+
     //! Copy constructor
     C_E(
         const C_E& obj //!< The source object
@@ -89,6 +98,11 @@ class C_E :
     //! Copy assignment operator (object)
     C_E& operator=(
         const C_E& obj //!< The source object
+    );
+
+    //! Assignment operator (serial representation value)
+    C_E& operator=(
+        SerialType e1 //!< The serial representation value
     );
 
     //! Copy assignment operator (raw enum)

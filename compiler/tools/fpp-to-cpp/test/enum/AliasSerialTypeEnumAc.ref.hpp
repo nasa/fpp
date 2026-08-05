@@ -69,6 +69,15 @@ class AliasSerialType :
       this->e = e1;
     }
 
+    //! Constructor (serial representation value)
+    AliasSerialType(
+        const SerialType e1 //!< The serial representation value
+    )
+    {
+      FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
+      this->e = static_cast<enum T>(e1);
+    }
+
     //! Copy constructor
     AliasSerialType(
         const AliasSerialType& obj //!< The source object
@@ -90,6 +99,11 @@ class AliasSerialType :
     //! Copy assignment operator (object)
     AliasSerialType& operator=(
         const AliasSerialType& obj //!< The source object
+    );
+
+    //! Assignment operator (serial representation value)
+    AliasSerialType& operator=(
+        SerialType e1 //!< The serial representation value
     );
 
     //! Copy assignment operator (raw enum)

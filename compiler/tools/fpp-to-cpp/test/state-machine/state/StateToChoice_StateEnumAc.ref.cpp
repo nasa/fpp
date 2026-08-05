@@ -29,6 +29,18 @@ namespace FppTest {
     }
 
     StateToChoice_State& StateToChoice_State ::
+      operator=(SerialType e1)
+    {
+      FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
+      this->e = static_cast<enum T>(e1);
+#ifdef BUILD_UT
+      this->m_serializeValueIsSet = false;
+      this->m_serializeValue = 0;
+#endif
+      return *this;
+    }
+
+    StateToChoice_State& StateToChoice_State ::
       operator=(enum T e1)
     {
       FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));

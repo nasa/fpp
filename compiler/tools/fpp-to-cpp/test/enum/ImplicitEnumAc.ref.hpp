@@ -72,6 +72,15 @@ namespace M {
         this->e = e1;
       }
 
+      //! Constructor (serial representation value)
+      Implicit(
+          const SerialType e1 //!< The serial representation value
+      )
+      {
+        FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
+        this->e = static_cast<enum T>(e1);
+      }
+
       //! Copy constructor
       Implicit(
           const Implicit& obj //!< The source object
@@ -93,6 +102,11 @@ namespace M {
       //! Copy assignment operator (object)
       Implicit& operator=(
           const Implicit& obj //!< The source object
+      );
+
+      //! Assignment operator (serial representation value)
+      Implicit& operator=(
+          SerialType e1 //!< The serial representation value
       );
 
       //! Copy assignment operator (raw enum)
