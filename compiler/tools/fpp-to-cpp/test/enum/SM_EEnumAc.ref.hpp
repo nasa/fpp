@@ -68,6 +68,15 @@ class SM_E :
       this->e = e1;
     }
 
+    //! Constructor (serial representation value)
+    SM_E(
+        const SerialType e1 //!< The serial representation value
+    )
+    {
+      FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
+      this->e = static_cast<enum T>(e1);
+    }
+
     //! Copy constructor
     SM_E(
         const SM_E& obj //!< The source object
@@ -89,6 +98,11 @@ class SM_E :
     //! Copy assignment operator (object)
     SM_E& operator=(
         const SM_E& obj //!< The source object
+    );
+
+    //! Assignment operator (serial representation value)
+    SM_E& operator=(
+        SerialType e1 //!< The serial representation value
     );
 
     //! Copy assignment operator (raw enum)

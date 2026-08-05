@@ -74,6 +74,15 @@ namespace FppTest {
           this->e = e1;
         }
 
+        //! Constructor (serial representation value)
+        BasicSelf_State(
+            const SerialType e1 //!< The serial representation value
+        )
+        {
+          FW_ASSERT(isValid(e1), static_cast<FwAssertArgType>(e1));
+          this->e = static_cast<enum T>(e1);
+        }
+
         //! Copy constructor
         BasicSelf_State(
             const BasicSelf_State& obj //!< The source object
@@ -95,6 +104,11 @@ namespace FppTest {
         //! Copy assignment operator (object)
         BasicSelf_State& operator=(
             const BasicSelf_State& obj //!< The source object
+        );
+
+        //! Assignment operator (serial representation value)
+        BasicSelf_State& operator=(
+            SerialType e1 //!< The serial representation value
         );
 
         //! Copy assignment operator (raw enum)
