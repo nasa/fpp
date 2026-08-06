@@ -15694,7 +15694,7 @@ repository</a> for more details.</p>
 <div class="paragraph">
 <p>A <strong>ground dictionary</strong> specifies all the commands,
 events, telemetry, parameters, and data products in a FSW
-application.
+system.
 Typically a ground data system (GDS), such as the F Prime GDS,
 uses the ground dictionary to provide the operational
 interface to the application.
@@ -15722,17 +15722,13 @@ The usual procedure for running <code>fpp-to-dict</code> is as follows:</p>
 <p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
 </li>
 <li>
-<p>If <em>D</em> is empty, then run <code>fpp-to-dict</code> <em>F</em>.</p>
-</li>
-<li>
-<p>Otherwise run <code>fpp-to-dict -i</code> <em>D<sub>1</sub></em> <code>,</code> &#8230;&#8203; <code>,</code> <em>D<sub>n</sub></em> <em>F</em>, where <em>D<sub>i</sub></em> are the
-names of the dependencies.</p>
+<p>Run <code>fpp-to-dict</code> <em>D</em> <em>F</em>.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
 <p>Except for the tool name, this procedure is identical to the one given for
-<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">generating C&#43;&#43;</a>.</p>
+<a href="#Analyzing-and-Translating-Models_Checking-Models">checking models</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Input:</strong> As with the tools described above, you can provide input to
@@ -15741,13 +15737,28 @@ either through named files or through standard input.</p>
 </div>
 <div class="paragraph">
 <p><strong>Tool behavior:</strong>
-For each topology <em>T</em> defined in the input files <em>F</em>, <code>fpp-to-dict</code> writes a
-file
-<em>T</em> <code>TopologyDictionary.json</code>.
+For each <a href="#Defining-Systems">system</a> <em>S</em> defined in the
+input files, <code>fpp-to-dict</code> writes a file <em>S</em> <code>SystemDictionary.json</code>.
+Here <em>S</em> is the qualified name of the system, with dots
+replaced by underscores.
+For example, for a system <code>S</code> defined in module <code>M</code>,
+the file name is <code>M_SSystemDictionary.json</code>.
+The generated dictionary records all the definitions in the
+single deployment topology referred to by <em>S</em>.
 The dictionary is specified in JavaScript Object Notation (JSON) format.
 The JSON format is specified in the
 <a href="https://fprime.jpl.nasa.gov/devel/docs/reference/fpp-json-dict/">F Prime design
 documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>For each <a href="#Defining-Topologies">deployment topology</a> <em>T</em>
+defined in the input files, <code>fpp-to-dict</code>
+also writes a file <em>T</em> <code>TopologyDictionary.json</code>.
+Here <em>T</em> is the simple name of the topology, without qualifiers.
+This behavior is for backwards compatibility with the F Prime tools.
+In the future, we plan to revise to tools to use the system dictionary;
+when we do that, we will remove the code generation for the
+topology dictionary.</p>
 </div>
 <div class="paragraph">
 <p>Here is a common use case:</p>
@@ -15755,15 +15766,16 @@ documentation</a>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The input files <em>F</em> define a single topology <em>T</em>.
+<p>The files <em>F</em> define a single system <em>S</em> and a single
+deployment topology <em>T</em>.  <em>S</em> refers to <em>T</em>.
 <em>T</em> describes all the component instances and connections in a FSW
-application, and the generated dictionary <em>T</em> <code>TopologyDictionary.json</code>
-is the dictionary for the application.</p>
+application, and the generated dictionary <em>S</em> <code>SystemDictionary.json</code>
+is the dictionary for the system.</p>
 </li>
 <li>
 <p>If <em>T</em> imports subtopologies, then those subtopologies are defined
 in the dependency files <em>D</em>.
-That way the subtopologies are part of the model, but no dictionaries
+The subtopologies are part of the model, but no dictionaries
 are generated for them.</p>
 </li>
 </ul>
@@ -15776,10 +15788,8 @@ and
 <a href="#Defining-Types_Framework-Types">framework types</a>
 specified in the
 <a href="https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/">F Prime
-dictionary specification</a>.</p>
-</div>
-<div class="paragraph">
-<p>These types and constants are required by the F Prime GDS, so they are included
+dictionary specification</a>.
+These types and constants are required by the F Prime GDS, so they are included
 in the dictionary.
 Typically you specify these types and constants as part of F Prime
 configuration, in files named <code>FpConfig.fpp</code> and <code>FpConstants.fpp</code>.
@@ -17309,7 +17319,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-06 10:49:24 -0700
+Last updated 2026-08-06 11:39:56 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
