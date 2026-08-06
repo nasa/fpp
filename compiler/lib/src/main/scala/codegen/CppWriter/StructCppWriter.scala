@@ -350,12 +350,7 @@ case class StructCppWriter(
   private def getOstreamOperator =
     writeOstreamOperator(
       structName,
-      lines(
-        """|Fw::String s;
-           |obj.toString(s);
-           |os << s.toChar();
-           |return os;"""
-      )
+      writeOstreamBody
     )
 
   private def getScalarArrayConstructor =
@@ -470,6 +465,36 @@ case class StructCppWriter(
       then Nil
       else List(linesClassMember(typeAliases))
     addAccessTagAndComment("public", "Types", members, CppDoc.Lines.Hpp)
+  }
+
+  private def writeOstreamBody: List[Line] = {
+    val memberOutputs = memberList.zipWithIndex.flatMap { case ((n, tn), idx) =>
+      val prefix = if idx > 0 then lines("""os << ", ";""") else Nil
+      val fieldLabel = lines(s"""os << "$n = ";""")
+
+      val fieldValue = if sizes.contains(n) then
+        List.concat(
+          lines("""os << "[ ";"""),
+          iterateN(sizes(n), lines(
+            """|if (i > 0) {
+               |  os << ", ";
+               |}
+               |os << obj.m_""" + n + "[i];"
+          )),
+          lines("""os << " ]";""")
+        )
+      else
+        lines(s"os << obj.m_$n;")
+
+      List.concat(prefix, fieldLabel, fieldValue)
+    }
+
+    List.concat(
+      lines("""os << "{ ";"""),
+      memberOutputs,
+      lines("""os << " }";"""),
+      lines("return os;")
+    )
   }
 
   private def getVariableMember(n: String, tn: String): List[Line] =
@@ -777,7 +802,6 @@ case class StructCppWriter(
       )
 
   }
-
 
   /** Object for generating the toString function member */
   private object ToStringFunctionMember {

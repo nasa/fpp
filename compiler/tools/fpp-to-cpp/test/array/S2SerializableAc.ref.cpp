@@ -65,9 +65,10 @@ bool S2 ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const S2& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s.toChar();
+  os << "{ ";
+  os << "s1 = ";
+  os << obj.m_s1;
+  os << " }";
   return os;
 }
 

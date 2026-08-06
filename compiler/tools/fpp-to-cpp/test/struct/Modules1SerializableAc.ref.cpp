@@ -77,9 +77,13 @@ namespace M {
 #ifdef BUILD_UT
 
   std::ostream& operator<<(std::ostream& os, const Modules1& obj) {
-    Fw::String s;
-    obj.toString(s);
-    os << s.toChar();
+    os << "{ ";
+    os << "x = ";
+    os << obj.m_x;
+    os << ", ";
+    os << "y = ";
+    os << obj.m_y;
+    os << " }";
     return os;
   }
 
