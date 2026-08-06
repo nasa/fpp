@@ -930,7 +930,7 @@ In this example we have done the following:
 . Define a topology `A` that is for import only and
 is not used in a deployment.
 
-. Define a topology `B` that imports `A`.
+. Define a deployment topology `B` that imports `A`.
 
 You may add instances and connections as usual to both
 `A` and `B`, as shown by the dots.

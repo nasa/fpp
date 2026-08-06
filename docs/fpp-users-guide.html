@@ -2296,17 +2296,18 @@ array A = [3] string</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Notice that we defined the
-<a href="#Defining-Types_Framework-Types">framework type</a>
+<p>Notice that we defined the type
 <code>FwSizeStoreType</code> and the
-<a href="#Defining-Constants_Framework-Constants">framework constant</a>
 <code>FW_FIXED_LENGTH_STRING_SIZE</code>.
-These definitions are required when using the type <code>string</code>.
-Typically you provide them as part of the F Prime configuration.
 <code>FwSizeStoreType</code> specifies the type to use for storing the
 length of a string.
 <code>FW_FIXED_LENGTH_STRING_SIZE</code> specifies the size of the buffer
-used to store string data.</p>
+used to store string data.
+These definitions are required when using the type <code>string</code>.
+Typically you provide them as part of the F Prime configuration.
+For more information, see the sections on
+<a href="#Defining-Types_Framework-Types">framework types</a> and
+<a href="#Defining-Constants_Framework-Constants">framework constants</a>.</p>
 </div>
 </li>
 <li>
@@ -12045,7 +12046,7 @@ deployment topology B {
 is not used in a deployment.</p>
 </li>
 <li>
-<p>Define a topology <code>B</code> that imports <code>A</code>.</p>
+<p>Define a deployment topology <code>B</code> that imports <code>A</code>.</p>
 </li>
 </ol>
 </div>
@@ -17319,7 +17320,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-06 11:52:05 -0700
+Last updated 2026-08-06 13:23:32 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
