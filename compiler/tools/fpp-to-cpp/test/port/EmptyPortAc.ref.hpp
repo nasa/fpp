@@ -38,22 +38,9 @@ class EmptyPortBuffer :
     // Public member functions for EmptyPortBuffer
     // ----------------------------------------------------------------------
 
-    //! Get the capacity of the buffer
-    //! \return The capacity
-    Fw::Serializable::SizeType getCapacity() const override {
-      return CAPACITY;
-    }
+    //! Constructor
+    EmptyPortBuffer() : Fw::LinearBufferBase(nullptr, 0) {
 
-    //! Get the buffer address (non-const)
-    //! \return The buffer address
-    U8* getBuffAddr() override {
-      return nullptr;
-    }
-
-    //! Get the buffer address (const)
-    //! \return The buffer address
-    const U8* getBuffAddr() const override {
-      return nullptr;
     }
 
 };
