@@ -75,7 +75,7 @@ module M2 {
 ----
 
 According to the
-<<Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Module-Definitions,semantics
+<<Scoping-of-Names_Multiple-Global-Definitions-with-the-Same-Qualified-Name_Module-Definitions,semantics
 of module definitions>>,
 this is also equivalent:
 
