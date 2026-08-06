@@ -676,7 +676,7 @@ If a deployment topology _T_ defines a
 telemetry packet set _S_>>, then `fpp-to-cpp` generates files
 _S_ `_` _T_ `TlmPacketsAc.hpp` and _S_ `_` _T_ `TlmPacketsAc.cpp`
 These files provide the code needed to export the packet
-definitions to the F Prime telemetry packetizer component.
+definitions to the F Prime Telemetry Packetizer component.
 
 *Options:*
 When translating topologies,
