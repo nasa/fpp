@@ -838,19 +838,22 @@ We recommend that you read this document before consulting that one.</p>
 </div>
 <div class="paragraph">
 <p><strong>Overview:</strong> The rest of this document proceeds as follows.
-Section 2 explains how to get up and running with FPP.
-Sections 3 through 15 describe the elements of an FPP
+<a href="#Installing-FPP">Section 2</a> explains how to get up and running with FPP.
+Sections <a href="#Defining-Constants">3</a> through <a href="#Defining-Systems">15</a>
+describe the elements of an FPP
 model, starting with the simplest elements (constants
 and types) and working towards the most complex (components,
 topologies, and systems).
-Section 16 explains how to specify a model as a collection
+<a href="#Specifying-Models-as-Files">Section 16</a> explains how to specify
+a model as a collection
 of files: for example, it covers the management of dependencies
 between files.
-Section 17 explains how to analyze FPP models and how
-to translate FPP models to C&#43;&#43; and JSON.
+<a href="#Analyzing-and-Translating-Models">Section 17</a> explains how to
+analyze FPP models and how to translate FPP models to C&#43;&#43; and JSON.
 It also explains how to translate an XML format previously used
 by F Prime into FPP.
-Section 18 explains how to write a C&#43;&#43; implementation
+<a href="#Writing-C-Plus-Plus-Implementations">Section 18</a>
+explains how to write a C&#43;&#43; implementation
 against the code generated from an FPP model.</p>
 </div>
 </div>
@@ -12755,7 +12758,7 @@ below.</p>
 <div class="sect2">
 <h3 id="Defining-Topologies_Telemetry-Packets">14.7. Telemetry Packets</h3>
 <div class="paragraph">
-<p>When defining a topology, you may (but are not required to)
+<p>When defining a deployment topology, you may (but are not required to)
 specify how the <a href="#Defining-Components_Telemetry">telemetry channels</a>
 defined in the topology are grouped into <strong>telemetry packets</strong>.
 If you do this, then you can use an F Prime component called
@@ -14889,8 +14892,12 @@ translated to C&#43;&#43; files.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code>ComponentAc.{hpp,cpp}</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Topology <em>T</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment topology <em>T</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.{hpp,cpp}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Telemetry packet set <em>S</em> in topology <em>T</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code><em></code> _S</em> <code>TlmPacketsAc.{hpp,cpp}</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -15403,9 +15410,9 @@ build system does it for you.</p>
 <div class="sect3">
 <h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">17.2.4. Topology Definitions</h4>
 <div class="paragraph">
-<p><code>fpp-to-cpp</code> also extracts <a href="#Defining-Topologies">topology definitions</a>
-from the source files.
-For each topology <em>T</em> defined in the source files, <code>fpp-to-cpp</code>
+<p><code>fpp-to-cpp</code> also extracts the definitions of <a href="#Defining-Topologies">deployment
+topologies</a> from the source files.
+For each deployment topology <em>T</em> defined in the source files, <code>fpp-to-cpp</code>
 writes files <em>T</em> <code>TopologyAc.hpp</code> and <em>T</em> <code>TopologyAc.cpp</code>.
 These files define two public functions:
 <code>setup</code> for setting up the topology, and
@@ -15441,11 +15448,16 @@ and <code>SimpleTopologyAc.cpp</code>.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>You can examine the files <code>RefTopologyAc.hpp</code> and <code>RefTopologyAc.cpp</code>
-in the F Prime repository.
-Currently these files are checked in at <code>Ref/Top</code>.
-Once we have integrated FPP with CMake, these files will be auto-generated
-by CMake and will be located at <code>Ref/build-fprime-automatic-native/F-Prime/Ref/Top</code>.</p>
+<p>You can also examine the files <code>RefTopologyAc.hpp</code> and <code>RefTopologyAc.cpp</code>
+in build cache for the <code>Ref</code> example in the F Prime repository.</p>
+</div>
+<div class="paragraph">
+<p><strong>Telemetry packets:</strong>
+If a deployment topology <em>T</em> defines a
+<a href="#Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Sets">telemetry packet set <em>S</em></a>, then <code>fpp-to-cpp</code> generates files
+<em>S</em> <code><em></code> _T</em> <code>TlmPacketsAc.hpp</code> and <em>S</em> <code><em></code> _T</em> <code>TlmPacketsAc.cpp</code>
+These files provide the code needed to export the packet
+definitions to the F Prime telemetry packetizer component.</p>
 </div>
 <div class="paragraph">
 <p><strong>Options:</strong>
@@ -17297,7 +17309,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-31 17:33:25 -0700
+Last updated 2026-08-06 10:43:09 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

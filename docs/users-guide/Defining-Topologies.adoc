@@ -1550,7 +1550,7 @@ below.
 
 === Telemetry Packets
 
-When defining a topology, you may (but are not required to)
+When defining a deployment topology, you may (but are not required to)
 specify how the <<Defining-Components_Telemetry,telemetry channels>>
 defined in the topology are grouped into **telemetry packets**.
 If you do this, then you can use an F Prime component called

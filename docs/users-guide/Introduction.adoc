@@ -35,17 +35,20 @@ https://nasa.github.io/fpp/fpp-spec.html[_The FPP Language Specification_].
 We recommend that you read this document before consulting that one.
 
 *Overview:* The rest of this document proceeds as follows.
-Section 2 explains how to get up and running with FPP.
-Sections 3 through 15 describe the elements of an FPP
+<<Installing-FPP,Section 2>> explains how to get up and running with FPP.
+Sections <<Defining-Constants,3>> through <<Defining-Systems,15>>
+describe the elements of an FPP
 model, starting with the simplest elements (constants
 and types) and working towards the most complex (components,
 topologies, and systems).
-Section 16 explains how to specify a model as a collection
+<<Specifying-Models-as-Files,Section 16>> explains how to specify
+a model as a collection
 of files: for example, it covers the management of dependencies
 between files.
-Section 17 explains how to analyze FPP models and how
-to translate FPP models to {cpp} and JSON.
+<<Analyzing-and-Translating-Models,Section 17>> explains how to
+analyze FPP models and how to translate FPP models to {cpp} and JSON.
 It also explains how to translate an XML format previously used
 by F Prime into FPP.
-Section 18 explains how to write a {cpp} implementation
+<<Writing-C-Plus-Plus-Implementations,Section 18>>
+explains how to write a {cpp} implementation
 against the code generated from an FPP model.

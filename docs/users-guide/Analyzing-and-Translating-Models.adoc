@@ -212,7 +212,8 @@ translated to {cpp} files.
 |Alias type _A_ in component _C_|_C_ `_` _A_ `AliasAc.{hpp,h,cpp}`
 |Port _P_|_P_ `PortAc.{hpp,cpp}`
 |Component _C_|_C_ `ComponentAc.{hpp,cpp}`
-|Topology _T_|_T_ `TopologyAc.{hpp,cpp}`
+|Deployment topology _T_|_T_ `TopologyAc.{hpp,cpp}`
+|Telemetry packet set _S_ in topology _T_|_T_ `_` _S_ `TlmPacketsAc.{hpp,cpp}`
 |===
 
 For example, consider the FPP array definition
@@ -636,9 +637,9 @@ build system does it for you.
 
 ==== Topology Definitions
 
-`fpp-to-cpp` also extracts <<Defining-Topologies,topology definitions>>
-from the source files.
-For each topology _T_ defined in the source files, `fpp-to-cpp`
+`fpp-to-cpp` also extracts the definitions of <<Defining-Topologies,deployment 
+topologies>> from the source files.
+For each deployment topology _T_ defined in the source files, `fpp-to-cpp`
 writes files _T_ `TopologyAc.hpp` and _T_ `TopologyAc.cpp`.
 These files define two public functions:
 `setup` for setting up the topology, and
@@ -666,11 +667,16 @@ simple topology example>> and paste it into the terminal.
 * Examine the generated files `SimpleTopologyAc.hpp`
 and `SimpleTopologyAc.cpp`.
 
-You can examine the files `RefTopologyAc.hpp` and `RefTopologyAc.cpp`
-in the F Prime repository.
-Currently these files are checked in at `Ref/Top`.
-Once we have integrated FPP with CMake, these files will be auto-generated
-by CMake and will be located at `Ref/build-fprime-automatic-native/F-Prime/Ref/Top`.
+You can also examine the files `RefTopologyAc.hpp` and `RefTopologyAc.cpp`
+in build cache for the `Ref` example in the F Prime repository.
+
+*Telemetry packets:*
+If a deployment topology _T_ defines a
+<<Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Sets,
+telemetry packet set _S_>>, then `fpp-to-cpp` generates files
+_S_ `_` _T_ `TlmPacketsAc.hpp` and _S_ `_` _T_ `TlmPacketsAc.cpp`
+These files provide the code needed to export the packet
+definitions to the F Prime telemetry packetizer component.
 
 *Options:*
 When translating topologies,
