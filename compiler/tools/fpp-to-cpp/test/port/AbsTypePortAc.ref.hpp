@@ -41,9 +41,8 @@ class AbsTypePortBuffer :
     // ----------------------------------------------------------------------
 
     //! Constructor
-    AbsTypePortBuffer() {
-      this->m_buffAddr = m_buff;
-      this->m_capacity = CAPACITY;
+    AbsTypePortBuffer() : Fw::LinearBufferBase(m_buff, CAPACITY) {
+
     }
 
   private:

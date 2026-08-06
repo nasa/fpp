@@ -39,9 +39,8 @@ class KwdNamePortBuffer :
     // ----------------------------------------------------------------------
 
     //! Constructor
-    KwdNamePortBuffer() {
-      this->m_buffAddr = m_buff;
-      this->m_capacity = CAPACITY;
+    KwdNamePortBuffer() : Fw::LinearBufferBase(m_buff, CAPACITY) {
+
     }
 
   private:

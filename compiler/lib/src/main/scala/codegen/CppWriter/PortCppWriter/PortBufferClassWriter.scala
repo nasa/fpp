@@ -55,26 +55,31 @@ case class PortBufferClassWriter(
     CppDoc.Lines.Hpp
   )
 
-  private def getPublicMemberFunctions = addAccessTagAndComment(
-    "public",
-    s"Public member functions for $portBufferName",
-    guardedList (hasParams) (
+  private def getPublicMemberFunctions = {
+    // LinearBufferBase has no default constructor: every buffer must forward its
+    // storage. Ports with params forward their fixed buffer; param-less ports
+    // have no storage, so they forward nullptr/0.
+    val baseInit =
+      if hasParams then "Fw::LinearBufferBase(m_buff, CAPACITY)"
+      else "Fw::LinearBufferBase(nullptr, 0)"
+    addAccessTagAndComment(
+      "public",
+      s"Public member functions for $portBufferName",
       List(
         linesClassMember(
           lines(
             s"""|
                 |//! Constructor
-                |${portBufferName}() {
-                |  this->m_buffAddr = m_buff;
-                |  this->m_capacity = CAPACITY;
+                |${portBufferName}() : $baseInit {
+                |
                 |}
                 |"""
           )
         )
-      )
-    ),
-    CppDoc.Lines.Hpp
-  )
+      ),
+      CppDoc.Lines.Hpp
+    )
+  }
 
   private def writeBufferCapacity: List[Line] = writeSum(
     portParams.map(

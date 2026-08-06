@@ -44,9 +44,8 @@ class StringPortBuffer :
     // ----------------------------------------------------------------------
 
     //! Constructor
-    StringPortBuffer() {
-      this->m_buffAddr = m_buff;
-      this->m_capacity = CAPACITY;
+    StringPortBuffer() : Fw::LinearBufferBase(m_buff, CAPACITY) {
+
     }
 
   private:

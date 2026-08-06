@@ -88,9 +88,8 @@ namespace M {
           SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
         };
 
-        ComponentIpcSerializableBuffer() {
-          this->m_buffAddr = m_buff;
-          this->m_capacity = sizeof(m_buff);
+        ComponentIpcSerializableBuffer() : Fw::LinearBufferBase(m_buff, sizeof(m_buff)) {
+
         }
 
       private:

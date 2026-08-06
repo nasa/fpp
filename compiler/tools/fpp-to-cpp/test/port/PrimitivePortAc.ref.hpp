@@ -44,9 +44,8 @@ class PrimitivePortBuffer :
     // ----------------------------------------------------------------------
 
     //! Constructor
-    PrimitivePortBuffer() {
-      this->m_buffAddr = m_buff;
-      this->m_capacity = CAPACITY;
+    PrimitivePortBuffer() : Fw::LinearBufferBase(m_buff, CAPACITY) {
+
     }
 
   private:

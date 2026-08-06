@@ -47,9 +47,8 @@ class FppTypePortBuffer :
     // ----------------------------------------------------------------------
 
     //! Constructor
-    FppTypePortBuffer() {
-      this->m_buffAddr = m_buff;
-      this->m_capacity = CAPACITY;
+    FppTypePortBuffer() : Fw::LinearBufferBase(m_buff, CAPACITY) {
+
     }
 
   private:

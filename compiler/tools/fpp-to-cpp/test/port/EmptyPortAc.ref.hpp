@@ -32,6 +32,17 @@ class EmptyPortBuffer :
     static constexpr FwSizeType CAPACITY =
       0;
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Public member functions for EmptyPortBuffer
+    // ----------------------------------------------------------------------
+
+    //! Constructor
+    EmptyPortBuffer() : Fw::LinearBufferBase(nullptr, 0) {
+
+    }
+
 };
 
 #if !FW_DIRECT_PORT_CALLS

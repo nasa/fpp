@@ -52,9 +52,8 @@ namespace Ports {
       // ----------------------------------------------------------------------
 
       //! Constructor
-      TypedPortBuffer() {
-        this->m_buffAddr = m_buff;
-        this->m_capacity = CAPACITY;
+      TypedPortBuffer() : Fw::LinearBufferBase(m_buff, CAPACITY) {
+
       }
 
     private:

@@ -34,6 +34,17 @@ namespace Ports {
       static constexpr FwSizeType CAPACITY =
         0;
 
+    public:
+
+      // ----------------------------------------------------------------------
+      // Public member functions for NoArgsPortBuffer
+      // ----------------------------------------------------------------------
+
+      //! Constructor
+      NoArgsPortBuffer() : Fw::LinearBufferBase(nullptr, 0) {
+
+      }
+
   };
 
 #if !FW_DIRECT_PORT_CALLS
