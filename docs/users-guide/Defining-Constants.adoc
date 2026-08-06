@@ -787,7 +787,7 @@ constant a = FW_FIXED_LENGTH_STRING_SIZE
 --------
 
 If framework constants are defined in the FPP model, then
-then they must conform to certain rules.
+they must conform to certain rules.
 These rules are spelled out in detail in the
 https://nasa.github.io/fpp/fpp-spec.html#Definitions_Framework-Definitions_Constant-Definitions[_The
 FPP Language Specification_].
