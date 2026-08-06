@@ -167,13 +167,17 @@ struct T final : public Fw::Serializable { // Extend Fw::Serializable
 In some cases, you may want to define an abstract type `T` that represents
 a data buffer and that is used only in <<Defining-Ports,port definitions>>.
 In this case you can implement
-`T` as a class that extends `Fw::SerialBufferBase`.
+`T` as a class that extends `Fw::LinearBufferBase`.
 Instead of implementing the `serializeTo` and `deserializeFrom` functions
-directly, you override functions that get the address and the capacity
-(allocated size) of the buffer; the base class `Fw::SerialBufferBase`
-uses these functions to implement `serializeTo` and `deserializeFrom`.
-For an example of how to do this, see the files `Fw/Cmd/CmdArgBuffer.hpp`
-and `Fw/Cmd/CmdArgBuffer.cpp` in the F Prime repository.
+directly, you provide the storage for the buffer and pass its address and
+capacity (allocated size) to the `Fw::LinearBufferBase` constructor; the base
+class uses this address and capacity to implement `serializeTo` and
+`deserializeFrom`.
+This can be done by inheriting from `Fw::LinearBufferBase` directly (see 
+`HashBuffer` constructor in `Utils/Hash/HashBufferCommon.cpp`) or by using 
+the `Fw::LinearBufferTemplate` class template (see `Fw/Cmd/CmdArgBuffer.hpp`
+for an example, it defines `Fw::CmdArgBuffer` as a specialization of 
+`Fw::LinearBufferTemplate`).
 Be careful, though: if you implement an abstract type `T` this way
 and you try to use the type `T` outside of a port definition,
 the generated {cpp} may not compile.
