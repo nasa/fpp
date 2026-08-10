@@ -173,11 +173,10 @@ directly, you provide the storage for the buffer and pass its address and
 capacity (allocated size) to the `Fw::LinearBufferBase` constructor; the base
 class uses this address and capacity to implement `serializeTo` and
 `deserializeFrom`.
-This can be done by inheriting from `Fw::LinearBufferBase` directly (see 
-`HashBuffer` constructor in `Utils/Hash/HashBufferCommon.cpp`) or by using 
-the `Fw::LinearBufferTemplate` class template (see `Fw/Cmd/CmdArgBuffer.hpp`
-for an example, it defines `Fw::CmdArgBuffer` as a specialization of 
-`Fw::LinearBufferTemplate`).
+To do this, you can write a custom buffer that inherits from `Fw::LinearBufferBase` (for example,
+see the `HashBuffer` constructor in `Utils/Hash/HashBufferCommon.cpp`), or you can use 
+the `Fw::LinearBufferTemplate` class template (for example, see `Fw/Cmd/CmdArgBuffer.hpp`;
+it defines `Fw::CmdArgBuffer` as a specialization of `Fw::LinearBufferTemplate`).
 Be careful, though: if you implement an abstract type `T` this way
 and you try to use the type `T` outside of a port definition,
 the generated {cpp} may not compile.
