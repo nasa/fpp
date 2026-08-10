@@ -16,6 +16,7 @@ StructWithAlias ::
     Serializable(),
     m_x(),
     m_y(m___fprime_ac_y_buffer, sizeof m___fprime_ac_y_buffer, Fw::String("")),
+    m_y0(m___fprime_ac_y0_buffer, sizeof m___fprime_ac_y0_buffer, Fw::String("")),
     m_z(),
     m_w(),
     m_q()
@@ -27,6 +28,7 @@ StructWithAlias ::
   StructWithAlias(
       AliasPrim1 x,
       const Fw::StringBase& y,
+      const Fw::StringBase& y0,
       const AliasArray& z,
       const AliasAliasArray& w,
       const AliasArrayAliasArray& q
@@ -34,6 +36,7 @@ StructWithAlias ::
     Serializable(),
     m_x(x),
     m_y(m___fprime_ac_y_buffer, sizeof m___fprime_ac_y_buffer, y),
+    m_y0(m___fprime_ac_y0_buffer, sizeof m___fprime_ac_y0_buffer, y0),
     m_z(z),
     m_w(w),
     m_q(q)
@@ -46,6 +49,7 @@ StructWithAlias ::
     Serializable(),
     m_x(obj.m_x),
     m_y(m___fprime_ac_y_buffer, sizeof m___fprime_ac_y_buffer, obj.m_y),
+    m_y0(m___fprime_ac_y0_buffer, sizeof m___fprime_ac_y0_buffer, obj.m_y0),
     m_z(obj.m_z),
     m_w(obj.m_w),
     m_q(obj.m_q)
@@ -64,7 +68,7 @@ StructWithAlias& StructWithAlias ::
     return *this;
   }
 
-  set(obj.m_x, obj.m_y, obj.m_z, obj.m_w, obj.m_q);
+  set(obj.m_x, obj.m_y, obj.m_y0, obj.m_z, obj.m_w, obj.m_q);
   return *this;
 }
 
@@ -75,6 +79,7 @@ bool StructWithAlias ::
   return (
     (this->m_x == obj.m_x) &&
     (this->m_y == obj.m_y) &&
+    (this->m_y0 == obj.m_y0) &&
     (this->m_z == obj.m_z) &&
     (this->m_w == obj.m_w) &&
     (this->m_q == obj.m_q)
@@ -118,6 +123,10 @@ Fw::SerializeStatus StructWithAlias ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
+  status = buffer.serializeFrom(this->m_y0, mode);
+  if (status != Fw::FW_SERIALIZE_OK) {
+    return status;
+  }
   status = buffer.serializeFrom(this->m_z, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
@@ -150,6 +159,10 @@ Fw::SerializeStatus StructWithAlias ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
+  status = buffer.deserializeTo(this->m_y0, mode);
+  if (status != Fw::FW_SERIALIZE_OK) {
+    return status;
+  }
   status = buffer.deserializeTo(this->m_z, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
@@ -172,6 +185,7 @@ FwSizeType StructWithAlias ::
   FwSizeType size = 0;
   size += sizeof(AliasPrim1);
   size += this->m_y.serializedSize();
+  size += this->m_y0.serializedSize();
   size += this->m_z.serializedSize();
   size += this->m_w.serializedSize();
   size += this->m_q.serializedSize();
@@ -195,6 +209,11 @@ void StructWithAlias ::
   // Format y
   sb += "y = ";
   sb += this->m_y;
+  sb += ", ";
+
+  // Format y0
+  sb += "y0 = ";
+  sb += this->m_y0;
   sb += ", ";
 
   // Format z
@@ -226,6 +245,7 @@ void StructWithAlias ::
   set(
       AliasPrim1 x,
       const Fw::StringBase& y,
+      const Fw::StringBase& y0,
       const AliasArray& z,
       const AliasAliasArray& w,
       const AliasArrayAliasArray& q
@@ -233,6 +253,7 @@ void StructWithAlias ::
 {
   this->m_x = x;
   this->m_y = y;
+  this->m_y0 = y0;
   this->m_z = z;
   this->m_w = w;
   this->m_q = q;
@@ -248,6 +269,12 @@ void StructWithAlias ::
   set_y(const Fw::StringBase& y)
 {
   this->m_y = y;
+}
+
+void StructWithAlias ::
+  set_y0(const Fw::StringBase& y0)
+{
+  this->m_y0 = y0;
 }
 
 void StructWithAlias ::

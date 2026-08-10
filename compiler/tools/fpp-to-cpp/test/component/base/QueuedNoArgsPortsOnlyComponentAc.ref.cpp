@@ -641,7 +641,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedNoArgsPortsOnlyComponentBase* compPtr = static_cast<QueuedNoArgsPortsOnlyComponentBase*>(callComp);
   compPtr->noArgsAsync_handlerBase(portNum);
 }
@@ -652,7 +652,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedNoArgsPortsOnlyComponentBase* compPtr = static_cast<QueuedNoArgsPortsOnlyComponentBase*>(callComp);
   compPtr->noArgsGuarded_handlerBase(portNum);
 }
@@ -663,7 +663,7 @@ U32 QueuedNoArgsPortsOnlyComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedNoArgsPortsOnlyComponentBase* compPtr = static_cast<QueuedNoArgsPortsOnlyComponentBase*>(callComp);
   return compPtr->noArgsReturnGuarded_handlerBase(portNum);
 }
@@ -674,7 +674,7 @@ U32 QueuedNoArgsPortsOnlyComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedNoArgsPortsOnlyComponentBase* compPtr = static_cast<QueuedNoArgsPortsOnlyComponentBase*>(callComp);
   return compPtr->noArgsReturnSync_handlerBase(portNum);
 }

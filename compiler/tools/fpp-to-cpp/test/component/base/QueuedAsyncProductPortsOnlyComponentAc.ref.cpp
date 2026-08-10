@@ -501,7 +501,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
       const Fw::Success& status
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedAsyncProductPortsOnlyComponentBase* compPtr = static_cast<QueuedAsyncProductPortsOnlyComponentBase*>(callComp);
   compPtr->productRecvIn_handlerBase(
     portNum,

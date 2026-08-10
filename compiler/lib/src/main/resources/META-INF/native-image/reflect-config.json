@@ -9,6 +9,9 @@
   "name":"[Lio.circe.Encoder;"
 },
 {
+  "name":"[Ljava.io.File;"
+},
+{
   "name":"[Ljava.lang.String;"
 },
 {
@@ -692,6 +695,14 @@
   "fields":[{"name":"0bitmap$1183"}]
 },
 {
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1297",
+  "fields":[{"name":"0bitmap$1182"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1298",
+  "fields":[{"name":"0bitmap$1181"}]
+},
+{
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1301",
   "fields":[{"name":"0bitmap$1188"}]
 },
@@ -834,6 +845,14 @@
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1354",
   "fields":[{"name":"0bitmap$1240"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1355",
+  "fields":[{"name":"0bitmap$1239"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1356",
+  "fields":[{"name":"0bitmap$1238"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1359",

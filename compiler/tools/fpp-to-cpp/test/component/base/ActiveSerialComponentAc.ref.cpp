@@ -6044,7 +6044,7 @@ void ActiveSerialComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6169,7 +6169,7 @@ void ActiveSerialComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6258,7 +6258,7 @@ void ActiveSerialComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6344,7 +6344,7 @@ void ActiveSerialComponentBase ::
     e.toString(eStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6450,7 +6450,7 @@ void ActiveSerialComponentBase ::
     a.toString(aStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6535,7 +6535,7 @@ void ActiveSerialComponentBase ::
     s.toString(sStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6609,7 +6609,7 @@ void ActiveSerialComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -6699,7 +6699,7 @@ void ActiveSerialComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -8358,7 +8358,7 @@ void ActiveSerialComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   compPtr->cmdIn_handlerBase(
     portNum,
@@ -8385,7 +8385,7 @@ void ActiveSerialComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   compPtr->aliasTypedAsync_handlerBase(
     portNum,
@@ -8405,7 +8405,7 @@ Fw::String ActiveSerialComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   return compPtr->noArgsAliasStringReturnSync_handlerBase(portNum);
 }
@@ -8416,7 +8416,7 @@ void ActiveSerialComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   compPtr->noArgsAsync_handlerBase(portNum);
 }
@@ -8427,7 +8427,7 @@ void ActiveSerialComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   compPtr->noArgsGuarded_handlerBase(portNum);
 }
@@ -8438,7 +8438,7 @@ U32 ActiveSerialComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   return compPtr->noArgsReturnGuarded_handlerBase(portNum);
 }
@@ -8449,7 +8449,7 @@ U32 ActiveSerialComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   return compPtr->noArgsReturnSync_handlerBase(portNum);
 }
@@ -8460,7 +8460,7 @@ Fw::String ActiveSerialComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   return compPtr->noArgsStringReturnSync_handlerBase(portNum);
 }
@@ -8471,7 +8471,7 @@ void ActiveSerialComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   compPtr->noArgsSync_handlerBase(portNum);
 }
@@ -8489,7 +8489,7 @@ void ActiveSerialComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   compPtr->typedAliasGuarded_handlerBase(
     portNum,
@@ -8516,7 +8516,7 @@ AliasPrim2 ActiveSerialComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   return compPtr->typedAliasReturnSync_handlerBase(
     portNum,
@@ -8543,7 +8543,7 @@ Fw::String ActiveSerialComponentBase ::
       const AnotherAliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   return compPtr->typedAliasStringReturnSync_handlerBase(
     portNum,
@@ -8570,7 +8570,7 @@ void ActiveSerialComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   compPtr->typedAsync_handlerBase(
     portNum,
@@ -8597,7 +8597,7 @@ void ActiveSerialComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   compPtr->typedAsyncAssert_handlerBase(
     portNum,
@@ -8624,7 +8624,7 @@ void ActiveSerialComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   compPtr->typedAsyncBlockPriority_handlerBase(
     portNum,
@@ -8651,7 +8651,7 @@ void ActiveSerialComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   compPtr->typedAsyncDropPriority_handlerBase(
     portNum,
@@ -8678,7 +8678,7 @@ void ActiveSerialComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   compPtr->typedGuarded_handlerBase(
     portNum,
@@ -8705,7 +8705,7 @@ F32 ActiveSerialComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   return compPtr->typedReturnGuarded_handlerBase(
     portNum,
@@ -8732,7 +8732,7 @@ F32 ActiveSerialComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   return compPtr->typedReturnSync_handlerBase(
     portNum,
@@ -8759,7 +8759,7 @@ void ActiveSerialComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   compPtr->typedSync_handlerBase(
     portNum,
@@ -8786,7 +8786,7 @@ void ActiveSerialComponentBase ::
       Fw::LinearBufferBase& buffer
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   compPtr->serialAsync_handlerBase(
     portNum,
@@ -8801,7 +8801,7 @@ void ActiveSerialComponentBase ::
       Fw::LinearBufferBase& buffer
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   compPtr->serialAsyncAssert_handlerBase(
     portNum,
@@ -8816,7 +8816,7 @@ void ActiveSerialComponentBase ::
       Fw::LinearBufferBase& buffer
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   compPtr->serialAsyncBlockPriority_handlerBase(
     portNum,
@@ -8831,7 +8831,7 @@ void ActiveSerialComponentBase ::
       Fw::LinearBufferBase& buffer
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   compPtr->serialAsyncDropPriority_handlerBase(
     portNum,
@@ -8846,7 +8846,7 @@ void ActiveSerialComponentBase ::
       Fw::LinearBufferBase& buffer
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   compPtr->serialGuarded_handlerBase(
     portNum,
@@ -8861,7 +8861,7 @@ void ActiveSerialComponentBase ::
       Fw::LinearBufferBase& buffer
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialComponentBase* compPtr = static_cast<ActiveSerialComponentBase*>(callComp);
   compPtr->serialSync_handlerBase(
     portNum,

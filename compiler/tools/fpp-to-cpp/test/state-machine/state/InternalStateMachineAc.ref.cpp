@@ -66,7 +66,7 @@ namespace FppTest {
           this->action_a(Signal::S1_internal);
           break;
         default:
-          FW_ASSERT(0, static_cast<FwAssertArgType>(this->m_state));
+          FW_ASSERT(false, static_cast<FwAssertArgType>(this->m_state));
           break;
       }
     }
@@ -82,7 +82,7 @@ namespace FppTest {
         case State::S1_S3:
           break;
         default:
-          FW_ASSERT(0, static_cast<FwAssertArgType>(this->m_state));
+          FW_ASSERT(false, static_cast<FwAssertArgType>(this->m_state));
           break;
       }
     }

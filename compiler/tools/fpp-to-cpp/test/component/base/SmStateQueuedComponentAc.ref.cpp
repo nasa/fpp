@@ -1723,7 +1723,7 @@ namespace FppTest {
         U32 context
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     SmStateQueuedComponentBase* compPtr = static_cast<SmStateQueuedComponentBase*>(callComp);
     compPtr->schedIn_handlerBase(
       portNum,
@@ -2252,7 +2252,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(smId));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(smId));
         break;
     }
   }
@@ -2294,7 +2294,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2315,7 +2315,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2341,7 +2341,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2366,7 +2366,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2391,7 +2391,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2416,7 +2416,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2441,7 +2441,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2466,7 +2466,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2487,7 +2487,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2508,7 +2508,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2546,7 +2546,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2571,7 +2571,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2596,7 +2596,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2621,7 +2621,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2646,7 +2646,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2671,7 +2671,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2699,7 +2699,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2727,7 +2727,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2755,7 +2755,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2790,7 +2790,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2818,7 +2818,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2853,7 +2853,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -2874,7 +2874,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }

@@ -34,6 +34,8 @@ class StringPortBuffer :
     static constexpr FwSizeType CAPACITY =
       Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
       Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
+      Fw::StringBase::STATIC_SERIALIZED_SIZE(0) +
+      Fw::StringBase::STATIC_SERIALIZED_SIZE(0) +
       Fw::StringBase::STATIC_SERIALIZED_SIZE(100) +
       Fw::StringBase::STATIC_SERIALIZED_SIZE(100);
 
@@ -92,6 +94,8 @@ class StringPortSerializer {
     static Fw::SerializeStatus serializePortArgs(
         const Fw::StringBase& str80, //!< A string of size 80
         Fw::StringBase& str80Ref,
+        const Fw::StringBase& str0, //!< A string of size 0
+        Fw::StringBase& str0Ref,
         const Fw::StringBase& str100, //!< A string of size 100
         Fw::StringBase& str100Ref,
         Fw::SerialBufferBase& _buffer //!< The serial buffer
@@ -105,6 +109,8 @@ class StringPortSerializer {
 
     char m___fprime_ac_str80_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
     char m___fprime_ac_str80Ref_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
+    char m___fprime_ac_str0_buffer[Fw::StringBase::BUFFER_SIZE(0)];
+    char m___fprime_ac_str0Ref_buffer[Fw::StringBase::BUFFER_SIZE(0)];
     char m___fprime_ac_str100_buffer[Fw::StringBase::BUFFER_SIZE(100)];
     char m___fprime_ac_str100Ref_buffer[Fw::StringBase::BUFFER_SIZE(100)];
 
@@ -116,6 +122,8 @@ class StringPortSerializer {
 
     Fw::ExternalString m_str80;
     Fw::ExternalString m_str80Ref;
+    Fw::ExternalString m_str0;
+    Fw::ExternalString m_str0Ref;
     Fw::ExternalString m_str100;
     Fw::ExternalString m_str100Ref;
 
@@ -141,6 +149,8 @@ class InputStringPort :
       FwIndexType portNum,
       const Fw::StringBase& str80,
       Fw::StringBase& str80Ref,
+      const Fw::StringBase& str0,
+      Fw::StringBase& str0Ref,
       const Fw::StringBase& str100,
       Fw::StringBase& str100Ref
     );
@@ -173,6 +183,8 @@ class InputStringPort :
     void invoke(
         const Fw::StringBase& str80, //!< A string of size 80
         Fw::StringBase& str80Ref,
+        const Fw::StringBase& str0, //!< A string of size 0
+        Fw::StringBase& str0Ref,
         const Fw::StringBase& str100, //!< A string of size 100
         Fw::StringBase& str100Ref
     );
@@ -237,6 +249,8 @@ class OutputStringPort :
     void invoke(
         const Fw::StringBase& str80, //!< A string of size 80
         Fw::StringBase& str80Ref,
+        const Fw::StringBase& str0, //!< A string of size 0
+        Fw::StringBase& str0Ref,
         const Fw::StringBase& str100, //!< A string of size 100
         Fw::StringBase& str100Ref
     ) const;

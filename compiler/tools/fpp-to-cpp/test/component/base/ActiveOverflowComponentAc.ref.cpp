@@ -2431,7 +2431,7 @@ void ActiveOverflowComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
   compPtr->cmdIn_handlerBase(
     portNum,
@@ -2450,7 +2450,7 @@ void ActiveOverflowComponentBase ::
       const Fw::Success& status
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
   compPtr->productRecvInHook_handlerBase(
     portNum,
@@ -2477,7 +2477,7 @@ void ActiveOverflowComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
   compPtr->assertAsync_handlerBase(
     portNum,
@@ -2504,7 +2504,7 @@ void ActiveOverflowComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
   compPtr->blockAsync_handlerBase(
     portNum,
@@ -2531,7 +2531,7 @@ void ActiveOverflowComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
   compPtr->dropAsync_handlerBase(
     portNum,
@@ -2558,7 +2558,7 @@ void ActiveOverflowComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
   compPtr->hookAsync_handlerBase(
     portNum,
@@ -2585,7 +2585,7 @@ void ActiveOverflowComponentBase ::
       Fw::LinearBufferBase& buffer
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveOverflowComponentBase* compPtr = static_cast<ActiveOverflowComponentBase*>(callComp);
   compPtr->serialAsyncHook_handlerBase(
     portNum,
