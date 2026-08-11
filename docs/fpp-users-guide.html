@@ -17012,12 +17012,15 @@ when it is taken off the queue for processing.</p>
 is serialized into big-endian order (most significant byte first) by default,
 using the number of bytes implied by the bit width.
 For example, the <code>U16</code> value 10 (decimal) is serialized as the
-two bytes <code>00</code> <code>0A</code> (hex). If little-endian order is desired, the optional mode parameter can be specified as <code>Fw::Serialization::LITTLE</code>. This stores the data least significant byte order. The <code>U16</code> value 10 (decimal) is serialized in little-endian as the two bytes <code>0A</code> <code>00</code> (hex).</p>
+two bytes <code>00</code> <code>0A</code> (hex). If little-endian order is desired, the optional mode
+parameter can be specified as <code>Fw::Serialization::LITTLE</code>. This stores the data
+least significant byte order. The <code>U16</code> value 10 (decimal) is serialized in
+little-endian as the two bytes <code>0A</code> <code>00</code> (hex).</p>
 </li>
 <li>
 <p>A value of signed integer type (<code>I8</code>, <code>I16</code>, <code>I32</code>, or <code>I64</code>)
-is serialized by first converting the value to an unsigned value of the same bit
-width and then serializing the unsigned value as stated in rule 1.a.
+is serialized by first converting the value to an unsigned value of the same
+bit width and then serializing the unsigned value as stated in rule 1.a.
 If the value is nonnegative, then the unsigned value is
 the same as the signed value.
 Otherwise the unsigned value is the two&#8217;s complement of the signed value.
@@ -17025,7 +17028,8 @@ For example:</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
-<p>The <code>I16</code> value 10 (decimal) is serialized as two bytes, yielding the bytes <code>00</code> <code>0A</code> (hex) in big-endian and <code>0A</code> <code>00</code> (hex) in little-endian.</p>
+<p>The <code>I16</code> value 10 (decimal) is serialized as two bytes, yielding the bytes
+<code>00</code> <code>0A</code> (hex) in big-endian and <code>0A</code> <code>00</code> (hex) in little-endian.</p>
 </li>
 <li>
 <p>The <code>I16</code> value -10 (decimal) is serialized by
@@ -17074,23 +17078,59 @@ Each string character is serialized as an <code>I8</code> value according to rul
 <li>
 <p>A value of <a href="#Defining-Types_Array-Type-Definitions">array type</a>
 is serialized as a sequence of serialized values, one for each array
-element, in array order.
-Each value is serialized using these rules.</p>
+element, in array order, with no padding.
+Each value is serialized according to its type
+as specified in these rules.</p>
 </li>
 <li>
 <p>A value of <a href="#Defining-Types_Struct-Type-Definitions">struct type</a>
 is serialized member-by-member, in the order
 that the members appear in the FPP struct definition,
-with no padding.</p>
+with no padding.
+Each member is serialized as follows:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Except for
-<a href="#Defining-Types_Struct-Type-Definitions_Member-Arrays">member arrays</a>,
-each member is serialized using these rules.</p>
+<p>If the member is not a
+<a href="#Defining-Types_Struct-Type-Definitions_Member-Arrays">member array</a>,
+then it represents a single value with a single type.
+In this case the value is serialized according to its type as specified
+in these rules.</p>
 </li>
 <li>
-<p>Each member array is serialized as stated in rule 5.</p>
+<p>Otherwise the member is a
+<a href="#Defining-Types_Struct-Type-Definitions_Member-Arrays">member array</a>,
+which represents stores an array of typed values.
+In this case, the array is serialized as specified in rule 5, as if it
+were a single value of an <a href="#Defining-Types_Array-Type-Definitions">array type</a>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>A value of <a href="#Defining-Types_Struct-Type-Definitions">struct type</a>
+is serialized member-by-member, in the order
+that the members appear in the FPP struct definition,
+with no padding.
+Each member is serialized as follows:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If the member is not a
+<a href="#Defining-Types_Struct-Type-Definitions_Member-Arrays">member array</a>,
+then it is a single value of an FPP type.
+In this case the value is serialized according to its type as specified
+in these rules.
+Note that the type of the value may be an
+<a href="#Defining-Types_Array-Type-Definitions">array type</a>.</p>
+</li>
+<li>
+<p>Otherwise the member is a
+<a href="#Defining-Types_Struct-Type-Definitions_Member-Arrays">member array</a>,
+which is not a single value, but an array of typed values.
+In this case, the array is serialized as specified in rule 5,
+as if it were a single value with an
+<a href="#Defining-Types_Array-Type-Definitions">array type</a>.</p>
 </li>
 </ol>
 </div>
@@ -17114,7 +17154,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-30 10:19:08 -0700
+Last updated 2026-08-10 19:09:48 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
