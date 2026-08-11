@@ -562,24 +562,6 @@ Each member is serialized as follows:
 
 .. If the member is not a
 <<Defining-Types_Struct-Type-Definitions_Member-Arrays,member array>>,
-then it represents a single value with a single type.
-In this case the value is serialized according to its type as specified
-in these rules.
-
-.. Otherwise the member is a
-<<Defining-Types_Struct-Type-Definitions_Member-Arrays,member array>>,
-which represents an array of typed values.
-In this case, the array is serialized as specified in rule 5, as if it
-were a single value of an <<Defining-Types_Array-Type-Definitions,array type>>.
-
-. A value of <<Defining-Types_Struct-Type-Definitions,struct type>>
-is serialized member-by-member, in the order
-that the members appear in the FPP struct definition,
-with no padding.
-Each member is serialized as follows:
-
-.. If the member is not a
-<<Defining-Types_Struct-Type-Definitions_Member-Arrays,member array>>,
 then it is a single value of an FPP type.
 In this case the value is serialized according to its type as specified
 in these rules.
@@ -590,7 +572,7 @@ Note that the type of the value may be an
 <<Defining-Types_Struct-Type-Definitions_Member-Arrays,member array>>,
 which is not a single value, but an array of typed values.
 In this case, the array is serialized as specified in rule 5,
-as if it were a single value with an 
+as if it were a single value of an 
 <<Defining-Types_Array-Type-Definitions,array type>>.
 
 . A value of <<Defining-Enums,enum type>> is converted to a primitive

@@ -17093,31 +17093,6 @@ Each member is serialized as follows:</p>
 <li>
 <p>If the member is not a
 <a href="#Defining-Types_Struct-Type-Definitions_Member-Arrays">member array</a>,
-then it represents a single value with a single type.
-In this case the value is serialized according to its type as specified
-in these rules.</p>
-</li>
-<li>
-<p>Otherwise the member is a
-<a href="#Defining-Types_Struct-Type-Definitions_Member-Arrays">member array</a>,
-which represents an array of typed values.
-In this case, the array is serialized as specified in rule 5, as if it
-were a single value of an <a href="#Defining-Types_Array-Type-Definitions">array type</a>.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>A value of <a href="#Defining-Types_Struct-Type-Definitions">struct type</a>
-is serialized member-by-member, in the order
-that the members appear in the FPP struct definition,
-with no padding.
-Each member is serialized as follows:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>If the member is not a
-<a href="#Defining-Types_Struct-Type-Definitions_Member-Arrays">member array</a>,
 then it is a single value of an FPP type.
 In this case the value is serialized according to its type as specified
 in these rules.
@@ -17129,7 +17104,7 @@ Note that the type of the value may be an
 <a href="#Defining-Types_Struct-Type-Definitions_Member-Arrays">member array</a>,
 which is not a single value, but an array of typed values.
 In this case, the array is serialized as specified in rule 5,
-as if it were a single value with an
+as if it were a single value of an
 <a href="#Defining-Types_Array-Type-Definitions">array type</a>.</p>
 </li>
 </ol>
@@ -17154,7 +17129,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-10 19:11:58 -0700
+Last updated 2026-08-11 08:51:38 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
