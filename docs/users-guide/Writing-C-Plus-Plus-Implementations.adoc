@@ -568,7 +568,7 @@ in these rules.
 
 .. Otherwise the member is a
 <<Defining-Types_Struct-Type-Definitions_Member-Arrays,member array>>,
-which represents stores an array of typed values.
+which represents an array of typed values.
 In this case, the array is serialized as specified in rule 5, as if it
 were a single value of an <<Defining-Types_Array-Type-Definitions,array type>>.
 
