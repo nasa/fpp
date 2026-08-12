@@ -51,22 +51,9 @@ namespace Ports {
       // Public member functions for TypedPortBuffer
       // ----------------------------------------------------------------------
 
-      //! Get the capacity of the buffer
-      //! \return The capacity
-      Fw::Serializable::SizeType getCapacity() const override {
-        return CAPACITY;
-      }
+      //! Constructor
+      TypedPortBuffer() : Fw::LinearBufferBase(m_buff, CAPACITY) {
 
-      //! Get the buffer address (non-const)
-      //! \return The buffer address
-      U8* getBuffAddr() override {
-        return m_buff;
-      }
-
-      //! Get the buffer address (const)
-      //! \return The buffer address
-      const U8* getBuffAddr() const override {
-        return m_buff;
       }
 
     private:
