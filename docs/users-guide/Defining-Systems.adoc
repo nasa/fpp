@@ -57,3 +57,17 @@ A system definition may appear at the top level or inside a
 <<Defining-Modules,module definition>>.
 A system definition is an
 <<Writing-Comments-and-Annotations_Annotations,annotatable element>>.
+
+Only one system is allowed per model.
+If you define more than one system per model, you will get
+an error.
+For example:
+
+[source,fpp]
+--------
+deployment topology T {
+
+}
+system S1: T
+system S2: T # Error: only one system allowed
+--------

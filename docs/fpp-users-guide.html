@@ -13217,6 +13217,21 @@ at the system level.</p>
 A system definition is an
 <a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.</p>
 </div>
+<div class="paragraph">
+<p>Only one system is allowed per model.
+If you define more than one system per model, you will get
+an error.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">deployment topology T {
+
+}
+system S1: T
+system S2: T # Error: only one system allowed</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -17320,7 +17335,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-06 13:23:32 -0700
+Last updated 2026-08-12 11:40:43 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
