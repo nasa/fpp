@@ -752,8 +752,8 @@ You typically set these constants by overriding configuration
 files provided in the directory `default/config` in the F Prime repository.
 For example, the file `default/config/FpConstants.fpp` provides a default 
 definition for `FW_FIXED_LENGTH_STRING_SIZE`.
-You can override this default value by a different definition for this 
-constant.
+You can override this default value with a different value that
+you supply.
 The 
 https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/[F
 Prime User Manual]
@@ -787,7 +787,7 @@ constant a = FW_FIXED_LENGTH_STRING_SIZE
 --------
 
 If framework constants are defined in the FPP model, then
-then they must conform to certain rules.
+they must conform to certain rules.
 These rules are spelled out in detail in the
 https://nasa.github.io/fpp/fpp-spec.html#Definitions_Framework-Definitions_Constant-Definitions[_The
 FPP Language Specification_].

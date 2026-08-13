@@ -316,7 +316,8 @@ The kind of definition must be one of the following:
 |A <<Defining-Constants,constant definition>>
 
 |`instance`
-|A <<Defining-Component-Instances,component instance definition>>
+|A <<Defining-Component-Instances,component instance definition>> or
+<<Defining-Topologies,topology definition>>
 
 |`interface`
 |A <<Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces,port interface definition>>
@@ -324,11 +325,11 @@ The kind of definition must be one of the following:
 |`port`
 |A <<Defining-Ports,port definition>>
 
-|`state` `machine`
+|`state machine`
 |A <<Defining-State-Machines,state machine definition>>
 
-|`topology`
-|A <<Defining-Topologies,topology definition>>
+|`system`
+|A <<Defining-Systems,system definition>>
 
 |`type`
 |A <<Defining-Types,type>> or <<Defining-Enums,enum>> definition
