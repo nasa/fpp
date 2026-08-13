@@ -467,7 +467,7 @@ locate dictionary constant b at "b.fpp"
 
 The `dictionary` keyword tells the analyzer that the definition is a dictionary
 definition.
-This fact is important when the model includes a topology definition.
+This fact is important when the model defines a deployment topology.
 In this case, the analyzer includes all dictionary definitions as
 dependencies of the model.
 That way the definitions are available
