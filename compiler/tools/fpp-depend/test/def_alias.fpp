@@ -8,4 +8,4 @@ type A1 = T
 type A2 = C.T
 type A3 = T2
 
-topology T {}
+deployment topology T {}
