@@ -444,8 +444,8 @@ stem:[c_2].
 
 ==== Implied Uses
 
-When generating a dictionary from a topology _T_, the analyzer
-treats the definition of _T_ as if it contained 
+When generating a dictionary from a deployment topology _T_,
+the analyzer treats the definition of _T_ as if it contained 
 <<Definitions-and-Uses_Implied-Uses, implied uses>> of
 several <<Definitions_Framework-Definitions,
 framework definitions>> required by the dictionary.

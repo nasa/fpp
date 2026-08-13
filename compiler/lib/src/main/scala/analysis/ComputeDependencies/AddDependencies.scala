@@ -32,9 +32,9 @@ object AddDependencies extends BasicUseAnalyzer {
       // Add dependencies based on explicit and implicit uses in the topology
       a <- super.defTopologyAnnotatedNode(a, node)
       // Add dependencies based on dictionary specifiers
-      a <- if !a.includeDictionaryDeps
+      a <- if node._2.data.isDeployment && !a.includeDictionaryDeps
            then
-             // This is the first topology we have visited.
+             // This is the first deployment topology we have visited.
              // Set includeDictionaryDeps = true and add all dictionary dependencies
              // discovered so far.
              val a1 = a.copy(includeDictionaryDeps = true)
@@ -44,7 +44,8 @@ object AddDependencies extends BasicUseAnalyzer {
                case (a, s) => addDependencies (a) (s)
              }
            else
-             // This is the second or later topology; nothing to do
+             // This is the second or later deployment topology, or a
+             // non-deployment topology; nothing to do
              Right(a)
     } yield a
   }
