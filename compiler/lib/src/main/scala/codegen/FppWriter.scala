@@ -328,15 +328,26 @@ object FppWriter extends AstVisitor with LineUtils {
     joinOpt (data.default) (" default ") (exprNode)
   }
 
+  override def defSystemAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefSystem]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"system ${ident(data.name)}:").join(" ")(qualIdent(data.topology.data))
+  }
+
   override def defTopologyAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data
+    val topology = if data.isDeployment
+    then "deployment topology" else "topology"
     val implementsClause = if data.implements.nonEmpty
     then Some(data.implements.map(_.data)) else None
-    lines(s"topology ${ident(data.name)} ${if (implementsClause.isDefined) "implements" else "{"}").
+    lines(s"$topology ${ident(data.name)} ${if (implementsClause.isDefined) "implements" else "{"}").
       joinOptWithBreak (implementsClause) ("") (q => q.flatMap(qualIdent)) ++
       (if (implementsClause.isDefined) List(line("{"), Line.blank) else List(Line.blank)) ++
       Line.blankSeparated (topologyMember) (data.members).map(indentIn) ++

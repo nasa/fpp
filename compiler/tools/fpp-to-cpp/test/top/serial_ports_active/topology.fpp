@@ -5,7 +5,7 @@ module SerialPortsActive {
     queue size 10 \
     stack size 1024
 
-  topology SerialPortsActive {
+  deployment topology SerialPortsActive {
 
     instance sender
     instance receiver

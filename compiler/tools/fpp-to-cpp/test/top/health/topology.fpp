@@ -5,7 +5,7 @@ module M {
   instance c1: C base id 0x200
   instance c2: C base id 0x300
 
-  topology Health {
+  deployment topology Health {
     instance $health
     instance c1
     instance c2

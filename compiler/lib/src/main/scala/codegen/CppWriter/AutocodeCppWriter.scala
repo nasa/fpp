@@ -115,17 +115,20 @@ object AutocodeCppWriter extends CppWriter {
   ) = {
     val node = aNode._2
     val data = node.data
-    val ts = Symbol.Topology(aNode)
-    val t = s.a.topologyMap(ts)
-    val d = s.a.dictionaryMap(ts)
-    val a = s.a.copy(topology = Some(t), dictionary = Some(d))
-    val s1 = s.copy(a = a)
-    val cppDoc = TopologyCppWriter(s1, aNode).write
-    for {
-      s <- CppWriter.writeCppDoc(s1, cppDoc)
-      s <- visitList(s, data.members, matchTopologyMember)
-    }
-    yield s
+    if data.isDeployment
+    then
+      val ts = Symbol.Topology(aNode)
+      val t = s.a.topologyMap(ts)
+      val d = s.a.dictionaryMap(ts)
+      val a = s.a.copy(topology = Some(t), dictionary = Some(d))
+      val s1 = s.copy(a = a)
+      val cppDoc = TopologyCppWriter(s1, aNode).write
+      for {
+        s <- CppWriter.writeCppDoc(s1, cppDoc)
+        s <- visitList(s, data.members, matchTopologyMember)
+      }
+      yield s
+    else Right(s)
   }
 
   override def specTlmPacketSetAnnotatedNode(

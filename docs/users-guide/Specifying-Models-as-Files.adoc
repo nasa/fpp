@@ -316,7 +316,8 @@ The kind of definition must be one of the following:
 |A <<Defining-Constants,constant definition>>
 
 |`instance`
-|A <<Defining-Component-Instances,component instance definition>>
+|A <<Defining-Component-Instances,component instance definition>> or
+<<Defining-Topologies,topology definition>>
 
 |`interface`
 |A <<Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces,port interface definition>>
@@ -324,11 +325,11 @@ The kind of definition must be one of the following:
 |`port`
 |A <<Defining-Ports,port definition>>
 
-|`state` `machine`
+|`state machine`
 |A <<Defining-State-Machines,state machine definition>>
 
-|`topology`
-|A <<Defining-Topologies,topology definition>>
+|`system`
+|A <<Defining-Systems,system definition>>
 
 |`type`
 |A <<Defining-Types,type>> or <<Defining-Enums,enum>> definition
@@ -466,7 +467,7 @@ locate dictionary constant b at "b.fpp"
 
 The `dictionary` keyword tells the analyzer that the definition is a dictionary
 definition.
-This fact is important when the model includes a topology definition.
+This fact is important when the model defines a deployment topology.
 In this case, the analyzer includes all dictionary definitions as
 dependencies of the model.
 That way the definitions are available
