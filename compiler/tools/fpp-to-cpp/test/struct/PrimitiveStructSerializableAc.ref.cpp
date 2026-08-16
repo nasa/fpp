@@ -65,9 +65,10 @@ bool PrimitiveStruct ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const PrimitiveStruct& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s.toChar();
+  os << "{ ";
+  os << "s1 = ";
+  os << obj.m_s1;
+  os << " }";
   return os;
 }
 

@@ -100,9 +100,20 @@ bool Enum ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const Enum& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s.toChar();
+  os << "{ ";
+  os << "e = ";
+  os << obj.m_e;
+  os << ", ";
+  os << "eArr = ";
+  os << "[ ";
+  for (FwSizeType i = 0; i < 3; i++) {
+    if (i > 0) {
+      os << ", ";
+    }
+    os << obj.m_eArr[i];
+  }
+  os << " ]";
+  os << " }";
   return os;
 }
 

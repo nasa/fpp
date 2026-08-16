@@ -423,13 +423,21 @@ case class ArrayCppWriter (
         CppDoc.Function.NonSV,
         CppDoc.Function.Const,
       )
-    ) ++ writeOstreamOperator(
-      name,
-      lines(
-        """|Fw::String s;
-           |obj.toString(s);
-           |os << s;
-           |return os;"""
+    ) ++ (
+      writeOstreamOperator(
+        name,
+        List.concat(
+          lines(s"""|os << "[";
+                    |constexpr auto SIZE = $name::SIZE;"""),
+          indexIterator(lines(
+            s"""|if (index > 0) {
+                |  os << ", ";
+                |}
+                |
+                |os << obj.elements[index];""")),
+          lines("""|os << "]";
+                   |return os;""")
+        )
       )
     )
 
