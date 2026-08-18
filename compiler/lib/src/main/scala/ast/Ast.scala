@@ -163,6 +163,7 @@ object Ast {
     final case class DefPort(node: AstNode[Ast.DefPort]) extends Node
     final case class DefStateMachine(node: AstNode[Ast.DefStateMachine]) extends Node
     final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
+    final case class DefSystem(node: AstNode[Ast.DefSystem]) extends Node
     final case class DefTopology(node: AstNode[Ast.DefTopology]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
     final case class SpecLoc(node: AstNode[Ast.SpecLoc]) extends Node
@@ -322,6 +323,7 @@ object Ast {
 
   /** Topology defintion */
   final case class DefTopology(
+    isDeployment: Boolean,
     name: Ident,
     members: List[TopologyMember],
     implements: List[AstNode[QualIdent]],
@@ -337,6 +339,12 @@ object Ast {
     final case class SpecTopPort(node: AstNode[Ast.SpecTopPort]) extends Node
     final case class SpecTlmPacketSet(node: AstNode[Ast.SpecTlmPacketSet]) extends Node
   }
+
+  /** System definition */
+  final case class DefSystem(
+    name: Ident,
+    topology: AstNode[QualIdent]
+  )
 
   /** Formal parameter */
   final case class FormalParam(
@@ -621,6 +629,9 @@ object Ast {
     }
     case object StateMachine extends Kind {
       override def toString = "state machine"
+    }
+    case object System extends Kind {
+      override def toString = "system"
     }
     case object Type extends Kind {
       override def toString = "type"

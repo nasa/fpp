@@ -242,6 +242,17 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
+  "def system OK" should {
+    parseAllOK(
+      Parser.defSystem,
+      List(
+        "system S: T",
+        "system S: M.T",
+        "system S: M1.M2.T"
+      )
+    )
+  }
+
   "def tlmPacket OK" should {
     parseAllOK(
       Parser.specTlmPacket,
@@ -280,6 +291,7 @@ class ParserSpec extends AnyWordSpec {
       Parser.defTopology,
       List(
         "topology T {}",
+        "deployment topology T {}",
         "topology T implements I {}",
         "topology T implements I1.I2 {}",
         "topology T implements I1.I2, I3.I4 {}",
@@ -525,6 +537,8 @@ class ParserSpec extends AnyWordSpec {
         "locate instance a.b at \"c.fpp\"",
         "locate constant a.b at \"c.fpp\"",
         "locate port a.b at \"c.fpp\"",
+        "locate state machine a.b at \"c.fpp\"",
+        "locate system a.b at \"c.fpp\"",
         "locate type a.b at \"c.fpp\"",
         "locate dictionary type a.b at \"c.fpp\"",
         "locate dictionary constant a.b at \"c.fpp\"",

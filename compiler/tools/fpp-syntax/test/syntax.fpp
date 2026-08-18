@@ -223,6 +223,10 @@ module DefinitionsAndSpecifiers {
   }
   @< Topology definition
 
+  @ Deployment topology
+  deployment topology T {}
+  @< Deployment topology
+
   @ Topology definition with one implements
   topology T implements I {}
   @< Topology definition with one implements
@@ -231,9 +235,17 @@ module DefinitionsAndSpecifiers {
   topology T implements I, I {}
   @< Topology definition with two implements
 
+  @ System definition
+  system S: M.T
+  @< System definition
+
   @ Location specifier
   locate instance i at "instances.fpp"
   @< Location specifier
+
+  @ System location specifier
+  locate system S at "system.fpp"
+  @< System location specifier
 
 }
 @< Definitions and specifiers

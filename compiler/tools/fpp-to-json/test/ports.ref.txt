@@ -864,6 +864,7 @@
                             "node" : {
                               "AstNode" : {
                                 "data" : {
+                                  "isDeployment" : false,
                                   "name" : "T",
                                   "members" : [
                                     [
@@ -2598,31 +2599,7 @@
       
     },
     "dictionaryMap" : {
-      "122" : {
-        "usedSymbolSet" : [
-        ],
-        "commandEntryMap" : {
-          
-        },
-        "tlmChannelEntryMap" : {
-          
-        },
-        "eventEntryMap" : {
-          
-        },
-        "paramEntryMap" : {
-          
-        },
-        "recordEntryMap" : {
-          
-        },
-        "containerEntryMap" : {
-          
-        },
-        "tlmPacketSetMap" : {
-          
-        }
-      }
+      
     }
   }
 }

@@ -27,6 +27,7 @@ syn keyword fppKeyword constant
 syn keyword fppKeyword container
 syn keyword fppKeyword cpu
 syn keyword fppKeyword default
+syn keyword fppKeyword deployment
 syn keyword fppKeyword diagnostic
 syn keyword fppKeyword dictionary
 syn keyword fppKeyword do
@@ -98,6 +99,7 @@ syn keyword fppKeyword stack
 syn keyword fppKeyword state
 syn keyword fppKeyword struct
 syn keyword fppKeyword sync
+syn keyword fppKeyword system
 syn keyword fppKeyword telemetry
 syn keyword fppKeyword text
 syn keyword fppKeyword throttle

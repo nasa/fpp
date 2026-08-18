@@ -89,7 +89,9 @@ case class Analysis(
   /** The mapping from nodes to implied uses */
   impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map(),
   /** The set of symbols defined with a dictionary specifier */
-  dictionarySymbolSet: Set[Symbol] = Set()
+  dictionarySymbolSet: Set[Symbol] = Set(),
+  /** The mapping from system symbols to systems */
+  systemMap: Map[Symbol.System, FppSystem] = Map(),
 ) {
 
   /** Gets the qualified name of a symbol */

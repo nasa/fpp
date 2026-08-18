@@ -6,7 +6,7 @@ module M {
 }
 
 @ A topology with no instances
-topology NoInstances { 
+deployment topology NoInstances { 
 
   @ Empty packet set
   telemetry packets P1 {
@@ -27,7 +27,7 @@ topology NoInstances {
 module M {
 
   @ A topology with one instance
-  topology OneInstance {
+  deployment topology OneInstance {
 
     instance c1
 
@@ -82,7 +82,7 @@ module M {
 module N {
 
   @ A topology with two instances
-  topology TwoInstances {
+  deployment topology TwoInstances {
 
     instance M.c1
     instance M.c2

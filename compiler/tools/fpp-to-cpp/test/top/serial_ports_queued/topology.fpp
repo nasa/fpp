@@ -4,7 +4,7 @@ module SerialPortsQueued {
   instance receiver: Receiver base id 0x200 \
     queue size 10
 
-  topology SerialPortsQueued {
+  deployment topology SerialPortsQueued {
 
     instance sender
     instance receiver

@@ -104,7 +104,7 @@ module FppTest {
   instance c2: DpTestComponent base id 0x1688 \
     queue size 10
 
-  topology BasicDp { 
+  deployment topology BasicDp { 
 
     instance c1
     instance c2
@@ -114,4 +114,7 @@ module FppTest {
     }
 
   }
+
+  system BasicDp: BasicDp
+
 }
