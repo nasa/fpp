@@ -191,6 +191,10 @@ jobs:
           name: build-jar
           path:  ${{ inputs.output-directory }}
       - name: "Run Builder"
+        env:
+          # Pin the version to the release tag; `git describe` may pick an older
+          # tag on the same commit. Empty (non-release) values are ignored.
+          SETUPTOOLS_SCM_PRETEND_VERSION: ${{ github.event.release.tag_name }}
         run: |
           pip install build
           cp -vr ${{ inputs.output-directory }}/*.jar python/fprime_fpp/
