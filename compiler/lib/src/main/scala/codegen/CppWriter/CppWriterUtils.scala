@@ -233,6 +233,22 @@ trait CppWriterUtils extends LineUtils {
     )
   )
 
+  def wrapClassMemberInTextLogGuard(
+    member: CppDoc.Class.Member,
+    output: CppDoc.Lines.Output = CppDoc.Lines.Both
+  ): List[CppDoc.Class.Member] =
+    wrapClassMembersInTextLogGuard(List(member), output)
+
+  def wrapClassMembersInTextLogGuard(
+    members: List[CppDoc.Class.Member],
+    output: CppDoc.Lines.Output = CppDoc.Lines.Both
+  ): List[CppDoc.Class.Member] =
+    wrapClassMembersInIfDirective(
+      "#if FW_ENABLE_TEXT_LOGGING",
+      members,
+      output
+    )
+
   def writeOstreamOperator(
     name: String,
     body: List[Line]

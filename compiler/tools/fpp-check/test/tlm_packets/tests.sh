@@ -14,6 +14,7 @@ level_not_numeric
 level_out_of_range
 negative_id
 negative_level
+not_deployment_topology
 ok
 omit_instance_not_defined
 omit_instance_not_in_topology

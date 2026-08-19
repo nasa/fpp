@@ -291,7 +291,7 @@ module Module1 {
 
   instance mySecondC2: Component2 base id 0x600
 
-  topology FirstTop { 
+  deployment topology FirstTop { 
 
     instance myFirstC1
     instance myFirstC2
@@ -316,7 +316,7 @@ module Module1 {
     }
   }
 
-  topology SecondTop { 
+  deployment topology SecondTop { 
 
       instance mySecondC1
       instance mySecondC2

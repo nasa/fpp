@@ -72,6 +72,7 @@ object FPPLocateUses {
           case _: Symbol.Port => Ast.SpecLoc.Port
           case _: Symbol.StateMachine => Ast.SpecLoc.StateMachine
           case _: Symbol.Struct => Ast.SpecLoc.Type
+          case _: Symbol.System => throw InternalError("use should not be system symbol")
           case _: Symbol.Topology => Ast.SpecLoc.Instance
         }
         val isDictionaryDef = s match {

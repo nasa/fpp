@@ -155,6 +155,11 @@ dictionary_specifier()
   run_test -a dictionary-specifier
 }
 
+numeric_shift()
+{
+  run_test "" numeric-shift
+}
+
 tests="
 comments
 embedded_tab
@@ -182,6 +187,7 @@ syntax_stdin
 topology_ports
 two_input_files
 dictionary_specifier
+numeric_shift
 "
 
 run_suite $tests

@@ -62,10 +62,14 @@ void PassiveTestTester ::
     this->get_from_productSendOut(0)
   );
 
+#if FW_ENABLE_TEXT_LOGGING == 1
+
   this->component.set_textEventOut_OutputPort(
     0,
     this->get_from_textEventOut(0)
   );
+
+#endif
 
   this->component.set_timeGetOut_OutputPort(
     0,

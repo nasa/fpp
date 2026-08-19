@@ -23,6 +23,7 @@ Fw::SerializeStatus PassiveExternalParamsTesterBase::PassiveExternalParamsCompon
 {
   Fw::SerializeStatus stat;
   (void) baseId;
+  (void) prmStat;
 
   // Serialize the parameter based on ID
   switch(localId)
@@ -53,7 +54,7 @@ Fw::SerializeStatus PassiveExternalParamsTesterBase::PassiveExternalParamsCompon
       break;
     default:
       // Unknown ID; should not have gotten here
-      FW_ASSERT(0, static_cast<FwAssertArgType>(localId));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(localId));
   }
 
   return stat;
@@ -98,7 +99,7 @@ Fw::SerializeStatus PassiveExternalParamsTesterBase::PassiveExternalParamsCompon
       break;
     default:
       // Unknown ID; should not have gotten here
-      FW_ASSERT(0, static_cast<FwAssertArgType>(localId));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(localId));
   }
 
   return stat;
@@ -2501,7 +2502,7 @@ Fw::ParamValid PassiveExternalParamsTesterBase ::
     };
 
     default:
-      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(id));
       break;
   }
 
@@ -2612,7 +2613,7 @@ void PassiveExternalParamsTesterBase ::
     };
 
     default:
-      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(id));
       break;
   }
 }

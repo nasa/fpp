@@ -43,22 +43,9 @@ class PrimitivePortBuffer :
     // Public member functions for PrimitivePortBuffer
     // ----------------------------------------------------------------------
 
-    //! Get the capacity of the buffer
-    //! \return The capacity
-    Fw::Serializable::SizeType getCapacity() const override {
-      return CAPACITY;
-    }
+    //! Constructor
+    PrimitivePortBuffer() : Fw::LinearBufferBase(m_buff, CAPACITY) {
 
-    //! Get the buffer address (non-const)
-    //! \return The buffer address
-    U8* getBuffAddr() override {
-      return m_buff;
-    }
-
-    //! Get the buffer address (const)
-    //! \return The buffer address
-    const U8* getBuffAddr() const override {
-      return m_buff;
     }
 
   private:

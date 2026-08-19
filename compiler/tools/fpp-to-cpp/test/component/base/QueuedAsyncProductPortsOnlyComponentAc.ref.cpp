@@ -40,16 +40,8 @@ namespace {
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
-      Fw::Serializable::SizeType getCapacity() const {
-        return sizeof(m_buff);
-      }
+      ComponentIpcSerializableBuffer() : Fw::LinearBufferBase(m_buff, sizeof(m_buff)) {
 
-      U8* getBuffAddr() {
-        return m_buff;
-      }
-
-      const U8* getBuffAddr() const {
-        return m_buff;
       }
 
     private:
@@ -509,7 +501,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
       const Fw::Success& status
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedAsyncProductPortsOnlyComponentBase* compPtr = static_cast<QueuedAsyncProductPortsOnlyComponentBase*>(callComp);
   compPtr->productRecvIn_handlerBase(
     portNum,

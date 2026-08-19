@@ -17,7 +17,7 @@ instance c1: C base id 0x100
 instance c2: C base id 0x200
 
 @ A topology with telemetry packets
-topology TelemetryPackets {
+deployment topology TelemetryPackets {
 
   instance c1
   instance c2

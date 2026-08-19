@@ -181,8 +181,7 @@ abstract class ComponentCppWriterUtils(
   def getNonParamCmdFormalParams(cmd: Command.NonParam, stringRep: String): List[CppDoc.Function.Param] =
     formalParamsCppWriter.write(
       cmd.aNode._2.data.params,
-      stringRep,
-      FormalParamsCppWriter.Value
+      stringRep
     )
 
   /** Map from command opcodes to command parameters */
@@ -963,6 +962,19 @@ abstract class ComponentCppWriterUtils(
     Nil,
     CppDoc.Function.PureVirtual
   )
+
+  def getValidityFlagForParam(param: Param) = {
+    val paramName = param.getName
+    val flagName = paramValidityFlagName(paramName)
+    linesClassMember(
+      lines(
+        s"""|
+            |//! The validity flag for $paramName
+            |Fw::ParamValid $flagName = Fw::ParamValid::UNINIT;
+            |"""
+      )
+    )
+  }
 
   /** Writes the type of a state machine implementation */
   def writeStateMachineImplType(smSymbol: Symbol.StateMachine) =

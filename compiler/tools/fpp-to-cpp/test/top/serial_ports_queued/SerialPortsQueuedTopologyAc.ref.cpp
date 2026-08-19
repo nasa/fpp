@@ -12,13 +12,13 @@
 
 namespace SerialPortsQueued {
 
-  SerialPortsQueued::Receiver receiver(FW_OPTIONAL_NAME("receiver"));
+  SerialPortsQueued::Receiver receiver(FW_OPTIONAL_NAME("SerialPortsQueued.receiver"));
 
 }
 
 namespace SerialPortsQueued {
 
-  SerialPortsQueued::Sender sender(FW_OPTIONAL_NAME("sender"));
+  SerialPortsQueued::Sender sender(FW_OPTIONAL_NAME("SerialPortsQueued.sender"));
 
 }
 
@@ -337,7 +337,7 @@ namespace SerialPortsQueued {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -404,7 +404,7 @@ namespace SerialPortsQueued {
         }
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
   }

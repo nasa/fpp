@@ -128,8 +128,6 @@ case class ComponentCppWriter (
             |""".stripMargin
       )
       (standardHeaders ++ symbolHeaders).sorted.flatMap({
-        case h: "#include \"Fw/Log/LogTextPortAc.hpp\"" =>
-              addConditional("#if FW_ENABLE_TEXT_LOGGING == 1", h)
         case h: "#include \"Fw/Port/InputSerializePort.hpp\"" =>
               addConditional("#if !FW_DIRECT_PORT_CALLS", h)
         case h: "#include \"Fw/Port/OutputSerializePort.hpp\"" =>
@@ -413,16 +411,8 @@ case class ComponentCppWriter (
           |      SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
           |    };
           |
-          |    Fw::Serializable::SizeType getCapacity() const {
-          |      return sizeof(m_buff);
-          |    }
+          |    ComponentIpcSerializableBuffer() : Fw::LinearBufferBase(m_buff, sizeof(m_buff)) {
           |
-          |    U8* getBuffAddr() {
-          |      return m_buff;
-          |    }
-          |
-          |    const U8* getBuffAddr() const {
-          |      return m_buff;
           |    }
           |
           |  private:
@@ -536,7 +526,6 @@ case class ComponentCppWriter (
             )
           ),
           List(s"Fw::${kindStr}ComponentBase(compName)") :::
-            (if (hasExternalParameters) List("paramDelegatePtr(nullptr)") else Nil) :::
             smInstancesByName.map { (name, smi) =>
               val sm = s.a.stateMachineMap(smi.symbol)
               val hasActionsOrGuards = sm.hasActions || sm.hasGuards
@@ -555,9 +544,6 @@ case class ComponentCppWriter (
               throttledEventsWithTimeout.map((_, event) => line(
                 s"this->${eventThrottleTimeName(event.getName)} = Fw::Time();"
               )),
-              sortedParams.flatMap((_, param) => guardedList(!param.isExternal) (
-                lines(s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::UNINIT;")
-              ))
             )
           )
         ),

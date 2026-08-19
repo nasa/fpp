@@ -26,6 +26,9 @@ class StringArray :
     //! The type of s2
     using Type_of_s2 = Fw::ExternalString[16];
 
+    //! The type of s0
+    using Type_of_s0 = Fw::ExternalString[16];
+
   public:
 
     // ----------------------------------------------------------------------
@@ -36,7 +39,8 @@ class StringArray :
       //! The size of the serial representation
       SERIALIZED_SIZE =
         Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(40) * 16
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(40) * 16 +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(0) * 16
     };
 
   public:
@@ -51,7 +55,8 @@ class StringArray :
     //! Member constructor
     StringArray(
         const Fw::StringBase& s1,
-        const Type_of_s2& s2
+        const Type_of_s2& s2,
+        const Type_of_s0& s0
     );
 
     //! Copy constructor
@@ -62,7 +67,8 @@ class StringArray :
     //! Member constructor (scalar values for arrays)
     StringArray(
         const Fw::StringBase& s1,
-        const Fw::StringBase& s2
+        const Fw::StringBase& s2,
+        const Fw::StringBase& s0
     );
 
   public:
@@ -154,6 +160,18 @@ class StringArray :
       return this->m_s2;
     }
 
+    //! Get member s0
+    Type_of_s0& get_s0()
+    {
+      return this->m_s0;
+    }
+
+    //! Get member s0 (const)
+    const Type_of_s0& get_s0() const
+    {
+      return this->m_s0;
+    }
+
     // ----------------------------------------------------------------------
     // Setter functions
     // ----------------------------------------------------------------------
@@ -161,7 +179,8 @@ class StringArray :
     //! Set all members
     void set(
         const Fw::StringBase& s1,
-        const Type_of_s2& s2
+        const Type_of_s2& s2,
+        const Type_of_s0& s0
     );
 
     //! Set member s1
@@ -169,6 +188,9 @@ class StringArray :
 
     //! Set member s2
     void set_s2(const Type_of_s2& s2);
+
+    //! Set member s0
+    void set_s0(const Type_of_s0& s0);
 
   protected:
 
@@ -180,6 +202,8 @@ class StringArray :
     Fw::ExternalString m_s1;
     char m___fprime_ac_s2_buffer[16][Fw::StringBase::BUFFER_SIZE(40)];
     Fw::ExternalString m_s2[16];
+    char m___fprime_ac_s0_buffer[16][Fw::StringBase::BUFFER_SIZE(0)];
+    Fw::ExternalString m_s0[16];
 
 };
 

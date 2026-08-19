@@ -197,13 +197,6 @@ is an errant `.lock` file left behind by the tracing agent.
 Run `find . -name .lock` in this directory to find the file;
 then delete it and retry.
 
-. Set the environment variable `FPRIME` to point to the root of
-a local copy of the
-https://github.com/nasa/fprime[F Prime repository] or
-a fork of the repository.
-
-. Run `./trace-fprime` to trace F Prime projects that run in CI.
-
 . Commit the updated trace files to this repository.
 
 . Run `./install` to reinstall the standard version

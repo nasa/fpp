@@ -50,16 +50,8 @@ namespace {
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
-      Fw::Serializable::SizeType getCapacity() const {
-        return sizeof(m_buff);
-      }
+      ComponentIpcSerializableBuffer() : Fw::LinearBufferBase(m_buff, sizeof(m_buff)) {
 
-      U8* getBuffAddr() {
-        return m_buff;
-      }
-
-      const U8* getBuffAddr() const {
-        return m_buff;
       }
 
     private:
@@ -3904,7 +3896,7 @@ void ActiveGetProductsComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   compPtr->cmdIn_handlerBase(
     portNum,
@@ -3931,7 +3923,7 @@ void ActiveGetProductsComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   compPtr->aliasTypedAsync_handlerBase(
     portNum,
@@ -3951,7 +3943,7 @@ Fw::String ActiveGetProductsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   return compPtr->noArgsAliasStringReturnSync_handlerBase(portNum);
 }
@@ -3962,7 +3954,7 @@ void ActiveGetProductsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   compPtr->noArgsAsync_handlerBase(portNum);
 }
@@ -3973,7 +3965,7 @@ void ActiveGetProductsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   compPtr->noArgsGuarded_handlerBase(portNum);
 }
@@ -3984,7 +3976,7 @@ U32 ActiveGetProductsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   return compPtr->noArgsReturnGuarded_handlerBase(portNum);
 }
@@ -3995,7 +3987,7 @@ U32 ActiveGetProductsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   return compPtr->noArgsReturnSync_handlerBase(portNum);
 }
@@ -4006,7 +3998,7 @@ Fw::String ActiveGetProductsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   return compPtr->noArgsStringReturnSync_handlerBase(portNum);
 }
@@ -4017,7 +4009,7 @@ void ActiveGetProductsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   compPtr->noArgsSync_handlerBase(portNum);
 }
@@ -4035,7 +4027,7 @@ void ActiveGetProductsComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   compPtr->typedAliasGuarded_handlerBase(
     portNum,
@@ -4062,7 +4054,7 @@ AliasPrim2 ActiveGetProductsComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   return compPtr->typedAliasReturnSync_handlerBase(
     portNum,
@@ -4089,7 +4081,7 @@ Fw::String ActiveGetProductsComponentBase ::
       const AnotherAliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   return compPtr->typedAliasStringReturnSync_handlerBase(
     portNum,
@@ -4116,7 +4108,7 @@ void ActiveGetProductsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   compPtr->typedAsync_handlerBase(
     portNum,
@@ -4143,7 +4135,7 @@ void ActiveGetProductsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   compPtr->typedAsyncAssert_handlerBase(
     portNum,
@@ -4170,7 +4162,7 @@ void ActiveGetProductsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   compPtr->typedAsyncBlockPriority_handlerBase(
     portNum,
@@ -4197,7 +4189,7 @@ void ActiveGetProductsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   compPtr->typedAsyncDropPriority_handlerBase(
     portNum,
@@ -4224,7 +4216,7 @@ void ActiveGetProductsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   compPtr->typedGuarded_handlerBase(
     portNum,
@@ -4251,7 +4243,7 @@ F32 ActiveGetProductsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   return compPtr->typedReturnGuarded_handlerBase(
     portNum,
@@ -4278,7 +4270,7 @@ F32 ActiveGetProductsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   return compPtr->typedReturnSync_handlerBase(
     portNum,
@@ -4305,7 +4297,7 @@ void ActiveGetProductsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
   compPtr->typedSync_handlerBase(
     portNum,

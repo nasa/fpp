@@ -88,17 +88,18 @@ constant FW_FIXED_LENGTH_STRING_SIZE = 256
 array A = [3] string
 ----
 +
-Notice that we defined the 
-<<Defining-Types_Framework-Types,framework type>> 
+Notice that we defined the type
 `FwSizeStoreType` and the 
-<<Defining-Constants_Framework-Constants,framework constant>>
 `FW_FIXED_LENGTH_STRING_SIZE`.
-These definitions are required when using the type `string`.
-Typically you provide them as part of the F Prime configuration.
 `FwSizeStoreType` specifies the type to use for storing the
 length of a string.
 `FW_FIXED_LENGTH_STRING_SIZE` specifies the size of the buffer
 used to store string data.
+These definitions are required when using the type `string`.
+Typically you provide them as part of the F Prime configuration.
+For more information, see the sections on
+<<Defining-Types_Framework-Types,framework types>> and
+<<Defining-Constants_Framework-Constants,framework constants>>.
 
 * The type name `string size` _e_, where _e_ is a numeric expression
 specifying the maximum string length of any value of that type.
@@ -119,6 +120,15 @@ use the definition `FW_FIXED_LENGTH_STRING_SIZE`.
 * A name associated with another type definition.
 In particular, an array definition may have another array definition as
 its element type; this situation is discussed further below.
+
+The maximum size of a string type is the maximum 32-bit signed integer
+value (2^31^ - 1).
+The minimum value is zero.
+String types of size zero can't store any string data.
+However, it is occasionally useful to set the size to zero,
+for example, to configure the size of a string that
+is required to exist in a library but will never actually be used in
+a particular application that uses the library.
 
 An array type definition may not refer to itself (array type definitions are not
 recursive). For example, this definition is illegal:

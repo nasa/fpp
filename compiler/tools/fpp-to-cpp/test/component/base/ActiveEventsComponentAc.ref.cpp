@@ -50,16 +50,8 @@ namespace {
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
-      Fw::Serializable::SizeType getCapacity() const {
-        return sizeof(m_buff);
-      }
+      ComponentIpcSerializableBuffer() : Fw::LinearBufferBase(m_buff, sizeof(m_buff)) {
 
-      U8* getBuffAddr() {
-        return m_buff;
-      }
-
-      const U8* getBuffAddr() const {
-        return m_buff;
       }
 
     private:
@@ -3128,7 +3120,7 @@ void ActiveEventsComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3253,7 +3245,7 @@ void ActiveEventsComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3342,7 +3334,7 @@ void ActiveEventsComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3364,7 +3356,7 @@ void ActiveEventsComponentBase ::
 }
 
 void ActiveEventsComponentBase ::
-  log_DIAGNOSTIC_EventDiagnostic(E e) const
+  log_DIAGNOSTIC_EventDiagnostic(const E& e) const
 {
   // Get the time
   Fw::Time _logTime;
@@ -3428,7 +3420,7 @@ void ActiveEventsComponentBase ::
     e.toString(eStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3449,7 +3441,7 @@ void ActiveEventsComponentBase ::
 }
 
 void ActiveEventsComponentBase ::
-  log_FATAL_EventFatalThrottled(A a)
+  log_FATAL_EventFatalThrottled(const A& a)
 {
   // Check throttle value
   if (this->m_EventFatalThrottledThrottle >= EVENTID_EVENTFATALTHROTTLED_THROTTLE) {
@@ -3534,7 +3526,7 @@ void ActiveEventsComponentBase ::
     a.toString(aStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3555,7 +3547,7 @@ void ActiveEventsComponentBase ::
 }
 
 void ActiveEventsComponentBase ::
-  log_WARNING_HI_EventWarningHigh(S s) const
+  log_WARNING_HI_EventWarningHigh(const S& s) const
 {
   // Get the time
   Fw::Time _logTime;
@@ -3619,7 +3611,7 @@ void ActiveEventsComponentBase ::
     s.toString(sStr);
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3693,7 +3685,7 @@ void ActiveEventsComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3783,7 +3775,7 @@ void ActiveEventsComponentBase ::
 #endif
 
     Fw::TextLogString _logString;
-    _logString.format(
+    (void) _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4314,7 +4306,7 @@ void ActiveEventsComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   compPtr->cmdIn_handlerBase(
     portNum,
@@ -4341,7 +4333,7 @@ void ActiveEventsComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   compPtr->aliasTypedAsync_handlerBase(
     portNum,
@@ -4361,7 +4353,7 @@ Fw::String ActiveEventsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   return compPtr->noArgsAliasStringReturnSync_handlerBase(portNum);
 }
@@ -4372,7 +4364,7 @@ void ActiveEventsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   compPtr->noArgsAsync_handlerBase(portNum);
 }
@@ -4383,7 +4375,7 @@ void ActiveEventsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   compPtr->noArgsGuarded_handlerBase(portNum);
 }
@@ -4394,7 +4386,7 @@ U32 ActiveEventsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   return compPtr->noArgsReturnGuarded_handlerBase(portNum);
 }
@@ -4405,7 +4397,7 @@ U32 ActiveEventsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   return compPtr->noArgsReturnSync_handlerBase(portNum);
 }
@@ -4416,7 +4408,7 @@ Fw::String ActiveEventsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   return compPtr->noArgsStringReturnSync_handlerBase(portNum);
 }
@@ -4427,7 +4419,7 @@ void ActiveEventsComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   compPtr->noArgsSync_handlerBase(portNum);
 }
@@ -4445,7 +4437,7 @@ void ActiveEventsComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   compPtr->typedAliasGuarded_handlerBase(
     portNum,
@@ -4472,7 +4464,7 @@ AliasPrim2 ActiveEventsComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   return compPtr->typedAliasReturnSync_handlerBase(
     portNum,
@@ -4499,7 +4491,7 @@ Fw::String ActiveEventsComponentBase ::
       const AnotherAliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   return compPtr->typedAliasStringReturnSync_handlerBase(
     portNum,
@@ -4526,7 +4518,7 @@ void ActiveEventsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   compPtr->typedAsync_handlerBase(
     portNum,
@@ -4553,7 +4545,7 @@ void ActiveEventsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   compPtr->typedAsyncAssert_handlerBase(
     portNum,
@@ -4580,7 +4572,7 @@ void ActiveEventsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   compPtr->typedAsyncBlockPriority_handlerBase(
     portNum,
@@ -4607,7 +4599,7 @@ void ActiveEventsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   compPtr->typedAsyncDropPriority_handlerBase(
     portNum,
@@ -4634,7 +4626,7 @@ void ActiveEventsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   compPtr->typedGuarded_handlerBase(
     portNum,
@@ -4661,7 +4653,7 @@ F32 ActiveEventsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   return compPtr->typedReturnGuarded_handlerBase(
     portNum,
@@ -4688,7 +4680,7 @@ F32 ActiveEventsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   return compPtr->typedReturnSync_handlerBase(
     portNum,
@@ -4715,7 +4707,7 @@ void ActiveEventsComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsComponentBase* compPtr = static_cast<ActiveEventsComponentBase*>(callComp);
   compPtr->typedSync_handlerBase(
     portNum,

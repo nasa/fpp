@@ -19,9 +19,7 @@
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Log/LogPortAc.hpp"
-#if FW_ENABLE_TEXT_LOGGING == 1
 #include "Fw/Log/LogTextPortAc.hpp"
-#endif
 #if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
 #endif
@@ -1252,7 +1250,7 @@ class PassiveCommandsComponentBase :
     virtual void CMD_SYNC_ENUM_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        E e //!< An enum
+        const E& e //!< An enum
     ) = 0;
 
     //! Handler for command CMD_SYNC_ARRAY
@@ -1261,7 +1259,7 @@ class PassiveCommandsComponentBase :
     virtual void CMD_SYNC_ARRAY_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        A a //!< An array
+        const A& a //!< An array
     ) = 0;
 
     //! Handler for command CMD_SYNC_STRUCT
@@ -1270,7 +1268,7 @@ class PassiveCommandsComponentBase :
     virtual void CMD_SYNC_STRUCT_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        S s //!< A struct
+        const S& s //!< A struct
     ) = 0;
 
     //! Handler for command CMD_GUARDED
@@ -1308,7 +1306,7 @@ class PassiveCommandsComponentBase :
     virtual void CMD_GUARDED_ENUM_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        E e //!< An enum
+        const E& e //!< An enum
     ) = 0;
 
     //! Handler for command CMD_GUARDED_ARRAY
@@ -1317,7 +1315,7 @@ class PassiveCommandsComponentBase :
     virtual void CMD_GUARDED_ARRAY_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        A a //!< An array
+        const A& a //!< An array
     ) = 0;
 
     //! Handler for command CMD_GUARDED_STRUCT
@@ -1326,7 +1324,7 @@ class PassiveCommandsComponentBase :
     virtual void CMD_GUARDED_STRUCT_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        S s //!< A struct
+        const S& s //!< A struct
     ) = 0;
 
   protected:

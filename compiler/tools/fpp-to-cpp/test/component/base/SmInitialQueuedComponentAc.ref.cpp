@@ -55,16 +55,8 @@ namespace FppTest {
           SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
         };
 
-        Fw::Serializable::SizeType getCapacity() const {
-          return sizeof(m_buff);
-        }
+        ComponentIpcSerializableBuffer() : Fw::LinearBufferBase(m_buff, sizeof(m_buff)) {
 
-        U8* getBuffAddr() {
-          return m_buff;
-        }
-
-        const U8* getBuffAddr() const {
-          return m_buff;
         }
 
       private:
@@ -513,7 +505,7 @@ namespace FppTest {
         U32 context
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     SmInitialQueuedComponentBase* compPtr = static_cast<SmInitialQueuedComponentBase*>(callComp);
     compPtr->schedIn_handlerBase(
       portNum,
@@ -577,7 +569,7 @@ namespace FppTest {
         break;
       }
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(smId));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(smId));
         break;
     }
   }
@@ -612,7 +604,7 @@ namespace FppTest {
   {
     switch (signal) {
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -626,7 +618,7 @@ namespace FppTest {
   {
     switch (signal) {
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -640,7 +632,7 @@ namespace FppTest {
   {
     switch (signal) {
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -654,7 +646,7 @@ namespace FppTest {
   {
     switch (signal) {
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -668,7 +660,7 @@ namespace FppTest {
   {
     switch (signal) {
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }
@@ -682,7 +674,7 @@ namespace FppTest {
   {
     switch (signal) {
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(signal));
         break;
     }
   }

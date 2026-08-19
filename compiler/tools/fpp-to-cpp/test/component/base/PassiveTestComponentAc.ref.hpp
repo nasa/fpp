@@ -26,9 +26,7 @@
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Log/LogPortAc.hpp"
 #include "Fw/Log/LogString.hpp"
-#if FW_ENABLE_TEXT_LOGGING == 1
 #include "Fw/Log/LogTextPortAc.hpp"
-#endif
 #if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
 #endif
@@ -1566,7 +1564,7 @@ class PassiveTestComponentBase :
     virtual void CMD_SYNC_ENUM_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        E e //!< An enum
+        const E& e //!< An enum
     ) = 0;
 
     //! Handler for command CMD_SYNC_ARRAY
@@ -1575,7 +1573,7 @@ class PassiveTestComponentBase :
     virtual void CMD_SYNC_ARRAY_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        A a //!< An array
+        const A& a //!< An array
     ) = 0;
 
     //! Handler for command CMD_SYNC_STRUCT
@@ -1584,7 +1582,7 @@ class PassiveTestComponentBase :
     virtual void CMD_SYNC_STRUCT_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        S s //!< A struct
+        const S& s //!< A struct
     ) = 0;
 
     //! Handler for command CMD_GUARDED
@@ -1622,7 +1620,7 @@ class PassiveTestComponentBase :
     virtual void CMD_GUARDED_ENUM_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        E e //!< An enum
+        const E& e //!< An enum
     ) = 0;
 
     //! Handler for command CMD_GUARDED_ARRAY
@@ -1631,7 +1629,7 @@ class PassiveTestComponentBase :
     virtual void CMD_GUARDED_ARRAY_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        A a //!< An array
+        const A& a //!< An array
     ) = 0;
 
     //! Handler for command CMD_GUARDED_STRUCT
@@ -1640,7 +1638,7 @@ class PassiveTestComponentBase :
     virtual void CMD_GUARDED_STRUCT_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
-        S s //!< A struct
+        const S& s //!< A struct
     ) = 0;
 
   protected:
@@ -1791,21 +1789,21 @@ class PassiveTestComponentBase :
     //!
     //! A diagnostic event with enum params
     void log_DIAGNOSTIC_EventDiagnostic(
-        E e //!< An enum
+        const E& e //!< An enum
     ) const;
 
     //! Log event EventFatalThrottled
     //!
     //! A fatal, throttled event with array params
     void log_FATAL_EventFatalThrottled(
-        A a //!< An array
+        const A& a //!< An array
     );
 
     //! Log event EventWarningHigh
     //!
     //! A warning high event with struct params
     void log_WARNING_HI_EventWarningHigh(
-        S s //!< A struct
+        const S& s //!< A struct
     ) const;
 
     //! Log event EventWarningLowThrottled
@@ -2825,23 +2823,41 @@ class PassiveTestComponentBase :
     // Parameter validity flags
     // ----------------------------------------------------------------------
 
-    //! True if ParamU32 was successfully received
-    Fw::ParamValid m_param_ParamU32_valid;
+    //! The validity flag for ParamU32
+    Fw::ParamValid m_param_ParamU32_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamF64 was successfully received
-    Fw::ParamValid m_param_ParamF64_valid;
+    //! The validity flag for ParamF64
+    Fw::ParamValid m_param_ParamF64_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamString was successfully received
-    Fw::ParamValid m_param_ParamString_valid;
+    //! The validity flag for ParamString
+    Fw::ParamValid m_param_ParamString_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamEnum was successfully received
-    Fw::ParamValid m_param_ParamEnum_valid;
+    //! The validity flag for ParamEnum
+    Fw::ParamValid m_param_ParamEnum_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamArray was successfully received
-    Fw::ParamValid m_param_ParamArray_valid;
+    //! The validity flag for ParamArray
+    Fw::ParamValid m_param_ParamArray_valid = Fw::ParamValid::UNINIT;
 
-    //! True if ParamStruct was successfully received
-    Fw::ParamValid m_param_ParamStruct_valid;
+    //! The validity flag for ParamStruct
+    Fw::ParamValid m_param_ParamStruct_valid = Fw::ParamValid::UNINIT;
+
+    //! The validity flag for ParamI32Ext
+    Fw::ParamValid m_param_ParamI32Ext_valid = Fw::ParamValid::UNINIT;
+
+    //! The validity flag for ParamF64Ext
+    Fw::ParamValid m_param_ParamF64Ext_valid = Fw::ParamValid::UNINIT;
+
+    //! The validity flag for ParamStringExt
+    Fw::ParamValid m_param_ParamStringExt_valid = Fw::ParamValid::UNINIT;
+
+    //! The validity flag for ParamEnumExt
+    Fw::ParamValid m_param_ParamEnumExt_valid = Fw::ParamValid::UNINIT;
+
+    //! The validity flag for ParamArrayExt
+    Fw::ParamValid m_param_ParamArrayExt_valid = Fw::ParamValid::UNINIT;
+
+    //! The validity flag for ParamStructExt
+    Fw::ParamValid m_param_ParamStructExt_valid = Fw::ParamValid::UNINIT;
 
   private:
 
@@ -2887,7 +2903,7 @@ class PassiveTestComponentBase :
     // ----------------------------------------------------------------------
 
     //! Delegate to serialize/deserialize an externally stored parameter
-    Fw::ParamExternalDelegate* paramDelegatePtr;
+    Fw::ParamExternalDelegate* paramDelegatePtr = nullptr;
 
   private:
 

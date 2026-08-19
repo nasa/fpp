@@ -212,7 +212,8 @@ translated to {cpp} files.
 |Alias type _A_ in component _C_|_C_ `_` _A_ `AliasAc.{hpp,h,cpp}`
 |Port _P_|_P_ `PortAc.{hpp,cpp}`
 |Component _C_|_C_ `ComponentAc.{hpp,cpp}`
-|Topology _T_|_T_ `TopologyAc.{hpp,cpp}`
+|Deployment topology _T_|_T_ `TopologyAc.{hpp,cpp}`
+|Telemetry packet set _S_ in topology _T_|_T_ `_` _S_ `TlmPacketsAc.{hpp,cpp}`
 |===
 
 For example, consider the FPP array definition
@@ -636,9 +637,9 @@ build system does it for you.
 
 ==== Topology Definitions
 
-`fpp-to-cpp` also extracts <<Defining-Topologies,topology definitions>>
-from the source files.
-For each topology _T_ defined in the source files, `fpp-to-cpp`
+`fpp-to-cpp` also extracts the definitions of <<Defining-Topologies,deployment 
+topologies>> from the source files.
+For each deployment topology _T_ defined in the source files, `fpp-to-cpp`
 writes files _T_ `TopologyAc.hpp` and _T_ `TopologyAc.cpp`.
 These files define two public functions:
 `setup` for setting up the topology, and
@@ -666,11 +667,16 @@ simple topology example>> and paste it into the terminal.
 * Examine the generated files `SimpleTopologyAc.hpp`
 and `SimpleTopologyAc.cpp`.
 
-You can examine the files `RefTopologyAc.hpp` and `RefTopologyAc.cpp`
-in the F Prime repository.
-Currently these files are checked in at `Ref/Top`.
-Once we have integrated FPP with CMake, these files will be auto-generated
-by CMake and will be located at `Ref/build-fprime-automatic-native/F-Prime/Ref/Top`.
+You can also examine the files `RefTopologyAc.hpp` and `RefTopologyAc.cpp`
+in build cache for the `Ref` example in the F Prime repository.
+
+*Telemetry packets:*
+If a deployment topology _T_ defines a
+<<Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Sets,
+telemetry packet set _S_>>, then `fpp-to-cpp` generates files
+_S_ `_` _T_ `TlmPacketsAc.hpp` and _S_ `_` _T_ `TlmPacketsAc.cpp`
+These files provide the code needed to export the packet
+definitions to the F Prime Telemetry Packetizer component.
 
 *Options:*
 When translating topologies,
@@ -852,7 +858,7 @@ repository] for more details.
 
 A *ground dictionary* specifies all the commands,
 events, telemetry, parameters, and data products in a FSW
-application.
+system.
 Typically a ground data system (GDS), such as the F Prime GDS,
 uses the ground dictionary to provide the operational
 interface to the application.
@@ -871,36 +877,49 @@ The usual procedure for running `fpp-to-dict` is as follows:
 
 . Identify one or more files _F_ that you want to translate.
 . <<Specifying-Models-as-Files_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
-. If _D_ is empty, then run `fpp-to-dict` _F_.
-. Otherwise run `fpp-to-dict -i` _D~1~_ `,` ... `,` _D~n~_ _F_, where _D~i~_ are the
-names of the dependencies.
+. Run `fpp-to-dict` _D_ _F_.
 
 Except for the tool name, this procedure is identical to the one given for
-<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus,generating {cpp}>>.
+<<Analyzing-and-Translating-Models_Checking-Models,checking models>>.
 
 *Input:* As with the tools described above, you can provide input to
 `fpp-to-dict`
 either through named files or through standard input.
 
 *Tool behavior:*
-For each topology _T_ defined in the input files _F_, `fpp-to-dict` writes a
-file
-_T_ `TopologyDictionary.json`.
+For each <<Defining-Systems,system>> _S_ defined in the
+input files, `fpp-to-dict` writes a file _S_ `SystemDictionary.json`.
+Here _S_ is the qualified name of the system, with dots
+replaced by underscores.
+For example, for a system `S` defined in module `M`,
+the file name is `M_SSystemDictionary.json`.
+The generated dictionary records all the definitions in the
+single deployment topology referred to by _S_.
 The dictionary is specified in JavaScript Object Notation (JSON) format.
 The JSON format is specified in the
 https://fprime.jpl.nasa.gov/devel/docs/reference/fpp-json-dict/[F Prime design
 documentation].
 
+For each <<Defining-Topologies,deployment topology>> _T_
+defined in the input files, `fpp-to-dict` 
+also writes a file _T_ `TopologyDictionary.json`.
+Here _T_ is the simple name of the topology, without qualifiers.
+This behavior is for backwards compatibility with the F Prime tools.
+In the future, we plan to revise to tools to use the system dictionary;
+when we do that, we will remove the code generation for the
+topology dictionary.
+
 Here is a common use case:
 
-* The input files _F_ define a single topology _T_.
+* The files _F_ define a single system _S_ and a single
+deployment topology _T_.  _S_ refers to _T_.
 _T_ describes all the component instances and connections in a FSW
-application, and the generated dictionary _T_ `TopologyDictionary.json`
-is the dictionary for the application.
+application, and the generated dictionary _S_ `SystemDictionary.json`
+is the dictionary for the system.
 
 * If _T_ imports subtopologies, then those subtopologies are defined
 in the dependency files _D_.
-That way the subtopologies are part of the model, but no dictionaries
+The subtopologies are part of the model, but no dictionaries
 are generated for them.
 
 *F Prime configuration:*
@@ -911,7 +930,6 @@ and
 specified in the
 https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/[F Prime
 dictionary specification].
-
 These types and constants are required by the F Prime GDS, so they are included 
 in the dictionary.
 Typically you specify these types and constants as part of F Prime 
@@ -1239,6 +1257,10 @@ With this option, `fpp-to-json` generates the AST and the
 location map only; it doesn't generate the Analysis data structure.
 Because semantic analysis is not run, you don't have to present
 a complete or semantically correct FPP model to the tool.
+
+* `-f`: Format the JSON output with whitespace. Without this option `fpp-to-json`
+will write JSON with no spaces or newlines. With this option, nested JSON
+objects will be indented.
 
 === Translating Older XML to FPP
 

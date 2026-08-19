@@ -29,6 +29,7 @@ object Token {
   final case class CONTAINER() extends Token
   final case class CPU() extends Token
   final case class DEFAULT() extends Token
+  final case class DEPLOYMENT() extends Token
   final case class DIAGNOSTIC() extends Token
   final case class DICTIONARY() extends Token
   final case class DO() extends Token
@@ -79,6 +80,7 @@ object Token {
   final case class LOCATE() extends Token
   final case class LOW() extends Token
   final case class LPAREN() extends Token
+  final case class LSHIFT() extends Token
   final case class MACHINE() extends Token
   final case class MATCH() extends Token
   final case class MINUS() extends Token
@@ -112,6 +114,7 @@ object Token {
   final case class REQUEST() extends Token
   final case class RESP() extends Token
   final case class RPAREN() extends Token
+  final case class RSHIFT() extends Token
   final case class SAVE() extends Token
   final case class SEMI() extends Token
   final case class SEND() extends Token
@@ -128,6 +131,7 @@ object Token {
   final case class STRING() extends Token
   final case class STRUCT() extends Token
   final case class SYNC() extends Token
+  final case class SYSTEM() extends Token
   final case class TELEMETRY() extends Token
   final case class TEXT() extends Token
   final case class THROTTLE() extends Token
@@ -181,6 +185,7 @@ enum TokenId {
   case CONTAINER
   case CPU
   case DEFAULT
+  case DEPLOYMENT
   case DIAGNOSTIC
   case DICTIONARY
   case DO
@@ -260,6 +265,7 @@ enum TokenId {
   case STRING
   case STRUCT
   case SYNC
+  case SYSTEM
   case TELEMETRY
   case TEXT
   case THROTTLE
@@ -295,4 +301,6 @@ enum TokenId {
   case SEMI
   case SLASH
   case STAR
+  case LSHIFT
+  case RSHIFT
 }

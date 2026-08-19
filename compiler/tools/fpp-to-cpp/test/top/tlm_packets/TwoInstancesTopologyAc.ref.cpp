@@ -12,13 +12,13 @@
 
 namespace M {
 
-  C c1(FW_OPTIONAL_NAME("c1"));
+  C c1(FW_OPTIONAL_NAME("M.c1"));
 
 }
 
 namespace M {
 
-  C c2(FW_OPTIONAL_NAME("c2"));
+  C c2(FW_OPTIONAL_NAME("M.c2"));
 
 }
 
@@ -121,7 +121,7 @@ bool CComponentBase::isConnected_timeGetOut_OutputPort(FwIndexType portNum) cons
   switch (instance) {
     default:
 #ifdef FW_STRICT_ASSERTIONS
-      FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(instance));
       break;
 #else
       // Fall through
@@ -153,7 +153,7 @@ bool CComponentBase::isConnected_tlmOut_OutputPort(FwIndexType portNum) const {
   switch (instance) {
     default:
 #ifdef FW_STRICT_ASSERTIONS
-      FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(instance));
       break;
 #else
       // Fall through
@@ -187,7 +187,7 @@ void CComponentBase::timeGetOut_out(
   switch (instance) {
     default:
 #ifdef FW_STRICT_ASSERTIONS
-      FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(instance));
       break;
 #else
       // Fall through
@@ -195,14 +195,14 @@ void CComponentBase::timeGetOut_out(
     case ::N::InstanceIds::M_c1:
       switch (portNum) {
         default:
-          FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+          FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
           break;
       }
       break;
     case ::N::InstanceIds::M_c2:
       switch (portNum) {
         default:
-          FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+          FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
           break;
       }
       break;
@@ -224,7 +224,7 @@ void CComponentBase::tlmOut_out(
   switch (instance) {
     default:
 #ifdef FW_STRICT_ASSERTIONS
-      FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(instance));
       break;
 #else
       // Fall through
@@ -232,14 +232,14 @@ void CComponentBase::tlmOut_out(
     case ::N::InstanceIds::M_c1:
       switch (portNum) {
         default:
-          FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+          FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
           break;
       }
       break;
     case ::N::InstanceIds::M_c2:
       switch (portNum) {
         default:
-          FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+          FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
           break;
       }
       break;

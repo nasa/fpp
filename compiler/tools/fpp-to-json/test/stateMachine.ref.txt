@@ -2857,61 +2857,13 @@
     "locationSpecifierMap" : [
     ],
     "parentSymbolMap" : {
-      "8" : {
-        "StateMachine" : {
-          "nodeId" : 264,
-          "unqualifiedName" : "M"
-        }
-      },
-      "265" : {
-        "Enum" : {
-          "nodeId" : 269,
-          "unqualifiedName" : "State"
-        }
-      },
-      "13" : {
-        "Enum" : {
-          "nodeId" : 15,
-          "unqualifiedName" : "E"
-        }
-      },
-      "10" : {
-        "Enum" : {
-          "nodeId" : 15,
-          "unqualifiedName" : "E"
-        }
-      },
       "6" : {
         "StateMachine" : {
           "nodeId" : 264,
           "unqualifiedName" : "M"
         }
       },
-      "267" : {
-        "Enum" : {
-          "nodeId" : 269,
-          "unqualifiedName" : "State"
-        }
-      },
-      "30" : {
-        "StateMachine" : {
-          "nodeId" : 264,
-          "unqualifiedName" : "M"
-        }
-      },
-      "28" : {
-        "StateMachine" : {
-          "nodeId" : 264,
-          "unqualifiedName" : "M"
-        }
-      },
-      "15" : {
-        "StateMachine" : {
-          "nodeId" : 264,
-          "unqualifiedName" : "M"
-        }
-      },
-      "269" : {
+      "8" : {
         "StateMachine" : {
           "nodeId" : 264,
           "unqualifiedName" : "M"
@@ -2923,10 +2875,46 @@
           "unqualifiedName" : "E"
         }
       },
+      "10" : {
+        "Enum" : {
+          "nodeId" : 15,
+          "unqualifiedName" : "E"
+        }
+      },
+      "13" : {
+        "Enum" : {
+          "nodeId" : 15,
+          "unqualifiedName" : "E"
+        }
+      },
+      "15" : {
+        "StateMachine" : {
+          "nodeId" : 264,
+          "unqualifiedName" : "M"
+        }
+      },
       "27" : {
         "StateMachine" : {
           "nodeId" : 264,
           "unqualifiedName" : "M"
+        }
+      },
+      "28" : {
+        "StateMachine" : {
+          "nodeId" : 264,
+          "unqualifiedName" : "M"
+        }
+      },
+      "30" : {
+        "StateMachine" : {
+          "nodeId" : 264,
+          "unqualifiedName" : "M"
+        }
+      },
+      "265" : {
+        "Enum" : {
+          "nodeId" : 269,
+          "unqualifiedName" : "State"
         }
       },
       "266" : {
@@ -2934,35 +2922,21 @@
           "nodeId" : 269,
           "unqualifiedName" : "State"
         }
+      },
+      "267" : {
+        "Enum" : {
+          "nodeId" : 269,
+          "unqualifiedName" : "State"
+        }
+      },
+      "269" : {
+        "StateMachine" : {
+          "nodeId" : 264,
+          "unqualifiedName" : "M"
+        }
       }
     },
     "symbolScopeMap" : {
-      "269" : {
-        "map" : {
-          "Value" : {
-            "map" : {
-              "__FPRIME_UNINITIALIZED" : {
-                "EnumConstant" : {
-                  "nodeId" : 265,
-                  "unqualifiedName" : "__FPRIME_UNINITIALIZED"
-                }
-              },
-              "S1" : {
-                "EnumConstant" : {
-                  "nodeId" : 266,
-                  "unqualifiedName" : "S1"
-                }
-              },
-              "S2_S3" : {
-                "EnumConstant" : {
-                  "nodeId" : 267,
-                  "unqualifiedName" : "S2_S3"
-                }
-              }
-            }
-          }
-        }
-      },
       "15" : {
         "map" : {
           "Value" : {
@@ -2993,22 +2967,16 @@
         "map" : {
           "Type" : {
             "map" : {
-              "T" : {
-                "AbsType" : {
-                  "nodeId" : 28,
-                  "unqualifiedName" : "T"
-                }
-              },
               "A" : {
                 "Array" : {
                   "nodeId" : 6,
                   "unqualifiedName" : "A"
                 }
               },
-              "State" : {
+              "E" : {
                 "Enum" : {
-                  "nodeId" : 269,
-                  "unqualifiedName" : "State"
+                  "nodeId" : 15,
+                  "unqualifiedName" : "E"
                 }
               },
               "S" : {
@@ -3017,10 +2985,16 @@
                   "unqualifiedName" : "S"
                 }
               },
-              "E" : {
+              "State" : {
                 "Enum" : {
-                  "nodeId" : 15,
-                  "unqualifiedName" : "E"
+                  "nodeId" : 269,
+                  "unqualifiedName" : "State"
+                }
+              },
+              "T" : {
+                "AbsType" : {
+                  "nodeId" : 28,
+                  "unqualifiedName" : "T"
                 }
               },
               "X" : {
@@ -3033,6 +3007,12 @@
           },
           "Value" : {
             "map" : {
+              "E" : {
+                "Enum" : {
+                  "nodeId" : 15,
+                  "unqualifiedName" : "E"
+                }
+              },
               "State" : {
                 "Enum" : {
                   "nodeId" : 269,
@@ -3044,11 +3024,31 @@
                   "nodeId" : 8,
                   "unqualifiedName" : "c"
                 }
+              }
+            }
+          }
+        }
+      },
+      "269" : {
+        "map" : {
+          "Value" : {
+            "map" : {
+              "S1" : {
+                "EnumConstant" : {
+                  "nodeId" : 266,
+                  "unqualifiedName" : "S1"
+                }
               },
-              "E" : {
-                "Enum" : {
-                  "nodeId" : 15,
-                  "unqualifiedName" : "E"
+              "S2_S3" : {
+                "EnumConstant" : {
+                  "nodeId" : 267,
+                  "unqualifiedName" : "S2_S3"
+                }
+              },
+              "__FPRIME_UNINITIALIZED" : {
+                "EnumConstant" : {
+                  "nodeId" : 265,
+                  "unqualifiedName" : "__FPRIME_UNINITIALIZED"
                 }
               }
             }
@@ -3060,80 +3060,18 @@
       
     },
     "typeMap" : {
-      "34" : {
+      "0" : {
         "Int" : {
           "PrimitiveInt" : {
             "kind" : {
-              "U32" : {
+              "U16" : {
                 
               }
             }
           }
         }
       },
-      "8" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "4" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "37" : {
-        "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U32" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "13" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 15
-          },
-          "repType" : {
-            "kind" : {
-              "I32" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
-      },
-      "16" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "10" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 15
-          },
-          "repType" : {
-            "kind" : {
-              "I32" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
-      },
-      "270" : {
+      "1" : {
         "AliasType" : {
           "node" : {
             "astNodeId" : 1
@@ -3151,29 +3089,10 @@
           }
         }
       },
-      "264" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 269
-          },
-          "repType" : {
-            "kind" : {
-              "U8" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
-      },
-      "29" : {
+      "2" : {
         "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U32" : {
-                
-              }
-            }
+          "Integer" : {
+            
           }
         }
       },
@@ -3184,122 +3103,11 @@
           }
         }
       },
-      "28" : {
-        "AbsType" : {
-          "node" : {
-            "astNodeId" : 28
+      "4" : {
+        "Int" : {
+          "Integer" : {
+            
           }
-        }
-      },
-      "19" : {
-        "Primitive" : {
-          "Float" : {
-            "kind" : {
-              "F32" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "265" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 269
-          },
-          "repType" : {
-            "kind" : {
-              "U8" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
-      },
-      "15" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 15
-          },
-          "repType" : {
-            "kind" : {
-              "I32" : {
-                
-              }
-            }
-          },
-          "default" : {
-            "Some" : {
-              "value" : [
-                "X",
-                0
-              ],
-              "t" : {
-                "node" : {
-                  "astNodeId" : 15
-                },
-                "repType" : {
-                  "kind" : {
-                    "I32" : {
-                      
-                    }
-                  }
-                },
-                "default" : "None"
-              }
-            }
-          }
-        }
-      },
-      "269" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 269
-          },
-          "repType" : {
-            "kind" : {
-              "U8" : {
-                
-              }
-            }
-          },
-          "default" : {
-            "Some" : {
-              "value" : [
-                "__FPRIME_UNINITIALIZED",
-                0
-              ],
-              "t" : {
-                "node" : {
-                  "astNodeId" : 269
-                },
-                "repType" : {
-                  "kind" : {
-                    "U8" : {
-                      
-                    }
-                  }
-                },
-                "default" : "None"
-              }
-            }
-          }
-        }
-      },
-      "9" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 15
-          },
-          "repType" : {
-            "kind" : {
-              "I32" : {
-                
-              }
-            }
-          },
-          "default" : "None"
         }
       },
       "5" : {
@@ -3307,17 +3115,6 @@
           "PrimitiveInt" : {
             "kind" : {
               "U32" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "268" : {
-        "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U8" : {
                 
               }
             }
@@ -3409,54 +3206,28 @@
           "format" : "None"
         }
       },
-      "1" : {
-        "AliasType" : {
-          "node" : {
-            "astNodeId" : 1
-          },
-          "aliasType" : {
-            "Int" : {
-              "PrimitiveInt" : {
-                "kind" : {
-                  "U16" : {
-                    
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "39" : {
+      "7" : {
         "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U32" : {
-                
-              }
-            }
+          "Integer" : {
+            
           }
         }
       },
-      "17" : {
+      "8" : {
         "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U32" : {
-                
-              }
-            }
+          "Integer" : {
+            
           }
         }
       },
-      "267" : {
+      "9" : {
         "Enum" : {
           "node" : {
-            "astNodeId" : 269
+            "astNodeId" : 15
           },
           "repType" : {
             "kind" : {
-              "U8" : {
+              "I32" : {
                 
               }
             }
@@ -3464,9 +3235,34 @@
           "default" : "None"
         }
       },
-      "25" : {
-        "String" : {
-          "size" : "None"
+      "10" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 15
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
+      "13" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 15
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : "None"
         }
       },
       "14" : {
@@ -3484,15 +3280,73 @@
           "default" : "None"
         }
       },
-      "0" : {
+      "15" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 15
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "value" : [
+                "X",
+                0
+              ],
+              "t" : {
+                "node" : {
+                  "astNodeId" : 15
+                },
+                "repType" : {
+                  "kind" : {
+                    "I32" : {
+                      
+                    }
+                  }
+                },
+                "default" : "None"
+              }
+            }
+          }
+        }
+      },
+      "16" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "17" : {
         "Int" : {
           "PrimitiveInt" : {
             "kind" : {
-              "U16" : {
+              "U32" : {
                 
               }
             }
           }
+        }
+      },
+      "19" : {
+        "Primitive" : {
+          "Float" : {
+            "kind" : {
+              "F32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "25" : {
+        "String" : {
+          "size" : "None"
         }
       },
       "27" : {
@@ -3615,32 +3469,21 @@
           }
         }
       },
-      "266" : {
-        "Enum" : {
+      "28" : {
+        "AbsType" : {
           "node" : {
-            "astNodeId" : 269
-          },
-          "repType" : {
-            "kind" : {
-              "U8" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
-      },
-      "2" : {
-        "Int" : {
-          "Integer" : {
-            
+            "astNodeId" : 28
           }
         }
       },
-      "271" : {
+      "29" : {
         "Int" : {
-          "Integer" : {
-            
+          "PrimitiveInt" : {
+            "kind" : {
+              "U32" : {
+                
+              }
+            }
           }
         }
       },
@@ -3662,7 +3505,164 @@
           }
         }
       },
-      "7" : {
+      "34" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "37" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "39" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "264" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 269
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
+      "265" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 269
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
+      "266" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 269
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
+      "267" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 269
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
+      "268" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "269" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 269
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "value" : [
+                "__FPRIME_UNINITIALIZED",
+                0
+              ],
+              "t" : {
+                "node" : {
+                  "astNodeId" : 269
+                },
+                "repType" : {
+                  "kind" : {
+                    "U8" : {
+                      
+                    }
+                  }
+                },
+                "default" : "None"
+              }
+            }
+          }
+        }
+      },
+      "270" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 1
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U16" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "271" : {
         "Int" : {
           "Integer" : {
             
@@ -3671,22 +3671,16 @@
       }
     },
     "useDefMap" : {
-      "264" : {
-        "Enum" : {
-          "nodeId" : 269,
-          "unqualifiedName" : "State"
-        }
-      },
       "14" : {
         "EnumConstant" : {
           "nodeId" : 9,
           "unqualifiedName" : "X"
         }
       },
-      "271" : {
-        "Constant" : {
-          "nodeId" : 3,
-          "unqualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE"
+      "264" : {
+        "Enum" : {
+          "nodeId" : 269,
+          "unqualifiedName" : "State"
         }
       },
       "270" : {
@@ -3694,27 +3688,53 @@
           "nodeId" : 1,
           "unqualifiedName" : "FwSizeStoreType"
         }
+      },
+      "271" : {
+        "Constant" : {
+          "nodeId" : 3,
+          "unqualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE"
+        }
       }
     },
     "valueMap" : {
+      "2" : {
+        "Integer" : {
+          "value" : 256
+        }
+      },
+      "3" : {
+        "Integer" : {
+          "value" : 256
+        }
+      },
+      "4" : {
+        "Integer" : {
+          "value" : 3
+        }
+      },
+      "7" : {
+        "Integer" : {
+          "value" : 0
+        }
+      },
       "8" : {
         "Integer" : {
           "value" : 0
         }
       },
-      "265" : {
+      "9" : {
         "EnumConstant" : {
           "value" : [
-            "__FPRIME_UNINITIALIZED",
+            "X",
             0
           ],
           "t" : {
             "node" : {
-              "astNodeId" : 269
+              "astNodeId" : 15
             },
             "repType" : {
               "kind" : {
-                "U8" : {
+                "I32" : {
                   
                 }
               }
@@ -3723,16 +3743,11 @@
           }
         }
       },
-      "4" : {
-        "Integer" : {
-          "value" : 3
-        }
-      },
-      "9" : {
+      "10" : {
         "EnumConstant" : {
           "value" : [
-            "X",
-            0
+            "Y",
+            1
           ],
           "t" : {
             "node" : {
@@ -3770,16 +3785,11 @@
           }
         }
       },
-      "16" : {
-        "Integer" : {
-          "value" : 3
-        }
-      },
-      "10" : {
+      "14" : {
         "EnumConstant" : {
           "value" : [
-            "Y",
-            1
+            "X",
+            0
           ],
           "t" : {
             "node" : {
@@ -3788,6 +3798,32 @@
             "repType" : {
               "kind" : {
                 "I32" : {
+                  
+                }
+              }
+            },
+            "default" : "None"
+          }
+        }
+      },
+      "16" : {
+        "Integer" : {
+          "value" : 3
+        }
+      },
+      "265" : {
+        "EnumConstant" : {
+          "value" : [
+            "__FPRIME_UNINITIALIZED",
+            0
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 269
+            },
+            "repType" : {
+              "kind" : {
+                "U8" : {
                   
                 }
               }
@@ -3817,16 +3853,6 @@
           }
         }
       },
-      "7" : {
-        "Integer" : {
-          "value" : 0
-        }
-      },
-      "3" : {
-        "Integer" : {
-          "value" : 256
-        }
-      },
       "267" : {
         "EnumConstant" : {
           "value" : [
@@ -3848,32 +3874,6 @@
           }
         }
       },
-      "14" : {
-        "EnumConstant" : {
-          "value" : [
-            "X",
-            0
-          ],
-          "t" : {
-            "node" : {
-              "astNodeId" : 15
-            },
-            "repType" : {
-              "kind" : {
-                "I32" : {
-                  
-                }
-              }
-            },
-            "default" : "None"
-          }
-        }
-      },
-      "2" : {
-        "Integer" : {
-          "value" : 256
-        }
-      },
       "271" : {
         "Integer" : {
           "value" : 256
@@ -3892,11 +3892,6 @@
             }
           },
           "symbolScopeMap" : {
-            "59" : {
-              "map" : {
-                
-              }
-            },
             "221" : {
               "map" : {
                 
@@ -3921,124 +3916,15 @@
                   }
                 }
               }
+            },
+            "59" : {
+              "map" : {
+                
+              }
             }
           },
           "useDefMap" : {
-            "205" : {
-              "State" : {
-                "nodeId" : 221,
-                "unqualifiedName" : "S3"
-              }
-            },
-            "224" : {
-              "Action" : {
-                "nodeId" : 31,
-                "unqualifiedName" : "a1"
-              }
-            },
             "46" : {
-              "Action" : {
-                "nodeId" : 31,
-                "unqualifiedName" : "a1"
-              }
-            },
-            "209" : {
-              "Action" : {
-                "nodeId" : 31,
-                "unqualifiedName" : "a1"
-              }
-            },
-            "199" : {
-              "Action" : {
-                "nodeId" : 31,
-                "unqualifiedName" : "a1"
-              }
-            },
-            "241" : {
-              "Signal" : {
-                "nodeId" : 43,
-                "unqualifiedName" : "s4"
-              }
-            },
-            "208" : {
-              "Guard" : {
-                "nodeId" : 36,
-                "unqualifiedName" : "g1"
-              }
-            },
-            "230" : {
-              "Guard" : {
-                "nodeId" : 36,
-                "unqualifiedName" : "g1"
-              }
-            },
-            "210" : {
-              "Action" : {
-                "nodeId" : 32,
-                "unqualifiedName" : "a2"
-              }
-            },
-            "238" : {
-              "State" : {
-                "nodeId" : 59,
-                "unqualifiedName" : "S1"
-              }
-            },
-            "222" : {
-              "Signal" : {
-                "nodeId" : 40,
-                "unqualifiedName" : "s1"
-              }
-            },
-            "226" : {
-              "Choice" : {
-                "nodeId" : 220,
-                "unqualifiedName" : "C"
-              }
-            },
-            "223" : {
-              "Guard" : {
-                "nodeId" : 36,
-                "unqualifiedName" : "g1"
-              }
-            },
-            "216" : {
-              "State" : {
-                "nodeId" : 263,
-                "unqualifiedName" : "S2"
-              }
-            },
-            "51" : {
-              "Guard" : {
-                "nodeId" : 36,
-                "unqualifiedName" : "g1"
-              }
-            },
-            "236" : {
-              "Guard" : {
-                "nodeId" : 36,
-                "unqualifiedName" : "g1"
-              }
-            },
-            "197" : {
-              "Action" : {
-                "nodeId" : 32,
-                "unqualifiedName" : "a2"
-              }
-            },
-            "56" : {
-              "State" : {
-                "nodeId" : 263,
-                "unqualifiedName" : "S2"
-              }
-            },
-            "212" : {
-              "State" : {
-                "nodeId" : 59,
-                "unqualifiedName" : "S1"
-              }
-            },
-            "196" : {
               "Action" : {
                 "nodeId" : 31,
                 "unqualifiedName" : "a1"
@@ -4050,22 +3936,10 @@
                 "unqualifiedName" : "C"
               }
             },
-            "259" : {
-              "Signal" : {
-                "nodeId" : 45,
-                "unqualifiedName" : "s6"
-              }
-            },
-            "202" : {
-              "Action" : {
-                "nodeId" : 31,
-                "unqualifiedName" : "a1"
-              }
-            },
-            "214" : {
-              "Action" : {
-                "nodeId" : 32,
-                "unqualifiedName" : "a2"
+            "51" : {
+              "Guard" : {
+                "nodeId" : 36,
+                "unqualifiedName" : "g1"
               }
             },
             "53" : {
@@ -4074,40 +3948,82 @@
                 "unqualifiedName" : "S1"
               }
             },
+            "56" : {
+              "State" : {
+                "nodeId" : 263,
+                "unqualifiedName" : "S2"
+              }
+            },
+            "196" : {
+              "Action" : {
+                "nodeId" : 31,
+                "unqualifiedName" : "a1"
+              }
+            },
+            "197" : {
+              "Action" : {
+                "nodeId" : 32,
+                "unqualifiedName" : "a2"
+              }
+            },
+            "199" : {
+              "Action" : {
+                "nodeId" : 31,
+                "unqualifiedName" : "a1"
+              }
+            },
+            "200" : {
+              "Action" : {
+                "nodeId" : 32,
+                "unqualifiedName" : "a2"
+              }
+            },
+            "202" : {
+              "Action" : {
+                "nodeId" : 31,
+                "unqualifiedName" : "a1"
+              }
+            },
             "203" : {
               "Action" : {
                 "nodeId" : 32,
                 "unqualifiedName" : "a2"
               }
             },
-            "249" : {
-              "Action" : {
-                "nodeId" : 31,
-                "unqualifiedName" : "a1"
+            "205" : {
+              "State" : {
+                "nodeId" : 221,
+                "unqualifiedName" : "S3"
               }
             },
-            "246" : {
-              "Signal" : {
-                "nodeId" : 44,
-                "unqualifiedName" : "s5"
-              }
-            },
-            "235" : {
-              "Signal" : {
-                "nodeId" : 42,
-                "unqualifiedName" : "s3"
-              }
-            },
-            "261" : {
-              "Action" : {
-                "nodeId" : 31,
-                "unqualifiedName" : "a1"
-              }
-            },
-            "247" : {
+            "208" : {
               "Guard" : {
                 "nodeId" : 36,
                 "unqualifiedName" : "g1"
+              }
+            },
+            "209" : {
+              "Action" : {
+                "nodeId" : 31,
+                "unqualifiedName" : "a1"
+              }
+            },
+            "210" : {
+              "Action" : {
+                "nodeId" : 32,
+                "unqualifiedName" : "a2"
+              }
+            },
+            "212" : {
+              "State" : {
+                "nodeId" : 59,
+                "unqualifiedName" : "S1"
+              }
+            },
+            "214" : {
+              "Action" : {
+                "nodeId" : 32,
+                "unqualifiedName" : "a2"
               }
             },
             "215" : {
@@ -4116,22 +4032,40 @@
                 "unqualifiedName" : "a3"
               }
             },
+            "216" : {
+              "State" : {
+                "nodeId" : 263,
+                "unqualifiedName" : "S2"
+              }
+            },
             "218" : {
               "State" : {
                 "nodeId" : 221,
                 "unqualifiedName" : "S3"
               }
             },
-            "232" : {
-              "State" : {
-                "nodeId" : 59,
-                "unqualifiedName" : "S1"
+            "222" : {
+              "Signal" : {
+                "nodeId" : 40,
+                "unqualifiedName" : "s1"
               }
             },
-            "243" : {
-              "State" : {
-                "nodeId" : 59,
-                "unqualifiedName" : "S1"
+            "223" : {
+              "Guard" : {
+                "nodeId" : 36,
+                "unqualifiedName" : "g1"
+              }
+            },
+            "224" : {
+              "Action" : {
+                "nodeId" : 31,
+                "unqualifiedName" : "a1"
+              }
+            },
+            "226" : {
+              "Choice" : {
+                "nodeId" : 220,
+                "unqualifiedName" : "C"
               }
             },
             "229" : {
@@ -4140,10 +4074,76 @@
                 "unqualifiedName" : "s2"
               }
             },
-            "200" : {
+            "230" : {
+              "Guard" : {
+                "nodeId" : 36,
+                "unqualifiedName" : "g1"
+              }
+            },
+            "232" : {
+              "State" : {
+                "nodeId" : 59,
+                "unqualifiedName" : "S1"
+              }
+            },
+            "235" : {
+              "Signal" : {
+                "nodeId" : 42,
+                "unqualifiedName" : "s3"
+              }
+            },
+            "236" : {
+              "Guard" : {
+                "nodeId" : 36,
+                "unqualifiedName" : "g1"
+              }
+            },
+            "238" : {
+              "State" : {
+                "nodeId" : 59,
+                "unqualifiedName" : "S1"
+              }
+            },
+            "241" : {
+              "Signal" : {
+                "nodeId" : 43,
+                "unqualifiedName" : "s4"
+              }
+            },
+            "243" : {
+              "State" : {
+                "nodeId" : 59,
+                "unqualifiedName" : "S1"
+              }
+            },
+            "246" : {
+              "Signal" : {
+                "nodeId" : 44,
+                "unqualifiedName" : "s5"
+              }
+            },
+            "247" : {
+              "Guard" : {
+                "nodeId" : 36,
+                "unqualifiedName" : "g1"
+              }
+            },
+            "249" : {
               "Action" : {
-                "nodeId" : 32,
-                "unqualifiedName" : "a2"
+                "nodeId" : 31,
+                "unqualifiedName" : "a1"
+              }
+            },
+            "259" : {
+              "Signal" : {
+                "nodeId" : 45,
+                "unqualifiedName" : "s6"
+              }
+            },
+            "261" : {
+              "Action" : {
+                "nodeId" : 31,
+                "unqualifiedName" : "a1"
               }
             }
           },
@@ -4162,56 +4162,6 @@
               }
             },
             "arcMap" : {
-              "221" : [
-              ],
-              "58" : [
-                {
-                  "Choice" : {
-                    "startChoice" : {
-                      "node" : {
-                        "astNodeId" : 58
-                      }
-                    },
-                    "aNode" : {
-                      "astNodeId" : 54
-                    },
-                    "endNode" : {
-                      "soc" : {
-                        "State" : {
-                          "symbol" : {
-                            "node" : {
-                              "astNodeId" : 59
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                {
-                  "Choice" : {
-                    "startChoice" : {
-                      "node" : {
-                        "astNodeId" : 58
-                      }
-                    },
-                    "aNode" : {
-                      "astNodeId" : 57
-                    },
-                    "endNode" : {
-                      "soc" : {
-                        "State" : {
-                          "symbol" : {
-                            "node" : {
-                              "astNodeId" : 263
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              ],
               "220" : [
                 {
                   "Choice" : {
@@ -4260,7 +4210,7 @@
                   }
                 }
               ],
-              "59" : [
+              "221" : [
               ],
               "263" : [
                 {
@@ -4378,6 +4328,56 @@
                     }
                   }
                 }
+              ],
+              "58" : [
+                {
+                  "Choice" : {
+                    "startChoice" : {
+                      "node" : {
+                        "astNodeId" : 58
+                      }
+                    },
+                    "aNode" : {
+                      "astNodeId" : 54
+                    },
+                    "endNode" : {
+                      "soc" : {
+                        "State" : {
+                          "symbol" : {
+                            "node" : {
+                              "astNodeId" : 59
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "Choice" : {
+                    "startChoice" : {
+                      "node" : {
+                        "astNodeId" : 58
+                      }
+                    },
+                    "aNode" : {
+                      "astNodeId" : 57
+                    },
+                    "endNode" : {
+                      "soc" : {
+                        "State" : {
+                          "symbol" : {
+                            "node" : {
+                              "astNodeId" : 263
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "59" : [
               ]
             }
           },
@@ -4396,6 +4396,31 @@
               }
             },
             "arcMap" : {
+              "220" : [
+                {
+                  "State" : {
+                    "startState" : {
+                      "node" : {
+                        "astNodeId" : 263
+                      }
+                    },
+                    "aNode" : {
+                      "astNodeId" : 228
+                    },
+                    "endNode" : {
+                      "soc" : {
+                        "Choice" : {
+                          "symbol" : {
+                            "node" : {
+                              "astNodeId" : 220
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
               "221" : [
                 {
                   "Choice" : {
@@ -4444,25 +4469,23 @@
                   }
                 }
               ],
-              "58" : [
-              ],
-              "220" : [
+              "263" : [
                 {
-                  "State" : {
-                    "startState" : {
+                  "Choice" : {
+                    "startChoice" : {
                       "node" : {
-                        "astNodeId" : 263
+                        "astNodeId" : 58
                       }
                     },
                     "aNode" : {
-                      "astNodeId" : 228
+                      "astNodeId" : 57
                     },
                     "endNode" : {
                       "soc" : {
-                        "Choice" : {
+                        "State" : {
                           "symbol" : {
                             "node" : {
-                              "astNodeId" : 220
+                              "astNodeId" : 263
                             }
                           }
                         }
@@ -4470,6 +4493,8 @@
                     }
                   }
                 }
+              ],
+              "58" : [
               ],
               "59" : [
                 {
@@ -4587,37 +4612,26 @@
                     }
                   }
                 }
-              ],
-              "263" : [
-                {
-                  "Choice" : {
-                    "startChoice" : {
-                      "node" : {
-                        "astNodeId" : 58
-                      }
-                    },
-                    "aNode" : {
-                      "astNodeId" : 57
-                    },
-                    "endNode" : {
-                      "soc" : {
-                        "State" : {
-                          "symbol" : {
-                            "node" : {
-                              "astNodeId" : 263
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
               ]
             }
           },
           "typeOptionMap" : {
+            "198" : "None",
             "201" : "None",
-            "50" : "None",
+            "207" : "None",
+            "220" : {
+              "Some" : {
+                "Int" : {
+                  "PrimitiveInt" : {
+                    "kind" : {
+                      "U32" : {
+                        
+                      }
+                    }
+                  }
+                }
+              }
+            },
             "228" : {
               "Some" : {
                 "Int" : {
@@ -4632,44 +4646,14 @@
               }
             },
             "234" : "None",
+            "240" : "None",
             "245" : "None",
-            "58" : "None",
-            "198" : "None",
-            "220" : {
-              "Some" : {
-                "Int" : {
-                  "PrimitiveInt" : {
-                    "kind" : {
-                      "U32" : {
-                        
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "262" : "None",
             "250" : "None",
-            "207" : "None",
-            "240" : "None"
+            "262" : "None",
+            "50" : "None",
+            "58" : "None"
           },
           "flattenedStateTransitionMap" : {
-            "45" : {
-              "221" : {
-                "guardOpt" : "None",
-                "transition" : {
-                  "Internal" : {
-                    "actions" : [
-                      {
-                        "node" : {
-                          "astNodeId" : 31
-                        }
-                      }
-                    ]
-                  }
-                }
-              }
-            },
             "40" : {
               "221" : {
                 "guardOpt" : {
@@ -4701,7 +4685,7 @@
                 }
               }
             },
-            "44" : {
+            "41" : {
               "221" : {
                 "guardOpt" : {
                   "Some" : {
@@ -4710,22 +4694,6 @@
                     }
                   }
                 },
-                "transition" : {
-                  "Internal" : {
-                    "actions" : [
-                      {
-                        "node" : {
-                          "astNodeId" : 31
-                        }
-                      }
-                    ]
-                  }
-                }
-              }
-            },
-            "43" : {
-              "221" : {
-                "guardOpt" : "None",
                 "transition" : {
                   "External" : {
                     "actions" : [
@@ -4789,15 +4757,9 @@
                 }
               }
             },
-            "41" : {
+            "43" : {
               "221" : {
-                "guardOpt" : {
-                  "Some" : {
-                    "node" : {
-                      "astNodeId" : 36
-                    }
-                  }
-                },
+                "guardOpt" : "None",
                 "transition" : {
                   "External" : {
                     "actions" : [
@@ -4824,39 +4786,47 @@
                   }
                 }
               }
+            },
+            "44" : {
+              "221" : {
+                "guardOpt" : {
+                  "Some" : {
+                    "node" : {
+                      "astNodeId" : 36
+                    }
+                  }
+                },
+                "transition" : {
+                  "Internal" : {
+                    "actions" : [
+                      {
+                        "node" : {
+                          "astNodeId" : 31
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "45" : {
+              "221" : {
+                "guardOpt" : "None",
+                "transition" : {
+                  "Internal" : {
+                    "actions" : [
+                      {
+                        "node" : {
+                          "astNodeId" : 31
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
             }
           },
           "flattenedChoiceTransitionMap" : {
-            "54" : {
-              "External" : {
-                "actions" : [
-                ],
-                "target" : {
-                  "State" : {
-                    "symbol" : {
-                      "node" : {
-                        "astNodeId" : 59
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "57" : {
-              "External" : {
-                "actions" : [
-                ],
-                "target" : {
-                  "State" : {
-                    "symbol" : {
-                      "node" : {
-                        "astNodeId" : 263
-                      }
-                    }
-                  }
-                }
-              }
-            },
             "213" : {
               "External" : {
                 "actions" : [
@@ -4916,6 +4886,36 @@
                   }
                 }
               }
+            },
+            "54" : {
+              "External" : {
+                "actions" : [
+                ],
+                "target" : {
+                  "State" : {
+                    "symbol" : {
+                      "node" : {
+                        "astNodeId" : 59
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "57" : {
+              "External" : {
+                "actions" : [
+                ],
+                "target" : {
+                  "State" : {
+                    "symbol" : {
+                      "node" : {
+                        "astNodeId" : 263
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -4924,6 +4924,9 @@
     "dictionarySymbolSet" : [
     ],
     "interfaceMap" : {
+      
+    },
+    "dictionaryMap" : {
       
     }
   }

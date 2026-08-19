@@ -407,6 +407,10 @@ def module
       qual ident b.a
     @< Topology port specifier
   @< Topology definition
+  @ Deployment topology
+  def deployment topology
+    ident T
+  @< Deployment topology
   @ Topology definition with one implements
   def topology
     ident T
@@ -420,12 +424,23 @@ def module
       qual ident I
       qual ident I
   @< Topology definition with two implements
+  @ System definition
+  def system
+    ident S
+    qual ident M.T
+  @< System definition
   @ Location specifier
   spec loc
     kind instance
     symbol qual ident i
     file instances.fpp
   @< Location specifier
+  @ System location specifier
+  spec loc
+    kind system
+    symbol qual ident S
+    file system.fpp
+  @< System location specifier
 @< Definitions and specifiers
 @ Type names
 def module
@@ -477,6 +492,20 @@ def module
       binop +
       literal int 6
   @< Arithmetic
+  @ Shift
+  def constant
+    ident shiftExp
+    expr binop
+      expr binop
+        expr binop
+          literal int 1
+          binop +
+          literal int 2
+        binop <<
+        literal int 3
+      binop >>
+      literal int 1
+  @< Shift
   @ Array
   def constant
     ident arrayExp

@@ -12,13 +12,13 @@
 
 namespace TypedPortsActive {
 
-  TypedPortsActive::Receiver receiver(FW_OPTIONAL_NAME("receiver"));
+  TypedPortsActive::Receiver receiver(FW_OPTIONAL_NAME("TypedPortsActive.receiver"));
 
 }
 
 namespace TypedPortsActive {
 
-  TypedPortsActive::Sender sender(FW_OPTIONAL_NAME("sender"));
+  TypedPortsActive::Sender sender(FW_OPTIONAL_NAME("TypedPortsActive.sender"));
 
 }
 
@@ -387,7 +387,7 @@ namespace TypedPortsActive {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
   }
@@ -416,7 +416,7 @@ namespace TypedPortsActive {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -446,7 +446,7 @@ namespace TypedPortsActive {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -476,7 +476,7 @@ namespace TypedPortsActive {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -506,7 +506,7 @@ namespace TypedPortsActive {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -536,7 +536,7 @@ namespace TypedPortsActive {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -566,7 +566,7 @@ namespace TypedPortsActive {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -596,7 +596,7 @@ namespace TypedPortsActive {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;

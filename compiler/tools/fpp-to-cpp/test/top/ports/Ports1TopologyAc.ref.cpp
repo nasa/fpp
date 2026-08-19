@@ -17,19 +17,19 @@ namespace M {
 
 namespace M {
 
-  M::Active active3(FW_OPTIONAL_NAME("active3"));
+  M::Active active3(FW_OPTIONAL_NAME("M.active3"));
 
 }
 
 namespace M {
 
-  M::Passive passive1(FW_OPTIONAL_NAME("passive1"));
+  M::Passive passive1(FW_OPTIONAL_NAME("M.passive1"));
 
 }
 
 namespace M {
 
-  ConcretePassive passive2(FW_OPTIONAL_NAME("passive2"));
+  ConcretePassive passive2(FW_OPTIONAL_NAME("M.passive2"));
 
 }
 
@@ -182,7 +182,7 @@ namespace M {
     switch (instance) {
       default:
 #ifdef FW_STRICT_ASSERTIONS
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(instance));
         break;
 #else
         // Fall through
@@ -216,7 +216,7 @@ namespace M {
     switch (instance) {
       default:
 #ifdef FW_STRICT_ASSERTIONS
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(instance));
         break;
 #else
         // Fall through
@@ -227,14 +227,14 @@ namespace M {
             active1.p_handlerBase(0);
             break;
           default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
             break;
         }
         break;
       case ::M::InstanceIds::M_passive2:
         switch (portNum) {
           default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
             break;
         }
         break;

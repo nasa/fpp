@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>The F Prime Prime (FPP) Language Specification, Unreleased, after v3.2.0</title>
+<title>The F Prime Prime (FPP) Language Specification, v3.3.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) Language Specification, Unreleased, after v3.2.0</h1>
+<h1>The F Prime Prime (FPP) Language Specification, v3.3.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -553,28 +553,35 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_Struct-Definitions_Examples">5.13.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Topology-Definitions">5.14. Topology Definitions</a>
+<li><a href="#Definitions_System-Definitions">5.14. System Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Topology-Definitions_Syntax">5.14.1. Syntax</a></li>
-<li><a href="#Definitions_Topology-Definitions_Semantics">5.14.2. Semantics</a></li>
-<li><a href="#Definitions_Topology-Definitions_Importing-Subtopologies">5.14.3. Importing Subtopologies</a></li>
-<li><a href="#Definitions_Topology-Definitions_Ordering-of-Component-Instance-Connections">5.14.4. Ordering of Component Instance Connections</a></li>
-<li><a href="#Definitions_Topology-Definitions_Implied-Uses">5.14.5. Implied Uses</a></li>
-<li><a href="#Definitions_Topology-Definitions_Examples">5.14.6. Examples</a></li>
+<li><a href="#Definitions_System-Definitions_Syntax">5.14.1. Syntax</a></li>
+<li><a href="#Definitions_System-Definitions_Semantics">5.14.2. Semantics</a></li>
+<li><a href="#Definitions_System-Definitions_Examples">5.14.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Type-Definitions">5.15. Type Definitions</a></li>
-<li><a href="#Definitions_Framework-Definitions">5.16. Framework Definitions</a>
+<li><a href="#Definitions_Topology-Definitions">5.15. Topology Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Framework-Definitions_Constant-Definitions">5.16.1. Constant Definitions</a></li>
-<li><a href="#Definitions_Framework-Definitions_Type-Definitions">5.16.2. Type Definitions</a></li>
-<li><a href="#Definitions_Framework-Definitions_Port-Definitions">5.16.3. Port Definitions</a></li>
+<li><a href="#Definitions_Topology-Definitions_Syntax">5.15.1. Syntax</a></li>
+<li><a href="#Definitions_Topology-Definitions_Semantics">5.15.2. Semantics</a></li>
+<li><a href="#Definitions_Topology-Definitions_Importing-Subtopologies">5.15.3. Importing Subtopologies</a></li>
+<li><a href="#Definitions_Topology-Definitions_Ordering-of-Component-Instance-Connections">5.15.4. Ordering of Component Instance Connections</a></li>
+<li><a href="#Definitions_Topology-Definitions_Implied-Uses">5.15.5. Implied Uses</a></li>
+<li><a href="#Definitions_Topology-Definitions_Examples">5.15.6. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Dictionary-Definitions">5.17. Dictionary Definitions</a>
+<li><a href="#Definitions_Type-Definitions">5.16. Type Definitions</a></li>
+<li><a href="#Definitions_Framework-Definitions">5.17. Framework Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Dictionary-Definitions_Semantics">5.17.1. Semantics</a></li>
-<li><a href="#Definitions_Dictionary-Definitions_Examples">5.17.2. Examples</a></li>
+<li><a href="#Definitions_Framework-Definitions_Constant-Definitions">5.17.1. Constant Definitions</a></li>
+<li><a href="#Definitions_Framework-Definitions_Type-Definitions">5.17.2. Type Definitions</a></li>
+<li><a href="#Definitions_Framework-Definitions_Port-Definitions">5.17.3. Port Definitions</a></li>
+</ul>
+</li>
+<li><a href="#Definitions_Dictionary-Definitions">5.18. Dictionary Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#Definitions_Dictionary-Definitions_Semantics">5.18.1. Semantics</a></li>
+<li><a href="#Definitions_Dictionary-Definitions_Examples">5.18.2. Examples</a></li>
 </ul>
 </li>
 </ul>
@@ -1003,7 +1010,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Type-Checking_Sizeof-Expressions">18.9. Sizeof Expressions</a></li>
 <li><a href="#Type-Checking_Struct-Expressions">18.10. Struct Expressions</a></li>
 <li><a href="#Type-Checking_Unary-Negation-Expressions">18.11. Unary Negation Expressions</a></li>
-<li><a href="#Type-Checking_Binary-Expressions">18.12. Binary Expressions</a></li>
+<li><a href="#Type-Checking_Binary-Expressions">18.12. Binary Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Type-Checking_Binary-Expressions_Arithmetic-and-Concatenation">18.12.1. Arithmetic and Concatenation</a></li>
+<li><a href="#Type-Checking_Binary-Expressions_Shifting">18.12.2. Shifting</a></li>
+</ul>
+</li>
 <li><a href="#Type-Checking_Parenthesis-Expressions">18.13. Parenthesis Expressions</a></li>
 <li><a href="#Type-Checking_Identical-Types">18.14. Identical Types</a></li>
 <li><a href="#Type-Checking_Type-Conversion">18.15. Type Conversion</a></li>
@@ -1333,7 +1345,9 @@ yellow</code></pre>
 [
 ]
 {
-}</code></pre>
+}
+&gt;&gt;
+&lt;&lt;</code></pre>
 </div>
 </div>
 </div>
@@ -2873,6 +2887,9 @@ A module member is one of the following:</p>
 <p>A <a href="#Definitions_Struct-Definitions">struct definition</a></p>
 </li>
 <li>
+<p>A <a href="#Definitions_System-Definitions">system definition</a></p>
+</li>
+<li>
 <p>A <a href="#Definitions_Topology-Definitions">topology definition</a></p>
 </li>
 <li>
@@ -3781,7 +3798,53 @@ struct D {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Topology-Definitions">5.14. Topology Definitions</h3>
+<h3 id="Definitions_System-Definitions">5.14. System Definitions</h3>
+<div class="paragraph">
+<p>A <strong>system definition</strong> defines an embedded software system.
+When a system definition appears in the model, it
+causes code and a ground dictionary to be generated.</p>
+</div>
+<div class="sect3">
+<h4 id="Definitions_System-Definitions_Syntax">5.14.1. Syntax</h4>
+<div class="paragraph">
+<p><code>system</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>:</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_System-Definitions_Semantics">5.14.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>An FPP model may contain at most one system definition.</p>
+</li>
+<li>
+<p>The qualified identifier must
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
+a topology definition <em>D</em>.
+<em>D</em> must define a <a href="#Definitions_Topology-Definitions_Semantics">deployment
+topology</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_System-Definitions_Examples">5.14.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ The spacecraft system
+system Spacecraft: SpacecraftTopology
+
+@ The deployment topology for the system
+deployment topology SpacecraftTopology { ... }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Definitions_Topology-Definitions">5.15. Topology Definitions</h3>
 <div class="paragraph">
 <p>A <strong>topology definition</strong> defines an F Prime topology,
 that is, a set of objects with ports (component instances and subtopologies)
@@ -3802,9 +3865,10 @@ topology are merged into the first one.
 The connections are merged graph by graph.</p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Syntax">5.14.1. Syntax</h4>
+<h4 id="Definitions_Topology-Definitions_Syntax">5.15.1. Syntax</h4>
 <div class="paragraph">
-<p><code>topology</code>
+<p><em>[</em> <code>deployment</code> <em>]</em>
+<code>topology</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em> <code>implements</code> <em>interface-list</em> <em>]</em>
 <code>{</code> <em>topology-member-sequence</em> <code>}</code></p>
@@ -3843,7 +3907,13 @@ instance specifier</a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Semantics">5.14.2. Semantics</h4>
+<h4 id="Definitions_Topology-Definitions_Semantics">5.15.2. Semantics</h4>
+<div class="paragraph">
+<p>If present, the optional keyword <code>deployment</code> indicates that the topology
+is a <strong>deployment topology</strong>.
+A deployment topology is the top-level topology of a deployment; it
+causes deployment code to be generated.</p>
+</div>
 <div class="paragraph">
 <p>The identifier is the name of the topology.</p>
 </div>
@@ -4229,7 +4299,7 @@ interface</a> <em>I'</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Importing-Subtopologies">5.14.3. Importing Subtopologies</h4>
+<h4 id="Definitions_Topology-Definitions_Importing-Subtopologies">5.15.3. Importing Subtopologies</h4>
 <div class="paragraph">
 <p>When a topology <em>T</em> has a port interface instance specifier <code>instance</code> <em>Q</em>
 as a member, and <em>Q</em> refers to a topology
@@ -4319,7 +4389,7 @@ and connections \$C''_i\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Ordering-of-Component-Instance-Connections">5.14.4. Ordering of Component Instance Connections</h4>
+<h4 id="Definitions_Topology-Definitions_Ordering-of-Component-Instance-Connections">5.15.4. Ordering of Component Instance Connections</h4>
 <div class="paragraph">
 <p>For purposes of port numbering, FPP orders connections between
 component instances as follows.</p>
@@ -4408,19 +4478,20 @@ then \$c_1\$ is less than (respectively greater than) \$c_2\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Implied-Uses">5.14.5. Implied Uses</h4>
+<h4 id="Definitions_Topology-Definitions_Implied-Uses">5.15.5. Implied Uses</h4>
 <div class="paragraph">
-<p>When generating a dictionary from a topology <em>T</em>, the analyzer
-treats the definition of <em>T</em> as if it contained
+<p>When generating a dictionary from a deployment topology <em>T</em>,
+the analyzer treats the definition of <em>T</em> as if it contained
 <a href="#Definitions-and-Uses_Implied-Uses">implied uses</a> of
 several <a href="#Definitions_Framework-Definitions">framework definitions</a> required by the dictionary.
 Those framework definitions are specified
-in the <a href="https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/">F Prime
-dictionary specification</a>.</p>
+in the
+<a href="https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/#framework-definitions-required-by-the-dictionary">F
+Prime dictionary specification</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Examples">5.14.6. Examples</h4>
+<h4 id="Definitions_Topology-Definitions_Examples">5.15.6. Examples</h4>
 <div class="paragraph">
 <p><strong>Example 1.</strong></p>
 </div>
@@ -4553,7 +4624,7 @@ topology AttitudeControl {
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ Release topology
-topology Release {
+deployment topology Release {
 
   # ----------------------------------------------------------------------
   # Imported topologies
@@ -4693,7 +4764,7 @@ applied to topology <code>B</code> in Example 3.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Type-Definitions">5.15. Type Definitions</h3>
+<h3 id="Definitions_Type-Definitions">5.16. Type Definitions</h3>
 <div class="paragraph">
 <p>A <strong>type definition</strong> is one of the following:</p>
 </div>
@@ -4718,13 +4789,13 @@ applied to topology <code>B</code> in Example 3.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Framework-Definitions">5.16. Framework Definitions</h3>
+<h3 id="Definitions_Framework-Definitions">5.17. Framework Definitions</h3>
 <div class="paragraph">
 <p>Several definitions are used specially by the F Prime framework.
 These are called <strong>framework definitions.</strong></p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Framework-Definitions_Constant-Definitions">5.16.1. Constant Definitions</h4>
+<h4 id="Definitions_Framework-Definitions_Constant-Definitions">5.17.1. Constant Definitions</h4>
 <div class="paragraph">
 <p>The table below lists the framework constant definitions.
 Each row in the table has the following meaning:</p>
@@ -4897,7 +4968,7 @@ valid <a href="#Types_String-Types">string size</a>.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Framework-Definitions_Type-Definitions">5.16.2. Type Definitions</h4>
+<h4 id="Definitions_Framework-Definitions_Type-Definitions">5.17.2. Type Definitions</h4>
 <div class="paragraph">
 <p>The table below lists the framework type definitions.
 The rows have the same meaning as stated for
@@ -5023,7 +5094,7 @@ underlying type is unsigned.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Framework-Definitions_Port-Definitions">5.16.3. Port Definitions</h4>
+<h4 id="Definitions_Framework-Definitions_Port-Definitions">5.17.3. Port Definitions</h4>
 <div class="paragraph">
 <p>The F Prime framework provides <a href="#Definitions_Port-Definitions">port definitions</a>
 with the following qualified names:</p>
@@ -5074,7 +5145,7 @@ with the following qualified names:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Dictionary-Definitions">5.17. Dictionary Definitions</h3>
+<h3 id="Definitions_Dictionary-Definitions">5.18. Dictionary Definitions</h3>
 <div class="paragraph">
 <p>If the optional keyword <code>dictionary</code> appears in a
 <a href="#Definitions_Type-Definitions">type definition</a> or
@@ -5085,7 +5156,7 @@ A dictionary definition instructs the code generator to include
 the definition in the ground dictionary.</p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Dictionary-Definitions_Semantics">5.17.1. Semantics</h4>
+<h4 id="Definitions_Dictionary-Definitions_Semantics">5.18.1. Semantics</h4>
 <div class="paragraph">
 <p>If a constant definition <em>D</em> is a dictionary definition, then the
 expression appearing in <em>D</em> must have one of the following types:</p>
@@ -5112,7 +5183,7 @@ defined by <em>D</em> must be a <a href="#Types_Displayable-Types">displayable t
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Dictionary-Definitions_Examples">5.17.2. Examples</h4>
+<h4 id="Definitions_Dictionary-Definitions_Examples">5.18.2. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">dictionary type T = U32
@@ -7334,6 +7405,11 @@ of a <a href="#Definitions">definition</a>.</p>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
+<p>A <strong>system location specifier</strong> <code>locate</code> <code>system</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
+<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+</li>
+<li>
 <p>A <strong>type location specifier</strong> <code>locate</code>
 <em>[</em>
 <code>dictionary</code>
@@ -7364,8 +7440,10 @@ as follows:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>A component instance location specifier refers to a
-<a href="#Definitions_Component-Instance-Definitions">component instance definition</a>.</p>
+<p>An interface instance location specifier refers to a
+<a href="#Definitions_Component-Instance-Definitions">component instance definition</a>
+or
+a <a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </li>
 <li>
 <p>A component location specifier refers to a
@@ -7388,8 +7466,8 @@ as follows:</p>
 <a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
 </li>
 <li>
-<p>A topology location specifier refers to a
-<a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
+<p>A system location specifier refers to a
+<a href="#Definitions_System-Definitions">system definition</a>.</p>
 </li>
 <li>
 <p>A type location specifier refers to a <a href="#Definitions_Type-Definitions">type
@@ -8073,6 +8151,11 @@ of FPP.</p>
 a
 <a href="#Ports_Port-Interface-Instances">port interface instance</a>,
 i.e., a component instance definition or a topology definition.</p>
+</div>
+<div class="paragraph">
+<p>If the qualified identifier refers to a topology definition <em>D</em>,
+then <em>D</em> must not define a
+<a href="#Definitions_Topology-Definitions_Semantics">deployment topology</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -9035,7 +9118,7 @@ string size 256</code></pre>
 <p>The optional expression following the keyword <code>size</code> is called the <strong>size
 expression</strong> of the string type name.  If present, it must have a
 <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, and it must
-evaluate to a value in the range [1,2<sup>31</sup>) after conversion to
+evaluate to a value in the range [0,2<sup>31</sup>) after conversion to
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.</p>
 </div>
 <div class="paragraph">
@@ -9282,6 +9365,14 @@ on numbers or concatenates strings.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>/</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Division</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;&lt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bitwise left shift</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&gt;&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Signed bitwise right shift</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -9292,10 +9383,15 @@ on numbers or concatenates strings.</p>
 <a href="#Type-Checking_Binary-Expressions">type</a>.</p>
 </div>
 <div class="paragraph">
-<p>A binary expression \$e_1\$ <em>op</em> \$e_2\$ is evaluated as follows:</p>
+<p>A binary expression \$e_1\$ <em>op</em> \$e_2\$ is
+evaluated as follows:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
+<li>
+<p>If <em>op</em> is <code>+</code>, <code>-</code>, <code>*</code>, or <code>/</code>, then</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
 <li>
 <p>Let <em>T</em> be the type of the expression.</p>
 </li>
@@ -9327,6 +9423,51 @@ of \$v'_1\$ followed by the characters of \$v'_2\$.</p>
 </li>
 </ol>
 </div>
+</li>
+<li>
+<p>Otherwise if <em>op</em> is <code><<</code>, then</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Let <em>T</em> be the type of the expression.</p>
+</li>
+<li>
+<p>Evaluate \$e_1\$ to a value \$v_1\$.
+<a href="#Type-Checking_Type-Conversion">Convert</a>
+\$v_1\$ to a value \$n\$ of type <em>T</em>.</p>
+</li>
+<li>
+<p>Evaluate \$e_2\$ to a value \$v_2\$.
+<a href="#Type-Checking_Type-Conversion">Convert</a>
+\$v_2\$ to a value \$s\$ of type <em>Integer</em>.</p>
+</li>
+<li>
+<p>Check that \$s\$ lies in the range \$[0,255\$].</p>
+</li>
+<li>
+<p>Perform a left shift by <em>s</em> places on \$n\$.
+This is equivalent to multiplication by \$2^s\$.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Otherwise <em>op</em> is <code>>></code></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Perform the first four steps for a binary operation \$e_1\$ <code><<</code>
+\$e_2\$.</p>
+</li>
+<li>
+<p>Perform a signed right shift by <em>s</em> places on \$n\$.
+This is equivalent to floor division by \$2^s\$.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Expressions_Binary-Expressions_Examples">10.3.3. Examples</h4>
@@ -9338,7 +9479,10 @@ constant b = a * -1 # b has value -5
 constant s1 = "a" + "b" + "c"     # s1 has value "abc"
 constant s2 = "hello " + s1 + "!" # s2 has value "hello abc!"
 
-constant c = 1 + "2" # Error: cannot add Integer and string</code></pre>
+constant c = 1 + "2" # Error: cannot add Integer and string
+
+constant leftShifted = 2 &lt;&lt; 3 # leftShifted has value 16
+constant rightShifted = 8 &gt;&gt; 2 # rightShifted has value 2</code></pre>
 </div>
 </div>
 </div>
@@ -9890,22 +10034,23 @@ associativity for resolving expressions with equal precedence.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dot expressions \$e\$ <code>.</code> \$i\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e\$ <code>.</code> \$i\$</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Unary negation expressions <code>-</code> \$e\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-</code> \$e\$</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Multiplication expressions \$e_1\$ <code>*</code> \$e_2\$ and division expressions \$e_1\$ <code>/</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>*</code> \$e_2\$ and \$e_1\$ <code>/</code> \$e_2\$</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Left</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Addition expressions \$e_1\$ <code>+</code> \$e_2\$
-(<a href="#Expressions_Binary-Expressions">arithmetic addition</a> or
-<a href="#Expressions_Binary-Expressions">string concatenation</a>) and subtraction
-expressions \$e_1\$ <code>-</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>+</code> \$e_2\$  and \$e_1\$ <code>-</code> \$e_2\$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Left</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\$e_1\$ <code>&lt;&lt;</code> \$e_2\$ and \$e_1\$ <code>&gt;&gt;</code> \$e_2\$</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Left</p></td>
 </tr>
 </tbody>
@@ -10461,7 +10606,7 @@ the identifier appearing in <em>D</em>.</p>
 <div class="sect2">
 <h3 id="Scoping-of-Names_Name-Groups">15.3. Name Groups</h3>
 <div class="paragraph">
-<p>The qualified names of definitions and
+<p>The qualified names of definitions
 reside in the following <strong>name groups</strong>:</p>
 </div>
 <div class="olist arabic">
@@ -10480,6 +10625,9 @@ reside in the following <strong>name groups</strong>:</p>
 </li>
 <li>
 <p>The <strong>state machine name group</strong></p>
+</li>
+<li>
+<p>The <strong>system name group</strong></p>
 </li>
 <li>
 <p>The <strong>type name group</strong></p>
@@ -10537,7 +10685,7 @@ the value name group, and the type name group.</p>
 <p>Struct type definitions reside in the type name group.</p>
 </li>
 <li>
-<p>Module template definitions reside in all name groups.</p>
+<p>System definitions reside in the system name group.</p>
 </li>
 <li>
 <p>Topology definitions reside in the topology name group.</p>
@@ -11076,7 +11224,8 @@ are called the <strong>primitive types</strong>.</p>
 <p>The <strong>string types</strong> correspond to the
 <a href="#Type-Names_String-Type-Names">string type names</a>.
 A string type is written <code>string</code> or <code>string size</code> <em>n</em>,
-where <em>n</em> is an integer value in the range [1,2^31-1].
+where <em>n</em> is an integer value in the range [0,2^31).
+Note that strings of size zero are allowed.
 There is one string type <code>string</code> and one string type <code>string size</code> <em>n</em>
 for each legal value of <em>n</em>.
 The string type names map to the string types in the following way:</p>
@@ -11760,8 +11909,27 @@ constant f = -true # Error</code></pre>
 <div class="sect2">
 <h3 id="Type-Checking_Binary-Expressions">18.12. Binary Expressions</h3>
 <div class="paragraph">
+<p>To type a <a href="#Expressions_Binary-Expressions">binary expression</a> \$e_1\$ <em>op</em> \$e_2\$
+the semantic analyzer does the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If <em>op</em> is <code>+</code>, <code>-</code>, <code>*</code>, or <code>/</code>, then use the
+<a href="#Type-Checking_Binary-Expressions_Arithmetic-and-Concatenation">rules for arithmetic and concatenation expressions</a>.</p>
+</li>
+<li>
+<p>Otherwise use the
+<a href="#Type-Checking_Binary-Expressions_Shifting">rules for shift expressions</a>.</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="Type-Checking_Binary-Expressions_Arithmetic-and-Concatenation">18.12.1. Arithmetic and Concatenation</h4>
+<div class="paragraph">
 <p>To type a <a href="#Expressions_Binary-Expressions">binary expression</a> \$e_1\$ <em>op</em>
-\$e_2\$, the semantic analyzer does the following:</p>
+\$e_2\$ where <em>op</em> is <code>+</code>, <code>-</code>, <code>*</code>, or <code>/</code>, the
+semantic analyzer does the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -11798,6 +11966,54 @@ enum E { X = 1, Y = 2 }
 constant d = X + Y # Type is Integer
 constant e = true + "abcd" # Error
 constant f = "ab" + "cd" # Type is String</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Type-Checking_Binary-Expressions_Shifting">18.12.2. Shifting</h4>
+<div class="paragraph">
+<p>To type a <a href="#Expressions_Binary-Expressions">binary expression</a> \$e_1\$ <em>op</em>
+\$e_2\$, where <em>op</em> is <code>&lt;&lt;</code> or <code>&gt;&gt;</code>,
+the semantic analyzer does the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For each \$i\$ in \$[1,2]\$</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Compute the type \$T_i\$ of \$e_i\$.</p>
+</li>
+<li>
+<p>Check that \$T_i\$ is an
+<a href="#Types_Internal-Types_Integer-Types">integer type</a>
+or an <a href="#Types_Enum-Types">enum type</a>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>If \$T_1\$ is an integer type, then use \$T_1\$
+as the type of the expression.</p>
+</li>
+<li>
+<p>Otherwise use <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>
+as the type of the expression.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 1 &lt;&lt; 2 # Type is Integer
+constant b = 1.0 &lt;&lt; 2 # Error: left operand is a floating-point type
+constant c = 1 &lt;&lt; 2.0 # Error: right operand is a floating-point type
+enum E { X = 1 }
+constant d = E.X &lt;&lt; 2 # Type is Integer</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -13124,7 +13340,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-20 15:47:53 -0700
+Last updated 2026-08-19 13:25:33 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

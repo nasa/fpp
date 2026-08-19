@@ -46,6 +46,7 @@ object Lexer {
     ("container", CONTAINER),
     ("cpu", CPU),
     ("default", DEFAULT),
+    ("deployment", DEPLOYMENT),
     ("diagnostic", DIAGNOSTIC),
     ("dictionary", DICTIONARY),
     ("do", DO),
@@ -118,6 +119,7 @@ object Lexer {
     ("string", STRING),
     ("struct", STRUCT),
     ("sync", SYNC),
+    ("system", SYSTEM),
     ("telemetry", TELEMETRY),
     ("text", TEXT),
     ("throttle", THROTTLE),
@@ -240,6 +242,7 @@ object Lexer {
         case CONTAINER => Token.CONTAINER()
         case CPU => Token.CPU()
         case DEFAULT => Token.DEFAULT()
+        case DEPLOYMENT => Token.DEPLOYMENT()
         case DIAGNOSTIC => Token.DIAGNOSTIC()
         case DICTIONARY => Token.DICTIONARY()
         case DO => Token.DO()
@@ -291,6 +294,7 @@ object Lexer {
         case LOCATE => Token.LOCATE()
         case LOW => Token.LOW()
         case LPAREN => Token.LPAREN()
+        case LSHIFT => Token.LSHIFT()
         case MACHINE => Token.MACHINE()
         case MATCH => Token.MATCH()
         case MINUS => Token.MINUS()
@@ -324,6 +328,7 @@ object Lexer {
         case REQUEST => Token.REQUEST()
         case RESP => Token.RESP()
         case RPAREN => Token.RPAREN()
+        case RSHIFT => Token.RSHIFT()
         case SAVE => Token.SAVE()
         case SEMI => Token.SEMI()
         case SEND => Token.SEND()
@@ -340,6 +345,7 @@ object Lexer {
         case STRING => Token.STRING()
         case STRUCT => Token.STRUCT()
         case SYNC => Token.SYNC()
+        case SYSTEM => Token.SYSTEM()
         case TELEMETRY => Token.TELEMETRY()
         case TEXT => Token.TEXT()
         case THROTTLE => Token.THROTTLE()
@@ -548,6 +554,20 @@ object Lexer {
           nextChar()
           token = SLASH
           eatNewlines()
+        case '<' =>
+          nextChar()
+          if ch == '<' then
+            token = LSHIFT
+            nextChar()
+          else
+            error("'<'")
+        case '>' =>
+          nextChar()
+          if ch == '>' then
+            token = RSHIFT
+            nextChar()
+          else
+            error("'>'")
         case '=' =>
           nextChar()
           token = EQUALS

@@ -200,7 +200,9 @@ object Connection {
       if (nameCompare != 0) nameCompare
       else (this.portNumber, that.portNumber) match {
         case (Some (n1), Some (n2)) => n1 - n2
-        case _ => 0
+        case (None, None) => 0
+        case (None, Some (_)) => -1
+        case (Some (_), None) => 1
       }
     }
 

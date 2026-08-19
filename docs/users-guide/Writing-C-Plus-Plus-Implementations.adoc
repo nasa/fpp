@@ -167,13 +167,16 @@ struct T final : public Fw::Serializable { // Extend Fw::Serializable
 In some cases, you may want to define an abstract type `T` that represents
 a data buffer and that is used only in <<Defining-Ports,port definitions>>.
 In this case you can implement
-`T` as a class that extends `Fw::SerialBufferBase`.
+`T` as a class that extends `Fw::LinearBufferBase`.
 Instead of implementing the `serializeTo` and `deserializeFrom` functions
-directly, you override functions that get the address and the capacity
-(allocated size) of the buffer; the base class `Fw::SerialBufferBase`
-uses these functions to implement `serializeTo` and `deserializeFrom`.
-For an example of how to do this, see the files `Fw/Cmd/CmdArgBuffer.hpp`
-and `Fw/Cmd/CmdArgBuffer.cpp` in the F Prime repository.
+directly, you provide the storage for the buffer and pass its address and
+capacity (allocated size) to the `Fw::LinearBufferBase` constructor; the base
+class uses this address and capacity to implement `serializeTo` and
+`deserializeFrom`.
+To do this, you can write a custom buffer that inherits from `Fw::LinearBufferBase` (for example,
+see the `HashBuffer` constructor in `Utils/Hash/HashBufferCommon.cpp`), or you can use 
+the `Fw::LinearBufferTemplate` class template (for example, see `Fw/Cmd/CmdArgBuffer.hpp`;
+it defines `Fw::CmdArgBuffer` as a specialization of `Fw::LinearBufferTemplate`).
 Be careful, though: if you implement an abstract type `T` this way
 and you try to use the type `T` outside of a port definition,
 the generated {cpp} may not compile.
@@ -504,17 +507,21 @@ F Prime uses the following rules for serializing data:
 is serialized into big-endian order (most significant byte first) by default,
 using the number of bytes implied by the bit width.
 For example, the `U16` value 10 (decimal) is serialized as the
-two bytes `00` `0A` (hex). If little-endian order is desired, the optional mode parameter can be specified as `Fw::Serialization::LITTLE`. This stores the data least significant byte order. The `U16` value 10 (decimal) is serialized in little-endian as the two bytes `0A` `00` (hex).
+two bytes `00` `0A` (hex). If little-endian order is desired, the optional mode 
+parameter can be specified as `Fw::Serialization::LITTLE`. This stores the data 
+least significant byte order. The `U16` value 10 (decimal) is serialized in 
+little-endian as the two bytes `0A` `00` (hex).
 
 .. A value of signed integer type (`I8`, `I16`, `I32`, or `I64`)
-is serialized by first converting the value to an unsigned value of the same bit
-width and then serializing the unsigned value as stated in rule 1.a.
+is serialized by first converting the value to an unsigned value of the same 
+bit width and then serializing the unsigned value as stated in rule 1.a.
 If the value is nonnegative, then the unsigned value is
 the same as the signed value.
 Otherwise the unsigned value is the two's complement of the signed value.
 For example:
 
-... The `I16` value 10 (decimal) is serialized as two bytes, yielding the bytes `00` `0A` (hex) in big-endian and `0A` `00` (hex) in little-endian.
+... The `I16` value 10 (decimal) is serialized as two bytes, yielding the bytes 
+`00` `0A` (hex) in big-endian and `0A` `00` (hex) in little-endian.
 
 ... The `I16` value -10 (decimal) is serialized by
 (1) computing the `U16` value 2^16^ - 10 = 65526
@@ -546,19 +553,30 @@ Each string character is serialized as an `I8` value according to rule 1.b.
 
 . A value of <<Defining-Types_Array-Type-Definitions,array type>>
 is serialized as a sequence of serialized values, one for each array
-element, in array order.
-Each value is serialized using these rules.
+element, in array order, with no padding.
+Each value is serialized according to its type
+as specified in these rules.
 
 . A value of <<Defining-Types_Struct-Type-Definitions,struct type>>
 is serialized member-by-member, in the order
 that the members appear in the FPP struct definition,
 with no padding.
+Each member is serialized as follows:
 
-.. Except for
-<<Defining-Types_Struct-Type-Definitions_Member-Arrays,member arrays>>,
-each member is serialized using these rules.
+.. If the member is not a
+<<Defining-Types_Struct-Type-Definitions_Member-Arrays,member array>>,
+then it is a single value of an FPP type.
+In this case the value is serialized according to its type as specified
+in these rules.
+Note that the type of the value may be an
+<<Defining-Types_Array-Type-Definitions,array type>>.
 
-.. Each member array is serialized as stated in rule 5.
+.. Otherwise the member is a
+<<Defining-Types_Struct-Type-Definitions_Member-Arrays,member array>>,
+which is not a single value, but an array of typed values.
+In this case, the array is serialized as specified in rule 5,
+as if it were a single value of an 
+<<Defining-Types_Array-Type-Definitions,array type>>.
 
 . A value of <<Defining-Enums,enum type>> is converted to a primitive
 integer value of the <<Defining-Enums_The-Representation-Type,representation

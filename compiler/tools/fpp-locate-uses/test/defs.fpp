@@ -85,6 +85,10 @@ module M {
 
   }
 
+  deployment topology T3 {
+
+  }
+
 }
 
 constant base_id_def = 0x200

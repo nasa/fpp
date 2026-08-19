@@ -12,13 +12,13 @@
 
 namespace SerialPortsActive {
 
-  SerialPortsActive::Receiver receiver(FW_OPTIONAL_NAME("receiver"));
+  SerialPortsActive::Receiver receiver(FW_OPTIONAL_NAME("SerialPortsActive.receiver"));
 
 }
 
 namespace SerialPortsActive {
 
-  SerialPortsActive::Sender sender(FW_OPTIONAL_NAME("sender"));
+  SerialPortsActive::Sender sender(FW_OPTIONAL_NAME("SerialPortsActive.sender"));
 
 }
 
@@ -342,7 +342,7 @@ namespace SerialPortsActive {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
     return _result;
@@ -409,7 +409,7 @@ namespace SerialPortsActive {
         }
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
   }

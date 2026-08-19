@@ -19,9 +19,7 @@
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Log/LogPortAc.hpp"
-#if FW_ENABLE_TEXT_LOGGING == 1
 #include "Fw/Log/LogTextPortAc.hpp"
-#endif
 #if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
 #endif
@@ -2163,11 +2161,35 @@ class QueuedExternalParamsComponentBase :
   private:
 
     // ----------------------------------------------------------------------
+    // Parameter validity flags
+    // ----------------------------------------------------------------------
+
+    //! The validity flag for ParamI32Ext
+    Fw::ParamValid m_param_ParamI32Ext_valid = Fw::ParamValid::UNINIT;
+
+    //! The validity flag for ParamF64Ext
+    Fw::ParamValid m_param_ParamF64Ext_valid = Fw::ParamValid::UNINIT;
+
+    //! The validity flag for ParamStringExt
+    Fw::ParamValid m_param_ParamStringExt_valid = Fw::ParamValid::UNINIT;
+
+    //! The validity flag for ParamEnumExt
+    Fw::ParamValid m_param_ParamEnumExt_valid = Fw::ParamValid::UNINIT;
+
+    //! The validity flag for ParamArrayExt
+    Fw::ParamValid m_param_ParamArrayExt_valid = Fw::ParamValid::UNINIT;
+
+    //! The validity flag for ParamStructExt
+    Fw::ParamValid m_param_ParamStructExt_valid = Fw::ParamValid::UNINIT;
+
+  private:
+
+    // ----------------------------------------------------------------------
     // Parameter delegate
     // ----------------------------------------------------------------------
 
     //! Delegate to serialize/deserialize an externally stored parameter
-    Fw::ParamExternalDelegate* paramDelegatePtr;
+    Fw::ParamExternalDelegate* paramDelegatePtr = nullptr;
 
   private:
 

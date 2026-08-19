@@ -71,7 +71,7 @@ module M { # Qualified name is M
 
 === Name Groups
 
-The qualified names of definitions and
+The qualified names of definitions
 reside in the following *name groups*:
 
 . The *component name group*
@@ -83,6 +83,8 @@ reside in the following *name groups*:
 . The *port name group*
 
 . The *state machine name group*
+
+. The *system name group*
 
 . The *type name group*
 
@@ -119,7 +121,7 @@ the value name group, and the type name group.
 
 * Struct type definitions reside in the type name group.
 
-* Module template definitions reside in all name groups.
+* System definitions reside in the system name group.
 
 * Topology definitions reside in the topology name group.
 

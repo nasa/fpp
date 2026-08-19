@@ -42,6 +42,10 @@ for file in `find . -name '*.ref.cpp' | sort`
 do
   base=`basename $file .ref.cpp`
   cp $file $base.cpp
-  echo "compiling $base.cpp"
-  $fprime_gcc $include_flags $define_flags $warning_flags -c $base.cpp
+  for enable_text_logging in 0 1
+  do
+    guards="-DFW_ENABLE_TEXT_LOGGING=$enable_text_logging"
+    echo "compiling $base.cpp with $guards"
+    $fprime_gcc $guards $include_flags $define_flags $warning_flags -c $base.cpp
+  done
 done

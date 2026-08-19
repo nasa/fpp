@@ -50,16 +50,8 @@ namespace {
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
-      Fw::Serializable::SizeType getCapacity() const {
-        return sizeof(m_buff);
-      }
+      ComponentIpcSerializableBuffer() : Fw::LinearBufferBase(m_buff, sizeof(m_buff)) {
 
-      U8* getBuffAddr() {
-        return m_buff;
-      }
-
-      const U8* getBuffAddr() const {
-        return m_buff;
       }
 
     private:
@@ -3893,7 +3885,7 @@ void ActiveTelemetryComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   compPtr->cmdIn_handlerBase(
     portNum,
@@ -3920,7 +3912,7 @@ void ActiveTelemetryComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   compPtr->aliasTypedAsync_handlerBase(
     portNum,
@@ -3940,7 +3932,7 @@ Fw::String ActiveTelemetryComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   return compPtr->noArgsAliasStringReturnSync_handlerBase(portNum);
 }
@@ -3951,7 +3943,7 @@ void ActiveTelemetryComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   compPtr->noArgsAsync_handlerBase(portNum);
 }
@@ -3962,7 +3954,7 @@ void ActiveTelemetryComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   compPtr->noArgsGuarded_handlerBase(portNum);
 }
@@ -3973,7 +3965,7 @@ U32 ActiveTelemetryComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   return compPtr->noArgsReturnGuarded_handlerBase(portNum);
 }
@@ -3984,7 +3976,7 @@ U32 ActiveTelemetryComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   return compPtr->noArgsReturnSync_handlerBase(portNum);
 }
@@ -3995,7 +3987,7 @@ Fw::String ActiveTelemetryComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   return compPtr->noArgsStringReturnSync_handlerBase(portNum);
 }
@@ -4006,7 +3998,7 @@ void ActiveTelemetryComponentBase ::
       FwIndexType portNum
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   compPtr->noArgsSync_handlerBase(portNum);
 }
@@ -4024,7 +4016,7 @@ void ActiveTelemetryComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   compPtr->typedAliasGuarded_handlerBase(
     portNum,
@@ -4051,7 +4043,7 @@ AliasPrim2 ActiveTelemetryComponentBase ::
       const AliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   return compPtr->typedAliasReturnSync_handlerBase(
     portNum,
@@ -4078,7 +4070,7 @@ Fw::String ActiveTelemetryComponentBase ::
       const AnotherAliasStruct& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   return compPtr->typedAliasStringReturnSync_handlerBase(
     portNum,
@@ -4105,7 +4097,7 @@ void ActiveTelemetryComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   compPtr->typedAsync_handlerBase(
     portNum,
@@ -4132,7 +4124,7 @@ void ActiveTelemetryComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   compPtr->typedAsyncAssert_handlerBase(
     portNum,
@@ -4159,7 +4151,7 @@ void ActiveTelemetryComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   compPtr->typedAsyncBlockPriority_handlerBase(
     portNum,
@@ -4186,7 +4178,7 @@ void ActiveTelemetryComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   compPtr->typedAsyncDropPriority_handlerBase(
     portNum,
@@ -4213,7 +4205,7 @@ void ActiveTelemetryComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   compPtr->typedGuarded_handlerBase(
     portNum,
@@ -4240,7 +4232,7 @@ F32 ActiveTelemetryComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   return compPtr->typedReturnGuarded_handlerBase(
     portNum,
@@ -4267,7 +4259,7 @@ F32 ActiveTelemetryComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   return compPtr->typedReturnSync_handlerBase(
     portNum,
@@ -4294,7 +4286,7 @@ void ActiveTelemetryComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryComponentBase* compPtr = static_cast<ActiveTelemetryComponentBase*>(callComp);
   compPtr->typedSync_handlerBase(
     portNum,

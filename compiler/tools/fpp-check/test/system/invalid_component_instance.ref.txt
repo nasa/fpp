@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/system/invalid_component_instance.fpp:3.11
+system S: c
+          ^
+error: invalid use of symbol c: not a topology symbol
+symbol is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/system/invalid_component_instance.fpp:2.1
+instance c: C base id 0x100
+^

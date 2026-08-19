@@ -53,16 +53,8 @@ namespace {
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
-      Fw::Serializable::SizeType getCapacity() const {
-        return sizeof(m_buff);
-      }
+      ComponentIpcSerializableBuffer() : Fw::LinearBufferBase(m_buff, sizeof(m_buff)) {
 
-      U8* getBuffAddr() {
-        return m_buff;
-      }
-
-      const U8* getBuffAddr() const {
-        return m_buff;
       }
 
     private:
@@ -2463,7 +2455,7 @@ void QueuedOverflowComponentBase ::
       Fw::CmdArgBuffer& args
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedOverflowComponentBase* compPtr = static_cast<QueuedOverflowComponentBase*>(callComp);
   compPtr->cmdIn_handlerBase(
     portNum,
@@ -2482,7 +2474,7 @@ void QueuedOverflowComponentBase ::
       const Fw::Success& status
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedOverflowComponentBase* compPtr = static_cast<QueuedOverflowComponentBase*>(callComp);
   compPtr->productRecvInHook_handlerBase(
     portNum,
@@ -2509,7 +2501,7 @@ void QueuedOverflowComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedOverflowComponentBase* compPtr = static_cast<QueuedOverflowComponentBase*>(callComp);
   compPtr->assertAsync_handlerBase(
     portNum,
@@ -2536,7 +2528,7 @@ void QueuedOverflowComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedOverflowComponentBase* compPtr = static_cast<QueuedOverflowComponentBase*>(callComp);
   compPtr->blockAsync_handlerBase(
     portNum,
@@ -2563,7 +2555,7 @@ void QueuedOverflowComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedOverflowComponentBase* compPtr = static_cast<QueuedOverflowComponentBase*>(callComp);
   compPtr->dropAsync_handlerBase(
     portNum,
@@ -2590,7 +2582,7 @@ void QueuedOverflowComponentBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedOverflowComponentBase* compPtr = static_cast<QueuedOverflowComponentBase*>(callComp);
   compPtr->hookAsync_handlerBase(
     portNum,
@@ -2617,7 +2609,7 @@ void QueuedOverflowComponentBase ::
       Fw::LinearBufferBase& buffer
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedOverflowComponentBase* compPtr = static_cast<QueuedOverflowComponentBase*>(callComp);
   compPtr->serialAsyncHook_handlerBase(
     portNum,

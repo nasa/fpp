@@ -1532,18 +1532,6 @@
     "locationSpecifierMap" : [
     ],
     "parentSymbolMap" : {
-      "34" : {
-        "Module" : {
-          "nodeId" : 35,
-          "unqualifiedName" : "Fw"
-        }
-      },
-      "26" : {
-        "Module" : {
-          "nodeId" : 35,
-          "unqualifiedName" : "Fw"
-        }
-      },
       "24" : {
         "Module" : {
           "nodeId" : 35,
@@ -1556,7 +1544,7 @@
           "unqualifiedName" : "Fw"
         }
       },
-      "31" : {
+      "26" : {
         "Module" : {
           "nodeId" : 35,
           "unqualifiedName" : "Fw"
@@ -1568,7 +1556,7 @@
           "unqualifiedName" : "Fw"
         }
       },
-      "30" : {
+      "28" : {
         "Module" : {
           "nodeId" : 35,
           "unqualifiedName" : "Fw"
@@ -1580,7 +1568,19 @@
           "unqualifiedName" : "Fw"
         }
       },
-      "28" : {
+      "30" : {
+        "Module" : {
+          "nodeId" : 35,
+          "unqualifiedName" : "Fw"
+        }
+      },
+      "31" : {
+        "Module" : {
+          "nodeId" : 35,
+          "unqualifiedName" : "Fw"
+        }
+      },
+      "34" : {
         "Module" : {
           "nodeId" : 35,
           "unqualifiedName" : "Fw"
@@ -1588,68 +1588,6 @@
       }
     },
     "symbolScopeMap" : {
-      "35" : {
-        "map" : {
-          "Port" : {
-            "map" : {
-              "CmdReg" : {
-                "Port" : {
-                  "nodeId" : 25,
-                  "unqualifiedName" : "CmdReg"
-                }
-              },
-              "Tlm" : {
-                "Port" : {
-                  "nodeId" : 29,
-                  "unqualifiedName" : "Tlm"
-                }
-              },
-              "PrmGet" : {
-                "Port" : {
-                  "nodeId" : 30,
-                  "unqualifiedName" : "PrmGet"
-                }
-              },
-              "PrmSet" : {
-                "Port" : {
-                  "nodeId" : 31,
-                  "unqualifiedName" : "PrmSet"
-                }
-              },
-              "LogText" : {
-                "Port" : {
-                  "nodeId" : 28,
-                  "unqualifiedName" : "LogText"
-                }
-              },
-              "Cmd" : {
-                "Port" : {
-                  "nodeId" : 24,
-                  "unqualifiedName" : "Cmd"
-                }
-              },
-              "Log" : {
-                "Port" : {
-                  "nodeId" : 27,
-                  "unqualifiedName" : "Log"
-                }
-              },
-              "CmdResponse" : {
-                "Port" : {
-                  "nodeId" : 26,
-                  "unqualifiedName" : "CmdResponse"
-                }
-              },
-              "Time" : {
-                "Port" : {
-                  "nodeId" : 34,
-                  "unqualifiedName" : "Time"
-                }
-              }
-            }
-          }
-        }
-      },
       "5" : {
         "map" : {
           
@@ -1674,6 +1612,68 @@
         "map" : {
           
         }
+      },
+      "35" : {
+        "map" : {
+          "Port" : {
+            "map" : {
+              "Cmd" : {
+                "Port" : {
+                  "nodeId" : 24,
+                  "unqualifiedName" : "Cmd"
+                }
+              },
+              "CmdReg" : {
+                "Port" : {
+                  "nodeId" : 25,
+                  "unqualifiedName" : "CmdReg"
+                }
+              },
+              "CmdResponse" : {
+                "Port" : {
+                  "nodeId" : 26,
+                  "unqualifiedName" : "CmdResponse"
+                }
+              },
+              "Log" : {
+                "Port" : {
+                  "nodeId" : 27,
+                  "unqualifiedName" : "Log"
+                }
+              },
+              "LogText" : {
+                "Port" : {
+                  "nodeId" : 28,
+                  "unqualifiedName" : "LogText"
+                }
+              },
+              "PrmGet" : {
+                "Port" : {
+                  "nodeId" : 30,
+                  "unqualifiedName" : "PrmGet"
+                }
+              },
+              "PrmSet" : {
+                "Port" : {
+                  "nodeId" : 31,
+                  "unqualifiedName" : "PrmSet"
+                }
+              },
+              "Time" : {
+                "Port" : {
+                  "nodeId" : 34,
+                  "unqualifiedName" : "Time"
+                }
+              },
+              "Tlm" : {
+                "Port" : {
+                  "nodeId" : 29,
+                  "unqualifiedName" : "Tlm"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "topologyMap" : {
@@ -1683,46 +1683,22 @@
       
     },
     "useDefMap" : {
-      "4" : {
-        "Port" : {
-          "nodeId" : 26,
-          "unqualifiedName" : "CmdResponse"
-        }
-      },
-      "22" : {
-        "Port" : {
-          "nodeId" : 34,
-          "unqualifiedName" : "Time"
-        }
-      },
-      "13" : {
-        "Port" : {
-          "nodeId" : 29,
-          "unqualifiedName" : "Tlm"
-        }
-      },
       "0" : {
         "Port" : {
           "nodeId" : 24,
           "unqualifiedName" : "Cmd"
         }
       },
-      "18" : {
+      "1" : {
         "Port" : {
-          "nodeId" : 31,
-          "unqualifiedName" : "PrmSet"
+          "nodeId" : 25,
+          "unqualifiedName" : "CmdReg"
         }
       },
-      "15" : {
+      "4" : {
         "Port" : {
-          "nodeId" : 30,
-          "unqualifiedName" : "PrmGet"
-        }
-      },
-      "9" : {
-        "Port" : {
-          "nodeId" : 28,
-          "unqualifiedName" : "LogText"
+          "nodeId" : 26,
+          "unqualifiedName" : "CmdResponse"
         }
       },
       "6" : {
@@ -1731,10 +1707,34 @@
           "unqualifiedName" : "Log"
         }
       },
-      "1" : {
+      "9" : {
         "Port" : {
-          "nodeId" : 25,
-          "unqualifiedName" : "CmdReg"
+          "nodeId" : 28,
+          "unqualifiedName" : "LogText"
+        }
+      },
+      "13" : {
+        "Port" : {
+          "nodeId" : 29,
+          "unqualifiedName" : "Tlm"
+        }
+      },
+      "15" : {
+        "Port" : {
+          "nodeId" : 30,
+          "unqualifiedName" : "PrmGet"
+        }
+      },
+      "18" : {
+        "Port" : {
+          "nodeId" : 31,
+          "unqualifiedName" : "PrmSet"
+        }
+      },
+      "22" : {
+        "Port" : {
+          "nodeId" : 34,
+          "unqualifiedName" : "Time"
         }
       }
     },
@@ -1747,6 +1747,9 @@
     "dictionarySymbolSet" : [
     ],
     "interfaceMap" : {
+      
+    },
+    "dictionaryMap" : {
       
     }
   }

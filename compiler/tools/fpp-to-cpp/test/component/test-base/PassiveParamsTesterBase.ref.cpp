@@ -991,13 +991,7 @@ PassiveParamsTesterBase ::
       const char* const compName,
       const U32 maxHistorySize
   ) :
-    Fw::PassiveComponentBase(compName),
-    m_param_ParamU32_valid(Fw::ParamValid::UNINIT),
-    m_param_ParamF64_valid(Fw::ParamValid::UNINIT),
-    m_param_ParamString_valid(Fw::ParamValid::UNINIT),
-    m_param_ParamEnum_valid(Fw::ParamValid::UNINIT),
-    m_param_ParamArray_valid(Fw::ParamValid::UNINIT),
-    m_param_ParamStruct_valid(Fw::ParamValid::UNINIT)
+    Fw::PassiveComponentBase(compName)
 {
   // Initialize port histories
   this->fromPortHistory_typedAliasOut = new History<FromPortEntry_typedAliasOut>(maxHistorySize);
@@ -2412,7 +2406,7 @@ Fw::ParamValid PassiveParamsTesterBase ::
     };
 
     default:
-      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(id));
       break;
   }
 
@@ -2523,7 +2517,7 @@ void PassiveParamsTesterBase ::
     };
 
     default:
-      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
+      FW_ASSERT(false, static_cast<FwAssertArgType>(id));
       break;
   }
 }

@@ -12,19 +12,19 @@
 
 namespace M {
 
-  M::C c1(FW_OPTIONAL_NAME("c1"));
+  M::C c1(FW_OPTIONAL_NAME("M.c1"));
 
 }
 
 namespace M {
 
-  M::C c2(FW_OPTIONAL_NAME("c2"));
+  M::C c2(FW_OPTIONAL_NAME("M.c2"));
 
 }
 
 namespace M {
 
-  Svc::Health health(FW_OPTIONAL_NAME("health"));
+  Svc::Health health(FW_OPTIONAL_NAME("M.health"));
 
 }
 
@@ -176,7 +176,7 @@ namespace M {
     switch (instance) {
       default:
 #ifdef FW_STRICT_ASSERTIONS
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(instance));
         break;
 #else
         // Fall through
@@ -216,7 +216,7 @@ namespace M {
     switch (instance) {
       default:
 #ifdef FW_STRICT_ASSERTIONS
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(instance));
         break;
 #else
         // Fall through
@@ -230,7 +230,7 @@ namespace M {
             );
             break;
           default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
             break;
         }
         break;
@@ -243,7 +243,7 @@ namespace M {
             );
             break;
           default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
             break;
         }
         break;
@@ -297,7 +297,7 @@ namespace Svc {
         );
         break;
       default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
   }

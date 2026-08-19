@@ -29,6 +29,12 @@ implicit()
     diff_cpp ImplicitEnum
 }
 
+singleton_range()
+{
+  run_test "-p $PWD" singleton_range && \
+    diff_cpp SingletonRangeEnum
+}
+
 serialize_type()
 {
   run_test "-p $PWD" serialize_type && \

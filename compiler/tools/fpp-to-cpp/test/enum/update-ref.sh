@@ -29,6 +29,12 @@ implicit()
   move_cpp ImplicitEnum
 }
 
+singleton_range()
+{
+  update "-p $PWD" singleton_range
+  move_cpp SingletonRangeEnum
+}
+
 serialize_type()
 {
   update "-p $PWD" serialize_type
