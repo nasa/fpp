@@ -4,6 +4,9 @@ composition_invalid
 constant_with_default
 duplicate_def
 interfaces
+interfaces_arg_bad_signature
+interfaces_arg_conformance_ok
+interfaces_arg_missing_port
 interfaces_basic
 interfaces_invalid_port_instance
 interfaces_invalid_port_instance_name

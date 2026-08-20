@@ -31,10 +31,11 @@ trait TemplateExpandAnalyzer extends Analyzer {
     val data = node.data
     for {
 
-      // Analyze the paramters on this template expansion
-      a <- {
-        val expansion = a.templateExpansionMap(node.id)
-        Result.foldLeft (expansion.params.values.toList) (a) (templateParam)
+      // Analyze the parameters on this template expansion.
+      a <- a.templateExpansionMap.get(node.id) match {
+        case Some(expansion) =>
+          Result.foldLeft (expansion.params.values.toList) (a) (templateParam)
+        case None => Right(a)
       }
 
       a <- super.specTemplateExpandAnnotatedNode(a, aNode)

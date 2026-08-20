@@ -41,4 +41,8 @@ module M {
 
   }
 
+  module template Tmpl(constant n: U32) {
+    array TArr = [n] U32
+  }
+
 }

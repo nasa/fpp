@@ -42,6 +42,10 @@ passive component C {
 
 instance c: C base id 0x100
 
-topology T { 
+topology T {
 
+}
+
+module template Tmpl(constant n: U32) {
+  array TArr = [n] U32
 }

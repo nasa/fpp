@@ -32,7 +32,7 @@ object CheckSemantics {
       a <- CheckStateMachineDefs.visitList(a, tul, CheckStateMachineDefs.transUnit)
       a <- CheckTopologyInstances.visitList(a, tul, CheckTopologyInstances.transUnit)
       a <- CheckTopologyDefs.visitList(a, tul, CheckTopologyDefs.transUnit)
-      _ <- CheckTemplateInterfaceParams.check(a)
+      _ <- CheckTemplateInterfaceArgs.check(a)
       a <- BuildSpecLocMap.visitList(a, tul, BuildSpecLocMap.transUnit)
       a <- CheckSpecLocs.visitList(a, tul, CheckSpecLocs.transUnit)
       a <- CheckDictionaryDefs.visitList(a, tul, CheckDictionaryDefs.transUnit)
