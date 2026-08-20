@@ -925,752 +925,752 @@
     "0" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "1.24",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "1" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "1.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "2" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "2.40",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "3" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "2.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "4" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "4.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "5" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "6.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "6" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "7.12",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "7" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "7.9",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "8" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "7.12",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "9" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "7.9",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "10" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "7.12",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "11" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "7.9",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "12" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "7.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "13" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "8.12",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "14" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "8.9",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "15" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "8.20",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "16" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "8.17",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "17" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "8.28",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "18" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "8.25",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "19" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "8.28",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "20" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "8.25",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "21" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "8.28",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "22" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "8.25",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "23" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "8.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "24" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "10.10",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "25" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "10.13",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "26" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "10.13",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "27" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "10.13",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "28" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "10.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "29" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "11.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "30" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.12",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "31" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.12",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "32" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.12",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "33" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.9",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "34" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "35" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "36" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "37" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.15",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "38" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.28",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "39" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.28",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "40" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.28",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "41" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.21",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "42" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.28",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "43" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.28",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "44" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.28",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "45" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.21",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "46" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.28",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "47" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.28",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "48" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.28",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "49" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.21",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "50" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.34",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "51" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.34",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "52" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.34",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "53" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "12.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "54" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "14.15",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "55" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "14.24",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "56" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "14.24",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "57" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "14.24",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "58" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "14.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "59" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "16.21",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "60" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "16.9",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "61" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "16.21",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "62" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "16.9",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "63" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "16.21",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "64" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "16.9",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "65" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "16.29",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "66" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "16.29",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "67" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "16.29",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "68" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "16.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "69" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "20.5",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "70" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "20.5",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "71" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "20.5",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "72" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "19.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "73" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "24.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "74" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "30.5",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "75" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "30.5",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "76" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "30.5",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "77" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "27.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "78" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "30.5",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "79" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "30.5",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "80" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "30.5",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "81" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "27.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "82" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "30.5",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "83" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "30.5",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "84" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "30.5",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "85" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "27.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "86" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "23.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "87" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "36.13",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "88" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "36.15",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "89" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "36.13",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "90" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "36.13",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "91" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "36.25",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "92" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "37.16",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "93" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "36.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "94" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "95" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "96" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.9",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "97" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "98" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "99" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.9",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "100" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "101" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "102" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.9",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "103" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "41.5",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "104" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "105" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "106" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.9",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "107" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "108" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "109" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.9",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "110" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "111" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "112" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.9",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "113" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "41.5",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "114" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "115" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "116" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.9",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "117" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "118" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "119" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.9",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "120" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "121" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.18",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "122" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "42.9",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "123" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "41.5",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "124" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
       "pos" : "40.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     }
   }
 }
@@ -2048,8 +2048,8 @@
           "93" : {
             "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
             "pos" : "42.9",
-            "includeLoc" : "None",
-            "expandLoc" : "None"
+            "includingLoc" : "None",
+            "expandingLoc" : "None"
           }
         },
         "directTemplateArgs" : {
@@ -2065,8 +2065,8 @@
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
               "pos" : "42.9",
-              "includeLoc" : "None",
-              "expandLoc" : "None"
+              "includingLoc" : "None",
+              "expandingLoc" : "None"
             }
           ]
         ],

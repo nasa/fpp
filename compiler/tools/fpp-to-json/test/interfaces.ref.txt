@@ -664,458 +664,458 @@
     "0" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "2.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "1" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "3.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "2" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "4.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "3" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "4.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "4" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "4.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "5" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "1.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "6" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "7.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "7" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "9.24",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "8" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "9.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "9" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "10.40",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "10" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "10.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "11" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "20.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "12" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "23.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "13" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "26.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "14" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "26.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "15" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "26.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "16" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "14.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "17" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "30.29",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "18" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "30.29",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "19" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "30.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "20" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "30.29",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "21" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "30.29",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "22" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "30.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "23" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "30.29",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "24" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "30.29",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "25" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "30.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "26" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "29.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "27" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "34.10",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "28" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "34.10",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "29" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "34.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "30" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "35.10",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "31" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "35.10",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "32" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "35.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "33" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "42.36",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "34" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "42.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "35" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "45.30",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "36" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "45.27",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "37" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "45.38",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "38" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "45.35",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "39" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "45.38",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "40" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "45.35",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "41" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "45.38",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "42" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "45.35",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "43" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "45.52",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "44" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "45.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "45" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.30",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "46" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.27",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "47" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.30",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "48" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.27",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "49" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.30",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "50" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.27",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "51" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.45",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "52" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.59",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "53" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.62",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "54" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "55" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.30",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "56" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.27",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "57" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.30",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "58" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.27",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "59" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.30",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "60" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.27",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "61" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.45",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "62" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.59",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "63" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.62",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "64" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "65" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.30",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "66" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.27",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "67" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.30",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "68" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.27",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "69" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.30",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "70" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.27",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "71" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.45",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "72" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.59",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "73" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.62",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "74" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "48.3",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "75" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
       "pos" : "33.1",
-      "includeLoc" : "None",
-      "expandLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     }
   }
 }
