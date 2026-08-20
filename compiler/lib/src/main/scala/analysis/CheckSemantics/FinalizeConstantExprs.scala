@@ -34,7 +34,6 @@ object FinalizeConstantExprs extends UseAnalyzer
     }
   }
 
-  // FIXME(tumbar) This is probably not needed
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = {
     val symbol = a.useDefMap(node.id)
     for {
