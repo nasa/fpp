@@ -183,22 +183,16 @@ object EnterTemplateSymbols
           nestedScope <- {
             val scope = Scope.empty
             Result.foldLeft(params) (a.nestedScope.push(scope)) ((nestedScope, param) => {
-              for {
-                nestedScope <- nestedScope.put(NameGroup.Value)(param.getUnqualifiedName, param)
-                nestedScope <- nestedScope.put(NameGroup.Type)(param.getUnqualifiedName, param)
-                nestedScope <- nestedScope.put(NameGroup.PortInterfaceInstance)(param.getUnqualifiedName, param)
-              } yield nestedScope
+              param match {
+                case Symbol.TemplateConstantArg(_, _) => nestedScope.put(NameGroup.Value)(param.getUnqualifiedName, param)
+                case Symbol.TemplateTypeArg(_, _) => nestedScope.put(NameGroup.Type)(param.getUnqualifiedName, param)
+                case Symbol.TemplateInterfaceArg(_, _) => nestedScope.put(NameGroup.PortInterfaceInstance)(param.getUnqualifiedName, param)
+              }
             })
           }
 
           paramScope <- Right(nestedScope.innerScope)
           a <- Right(a.copy(nestedScope = nestedScope.pop))
-
-          // a <- {
-          //   val paramScope = nestedScope.innerScope
-          //   val nestedScope1 = nestedScope.pop
-
-          // }
 
           // Create an empty scope for entering template expanded symbols
           a <- {
