@@ -1,7 +1,5 @@
 package fpp.compiler.analysis
 
-import scala.annotation.tailrec
-
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
@@ -84,20 +82,6 @@ object EnterTemplateSymbols
     val (_, node, _) = aNode
     val data = node.data
 
-    def exprToIdentList(expr: AstNode[Ast.Expr]): Result.Result[List[AstNode[Ast.Ident]]] = {
-        expr.data match {
-          case Ast.ExprIdent(e) => Right(List(AstNode.create(e, expr.id)))
-          case Ast.ExprDot(e, id) => for (left <- exprToIdentList(e)) yield left :+ id
-          // TODO(tumbar) Make error messages specific to the parameter type
-          case _ => Left(SemanticError.InvalidTemplateParameter(
-                "<unknown>",
-                Locations.get(expr.id),
-                Locations.get(expr.id),
-                "expression cannot be converted to qual ident"
-              ))
-        }
-    }
-
     (data.members, a.templateExpansionMap.get(node.id)) match {
       case (None, _) => {
         // This template has not been expanded yet, can't do much
@@ -123,8 +107,12 @@ object EnterTemplateSymbols
         }
       }
       case (Some(members), None) => {
-        // We have not entered the symbols in this expansion
-        val Right(tmpl) = a.getTemplateSymbol(data.template.id)
+        val tmpl = a.getTemplateSymbol(data.template.id) match {
+          case Right(tmpl) => tmpl
+          case Left(error) => throw InternalError(
+            s"template symbol should already be resolved: $error"
+          )
+        }
         val defParams = tmpl.node._2.data.params
 
         // Build the parameter set of the expansion
