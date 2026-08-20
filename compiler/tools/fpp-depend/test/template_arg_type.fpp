@@ -1,0 +1,1 @@
+type ArgType = U32

@@ -9,6 +9,7 @@ import fpp.compiler.util._
 object AddStateEnums extends AstStateTransformer
   with ComponentStateTransformer
   with ModuleStateTransformer
+  with ModuleTemplateStateTransformer
 {
 
   type State = Unit

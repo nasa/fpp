@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/struct_parameter_bad_arg.fpp:10.19
+expand M(constant { a = [1], b = [2, 3, 5] })
+                  ^
+error: cannot convert value { a = [ 1 ], b = [ 2, 3, 5 ] } to type struct S
