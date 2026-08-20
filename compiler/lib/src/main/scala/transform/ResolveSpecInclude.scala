@@ -146,7 +146,7 @@ object ResolveSpecInclude extends AstStateTransformer
             val msg = "include cycle:\n" ++ visitedPaths1.map("  " ++ _).mkString(" includes\n")
             Left(IncludeError.Cycle(includingLoc, msg))
           }
-          else checkLoc(loc.includeLoc, visitedPaths1)
+          else checkLoc(loc.includingLoc, visitedPaths1)
         }
         case _ => Right(())
       }

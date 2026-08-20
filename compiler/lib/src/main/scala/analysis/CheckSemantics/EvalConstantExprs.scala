@@ -117,7 +117,7 @@ object EvalConstantExprs extends UseAnalyzer {
         val eltType = a.typeMap(node.id) match {
           case Type.AnonArray(_, eltType) => eltType
           case Type.Array(_, Type.AnonArray(_, eltType), _, _) => eltType
-          case _ => throw InternalError("element type of array expression should be AnonArray")
+          case _ => throw InternalError("element type of array expression should be AnonArray or Array")
         }
         def f(node: AstNode[Ast.Expr]) = {
           val v = a.valueMap(node.id)

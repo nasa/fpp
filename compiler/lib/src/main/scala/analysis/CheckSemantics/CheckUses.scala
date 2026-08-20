@@ -165,7 +165,7 @@ object CheckUses extends BasicUseAnalyzer {
     val scope = expansion.scope
 
     // We do use-analysis on the scope of the definition + param scope
-    // This is a bit unorthadox but we need to build a new nested scope from scratch
+    // This is a bit unorthodox but we need to build a new nested scope from scratch
     def getNestedScope(symbol: Symbol): NestedScope = {
       val parentScope = a.parentSymbolMap.get(symbol) match {
         case None => a.nestedScope.globalScope

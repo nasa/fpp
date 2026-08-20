@@ -7,9 +7,9 @@ final case class Location(
   file: File, /* The file */
   pos: Position, /* The position */
   /* Location where this location is included */
-  includeLoc: Option[Location] = None,
-  /* Location where this location is included */
-  expandLoc: Option[Location] = None,
+  includingLoc: Option[Location] = None,
+  /* Location where this location is expanded */
+  expandingLoc: Option[Location] = None,
 ) {
 
   override def toString = {
@@ -22,7 +22,7 @@ final case class Location(
           case None => s
           case Some(loc) =>
             showIncludesExpands(
-              loc.includeLoc, loc.expandLoc,
+              loc.includingLoc, loc.expandingLoc,
               s ++ s"\n  included at ${loc.file}:${loc.pos}"
             )
             
@@ -32,7 +32,7 @@ final case class Location(
           case None => s1
           case Some(loc) =>
             showIncludesExpands(
-              loc.includeLoc, loc.expandLoc,
+              loc.includingLoc, loc.expandingLoc,
               s1 ++ s"\n  expanded at ${loc.file}:${loc.pos}"
             )
             
@@ -44,12 +44,12 @@ final case class Location(
       case scala.util.parsing.input.NoPosition => s"${file}: end of input"
       case _ => s"${file}:${pos.toString}\n${pos.longString}"
     }
-    val s2 = showIncludesExpands(includeLoc, expandLoc, "")
+    val s2 = showIncludesExpands(includingLoc, expandingLoc, "")
     s1 ++ s2
   }
 
   /** Get the location of the associated translation unit */
-  def tuLocation: Location = (includeLoc, expandLoc) match {
+  def tuLocation: Location = (includingLoc, expandingLoc) match {
     case (None, None) => this
     case (Some(loc), _) => loc.tuLocation
     case (_, Some(loc)) => loc.tuLocation

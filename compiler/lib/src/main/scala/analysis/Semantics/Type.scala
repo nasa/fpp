@@ -346,7 +346,7 @@ object Type {
     override def hasNumericMembers = eltType.hasNumericMembers
     override def toString = size match {
       case Some(n) => "[" ++ n.toString ++ "] " ++ eltType.toString
-      case None => "[unknown] " ++ eltType.toString
+      case None => "array of " ++ eltType.toString
     }
   }
 

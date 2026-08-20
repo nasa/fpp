@@ -15,7 +15,7 @@ object ExpandTemplates extends AstTransformer
   type Out = Unit
 
   def default(a: Analysis) =
-    throw new InternalError("FppExpandTemplates: Transformer not implemented")
+    throw new InternalError("ExpandTemplates: Transformer not implemented")
 
   /** Transform a list in sequence, threading state */
   def transformList[A, B](
@@ -58,7 +58,7 @@ object ExpandTemplates extends AstTransformer
         Locations.put(out.id, Location(
           inLoc.file,
           inLoc.pos,
-          inLoc.includeLoc,
+          inLoc.includingLoc,
           Some(Locations.get(expansionNode))
         ))
         Right((), out)
@@ -103,7 +103,7 @@ object ExpandTemplates extends AstTransformer
         Locations.put(out.id, Location(
           inLoc.file,
           inLoc.pos,
-          inLoc.includeLoc,
+          inLoc.includingLoc,
           Some(Locations.get(expansionNode))
         ))
         out
