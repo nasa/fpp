@@ -178,9 +178,9 @@ case class CppWriterState(
           case _: Symbol.Struct => List(
             getIncludePath(sym, ComputeCppFiles.FileNames.getStruct(name))
           )
-          case _: Symbol.Vector =>
-            // Code generation for vector types is not yet implemented
-            throw new InternalError("code generation for vector types is not yet implemented")
+          case _: Symbol.Vector => List(
+            getIncludePath(sym, ComputeCppFiles.FileNames.getVector(name))
+          )
           case _: Symbol.Topology => List(
             getIncludePath(sym, ComputeCppFiles.FileNames.getTopology(name))
           )

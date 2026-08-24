@@ -42,6 +42,16 @@ object AutocodeCppWriter extends CppWriter {
     CppWriter.writeCppDoc(s, cppDoc)
   }
 
+  override def defVectorAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefVector]]
+  ) = {
+    val node = aNode._2
+    val data = node.data
+    val cppDoc = VectorCppWriter(s, aNode).write
+    CppWriter.writeCppDoc(s, cppDoc)
+  }
+
   override def defComponentAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefComponent]]

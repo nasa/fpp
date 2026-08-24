@@ -424,7 +424,7 @@ case class ComponentDataProducts (
               |const FwSizeType sizeDelta =
               |  sizeof(FwDpIdType) +
               |  elt.serializedTruncatedSize(stringSize);"""
-        case ts: (Type.Array | Type.Struct)  => {
+        case ts: (Type.Array | Type.Struct | Type.Vector)  => {
           val serialSize = "elt.serializedSize()"
           s"""|const FwSizeType sizeDelta =
               |  sizeof(FwDpIdType) +
@@ -497,7 +497,7 @@ case class ComponentDataProducts (
               |  FW_ASSERT(sbPtr != nullptr);
               |  sizeDelta += sbPtr->serializedTruncatedSize(stringSize);
               |}"""
-        case ts: (Type.Array | Type.Struct)  => {
+        case ts: (Type.Array | Type.Struct | Type.Vector)  => {
           s"""|FwSizeType sizeDelta =
               |  sizeof(FwDpIdType) + sizeof(FwSizeStoreType);
               |for (FwSizeType i = 0; i < size; i++) {

@@ -47,6 +47,9 @@ case class TypeCppWriter(
     override def struct(s: CppWriterState, t: Type.Struct) =
       s.writeSymbol(Symbol.Struct(t.node))
 
+    override def vector(s: CppWriterState, t: Type.Vector) =
+      s.writeSymbol(Symbol.Vector(t.node))
+
     type In = CppWriterState
 
     type Out = String

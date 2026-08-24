@@ -460,7 +460,7 @@ case class ArrayCppWriter (
           |"""
     ))
     val serializedSize = eltType.getUnderlyingType match {
-      case ts: (Type.String | Type.Array | Type.Struct) => {
+      case ts: (Type.String | Type.Array | Type.Struct | Type.Vector) => {
         List.concat(
           lines("FwSizeType size = 0;"),
           indexIterator(lines(

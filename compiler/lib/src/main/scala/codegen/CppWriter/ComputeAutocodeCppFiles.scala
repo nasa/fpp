@@ -57,6 +57,16 @@ object ComputeAutocodeCppFiles extends ComputeCppFiles {
     addMappings(s, ComputeCppFiles.FileNames.getEnum(name), Some(loc))
   }
 
+  override def defVectorAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefVector]]
+  ) = {
+    val node = aNode._2
+    val name = s.getName(Symbol.Vector(aNode))
+    val loc = Locations.get(node.id)
+    addMappings(s, ComputeCppFiles.FileNames.getVector(name), Some(loc))
+  }
+
   override def defModuleAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]

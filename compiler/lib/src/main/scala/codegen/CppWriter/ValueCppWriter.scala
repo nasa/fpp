@@ -62,6 +62,12 @@ object ValueCppWriter {
       TypeCppWriter.getName(s, v.getType) ++ "(" ++ aggregate ++ ")"
     }
 
+    override def vector(s: CppWriterState, v: Value.Vector) = {
+      val name = TypeCppWriter.getName(s, v.getType)
+      val elements = v.anonArray.elements
+      s"$name({${elements.map(write(s, _)).mkString(", ")}})"
+    }
+
   }
 
   /** Write struct members as a comma-separated list of C++ values */
