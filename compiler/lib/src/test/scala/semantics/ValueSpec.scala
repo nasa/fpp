@@ -30,6 +30,8 @@ class ValueSpec extends AnyWordSpec {
       (enumeration, enumType),
       (anonStruct, anonStructType),
       (struct, structType),
+      (vector, vectorType),
+      (emptyVector, vectorType),
     )
     pairs.foreach {
       pair => s"evaluate ${pair._1} to ${pair._2}" in
@@ -51,6 +53,7 @@ class ValueSpec extends AnyWordSpec {
       (createI32(1), array, None),
       (createI32(1), anonStruct, None),
       (createI32(1), struct, None),
+      (createI32(1), vector, None),
       (String("abc"), String("def"), Some(String("abcdef")))
     )
     triples.foreach {
@@ -194,6 +197,7 @@ class ValueSpec extends AnyWordSpec {
       (defaultAnonArray3U32, false),
       (struct, false),
       (anonStruct, false),
+      (vector, false),
     )
     pairs.foreach {
       pair => s"evaluate ${pair._1} to ${pair._2}" in
@@ -235,6 +239,13 @@ class ValueSpec extends AnyWordSpec {
         Type.AnonStruct(Map("a" -> Type.U32)),
         Some(AnonStruct(Map("a" -> defaultU32)))
       ),
+      (createAnonArray(2, createU8(1)), vectorType, Some(vector)),
+      (createAnonArray(2, createI32(1)), vectorType, Some(vector)),
+      (createAnonArray(4, createU8(1)), vectorType, None),
+      (createI32(1), vectorType, None),
+      (vector, vectorType2, Some(Vector(AnonArray(List.fill(2)(createU16(1))), vectorType2))),
+      (array, vectorType2, Some(Vector(AnonArray(List.fill(3)(createU16(0))), vectorType2))),
+      (vector, arrayType, None),
     )
     triples.foreach {
       triple => s"evaluate ${triple._1} and ${triple._2} to ${triple._3}" in
@@ -270,6 +281,10 @@ class ValueSpec extends AnyWordSpec {
       (createAnonArray(3, createU8(257)), createAnonArray(3, createU8(1))),
       (createAnonArray(3, createI8(257)), createAnonArray(3, createI8(1))),
       (createAnonArray(3, createU8(-1)), createAnonArray(3, createU8(255))),
+      (
+        Vector(AnonArray(List.fill(2)(createU8(256))), vectorType),
+        Vector(AnonArray(List.fill(2)(createU8(0))), vectorType)
+      ),
     )
     pairs.foreach {
       pair => s"evaluate ${pair._1} to ${pair._2}" in

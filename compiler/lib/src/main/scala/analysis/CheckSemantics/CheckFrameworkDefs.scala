@@ -40,6 +40,9 @@ object CheckFrameworkDefs
   override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) =
     analyzeType(a, Symbol.Struct(aNode))
 
+  override def defVectorAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefVector]]) =
+    analyzeType(a, Symbol.Vector(aNode))
+
   private val constants = Map(
     "FW_ASSERT_COUNT_MAX" -> requireIntegerConstant,
     "FW_CMD_ARG_BUFFER_MAX_SIZE" -> requireIntegerConstant,

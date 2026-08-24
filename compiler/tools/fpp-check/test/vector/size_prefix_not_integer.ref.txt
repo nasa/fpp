@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/vector/size_prefix_not_integer.fpp:2.13
+vector V = [F32 size 3] U8
+            ^
+error: vector size-prefix type must be an unsigned primitive integer type

@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/vector/default_too_long.fpp:4.32
+vector V = [size 2] U8 default [ 1, 2, 3 ]
+                               ^
+error: cannot convert [3] Integer to vector V

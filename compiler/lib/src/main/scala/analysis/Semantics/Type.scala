@@ -260,6 +260,45 @@ object Type {
 
   }
 
+  /** A named vector type */
+  case class Vector(
+    /** The AST node giving the definition */
+    node: Ast.Annotated[AstNode[Ast.DefVector]],
+    /** The structurally equivalent anonymous vector */
+    anonVector: AnonVector,
+    /** The resolved size-prefix type, if specified.
+     *  If None, the size-prefix type is the framework type FwSizeStoreType. */
+    sizePrefixType: Option[Type] = None,
+    /** The specified default value, if any */
+    default: Option[Value.Vector] = None,
+    /** The specified format, if any */
+    format: Option[Format] = None,
+  ) extends Type {
+    override def getDefaultValue: Option[Value.Vector] = default
+    /** Set the maximum size */
+    def setMaxSize(size: Array.Size): Vector =
+      this.copy(anonVector = anonVector.setMaxSize(size))
+    override def getDefSymbol = Some(Symbol.Vector(node))
+    override def hasNumericMembers = anonVector.hasNumericMembers
+    override def isDisplayable = anonVector.eltType.isDisplayable
+    override def toString = "vector " ++ node._2.data.name
+  }
+
+  object Vector {
+
+    /** Check whether a length is allowed for a maximum size.
+     *  Used when converting to a vector type.
+     *  None on either side means "not yet known", which is permissive
+     *  (the exact check is performed after finalizing type definitions). */
+    def maxSizeAllows(length: Option[Array.Size], maxSize: Option[Array.Size]): Boolean =
+      (length, maxSize) match {
+        case (None, _) => true
+        case (_, None) => true
+        case (Some(k), Some(n)) => k <= n
+      }
+
+  }
+
   /** An enum type */
   case class Enum(
     /** The AST node giving the definition */
@@ -350,6 +389,23 @@ object Type {
     }
   }
 
+  /** An anonymous vector type */
+  case class AnonVector(
+    /** The maximum size */
+    maxSize: Option[Array.Size],
+    /** The element type */
+    eltType: Type
+  ) extends Type {
+    /** Set the maximum size */
+    def setMaxSize(size: Array.Size): AnonVector = this.copy(maxSize = Some(size))
+    override def getDefaultValue: Option[Value] = None
+    override def hasNumericMembers = eltType.hasNumericMembers
+    override def toString = maxSize match {
+      case Some(n) => "[size " ++ n.toString ++ "] " ++ eltType.toString
+      case None => "vector of " ++ eltType.toString
+    }
+  }
+
   /** An anonymous struct type */
   case class AnonStruct(
     /** The members */
@@ -428,6 +484,15 @@ object Type {
         t1.isPromotableToArray && t1.isConvertibleTo(eltType2)
       case _ => false
     }
+    def vector = pair match {
+      case Vector(_, anonVector1, _, _, _) -> _ => anonVector1.isConvertibleTo(t2)
+      case _ -> Vector(_, anonVector2, _, _, _) => t1.isConvertibleTo(anonVector2)
+      case AnonVector(size1, eltType1) -> AnonVector(size2, eltType2) =>
+        Vector.maxSizeAllows(size1, size2) && eltType1.isConvertibleTo(eltType2)
+      case AnonArray(size1, eltType1) -> AnonVector(size2, eltType2) =>
+        Vector.maxSizeAllows(size1, size2) && eltType1.isConvertibleTo(eltType2)
+      case _ => false
+    }
     def struct = {
       def memberExistsIn (members: Struct.Members) (member: Struct.Member): Boolean =
         members.get(member._1) match {
@@ -451,6 +516,7 @@ object Type {
     numeric ||
     string ||
     array ||
+    vector ||
     struct
   }
   /** Compute the common type for a pair of types */
@@ -622,6 +688,21 @@ object Type {
     }
 
     override def boolean(a: Analysis) = Some(1)
+
+    override def vector(a: Analysis, t: Type.Vector) = {
+      val n = BigInt(t.anonVector.maxSize.get)
+      for {
+        eltSize <- ty(a, t.anonVector.eltType)
+        prefixSize <- {
+          val prefixType = t.sizePrefixType.getOrElse {
+            val fwSizeStoreSymbol = a.frameworkDefinitions.typeMap("FwSizeStoreType")
+            a.typeMap(fwSizeStoreSymbol.getNodeId)
+          }
+          ty(a, prefixType)
+        }
+      }
+      yield prefixSize + n * eltSize
+    }
 
     override def enumeration(a: Analysis, t: Type.Enum) =
       ty(a, t.repType)

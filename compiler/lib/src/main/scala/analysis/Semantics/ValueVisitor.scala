@@ -31,6 +31,8 @@ trait ValueVisitor {
 
   def struct(in: In, v: Value.Struct): Out = default(in, v)
 
+  def vector(in: In, v: Value.Vector): Out = default(in, v)
+
   def value(in: In, v: Value): Out = matchValue(in, v)
 
   final def matchValue(in: In, v: Value): Out = {
@@ -46,6 +48,7 @@ trait ValueVisitor {
       case v : Value.EnumConstant => enumConstant(in, v)
       case v : Value.AnonStruct => anonStruct(in, v)
       case v : Value.Struct => struct(in, v)
+      case v : Value.Vector => vector(in, v)
     }
   }
 

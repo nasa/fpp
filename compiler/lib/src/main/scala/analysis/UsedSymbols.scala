@@ -124,6 +124,7 @@ object UsedSymbols extends UseAnalyzer {
         case Symbol.Struct(node) => defStructAnnotatedNode(a1, node)
         case Symbol.System(node) => defSystemAnnotatedNode(a1, node)
         case Symbol.Topology(node) => defTopologyAnnotatedNode(a1, node)
+        case Symbol.Vector(node) => defVectorAnnotatedNode(a1, node)
         case Symbol.Template(node) => defModuleTemplateAnnotatedNode(a1, node)
         case Symbol.TemplateConstantArg(_, expr) => exprNode(a, expr)
         case Symbol.TemplateTypeArg(_, tn) => typeNameNode(a, tn)

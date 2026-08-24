@@ -62,6 +62,7 @@ object FPPLocateUses {
           case Symbol.Struct(aNode) => aNode._2.data.isDictionaryDef
           case Symbol.Enum(aNode) => aNode._2.data.isDictionaryDef
           case Symbol.Constant(aNode) => aNode._2.data.isDictionaryDef
+          case Symbol.Vector(aNode) => aNode._2.data.isDictionaryDef
           case _ => false
         }
         val specLocNode = AstNode.create(Ast.SpecLoc(kind, qualIdentNode, fileNode, isDictionaryDef))
@@ -91,6 +92,7 @@ object FPPLocateUses {
       case _: Symbol.Struct => Some(Ast.SpecLoc.Type)
       case _: Symbol.System => throw InternalError("use should not be system symbol")
       case _: Symbol.Topology => Some(Ast.SpecLoc.Instance)
+      case _: Symbol.Vector => Some(Ast.SpecLoc.Type)
       case _: Symbol.Template => Some(Ast.SpecLoc.Template)
       case _: Symbol.TemplateConstantArg => None
       case _: Symbol.TemplateTypeArg => None

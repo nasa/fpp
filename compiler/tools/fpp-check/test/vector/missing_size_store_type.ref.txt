@@ -1,0 +1,8 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/vector/missing_size_store_type.fpp:3.1
+vector V = [size 3] U8
+^
+error: symbol FwSizeStoreType is not defined
+note: looking for a type here
+note: the symbol FwSizeStoreType has an implied use at the point of the error
+note: use of a vector type without a size-prefix type requires this definition

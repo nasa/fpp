@@ -17,6 +17,7 @@ class TypeSpec extends AnyWordSpec {
       duplicate(defaultEnum),
       duplicate(defaultStruct),
       duplicate(defaultAliasType),
+      duplicate(defaultVector),
       duplicate(Boolean),
       duplicate(F32),
       duplicate(F64),
@@ -35,14 +36,18 @@ class TypeSpec extends AnyWordSpec {
       (enumeration("E0", I32, 0), enumeration("E1", U32, 1)),
       (array("A0", AnonArray(None, I32), 0), array("A1", AnonArray(None, U32), 1)),
       (struct("S0", AnonStruct(Map()), 0), struct("S1", AnonStruct(Map()), 1)),
+      (vector("V0", AnonVector(None, I32), None, 0), vector("V1", AnonVector(None, U32), None, 1)),
       (array("A", AnonArray(None, I32), 0), struct("S0", AnonStruct(Map()), 1)),
       (defaultAbsType, defaultEnum),
       (defaultArray, defaultStruct),
+      (defaultArray, defaultVector),
+      (defaultVector, defaultStruct),
       (Boolean,String(None)),
       duplicate(String(None)),
       (F32,F64),
       (I8,U32),
       duplicate(AnonArray(None, I32)),
+      duplicate(AnonVector(None, I32)),
       duplicate(AnonStruct(Map())),
       (aliasType("TAliasU32", U32, 0), U32),
       (aliasType("AliasE", enumeration("E", I32, 0), 1), enumeration("E", I32, 0))
@@ -73,6 +78,19 @@ class TypeSpec extends AnyWordSpec {
       String(None) -> AnonArray(None, String(None)),
       enumeration("E") -> AnonArray(None, I32),
       AnonArray(Some(3), I32) -> AnonArray(Some(3), AnonArray(Some(3), I32)),
+      AnonArray(Some(3), I32) -> AnonVector(Some(3), I32),
+      AnonArray(Some(2), I32) -> AnonVector(Some(3), I32),
+      AnonArray(Some(3), I32) -> AnonVector(None, I32),
+      AnonArray(None, I32) -> AnonVector(Some(3), I32),
+      AnonArray(Some(3), enumeration("E")) -> AnonVector(Some(3), I32),
+      AnonArray(Some(3), I32) -> AnonVector(Some(3), U32),
+      duplicate(AnonVector(Some(3), I32)),
+      AnonVector(Some(2), I32) -> AnonVector(Some(3), I32),
+      AnonVector(None, enumeration("E")) -> AnonVector(None, I32),
+      AnonArray(Some(3), AnonArray(Some(2), I32)) -> AnonVector(Some(3), AnonVector(Some(2), I32)),
+      vector("V", AnonVector(Some(3), I32), None, 0) -> AnonVector(Some(3), U32),
+      array("A", AnonArray(Some(2), I32), 0) -> vector("V", AnonVector(Some(3), U32), None, 1),
+      vector("V0", AnonVector(Some(3), I32), None, 0) -> vector("V1", AnonVector(Some(3), U32), None, 1),
       duplicate(AnonStruct(Map("x" -> I32))),
       AnonStruct(Map("x" -> I32)) -> AnonStruct(Map("x" -> AnonArray(None, I32))),
       AnonStruct(Map("x" -> I32)) -> AnonStruct(Map("x" -> I32, "y" -> I32)),
@@ -96,6 +114,16 @@ class TypeSpec extends AnyWordSpec {
       array("A", AnonArray(None, I32)) -> AnonArray(None, String(None)),
       array("A0", AnonArray(None, I32), 0) -> array("A1", AnonArray(None, String(None)), 1),
       String(None) -> AnonArray(None, I32),
+      I32 -> AnonVector(None, I32),
+      Boolean -> AnonVector(None, Boolean),
+      enumeration("E") -> AnonVector(None, I32),
+      String(None) -> AnonVector(None, String(None)),
+      AnonArray(Some(4), I32) -> AnonVector(Some(3), I32),
+      AnonVector(Some(4), I32) -> AnonVector(Some(3), I32),
+      AnonArray(Some(3), I32) -> AnonVector(Some(3), String(None)),
+      AnonVector(None, I32) -> AnonArray(None, I32),
+      vector("V", AnonVector(Some(3), I32), None, 0) -> array("A", AnonArray(Some(3), I32), 1),
+      AnonVector(None, I32) -> AnonStruct(Map()),
       AnonStruct(Map("x" -> I32)) -> AnonStruct(Map("x" -> String(None))),
       AnonStruct(Map("x" -> I32)) -> AnonStruct(Map("y" -> I32)),
       struct("S", AnonStruct(Map("x" -> I32))) -> AnonStruct(Map("x" -> String(None))),
@@ -124,6 +152,7 @@ class TypeSpec extends AnyWordSpec {
       duplicate(defaultArray) -> defaultArray,
       duplicate(defaultEnum) -> defaultEnum,
       duplicate(defaultStruct) -> defaultStruct,
+      duplicate(defaultVector) -> defaultVector,
       (I32, I8) -> Integer,
       (F32, F64) -> F64,
       (I32, F64) -> F64,
@@ -205,6 +234,12 @@ class TypeSpec extends AnyWordSpec {
       (AnonStruct(Map()), defaultArray),
       (defaultStruct, AnonArray(None, I32)),
       (AnonArray(None,I32), defaultStruct),
+      (defaultVector, defaultArray),
+      (defaultArray, defaultVector),
+      (defaultVector, defaultStruct),
+      (vector("V0", AnonVector(None, I32), None, 0), vector("V1", AnonVector(None, I32), None, 1)),
+      (AnonVector(Some(3), I32), AnonVector(Some(3), I32)),
+      (defaultVector, AnonVector(None, I32)),
     )
     allowedPairs.foreach { 
       pair => s"resolve ${pair._1} to ${pair._2}" in 
@@ -225,15 +260,19 @@ class TypeSpec extends AnyWordSpec {
       defaultEnum,
       defaultArray,
       defaultStruct,
+      defaultVector,
       array("A1", AnonArray(None, array("A2", AnonArray(None, I32)))),
+      vector("V1", AnonVector(None, vector("V2", AnonVector(None, I32)))),
       struct("S1", AnonStruct(Map("x" -> I32)))
     )
     val notDisplayable = List(
       Integer,
       AnonArray(None, I32),
+      AnonVector(None, I32),
       AnonStruct(Map()),
       defaultAbsType,
       array("A3", AnonArray(None, defaultAbsType)),
+      vector("V3", AnonVector(None, defaultAbsType)),
       array("A4", AnonArray(None, array("A5", AnonArray(None, defaultAbsType)))),
       struct("S2", AnonStruct(Map("x" -> defaultAbsType))),
       struct(
@@ -318,6 +357,20 @@ class TypeSpec extends AnyWordSpec {
       "compute the size of arrays" in {
         assert(SerializedSize.ty(a, array1) == Some(24))
         assert(SerializedSize.ty(a, array2) == Some(48))
+      }
+
+      "compute the size of vectors" in {
+        // Explicit U16 size-prefix type: 2 bytes prefix + 3 * 2 bytes = 8
+        // (matches the sizeof(V) example in the specification)
+        val vectorExplicitPrefix = vector("VecW", AnonVector(Some(3), U16), Some(U16), 20)
+        assert(SerializedSize.ty(a, vectorExplicitPrefix) == Some(8))
+        // Omitted size-prefix type: uses FwSizeStoreType (U16 = 2 bytes)
+        // 2 bytes prefix + 3 * 1 byte = 5
+        val vectorDefaultPrefix = vector("VecV", AnonVector(Some(3), U8), None, 21)
+        assert(SerializedSize.ty(a, vectorDefaultPrefix) == Some(5))
+        // A vector of an element type with no serialized size has no size
+        val vectorNoSize = vector("VecNo", AnonVector(Some(3), defaultAbsType), None, 22)
+        assert(SerializedSize.ty(a, vectorNoSize) == None)
       }
 
       "compute the size of enums" in {

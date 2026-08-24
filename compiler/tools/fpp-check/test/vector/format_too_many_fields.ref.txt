@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/vector/format_too_many_fields.fpp:4.31
+vector V = [size 3] U8 format "{} {}"
+                              ^
+error: invalid format string: too many replacement fields

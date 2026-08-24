@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/vector/cycle.fpp:4.1
+vector V = [size 3] V
+^
+error: encountered a use-def cycle:
+  use V at [ local path prefix ]/compiler/tools/fpp-check/test/vector/cycle.fpp:4.21 refers to definition V at [ local path prefix ]/compiler/tools/fpp-check/test/vector/cycle.fpp:4.1

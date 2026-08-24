@@ -15,6 +15,8 @@ trait TypeVisitor {
 
   def anonStruct(in: In, t: Type.AnonStruct): Out = default(in, t)
 
+  def anonVector(in: In, t: Type.AnonVector): Out = default(in, t)
+
   def array(in: In, t: Type.Array): Out = default(in, t)
 
   def boolean(in: In): Out = default(in, Type.Boolean)
@@ -33,6 +35,8 @@ trait TypeVisitor {
 
   def struct(in: In, t: Type.Struct): Out = default(in, t)
 
+  def vector(in: In, t: Type.Vector): Out = default(in, t)
+
   def ty(in: In, t: Type): Out = matchType(in, t)
 
   final def matchType(in: In, t: Type): Out =
@@ -41,6 +45,7 @@ trait TypeVisitor {
       case t : Type.AliasType => aliasType(in, t)
       case t : Type.AnonArray => anonArray(in, t)
       case t : Type.AnonStruct => anonStruct(in, t)
+      case t : Type.AnonVector => anonVector(in, t)
       case t : Type.Array => array(in, t)
       case Type.Boolean => boolean(in)
       case t : Type.Enum => enumeration(in, t)
@@ -49,5 +54,6 @@ trait TypeVisitor {
       case t : Type.PrimitiveInt => primitiveInt(in, t)
       case t : Type.String => string(in, t)
       case t : Type.Struct => struct(in, t)
+      case t : Type.Vector => vector(in, t)
     }
 }

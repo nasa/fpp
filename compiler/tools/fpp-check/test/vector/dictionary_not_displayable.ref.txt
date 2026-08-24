@@ -1,0 +1,15 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/vector/dictionary_not_displayable.fpp:4.1
+dictionary vector V = [size 3] T
+^
+error: dictionary type is not displayable
+
+[ local path prefix ]/compiler/tools/fpp-check/test/vector/dictionary_not_displayable.fpp:4.32
+dictionary vector V = [size 3] T
+                               ^
+because this type is not displayable
+
+[ local path prefix ]/compiler/tools/fpp-check/test/vector/dictionary_not_displayable.fpp:2.1
+type T
+^
+Type is defined here
