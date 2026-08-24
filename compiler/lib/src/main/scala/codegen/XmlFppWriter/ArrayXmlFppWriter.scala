@@ -57,8 +57,6 @@ object ArrayXmlFppWriter extends LineUtils {
         val node = Ast.DefArray(
           name,
           AstNode.create(Ast.ExprLiteralInt(xmlSize.text)),
-          false,
-          None,
           AstNode.create(eltType),
           fppDefaultsOpt,
           fppFormatOpt.map(AstNode.create(_)),
