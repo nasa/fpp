@@ -64,6 +64,7 @@ object Ast {
     final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node
     final case class DefStateMachine(node: AstNode[Ast.DefStateMachine]) extends Node
     final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
+    final case class DefVector(node: AstNode[Ast.DefVector]) extends Node
     final case class SpecCommand(node: AstNode[Ast.SpecCommand]) extends Node
     final case class SpecContainer(node: AstNode[Ast.SpecContainer]) extends Node
     final case class SpecEvent(node: AstNode[Ast.SpecEvent]) extends Node
@@ -92,7 +93,16 @@ object Ast {
   final case class DefArray(
     name: Ident,
     size: AstNode[Expr],
-    isVariableSize: Boolean,
+    eltType: AstNode[TypeName],
+    default: Option[AstNode[Expr]],
+    format: Option[AstNode[String]],
+    isDictionaryDef: Boolean
+  )
+
+  /* Vector definition */
+  final case class DefVector(
+    name: Ident,
+    size: AstNode[Expr],
     sizePrefixType: Option[AstNode[TypeName]],
     eltType: AstNode[TypeName],
     default: Option[AstNode[Expr]],
@@ -167,6 +177,7 @@ object Ast {
     final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
     final case class DefSystem(node: AstNode[Ast.DefSystem]) extends Node
     final case class DefTopology(node: AstNode[Ast.DefTopology]) extends Node
+    final case class DefVector(node: AstNode[Ast.DefVector]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
     final case class SpecLoc(node: AstNode[Ast.SpecLoc]) extends Node
   }
@@ -199,6 +210,7 @@ object Ast {
     final case class DefSignal(node: AstNode[Ast.DefSignal]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
     final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
+    final case class DefVector(node: AstNode[Ast.DefVector]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
     final case class SpecInitialTransition(node: AstNode[Ast.SpecInitialTransition]) extends Node
   }

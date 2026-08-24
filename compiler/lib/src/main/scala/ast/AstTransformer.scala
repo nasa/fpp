@@ -128,6 +128,11 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.DefTopology]]
   ): ResultAnnotatedNode[Ast.DefTopology] = Right(default(in), node)
 
+  def defVectorAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefVector]]
+  ): ResultAnnotatedNode[Ast.DefVector] = Right(default(in), node)
+
   def exprArrayNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprArray): ResultNode[Ast.Expr] =
     Right(default(in), node)
 
@@ -330,6 +335,8 @@ trait AstTransformer {
         transform(defStateMachineAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefStateMachine(_))
       case Ast.ComponentMember.DefStruct(node1) =>
         transform(defStructAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefStruct(_))
+      case Ast.ComponentMember.DefVector(node1) =>
+        transform(defVectorAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefVector(_))
       case Ast.ComponentMember.SpecCommand(node1) =>
         transform(specCommandAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecCommand(_))
       case Ast.ComponentMember.SpecContainer(node1) =>
@@ -456,6 +463,8 @@ trait AstTransformer {
         transform(defStateAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefState(_))
       case Ast.StateMachineMember.DefStruct(node1) =>
         transform(defStructAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefStruct(_))
+      case Ast.StateMachineMember.DefVector(node1) =>
+        transform(defVectorAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefVector(_))
       case Ast.StateMachineMember.SpecInclude(node1) =>
         transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.SpecInclude(_))
       case Ast.StateMachineMember.SpecInitialTransition(node1) =>
@@ -503,6 +512,8 @@ trait AstTransformer {
         transform(defSystemAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefSystem(_))
       case Ast.ModuleMember.DefTopology(node1) =>
         transform(defTopologyAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefTopology(_))
+      case Ast.ModuleMember.DefVector(node1) =>
+        transform(defVectorAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefVector(_))
       case Ast.ModuleMember.SpecInclude(node1) =>
         transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.SpecInclude(_))
       case Ast.ModuleMember.SpecLoc(node1) =>

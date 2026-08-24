@@ -145,6 +145,7 @@ object Token {
   final case class U8() extends Token
   final case class UNMATCHED() extends Token
   final case class UPDATE() extends Token
+  final case class VECTOR() extends Token
   final case class WARNING() extends Token
   final case class WITH() extends Token
   final case class YELLOW() extends Token
@@ -279,6 +280,7 @@ enum TokenId {
   case U8
   case UNMATCHED
   case UPDATE
+  case VECTOR
   case WARNING
   case WITH
   case YELLOW

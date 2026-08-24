@@ -62,6 +62,8 @@ trait AstVisitor {
 
   def defTopologyAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefTopology]]): Out = default(in)
 
+  def defVectorAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefVector]]): Out = default(in)
+
   def exprArrayNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprArray): Out = default(in)
 
   def exprArraySubscriptNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprArraySubscript): Out = default(in)
@@ -156,6 +158,7 @@ trait AstVisitor {
       case Ast.ComponentMember.DefEnum(node1) => defEnumAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.DefStateMachine(node1) => defStateMachineAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.DefStruct(node1) => defStructAnnotatedNode(in, (pre, node1, post))
+      case Ast.ComponentMember.DefVector(node1) => defVectorAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecCommand(node1) => specCommandAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecContainer(node1) => specContainerAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecEvent(node1) => specEventAnnotatedNode(in, (pre, node1, post))
@@ -213,6 +216,7 @@ trait AstVisitor {
       case Ast.ModuleMember.DefStruct(node1) => defStructAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefSystem(node1) => defSystemAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefTopology(node1) => defTopologyAnnotatedNode(in, (pre, node1, post))
+      case Ast.ModuleMember.DefVector(node1) => defVectorAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.SpecInclude(node1) => specIncludeAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.SpecLoc(node1) => specLocAnnotatedNode(in, (pre, node1, post))
     }
@@ -232,6 +236,7 @@ trait AstVisitor {
       case Ast.StateMachineMember.DefSignal(node1) => defSignalAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.DefStruct(node1) => defStructAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.DefVector(node1) => defVectorAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.SpecInclude(node1) => specIncludeAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.SpecInitialTransition(node1) => specInitialTransitionAnnotatedNode(in, (pre, node1, post))
     }

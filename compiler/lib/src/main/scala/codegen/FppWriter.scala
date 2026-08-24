@@ -153,18 +153,28 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
+    lines(prefixWithDictionary(s"array ${ident(data.name)} = [", data.isDictionaryDef)).
+      join ("") (exprNode(data.size)).
+      join ("] ") (typeNameNode(data.eltType)).
+      joinOpt (data.default) (" default ") (exprNode).
+      joinOpt (data.format) (" format ") (applyToData(string))
+  }
+
+  override def defVectorAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefVector]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
     val start =
-      lines(prefixWithDictionary(s"array ${ident(data.name)} = [", data.isDictionaryDef))
+      lines(prefixWithDictionary(s"vector ${ident(data.name)} = [", data.isDictionaryDef))
     val withSize =
-      if (data.isVariableSize)
-        data.sizePrefixType match {
-          case Some(tn) =>
-            start.join ("") (typeNameNode(tn)).join (" size ") (exprNode(data.size))
-          case None =>
-            start.join ("size ") (exprNode(data.size))
-        }
-      else
-        start.join ("") (exprNode(data.size))
+      data.sizePrefixType match {
+        case Some(tn) =>
+          start.join ("") (typeNameNode(tn)).join (" size ") (exprNode(data.size))
+        case None =>
+          start.join ("size ") (exprNode(data.size))
+      }
     withSize.
       join ("] ") (typeNameNode(data.eltType)).
       joinOpt (data.default) (" default ") (exprNode).

@@ -50,12 +50,27 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    val sizePrefix = if (data.isVariableSize) "max size" else "size"
     prefixWithDictionary("def array", data.isDictionaryDef) ++
     List.concat(
       ident(data.name),
+      addPrefix("size", exprNode) (data.size),
+      typeNameNode(data.eltType),
+      linesOpt(addPrefix("default", exprNode), data.default),
+      linesOpt(addPrefix("format", applyToData(string)), data.format)
+    ).map(indentIn)
+  }
+
+  override def defVectorAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefVector]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    prefixWithDictionary("def vector", data.isDictionaryDef) ++
+    List.concat(
+      ident(data.name),
       linesOpt(addPrefix("size prefix type", typeNameNode), data.sizePrefixType),
-      addPrefix(sizePrefix, exprNode) (data.size),
+      addPrefix("size", exprNode) (data.size),
       typeNameNode(data.eltType),
       linesOpt(addPrefix("default", exprNode), data.default),
       linesOpt(addPrefix("format", applyToData(string)), data.format)
