@@ -53,4 +53,9 @@ object Values {
   val structType: Type.Struct = Types.struct("S", anonStructType, 3)
   val struct: Struct = Struct(anonStruct, structType)
 
+  val vectorType: Type.Vector = Types.vector("V", Type.AnonVector(Some(3), Type.U8), None, 6)
+  val vector: Vector = Vector(AnonArray(List.fill(2)(createU8(1))), vectorType)
+  val emptyVector: Vector = Vector(AnonArray(Nil), vectorType)
+  val vectorType2: Type.Vector = Types.vector("V2", Type.AnonVector(Some(5), Type.U16), None, 7)
+
 }

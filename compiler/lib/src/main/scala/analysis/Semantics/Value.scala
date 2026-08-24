@@ -334,10 +334,27 @@ object Value {
         yield Array(anonArray, arrayType)
     }
 
+    def convertToVector(vectorType: Type.Vector): Option[Value.Vector] = {
+      def convertElements(in: List[Value], t: Type, out: List[Value]): Option[List[Value]] =
+        in match {
+          case Nil => Some(out.reverse)
+          case head :: tail => head.convertToType(t.getUnderlyingType) match {
+            case Some(v) => convertElements(tail, t.getUnderlyingType, v :: out)
+            case None => None
+          }
+        }
+      val Type.AnonVector(maxSize, eltType) = vectorType.anonVector
+      if (Type.Vector.maxSizeAllows(Some(elements.size), maxSize))
+        for (elements <- convertElements(elements, eltType, Nil))
+          yield Vector(AnonArray(elements), vectorType)
+      else None
+    }
+
     override def convertToDistinctType(t: Type) =
       t.getUnderlyingType match {
         case anonArrayType : Type.AnonArray => convertToAnonArray(anonArrayType)
         case arrayType : Type.Array => convertToArray(arrayType)
+        case vectorType : Type.Vector => convertToVector(vectorType)
         case _ => None
       }
 
@@ -367,10 +384,14 @@ object Value {
     def convertToArray(arrayType: Type.Array): Option[Value.Array] =
       anonArray.convertToArray(arrayType)
 
+    def convertToVector(vectorType: Type.Vector): Option[Value.Vector] =
+      anonArray.convertToVector(vectorType)
+
     override def convertToDistinctType(t: Type) =
       t.getUnderlyingType match {
         case anonArrayType : Type.AnonArray => convertToAnonArray(anonArrayType)
         case arrayType : Type.Array => convertToArray(arrayType)
+        case vectorType : Type.Vector => convertToVector(vectorType)
         case _ => None
       }
 
@@ -379,6 +400,26 @@ object Value {
     override def toString = anonArray.toString ++ ": " ++ t.node._2.data.name
 
     override def truncate: Array = Array(anonArray.truncate, t)
+
+  }
+
+  /** Vector values */
+  case class Vector(anonArray: AnonArray, t: Type.Vector) extends Value {
+
+    def convertToVector(vectorType: Type.Vector): Option[Value.Vector] =
+      anonArray.convertToVector(vectorType)
+
+    override def convertToDistinctType(t: Type) =
+      t.getUnderlyingType match {
+        case vectorType : Type.Vector => convertToVector(vectorType)
+        case _ => None
+      }
+
+    override def getType = t
+
+    override def toString = anonArray.toString ++ ": " ++ t.node._2.data.name
+
+    override def truncate: Vector = Vector(anonArray.truncate, t)
 
   }
 

@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/vector/invalid_size.fpp:2.21
+vector V = [U8 size 0] U8
+                    ^
+error: invalid array size 0
+note: size must be greater than zero

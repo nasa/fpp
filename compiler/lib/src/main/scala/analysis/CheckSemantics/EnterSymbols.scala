@@ -317,6 +317,19 @@ object EnterSymbols
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
+  override def defVectorAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefVector]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val name = data.name
+    val symbol = Symbol.Vector(aNode)
+    val nestedScope = a.nestedScope
+    for (nestedScope <- nestedScope.put(NameGroup.Type)(name, symbol))
+      yield updateMap(a, symbol).copy(nestedScope = nestedScope)
+  }
+
   private def updateMap(a: Analysis, s: Symbol): Analysis = {
     val parentSymbolMap = a.parentSymbol.fold (a.parentSymbolMap) (ps =>
       a.parentSymbolMap + (s -> ps)

@@ -298,6 +298,13 @@ object EvalConstantExprs extends UseAnalyzer {
         a <- FinalizeTypeDefs.defStructAnnotatedNode(a, t.node)
       } yield a
 
+    override def vector(a: Analysis, t: Type.Vector) =
+      for {
+        a <- defVectorAnnotatedNode(a, t.node)
+        a <- finalizeIfNeeded(a, t.anonVector.eltType)
+        a <- FinalizeTypeDefs.defVectorAnnotatedNode(a, t.node)
+      } yield a
+
     // Query whether a type is finalized
     // A type is finalized if (1) it has a definition symbol S
     // and S is in the visited symbol set; or (2)
