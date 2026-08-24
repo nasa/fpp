@@ -152,6 +152,15 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     writeSpecLoc(s, Ast.SpecLoc.Instance, data.name, node)
   }
 
+  override def defVectorAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefVector]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    writeSpecLoc(s, Ast.SpecLoc.Type, data.name, node, data.isDictionaryDef)
+  }
+
   override def transUnit(s: State, tu: Ast.TransUnit) =
     tu.members.flatMap(matchModuleMember(s, _))
 
