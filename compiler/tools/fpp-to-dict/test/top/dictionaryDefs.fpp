@@ -1,16 +1,19 @@
 # Dictionary definitions (included in the dictionary)
 dictionary type T = T2
 dictionary array A = [3] U32
-dictionary enum E { 
-    A 
-    B 
-    C 
+dictionary vector V = [size 3] U32 format "{} counts"
+dictionary vector W = [U16 size 4] F32 default [ 1, 2 ]
+dictionary enum E {
+    A
+    B
+    C
 } default C2
 
 dictionary struct S {
     X: [1] string,
     Y: [2] A2,
-    Z: S2
+    Z: S2,
+    W: V2
 }
 
 dictionary constant C = E2.A
@@ -24,6 +27,7 @@ passive component P {
 # Defintions that are uses of dictionary definitions (included in the dictionary)
 type T2 = U32
 array A2 = [3] U32
+vector V2 = [size 3] U32
 enum E2 { 
     A 
 } default C

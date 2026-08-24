@@ -5,6 +5,10 @@ dictionary constant numElements = 3
 array A = [numElements] string size 40 default [ "1", "2", "3" ] format "{} RPM"
 array B = [3] A
 
+vector V = [size numElements] U32 default [ 1, 2 ] format "{} RPM"
+vector VExplicitPrefix = [U8 size 3] U32
+vector VOfV = [size 2] V
+
 @ This is a pre annotation for struct S
 struct S {
   @ This is a pre annotation for member x
