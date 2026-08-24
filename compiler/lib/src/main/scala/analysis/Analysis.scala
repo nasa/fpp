@@ -469,6 +469,9 @@ case class Analysis(
       case a: Type.Array =>
         val id = a.node._2.data.eltType.id
         getElementReason(id)
+      case v: Type.Vector =>
+        val id = v.node._2.data.eltType.id
+        getElementReason(id)
       case s: Type.Struct =>
         val idOpt = s.node._2.data.members.map(_._2.data.typeName.id).find(
           id => !this.typeMap(id).isDisplayable

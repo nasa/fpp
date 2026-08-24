@@ -174,6 +174,60 @@ object FinalizeTypeDefs
     visitIfNeeded(symbol, visitor)(a, aNode)
   }
 
+  override def defVectorAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefVector]]) = {
+    val symbol = Symbol.Vector(aNode)
+    def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefVector]]) = {
+      val node = aNode._2
+      val data = node.data
+      // Get the type of this node as a vector type V
+      val vectorType @ Type.Vector(_, _, _, _, _) = a.typeMap(node.id)
+      for {
+        // Visit the element type of V, to update its members
+        eltType <- TypeVisitor.ty(a, vectorType.anonVector.eltType)
+        // Visit the size-prefix type of V, if present, to resolve aliases
+        sizePrefixType <- vectorType.sizePrefixType match {
+          case Some(t) => for (t1 <- TypeVisitor.ty(a, t)) yield Some(t1)
+          case None => Right(None)
+        }
+        // Update the maximum size, element type, and size-prefix type in V
+        size <- a.getArraySize(data.size.id)
+        vectorType <- {
+          val anonVector = Type.AnonVector(Some(size.toInt), eltType)
+          Right(vectorType.copy(anonVector = anonVector, sizePrefixType = sizePrefixType))
+        }
+        // Compute the default value
+        default <- data.default match {
+          case Some(defaultNode) => {
+            val id = defaultNode.id
+            val v = a.valueMap(id)
+            val loc = Locations.get(id)
+            for (_ <- Analysis.convertTypes(loc, v.getType -> vectorType))
+              yield {
+                val vector @ Value.Vector(_, _) = Analysis.convertValueToType(v, vectorType)
+                vector
+              }
+          }
+          case None => {
+            // The default value is the empty vector, i.e., the value of length zero
+            Right(Value.Vector(Value.AnonArray(Nil), vectorType))
+          }
+        }
+        // Compute the format
+        format <- Result.mapOpt(
+          data.format,
+          Analysis.computeFormat(_, List(eltType))
+        )
+      }
+      yield {
+        // Update the default value and format in V
+        val vectorType1 = vectorType.copy(default = Some(default), format = format)
+        // Update V in the type map
+        a.assignType(node -> vectorType1)
+      }
+    }
+    visitIfNeeded(symbol, visitor)(a, aNode)
+  }
+
   override def transUnit(a: Analysis, tu: Ast.TransUnit) =
     super.transUnit(a.copy(visitedSymbolSet = Set()), tu)
 
@@ -231,6 +285,14 @@ object FinalizeTypeDefs
     override def struct(a: Analysis, t: Type.Struct) =
       for (a <- defStructAnnotatedNode(a, t.node))
         yield a.typeMap(t.node._2.id)
+
+    override def vector(a: Analysis, t: Type.Vector) =
+      for (a <- defVectorAnnotatedNode(a, t.node))
+        yield a.typeMap(t.node._2.id)
+
+    override def anonVector(a: Analysis, t: Type.AnonVector) =
+      for (eltType <- ty(a, t.eltType))
+        yield Type.AnonVector(t.maxSize, eltType)
 
     override def anonStruct(a: Analysis, t: Type.AnonStruct) = {
       def visitor(member: Type.Struct.Member): Result.Result[Type.Struct.Member] = 

@@ -185,6 +185,9 @@ object AnalysisJsonEncoder extends JsonEncoder{
   private implicit val valueStructEncoder: Encoder[Value.Struct] =
     io.circe.generic.semiauto.deriveEncoder[Value.Struct]
 
+  private implicit val valueVectorEncoder: Encoder[Value.Vector] =
+    io.circe.generic.semiauto.deriveEncoder[Value.Vector]
+
   // ----------------------------------------------------------------------
   // Methods for converting Scala maps to JSON maps
   // We use this conversion when the keys can be converted to strings

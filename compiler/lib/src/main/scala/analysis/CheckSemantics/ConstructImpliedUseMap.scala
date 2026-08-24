@@ -84,8 +84,34 @@ object ConstructImpliedUseMap extends TypeExpressionAnalyzer {
       Right(a)
   }
 
+  override def defVectorAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefVector]]
+  ) = {
+    val node = aNode._2
+    val id = node.id
+    val a1 = node.data.sizePrefixType match {
+      // An explicit size-prefix type is an ordinary type use, handled by the
+      // superclass recursion. No implied use.
+      case Some(_) => a
+      // When the size-prefix type is omitted, the size specifier represents an
+      // implied use of the framework type FwSizeStoreType.
+      case None =>
+        val identList = List("FwSizeStoreType")
+        val id1 = ImpliedUse.replicateId(id)
+        val impliedUse = ImpliedUse.fromIdentListAndId(
+          identList,
+          id1,
+          List("use of a vector type without a size-prefix type requires this definition")
+        )
+        val map = Map(ImpliedUse.Kind.Type -> Set(impliedUse))
+        a.copy(impliedUseMap = a.impliedUseMap + (id -> map))
+    }
+    super.defVectorAnnotatedNode(a1, aNode)
+  }
+
   override def typeNameStringNode(
-    a: Analysis, 
+    a: Analysis,
     node: AstNode[Ast.TypeName],
     tn: Ast.TypeNameString
   ) = {

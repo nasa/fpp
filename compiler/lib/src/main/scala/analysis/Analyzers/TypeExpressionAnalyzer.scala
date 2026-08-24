@@ -70,6 +70,17 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
+  override def defVectorAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefVector]]) = {
+    val (_, node1, _) = node
+    val data = node1.data
+    for {
+      a <- exprNode(a, data.size)
+      a <- opt(typeNameNode)(a, data.sizePrefixType)
+      a <- typeNameNode(a, data.eltType)
+      a <- opt(exprNode)(a, data.default)
+    } yield a
+  }
+
   override def defComponentInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]) = {
     val (_, node1, _) = node
     val data = node1.data

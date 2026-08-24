@@ -51,6 +51,25 @@ object CheckExprTypes extends UseAnalyzer {
     } yield a
   }
 
+  override def defVectorAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefVector]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- super.defVectorAnnotatedNode(a, aNode)
+      _ <- convertNodeToNumeric(a, data.size)
+      _ <- data.default match {
+        case Some(defaultNode) =>
+          val vectorId = node.id
+          val vectorType = a.typeMap(vectorId)
+          val defaultId = defaultNode.id
+          val defaultType = a.typeMap(defaultId)
+          val loc = Locations.get(defaultId)
+          Analysis.convertTypes(loc, defaultType -> vectorType)
+        case None => Right(a)
+      }
+    } yield a
+  }
+
   override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node,_) = aNode
     if (!a.typeMap.contains(node.id)) {

@@ -111,6 +111,41 @@ object CheckTypeUses extends UseAnalyzer {
     visitIfNeeded(visitor)(a, aNode)
   }
 
+  override def defVectorAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefVector]]) = {
+    def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefVector]]) =
+      for {
+        a <- super.defVectorAnnotatedNode(a, aNode)
+        // Resolve and check the size-prefix type, if present.
+        // Its underlying type must be an unsigned primitive integer type.
+        sizePrefixType <- {
+          val data = aNode._2.data
+          data.sizePrefixType match {
+            case Some(typeName) =>
+              val t = a.typeMap(typeName.id)
+              val loc = Locations.get(typeName.id)
+              t.getUnderlyingType match {
+                case pi : Type.PrimitiveInt
+                  if pi.signedness == Type.PrimitiveInt.Unsigned => Right(Some(t))
+                case _ => Left(SemanticError.InvalidType(
+                  loc,
+                  "vector size-prefix type must be an unsigned primitive integer type"
+                ))
+              }
+            case None => Right(None)
+          }
+        }
+      }
+      yield {
+        val (_, node, _) = aNode
+        val data = node.data
+        val eltType = a.typeMap(data.eltType.id)
+        val anonVector = Type.AnonVector(None, eltType)
+        val t = Type.Vector(aNode, anonVector, sizePrefixType)
+        a.assignType(node -> t)
+      }
+    visitIfNeeded(visitor)(a, aNode)
+  }
+
   override def exprNode(a: Analysis, node: AstNode[Ast.Expr]) = matchExprNode(a, node)
 
   override def typeNameBoolNode(a: Analysis, node: AstNode[Ast.TypeName]) =
@@ -154,6 +189,7 @@ object CheckTypeUses extends UseAnalyzer {
         case Symbol.Array(node) => defArrayAnnotatedNode(a, node)
         case Symbol.Enum(node) => defEnumAnnotatedNode(a, node)
         case Symbol.Struct(node) => defStructAnnotatedNode(a, node)
+        case Symbol.Vector(node) => defVectorAnnotatedNode(a, node)
         case _ => Right(a)
       }
       t <- a.typeMap.get(symbol.getNodeId) match {

@@ -77,6 +77,11 @@ object Symbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }
+  final case class Vector(node: Ast.Annotated[AstNode[Ast.DefVector]]) extends TypeSymbol {
+    override def isDictionaryDef = node._2.data.isDictionaryDef
+    override def getNodeId = node._2.id
+    override def getUnqualifiedName = node._2.data.name
+  }
   final case class Topology(node: Ast.Annotated[AstNode[Ast.DefTopology]]) extends InterfaceInstanceSymbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name

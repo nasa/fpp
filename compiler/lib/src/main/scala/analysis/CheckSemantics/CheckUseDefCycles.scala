@@ -39,6 +39,11 @@ object CheckUseDefCycles extends UseAnalyzer {
     visitDefPost(a, symbol, node, super.defStructAnnotatedNode)
   }
 
+  override def defVectorAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefVector]]) = {
+    val symbol = Symbol.Vector(node)
+    visitDefPost(a, symbol, node, super.defVectorAnnotatedNode)
+  }
+
   override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
     val symbol = Symbol.Topology(node)
     visitDefPost(a, symbol, node, super.defTopologyAnnotatedNode)
@@ -77,6 +82,7 @@ object CheckUseDefCycles extends UseAnalyzer {
       case Symbol.Interface(node) => defInterfaceAnnotatedNode(a, node)
       case Symbol.Struct(node) => defStructAnnotatedNode(a, node)
       case Symbol.Topology(node) => defTopologyAnnotatedNode(a, node)
+      case Symbol.Vector(node) => defVectorAnnotatedNode(a, node)
       case _ => Right(a)
     }
   }

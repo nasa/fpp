@@ -81,6 +81,16 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     } yield a
   }
 
+  override def defVectorAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefVector]]) = {
+    // A vector whose size specifier omits a size-prefix type has an implied
+    // use of the framework type FwSizeStoreType (see ConstructImpliedUseMap).
+    val id = node._2.id
+    for {
+      a <- visitImpliedUses(a, id)
+      a <- super.defVectorAnnotatedNode(a, node)
+    } yield a
+  }
+
   override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
     val id = node._2.id
     for {

@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/vector/scalar_default.fpp:4.32
+vector V = [size 3] U8 default 1
+                               ^
+error: cannot convert Integer to vector V

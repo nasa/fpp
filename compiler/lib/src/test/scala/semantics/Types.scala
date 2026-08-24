@@ -53,10 +53,24 @@ object Types {
     Struct(anode, anonStruct, None, sizes)
   }
 
+  def vector(
+    name: Ast.Ident,
+    anonVector: AnonVector = AnonVector(None, U32),
+    sizePrefixType: Option[Type] = None,
+    id: AstNode.Id = 0
+  ): Vector = {
+    val size = AstNode.create(Ast.ExprLiteralInt("1"))
+    val eltType = AstNode.create(Ast.TypeNameInt(Ast.U32))
+    val d = Ast.DefVector(name, size, None, eltType, None, None, false)
+    val anode = annotatedNode(d, id)
+    Vector(anode, anonVector, sizePrefixType)
+  }
+
   val defaultAbsType: AbsType = absType("T", 0)
   val defaultArray: Array = array("A", AnonArray(None, I32), 1)
   val defaultEnum: Enum = enumeration("E", I32, 2)
   val defaultStruct: Struct = struct("S", AnonStruct(Map()), 3)
   val defaultAliasType: AliasType = aliasType("TAlias", defaultAbsType, 4)
+  val defaultVector: Vector = vector("V", AnonVector(None, I32), None, 5)
 
 }

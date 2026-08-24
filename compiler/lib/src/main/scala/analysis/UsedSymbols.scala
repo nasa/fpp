@@ -118,6 +118,7 @@ object UsedSymbols extends UseAnalyzer {
         case Symbol.Struct(node) => defStructAnnotatedNode(a1, node)
         case Symbol.System(node) => defSystemAnnotatedNode(a1, node)
         case Symbol.Topology(node) => defTopologyAnnotatedNode(a1, node)
+        case Symbol.Vector(node) => defVectorAnnotatedNode(a1, node)
       }
       a2.usedSymbolSet.flatMap(resolveNode) + resolveEnumConstant(s)
     }

@@ -50,6 +50,9 @@ object CheckDictionaryDefs
   override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) =
     checkTypeDef(a, Symbol.Struct(aNode))
 
+  override def defVectorAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefVector]]) =
+    checkTypeDef(a, Symbol.Vector(aNode))
+
   override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) =
     checkConstantDef(a, Symbol.Constant(aNode))
 
