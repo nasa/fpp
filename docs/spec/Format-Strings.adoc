@@ -4,6 +4,7 @@ A *format string* is a string that specifies the display format
 of a
 <<Definitions_Struct-Definitions,struct member>>,
 <<Definitions_Array-Definitions,array element>>,
+<<Definitions_Vector-Definitions,vector element>>,
 <<Specifiers_Event-Specifiers,event report>>, or
 <<Specifiers_Telemetry-Channel-Specifiers,telemetry channel>>.
 

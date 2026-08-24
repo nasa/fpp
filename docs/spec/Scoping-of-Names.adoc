@@ -105,6 +105,8 @@ the value name group, and the type name group.
 
 * Topology definitions reside in the topology name group.
 
+* Vector definitions reside in the type name group.
+
 Notice that elements with scopes reside in the name groups of items
 that they may enclose.
 For example, enums reside in the value name group because they

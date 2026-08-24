@@ -124,6 +124,25 @@ with value stem:[w_i] at each element stem:[i].
 
 Otherwise the conversion is not valid.
 
+==== Vector Values
+
+If stem:[T_2] is a vector type and stem:[T_1 = T_2], then
+let stem:[v_2 = v_1].
+
+Otherwise if stem:[v_1] is an array value, anonymous array value, or vector
+value with stem:[k] elements, and stem:[T_2] is a vector type whose maximum size
+is at least stem:[k], then
+
+. Let stem:[T'_2] be the element type of stem:[T_2].
+
+. For each stem:[i in [0,k-1\]], let stem:[w_i] be the result of converting
+element stem:[i] of stem:[v_1] to type stem:[T'_2].
+
+. Let stem:[v_2] be the vector value of type stem:[T_2] and length stem:[k]
+with value stem:[w_i] at each element stem:[i].
+
+Otherwise the conversion is not valid.
+
 ==== Structure Values
 
 If stem:[T_2] is a struct type and stem:[T_1 = T_2], then
