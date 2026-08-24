@@ -34,6 +34,7 @@ object Parser extends Parsers {
       node(defStateMachine) ^^ (n =>
         Ast.ComponentMember.DefStateMachine(n)) |
       node(defStruct) ^^ (n => Ast.ComponentMember.DefStruct(n)) |
+      node(defVector) ^^ (n => Ast.ComponentMember.DefVector(n)) |
       node(specCommand) ^^ (n => Ast.ComponentMember.SpecCommand(n)) |
       node(specContainer) ^^ (n =>
         Ast.ComponentMember.SpecContainer(n)) |
@@ -98,6 +99,34 @@ object Parser extends Parsers {
       opt(format ~>! node(literalString)) ^^ {
       case dictionary ~ name ~ size ~ eltType ~ default ~ format =>
         Ast.DefArray(name, size, eltType, default, format, dictionary.isDefined)
+    }
+  }
+
+  def defVector: Parser[Ast.DefVector] = {
+    opt(dictionary) ~ (vector ~>! ident <~! equals) ~!
+      vectorSize ~! node(typeName) ~!
+      opt(default ~>! exprNode) ~!
+      opt(format ~>! node(literalString)) ^^ {
+      case dictionary ~ name ~ vectorSize ~ eltType ~ default ~ format =>
+        val (size, sizePrefixType) = vectorSize
+        Ast.DefVector(
+          name,
+          size,
+          sizePrefixType,
+          eltType,
+          default,
+          format,
+          dictionary.isDefined
+        )
+    }
+  }
+
+  /** Parses a vector size specifier of the form `[` [ _type-name_ ] `size`
+   *  _expression_ `]`. Returns the maximum-size expression and the optional
+   *  size-prefix type. */
+  def vectorSize: Parser[(AstNode[Ast.Expr], Option[AstNode[Ast.TypeName]])] = {
+    lbracket ~>! (opt(node(typeName)) ~ (size ~>! exprNode)) <~! rbracket ^^ {
+      case sizePrefixType ~ size => (size, sizePrefixType)
     }
   }
 
@@ -452,6 +481,7 @@ object Parser extends Parsers {
       node(defStruct) ^^ (n => Ast.ModuleMember.DefStruct(n)) |
       node(defSystem) ^^ (n => Ast.ModuleMember.DefSystem(n)) |
       node(defTopology) ^^ (n => Ast.ModuleMember.DefTopology(n)) |
+      node(defVector) ^^ (n => Ast.ModuleMember.DefVector(n)) |
       node(specInclude) ^^ (n => Ast.ModuleMember.SpecInclude(n)) |
       node(specLoc) ^^ (n => Ast.ModuleMember.SpecLoc(n)) |
       failure("module member expected")
@@ -909,6 +939,7 @@ object Parser extends Parsers {
     node(defSignal) ^^ (n => Ast.StateMachineMember.DefSignal(n)) |
     node(defState) ^^ (n => Ast.StateMachineMember.DefState(n)) |
     node(defStruct) ^^ (n => Ast.StateMachineMember.DefStruct(n)) |
+    node(defVector) ^^ (n => Ast.StateMachineMember.DefVector(n)) |
     node(specInclude) ^^ (n => Ast.StateMachineMember.SpecInclude(n)) |
     node(specInitialTransition) ^^ (n => Ast.StateMachineMember.SpecInitialTransition(n)) |
     failure("state machine member expected")
@@ -1364,6 +1395,8 @@ object Parser extends Parsers {
   private def unmatched = accept("unmatched", { case t: Token.UNMATCHED => t })
 
   private def update = accept("update", { case t: Token.UPDATE => t })
+
+  private def vector = accept("vector", { case t: Token.VECTOR => t })
 
   private def warning = accept("warning", { case t: Token.WARNING => t })
 

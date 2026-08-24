@@ -160,6 +160,27 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOpt (data.format) (" format ") (applyToData(string))
   }
 
+  override def defVectorAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefVector]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val start =
+      lines(prefixWithDictionary(s"vector ${ident(data.name)} = [", data.isDictionaryDef))
+    val withSize =
+      data.sizePrefixType match {
+        case Some(tn) =>
+          start.join ("") (typeNameNode(tn)).join (" size ") (exprNode(data.size))
+        case None =>
+          start.join ("size ") (exprNode(data.size))
+      }
+    withSize.
+      join ("] ") (typeNameNode(data.eltType)).
+      joinOpt (data.default) (" default ") (exprNode).
+      joinOpt (data.format) (" format ") (applyToData(string))
+  }
+
   override def defChoiceAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefChoice]]

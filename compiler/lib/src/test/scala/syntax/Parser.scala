@@ -80,6 +80,36 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
+  "def vector OK" should {
+    parseAllOK(
+      Parser.defVector,
+      List(
+        "vector v = [size 10] U32",
+        "vector v = [size 10] U32 default [ 1, 2 ]",
+        "vector v = [size 10] U32 default [ 1, 2 ] format \"{} counts\"",
+        "vector v = [U16 size 10] U32",
+        "vector v = [a.b.C size 10] U32",
+        "dictionary vector v = [U8 size 10] U32"
+      )
+    )
+  }
+
+  "def vector error" should {
+    parseAllError(
+      Parser.defVector,
+      List(
+        // Missing the size keyword
+        "vector v = [10] U32",
+        // Missing the size expression
+        "vector v = [size] U32",
+        // Size-prefix type without the size keyword
+        "vector v = [U16 10] U32",
+        // Size-prefix type with missing size expression
+        "vector v = [U16 size] U32"
+      )
+    )
+  }
+
   "def component OK" should {
     parseAllOK(
       Parser.defComponent,

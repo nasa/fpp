@@ -129,6 +129,7 @@ object Lexer {
     ("type", TYPE),
     ("unmatched", UNMATCHED),
     ("update", UPDATE),
+    ("vector", VECTOR),
     ("warning", WARNING),
     ("with", WITH),
     ("yellow", YELLOW)
@@ -359,6 +360,7 @@ object Lexer {
         case U8 => Token.U8()
         case UNMATCHED => Token.UNMATCHED()
         case UPDATE => Token.UPDATE()
+        case VECTOR => Token.VECTOR()
         case WARNING => Token.WARNING()
         case WITH => Token.WITH()
         case YELLOW => Token.YELLOW()

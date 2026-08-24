@@ -24,6 +24,23 @@ def module
     default literal int 0
     format {} counts
   @< Array definition
+  @ Vector definition with default size-prefix type
+  def vector
+    ident V
+    size literal int 10
+    type name U32
+  @< Vector definition with default size-prefix type
+  @ Vector definition with explicit size-prefix type
+  def vector
+    ident W
+    size prefix type type name U16
+    size literal int 10
+    type name U32
+    default expr array
+              literal int 1
+              literal int 2
+    format {} counts
+  @< Vector definition with explicit size-prefix type
   @ State machine outside a component
   def state machine
     ident SO
