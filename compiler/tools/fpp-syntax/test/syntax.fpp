@@ -16,6 +16,14 @@ module DefinitionsAndSpecifiers {
   array A = [10] U32 default 0 format "{} counts"
   @< Array definition
 
+  @ Variable-size array definition with default size-prefix type
+  array VA = [size 10] U32 default 0 format "{} counts"
+  @< Variable-size array definition with default size-prefix type
+
+  @ Variable-size array definition with explicit size-prefix type
+  array VB = [U16 size 10] U32
+  @< Variable-size array definition with explicit size-prefix type
+
   @ State machine outside a component
   state machine SO
   @< State machine outside a component

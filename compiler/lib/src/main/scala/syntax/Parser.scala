@@ -93,12 +93,33 @@ object Parser extends Parsers {
 
   def defArray: Parser[Ast.DefArray] = {
     opt(dictionary) ~ (array ~>! ident <~! equals) ~!
-      index ~! node(typeName) ~!
+      arraySize ~! node(typeName) ~!
       opt(default ~>! exprNode) ~!
       opt(format ~>! node(literalString)) ^^ {
-      case dictionary ~ name ~ size ~ eltType ~ default ~ format =>
-        Ast.DefArray(name, size, eltType, default, format, dictionary.isDefined)
+      case dictionary ~ name ~ arraySize ~ eltType ~ default ~ format =>
+        val (size, isVariableSize, sizePrefixType) = arraySize
+        Ast.DefArray(
+          name,
+          size,
+          isVariableSize,
+          sizePrefixType,
+          eltType,
+          default,
+          format,
+          dictionary.isDefined
+        )
     }
+  }
+
+  def arraySize: Parser[(AstNode[Ast.Expr], Boolean, Option[AstNode[Ast.TypeName]])] = {
+    type Result = (AstNode[Ast.Expr], Boolean, Option[AstNode[Ast.TypeName]])
+    def variableSize: Parser[Result] =
+      opt(node(typeName)) ~ (size ~>! exprNode) ^^ {
+        case sizePrefixType ~ size => (size, true, sizePrefixType)
+      }
+    def fixedSize: Parser[Result] =
+      exprNode ^^ { size => (size, false, None) }
+    lbracket ~>! (variableSize | fixedSize) <~! rbracket
   }
 
   private def defChoice: Parser[Ast.DefChoice] = {

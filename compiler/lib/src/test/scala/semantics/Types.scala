@@ -27,7 +27,7 @@ object Types {
   def array(name: Ast.Ident, anonArray: AnonArray = AnonArray(None, U32), id: AstNode.Id = 0): Array = {
     val size = AstNode.create(Ast.ExprLiteralInt("1"))
     val eltType = AstNode.create(Ast.TypeNameInt(Ast.U32))
-    val d = Ast.DefArray(name, size, eltType, None, None, false)
+    val d = Ast.DefArray(name, size, false, None, eltType, None, None, false)
     val anode = annotatedNode(d, id)
     Array(anode, anonArray)
   }
