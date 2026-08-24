@@ -430,7 +430,6 @@ object Ast {
       QualIdent.NodeList.split(nodeList) match {
         case (Nil, name) => QualIdent.Unqualified(name.data)
         case (qualifier, name) => {
-          // TODO(tumbar) Don't duplicate node ids
           val qualifier1 = fromNodeList(qualifier)
           val id = QualIdent.NodeList.name(qualifier).id
           val node = AstNode.create(qualifier1)
