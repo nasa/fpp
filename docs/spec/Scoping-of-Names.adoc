@@ -140,6 +140,8 @@ the value name group, and the type name group.
 
 * Type parameter definitions reside in the type name group.
 
+* Vector definitions reside in the type name group.
+
 === Multiple Global Definitions with the Same Qualified Name
 
 ==== Different Name Groups
