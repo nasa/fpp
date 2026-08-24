@@ -156,6 +156,12 @@ case class DictionaryJsonEncoder(
                     "kind" -> "qualifiedIdentifier".asJson,
                 )
             }
+            case Type.Vector(node, _, _, _, _) => {
+                Json.obj(
+                    "name" -> dictionaryState.a.getQualifiedName(Symbol.Vector(node)).toString.asJson,
+                    "kind" -> "qualifiedIdentifier".asJson,
+                )
+            }
             case Type.AliasType(node, _) => {
                 Json.obj(
                     "name" -> dictionaryState.a.getQualifiedName(Symbol.AliasType(node)).toString.asJson,
@@ -224,6 +230,31 @@ case class DictionaryJsonEncoder(
                         "qualifiedName" -> qualifiedName.asJson,
                         "size" -> arrayType.getArraySize.asJson,
                         "elementType" -> typeAsJson(anonArray.eltType),
+                        "default" -> defaultJsonList.asJson
+                    )
+                    val optionalValues = Map(
+                        "format" -> node.data.format.map(_.data),
+                        "annotation" -> concatAnnotations(preA, postA)
+                    )
+                    jsonWithOptionalValues(json, optionalValues)
+                }
+                case Symbol.Vector(preA, node, postA) => {
+                    val vectorType = dictionaryState.a.typeMap(symbol.getNodeId)
+                    val Type.Vector(_, anonVector, sizePrefixType, default, format) = vectorType
+                    val defaultJsonList: List[Json] = default match {
+                        case Some(defaultVal) => for (elem <- defaultVal._1._1) yield valueAsJson(elem)
+                        case None => List.empty[Json]
+                    }
+                    val prefixType = sizePrefixType.getOrElse {
+                        val fwSizeStoreSymbol = dictionaryState.a.frameworkDefinitions.typeMap("FwSizeStoreType")
+                        dictionaryState.a.typeMap(fwSizeStoreSymbol.getNodeId)
+                    }
+                    val json = Json.obj(
+                        "kind" -> "vector".asJson,
+                        "qualifiedName" -> qualifiedName.asJson,
+                        "maxSize" -> anonVector.maxSize.asJson,
+                        "elementType" -> typeAsJson(anonVector.eltType),
+                        "sizePrefixType" -> typeAsJson(prefixType),
                         "default" -> defaultJsonList.asJson
                     )
                     val optionalValues = Map(
@@ -646,10 +677,10 @@ case class DictionaryJsonEncoder(
         if (concat.isEmpty) None else Some(concat)
     }
 
-    /** Given a set of symbols, returns subset consisting of array, enum, struct, and alias symbols */
+    /** Given a set of symbols, returns subset consisting of array, vector, enum, struct, and alias symbols */
     private def getTypeDefSymbols(symbolSet: Set[Symbol], outSet: Set[Symbol]): Set[Symbol] =
         symbolSet.collect {
-            case s: (Symbol.Array | Symbol.Enum | Symbol.Struct | Symbol.AliasType) => s
+            case s: (Symbol.Array | Symbol.Vector | Symbol.Enum | Symbol.Struct | Symbol.AliasType) => s
         }
 
     /** Query whether a constant is representable in the dictionary */

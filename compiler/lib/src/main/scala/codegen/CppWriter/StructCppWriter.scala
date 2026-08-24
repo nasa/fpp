@@ -743,7 +743,7 @@ case class StructCppWriter(
 
     private def writeCodeForMember(n: String, tn: String) = 
       typeMembers(n).getUnderlyingType match {
-        case ts: (Type.Array | Type.Struct | Type.String) => {
+        case ts: (Type.Array | Type.Struct | Type.String | Type.Vector) => {
           if sizes.contains(n) then
             sizeIterator(
               sizes(n),

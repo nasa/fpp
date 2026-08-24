@@ -27,22 +27,6 @@
       ]
     },
     {
-      "kind" : "alias",
-      "qualifiedName" : "FwTlmPacketizeIdType",
-      "type" : {
-        "name" : "U16",
-        "kind" : "integer",
-        "size" : 16,
-        "signed" : false
-      },
-      "underlyingType" : {
-        "name" : "U16",
-        "kind" : "integer",
-        "size" : 16,
-        "signed" : false
-      }
-    },
-    {
       "kind" : "enum",
       "qualifiedName" : "Fw.DpState",
       "representationType" : {
@@ -72,10 +56,12 @@
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "FwEventIdType",
+      "qualifiedName" : "BaseIdType",
       "type" : {
-        "name" : "BaseIdType",
-        "kind" : "qualifiedIdentifier"
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
       },
       "underlyingType" : {
         "name" : "U32",
@@ -155,6 +141,43 @@
       }
     },
     {
+      "kind" : "vector",
+      "qualifiedName" : "W",
+      "maxSize" : 4,
+      "elementType" : {
+        "name" : "F32",
+        "kind" : "float",
+        "size" : 32
+      },
+      "sizePrefixType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "default" : [
+        1.0,
+        2.0
+      ]
+    },
+    {
+      "kind" : "vector",
+      "qualifiedName" : "V2",
+      "maxSize" : 3,
+      "elementType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "sizePrefixType" : {
+        "name" : "FwSizeStoreType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "default" : [
+      ]
+    },
+    {
       "kind" : "enum",
       "qualifiedName" : "E2",
       "representationType" : {
@@ -215,17 +238,17 @@
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "BaseIdType",
+      "qualifiedName" : "FwTlmPacketizeIdType",
       "type" : {
-        "name" : "U32",
+        "name" : "U16",
         "kind" : "integer",
-        "size" : 32,
+        "size" : 16,
         "signed" : false
       },
       "underlyingType" : {
-        "name" : "U32",
+        "name" : "U16",
         "kind" : "integer",
-        "size" : 32,
+        "size" : 16,
         "signed" : false
       }
     },
@@ -256,6 +279,13 @@
             "kind" : "qualifiedIdentifier"
           },
           "index" : 2
+        },
+        "W" : {
+          "type" : {
+            "name" : "V2",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 3
         }
       },
       "default" : {
@@ -276,7 +306,8 @@
         ],
         "Z" : {
           "X" : 0
-        }
+        },
+        "W" : "[  ]: V2"
       }
     },
     {
@@ -311,6 +342,38 @@
       "default" : {
         "X" : 0
       }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwEventIdType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "vector",
+      "qualifiedName" : "V",
+      "maxSize" : 3,
+      "elementType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "sizePrefixType" : {
+        "name" : "FwSizeStoreType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "default" : [
+      ],
+      "format" : "{} counts"
     },
     {
       "kind" : "alias",

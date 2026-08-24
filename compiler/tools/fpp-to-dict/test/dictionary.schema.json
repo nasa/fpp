@@ -191,6 +191,46 @@
                             "kind": {
                                 "type": "string",
                                 "enum": [
+                                    "vector"
+                                ]
+                            },
+                            "qualifiedName": {
+                                "type": "string"
+                            },
+                            "maxSize": {
+                                "type": "number"
+                            },
+                            "elementType": {
+                                "$ref": "#/$defs/typeDescriptor"
+                            },
+                            "sizePrefixType": {
+                                "$ref": "#/$defs/typeDescriptor"
+                            },
+                            "default": {
+                                "type": "array"
+                            },
+                            "format": {
+                                "type": "string"
+                            },
+                            "annotation": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "kind",
+                            "qualifiedName",
+                            "maxSize",
+                            "elementType",
+                            "sizePrefixType",
+                            "default"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "kind": {
+                                "type": "string",
+                                "enum": [
                                     "enum"
                                 ]
                             },

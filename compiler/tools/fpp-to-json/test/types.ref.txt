@@ -247,6 +247,203 @@
         ],
         [
           [
+          ],
+          {
+            "DefVector" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "V",
+                    "size" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprIdent" : {
+                            "value" : "numElements"
+                          }
+                        },
+                        "id" : 20
+                      }
+                    },
+                    "sizePrefixType" : "None",
+                    "eltType" : {
+                      "AstNode" : {
+                        "data" : {
+                          "TypeNameInt" : {
+                            "name" : {
+                              "U32" : {
+                                
+                              }
+                            }
+                          }
+                        },
+                        "id" : 21
+                      }
+                    },
+                    "default" : {
+                      "Some" : {
+                        "AstNode" : {
+                          "data" : {
+                            "ExprArray" : {
+                              "elts" : [
+                                {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "1"
+                                      }
+                                    },
+                                    "id" : 22
+                                  }
+                                },
+                                {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "2"
+                                      }
+                                    },
+                                    "id" : 23
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "id" : 24
+                        }
+                      }
+                    },
+                    "format" : {
+                      "Some" : {
+                        "AstNode" : {
+                          "data" : "{} RPM",
+                          "id" : 25
+                        }
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 26
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefVector" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "VExplicitPrefix",
+                    "size" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "3"
+                          }
+                        },
+                        "id" : 28
+                      }
+                    },
+                    "sizePrefixType" : {
+                      "Some" : {
+                        "AstNode" : {
+                          "data" : {
+                            "TypeNameInt" : {
+                              "name" : {
+                                "U8" : {
+                                  
+                                }
+                              }
+                            }
+                          },
+                          "id" : 27
+                        }
+                      }
+                    },
+                    "eltType" : {
+                      "AstNode" : {
+                        "data" : {
+                          "TypeNameInt" : {
+                            "name" : {
+                              "U32" : {
+                                
+                              }
+                            }
+                          }
+                        },
+                        "id" : 29
+                      }
+                    },
+                    "default" : "None",
+                    "format" : "None",
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 30
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefVector" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "VOfV",
+                    "size" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "2"
+                          }
+                        },
+                        "id" : 31
+                      }
+                    },
+                    "sizePrefixType" : "None",
+                    "eltType" : {
+                      "AstNode" : {
+                        "data" : {
+                          "TypeNameQualIdent" : {
+                            "name" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "Unqualified" : {
+                                    "name" : "V"
+                                  }
+                                },
+                                "id" : 33
+                              }
+                            }
+                          }
+                        },
+                        "id" : 34
+                      }
+                    },
+                    "default" : "None",
+                    "format" : "None",
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 35
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
             "This is a pre annotation for struct S"
           ],
           {
@@ -276,12 +473,12 @@
                                       }
                                     }
                                   },
-                                  "id" : 31
+                                  "id" : 47
                                 }
                               },
                               "format" : "None"
                             },
-                            "id" : 32
+                            "id" : 48
                           }
                         },
                         [
@@ -304,12 +501,12 @@
                                       "size" : "None"
                                     }
                                   },
-                                  "id" : 35
+                                  "id" : 51
                                 }
                               },
                               "format" : "None"
                             },
-                            "id" : 36
+                            "id" : 52
                           }
                         },
                         [
@@ -320,7 +517,7 @@
                     "default" : "None",
                     "isDictionaryDef" : false
                   },
-                  "id" : 37
+                  "id" : 53
                 }
               }
             }
@@ -354,11 +551,11 @@
                                             "value" : "1"
                                           }
                                         },
-                                        "id" : 38
+                                        "id" : 54
                                       }
                                     }
                                   },
-                                  "id" : 39
+                                  "id" : 55
                                 }
                               },
                               {
@@ -372,22 +569,22 @@
                                             "value" : "abc"
                                           }
                                         },
-                                        "id" : 40
+                                        "id" : 56
                                       }
                                     }
                                   },
-                                  "id" : 41
+                                  "id" : 57
                                 }
                               }
                             ]
                           }
                         },
-                        "id" : 42
+                        "id" : 58
                       }
                     },
                     "isDictionaryDef" : false
                   },
-                  "id" : 43
+                  "id" : 59
                 }
               }
             }
@@ -424,12 +621,12 @@
                                       }
                                     }
                                   },
-                                  "id" : 44
+                                  "id" : 60
                                 }
                               },
                               "format" : "None"
                             },
-                            "id" : 45
+                            "id" : 61
                           }
                         },
                         [
@@ -450,12 +647,12 @@
                                       "size" : "None"
                                     }
                                   },
-                                  "id" : 50
+                                  "id" : 66
                                 }
                               },
                               "format" : "None"
                             },
-                            "id" : 51
+                            "id" : 67
                           }
                         },
                         [
@@ -470,13 +667,13 @@
                               "value" : "s"
                             }
                           },
-                          "id" : 52
+                          "id" : 68
                         }
                       }
                     },
                     "isDictionaryDef" : false
                   },
-                  "id" : 53
+                  "id" : 69
                 }
               }
             }
@@ -513,12 +710,12 @@
                                       }
                                     }
                                   },
-                                  "id" : 54
+                                  "id" : 70
                                 }
                               },
                               "format" : "None"
                             },
-                            "id" : 55
+                            "id" : 71
                           }
                         },
                         [
@@ -539,12 +736,12 @@
                                       "size" : "None"
                                     }
                                   },
-                                  "id" : 60
+                                  "id" : 76
                                 }
                               },
                               "format" : "None"
                             },
-                            "id" : 61
+                            "id" : 77
                           }
                         },
                         [
@@ -559,13 +756,13 @@
                               "value" : "s"
                             }
                           },
-                          "id" : 62
+                          "id" : 78
                         }
                       }
                     },
                     "isDictionaryDef" : false
                   },
-                  "id" : 63
+                  "id" : 79
                 }
               }
             }
@@ -583,7 +780,7 @@
                   "data" : {
                     "name" : "T"
                   },
-                  "id" : 64
+                  "id" : 80
                 }
               }
             }
@@ -607,7 +804,7 @@
                             "value" : "3"
                           }
                         },
-                        "id" : 65
+                        "id" : 81
                       }
                     },
                     "eltType" : {
@@ -621,19 +818,19 @@
                                     "name" : "T"
                                   }
                                 },
-                                "id" : 67
+                                "id" : 83
                               }
                             }
                           }
                         },
-                        "id" : 68
+                        "id" : 84
                       }
                     },
                     "default" : "None",
                     "format" : "None",
                     "isDictionaryDef" : false
                   },
-                  "id" : 69
+                  "id" : 85
                 }
               }
             }
@@ -670,17 +867,17 @@
                                               "name" : "SignalType"
                                             }
                                           },
-                                          "id" : 71
+                                          "id" : 87
                                         }
                                       }
                                     }
                                   },
-                                  "id" : 72
+                                  "id" : 88
                                 }
                               },
                               "format" : "None"
                             },
-                            "id" : 73
+                            "id" : 89
                           }
                         },
                         [
@@ -705,17 +902,17 @@
                                               "name" : "SignalSet"
                                             }
                                           },
-                                          "id" : 75
+                                          "id" : 91
                                         }
                                       }
                                     }
                                   },
-                                  "id" : 76
+                                  "id" : 92
                                 }
                               },
                               "format" : "None"
                             },
-                            "id" : 77
+                            "id" : 93
                           }
                         },
                         [
@@ -740,17 +937,17 @@
                                               "name" : "SignalPairSet"
                                             }
                                           },
-                                          "id" : 87
+                                          "id" : 103
                                         }
                                       }
                                     }
                                   },
-                                  "id" : 88
+                                  "id" : 104
                                 }
                               },
                               "format" : "None"
                             },
-                            "id" : 89
+                            "id" : 105
                           }
                         },
                         [
@@ -760,7 +957,7 @@
                     "default" : "None",
                     "isDictionaryDef" : true
                   },
-                  "id" : 90
+                  "id" : 106
                 }
               }
             }
@@ -797,19 +994,19 @@
                                       }
                                     }
                                   },
-                                  "id" : 91
+                                  "id" : 107
                                 }
                               },
                               "format" : {
                                 "Some" : {
                                   "AstNode" : {
                                     "data" : "{f}",
-                                    "id" : 92
+                                    "id" : 108
                                   }
                                 }
                               }
                             },
-                            "id" : 93
+                            "id" : 109
                           }
                         },
                         [
@@ -834,19 +1031,19 @@
                                       }
                                     }
                                   },
-                                  "id" : 100
+                                  "id" : 116
                                 }
                               },
                               "format" : {
                                 "Some" : {
                                   "AstNode" : {
                                     "data" : "{f}",
-                                    "id" : 101
+                                    "id" : 117
                                   }
                                 }
                               }
                             },
-                            "id" : 102
+                            "id" : 118
                           }
                         },
                         [
@@ -856,7 +1053,7 @@
                     "default" : "None",
                     "isDictionaryDef" : false
                   },
-                  "id" : 103
+                  "id" : 119
                 }
               }
             }
@@ -880,7 +1077,7 @@
                             "value" : "4"
                           }
                         },
-                        "id" : 104
+                        "id" : 120
                       }
                     },
                     "eltType" : {
@@ -894,19 +1091,19 @@
                                     "name" : "SignalPair"
                                   }
                                 },
-                                "id" : 106
+                                "id" : 122
                               }
                             }
                           }
                         },
-                        "id" : 107
+                        "id" : 123
                       }
                     },
                     "default" : "None",
                     "format" : "None",
                     "isDictionaryDef" : false
                   },
-                  "id" : 108
+                  "id" : 124
                 }
               }
             }
@@ -930,7 +1127,7 @@
                             "value" : "4"
                           }
                         },
-                        "id" : 109
+                        "id" : 125
                       }
                     },
                     "eltType" : {
@@ -944,7 +1141,7 @@
                             }
                           }
                         },
-                        "id" : 110
+                        "id" : 126
                       }
                     },
                     "default" : "None",
@@ -952,13 +1149,13 @@
                       "Some" : {
                         "AstNode" : {
                           "data" : "{f}",
-                          "id" : 111
+                          "id" : 127
                         }
                       }
                     },
                     "isDictionaryDef" : true
                   },
-                  "id" : 112
+                  "id" : 128
                 }
               }
             }
@@ -986,7 +1183,7 @@
                               "name" : "TRIANGLE",
                               "value" : "None"
                             },
-                            "id" : 113
+                            "id" : 129
                           }
                         },
                         [
@@ -1001,7 +1198,7 @@
                               "name" : "SQUARE",
                               "value" : "None"
                             },
-                            "id" : 114
+                            "id" : 130
                           }
                         },
                         [
@@ -1016,7 +1213,7 @@
                               "name" : "SINE",
                               "value" : "None"
                             },
-                            "id" : 115
+                            "id" : 131
                           }
                         },
                         [
@@ -1031,7 +1228,7 @@
                               "name" : "NOISE",
                               "value" : "None"
                             },
-                            "id" : 118
+                            "id" : 134
                           }
                         },
                         [
@@ -1041,7 +1238,7 @@
                     "default" : "None",
                     "isDictionaryDef" : true
                   },
-                  "id" : 119
+                  "id" : 135
                 }
               }
             }
@@ -1069,12 +1266,12 @@
                             }
                           }
                         },
-                        "id" : 120
+                        "id" : 136
                       }
                     },
                     "isDictionaryDef" : true
                   },
-                  "id" : 121
+                  "id" : 137
                 }
               }
             }
@@ -1102,12 +1299,12 @@
                             }
                           }
                         },
-                        "id" : 122
+                        "id" : 138
                       }
                     },
                     "isDictionaryDef" : false
                   },
-                  "id" : 123
+                  "id" : 139
                 }
               }
             }
@@ -1224,247 +1421,247 @@
     },
     "20" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "11.6",
+      "pos" : "8.18",
       "includingLoc" : "None"
     },
     "21" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "11.3",
+      "pos" : "8.31",
       "includingLoc" : "None"
     },
     "22" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "11.6",
+      "pos" : "8.45",
       "includingLoc" : "None"
     },
     "23" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "11.3",
+      "pos" : "8.48",
       "includingLoc" : "None"
     },
     "24" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "13.6",
+      "pos" : "8.43",
       "includingLoc" : "None"
     },
     "25" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "13.3",
+      "pos" : "8.59",
       "includingLoc" : "None"
     },
     "26" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "13.6",
+      "pos" : "8.1",
       "includingLoc" : "None"
     },
     "27" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "13.3",
+      "pos" : "9.27",
       "includingLoc" : "None"
     },
     "28" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "9.1",
+      "pos" : "9.35",
       "includingLoc" : "None"
     },
     "29" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "11.6",
+      "pos" : "9.38",
       "includingLoc" : "None"
     },
     "30" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "11.3",
+      "pos" : "9.1",
       "includingLoc" : "None"
     },
     "31" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "11.6",
+      "pos" : "10.21",
       "includingLoc" : "None"
     },
     "32" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "11.3",
+      "pos" : "10.24",
       "includingLoc" : "None"
     },
     "33" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "13.6",
+      "pos" : "10.24",
       "includingLoc" : "None"
     },
     "34" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "13.3",
+      "pos" : "10.24",
       "includingLoc" : "None"
     },
     "35" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "13.6",
+      "pos" : "10.1",
       "includingLoc" : "None"
     },
     "36" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "13.3",
+      "pos" : "15.6",
       "includingLoc" : "None"
     },
     "37" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "9.1",
+      "pos" : "15.3",
       "includingLoc" : "None"
     },
     "38" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "16.20",
+      "pos" : "15.6",
       "includingLoc" : "None"
     },
     "39" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "16.16",
+      "pos" : "15.3",
       "includingLoc" : "None"
     },
     "40" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "16.27",
+      "pos" : "17.6",
       "includingLoc" : "None"
     },
     "41" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "16.23",
+      "pos" : "17.3",
       "includingLoc" : "None"
     },
     "42" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "16.14",
+      "pos" : "17.6",
       "includingLoc" : "None"
     },
     "43" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "16.1",
+      "pos" : "17.3",
       "includingLoc" : "None"
     },
     "44" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "17.16",
+      "pos" : "13.1",
       "includingLoc" : "None"
     },
     "45" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "17.13",
+      "pos" : "15.6",
       "includingLoc" : "None"
     },
     "46" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "17.23",
+      "pos" : "15.3",
       "includingLoc" : "None"
     },
     "47" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "17.20",
+      "pos" : "15.6",
       "includingLoc" : "None"
     },
     "48" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "17.23",
+      "pos" : "15.3",
       "includingLoc" : "None"
     },
     "49" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "17.20",
+      "pos" : "17.6",
       "includingLoc" : "None"
     },
     "50" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "17.23",
+      "pos" : "17.3",
       "includingLoc" : "None"
     },
     "51" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "17.20",
+      "pos" : "17.6",
       "includingLoc" : "None"
     },
     "52" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "17.40",
+      "pos" : "17.3",
       "includingLoc" : "None"
     },
     "53" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "17.1",
+      "pos" : "13.1",
       "includingLoc" : "None"
     },
     "54" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "18.16",
+      "pos" : "20.20",
       "includingLoc" : "None"
     },
     "55" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "18.13",
+      "pos" : "20.16",
       "includingLoc" : "None"
     },
     "56" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "18.24",
+      "pos" : "20.27",
       "includingLoc" : "None"
     },
     "57" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "18.21",
+      "pos" : "20.23",
       "includingLoc" : "None"
     },
     "58" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "18.24",
+      "pos" : "20.14",
       "includingLoc" : "None"
     },
     "59" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "18.21",
+      "pos" : "20.1",
       "includingLoc" : "None"
     },
     "60" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "18.24",
+      "pos" : "21.16",
       "includingLoc" : "None"
     },
     "61" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "18.21",
+      "pos" : "21.13",
       "includingLoc" : "None"
     },
     "62" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "18.41",
+      "pos" : "21.23",
       "includingLoc" : "None"
     },
     "63" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "18.1",
+      "pos" : "21.20",
       "includingLoc" : "None"
     },
     "64" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "20.1",
+      "pos" : "21.23",
       "includingLoc" : "None"
     },
     "65" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "21.14",
+      "pos" : "21.20",
       "includingLoc" : "None"
     },
     "66" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "21.17",
+      "pos" : "21.23",
       "includingLoc" : "None"
     },
     "67" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "21.17",
+      "pos" : "21.20",
       "includingLoc" : "None"
     },
     "68" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "21.17",
+      "pos" : "21.40",
       "includingLoc" : "None"
     },
     "69" : {
@@ -1474,272 +1671,352 @@
     },
     "70" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "25.10",
+      "pos" : "22.16",
       "includingLoc" : "None"
     },
     "71" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "25.10",
+      "pos" : "22.13",
       "includingLoc" : "None"
     },
     "72" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "25.10",
+      "pos" : "22.24",
       "includingLoc" : "None"
     },
     "73" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "25.3",
+      "pos" : "22.21",
       "includingLoc" : "None"
     },
     "74" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "26.12",
+      "pos" : "22.24",
       "includingLoc" : "None"
     },
     "75" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "26.12",
+      "pos" : "22.21",
       "includingLoc" : "None"
     },
     "76" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "26.12",
+      "pos" : "22.24",
       "includingLoc" : "None"
     },
     "77" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "26.3",
+      "pos" : "22.21",
       "includingLoc" : "None"
     },
     "78" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "27.16",
+      "pos" : "22.41",
       "includingLoc" : "None"
     },
     "79" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "27.16",
+      "pos" : "22.1",
       "includingLoc" : "None"
     },
     "80" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "27.16",
+      "pos" : "24.1",
       "includingLoc" : "None"
     },
     "81" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "27.3",
+      "pos" : "25.14",
       "includingLoc" : "None"
     },
     "82" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "27.16",
+      "pos" : "25.17",
       "includingLoc" : "None"
     },
     "83" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "27.16",
+      "pos" : "25.17",
       "includingLoc" : "None"
     },
     "84" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "27.16",
+      "pos" : "25.17",
       "includingLoc" : "None"
     },
     "85" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "27.3",
+      "pos" : "25.1",
       "includingLoc" : "None"
     },
     "86" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "27.16",
+      "pos" : "29.10",
       "includingLoc" : "None"
     },
     "87" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "27.16",
+      "pos" : "29.10",
       "includingLoc" : "None"
     },
     "88" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "27.16",
+      "pos" : "29.10",
       "includingLoc" : "None"
     },
     "89" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "27.3",
+      "pos" : "29.3",
       "includingLoc" : "None"
     },
     "90" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "24.1",
+      "pos" : "30.12",
       "includingLoc" : "None"
     },
     "91" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "31.10",
+      "pos" : "30.12",
       "includingLoc" : "None"
     },
     "92" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "31.21",
+      "pos" : "30.12",
       "includingLoc" : "None"
     },
     "93" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "31.3",
+      "pos" : "30.3",
       "includingLoc" : "None"
     },
     "94" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "32.10",
+      "pos" : "31.16",
       "includingLoc" : "None"
     },
     "95" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "32.21",
+      "pos" : "31.16",
       "includingLoc" : "None"
     },
     "96" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "32.3",
+      "pos" : "31.16",
       "includingLoc" : "None"
     },
     "97" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "32.10",
+      "pos" : "31.3",
       "includingLoc" : "None"
     },
     "98" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "32.21",
+      "pos" : "31.16",
       "includingLoc" : "None"
     },
     "99" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "32.3",
+      "pos" : "31.16",
       "includingLoc" : "None"
     },
     "100" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "32.10",
+      "pos" : "31.16",
       "includingLoc" : "None"
     },
     "101" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "32.21",
+      "pos" : "31.3",
       "includingLoc" : "None"
     },
     "102" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "32.3",
+      "pos" : "31.16",
       "includingLoc" : "None"
     },
     "103" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "30.1",
+      "pos" : "31.16",
       "includingLoc" : "None"
     },
     "104" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "35.24",
+      "pos" : "31.16",
       "includingLoc" : "None"
     },
     "105" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "35.27",
+      "pos" : "31.3",
       "includingLoc" : "None"
     },
     "106" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "35.27",
+      "pos" : "28.1",
       "includingLoc" : "None"
     },
     "107" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "35.27",
+      "pos" : "35.10",
       "includingLoc" : "None"
     },
     "108" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "35.1",
+      "pos" : "35.21",
       "includingLoc" : "None"
     },
     "109" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "37.31",
+      "pos" : "35.3",
       "includingLoc" : "None"
     },
     "110" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "37.34",
+      "pos" : "36.10",
       "includingLoc" : "None"
     },
     "111" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "37.45",
+      "pos" : "36.21",
       "includingLoc" : "None"
     },
     "112" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "37.1",
+      "pos" : "36.3",
       "includingLoc" : "None"
     },
     "113" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "40.3",
+      "pos" : "36.10",
       "includingLoc" : "None"
     },
     "114" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "41.3",
+      "pos" : "36.21",
       "includingLoc" : "None"
     },
     "115" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "42.3",
+      "pos" : "36.3",
       "includingLoc" : "None"
     },
     "116" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "43.3",
+      "pos" : "36.10",
       "includingLoc" : "None"
     },
     "117" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "43.3",
+      "pos" : "36.21",
       "includingLoc" : "None"
     },
     "118" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "43.3",
+      "pos" : "36.3",
       "includingLoc" : "None"
     },
     "119" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "39.1",
+      "pos" : "34.1",
       "includingLoc" : "None"
     },
     "120" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "46.26",
+      "pos" : "39.24",
       "includingLoc" : "None"
     },
     "121" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "46.1",
+      "pos" : "39.27",
       "includingLoc" : "None"
     },
     "122" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "47.15",
+      "pos" : "39.27",
       "includingLoc" : "None"
     },
     "123" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "47.1",
+      "pos" : "39.27",
+      "includingLoc" : "None"
+    },
+    "124" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "39.1",
+      "includingLoc" : "None"
+    },
+    "125" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "41.31",
+      "includingLoc" : "None"
+    },
+    "126" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "41.34",
+      "includingLoc" : "None"
+    },
+    "127" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "41.45",
+      "includingLoc" : "None"
+    },
+    "128" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "41.1",
+      "includingLoc" : "None"
+    },
+    "129" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "44.3",
+      "includingLoc" : "None"
+    },
+    "130" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "45.3",
+      "includingLoc" : "None"
+    },
+    "131" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "46.3",
+      "includingLoc" : "None"
+    },
+    "132" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "47.3",
+      "includingLoc" : "None"
+    },
+    "133" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "47.3",
+      "includingLoc" : "None"
+    },
+    "134" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "47.3",
+      "includingLoc" : "None"
+    },
+    "135" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "43.1",
+      "includingLoc" : "None"
+    },
+    "136" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "50.26",
+      "includingLoc" : "None"
+    },
+    "137" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "50.1",
+      "includingLoc" : "None"
+    },
+    "138" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "51.15",
+      "includingLoc" : "None"
+    },
+    "139" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "51.1",
       "includingLoc" : "None"
     }
   }
@@ -1779,57 +2056,57 @@
     "locationSpecifierMap" : [
     ],
     "parentSymbolMap" : {
-      "113" : {
+      "129" : {
         "Enum" : {
-          "nodeId" : 119,
+          "nodeId" : 135,
           "unqualifiedName" : "SignalType"
         }
       },
-      "114" : {
+      "130" : {
         "Enum" : {
-          "nodeId" : 119,
+          "nodeId" : 135,
           "unqualifiedName" : "SignalType"
         }
       },
-      "115" : {
+      "131" : {
         "Enum" : {
-          "nodeId" : 119,
+          "nodeId" : 135,
           "unqualifiedName" : "SignalType"
         }
       },
-      "118" : {
+      "134" : {
         "Enum" : {
-          "nodeId" : 119,
+          "nodeId" : 135,
           "unqualifiedName" : "SignalType"
         }
       }
     },
     "symbolScopeMap" : {
-      "119" : {
+      "135" : {
         "map" : {
           "Value" : {
             "map" : {
               "NOISE" : {
                 "EnumConstant" : {
-                  "nodeId" : 118,
+                  "nodeId" : 134,
                   "unqualifiedName" : "NOISE"
                 }
               },
               "SINE" : {
                 "EnumConstant" : {
-                  "nodeId" : 115,
+                  "nodeId" : 131,
                   "unqualifiedName" : "SINE"
                 }
               },
               "SQUARE" : {
                 "EnumConstant" : {
-                  "nodeId" : 114,
+                  "nodeId" : 130,
                   "unqualifiedName" : "SQUARE"
                 }
               },
               "TRIANGLE" : {
                 "EnumConstant" : {
-                  "nodeId" : 113,
+                  "nodeId" : 129,
                   "unqualifiedName" : "TRIANGLE"
                 }
               }
@@ -2382,7 +2659,14 @@
           "format" : "None"
         }
       },
-      "31" : {
+      "20" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "21" : {
         "Int" : {
           "PrimitiveInt" : {
             "kind" : {
@@ -2393,15 +2677,503 @@
           }
         }
       },
+      "22" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "23" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "24" : {
+        "AnonArray" : {
+          "size" : {
+            "Some" : 2
+          },
+          "eltType" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "26" : {
+        "Vector" : {
+          "node" : {
+            "astNodeId" : 26
+          },
+          "anonVector" : {
+            "maxSize" : {
+              "Some" : 3
+            },
+            "eltType" : {
+              "Int" : {
+                "PrimitiveInt" : {
+                  "kind" : {
+                    "U32" : {
+                      
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "sizePrefixType" : "None",
+          "default" : {
+            "Some" : {
+              "anonArray" : {
+                "elements" : [
+                  {
+                    "PrimitiveInt" : {
+                      "value" : 1,
+                      "kind" : {
+                        "U32" : {
+                          
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "PrimitiveInt" : {
+                      "value" : 2,
+                      "kind" : {
+                        "U32" : {
+                          
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "t" : {
+                "node" : {
+                  "astNodeId" : 26
+                },
+                "anonVector" : {
+                  "maxSize" : {
+                    "Some" : 3
+                  },
+                  "eltType" : {
+                    "Int" : {
+                      "PrimitiveInt" : {
+                        "kind" : {
+                          "U32" : {
+                            
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "sizePrefixType" : "None",
+                "default" : "None",
+                "format" : "None"
+              }
+            }
+          },
+          "format" : {
+            "Some" : {
+              "prefix" : "",
+              "fields" : [
+                [
+                  {
+                    "Default" : {
+                      
+                    }
+                  },
+                  " RPM"
+                ]
+              ]
+            }
+          }
+        }
+      },
+      "27" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "28" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "29" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "30" : {
+        "Vector" : {
+          "node" : {
+            "astNodeId" : 30
+          },
+          "anonVector" : {
+            "maxSize" : {
+              "Some" : 3
+            },
+            "eltType" : {
+              "Int" : {
+                "PrimitiveInt" : {
+                  "kind" : {
+                    "U32" : {
+                      
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "sizePrefixType" : {
+            "Some" : {
+              "Int" : {
+                "PrimitiveInt" : {
+                  "kind" : {
+                    "U8" : {
+                      
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "anonArray" : {
+                "elements" : [
+                ]
+              },
+              "t" : {
+                "node" : {
+                  "astNodeId" : 30
+                },
+                "anonVector" : {
+                  "maxSize" : {
+                    "Some" : 3
+                  },
+                  "eltType" : {
+                    "Int" : {
+                      "PrimitiveInt" : {
+                        "kind" : {
+                          "U32" : {
+                            
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "sizePrefixType" : {
+                  "Some" : {
+                    "Int" : {
+                      "PrimitiveInt" : {
+                        "kind" : {
+                          "U8" : {
+                            
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "default" : "None",
+                "format" : "None"
+              }
+            }
+          },
+          "format" : "None"
+        }
+      },
+      "31" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "34" : {
+        "Vector" : {
+          "node" : {
+            "astNodeId" : 26
+          },
+          "anonVector" : {
+            "maxSize" : "None",
+            "eltType" : {
+              "Int" : {
+                "PrimitiveInt" : {
+                  "kind" : {
+                    "U32" : {
+                      
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "sizePrefixType" : "None",
+          "default" : "None",
+          "format" : "None"
+        }
+      },
       "35" : {
+        "Vector" : {
+          "node" : {
+            "astNodeId" : 35
+          },
+          "anonVector" : {
+            "maxSize" : {
+              "Some" : 2
+            },
+            "eltType" : {
+              "Vector" : {
+                "node" : {
+                  "astNodeId" : 26
+                },
+                "anonVector" : {
+                  "maxSize" : {
+                    "Some" : 3
+                  },
+                  "eltType" : {
+                    "Int" : {
+                      "PrimitiveInt" : {
+                        "kind" : {
+                          "U32" : {
+                            
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "sizePrefixType" : "None",
+                "default" : {
+                  "Some" : {
+                    "anonArray" : {
+                      "elements" : [
+                        {
+                          "PrimitiveInt" : {
+                            "value" : 1,
+                            "kind" : {
+                              "U32" : {
+                                
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "PrimitiveInt" : {
+                            "value" : 2,
+                            "kind" : {
+                              "U32" : {
+                                
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "t" : {
+                      "node" : {
+                        "astNodeId" : 26
+                      },
+                      "anonVector" : {
+                        "maxSize" : {
+                          "Some" : 3
+                        },
+                        "eltType" : {
+                          "Int" : {
+                            "PrimitiveInt" : {
+                              "kind" : {
+                                "U32" : {
+                                  
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "sizePrefixType" : "None",
+                      "default" : "None",
+                      "format" : "None"
+                    }
+                  }
+                },
+                "format" : {
+                  "Some" : {
+                    "prefix" : "",
+                    "fields" : [
+                      [
+                        {
+                          "Default" : {
+                            
+                          }
+                        },
+                        " RPM"
+                      ]
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "sizePrefixType" : "None",
+          "default" : {
+            "Some" : {
+              "anonArray" : {
+                "elements" : [
+                ]
+              },
+              "t" : {
+                "node" : {
+                  "astNodeId" : 35
+                },
+                "anonVector" : {
+                  "maxSize" : {
+                    "Some" : 2
+                  },
+                  "eltType" : {
+                    "Vector" : {
+                      "node" : {
+                        "astNodeId" : 26
+                      },
+                      "anonVector" : {
+                        "maxSize" : {
+                          "Some" : 3
+                        },
+                        "eltType" : {
+                          "Int" : {
+                            "PrimitiveInt" : {
+                              "kind" : {
+                                "U32" : {
+                                  
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "sizePrefixType" : "None",
+                      "default" : {
+                        "Some" : {
+                          "anonArray" : {
+                            "elements" : [
+                              {
+                                "PrimitiveInt" : {
+                                  "value" : 1,
+                                  "kind" : {
+                                    "U32" : {
+                                      
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "PrimitiveInt" : {
+                                  "value" : 2,
+                                  "kind" : {
+                                    "U32" : {
+                                      
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "t" : {
+                            "node" : {
+                              "astNodeId" : 26
+                            },
+                            "anonVector" : {
+                              "maxSize" : {
+                                "Some" : 3
+                              },
+                              "eltType" : {
+                                "Int" : {
+                                  "PrimitiveInt" : {
+                                    "kind" : {
+                                      "U32" : {
+                                        
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "sizePrefixType" : "None",
+                            "default" : "None",
+                            "format" : "None"
+                          }
+                        }
+                      },
+                      "format" : {
+                        "Some" : {
+                          "prefix" : "",
+                          "fields" : [
+                            [
+                              {
+                                "Default" : {
+                                  
+                                }
+                              },
+                              " RPM"
+                            ]
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "sizePrefixType" : "None",
+                "default" : "None",
+                "format" : "None"
+              }
+            }
+          },
+          "format" : "None"
+        }
+      },
+      "47" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "51" : {
         "String" : {
           "size" : "None"
         }
       },
-      "37" : {
+      "53" : {
         "Struct" : {
           "node" : {
-            "astNodeId" : 37
+            "astNodeId" : 53
           },
           "anonStruct" : {
             "members" : {
@@ -2446,7 +3218,7 @@
               },
               "t" : {
                 "node" : {
-                  "astNodeId" : 37
+                  "astNodeId" : 53
                 },
                 "anonStruct" : {
                   "members" : {
@@ -2486,19 +3258,19 @@
           }
         }
       },
-      "38" : {
+      "54" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "40" : {
+      "56" : {
         "String" : {
           "size" : "None"
         }
       },
-      "42" : {
+      "58" : {
         "AnonStruct" : {
           "members" : {
             "x" : {
@@ -2516,7 +3288,7 @@
           }
         }
       },
-      "43" : {
+      "59" : {
         "AnonStruct" : {
           "members" : {
             "x" : {
@@ -2534,7 +3306,7 @@
           }
         }
       },
-      "44" : {
+      "60" : {
         "Int" : {
           "PrimitiveInt" : {
             "kind" : {
@@ -2545,12 +3317,12 @@
           }
         }
       },
-      "50" : {
+      "66" : {
         "String" : {
           "size" : "None"
         }
       },
-      "52" : {
+      "68" : {
         "AnonStruct" : {
           "members" : {
             "x" : {
@@ -2568,10 +3340,10 @@
           }
         }
       },
-      "53" : {
+      "69" : {
         "Struct" : {
           "node" : {
-            "astNodeId" : 53
+            "astNodeId" : 69
           },
           "anonStruct" : {
             "members" : {
@@ -2616,7 +3388,7 @@
               },
               "t" : {
                 "node" : {
-                  "astNodeId" : 53
+                  "astNodeId" : 69
                 },
                 "anonStruct" : {
                   "members" : {
@@ -2656,7 +3428,7 @@
           }
         }
       },
-      "54" : {
+      "70" : {
         "Int" : {
           "PrimitiveInt" : {
             "kind" : {
@@ -2667,12 +3439,12 @@
           }
         }
       },
-      "60" : {
+      "76" : {
         "String" : {
           "size" : "None"
         }
       },
-      "62" : {
+      "78" : {
         "AnonStruct" : {
           "members" : {
             "x" : {
@@ -2690,10 +3462,10 @@
           }
         }
       },
-      "63" : {
+      "79" : {
         "Struct" : {
           "node" : {
-            "astNodeId" : 63
+            "astNodeId" : 79
           },
           "anonStruct" : {
             "members" : {
@@ -2738,7 +3510,7 @@
               },
               "t" : {
                 "node" : {
-                  "astNodeId" : 63
+                  "astNodeId" : 79
                 },
                 "anonStruct" : {
                   "members" : {
@@ -2778,31 +3550,31 @@
           }
         }
       },
-      "64" : {
+      "80" : {
         "AbsType" : {
           "node" : {
-            "astNodeId" : 64
+            "astNodeId" : 80
           }
         }
       },
-      "65" : {
+      "81" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "68" : {
+      "84" : {
         "AbsType" : {
           "node" : {
-            "astNodeId" : 64
+            "astNodeId" : 80
           }
         }
       },
-      "69" : {
+      "85" : {
         "Array" : {
           "node" : {
-            "astNodeId" : 69
+            "astNodeId" : 85
           },
           "anonArray" : {
             "size" : {
@@ -2811,7 +3583,7 @@
             "eltType" : {
               "AbsType" : {
                 "node" : {
-                  "astNodeId" : 64
+                  "astNodeId" : 80
                 }
               }
             }
@@ -2824,7 +3596,7 @@
                     "AbsType" : {
                       "t" : {
                         "node" : {
-                          "astNodeId" : 64
+                          "astNodeId" : 80
                         }
                       }
                     }
@@ -2833,7 +3605,7 @@
                     "AbsType" : {
                       "t" : {
                         "node" : {
-                          "astNodeId" : 64
+                          "astNodeId" : 80
                         }
                       }
                     }
@@ -2842,7 +3614,7 @@
                     "AbsType" : {
                       "t" : {
                         "node" : {
-                          "astNodeId" : 64
+                          "astNodeId" : 80
                         }
                       }
                     }
@@ -2851,7 +3623,7 @@
               },
               "t" : {
                 "node" : {
-                  "astNodeId" : 69
+                  "astNodeId" : 85
                 },
                 "anonArray" : {
                   "size" : {
@@ -2860,7 +3632,7 @@
                   "eltType" : {
                     "AbsType" : {
                       "node" : {
-                        "astNodeId" : 64
+                        "astNodeId" : 80
                       }
                     }
                   }
@@ -2873,10 +3645,10 @@
           "format" : "None"
         }
       },
-      "72" : {
+      "88" : {
         "Enum" : {
           "node" : {
-            "astNodeId" : 119
+            "astNodeId" : 135
           },
           "repType" : {
             "kind" : {
@@ -2888,10 +3660,10 @@
           "default" : "None"
         }
       },
-      "76" : {
+      "92" : {
         "Array" : {
           "node" : {
-            "astNodeId" : 112
+            "astNodeId" : 128
           },
           "anonArray" : {
             "size" : "None",
@@ -2911,17 +3683,17 @@
           "format" : "None"
         }
       },
-      "88" : {
+      "104" : {
         "Array" : {
           "node" : {
-            "astNodeId" : 108
+            "astNodeId" : 124
           },
           "anonArray" : {
             "size" : "None",
             "eltType" : {
               "Struct" : {
                 "node" : {
-                  "astNodeId" : 103
+                  "astNodeId" : 119
                 },
                 "anonStruct" : {
                   "members" : {
@@ -2963,17 +3735,17 @@
           "format" : "None"
         }
       },
-      "90" : {
+      "106" : {
         "Struct" : {
           "node" : {
-            "astNodeId" : 90
+            "astNodeId" : 106
           },
           "anonStruct" : {
             "members" : {
               "history" : {
                 "Array" : {
                   "node" : {
-                    "astNodeId" : 112
+                    "astNodeId" : 128
                   },
                   "anonArray" : {
                     "size" : {
@@ -3039,7 +3811,7 @@
                       },
                       "t" : {
                         "node" : {
-                          "astNodeId" : 112
+                          "astNodeId" : 128
                         },
                         "anonArray" : {
                           "size" : {
@@ -3087,7 +3859,7 @@
               "pairHistory" : {
                 "Array" : {
                   "node" : {
-                    "astNodeId" : 108
+                    "astNodeId" : 124
                   },
                   "anonArray" : {
                     "size" : {
@@ -3096,7 +3868,7 @@
                     "eltType" : {
                       "Struct" : {
                         "node" : {
-                          "astNodeId" : 103
+                          "astNodeId" : 119
                         },
                         "anonStruct" : {
                           "members" : {
@@ -3152,7 +3924,7 @@
                             },
                             "t" : {
                               "node" : {
-                                "astNodeId" : 103
+                                "astNodeId" : 119
                               },
                               "anonStruct" : {
                                 "members" : {
@@ -3266,7 +4038,7 @@
                               },
                               "t" : {
                                 "node" : {
-                                  "astNodeId" : 103
+                                  "astNodeId" : 119
                                 },
                                 "anonStruct" : {
                                   "members" : {
@@ -3332,7 +4104,7 @@
                               },
                               "t" : {
                                 "node" : {
-                                  "astNodeId" : 103
+                                  "astNodeId" : 119
                                 },
                                 "anonStruct" : {
                                   "members" : {
@@ -3398,7 +4170,7 @@
                               },
                               "t" : {
                                 "node" : {
-                                  "astNodeId" : 103
+                                  "astNodeId" : 119
                                 },
                                 "anonStruct" : {
                                   "members" : {
@@ -3464,7 +4236,7 @@
                               },
                               "t" : {
                                 "node" : {
-                                  "astNodeId" : 103
+                                  "astNodeId" : 119
                                 },
                                 "anonStruct" : {
                                   "members" : {
@@ -3506,7 +4278,7 @@
                       },
                       "t" : {
                         "node" : {
-                          "astNodeId" : 108
+                          "astNodeId" : 124
                         },
                         "anonArray" : {
                           "size" : {
@@ -3515,7 +4287,7 @@
                           "eltType" : {
                             "Struct" : {
                               "node" : {
-                                "astNodeId" : 103
+                                "astNodeId" : 119
                               },
                               "anonStruct" : {
                                 "members" : {
@@ -3571,7 +4343,7 @@
                                   },
                                   "t" : {
                                     "node" : {
-                                      "astNodeId" : 103
+                                      "astNodeId" : 119
                                     },
                                     "anonStruct" : {
                                       "members" : {
@@ -3664,7 +4436,7 @@
               "type" : {
                 "Enum" : {
                   "node" : {
-                    "astNodeId" : 119
+                    "astNodeId" : 135
                   },
                   "repType" : {
                     "kind" : {
@@ -3681,7 +4453,7 @@
                       ],
                       "t" : {
                         "node" : {
-                          "astNodeId" : 119
+                          "astNodeId" : 135
                         },
                         "repType" : {
                           "kind" : {
@@ -3750,7 +4522,7 @@
                       },
                       "t" : {
                         "node" : {
-                          "astNodeId" : 112
+                          "astNodeId" : 128
                         },
                         "anonArray" : {
                           "size" : {
@@ -3805,7 +4577,7 @@
                               },
                               "t" : {
                                 "node" : {
-                                  "astNodeId" : 103
+                                  "astNodeId" : 119
                                 },
                                 "anonStruct" : {
                                   "members" : {
@@ -3871,7 +4643,7 @@
                               },
                               "t" : {
                                 "node" : {
-                                  "astNodeId" : 103
+                                  "astNodeId" : 119
                                 },
                                 "anonStruct" : {
                                   "members" : {
@@ -3937,7 +4709,7 @@
                               },
                               "t" : {
                                 "node" : {
-                                  "astNodeId" : 103
+                                  "astNodeId" : 119
                                 },
                                 "anonStruct" : {
                                   "members" : {
@@ -4003,7 +4775,7 @@
                               },
                               "t" : {
                                 "node" : {
-                                  "astNodeId" : 103
+                                  "astNodeId" : 119
                                 },
                                 "anonStruct" : {
                                   "members" : {
@@ -4045,7 +4817,7 @@
                       },
                       "t" : {
                         "node" : {
-                          "astNodeId" : 108
+                          "astNodeId" : 124
                         },
                         "anonArray" : {
                           "size" : {
@@ -4054,7 +4826,7 @@
                           "eltType" : {
                             "Struct" : {
                               "node" : {
-                                "astNodeId" : 103
+                                "astNodeId" : 119
                               },
                               "anonStruct" : {
                                 "members" : {
@@ -4110,7 +4882,7 @@
                                   },
                                   "t" : {
                                     "node" : {
-                                      "astNodeId" : 103
+                                      "astNodeId" : 119
                                     },
                                     "anonStruct" : {
                                       "members" : {
@@ -4205,7 +4977,7 @@
                       ],
                       "t" : {
                         "node" : {
-                          "astNodeId" : 119
+                          "astNodeId" : 135
                         },
                         "repType" : {
                           "kind" : {
@@ -4222,14 +4994,14 @@
               },
               "t" : {
                 "node" : {
-                  "astNodeId" : 90
+                  "astNodeId" : 106
                 },
                 "anonStruct" : {
                   "members" : {
                     "history" : {
                       "Array" : {
                         "node" : {
-                          "astNodeId" : 112
+                          "astNodeId" : 128
                         },
                         "anonArray" : {
                           "size" : {
@@ -4295,7 +5067,7 @@
                             },
                             "t" : {
                               "node" : {
-                                "astNodeId" : 112
+                                "astNodeId" : 128
                               },
                               "anonArray" : {
                                 "size" : {
@@ -4343,7 +5115,7 @@
                     "pairHistory" : {
                       "Array" : {
                         "node" : {
-                          "astNodeId" : 108
+                          "astNodeId" : 124
                         },
                         "anonArray" : {
                           "size" : {
@@ -4352,7 +5124,7 @@
                           "eltType" : {
                             "Struct" : {
                               "node" : {
-                                "astNodeId" : 103
+                                "astNodeId" : 119
                               },
                               "anonStruct" : {
                                 "members" : {
@@ -4408,7 +5180,7 @@
                                   },
                                   "t" : {
                                     "node" : {
-                                      "astNodeId" : 103
+                                      "astNodeId" : 119
                                     },
                                     "anonStruct" : {
                                       "members" : {
@@ -4522,7 +5294,7 @@
                                     },
                                     "t" : {
                                       "node" : {
-                                        "astNodeId" : 103
+                                        "astNodeId" : 119
                                       },
                                       "anonStruct" : {
                                         "members" : {
@@ -4588,7 +5360,7 @@
                                     },
                                     "t" : {
                                       "node" : {
-                                        "astNodeId" : 103
+                                        "astNodeId" : 119
                                       },
                                       "anonStruct" : {
                                         "members" : {
@@ -4654,7 +5426,7 @@
                                     },
                                     "t" : {
                                       "node" : {
-                                        "astNodeId" : 103
+                                        "astNodeId" : 119
                                       },
                                       "anonStruct" : {
                                         "members" : {
@@ -4720,7 +5492,7 @@
                                     },
                                     "t" : {
                                       "node" : {
-                                        "astNodeId" : 103
+                                        "astNodeId" : 119
                                       },
                                       "anonStruct" : {
                                         "members" : {
@@ -4762,7 +5534,7 @@
                             },
                             "t" : {
                               "node" : {
-                                "astNodeId" : 108
+                                "astNodeId" : 124
                               },
                               "anonArray" : {
                                 "size" : {
@@ -4771,7 +5543,7 @@
                                 "eltType" : {
                                   "Struct" : {
                                     "node" : {
-                                      "astNodeId" : 103
+                                      "astNodeId" : 119
                                     },
                                     "anonStruct" : {
                                       "members" : {
@@ -4827,7 +5599,7 @@
                                         },
                                         "t" : {
                                           "node" : {
-                                            "astNodeId" : 103
+                                            "astNodeId" : 119
                                           },
                                           "anonStruct" : {
                                             "members" : {
@@ -4920,7 +5692,7 @@
                     "type" : {
                       "Enum" : {
                         "node" : {
-                          "astNodeId" : 119
+                          "astNodeId" : 135
                         },
                         "repType" : {
                           "kind" : {
@@ -4937,7 +5709,7 @@
                             ],
                             "t" : {
                               "node" : {
-                                "astNodeId" : 119
+                                "astNodeId" : 135
                               },
                               "repType" : {
                                 "kind" : {
@@ -4972,7 +5744,7 @@
           }
         }
       },
-      "91" : {
+      "107" : {
         "Primitive" : {
           "Float" : {
             "kind" : {
@@ -4983,7 +5755,7 @@
           }
         }
       },
-      "100" : {
+      "116" : {
         "Primitive" : {
           "Float" : {
             "kind" : {
@@ -4994,10 +5766,10 @@
           }
         }
       },
-      "103" : {
+      "119" : {
         "Struct" : {
           "node" : {
-            "astNodeId" : 103
+            "astNodeId" : 119
           },
           "anonStruct" : {
             "members" : {
@@ -5053,7 +5825,7 @@
               },
               "t" : {
                 "node" : {
-                  "astNodeId" : 103
+                  "astNodeId" : 119
                 },
                 "anonStruct" : {
                   "members" : {
@@ -5134,17 +5906,17 @@
           }
         }
       },
-      "104" : {
+      "120" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "107" : {
+      "123" : {
         "Struct" : {
           "node" : {
-            "astNodeId" : 103
+            "astNodeId" : 119
           },
           "anonStruct" : {
             "members" : {
@@ -5181,10 +5953,10 @@
           }
         }
       },
-      "108" : {
+      "124" : {
         "Array" : {
           "node" : {
-            "astNodeId" : 108
+            "astNodeId" : 124
           },
           "anonArray" : {
             "size" : {
@@ -5193,7 +5965,7 @@
             "eltType" : {
               "Struct" : {
                 "node" : {
-                  "astNodeId" : 103
+                  "astNodeId" : 119
                 },
                 "anonStruct" : {
                   "members" : {
@@ -5249,7 +6021,7 @@
                     },
                     "t" : {
                       "node" : {
-                        "astNodeId" : 103
+                        "astNodeId" : 119
                       },
                       "anonStruct" : {
                         "members" : {
@@ -5363,7 +6135,7 @@
                       },
                       "t" : {
                         "node" : {
-                          "astNodeId" : 103
+                          "astNodeId" : 119
                         },
                         "anonStruct" : {
                           "members" : {
@@ -5429,7 +6201,7 @@
                       },
                       "t" : {
                         "node" : {
-                          "astNodeId" : 103
+                          "astNodeId" : 119
                         },
                         "anonStruct" : {
                           "members" : {
@@ -5495,7 +6267,7 @@
                       },
                       "t" : {
                         "node" : {
-                          "astNodeId" : 103
+                          "astNodeId" : 119
                         },
                         "anonStruct" : {
                           "members" : {
@@ -5561,7 +6333,7 @@
                       },
                       "t" : {
                         "node" : {
-                          "astNodeId" : 103
+                          "astNodeId" : 119
                         },
                         "anonStruct" : {
                           "members" : {
@@ -5603,7 +6375,7 @@
               },
               "t" : {
                 "node" : {
-                  "astNodeId" : 108
+                  "astNodeId" : 124
                 },
                 "anonArray" : {
                   "size" : {
@@ -5612,7 +6384,7 @@
                   "eltType" : {
                     "Struct" : {
                       "node" : {
-                        "astNodeId" : 103
+                        "astNodeId" : 119
                       },
                       "anonStruct" : {
                         "members" : {
@@ -5668,7 +6440,7 @@
                           },
                           "t" : {
                             "node" : {
-                              "astNodeId" : 103
+                              "astNodeId" : 119
                             },
                             "anonStruct" : {
                               "members" : {
@@ -5758,14 +6530,14 @@
           "format" : "None"
         }
       },
-      "109" : {
+      "125" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "110" : {
+      "126" : {
         "Primitive" : {
           "Float" : {
             "kind" : {
@@ -5776,10 +6548,10 @@
           }
         }
       },
-      "112" : {
+      "128" : {
         "Array" : {
           "node" : {
-            "astNodeId" : 112
+            "astNodeId" : 128
           },
           "anonArray" : {
             "size" : {
@@ -5845,7 +6617,7 @@
               },
               "t" : {
                 "node" : {
-                  "astNodeId" : 112
+                  "astNodeId" : 128
                 },
                 "anonArray" : {
                   "size" : {
@@ -5890,10 +6662,10 @@
           }
         }
       },
-      "113" : {
+      "129" : {
         "Enum" : {
           "node" : {
-            "astNodeId" : 119
+            "astNodeId" : 135
           },
           "repType" : {
             "kind" : {
@@ -5905,10 +6677,10 @@
           "default" : "None"
         }
       },
-      "114" : {
+      "130" : {
         "Enum" : {
           "node" : {
-            "astNodeId" : 119
+            "astNodeId" : 135
           },
           "repType" : {
             "kind" : {
@@ -5920,10 +6692,10 @@
           "default" : "None"
         }
       },
-      "115" : {
+      "131" : {
         "Enum" : {
           "node" : {
-            "astNodeId" : 119
+            "astNodeId" : 135
           },
           "repType" : {
             "kind" : {
@@ -5935,10 +6707,10 @@
           "default" : "None"
         }
       },
-      "118" : {
+      "134" : {
         "Enum" : {
           "node" : {
-            "astNodeId" : 119
+            "astNodeId" : 135
           },
           "repType" : {
             "kind" : {
@@ -5950,10 +6722,10 @@
           "default" : "None"
         }
       },
-      "119" : {
+      "135" : {
         "Enum" : {
           "node" : {
-            "astNodeId" : 119
+            "astNodeId" : 135
           },
           "repType" : {
             "kind" : {
@@ -5970,7 +6742,7 @@
               ],
               "t" : {
                 "node" : {
-                  "astNodeId" : 119
+                  "astNodeId" : 135
                 },
                 "repType" : {
                   "kind" : {
@@ -5985,7 +6757,7 @@
           }
         }
       },
-      "120" : {
+      "136" : {
         "Int" : {
           "PrimitiveInt" : {
             "kind" : {
@@ -5996,10 +6768,10 @@
           }
         }
       },
-      "121" : {
+      "137" : {
         "AliasType" : {
           "node" : {
-            "astNodeId" : 121
+            "astNodeId" : 137
           },
           "aliasType" : {
             "Int" : {
@@ -6014,7 +6786,7 @@
           }
         }
       },
-      "122" : {
+      "138" : {
         "Int" : {
           "PrimitiveInt" : {
             "kind" : {
@@ -6025,10 +6797,10 @@
           }
         }
       },
-      "123" : {
+      "139" : {
         "AliasType" : {
           "node" : {
-            "astNodeId" : 123
+            "astNodeId" : 139
           },
           "aliasType" : {
             "Int" : {
@@ -6043,7 +6815,7 @@
           }
         }
       },
-      "124" : {
+      "140" : {
         "AliasType" : {
           "node" : {
             "astNodeId" : 1
@@ -6061,7 +6833,7 @@
           }
         }
       },
-      "125" : {
+      "141" : {
         "AliasType" : {
           "node" : {
             "astNodeId" : 1
@@ -6079,14 +6851,50 @@
           }
         }
       },
-      "126" : {
+      "142" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 1
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U16" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "143" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 1
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U16" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "144" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "127" : {
+      "145" : {
         "AliasType" : {
           "node" : {
             "astNodeId" : 1
@@ -6104,14 +6912,14 @@
           }
         }
       },
-      "128" : {
+      "146" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "129" : {
+      "147" : {
         "AliasType" : {
           "node" : {
             "astNodeId" : 1
@@ -6129,7 +6937,7 @@
           }
         }
       },
-      "130" : {
+      "148" : {
         "Int" : {
           "Integer" : {
             
@@ -6156,115 +6964,145 @@
           "unqualifiedName" : "A"
         }
       },
-      "52" : {
+      "20" : {
         "Constant" : {
-          "nodeId" : 43,
-          "unqualifiedName" : "s"
+          "nodeId" : 5,
+          "unqualifiedName" : "numElements"
         }
       },
-      "62" : {
-        "Constant" : {
-          "nodeId" : 43,
-          "unqualifiedName" : "s"
+      "33" : {
+        "Vector" : {
+          "nodeId" : 26,
+          "unqualifiedName" : "V"
         }
       },
-      "67" : {
-        "AbsType" : {
-          "nodeId" : 64,
-          "unqualifiedName" : "T"
+      "34" : {
+        "Vector" : {
+          "nodeId" : 26,
+          "unqualifiedName" : "V"
         }
       },
       "68" : {
+        "Constant" : {
+          "nodeId" : 59,
+          "unqualifiedName" : "s"
+        }
+      },
+      "78" : {
+        "Constant" : {
+          "nodeId" : 59,
+          "unqualifiedName" : "s"
+        }
+      },
+      "83" : {
         "AbsType" : {
-          "nodeId" : 64,
+          "nodeId" : 80,
           "unqualifiedName" : "T"
         }
       },
-      "71" : {
-        "Enum" : {
-          "nodeId" : 119,
-          "unqualifiedName" : "SignalType"
-        }
-      },
-      "72" : {
-        "Enum" : {
-          "nodeId" : 119,
-          "unqualifiedName" : "SignalType"
-        }
-      },
-      "75" : {
-        "Array" : {
-          "nodeId" : 112,
-          "unqualifiedName" : "SignalSet"
-        }
-      },
-      "76" : {
-        "Array" : {
-          "nodeId" : 112,
-          "unqualifiedName" : "SignalSet"
+      "84" : {
+        "AbsType" : {
+          "nodeId" : 80,
+          "unqualifiedName" : "T"
         }
       },
       "87" : {
-        "Array" : {
-          "nodeId" : 108,
-          "unqualifiedName" : "SignalPairSet"
+        "Enum" : {
+          "nodeId" : 135,
+          "unqualifiedName" : "SignalType"
         }
       },
       "88" : {
+        "Enum" : {
+          "nodeId" : 135,
+          "unqualifiedName" : "SignalType"
+        }
+      },
+      "91" : {
         "Array" : {
-          "nodeId" : 108,
+          "nodeId" : 128,
+          "unqualifiedName" : "SignalSet"
+        }
+      },
+      "92" : {
+        "Array" : {
+          "nodeId" : 128,
+          "unqualifiedName" : "SignalSet"
+        }
+      },
+      "103" : {
+        "Array" : {
+          "nodeId" : 124,
           "unqualifiedName" : "SignalPairSet"
         }
       },
-      "106" : {
+      "104" : {
+        "Array" : {
+          "nodeId" : 124,
+          "unqualifiedName" : "SignalPairSet"
+        }
+      },
+      "122" : {
         "Struct" : {
-          "nodeId" : 103,
+          "nodeId" : 119,
           "unqualifiedName" : "SignalPair"
         }
       },
-      "107" : {
+      "123" : {
         "Struct" : {
-          "nodeId" : 103,
+          "nodeId" : 119,
           "unqualifiedName" : "SignalPair"
         }
       },
-      "124" : {
+      "140" : {
         "AliasType" : {
           "nodeId" : 1,
           "unqualifiedName" : "FwSizeStoreType"
         }
       },
-      "125" : {
+      "141" : {
         "AliasType" : {
           "nodeId" : 1,
           "unqualifiedName" : "FwSizeStoreType"
         }
       },
-      "126" : {
+      "142" : {
+        "AliasType" : {
+          "nodeId" : 1,
+          "unqualifiedName" : "FwSizeStoreType"
+        }
+      },
+      "143" : {
+        "AliasType" : {
+          "nodeId" : 1,
+          "unqualifiedName" : "FwSizeStoreType"
+        }
+      },
+      "144" : {
         "Constant" : {
           "nodeId" : 3,
           "unqualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE"
         }
       },
-      "127" : {
+      "145" : {
         "AliasType" : {
           "nodeId" : 1,
           "unqualifiedName" : "FwSizeStoreType"
         }
       },
-      "128" : {
+      "146" : {
         "Constant" : {
           "nodeId" : 3,
           "unqualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE"
         }
       },
-      "129" : {
+      "147" : {
         "AliasType" : {
           "nodeId" : 1,
           "unqualifiedName" : "FwSizeStoreType"
         }
       },
-      "130" : {
+      "148" : {
         "Constant" : {
           "nodeId" : 3,
           "unqualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE"
@@ -6343,96 +7181,137 @@
           "value" : 3
         }
       },
-      "38" : {
-        "Integer" : {
-          "value" : 1
-        }
-      },
-      "40" : {
-        "String" : {
-          "value" : "abc"
-        }
-      },
-      "42" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Integer" : {
-                "value" : 1
-              }
-            },
-            "y" : {
-              "String" : {
-                "value" : "abc"
-              }
-            }
-          }
-        }
-      },
-      "43" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Integer" : {
-                "value" : 1
-              }
-            },
-            "y" : {
-              "String" : {
-                "value" : "abc"
-              }
-            }
-          }
-        }
-      },
-      "52" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Integer" : {
-                "value" : 1
-              }
-            },
-            "y" : {
-              "String" : {
-                "value" : "abc"
-              }
-            }
-          }
-        }
-      },
-      "62" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Integer" : {
-                "value" : 1
-              }
-            },
-            "y" : {
-              "String" : {
-                "value" : "abc"
-              }
-            }
-          }
-        }
-      },
-      "65" : {
+      "20" : {
         "Integer" : {
           "value" : 3
         }
       },
-      "104" : {
+      "22" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "23" : {
+        "Integer" : {
+          "value" : 2
+        }
+      },
+      "24" : {
+        "AnonArray" : {
+          "elements" : [
+            {
+              "Integer" : {
+                "value" : 1
+              }
+            },
+            {
+              "Integer" : {
+                "value" : 2
+              }
+            }
+          ]
+        }
+      },
+      "28" : {
+        "Integer" : {
+          "value" : 3
+        }
+      },
+      "31" : {
+        "Integer" : {
+          "value" : 2
+        }
+      },
+      "54" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "56" : {
+        "String" : {
+          "value" : "abc"
+        }
+      },
+      "58" : {
+        "AnonStruct" : {
+          "members" : {
+            "x" : {
+              "Integer" : {
+                "value" : 1
+              }
+            },
+            "y" : {
+              "String" : {
+                "value" : "abc"
+              }
+            }
+          }
+        }
+      },
+      "59" : {
+        "AnonStruct" : {
+          "members" : {
+            "x" : {
+              "Integer" : {
+                "value" : 1
+              }
+            },
+            "y" : {
+              "String" : {
+                "value" : "abc"
+              }
+            }
+          }
+        }
+      },
+      "68" : {
+        "AnonStruct" : {
+          "members" : {
+            "x" : {
+              "Integer" : {
+                "value" : 1
+              }
+            },
+            "y" : {
+              "String" : {
+                "value" : "abc"
+              }
+            }
+          }
+        }
+      },
+      "78" : {
+        "AnonStruct" : {
+          "members" : {
+            "x" : {
+              "Integer" : {
+                "value" : 1
+              }
+            },
+            "y" : {
+              "String" : {
+                "value" : "abc"
+              }
+            }
+          }
+        }
+      },
+      "81" : {
+        "Integer" : {
+          "value" : 3
+        }
+      },
+      "120" : {
         "Integer" : {
           "value" : 4
         }
       },
-      "109" : {
+      "125" : {
         "Integer" : {
           "value" : 4
         }
       },
-      "113" : {
+      "129" : {
         "EnumConstant" : {
           "value" : [
             "TRIANGLE",
@@ -6440,7 +7319,7 @@
           ],
           "t" : {
             "node" : {
-              "astNodeId" : 119
+              "astNodeId" : 135
             },
             "repType" : {
               "kind" : {
@@ -6453,7 +7332,7 @@
           }
         }
       },
-      "114" : {
+      "130" : {
         "EnumConstant" : {
           "value" : [
             "SQUARE",
@@ -6461,7 +7340,7 @@
           ],
           "t" : {
             "node" : {
-              "astNodeId" : 119
+              "astNodeId" : 135
             },
             "repType" : {
               "kind" : {
@@ -6474,7 +7353,7 @@
           }
         }
       },
-      "115" : {
+      "131" : {
         "EnumConstant" : {
           "value" : [
             "SINE",
@@ -6482,7 +7361,7 @@
           ],
           "t" : {
             "node" : {
-              "astNodeId" : 119
+              "astNodeId" : 135
             },
             "repType" : {
               "kind" : {
@@ -6495,7 +7374,7 @@
           }
         }
       },
-      "118" : {
+      "134" : {
         "EnumConstant" : {
           "value" : [
             "NOISE",
@@ -6503,7 +7382,7 @@
           ],
           "t" : {
             "node" : {
-              "astNodeId" : 119
+              "astNodeId" : 135
             },
             "repType" : {
               "kind" : {
@@ -6516,17 +7395,17 @@
           }
         }
       },
-      "126" : {
+      "144" : {
         "Integer" : {
           "value" : 256
         }
       },
-      "128" : {
+      "146" : {
         "Integer" : {
           "value" : 256
         }
       },
-      "130" : {
+      "148" : {
         "Integer" : {
           "value" : 256
         }
@@ -6537,33 +7416,33 @@
     },
     "dictionarySymbolSet" : [
       {
-        "Struct" : {
-          "nodeId" : 90,
-          "unqualifiedName" : "SignalInfo"
+        "Array" : {
+          "nodeId" : 128,
+          "unqualifiedName" : "SignalSet"
+        }
+      },
+      {
+        "Enum" : {
+          "nodeId" : 135,
+          "unqualifiedName" : "SignalType"
         }
       },
       {
         "AliasType" : {
-          "nodeId" : 121,
+          "nodeId" : 137,
           "unqualifiedName" : "Alias1"
+        }
+      },
+      {
+        "Struct" : {
+          "nodeId" : 106,
+          "unqualifiedName" : "SignalInfo"
         }
       },
       {
         "Constant" : {
           "nodeId" : 5,
           "unqualifiedName" : "numElements"
-        }
-      },
-      {
-        "Enum" : {
-          "nodeId" : 119,
-          "unqualifiedName" : "SignalType"
-        }
-      },
-      {
-        "Array" : {
-          "nodeId" : 112,
-          "unqualifiedName" : "SignalSet"
         }
       }
     ],

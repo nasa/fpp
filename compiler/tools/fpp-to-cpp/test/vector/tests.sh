@@ -1,0 +1,12 @@
+tests="
+abs_type
+component
+default_value
+duplicate
+enum
+nested
+single_element
+size_prefix
+string
+struct
+"

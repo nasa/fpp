@@ -104,6 +104,9 @@ object ComputeCppFiles {
     /** Gets the C++ file name for generated structs */
     def getStruct(baseName: String) = s"${baseName}SerializableAc"
 
+    /** Gets the C++ file name for generated vectors */
+    def getVector(baseName: String) = s"${baseName}VectorAc"
+
     /** Gets the C++ file name for a telemetry packet set */
     def getTlmPacketSet(baseName: String) = s"${baseName}TlmPacketsAc"
 
