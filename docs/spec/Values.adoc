@@ -121,6 +121,9 @@ We write the value `value of type` stem:[T].
 
 An *anonymous array value* is a value associated with an anonymous
 array type.
+An anonymous array value is always a fixed-size array value.
+A value of a variable-size <<Types_Array-Types,array type>> is always an
+<<Values_Array-Values,array value>> whose canonical type is a named array type.
 We write an anonymous array value similarly to an
 <<Expressions_Array-Expressions,array expression>>:
 an anonymous array value stem:[v] has the form `[` stem:[v_1] `,` stem:[...]
@@ -151,7 +154,12 @@ An array value has the form `[` stem:[v_0] `,` stem:[...] `,`
 stem:[v_{n-1}] `]` `:` stem:[Q],
 where
 
-. stem:[n] is a positive integer called the *size* of the array value.
+. stem:[n] is a nonnegative integer called the *length* of the array value.
+If stem:[Q] refers to a fixed-size array definition of size stem:[m], then
+stem:[n = m].
+If stem:[Q] refers to a variable-size array definition of maximum size stem:[m],
+then stem:[0 <= n <= m]; in particular, the length may be zero, in which case
+the value is the empty array `[ ]`.
 
 . stem:[Q] is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>>
@@ -238,8 +246,16 @@ depends on the type _T_ of _v_:
 
 ** The length of the string in characters.
 
-* Otherwise if _v_ is an <<Types_Array-Types,array type>>, then _s_ is the sum
-  of the serialized sizes of the elements of _v_.
+* Otherwise if _v_ is a fixed-size <<Types_Array-Types,array type>>, then _s_ is
+  the sum of the serialized sizes of the elements of _v_.
+
+* Otherwise if _v_ is a variable-size <<Types_Array-Types,array type>> with
+  size-prefix type _Tp_, then _s_ is the sum of the following two numbers:
+
+** The serialized size of _Tp_.
+   This is the space used to store the length of the array.
+
+** The sum of the serialized sizes of the elements of _v_.
 
 * Otherwise if _v_ is a <<Types_Struct-Types,struct type>>, then _s_ is the sum
   of the serialized sizes of the members of _v_

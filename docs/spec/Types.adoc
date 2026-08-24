@@ -65,11 +65,30 @@ maximum string length.
 An *array type* is a type associated with an
 <<Definitions_Array-Definitions,array definition>>.
 There is one array type per array definition.
-Each array type is computed after resolving constants,
-so an array type has a constant integer value for its size.
 An array type is written using its
 <<Scoping-of-Names_Names-of-Definitions,unique qualified
 name>>.
+
+There are two kinds of array types:
+
+* A *fixed-size array type* represents an array of a fixed number _n_ of
+elements.
+The value _n_ is called the *size* of the type.
+A value of a fixed-size array type has exactly _n_ elements.
+
+* A *variable-size array type* represents an array of a variable number of
+elements, up to a maximum number _n_.
+The value _n_ is called the *maximum size* of the type.
+A value of a variable-size array type has a *length* in the range [0, _n_],
+which is the number of elements that it stores.
+A variable-size array type also has a *size-prefix type* _Tp_, whose
+<<Types_Underlying-Types,underlying type>> is an unsigned
+<<Types_Primitive-Integer-Types,primitive integer type>>.
+_Tp_ specifies the type used to serialize the length of the array (see
+<<Types_Serialized-Sizes,serialized sizes>>).
+
+Each array type is computed after resolving constants,
+so an array type has a constant integer value for its size or maximum size.
 
 === Enum Types
 
@@ -132,11 +151,21 @@ the *numeric types*.
 ==== Anonymous Array Types
 
 The type _[_ _n_ _]_ _T_, where _n_
-is an integer and _T_ is a type, represents an array of _n_ elements,
+is an integer and _T_ is a type, represents a fixed-size array of _n_ elements,
 each of type _T_.
 The type _T_ is called the *element type* of the
 anonymous array type.
 The integer _n_ is called the *size* of the anonymous array type.
+
+The type _[_ `size` _n_ _]_ _T_, where _n_
+is an integer and _T_ is a type, represents a variable-size array of at most
+_n_ elements, each of type _T_.
+The type _T_ is called the *element type*, and the integer _n_ the
+*maximum size*, of the anonymous array type.
+Anonymous array types do not record a size-prefix type; the size-prefix type
+of a variable-size array is a property of the
+<<Definitions_Array-Definitions,array definition>>, and it is used only when
+computing <<Types_Serialized-Sizes,serialized sizes>>.
 
 ==== Anonymous Struct Types
 
@@ -172,7 +201,8 @@ It is one of the following:
 * A <<Types_The-Boolean-Type,boolean type>>.
 * A <<Types_String-Types,string type>>.
 * An <<Types_Enum-Types,enum type>>.
-* An <<Types_Array-Types,array type>> whose member type is a displayable type.
+* A fixed-size <<Types_Array-Types,array type>> whose member type is a displayable type.
+* A variable-size <<Types_Array-Types,array type>> whose member type is a displayable type.
 * A <<Types_Struct-Types,struct type>> whose member types are all displayable types.
 * An <<Types_Alias-Types,alias type>> whose <<Types_Underlying-Types,underlying
 type>> is a displayable type.
@@ -223,7 +253,7 @@ every variable is initialized when it is created.
 * The default value associated with any
 <<Types_String-Types,string type>> is the empty string.
 
-* The default value associated with an
+* The default value associated with a fixed-size
 <<Types_Array-Types,array type>> _T_ is (1)
 the default value specified in the array definition,
 if one is given; otherwise (2) the unique value
@@ -231,6 +261,12 @@ of type _T_ that has the default value of the member type
 of _T_ at each member.
 See the section on <<Definitions_Array-Definitions,
 array definitions>> for examples.
+
+* The default value associated with a variable-size
+<<Types_Array-Types,array type>> _T_ is (1)
+the default value specified in the array definition,
+if one is given; otherwise (2) the empty array, i.e., the value
+of type _T_ that has length zero.
 
 * The default value associated with an
 <<Types_Enum-Types,enum type>> is (1) the default value
@@ -287,9 +323,19 @@ This is the space used to store the length of the string.
 `FW_FIXED_LENGTH_STRING_SIZE`.
 This is the maximum space required to store the characters of the string.
 
-* If _T_ is an
+* If _T_ is a fixed-size
 <<Types_Array-Types,array type>> with element type _T'_ and size _n_, then _s_
 is _n_ times the serialized size of _T'_.
+
+* If _T_ is a variable-size
+<<Types_Array-Types,array type>> with element type _T'_, maximum size _n_,
+and size-prefix type _Tp_, then _s_ is the sum of the following two numbers:
+
+** The serialized size of _Tp_.
+This is the space used to store the length of the array.
+
+** The number _n_ times the serialized size of _T'_.
+This is the maximum space required to store the elements of the array.
 
 * If _T_ is an
 <<Types_Enum-Types,enum type>>, then _s_ is the serialized size of the

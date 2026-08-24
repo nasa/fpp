@@ -26,4 +26,9 @@ constant b = sizeof(F64) # sizeof(F64) evaluates to 8
 
 array A = [3] U16
 constant c = sizeof(A) # sizeof(A) evaluates to 6
+
+array B = [U16 size 3] U16
+constant d = sizeof(B) # sizeof(B) evaluates to 8:
+                       # 2 bytes for the U16 length prefix, plus
+                       # 3 * 2 bytes for the maximum contents
 ----

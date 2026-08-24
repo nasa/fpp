@@ -145,7 +145,10 @@ stem:[e_1] `[` stem:[e_2] `]`, the semantic analyzer does the following:
 
 . Check that stem:[T_1] is an <<Types_Array-Types,array type>> or
 <<Types_Internal-Types_Anonymous-Array-Types,anonymous array type>>
-with element type stem:[T] and size stem:[n].
+with element type stem:[T].
+If stem:[T_1] is a fixed-size array type, then let stem:[n] be its size.
+If stem:[T_1] is a variable-size array type, then let stem:[n] be its maximum
+size.
 
 . Compute the type stem:[T_2] of stem:[e_2].
 
@@ -365,16 +368,28 @@ is allowed after replacing the array type or types with
 structurally equivalent
 <<Types_Internal-Types_Anonymous-Array-Types,anonymous array types>>.
 
-. An anonymous array type stem:[T_1 =] _[_ stem:[n] _]_ stem:[T'_1]
-may be converted to the anonymous array type
+. An anonymous fixed-size array type stem:[T_1 =] _[_ stem:[n] _]_ stem:[T'_1]
+may be converted to the anonymous fixed-size array type
 stem:[T_2 =] _[_ stem:[m] _]_ stem:[T'_2]
 if stem:[n = m] and stem:[T'_1] may be converted to stem:[T'_2].
+
+. An anonymous fixed-size array type stem:[T_1 =] _[_ stem:[n] _]_ stem:[T'_1]
+may be converted to the anonymous variable-size array type
+stem:[T_2 =] _[_ `size` stem:[m] _]_ stem:[T'_2]
+if stem:[n <= m] and stem:[T'_1] may be converted to stem:[T'_2].
+Note that the size-prefix type of a variable-size array type does not affect
+convertibility.
+
+. An anonymous variable-size array type stem:[T_1 =] _[_ `size` stem:[n] _]_ stem:[T'_1]
+may be converted to the anonymous variable-size array type
+stem:[T_2 =] _[_ `size` stem:[m] _]_ stem:[T'_2]
+if stem:[n <= m] and stem:[T'_1] may be converted to stem:[T'_2].
 
 . A <<Types_Internal-Types_Numeric-Types,numeric type>>,
   <<Types_The-Boolean-Type,Boolean type>>, <<Types_Enum-Types,enum type>>, or
 <<Types_String-Types,string type>> stem:[T_1] may be converted to an anonymous
-array type stem:[T_2] if stem:[T_1] may be converted to the member type of
-stem:[T_2].
+fixed-size array type stem:[T_2] if stem:[T_1] may be converted to the member
+type of stem:[T_2].
 
 . If stem:[T_1] or stem:[T_2] or both are
 <<Types_Struct-Types,struct types>>, then
@@ -461,7 +476,7 @@ and reapply these rules.
 then replace the array type or types with structurally equivalent
 anonymous array types and reapply these rules.
 
-. Otherwise if stem:[T_1] and stem:[T_2] are anonymous array types with the same size stem:[n]
+. Otherwise if stem:[T_1] and stem:[T_2] are anonymous fixed-size array types with the same size stem:[n]
 and with member types stem:[T'_1] and stem:[T'_2], then apply these rules to resolve
 stem:[T'_1] and stem:[T'_2] to stem:[T'] and let stem:[T] be _[_ stem:[n] _]_ stem:[T'].
 

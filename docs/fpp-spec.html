@@ -1831,7 +1831,7 @@ it.</p>
 <code>dictionary</code>
 <em>]</em>
 <code>array</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code>
-<code>[</code> <a href="#Expressions"><em>expression</em></a> <code>]</code> <a href="#Type-Names"><em>type-name</em></a>
+<em>array-size</em> <a href="#Type-Names"><em>type-name</em></a>
 <em>[</em>
 <code>default</code> <a href="#Expressions"><em>expression</em></a>
 <em>]</em>
@@ -1839,31 +1839,91 @@ it.</p>
 <code>format</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a>
 <em>]</em></p>
 </div>
+<div class="paragraph">
+<p>The <strong>array size specifier</strong> <em>array-size</em> has one of the following forms:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>[</code> <a href="#Expressions"><em>expression</em></a> <code>]</code></p>
+</li>
+<li>
+<p><code>[</code> <code>size</code> <a href="#Expressions"><em>expression</em></a> <code>]</code></p>
+</li>
+<li>
+<p><code>[</code> <a href="#Type-Names"><em>type-name</em></a> <code>size</code> <a href="#Expressions"><em>expression</em></a> <code>]</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The first form specifies a <strong>fixed-size array</strong>.
+The second and third forms specify a <strong>variable-size array</strong>.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Array-Definitions_Semantics">5.3.2. Semantics</h4>
 <div class="paragraph">
 <p>The identifier is the name <em>N</em> of the new type.
-The first expression must evaluate to a compile-time constant numeric value <em>n</em>
-whose value is greater than zero.
-<em>type-name</em> names the type <em>T</em> of each array element.</p>
+The type name appearing after the array size specifier names the type <em>T</em>
+of each array element.
+The type <em>T</em> is called the <strong>element type</strong> of the array type <em>T'</em>.</p>
 </div>
 <div class="paragraph">
-<p>The definition associates the name <em>N</em> with a new type <em>T'</em>
-that represents an array of <em>n</em> elements of type <em>T</em>.
-The value <em>n</em> is called the <strong>size</strong> of the array type <em>T'</em>.
-The type <em>T</em> is called the <strong>element type</strong> of the array type <em>T'</em>.</p>
+<p>The expression appearing in the array size specifier must evaluate to a
+compile-time constant numeric value <em>n</em> whose value is greater than zero.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If the array size specifier has the form <code>[</code> <em>expression</em> <code>]</code>, then the
+definition defines a <strong>fixed-size array type</strong>.
+In this case the definition associates the name <em>N</em> with a new type <em>T'</em>
+that represents an array of exactly <em>n</em> elements of type <em>T</em>.
+The value <em>n</em> is called the <strong>size</strong> of the array type <em>T'</em>.</p>
+</li>
+<li>
+<p>If the array size specifier has the form <code>[</code> <code>size</code> <em>expression</em> <code>]</code> or
+<code>[</code> <em>type-name</em> <code>size</code> <em>expression</em> <code>]</code>, then the definition defines a
+<strong>variable-size array type</strong>.
+In this case the definition associates the name <em>N</em> with a new type <em>T'</em>
+that represents an array of at most <em>n</em> elements of type <em>T</em>.
+A value of type <em>T'</em> has a <strong>length</strong> in the range [0, <em>n</em>], which is the number
+of elements that it stores.
+The value <em>n</em> is called the <strong>maximum size</strong> of the array type <em>T'</em>.</p>
+<div class="paragraph">
+<p>The type name preceding the keyword <code>size</code>, if present, names the
+<strong>size-prefix type</strong> <em>Tp</em> of the array type <em>T'</em>.
+It specifies the type used to serialize the length of the array as a length
+prefix in the standard F Prime serialized format (see
+<a href="#Types_Serialized-Sizes">serialized sizes</a>).
+The <a href="#Types_Underlying-Types">underlying type</a> of <em>Tp</em> must be an
+unsigned <a href="#Types_Primitive-Integer-Types">primitive integer type</a>.
+If the size-prefix type is omitted, then it is the
+<a href="#Definitions_Framework-Definitions_Type-Definitions">framework type</a>
+<code>FwSizeStoreType</code>.
+In this case the array size specifier represents an
+<a href="#Definitions-and-Uses_Implied-Uses">implied use</a> of <code>FwSizeStoreType</code>.</p>
+</div>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>The expression following the keyword <code>default</code> is optional.
 If present, it specifies the <a href="#Types_Default-Values">default value</a> associated
 with the type.
 The type of the expression must be
-<a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T'</em>.</p>
+<a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T'</em>.
+For a variable-size array type, the length of the default value must not
+exceed the maximum size <em>n</em>.
+If the <code>default</code> expression is absent, then the default value of a
+variable-size array type is the empty array (see
+<a href="#Types_Default-Values">default values</a>).</p>
 </div>
 <div class="paragraph">
 <p>The optional format specifier specifies a <a href="#Format-Strings">format string</a>.
 When displaying the array, the format is applied to each element of the array.
+For a variable-size array, the format is applied to each element present in the
+value.
 There is one argument to the format string, which is an array member.</p>
 </div>
 <div class="paragraph">
@@ -1892,7 +1952,18 @@ array D = [3] U32 default 1
 
 # Defines an array type E of 3 F32 values with default value
 # [ 1, 1, 1, ] and element format {.03f}
-array E = [3] F32 default 1 format "{.03f}"</code></pre>
+array E = [3] F32 default 1 format "{.03f}"
+
+# Defines a variable-size array type F of at most 3 U8 elements.
+# The length of the array is serialized using a U16 length prefix.
+# The default value is the empty array [ ]
+array F = [U16 size 3] U8
+
+# Defines a variable-size array type G of at most 4 F32 elements.
+# The length of the array is serialized using the framework type
+# FwSizeStoreType, because the size-prefix type is omitted.
+# The default value is [ 1, 2 ], which has length 2
+array G = [size 4] F32 default [ 1, 2 ]</code></pre>
 </div>
 </div>
 </div>
@@ -9278,7 +9349,9 @@ an array value.</p>
 <li>
 <p>The type of \$e_1\$ must be an <a href="#Types_Array-Types">array type</a> or
 <a href="#Types_Internal-Types_Anonymous-Array-Types">anonymous array type</a>
-with element type <em>T</em> and size <em>n</em>.</p>
+with element type <em>T</em>.
+If the type is a fixed-size array type, then let <em>n</em> be its size.
+If the type is a variable-size array type, then let <em>n</em> be its maximum size.</p>
 </li>
 <li>
 <p>The type of \$e_2\$ must be <a href="#Type-Checking_Type-Conversion">convertible to</a>
@@ -9286,7 +9359,11 @@ with element type <em>T</em> and size <em>n</em>.</p>
 \$e_2\$ must
 <a href="#Evaluation">evaluate</a> to a value <em>m</em> after
 <a href="#Evaluation_Type-Conversion">conversion</a> to <em>Integer</em>.
-<em>m</em> must be greater than or equal to zero and less than <em>n</em>.</p>
+<em>m</em> must be greater than or equal to zero.
+For a fixed-size array type, <em>m</em> must be less than the size <em>n</em>.
+For a variable-size array type, <em>m</em> must be less than the
+<a href="#Values_Array-Values">length</a> of the array value selected by \$e_1\$,
+which is at most the maximum size <em>n</em>.</p>
 </li>
 <li>
 <p>Evaluation of \$e_1\$ <code>[</code> \$e_2\$ <code>]</code> occurs as follows:</p>
@@ -9750,7 +9827,12 @@ constant a = sizeof(T) # sizeof(T) evaluates to 4
 constant b = sizeof(F64) # sizeof(F64) evaluates to 8
 
 array A = [3] U16
-constant c = sizeof(A) # sizeof(A) evaluates to 6</code></pre>
+constant c = sizeof(A) # sizeof(A) evaluates to 6
+
+array B = [U16 size 3] U16
+constant d = sizeof(B) # sizeof(B) evaluates to 8:
+                       # 2 bytes for the U16 length prefix, plus
+                       # 3 * 2 bytes for the maximum contents</code></pre>
 </div>
 </div>
 </div>
@@ -11226,11 +11308,38 @@ maximum string length.</p>
 <p>An <strong>array type</strong> is a type associated with an
 <a href="#Definitions_Array-Definitions">array definition</a>.
 There is one array type per array definition.
-Each array type is computed after resolving constants,
-so an array type has a constant integer value for its size.
 An array type is written using its
 <a href="#Scoping-of-Names_Names-of-Definitions">unique qualified
 name</a>.</p>
+</div>
+<div class="paragraph">
+<p>There are two kinds of array types:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <strong>fixed-size array type</strong> represents an array of a fixed number <em>n</em> of
+elements.
+The value <em>n</em> is called the <strong>size</strong> of the type.
+A value of a fixed-size array type has exactly <em>n</em> elements.</p>
+</li>
+<li>
+<p>A <strong>variable-size array type</strong> represents an array of a variable number of
+elements, up to a maximum number <em>n</em>.
+The value <em>n</em> is called the <strong>maximum size</strong> of the type.
+A value of a variable-size array type has a <strong>length</strong> in the range [0, <em>n</em>],
+which is the number of elements that it stores.
+A variable-size array type also has a <strong>size-prefix type</strong> <em>Tp</em>, whose
+<a href="#Types_Underlying-Types">underlying type</a> is an unsigned
+<a href="#Types_Primitive-Integer-Types">primitive integer type</a>.
+<em>Tp</em> specifies the type used to serialize the length of the array (see
+<a href="#Types_Serialized-Sizes">serialized sizes</a>).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each array type is computed after resolving constants,
+so an array type has a constant integer value for its size or maximum size.</p>
 </div>
 </div>
 <div class="sect2">
@@ -11310,11 +11419,22 @@ the <strong>numeric types</strong>.</p>
 <h4 id="Types_Internal-Types_Anonymous-Array-Types">17.12.4. Anonymous Array Types</h4>
 <div class="paragraph">
 <p>The type <em>[</em> <em>n</em> <em>]</em> <em>T</em>, where <em>n</em>
-is an integer and <em>T</em> is a type, represents an array of <em>n</em> elements,
+is an integer and <em>T</em> is a type, represents a fixed-size array of <em>n</em> elements,
 each of type <em>T</em>.
 The type <em>T</em> is called the <strong>element type</strong> of the
 anonymous array type.
 The integer <em>n</em> is called the <strong>size</strong> of the anonymous array type.</p>
+</div>
+<div class="paragraph">
+<p>The type <em>[</em> <code>size</code> <em>n</em> <em>]</em> <em>T</em>, where <em>n</em>
+is an integer and <em>T</em> is a type, represents a variable-size array of at most
+<em>n</em> elements, each of type <em>T</em>.
+The type <em>T</em> is called the <strong>element type</strong>, and the integer <em>n</em> the
+<strong>maximum size</strong>, of the anonymous array type.
+Anonymous array types do not record a size-prefix type; the size-prefix type
+of a variable-size array is a property of the
+<a href="#Definitions_Array-Definitions">array definition</a>, and it is used only when
+computing <a href="#Types_Serialized-Sizes">serialized sizes</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -11377,7 +11497,10 @@ It is one of the following:</p>
 <p>An <a href="#Types_Enum-Types">enum type</a>.</p>
 </li>
 <li>
-<p>An <a href="#Types_Array-Types">array type</a> whose member type is a displayable type.</p>
+<p>A fixed-size <a href="#Types_Array-Types">array type</a> whose member type is a displayable type.</p>
+</li>
+<li>
+<p>A variable-size <a href="#Types_Array-Types">array type</a> whose member type is a displayable type.</p>
 </li>
 <li>
 <p>A <a href="#Types_Struct-Types">struct type</a> whose member types are all displayable types.</p>
@@ -11460,13 +11583,20 @@ every variable is initialized when it is created.</p>
 <a href="#Types_String-Types">string type</a> is the empty string.</p>
 </li>
 <li>
-<p>The default value associated with an
+<p>The default value associated with a fixed-size
 <a href="#Types_Array-Types">array type</a> <em>T</em> is (1)
 the default value specified in the array definition,
 if one is given; otherwise (2) the unique value
 of type <em>T</em> that has the default value of the member type
 of <em>T</em> at each member.
 See the section on <a href="#Definitions_Array-Definitions">array definitions</a> for examples.</p>
+</li>
+<li>
+<p>The default value associated with a variable-size
+<a href="#Types_Array-Types">array type</a> <em>T</em> is (1)
+the default value specified in the array definition,
+if one is given; otherwise (2) the empty array, i.e., the value
+of type <em>T</em> that has length zero.</p>
 </li>
 <li>
 <p>The default value associated with an
@@ -11542,9 +11672,26 @@ This is the maximum space required to store the characters of the string.</p>
 </div>
 </li>
 <li>
-<p>If <em>T</em> is an
+<p>If <em>T</em> is a fixed-size
 <a href="#Types_Array-Types">array type</a> with element type <em>T'</em> and size <em>n</em>, then <em>s</em>
 is <em>n</em> times the serialized size of <em>T'</em>.</p>
+</li>
+<li>
+<p>If <em>T</em> is a variable-size
+<a href="#Types_Array-Types">array type</a> with element type <em>T'</em>, maximum size <em>n</em>,
+and size-prefix type <em>Tp</em>, then <em>s</em> is the sum of the following two numbers:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The serialized size of <em>Tp</em>.
+This is the space used to store the length of the array.</p>
+</li>
+<li>
+<p>The number <em>n</em> times the serialized size of <em>T'</em>.
+This is the maximum space required to store the elements of the array.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>If <em>T</em> is an
@@ -11783,7 +11930,10 @@ constant b = [ 1, 2, 3.0 ] # Type is [3] F64</code></pre>
 <li>
 <p>Check that \$T_1\$ is an <a href="#Types_Array-Types">array type</a> or
 <a href="#Types_Internal-Types_Anonymous-Array-Types">anonymous array type</a>
-with element type \$T\$ and size \$n\$.</p>
+with element type \$T\$.
+If \$T_1\$ is a fixed-size array type, then let \$n\$ be its size.
+If \$T_1\$ is a variable-size array type, then let \$n\$ be its maximum
+size.</p>
 </li>
 <li>
 <p>Compute the type \$T_2\$ of \$e_2\$.</p>
@@ -12096,17 +12246,31 @@ structurally equivalent
 <a href="#Types_Internal-Types_Anonymous-Array-Types">anonymous array types</a>.</p>
 </li>
 <li>
-<p>An anonymous array type \$T_1 =\$ <em>[</em> \$n\$ <em>]</em> \$T'_1\$
-may be converted to the anonymous array type
+<p>An anonymous fixed-size array type \$T_1 =\$ <em>[</em> \$n\$ <em>]</em> \$T'_1\$
+may be converted to the anonymous fixed-size array type
 \$T_2 =\$ <em>[</em> \$m\$ <em>]</em> \$T'_2\$
 if \$n = m\$ and \$T'_1\$ may be converted to \$T'_2\$.</p>
+</li>
+<li>
+<p>An anonymous fixed-size array type \$T_1 =\$ <em>[</em> \$n\$ <em>]</em> \$T'_1\$
+may be converted to the anonymous variable-size array type
+\$T_2 =\$ <em>[</em> <code>size</code> \$m\$ <em>]</em> \$T'_2\$
+if \$n &lt;= m\$ and \$T'_1\$ may be converted to \$T'_2\$.
+Note that the size-prefix type of a variable-size array type does not affect
+convertibility.</p>
+</li>
+<li>
+<p>An anonymous variable-size array type \$T_1 =\$ <em>[</em> <code>size</code> \$n\$ <em>]</em> \$T'_1\$
+may be converted to the anonymous variable-size array type
+\$T_2 =\$ <em>[</em> <code>size</code> \$m\$ <em>]</em> \$T'_2\$
+if \$n &lt;= m\$ and \$T'_1\$ may be converted to \$T'_2\$.</p>
 </li>
 <li>
 <p>A <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>,
   <a href="#Types_The-Boolean-Type">Boolean type</a>, <a href="#Types_Enum-Types">enum type</a>, or
 <a href="#Types_String-Types">string type</a> \$T_1\$ may be converted to an anonymous
-array type \$T_2\$ if \$T_1\$ may be converted to the member type of
-\$T_2\$.</p>
+fixed-size array type \$T_2\$ if \$T_1\$ may be converted to the member
+type of \$T_2\$.</p>
 </li>
 <li>
 <p>If \$T_1\$ or \$T_2\$ or both are
@@ -12230,7 +12394,7 @@ then replace the array type or types with structurally equivalent
 anonymous array types and reapply these rules.</p>
 </li>
 <li>
-<p>Otherwise if \$T_1\$ and \$T_2\$ are anonymous array types with the same size \$n\$
+<p>Otherwise if \$T_1\$ and \$T_2\$ are anonymous fixed-size array types with the same size \$n\$
 and with member types \$T'_1\$ and \$T'_2\$, then apply these rules to resolve
 \$T'_1\$ and \$T'_2\$ to \$T'\$ and let \$T\$ be <em>[</em> \$n\$ <em>]</em> \$T'\$.</p>
 </li>
@@ -12641,6 +12805,9 @@ We write the value <code>value of type</code> \$T\$.</p>
 <div class="paragraph">
 <p>An <strong>anonymous array value</strong> is a value associated with an anonymous
 array type.
+An anonymous array value is always a fixed-size array value.
+A value of a variable-size <a href="#Types_Array-Types">array type</a> is always an
+<a href="#Values_Array-Values">array value</a> whose canonical type is a named array type.
 We write an anonymous array value similarly to an
 <a href="#Expressions_Array-Expressions">array expression</a>:
 an anonymous array value \$v\$ has the form <code>[</code> \$v_1\$ <code>,</code> \$...\$
@@ -12684,7 +12851,12 @@ where</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>\$n\$ is a positive integer called the <strong>size</strong> of the array value.</p>
+<p>\$n\$ is a nonnegative integer called the <strong>length</strong> of the array value.
+If \$Q\$ refers to a fixed-size array definition of size \$m\$, then
+\$n = m\$.
+If \$Q\$ refers to a variable-size array definition of maximum size \$m\$,
+then \$0 &lt;= n &lt;= m\$; in particular, the length may be zero, in which case
+the value is the empty array <code>[ ]</code>.</p>
 </li>
 <li>
 <p>\$Q\$ is a
@@ -12803,8 +12975,23 @@ depends on the type <em>T</em> of <em>v</em>:</p>
 </div>
 </li>
 <li>
-<p>Otherwise if <em>v</em> is an <a href="#Types_Array-Types">array type</a>, then <em>s</em> is the sum
-of the serialized sizes of the elements of <em>v</em>.</p>
+<p>Otherwise if <em>v</em> is a fixed-size <a href="#Types_Array-Types">array type</a>, then <em>s</em> is
+the sum of the serialized sizes of the elements of <em>v</em>.</p>
+</li>
+<li>
+<p>Otherwise if <em>v</em> is a variable-size <a href="#Types_Array-Types">array type</a> with
+size-prefix type <em>Tp</em>, then <em>s</em> is the sum of the following two numbers:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The serialized size of <em>Tp</em>.
+This is the space used to store the length of the array.</p>
+</li>
+<li>
+<p>The sum of the serialized sizes of the elements of <em>v</em>.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>Otherwise if <em>v</em> is a <a href="#Types_Struct-Types">struct type</a>, then <em>s</em> is the sum
@@ -12959,8 +13146,8 @@ let \$v_2 = v_1\$.</p>
 <div class="paragraph">
 <p>Otherwise if \$T_1\$ is
 a numeric type, Boolean type, enum type, or string type
-and \$T_2\$ is an anonymous array type or array type with \$n\$
-elements, then</p>
+and \$T_2\$ is a fixed-size anonymous array type or fixed-size array type
+with \$n\$ elements, then</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -12977,8 +13164,8 @@ with value \$w\$ at each element.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>Otherwise if \$T_1\$ is an anonymous array type and \$T_2\$ is an
-anonymous array type or array type, both with \$n\$ elements, then</p>
+<p>Otherwise if \$T_1\$ and \$T_2\$ are both fixed-size array types or
+fixed-size anonymous array types of size \$n\$, then</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -12991,6 +13178,26 @@ element \$i\$ of \$v_1\$ to type \$T'_2\$.</p>
 </li>
 <li>
 <p>Let \$v_2\$ be the unique array value of type \$T_2\$
+with value \$w_i\$ at each element \$i\$.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Otherwise if \$T_1\$ is an anonymous array type or array type, \$v_1\$ has
+\$k\$ elements, and \$T_2\$ is a variable-size array type whose maximum
+size is at least \$k\$, then</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let \$T'_2\$ be the element type of \$T_2\$.</p>
+</li>
+<li>
+<p>For each \$i in [0,k-1]\$, let \$w_i\$ be the result of converting
+element \$i\$ of \$v_1\$ to type \$T'_2\$.</p>
+</li>
+<li>
+<p>Let \$v_2\$ be the array value of type \$T_2\$ and length \$k\$
 with value \$w_i\$ at each element \$i\$.</p>
 </li>
 </ol>
@@ -13309,7 +13516,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-19 10:10:16 -0700
+Last updated 2026-08-23 19:58:33 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
