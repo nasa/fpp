@@ -9,7 +9,7 @@ _[_
 `dictionary`
 _]_
 `array` <<Lexical-Elements_Identifiers,_identifier_>> `=`
-`[` <<Expressions,_expression_>> `]` <<Type-Names,_type-name_>>
+_array-size_ <<Type-Names,_type-name_>>
 _[_
 `default` <<Expressions,_expression_>>
 _]_
@@ -17,26 +17,70 @@ _[_
 `format` <<Expressions_String-Literals,_string-literal_>>
 _]_
 
+The *array size specifier* _array-size_ has one of the following forms:
+
+* `[` <<Expressions,_expression_>> `]`
+
+* `[` `size` <<Expressions,_expression_>> `]`
+
+* `[` <<Type-Names,_type-name_>> `size` <<Expressions,_expression_>> `]`
+
+The first form specifies a *fixed-size array*.
+The second and third forms specify a *variable-size array*.
+
 ==== Semantics
 
 The identifier is the name _N_ of the new type.
-The first expression must evaluate to a compile-time constant numeric value _n_
-whose value is greater than zero.
-_type-name_ names the type _T_ of each array element.
-
-The definition associates the name _N_ with a new type _T'_
-that represents an array of _n_ elements of type _T_.
-The value _n_ is called the *size* of the array type _T'_.
+The type name appearing after the array size specifier names the type _T_
+of each array element.
 The type _T_ is called the *element type* of the array type _T'_.
+
+The expression appearing in the array size specifier must evaluate to a
+compile-time constant numeric value _n_ whose value is greater than zero.
+
+* If the array size specifier has the form `[` _expression_ `]`, then the
+definition defines a *fixed-size array type*.
+In this case the definition associates the name _N_ with a new type _T'_
+that represents an array of exactly _n_ elements of type _T_.
+The value _n_ is called the *size* of the array type _T'_.
+
+* If the array size specifier has the form `[` `size` _expression_ `]` or
+`[` _type-name_ `size` _expression_ `]`, then the definition defines a
+*variable-size array type*.
+In this case the definition associates the name _N_ with a new type _T'_
+that represents an array of at most _n_ elements of type _T_.
+A value of type _T'_ has a *length* in the range [0, _n_], which is the number
+of elements that it stores.
+The value _n_ is called the *maximum size* of the array type _T'_.
++
+The type name preceding the keyword `size`, if present, names the
+*size-prefix type* _Tp_ of the array type _T'_.
+It specifies the type used to serialize the length of the array as a length
+prefix in the standard F Prime serialized format (see
+<<Types_Serialized-Sizes,serialized sizes>>).
+The <<Types_Underlying-Types,underlying type>> of _Tp_ must be an
+unsigned <<Types_Primitive-Integer-Types,primitive integer type>>.
+If the size-prefix type is omitted, then it is the
+<<Definitions_Framework-Definitions_Type-Definitions,framework type>>
+`FwSizeStoreType`.
+In this case the array size specifier represents an
+<<Definitions-and-Uses_Implied-Uses,implied use>> of `FwSizeStoreType`.
 
 The expression following the keyword `default` is optional.
 If present, it specifies the <<Types_Default-Values,default value>> associated
 with the type.
 The type of the expression must be
 <<Type-Checking_Type-Conversion,convertible to>> _T'_.
+For a variable-size array type, the length of the default value must not
+exceed the maximum size _n_.
+If the `default` expression is absent, then the default value of a
+variable-size array type is the empty array (see
+<<Types_Default-Values,default values>>).
 
 The optional format specifier specifies a <<Format-Strings,format string>>.
 When displaying the array, the format is applied to each element of the array.
+For a variable-size array, the format is applied to each element present in the
+value.
 There is one argument to the format string, which is an array member.
 
 If the optional keyword `dictionary` is present, then the
@@ -64,4 +108,15 @@ array D = [3] U32 default 1
 # Defines an array type E of 3 F32 values with default value
 # [ 1, 1, 1, ] and element format {.03f}
 array E = [3] F32 default 1 format "{.03f}"
+
+# Defines a variable-size array type F of at most 3 U8 elements.
+# The length of the array is serialized using a U16 length prefix.
+# The default value is the empty array [ ]
+array F = [U16 size 3] U8
+
+# Defines a variable-size array type G of at most 4 F32 elements.
+# The length of the array is serialized using the framework type
+# FwSizeStoreType, because the size-prefix type is omitted.
+# The default value is [ 1, 2 ], which has length 2
+array G = [size 4] F32 default [ 1, 2 ]
 ----

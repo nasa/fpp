@@ -101,8 +101,8 @@ let stem:[v_2 = v_1].
 
 Otherwise if stem:[T_1] is
 a numeric type, Boolean type, enum type, or string type
-and stem:[T_2] is an anonymous array type or array type with stem:[n]
-elements, then
+and stem:[T_2] is a fixed-size anonymous array type or fixed-size array type
+with stem:[n] elements, then
 
 . Let stem:[T'_2] be the element type of stem:[T_2].
 
@@ -111,8 +111,8 @@ elements, then
 . Let stem:[v_2] be the unique array value of type stem:[T_2]
 with value stem:[w] at each element.
 
-Otherwise if stem:[T_1] is an anonymous array type and stem:[T_2] is an
-anonymous array type or array type, both with stem:[n] elements, then
+Otherwise if stem:[T_1] and stem:[T_2] are both fixed-size array types or
+fixed-size anonymous array types of size stem:[n], then
 
 . Let stem:[T'_2] be the element type of stem:[T_2].
 
@@ -120,6 +120,18 @@ anonymous array type or array type, both with stem:[n] elements, then
 element stem:[i] of stem:[v_1] to type stem:[T'_2].
 
 . Let stem:[v_2] be the unique array value of type stem:[T_2]
+with value stem:[w_i] at each element stem:[i].
+
+Otherwise if stem:[T_1] is an anonymous array type or array type, stem:[v_1] has
+stem:[k] elements, and stem:[T_2] is a variable-size array type whose maximum
+size is at least stem:[k], then
+
+. Let stem:[T'_2] be the element type of stem:[T_2].
+
+. For each stem:[i in [0,k-1\]], let stem:[w_i] be the result of converting
+element stem:[i] of stem:[v_1] to type stem:[T'_2].
+
+. Let stem:[v_2] be the array value of type stem:[T_2] and length stem:[k]
 with value stem:[w_i] at each element stem:[i].
 
 Otherwise the conversion is not valid.
