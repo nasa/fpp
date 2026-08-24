@@ -14,3 +14,6 @@ module template T (
 
     constant d = c + 2
 }
+
+@ Without -t, the expansion specifier is formatted but not expanded
+expand T(constant 10, type U32, interface inst1)

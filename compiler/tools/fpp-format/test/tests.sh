@@ -8,6 +8,8 @@ kwd_names
 no_include
 state_machine
 template
+template_expand
+template_include
 topology
 dictionary_specifier
 "

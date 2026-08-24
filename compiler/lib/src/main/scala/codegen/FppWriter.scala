@@ -281,9 +281,17 @@ object FppWriter extends AstVisitor with LineUtils {
   ): Out = {
     val (_, node, _) = aNode
     val data = node.data
-    lines("expand").
-      join(" ") (qualIdent(data.template.data)).
-      join ("") (templateArgList(data.args))
+    val header =
+      lines("expand").
+        join(" ") (qualIdent(data.template.data)).
+        join ("") (templateArgList(data.args))
+    data.members match {
+      case None => header
+      case Some(members) =>
+        header.addSuffix(" {") ++
+        (Line.blankSeparated (moduleMember) (members)).map(indentIn) ++
+        List(Line.blank, line("}"))
+    }
   }
 
   override def defPortAnnotatedNode(
