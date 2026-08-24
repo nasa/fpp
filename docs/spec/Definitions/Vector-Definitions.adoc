@@ -1,0 +1,87 @@
+=== Vector Definitions
+
+A *vector definition* defines a new *vector type* and associates a name with it.
+A vector is a variable-size sequence of elements: it stores a run of elements
+whose length may vary at run time, up to a fixed maximum, and it serializes that
+length as a prefix.
+It is analogous to an <<Definitions_Array-Definitions,array>>, but variable-length.
+
+==== Syntax
+
+_[_
+`dictionary`
+_]_
+`vector` <<Lexical-Elements_Identifiers,_identifier_>> `=`
+_vector-size_ <<Type-Names,_type-name_>>
+_[_
+`default` <<Expressions,_expression_>>
+_]_
+_[_
+`format` <<Expressions_String-Literals,_string-literal_>>
+_]_
+
+The *size specifier* _vector-size_ has one of the following forms:
+
+* `[` `size` <<Expressions,_expression_>> `]`
+
+* `[` <<Type-Names,_type-name_>> `size` <<Expressions,_expression_>> `]`
+
+==== Semantics
+
+The identifier is the name _N_ of the new type.
+The type name following the size specifier names the type _T_ of each element.
+_T_ is called the *element type* of the vector type _T'_.
+
+The expression appearing in the size specifier must evaluate to a numeric value
+_n_ greater than zero. _n_ is called the *maximum size* of the vector type _T'_.
+A value of type _T'_ has a *length* in the range [0, _n_], which is the number of
+elements that it stores.
+
+The type name preceding the keyword `size`, if present, names the
+*size-prefix type* _Tp_ of the vector type _T'_.
+It specifies the type used to serialize the length of the vector as a length
+prefix in the standard F Prime serialized format (see
+<<Types_Serialized-Sizes,serialized sizes>>).
+The <<Types_Underlying-Types,underlying type>> of _Tp_ must be an
+unsigned <<Types_Primitive-Integer-Types,primitive integer type>>.
+If the size-prefix type is omitted, then it is the
+<<Definitions_Framework-Definitions_Type-Definitions,framework type>>
+`FwSizeStoreType`, and the size specifier represents an
+<<Definitions-and-Uses_Implied-Uses,implied use>> of `FwSizeStoreType`.
+
+The expression following the keyword `default` is optional.
+If present, it specifies the <<Types_Default-Values,default value>> associated
+with the type.
+The type of the expression must be
+<<Type-Checking_Type-Conversion,convertible to>> _T'_, and the length of the
+default value must not exceed the maximum size _n_.
+If the `default` expression is absent, then the default value is the empty
+vector, i.e., the value of length zero.
+
+The optional format specifier specifies a <<Format-Strings,format string>>.
+When displaying the vector, the format is applied to each element present in the
+value.
+There is one argument to the format string, which is a vector element.
+
+If the optional keyword `dictionary` is present, then the
+definition must conform to the rules stated in the
+<<Definitions_Dictionary-Definitions,dictionary definitions>> section.
+
+==== Examples
+
+[source,fpp]
+----
+# Defines a vector type V of at most 3 U8 elements.
+# The length is serialized using the framework type FwSizeStoreType,
+# because the size-prefix type is omitted.
+# The default value is the empty vector [ ]
+vector V = [size 3] U8
+
+# Defines a vector type W of at most 3 U8 elements.
+# The length is serialized using a U16 length prefix.
+vector W = [U16 size 3] U8
+
+# Defines a vector type X of at most 4 F32 elements
+# with default value [ 1, 2 ], which has length 2
+vector X = [size 4] F32 default [ 1, 2 ]
+----
