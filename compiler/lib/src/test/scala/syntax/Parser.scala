@@ -75,7 +75,23 @@ class ParserSpec extends AnyWordSpec {
         "array a = [10] U32",
         "array a = [10] U32 default 0",
         "array a = [10] U32 default 0 format \"{} counts\"",
-        "dictionary array a = [10] U32"
+        "dictionary array a = [10] U32",
+        "array a = [size 10] U32",
+        "array a = [size 10] U32 default 0 format \"{} counts\"",
+        "array a = [U16 size 10] U32",
+        "array a = [a.b.C size 10] U32",
+        "dictionary array a = [U8 size 10] U32"
+      )
+    )
+  }
+
+  "def array error" should {
+    parseAllError(
+      Parser.defArray,
+      List(
+        "array a = [U16 10] U32",
+        "array a = [size] U32",
+        "array a = [U16 size] U32"
       )
     )
   }

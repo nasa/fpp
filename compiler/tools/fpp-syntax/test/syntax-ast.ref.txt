@@ -24,6 +24,21 @@ def module
     default literal int 0
     format {} counts
   @< Array definition
+  @ Variable-size array definition with default size-prefix type
+  def array
+    ident VA
+    max size literal int 10
+    type name U32
+    default literal int 0
+    format {} counts
+  @< Variable-size array definition with default size-prefix type
+  @ Variable-size array definition with explicit size-prefix type
+  def array
+    ident VB
+    size prefix type type name U16
+    max size literal int 10
+    type name U32
+  @< Variable-size array definition with explicit size-prefix type
   @ State machine outside a component
   def state machine
     ident SO

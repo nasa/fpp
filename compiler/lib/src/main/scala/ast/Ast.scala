@@ -92,6 +92,8 @@ object Ast {
   final case class DefArray(
     name: Ident,
     size: AstNode[Expr],
+    isVariableSize: Boolean,
+    sizePrefixType: Option[AstNode[TypeName]],
     eltType: AstNode[TypeName],
     default: Option[AstNode[Expr]],
     format: Option[AstNode[String]],
