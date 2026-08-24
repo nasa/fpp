@@ -20,6 +20,7 @@ module Fw {
 }
 
 dictionary array A = [3] U32
+vector V = [size 3] U32
 constant a = 0
 enum E { X, Y }
 enum Phases { setup, teardown }
@@ -51,6 +52,7 @@ port P
 active component C1 {
   async input port pIn: P
   array A = [3] U32
+  vector V = [size 3] U32
   constant a = 0
   enum E { X, Y }
   dictionary struct S { x: U32 }

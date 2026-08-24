@@ -9,6 +9,7 @@ def_port
 def_state_machine
 def_struct
 def_system
+def_vector
 dictionary
 dictionary_no_deployment_top
 direct

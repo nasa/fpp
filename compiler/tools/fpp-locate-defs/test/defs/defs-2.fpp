@@ -2,6 +2,8 @@ module M {
 
   array A = [3] U32
 
+  vector V = [size 3] U32
+
   constant a = 0
 
   enum E { X, Y, Z }
@@ -18,6 +20,7 @@ module M {
     type T
     type X = T
     array A = [3] U32
+    vector V = [size 3] U32
     constant a = 0
     enum E { X, Y, Z }
     struct S { x: U32 }
@@ -27,6 +30,7 @@ module M {
     type T
     type Alias = T
     array A = [3] U32
+    vector V = [size 3] U32
     constant a = 0
     enum E { X, Y, Z }
     dictionary enum E2 { A, B, C }

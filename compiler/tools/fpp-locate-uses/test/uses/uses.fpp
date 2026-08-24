@@ -1,4 +1,5 @@
 array A_use = [3] A
+array V_use = [3] V
 constant a_use = a
 array T_use = [3] T
 array S_use = [3] S
@@ -20,6 +21,7 @@ module M {
 passive component C2 {
   sync input port P_use: P
   array C1_A_use = [3] C1.A
+  array C1_V_use = [3] C1.V
   constant C1_a_use = C1.a
   array C1_S_use = [3] C1.S
   array C1_T_use = [3] C1.T
