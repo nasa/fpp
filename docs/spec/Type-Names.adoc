@@ -77,8 +77,9 @@ identifier>> that refers to an
 <<Definitions_Abstract-Type-Definitions,abstract type definition>>,
 <<Definitions_Alias-Type-Definitions,alias type definition>>,
 <<Definitions_Array-Definitions,array definition>>,
-<<Definitions_Enum-Definitions,enum definition>>, or
-<<Definitions_Struct-Definitions,struct definition>>
+<<Definitions_Enum-Definitions,enum definition>>,
+<<Definitions_Struct-Definitions,struct definition>>, or
+<<Definitions_Vector-Definitions,vector definition>>
  via the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules
 for name scoping>>.

@@ -14,20 +14,14 @@ stem:[e_1] `[` stem:[e_2] `]`:
 
 . The type of stem:[e_1] must be an <<Types_Array-Types,array type>> or
 <<Types_Internal-Types_Anonymous-Array-Types,anonymous array type>>
-with element type _T_.
-If the type is a fixed-size array type, then let _n_ be its size.
-If the type is a variable-size array type, then let _n_ be its maximum size.
+with element type _T_ and size _n_.
 
 . The type of stem:[e_2] must be <<Type-Checking_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
 stem:[e_2] must
 <<Evaluation,evaluate>> to a value _m_ after
 <<Evaluation_Type-Conversion,conversion>> to _Integer_.
-_m_ must be greater than or equal to zero.
-For a fixed-size array type, _m_ must be less than the size _n_.
-For a variable-size array type, _m_ must be less than the
-<<Values_Array-Values,length>> of the array value selected by stem:[e_1],
-which is at most the maximum size _n_.
+_m_ must be greater than or equal to zero and less than _n_.
 
 . Evaluation of stem:[e_1] `[` stem:[e_2] `]` occurs as follows:
 
