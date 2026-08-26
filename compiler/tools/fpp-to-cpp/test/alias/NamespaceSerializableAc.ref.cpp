@@ -85,9 +85,19 @@ bool Namespace ::
 #ifdef BUILD_UT
 
 std::ostream& operator<<(std::ostream& os, const Namespace& obj) {
-  Fw::String s;
-  obj.toString(s);
-  os << s.toChar();
+  os << "{ ";
+  os << "A = ";
+  os << obj.m_A;
+  os << ", ";
+  os << "B = ";
+  os << obj.m_B;
+  os << ", ";
+  os << "C = ";
+  os << obj.m_C;
+  os << ", ";
+  os << "D = ";
+  os << obj.m_D;
+  os << " }";
   return os;
 }
 
