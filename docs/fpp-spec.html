@@ -3704,7 +3704,7 @@ A <strong>struct type member</strong> has one of the following two forms:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>An <strong>ordinary member</strong>:</p>
+<p>A <strong>typed member</strong>:</p>
 <div class="paragraph">
 <p><a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>:</code>
 <em>[</em>
@@ -3740,7 +3740,7 @@ of the specified type.  Each
 identifier appearing in the struct type member sequence must be distinct.</p>
 </div>
 <div class="paragraph">
-<p>For each ordinary member <em>m</em>,</p>
+<p>For each typed member <em>m</em>,</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3806,7 +3806,7 @@ value for <em>m</em>, then the value must lie in this range.</p>
 size expression <code>[</code> <em>e</em> <code>]</code>.</p>
 </li>
 <li>
-<p>The optional format specifier behaves as it does for an ordinary
+<p>The optional format specifier behaves as it does for a typed
 member.</p>
 </li>
 </ul>
@@ -3868,7 +3868,7 @@ struct D {
 } default { x = 1 }
 
 # Defines a struct type E with two bit field members and one
-# ordinary member.
+# typed member.
 # a and b form a bit field group of 12 bits, which is packed
 # into 16 serialized bits (12 bits of data and 4 zero pad bits).
 # The type of a is U8; the type of b is I16.
@@ -13426,7 +13426,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-27 04:13:55 UTC
+Last updated 2026-08-27 04:19:50 UTC
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

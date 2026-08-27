@@ -17,7 +17,7 @@ in which the elements are struct type members, and the terminating
 punctuation is a comma.
 A *struct type member* has one of the following two forms:
 
-. An *ordinary member*:
+. A *typed member*:
 +
 <<Lexical-Elements_Identifiers,_identifier_>> `:`
 _[_
@@ -45,7 +45,7 @@ The definition associates the name _N_ with a
 of the specified type.  Each
 identifier appearing in the struct type member sequence must be distinct.
 
-For each ordinary member _m_,
+For each typed member _m_,
 
 * The type name specifies the type stem:[T_m] of the member.
 
@@ -95,7 +95,7 @@ value for _m_, then the value must lie in this range.
 * A bit field member represents a single value; it may not have a
 size expression `[` _e_ `]`.
 
-* The optional format specifier behaves as it does for an ordinary
+* The optional format specifier behaves as it does for a typed
 member.
 
 The bit width affects only the serialized form of the struct type,
@@ -151,7 +151,7 @@ struct D {
 } default { x = 1 }
 
 # Defines a struct type E with two bit field members and one
-# ordinary member.
+# typed member.
 # a and b form a bit field group of 12 bits, which is packed
 # into 16 serialized bits (12 bits of data and 4 zero pad bits).
 # The type of a is U8; the type of b is I16.
