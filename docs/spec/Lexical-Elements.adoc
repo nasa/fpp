@@ -125,6 +125,7 @@ serial
 set
 severity
 signal
+signed
 size
 sizeof
 stack
@@ -140,6 +141,7 @@ topology
 true
 type
 unmatched
+unsigned
 update
 warning
 with

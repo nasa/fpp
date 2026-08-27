@@ -50,9 +50,9 @@
     "locate" "low" "match" "on"  "opcode" "orange"
     "output" "param" "passive" "phase"  "priority"
     "queue"  "queued" "raw" "recv" "red"
-    "ref" "reg" "resp" "save" "signal" "serial" "set" "severity"
+    "ref" "reg" "resp" "save" "signal" "signed" "serial" "set" "severity"
     "size" "sizeof" "stack" "sync" "telemetry" "text" "throttle"
-    "time" "true" "unmatched" "update" "enter" "warning" "with"
+    "time" "true" "unmatched" "unsigned" "update" "enter" "warning" "with"
     "yellow")
   "All non-definition keywords for FPP.")
 

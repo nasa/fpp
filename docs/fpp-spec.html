@@ -1301,6 +1301,7 @@ serial
 set
 severity
 signal
+signed
 size
 sizeof
 stack
@@ -1316,6 +1317,7 @@ topology
 true
 type
 unmatched
+unsigned
 update
 warning
 with
@@ -3697,8 +3699,12 @@ with it.</p>
 <p><em>struct-type-member-sequence</em> is an <a href="#Element-Sequences">element sequence</a>
 in which the elements are struct type members, and the terminating
 punctuation is a comma.
-A <strong>struct type member</strong> has the following syntax:</p>
+A <strong>struct type member</strong> has one of the following two forms:</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>An <strong>ordinary member</strong>:</p>
 <div class="paragraph">
 <p><a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>:</code>
 <em>[</em>
@@ -3708,6 +3714,20 @@ A <strong>struct type member</strong> has the following syntax:</p>
 <em>[</em>
 <code>format</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a>
 <em>]</em></p>
+</div>
+</li>
+<li>
+<p>A <strong>bit field member</strong>:</p>
+<div class="paragraph">
+<p><a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>:</code>
+( <code>signed</code> | <code>unsigned</code> )
+<a href="#Expressions"><em>expression</em></a>
+<em>[</em>
+<code>format</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a>
+<em>]</em></p>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -3720,7 +3740,7 @@ of the specified type.  Each
 identifier appearing in the struct type member sequence must be distinct.</p>
 </div>
 <div class="paragraph">
-<p>For each member <em>m</em>,</p>
+<p>For each ordinary member <em>m</em>,</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3746,6 +3766,59 @@ If the size of the member is greater than one, then the
 translator applies the format to each element.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>For each bit field member <em>m</em>,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The keyword <code>signed</code> or <code>unsigned</code> specifies the <strong>signedness</strong> of <em>m</em>.</p>
+</li>
+<li>
+<p>The expression following the keyword specifies the <strong>bit width</strong>
+\$w_m\$ of <em>m</em>.
+The expression must have a
+<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, and it must
+evaluate to a value \$w_m\$ after conversion to
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, with
+\$1 &lt;= w_m &lt;= 64\$.</p>
+</li>
+<li>
+<p>The type \$T_m\$ of <em>m</em> is the
+<a href="#Types_Primitive-Integer-Types">primitive integer type</a>
+with the specified signedness and with the smallest width
+greater than or equal to \$w_m\$.
+For example, the type of a member <code>unsigned 4</code> is <code>U8</code>, and
+the type of a member <code>signed 12</code> is <code>I16</code>.
+This type governs the use of the member in expressions and its
+representation in generated code.</p>
+</li>
+<li>
+<p>The value stored in <em>m</em> must be representable in \$w_m\$ bits:
+in the range \$[0, 2^(w_m)-1]\$ if <em>m</em> is unsigned, and in the range
+\$[-2^(w_m-1), 2^(w_m-1)-1]\$ if <em>m</em> is signed.
+In particular, if the default value of the struct type specifies a
+value for <em>m</em>, then the value must lie in this range.</p>
+</li>
+<li>
+<p>A bit field member represents a single value; it may not have a
+size expression <code>[</code> <em>e</em> <code>]</code>.</p>
+</li>
+<li>
+<p>The optional format specifier behaves as it does for an ordinary
+member.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The bit width affects only the serialized form of the struct type,
+not the in-memory representation.
+Each maximal sequence of consecutive bit field members in the struct
+type member sequence forms a <strong>bit field group</strong>.
+The members of a bit field group are packed into a sequence of bytes
+as described in the section on
+<a href="#Types_Serialized-Sizes">serialized sizes</a>.</p>
 </div>
 <div class="paragraph">
 <p>The expression following the keyword <code>default</code> is optional.
@@ -3792,7 +3865,20 @@ struct C {
 # The default value of D stores 1 into each of the 3 elements of x
 struct D {
   x: [3] U32
-} default { x = 1 }</code></pre>
+} default { x = 1 }
+
+# Defines a struct type E with two bit field members and one
+# ordinary member.
+# a and b form a bit field group of 12 bits, which is packed
+# into 16 serialized bits (12 bits of data and 4 zero pad bits).
+# The type of a is U8; the type of b is I16.
+# The serialized size of E is 6 bytes: 2 bytes for the bit field
+# group and 4 bytes for x.
+struct E {
+  a: unsigned 3
+  b: signed 9
+  x: U32
+}</code></pre>
 </div>
 </div>
 </div>
@@ -11554,8 +11640,11 @@ representation type of <em>T</em>.</p>
 <li>
 <p>If <em>T</em> is a
 <a href="#Types_Struct-Types">struct type</a>, then <em>s</em>
-the sum of the serialized sizes of the members of <em>T</em>.
-For each member <em>m</em> with type \$T_m\$:</p>
+the sum of the serialized sizes of the members of <em>T</em>
+and of the
+<a href="#Definitions_Struct-Definitions">bit field groups</a> of <em>T</em>,
+in declaration order.
+For each member <em>m</em> with type \$T_m\$ that is not a bit field member:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -11564,6 +11653,34 @@ For each member <em>m</em> with type \$T_m\$:</p>
 </li>
 <li>
 <p>Otherwise the serialized size of <em>m</em> is the serialized size of \$T_m\$.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Each bit field group <em>G</em> of a struct type is serialized as a unit,
+as follows:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Let <em>w</em> be the sum of the bit widths of the members of <em>G</em>.
+The serialized size of <em>G</em> is <em>w</em> divided by 8, rounded up to the
+nearest integer, in bytes.</p>
+</li>
+<li>
+<p>The members of <em>G</em> are packed in declaration order into
+the serialized bytes, from the most significant bit of the first
+byte towards the least significant bit of the last byte,
+with no intervening bits.
+Each member occupies exactly its bit width, using the standard
+binary representation of an unsigned integer or the two&#8217;s complement
+representation of a signed integer.</p>
+</li>
+<li>
+<p>If <em>w</em> is not a multiple of 8, then the low-order bits of the
+last byte that are not occupied by any member are <strong>pad bits</strong>.
+Pad bits are zero in the serialized form and are ignored during
+deserialization.</p>
 </li>
 </ul>
 </div>
@@ -13309,7 +13426,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-19 10:10:16 -0700
+Last updated 2026-08-27 04:13:55 UTC
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

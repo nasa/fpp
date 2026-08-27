@@ -15,13 +15,24 @@ _[_ `default` <<Expressions,_expression_>> _]_
 _struct-type-member-sequence_ is an <<Element-Sequences,element sequence>>
 in which the elements are struct type members, and the terminating
 punctuation is a comma.
-A *struct type member* has the following syntax:
+A *struct type member* has one of the following two forms:
 
+. An *ordinary member*:
++
 <<Lexical-Elements_Identifiers,_identifier_>> `:`
 _[_
 `[` <<Expressions,_expression_>> `]`
 _]_
 <<Type-Names,_type-name_>>
+_[_
+`format` <<Expressions_String-Literals,_string-literal_>>
+_]_
+
+. A *bit field member*:
++
+<<Lexical-Elements_Identifiers,_identifier_>> `:`
+( `signed` | `unsigned` )
+<<Expressions,_expression_>>
 _[_
 `format` <<Expressions_String-Literals,_string-literal_>>
 _]_
@@ -34,7 +45,7 @@ The definition associates the name _N_ with a
 of the specified type.  Each
 identifier appearing in the struct type member sequence must be distinct.
 
-For each member _m_,
+For each ordinary member _m_,
 
 * The type name specifies the type stem:[T_m] of the member.
 
@@ -53,6 +64,47 @@ The format is applied when displaying the struct member.
 There is one argument to the format string, which is the member value.
 If the size of the member is greater than one, then the
 translator applies the format to each element.
+
+For each bit field member _m_,
+
+* The keyword `signed` or `unsigned` specifies the *signedness* of _m_.
+
+* The expression following the keyword specifies the *bit width*
+stem:[w_m] of _m_.
+The expression must have a
+<<Types_Internal-Types_Numeric-Types,numeric type>>, and it must
+evaluate to a value stem:[w_m] after conversion to
+<<Types_Internal-Types_Integer,_Integer_>>, with
+stem:[1 <= w_m <= 64].
+
+* The type stem:[T_m] of _m_ is the
+<<Types_Primitive-Integer-Types,primitive integer type>>
+with the specified signedness and with the smallest width
+greater than or equal to stem:[w_m].
+For example, the type of a member `unsigned 4` is `U8`, and
+the type of a member `signed 12` is `I16`.
+This type governs the use of the member in expressions and its
+representation in generated code.
+
+* The value stored in _m_ must be representable in stem:[w_m] bits:
+in the range stem:[[0, 2^(w_m)-1\]] if _m_ is unsigned, and in the range
+stem:[[-2^(w_m-1), 2^(w_m-1)-1\]] if _m_ is signed.
+In particular, if the default value of the struct type specifies a
+value for _m_, then the value must lie in this range.
+
+* A bit field member represents a single value; it may not have a
+size expression `[` _e_ `]`.
+
+* The optional format specifier behaves as it does for an ordinary
+member.
+
+The bit width affects only the serialized form of the struct type,
+not the in-memory representation.
+Each maximal sequence of consecutive bit field members in the struct
+type member sequence forms a *bit field group*.
+The members of a bit field group are packed into a sequence of bytes
+as described in the section on
+<<Types_Serialized-Sizes,serialized sizes>>.
 
 The expression following the keyword `default` is optional.
 If present, it specifies the <<Types_Default-Values,default value>>
@@ -97,4 +149,17 @@ struct C {
 struct D {
   x: [3] U32
 } default { x = 1 }
+
+# Defines a struct type E with two bit field members and one
+# ordinary member.
+# a and b form a bit field group of 12 bits, which is packed
+# into 16 serialized bits (12 bits of data and 4 zero pad bits).
+# The type of a is U8; the type of b is I16.
+# The serialized size of E is 6 bytes: 2 bytes for the bit field
+# group and 4 bytes for x.
+struct E {
+  a: unsigned 3
+  b: signed 9
+  x: U32
+}
 ----

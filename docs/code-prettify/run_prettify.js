@@ -489,6 +489,7 @@ var IN_GLOBAL_SCOPE = false;
           "set," +
           "severity," +
           "signal," +
+          "signed," +
           "size," +
           "sizeof," +
           "stack," +
@@ -504,6 +505,7 @@ var IN_GLOBAL_SCOPE = false;
           "topology," +
           "type," +
           "unmatched," +
+          "unsigned," +
           "update," +
           "warning," +
           "with," +

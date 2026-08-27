@@ -93,6 +93,7 @@ syn keyword fppKeyword serial
 syn keyword fppKeyword set
 syn keyword fppKeyword severity
 syn keyword fppKeyword signal
+syn keyword fppKeyword signed
 syn keyword fppKeyword size
 syn keyword fppKeyword sizeof
 syn keyword fppKeyword stack
@@ -108,6 +109,7 @@ syn keyword fppKeyword topology
 syn keyword fppKeyword true
 syn keyword fppKeyword type
 syn keyword fppKeyword unmatched
+syn keyword fppKeyword unsigned
 syn keyword fppKeyword update
 syn keyword fppKeyword warning
 syn keyword fppKeyword with
