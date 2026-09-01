@@ -875,23 +875,36 @@ object AstWriter extends AstVisitor with LineUtils {
   }
 
   private def portInstanceIdentifier(pii: Ast.PortInstanceIdentifier): Out = {
-    val qid = Ast.QualIdent.Qualified(pii.interfaceInstance, pii.portName, false)
+    val qid = Ast.QualIdent.Qualified(
+      pii.interfaceInstance,
+      pii.portName,
+      pii.interfaceInstance.data.isAbsolute
+    )
     qualIdent(qid)
   }
 
   private def tlmChannelIdentifier(tci: Ast.TlmChannelIdentifier): Out = {
-    val qid = Ast.QualIdent.Qualified(tci.componentInstance, tci.channelName, false)
+    val qid = Ast.QualIdent.Qualified(
+      tci.componentInstance,
+      tci.channelName,
+      tci.componentInstance.data.isAbsolute
+    )
     qualIdent(qid)
   }
 
   private def qualIdent(qid: Ast.QualIdent): Out =
     lines("qual ident " ++ qualIdentString(qid))
 
-  private def qualIdentString(qid: Ast.QualIdent): String =
+  private def qualIdentString(qid: Ast.QualIdent): String = {
+    val s = relativeQualIdentString(qid)
+    if qid.isAbsolute then s".$s" else s
+  }
+
+  private def relativeQualIdentString(qid: Ast.QualIdent): String =
     qid match {
       case Ast.QualIdent.Unqualified(name, _) => name
       case Ast.QualIdent.Qualified(qualifier, name, _) =>
-        qualIdentString(qualifier.data) ++ "." ++ name.data
+        relativeQualIdentString(qualifier.data) ++ "." ++ name.data
     }
 
   private def queueFull(qf: Ast.QueueFull) = {

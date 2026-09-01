@@ -379,6 +379,9 @@ object Ast {
   /** A possibly-qualified identifier */
   sealed trait QualIdent {
 
+    /** Whether the identifier is resolved absolutely */
+    def isAbsolute: Boolean
+
     /** Convert a qualified identifier to a list of identifiers */
     def toIdentList: List[Ident]
 
