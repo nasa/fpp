@@ -54,7 +54,7 @@ object TlmPacketSetXmlFppWriter extends LineUtils {
       name.split("\\.").toList.reverse match {
         case head :: tail =>
           val nodeList = tail.reverse.map(AstNode.create)
-          val instance = Ast.QualIdent.fromNodeList(nodeList)
+          val instance = Ast.QualIdent.fromNodeList(nodeList, false)
           Right(
             Ast.TlmChannelIdentifier(
               AstNode.create(instance),

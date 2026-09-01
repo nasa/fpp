@@ -275,7 +275,8 @@ object XmlFppWriter extends LineUtils {
     def translateQualIdent(xmlQid: String): AstNode[Ast.QualIdent] =
       AstNode.create(
         Ast.QualIdent.fromNodeList(
-          xmlQid.split("::").toList.map(AstNode.create(_))
+          xmlQid.split("::").toList.map(AstNode.create(_)),
+          false
         )
       )
 

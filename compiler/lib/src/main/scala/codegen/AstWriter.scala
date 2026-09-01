@@ -875,12 +875,12 @@ object AstWriter extends AstVisitor with LineUtils {
   }
 
   private def portInstanceIdentifier(pii: Ast.PortInstanceIdentifier): Out = {
-    val qid = Ast.QualIdent.Qualified(pii.interfaceInstance, pii.portName)
+    val qid = Ast.QualIdent.Qualified(pii.interfaceInstance, pii.portName, false)
     qualIdent(qid)
   }
 
   private def tlmChannelIdentifier(tci: Ast.TlmChannelIdentifier): Out = {
-    val qid = Ast.QualIdent.Qualified(tci.componentInstance, tci.channelName)
+    val qid = Ast.QualIdent.Qualified(tci.componentInstance, tci.channelName, false)
     qualIdent(qid)
   }
 
@@ -889,8 +889,8 @@ object AstWriter extends AstVisitor with LineUtils {
 
   private def qualIdentString(qid: Ast.QualIdent): String =
     qid match {
-      case Ast.QualIdent.Unqualified(name) => name
-      case Ast.QualIdent.Qualified(qualifier, name) =>
+      case Ast.QualIdent.Unqualified(name, _) => name
+      case Ast.QualIdent.Qualified(qualifier, name, _) =>
         qualIdentString(qualifier.data) ++ "." ++ name.data
     }
 

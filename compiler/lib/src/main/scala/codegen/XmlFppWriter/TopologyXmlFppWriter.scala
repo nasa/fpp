@@ -43,7 +43,8 @@ object TopologyXmlFppWriter extends LineUtils {
       yield {
         val componentQid = Ast.QualIdent.fromNodeList(
           (XmlFppWriter.getAttributeNamespace(node) :+ componentName).
-            map(AstNode.create(_))
+            map(AstNode.create(_)),
+          false
         )
         (
           Nil,

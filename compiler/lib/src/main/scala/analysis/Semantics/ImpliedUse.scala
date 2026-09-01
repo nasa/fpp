@@ -24,7 +24,7 @@ case class ImpliedUse(
 
   def asQualIdentNode: AstNode[Ast.QualIdent] = {
     val nodeList = name.toIdentList.map(AstNode.create(_, id))
-    val qualIdent = Ast.QualIdent.fromNodeList(nodeList)
+    val qualIdent = Ast.QualIdent.fromNodeList(nodeList, false)
     AstNode.create(qualIdent, id)
   }
 

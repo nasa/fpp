@@ -872,8 +872,8 @@ object FppWriter extends AstVisitor with LineUtils {
 
   private def qualIdentString(qid: Ast.QualIdent): String =
     qid match {
-      case Ast.QualIdent.Unqualified(name) => ident(name)
-      case Ast.QualIdent.Qualified(qualifier, name) =>
+      case Ast.QualIdent.Unqualified(name, _) => ident(name)
+      case Ast.QualIdent.Qualified(qualifier, name, _) =>
         qualIdentString(qualifier.data) ++ "." ++ ident(name.data)
     }
 

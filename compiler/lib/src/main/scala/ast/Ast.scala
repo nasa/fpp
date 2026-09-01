@@ -387,27 +387,31 @@ object Ast {
   object QualIdent {
 
     /** An unqualified identifier */
-    case class Unqualified(name: Ident) extends QualIdent {
+    case class Unqualified(name: Ident, isAbsolute: Boolean) extends QualIdent {
 
       override def toIdentList = List(name)
 
     }
 
     /** A qualified identifier */
-    case class Qualified(qualifier: AstNode[QualIdent], name: AstNode[Ident]) extends QualIdent {
+    case class Qualified(
+      qualifier: AstNode[QualIdent],
+      name: AstNode[Ident],
+      isAbsolute: Boolean
+    ) extends QualIdent {
 
       override def toIdentList = qualifier.data.toIdentList ++ List(name.data)
 
     }
 
     /** Construct a qualified identifier from a node list */
-    def fromNodeList(nodeList: QualIdent.NodeList): QualIdent =
+    def fromNodeList(nodeList: QualIdent.NodeList, isAbsolute: Boolean): QualIdent =
       QualIdent.NodeList.split(nodeList) match {
-        case (Nil, name) => QualIdent.Unqualified(name.data)
+        case (Nil, name) => QualIdent.Unqualified(name.data, isAbsolute)
         case (qualifier, name) => {
-          val qualifier1 = fromNodeList(qualifier)
+          val qualifier1 = fromNodeList(qualifier, isAbsolute)
           val node = AstNode.create(qualifier1, QualIdent.NodeList.name(qualifier).id)
-          QualIdent.Qualified(node, name)
+          QualIdent.Qualified(node, name, isAbsolute)
         }
       }
 
@@ -435,8 +439,8 @@ object Ast {
     object Node {
 
       /** Create a QualIdent node from a node list */
-      def fromNodeList(nodeList: NodeList): AstNode[QualIdent] = {
-        val qualIdent = QualIdent.fromNodeList(nodeList)
+      def fromNodeList(nodeList: NodeList, isAbsolute: Boolean): AstNode[QualIdent] = {
+        val qualIdent = QualIdent.fromNodeList(nodeList, isAbsolute)
         val node = AstNode.create(qualIdent)
         val loc = Locations.get(nodeList.head.id)
         Locations.put(node.id, loc)
