@@ -70,7 +70,7 @@ object CheckUses extends BasicUseAnalyzer {
       }
       val data = node.data
       data match {
-        case Ast.ExprIdent(name) => visitExprIdent(a, node, name)
+        case Ast.ExprIdent(name, _) => visitExprIdent(a, node, name)
         case Ast.ExprDot(e, id) => visitExprDot(a, node, e, id)
         case _ => throw InternalError("constant use should be qualified identifier")
       }

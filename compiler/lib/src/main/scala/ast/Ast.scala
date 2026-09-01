@@ -311,7 +311,7 @@ object Ast {
   final case class ExprArraySubscript(e1: AstNode[Expr], e2: AstNode[Expr]) extends Expr
   final case class ExprBinop(e1: AstNode[Expr], op: Binop, e2: AstNode[Expr]) extends Expr
   final case class ExprDot(e: AstNode[Expr], id: AstNode[Ident]) extends Expr
-  final case class ExprIdent(value: Ident) extends Expr
+  final case class ExprIdent(value: Ident, isAbsolute: Boolean) extends Expr
   final case class ExprLiteralBool(value: LiteralBool) extends Expr
   final case class ExprLiteralFloat(value: String) extends Expr
   final case class ExprLiteralInt(value: String) extends Expr
