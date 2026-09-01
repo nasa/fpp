@@ -69,7 +69,8 @@
                                         "AstNode" : {
                                           "data" : {
                                             "ExprIdent" : {
-                                              "value" : "numPingPorts"
+                                              "value" : "numPingPorts",
+                                              "isAbsolute" : false
                                             }
                                           },
                                           "id" : 2
@@ -85,7 +86,8 @@
                                                 "AstNode" : {
                                                   "data" : {
                                                     "Unqualified" : {
-                                                      "name" : "Svc"
+                                                      "name" : "Svc",
+                                                      "isAbsolute" : false
                                                     }
                                                   },
                                                   "id" : 3
@@ -96,7 +98,8 @@
                                                   "data" : "Ping",
                                                   "id" : 4
                                                 }
-                                              }
+                                              },
+                                              "isAbsolute" : false
                                             }
                                           },
                                           "id" : 5
@@ -136,7 +139,8 @@
                                         "AstNode" : {
                                           "data" : {
                                             "ExprIdent" : {
-                                              "value" : "numPingPorts"
+                                              "value" : "numPingPorts",
+                                              "isAbsolute" : false
                                             }
                                           },
                                           "id" : 7
@@ -152,7 +156,8 @@
                                                 "AstNode" : {
                                                   "data" : {
                                                     "Unqualified" : {
-                                                      "name" : "Svc"
+                                                      "name" : "Svc",
+                                                      "isAbsolute" : false
                                                     }
                                                   },
                                                   "id" : 8
@@ -163,7 +168,8 @@
                                                   "data" : "Ping",
                                                   "id" : 9
                                                 }
-                                              }
+                                              },
+                                              "isAbsolute" : false
                                             }
                                           },
                                           "id" : 10
