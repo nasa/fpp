@@ -49,6 +49,35 @@ object AddDependencies extends BasicUseAnalyzer {
     } yield a
   }
 
+  override def defModuleTemplateAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = {
+    for {
+      a <- super.defModuleTemplateAnnotatedNode(a, aNode)
+      a <- visitList(a, aNode._2.data.members, matchModuleMember)
+    } yield a
+  }
+
+  override def specTemplateExpandAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+  ) = {
+    val (_, node, _) = aNode
+    for {
+      a <- super.specTemplateExpandAnnotatedNode(a, aNode)
+      a <- Result.foldLeft (node.data.args) (a) ((a, arg) => arg.data match {
+        case Ast.TemplateArg.Constant(value) => exprNode(a, value)
+        case Ast.TemplateArg.Type(typeName) => typeNameNode(a, typeName)
+        case Ast.TemplateArg.Interface(instance) =>
+          qualIdentNode (interfaceInstanceUse) (a, instance)
+      })
+    } yield a
+  }
+
+  override def templateUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+    analyzeUse(a, Ast.SpecLoc.Template, use)
+
   override def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     analyzeUse(a, Ast.SpecLoc.StateMachine, use)
 

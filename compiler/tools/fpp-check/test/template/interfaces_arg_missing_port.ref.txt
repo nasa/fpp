@@ -1,0 +1,10 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_arg_missing_port.fpp:22.24
+    expand T(interface c)
+                       ^
+error: port interface not implemented
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_arg_missing_port.fpp:5.5
+    output port pOut: P
+    ^
+error: port instance missing

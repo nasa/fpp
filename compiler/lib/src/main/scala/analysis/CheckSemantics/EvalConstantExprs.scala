@@ -12,6 +12,11 @@ object EvalConstantExprs extends UseAnalyzer {
       a <- symbol match {
         case Symbol.EnumConstant(node) => defEnumConstantAnnotatedNode(a, node)
         case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
+        // We must be inside a template expansion, the parameter's value
+        // has already been added to the valueMap
+        case Symbol.TemplateConstantArg(paramDef, value) => {
+          Right(a)
+        }
         case _ => throw InternalError(s"invalid constant use symbol ${symbol} (${symbol.getClass.getName()})")
       }
     } yield {
@@ -83,12 +88,36 @@ object EvalConstantExprs extends UseAnalyzer {
     else Right(a)
   }
 
+  override def templateConstantArg(
+    a: Analysis,
+    arg: Symbol.TemplateConstantArg
+  ) = {
+    val Symbol.TemplateConstantArg(paramDef, value) = arg
+    val loc = Locations.get(arg.value.id)
+    for {
+      a <- super.templateConstantArg(a, arg)
+      a <- FinalizeTypeDefs.typeNameNode(a, paramDef.typeName)
+      ty <- Right(a.typeMap(paramDef.typeName.id))
+      v <- Right(a.valueMap(value.id))
+      newVal <- {
+        v.convertToType(ty) match {
+          case Some(v) => Right(v)
+          case None => Left(SemanticError.TypeMismatch(loc, s"cannot convert value $v to type $ty"))
+        }
+      }
+    } yield {
+      a.assignType(value -> ty)
+      a.assignValue(value -> newVal)
+    }
+  }
+
   override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray) =
     for (a <- super.exprArrayNode(a, node, e))
       yield {
         val eltType = a.typeMap(node.id) match {
           case Type.AnonArray(_, eltType) => eltType
-          case _ => throw InternalError("element type of array expression should be AnonArray")
+          case Type.Array(_, Type.AnonArray(_, eltType), _, _) => eltType
+          case _ => throw InternalError("element type of array expression should be AnonArray or Array")
         }
         def f(node: AstNode[Ast.Expr]) = {
           val v = a.valueMap(node.id)
@@ -106,8 +135,8 @@ object EvalConstantExprs extends UseAnalyzer {
 
       elements <- {
         a.valueMap(e.e1.id) match {
-          case Value.AnonArray(elements) => Right(elements)
-          case Value.Array(Value.AnonArray(elements), _) => Right(elements)
+          case Value.AnonArray(elements, None) => Right(elements)
+          case Value.Array(Value.AnonArray(elements, None), _) => Right(elements)
           case _ => throw InternalError("expected array value")
         }
       }
@@ -160,7 +189,6 @@ object EvalConstantExprs extends UseAnalyzer {
     val v = Value.Boolean(b)
     Right(a.assignValue(node -> v))
   }
-
 
   override def exprLiteralFloatNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat) = {
     val v = Value.Float(e.value.toDouble, Type.Float.F64)

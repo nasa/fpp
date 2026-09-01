@@ -265,6 +265,38 @@ sealed trait Error {
         System.err.println("conflicting port number is here:")
         System.err.println(p2Loc)
         printMatchingLoc(matchingLoc)
+      case SemanticError.MismatchedTemplateParameters(
+        expandLoc: Location,
+        defLoc: Location,
+        expandLength: Number,
+        defLength: Number,
+      ) =>
+        Error.print (Some(expandLoc)) (s"expected $defLength templates parameter, got $expandLength")
+        System.err.println("template defined here:")
+        System.err.println(defLoc)
+      case SemanticError.InvalidTemplateParameter(
+        paramName: String,
+        expandLoc: Location,
+        defLoc: Location,
+        msg: String,
+      ) =>
+        Error.print (Some(expandLoc)) (s"invalid template parameter value for $paramName: $msg")
+        System.err.println("template defined here:")
+        System.err.println(defLoc)
+      case SemanticError.NestedTemplateDefinition(
+        nestedLoc: Location,
+        parentLoc: Location
+      ) =>
+        Error.print (Some(nestedLoc)) ("module template definitions cannot be nested")
+        System.err.println("parent template defined here:")
+        System.err.println(parentLoc)
+      case SemanticError.TemplateExpansionInTemplate(
+        expandLoc: Location,
+        templateLoc: Location
+      ) =>
+        Error.print (Some(expandLoc)) ("template expansion specifiers cannot appear inside a module template")
+        System.err.println("enclosing template defined here:")
+        System.err.println(templateLoc)
       case SemanticError.MissingAsync(kind, loc) =>
         Error.print (Some(loc)) (s"$kind component must have async input")
       case SemanticError.MissingConnection(loc, matchingLoc) =>
@@ -714,6 +746,30 @@ object SemanticError {
     p2Loc: Location,
     p2Number: Int,
     matchingLoc: Location
+  ) extends Error
+  /** Mismatched template parameter */
+  final case class MismatchedTemplateParameters(
+    expandLoc: Location,
+    defLoc: Location,
+    expandLength: Number,
+    defLength: Number,
+  ) extends Error
+  /** Mismatched template parameter */
+  final case class InvalidTemplateParameter(
+    paramName: String,
+    expandLoc: Location,
+    defLoc: Location,
+    msg: String,
+  ) extends Error
+  /** Nested template definition */
+  final case class NestedTemplateDefinition(
+    nestedLoc: Location,
+    parentLoc: Location,
+  ) extends Error
+  /** Template expansion specifier nested inside a template */
+  final case class TemplateExpansionInTemplate(
+    expandLoc: Location,
+    templateLoc: Location,
   ) extends Error
   /** Missing async input */
   final case class MissingAsync(kind: String, loc: Location) extends Error

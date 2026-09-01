@@ -42,6 +42,15 @@ object ComputeFrameworkDependencies extends AstStateVisitor {
     visitList(s, data.members, matchModuleMember)
   }
 
+  override def defModuleTemplateAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    visitList(s, data.members, matchModuleMember)
+  }
+
   override def specPortInstanceAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]
