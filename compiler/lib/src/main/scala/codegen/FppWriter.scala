@@ -387,7 +387,8 @@ object FppWriter extends AstVisitor with LineUtils {
     in: In,
     node: AstNode[Ast.Expr],
     e: Ast.ExprIdent
-  ) = lines(e.value)
+  ) =
+    lines(if e.isAbsolute then s".${e.value}" else e.value)
 
   override def exprLiteralBoolNode(
     in: In,

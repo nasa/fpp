@@ -306,7 +306,7 @@ object AstWriter extends AstVisitor with LineUtils {
     node: AstNode[Ast.Expr],
     e: Ast.ExprIdent
   ) =
-    ident(e.value)
+    ident(if e.isAbsolute then s".${e.value}" else e.value)
 
   override def exprLiteralBoolNode(
     in: In,

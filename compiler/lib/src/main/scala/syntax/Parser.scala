@@ -325,7 +325,9 @@ object Parser extends Parsers {
 
       def floatExpr = literalFloat ^^ (s => Ast.ExprLiteralFloat(s))
 
-      def identExpr = ident ^^ (id => Ast.ExprIdent(id, false))
+      def identExpr = opt(dot) ~ ident ^^ {
+        case dot ~ id => Ast.ExprIdent(id, dot.isDefined)
+      }
 
       def intExpr = literalInt ^^ (li => Ast.ExprLiteralInt(li))
 

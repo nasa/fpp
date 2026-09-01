@@ -317,6 +317,10 @@ module Expressions {
   constant dotExp = a.b.c
   @< Dot
 
+  @ Dot with absolute qualified identifier
+  constant dotAbsoluteExp = .a.b.c
+  @< Dot with absolute qualified identifier
+
   @ FP literal
   constant fpLiteralExp = 0.1234
   @< FP literal
@@ -324,6 +328,10 @@ module Expressions {
   @ Identifier
   constant identExp = x
   @< Identifier
+
+  @ Identifier with absolute qualified identifier
+  constant identAbsoluteExp = .x
+  @< Identifier with absolute qualified identifier
 
   @ Int literal
   constant intLiteralExp = 1234

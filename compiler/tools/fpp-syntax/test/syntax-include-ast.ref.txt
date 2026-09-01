@@ -596,6 +596,15 @@ def module
         ident b
       ident c
   @< Dot
+  @ Dot with absolute qualified identifier
+  def constant
+    ident dotAbsoluteExp
+    expr dot
+      expr dot
+        ident .a
+        ident b
+      ident c
+  @< Dot with absolute qualified identifier
   @ FP literal
   def constant
     ident fpLiteralExp
@@ -606,6 +615,11 @@ def module
     ident identExp
     ident x
   @< Identifier
+  @ Identifier with absolute qualified identifier
+  def constant
+    ident identAbsoluteExp
+    ident .x
+  @< Identifier with absolute qualified identifier
   @ Int literal
   def constant
     ident intLiteralExp
