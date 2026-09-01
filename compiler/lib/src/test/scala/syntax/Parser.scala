@@ -424,6 +424,32 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
+  "port instance identifier OK" should {
+    parseAllOK(
+      Parser.portInstanceIdentifier,
+      List(
+        "a.b",
+        "a.b.c",
+        ".a.b",
+        ".a.b.c",
+      )
+    )
+  }
+
+  "qual ident OK" should {
+    parseAllOK(
+      Parser.qualIdent,
+      List(
+        "a",
+        "a.b",
+        "a.b.c",
+        ".a",
+        ".a.b",
+        ".a.b.c",
+      )
+    )
+  }
+
   "spec command OK" should {
     parseAllOK(
       Parser.specCommand,
@@ -696,6 +722,18 @@ class ParserSpec extends AnyWordSpec {
       List(
         "port a = a.b.c.d",
         "port b = c.b",
+      )
+    )
+  }
+
+  "tlm channel identifier OK" should {
+    parseAllOK(
+      Parser.tlmChannelIdentifier,
+      List(
+        "a.b",
+        "a.b.c",
+        ".a.b",
+        ".a.b.c",
       )
     )
   }
