@@ -8,13 +8,6 @@ case class GenericNestedScope[NG, S <: SymbolInterface](
   scopes: List[GenericScope[NG,S]]
 ) {
 
-  /** Get a symbol from the map. Throw an InternalError if the name is not there.*/
-  def apply (nameGroup: NG) (name: Name.Unqualified): S = get(nameGroup)(name) match {
-    case Some(symbol) => symbol
-    case _ => throw new InternalError(s"could not find symbol for name ${name}")
-  }
-
-
   /** Push a new scope onto the stack */
   def push(scope: GenericScope[NG,S]): GenericNestedScope[NG, S] =
     GenericNestedScope[NG, S](scope :: this.scopes)
@@ -33,8 +26,9 @@ case class GenericNestedScope[NG, S <: SymbolInterface](
   }
 
 
-  /** Get a symbol from the map. Return none if the name is not there. */
-  def get (nameGroup: NG) (name: Name.Unqualified): Option[S] = {
+  /** Get a relative symbol from the nested scope. Start searching at the
+   *  bottom of the stack, working upwards. Return None if the name is not there. */
+  def getRelative (nameGroup: NG) (name: Name.Unqualified): Option[S] = {
     def helper(scopes: List[GenericScope[NG,S]]): Option[S] =
       scopes match {
         case Nil => None
@@ -45,6 +39,14 @@ case class GenericNestedScope[NG, S <: SymbolInterface](
       }
     helper(this.scopes)
   }
+
+  /** Get an absolute symbol from the nested scope. Start searching at
+   *  the top of the stack. Return None if the name is not there */
+  def getAbsolute (nameGroup: NG) (name: Name.Unqualified): Option[S] =
+    this.scopes.reverse match {
+      case Nil => None
+      case head :: tail => head.get(nameGroup)(name)
+    }
 
   /** Get the innermost nested scope */
   def innerScope: GenericScope[NG,S] = splitScopes._1

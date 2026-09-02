@@ -25,7 +25,7 @@ object CheckUses extends BasicUseAnalyzer {
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = {
     def visitExprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = {
       def visitExprIdent(a: Analysis, node: AstNode[Ast.Expr], name: Name.Unqualified) = {
-        val mapping = a.nestedScope.get (NameGroup.Value) _
+        val mapping = a.nestedScope.getRelative (NameGroup.Value) _
         for (symbol <- helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)) yield {
           val useDefMap = a.useDefMap + (node.id -> symbol)
           a.copy(useDefMap = useDefMap)
@@ -143,7 +143,7 @@ object CheckUses extends BasicUseAnalyzer {
     val Ast.DefModule(name, members) = node.data
     for {
       symbol <- {
-        val mapping = a.nestedScope.get (NameGroup.Value) _
+        val mapping = a.nestedScope.getRelative (NameGroup.Value) _
         helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)
       }
       a <- {
