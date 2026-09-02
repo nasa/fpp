@@ -67,8 +67,7 @@
                                                                 "data" : "Sched",
                                                                 "id" : 31
                                                               }
-                                                            },
-                                                            "isAbsolute" : false
+                                                            }
                                                           }
                                                         },
                                                         "id" : 32
@@ -285,8 +284,7 @@
                                               "data" : "EngineTemp",
                                               "id" : 57
                                             }
-                                          },
-                                          "isAbsolute" : false
+                                          }
                                         }
                                       },
                                       "id" : 58

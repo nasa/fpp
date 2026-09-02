@@ -808,8 +808,7 @@
                                 "data" : "Q",
                                 "id" : 88
                               }
-                            },
-                            "isAbsolute" : false
+                            }
                           }
                         },
                         "id" : 89
