@@ -24,8 +24,13 @@ object CheckUses extends BasicUseAnalyzer {
 
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = {
     def visitExprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = {
-      def visitExprIdent(a: Analysis, node: AstNode[Ast.Expr], name: Name.Unqualified) = {
-        val mapping = a.nestedScope.getRelative (NameGroup.Value) _
+      def visitExprIdent(
+        a: Analysis,
+        node: AstNode[Ast.Expr],
+        name: Name.Unqualified,
+        isAbsolute: Boolean
+      ) = {
+        val mapping = a.nestedScope.get (isAbsolute) (NameGroup.Value)
         for (symbol <- helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)) yield {
           val useDefMap = a.useDefMap + (node.id -> symbol)
           a.copy(useDefMap = useDefMap)
@@ -70,7 +75,8 @@ object CheckUses extends BasicUseAnalyzer {
       }
       val data = node.data
       data match {
-        case Ast.ExprIdent(name, _) => visitExprIdent(a, node, name)
+        case Ast.ExprIdent(name, isAbsolute) =>
+          visitExprIdent(a, node, name, isAbsolute)
         case Ast.ExprDot(e, id) => visitExprDot(a, node, e, id)
         case _ => throw InternalError("constant use should be qualified identifier")
       }
@@ -143,7 +149,7 @@ object CheckUses extends BasicUseAnalyzer {
     val Ast.DefModule(name, members) = node.data
     for {
       symbol <- {
-        val mapping = a.nestedScope.getRelative (NameGroup.Value) _
+        val mapping = a.nestedScope.getRelative (NameGroup.Value)
         helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)
       }
       a <- {
