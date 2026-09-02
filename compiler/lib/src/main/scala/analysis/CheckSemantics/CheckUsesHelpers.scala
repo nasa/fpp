@@ -25,8 +25,9 @@ case class CheckUsesHelpers[A,NG,S <: SymbolInterface](
   /** Visit an identifier node and check a use */
   def visitIdentNode (ng: NG) (
     a: A,
-    node: AstNode[Ast.Ident]
-  ) = visitUnqualifiedName (ng) (a, node.id, node.data)
+    node: AstNode[Ast.Ident],
+    isAbsolute: Boolean = false
+  ) = visitUnqualifiedName (ng) (a, node.id, node.data, isAbsolute)
 
   /** Visit a qualified identifier node and check a use */
   def visitQualIdentNode (ng: NG) (
@@ -34,18 +35,19 @@ case class CheckUsesHelpers[A,NG,S <: SymbolInterface](
     node: AstNode[Ast.QualIdent]
   ): Result.Result[A] =
     node.data match {
-      case Ast.QualIdent.Unqualified(name, _) =>
-        visitUnqualifiedName (ng) (a, node.id, name)
-      case Ast.QualIdent.Qualified(qualifier, name, _) =>
+      case Ast.QualIdent.Unqualified(name, isAbsolute) =>
+        visitUnqualifiedName (ng) (a, node.id, name, isAbsolute)
+      case Ast.QualIdent.Qualified(qualifier, name) =>
         visitQualifiedName (ng) (a, node.id, qualifier, name)
     }
 
   private def visitUnqualifiedName (ng: NG) (
     a: A,
     id: AstNode.Id,
-    name: Ast.Ident
+    name: Ast.Ident,
+    isAbsolute: Boolean
   ) = {
-    val mapping = getNestedScope(a).getRelative (ng) _
+    val mapping = getNestedScope(a).get (isAbsolute) (ng)
     for (symbol <- getSymbolForName(ng, mapping)(id, name)) yield {
       val useDefMap = getUseDefMap(a) + (id -> symbol)
       setUseDefMap(a, useDefMap)

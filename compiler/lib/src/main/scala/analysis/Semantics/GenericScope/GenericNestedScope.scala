@@ -25,6 +25,12 @@ case class GenericNestedScope[NG, S <: SymbolInterface](
       yield GenericNestedScope[NG, S](scope :: tail)
   }
 
+  /** Get a relative or absolute symbol from the nested scope */
+  def get (isAbsolute: Boolean): NG => Name.Unqualified => Option[S] =
+    isAbsolute match {
+      case false => getRelative
+      case true => getAbsolute
+    }
 
   /** Get a relative symbol from the nested scope. Start searching at the
    *  bottom of the stack, working upwards. Return None if the name is not there. */
