@@ -149,8 +149,7 @@
                                                                 "data" : "BufferSend",
                                                                 "id" : 43
                                                               }
-                                                            },
-                                                            "isAbsolute" : false
+                                                            }
                                                           }
                                                         },
                                                         "id" : 44
@@ -207,8 +206,7 @@
                                                                 "data" : "BufferSend",
                                                                 "id" : 55
                                                               }
-                                                            },
-                                                            "isAbsolute" : false
+                                                            }
                                                           }
                                                         },
                                                         "id" : 56
@@ -311,8 +309,7 @@
                                                                 "data" : "Sched",
                                                                 "id" : 113
                                                               }
-                                                            },
-                                                            "isAbsolute" : false
+                                                            }
                                                           }
                                                         },
                                                         "id" : 114
@@ -728,8 +725,7 @@
                                               "data" : "DataCompressor",
                                               "id" : 155
                                             }
-                                          },
-                                          "isAbsolute" : false
+                                          }
                                         }
                                       },
                                       "id" : 156
@@ -857,8 +853,7 @@
                                               "data" : "StateMachines",
                                               "id" : 191
                                             }
-                                          },
-                                          "isAbsolute" : false
+                                          }
                                         }
                                       },
                                       "id" : 192

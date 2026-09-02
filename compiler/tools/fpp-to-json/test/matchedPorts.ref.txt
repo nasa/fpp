@@ -98,8 +98,7 @@
                                                   "data" : "Ping",
                                                   "id" : 4
                                                 }
-                                              },
-                                              "isAbsolute" : false
+                                              }
                                             }
                                           },
                                           "id" : 5
@@ -168,8 +167,7 @@
                                                   "data" : "Ping",
                                                   "id" : 9
                                                 }
-                                              },
-                                              "isAbsolute" : false
+                                              }
                                             }
                                           },
                                           "id" : 10

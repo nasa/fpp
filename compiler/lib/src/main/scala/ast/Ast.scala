@@ -399,9 +399,10 @@ object Ast {
     /** A qualified identifier */
     case class Qualified(
       qualifier: AstNode[QualIdent],
-      name: AstNode[Ident],
-      isAbsolute: Boolean
+      name: AstNode[Ident]
     ) extends QualIdent {
+
+      override def isAbsolute = qualifier.data.isAbsolute
 
       override def toIdentList = qualifier.data.toIdentList ++ List(name.data)
 
@@ -414,7 +415,7 @@ object Ast {
         case (qualifier, name) => {
           val qualifier1 = fromNodeList(qualifier, isAbsolute)
           val node = AstNode.create(qualifier1, QualIdent.NodeList.name(qualifier).id)
-          QualIdent.Qualified(node, name, isAbsolute)
+          QualIdent.Qualified(node, name)
         }
       }
 

@@ -55,8 +55,7 @@
                                                   "data" : "Time",
                                                   "id" : 9
                                                 }
-                                              },
-                                              "isAbsolute" : false
+                                              }
                                             }
                                           },
                                           "id" : 10
@@ -137,8 +136,7 @@
                                                   "data" : "Cmd",
                                                   "id" : 14
                                                 }
-                                              },
-                                              "isAbsolute" : false
+                                              }
                                             }
                                           },
                                           "id" : 15
@@ -194,8 +192,7 @@
                                                   "data" : "CmdReg",
                                                   "id" : 18
                                                 }
-                                              },
-                                              "isAbsolute" : false
+                                              }
                                             }
                                           },
                                           "id" : 19
@@ -251,8 +248,7 @@
                                                   "data" : "CmdResponse",
                                                   "id" : 22
                                                 }
-                                              },
-                                              "isAbsolute" : false
+                                              }
                                             }
                                           },
                                           "id" : 23
@@ -308,8 +304,7 @@
                                                   "data" : "Cmd",
                                                   "id" : 34
                                                 }
-                                              },
-                                              "isAbsolute" : false
+                                              }
                                             }
                                           },
                                           "id" : 35
@@ -390,8 +385,7 @@
                                                   "data" : "Log",
                                                   "id" : 47
                                                 }
-                                              },
-                                              "isAbsolute" : false
+                                              }
                                             }
                                           },
                                           "id" : 48
@@ -472,8 +466,7 @@
                                                   "data" : "Ping",
                                                   "id" : 52
                                                 }
-                                              },
-                                              "isAbsolute" : false
+                                              }
                                             }
                                           },
                                           "id" : 53
@@ -529,8 +522,7 @@
                                                   "data" : "Ping",
                                                   "id" : 64
                                                 }
-                                              },
-                                              "isAbsolute" : false
+                                              }
                                             }
                                           },
                                           "id" : 65
@@ -611,8 +603,7 @@
                                                   "data" : "PrmGet",
                                                   "id" : 69
                                                 }
-                                              },
-                                              "isAbsolute" : false
+                                              }
                                             }
                                           },
                                           "id" : 70
@@ -668,8 +659,7 @@
                                                   "data" : "PrmSet",
                                                   "id" : 81
                                                 }
-                                              },
-                                              "isAbsolute" : false
+                                              }
                                             }
                                           },
                                           "id" : 82
@@ -750,8 +740,7 @@
                                                   "data" : "Tlm",
                                                   "id" : 94
                                                 }
-                                              },
-                                              "isAbsolute" : false
+                                              }
                                             }
                                           },
                                           "id" : 95
@@ -832,8 +821,7 @@
                                                   "data" : "LogText",
                                                   "id" : 107
                                                 }
-                                              },
-                                              "isAbsolute" : false
+                                              }
                                             }
                                           },
                                           "id" : 108

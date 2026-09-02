@@ -36,7 +36,7 @@ case class CheckUsesHelpers[A,NG,S <: SymbolInterface](
     node.data match {
       case Ast.QualIdent.Unqualified(name, _) =>
         visitUnqualifiedName (ng) (a, node.id, name)
-      case Ast.QualIdent.Qualified(qualifier, name, _) =>
+      case Ast.QualIdent.Qualified(qualifier, name) =>
         visitQualifiedName (ng) (a, node.id, qualifier, name)
     }
 

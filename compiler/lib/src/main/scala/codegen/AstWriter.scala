@@ -878,7 +878,6 @@ object AstWriter extends AstVisitor with LineUtils {
     val qid = Ast.QualIdent.Qualified(
       pii.interfaceInstance,
       pii.portName,
-      pii.interfaceInstance.data.isAbsolute
     )
     qualIdent(qid)
   }
@@ -887,7 +886,6 @@ object AstWriter extends AstVisitor with LineUtils {
     val qid = Ast.QualIdent.Qualified(
       tci.componentInstance,
       tci.channelName,
-      tci.componentInstance.data.isAbsolute
     )
     qualIdent(qid)
   }
@@ -903,7 +901,7 @@ object AstWriter extends AstVisitor with LineUtils {
   private def relativeQualIdentString(qid: Ast.QualIdent): String =
     qid match {
       case Ast.QualIdent.Unqualified(name, _) => name
-      case Ast.QualIdent.Qualified(qualifier, name, _) =>
+      case Ast.QualIdent.Qualified(qualifier, name) =>
         relativeQualIdentString(qualifier.data) ++ "." ++ name.data
     }
 
