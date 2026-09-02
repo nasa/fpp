@@ -1,0 +1,13 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_arg_bad_signature.fpp:23.24
+    expand T(interface c)
+                       ^
+error: port interface not implemented
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_arg_bad_signature.fpp:10.5
+    output port pIn: P
+    ^
+error: port instance does not match definition in interface:
+[ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_arg_bad_signature.fpp:4.5
+    sync input port pIn: P
+    ^

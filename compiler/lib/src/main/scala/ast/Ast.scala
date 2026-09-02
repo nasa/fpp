@@ -10,6 +10,12 @@ object Ast {
   /** Formal parameter list */
   type FormalParamList = List[Annotated[AstNode[FormalParam]]]
 
+  /** Template parameter list */
+  type TemplateParamList = List[Annotated[AstNode[TemplateParam]]]
+
+  /** Template argument list */
+  type TemplateArgList = List[AstNode[TemplateArg]]
+
   /** Identifier */
   type Ident = String
 
@@ -160,6 +166,7 @@ object Ast {
     final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node
     final case class DefInterface(node: AstNode[Ast.DefInterface]) extends Node
     final case class DefModule(node: AstNode[Ast.DefModule]) extends Node
+    final case class DefModuleTemplate(node: AstNode[Ast.DefModuleTemplate]) extends Node
     final case class DefPort(node: AstNode[Ast.DefPort]) extends Node
     final case class DefStateMachine(node: AstNode[Ast.DefStateMachine]) extends Node
     final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
@@ -167,7 +174,33 @@ object Ast {
     final case class DefTopology(node: AstNode[Ast.DefTopology]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
     final case class SpecLoc(node: AstNode[Ast.SpecLoc]) extends Node
+    final case class SpecTemplateExpand(node: AstNode[Ast.SpecTemplateExpand]) extends Node
   }
+
+  /** Template parameter */
+  sealed trait TemplateParam
+  object TemplateParam {
+    final case class Constant(
+      name: Ident,
+      typeName: AstNode[Ast.TypeName]
+    ) extends TemplateParam
+
+    final case class Type(
+      name: Ident
+    ) extends TemplateParam
+
+    final case class Interface(
+      name: Ident,
+      interface: AstNode[QualIdent],
+    ) extends TemplateParam
+  }
+
+  /** Module template definition */
+  final case class DefModuleTemplate(
+    name: Ident,
+    params: TemplateParamList,
+    members: List[ModuleMember]
+  )
 
   /** Port definition */
   final case class DefPort(
@@ -406,7 +439,14 @@ object Ast {
         case (Nil, name) => QualIdent.Unqualified(name.data)
         case (qualifier, name) => {
           val qualifier1 = fromNodeList(qualifier)
-          val node = AstNode.create(qualifier1, QualIdent.NodeList.name(qualifier).id)
+          val id = QualIdent.NodeList.name(qualifier).id
+          val node = AstNode.create(qualifier1)
+          Locations.getOpt(id) match {
+            case None => ()
+            case Some(loc) =>
+              Locations.put(node.id, loc)
+              ()
+          }
           QualIdent.Qualified(node, name)
         }
       }
@@ -639,6 +679,9 @@ object Ast {
     case object Interface extends Kind {
       override def toString = "interface"
     }
+    case object Template extends Kind {
+      override def toString = "template"
+    }
   }
 
   /** Parameter specifier */
@@ -766,6 +809,21 @@ object Ast {
     stateMachine: AstNode[QualIdent],
     priority: Option[AstNode[Expr]],
     queueFull: Option[QueueFull]
+  )
+
+  /** Template argument */
+  sealed trait TemplateArg
+  object TemplateArg {
+    final case class Constant(expr: AstNode[Expr]) extends TemplateArg
+    final case class Type(typeName: AstNode[TypeName]) extends TemplateArg
+    final case class Interface(instance: AstNode[QualIdent]) extends TemplateArg
+  }
+
+  /** Template expansion specifier */
+  final case class SpecTemplateExpand(
+    template: AstNode[QualIdent],
+    args: TemplateArgList,
+    members: Option[List[ModuleMember]]
   )
 
   /** Telemetry channel specifier */

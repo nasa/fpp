@@ -73,15 +73,15 @@ module DefinitionsAndSpecifiers {
     @< Async product receive port
 
     @ Internal Component State machine definition
-    state machine S
+    state machine SM
     @< State machine definition
 
     @ State machine instance 1
-    state machine instance s1: S priority 10 drop
+    state machine instance s1: SM priority 10 drop
     @< State machine instance 1
 
     @ State machine instance 2
-    state machine instance s2: S
+    state machine instance s2: SM
     @< State machine instance 2
 
     @ State machine for outside definition
@@ -156,9 +156,11 @@ module DefinitionsAndSpecifiers {
   }
   @< Module definition
 
-  @ Include specifier
-  include "constant.fppi"
-  @< Include specifier
+  module Constants {
+    @ Include specifier
+    include "constant.fppi"
+    @< Include specifier
+  }
 
   @ Port definition
   port P(a: U32, b: F32) -> U32
@@ -228,11 +230,11 @@ module DefinitionsAndSpecifiers {
   @< Deployment topology
 
   @ Topology definition with one implements
-  topology T implements I {}
+  topology T2 implements I {}
   @< Topology definition with one implements
 
   @ Topology definition with two implements
-  topology T implements I, I {}
+  topology T3 implements I, I {}
   @< Topology definition with two implements
 
   @ System definition
@@ -286,8 +288,8 @@ module Expressions {
   @< Array Subscript
 
   @ Array Subscript with member selection
-  constant arraySubExp2 = a.b.c[1][2].s[12]
-  @< Array Subscript
+  constant arraySubExp3 = a.b.c[1][2].s[12]
+  @< Array Subscript 
 
   @ Boolean literal
   constant booleanLiteralExp = true

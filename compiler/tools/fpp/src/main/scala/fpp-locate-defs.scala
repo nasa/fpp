@@ -24,12 +24,33 @@ object FPPLocateDefs {
       case list => list
     }
     for {
-      tul <- ToolUtils.parseFilesAndResolveAsts(Analysis(), files).map(_._2)
+      aTul <- ToolUtils.parseFilesAndResolveAsts(Analysis(), files)
+      a <- Right(aTul._1)
+      tul <- Right(aTul._2)
+      tul <- expandTemplates(a, tul)
     }
     yield {
       val config = LocateDefsFppWriter.State(options.dir)
       val lines = tul.map(LocateDefsFppWriter.transUnit(config, _)).flatten
       mapSeq(lines, System.out.println(_))
+    }
+  }
+
+  /** Expand templates, returning the translation units with expanded members.
+   *  If expansion fails (for example, because the model is incomplete), fall
+   *  back to the unexpanded translation units so that the tool still reports
+   *  the locations it can determine. */
+  private def expandTemplates(
+    a: Analysis,
+    tul: List[Ast.TransUnit]
+  ): Result.Result[List[Ast.TransUnit]] = {
+    val result = for {
+      a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
+      aTul <- ResolveTemplates.transUnit(a, tul)
+    } yield aTul._2
+    result match {
+      case Right(tul) => Right(tul)
+      case Left(_) => Right(tul)
     }
   }
 

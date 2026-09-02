@@ -142,19 +142,19 @@ def module
     @< Async product receive port
     @ Internal Component State machine definition
     def state machine
-      ident S
+      ident SM
     @< State machine definition
     @ State machine instance 1
     spec state machine instance
       ident s1
-      state machine qual ident S
+      state machine qual ident SM
       priority literal int 10
       queue full drop
     @< State machine instance 1
     @ State machine instance 2
     spec state machine instance
       ident s2
-      state machine qual ident S
+      state machine qual ident SM
     @< State machine instance 2
     @ State machine for outside definition
     spec state machine instance
@@ -304,10 +304,12 @@ def module
       ident x
       literal int 0
   @< Module definition
-  @ Include specifier
-  spec include
-    file constant.fppi
-  @< Include specifier
+  def module
+    ident Constants
+    @ Include specifier
+    spec include
+      file constant.fppi
+    @< Include specifier
   @ Port definition
   def port
     ident P
@@ -406,13 +408,13 @@ def module
   @< Deployment topology
   @ Topology definition with one implements
   def topology
-    ident T
+    ident T2
     implements
       qual ident I
   @< Topology definition with one implements
   @ Topology definition with two implements
   def topology
-    ident T
+    ident T3
     implements
       qual ident I
       qual ident I
@@ -530,7 +532,7 @@ def module
   @< Array Subscript
   @ Array Subscript with member selection
   def constant
-    ident arraySubExp2
+    ident arraySubExp3
     expr array subscript
       expr dot
         expr array subscript

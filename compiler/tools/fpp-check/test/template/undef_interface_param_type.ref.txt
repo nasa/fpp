@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/undef_interface_param_type.fpp:1.32
+module template T(interface i: S) {}
+                               ^
+error: symbol S is not defined
+note: looking for a interface here

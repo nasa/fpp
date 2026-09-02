@@ -1,0 +1,19 @@
+interface Iface {
+
+}
+
+@ Template Definition
+module template T (
+    constant c: U32, @< A constant parameter
+    type Ty, @< A type parameter
+    interface inst: Iface @< An interface parameter
+) {
+    port P(
+        a: Ty
+    ) -> Ty
+
+    constant d = c + 2
+}
+
+@ Without -t, the expansion specifier is formatted but not expanded
+expand T(constant 10, type U32, interface inst1)

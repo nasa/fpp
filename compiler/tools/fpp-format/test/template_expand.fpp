@@ -1,0 +1,33 @@
+@ An interface for the template's interface parameter
+interface Iface {
+
+}
+
+@ Template definition with all three kinds of parameter
+module template T(
+    constant c: U32, @< A constant parameter
+    type Ty, @< A type parameter
+    interface inst: Iface @< An interface parameter
+) {
+    @ A port that uses the type parameter
+    port P(
+        a: Ty
+    ) -> Ty
+
+    @ A constant derived from the constant parameter
+    constant d = c + 2
+}
+
+@ Expand the template with concrete arguments
+expand T(constant 10, type U32, interface inst1)
+
+@ A template with an empty body
+module template Empty(
+    constant c: U32 @< A constant parameter
+) {
+
+}
+
+@ Expanding an empty-bodied template produces an empty brace block
+expand Empty(constant 5)
+@< with the specifier annotations attached to it

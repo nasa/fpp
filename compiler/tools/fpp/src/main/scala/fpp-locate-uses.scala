@@ -74,6 +74,10 @@ object FPPLocateUses {
           case _: Symbol.Struct => Ast.SpecLoc.Type
           case _: Symbol.System => throw InternalError("use should not be system symbol")
           case _: Symbol.Topology => Ast.SpecLoc.Instance
+          case _: Symbol.Template => Ast.SpecLoc.Template
+          case _: Symbol.TemplateConstantArg => throw InternalError("use should not be template argument")
+          case _: Symbol.TemplateTypeArg => throw InternalError("use should not be template argument")
+          case _: Symbol.TemplateInterfaceArg => throw InternalError("use should not be template argument")
         }
         val isDictionaryDef = s match {
           case Symbol.Array(aNode) => aNode._2.data.isDictionaryDef
