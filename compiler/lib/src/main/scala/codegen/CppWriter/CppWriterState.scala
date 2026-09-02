@@ -197,6 +197,7 @@ case class CppWriterState(
           case _: Symbol.ComponentInstance => List()
           case _: Symbol.Template => List()
           case _: Symbol.TemplateConstantArg => List()
+          case _: Symbol.System => List()
         }
       }
       yield filenames

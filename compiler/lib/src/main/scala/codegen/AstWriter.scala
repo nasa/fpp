@@ -266,18 +266,29 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
+  override def defSystemAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefSystem]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("def system") ++
+    (ident(data.name) ++ qualIdent(data.topology.data)).map(indentIn)
+  }
+
   override def defTopologyAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data
+    val topology = if data.isDeployment then "deployment topology" else "topology"
     val implementsClause = data.implements.length match {
       case 0 => Nil
       case _ => lines("implements") ++ data.implements.flatMap(q => qualIdent(q.data)).map(indentIn)
     }
 
-    lines("def topology") ++
+    lines(s"def $topology") ++
     (ident(data.name) ++ implementsClause ++ data.members.flatMap(topologyMember)).map(indentIn)
   }
 

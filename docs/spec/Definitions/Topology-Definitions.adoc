@@ -18,6 +18,7 @@ The connections are merged graph by graph.
 
 ==== Syntax
 
+_[_ `deployment` _]_
 `topology`
 <<Lexical-Elements_Identifiers,_identifier_>>
 _[_ `implements` _interface-list_ _]_
@@ -46,6 +47,11 @@ instance specifier>>
 * An <<Specifiers_Include-Specifiers,include specifier>>
 
 ==== Semantics
+
+If present, the optional keyword `deployment` indicates that the topology
+is a **deployment topology**.
+A deployment topology is the top-level topology of a deployment; it
+causes deployment code to be generated.
 
 The identifier is the name of the topology.
 
@@ -454,14 +460,15 @@ stem:[c_2].
 
 ==== Implied Uses
 
-When generating a dictionary from a topology _T_, the analyzer
-treats the definition of _T_ as if it contained 
+When generating a dictionary from a deployment topology _T_,
+the analyzer treats the definition of _T_ as if it contained 
 <<Definitions-and-Uses_Implied-Uses, implied uses>> of
 several <<Definitions_Framework-Definitions,
 framework definitions>> required by the dictionary.
 Those framework definitions are specified
-in the https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/[F Prime
-dictionary specification].
+in the 
+https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/#framework-definitions-required-by-the-dictionary[F 
+Prime dictionary specification].
 
 ==== Examples
 
@@ -594,7 +601,7 @@ topology AttitudeControl {
 [source,fpp]
 ----
 @ Release topology
-topology Release {
+deployment topology Release {
 
   # ----------------------------------------------------------------------
   # Imported topologies

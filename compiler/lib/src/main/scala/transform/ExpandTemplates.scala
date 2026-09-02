@@ -628,6 +628,19 @@ object ExpandTemplates extends AstTransformer
       )))
     }
 
+  override def defSystemAnnotatedNode(
+    a: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefSystem]]
+  ): ResultAnnotatedNode[Ast.DefSystem] =
+    val data = aNode._2.data
+    for {
+      topology <- qualIdentNode(a, data.topology)
+    } yield {
+      ((), cloneAnnotatedNode(a, aNode, data.copy(
+        topology = topology._2
+      )))
+    }
+
   override def specCommandAnnotatedNode(
     a: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecCommand]]

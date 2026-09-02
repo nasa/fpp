@@ -88,17 +88,18 @@ constant FW_FIXED_LENGTH_STRING_SIZE = 256
 array A = [3] string
 ----
 +
-Notice that we defined the 
-<<Defining-Types_Framework-Types,framework type>> 
+Notice that we defined the type
 `FwSizeStoreType` and the 
-<<Defining-Constants_Framework-Constants,framework constant>>
 `FW_FIXED_LENGTH_STRING_SIZE`.
-These definitions are required when using the type `string`.
-Typically you provide them as part of the F Prime configuration.
 `FwSizeStoreType` specifies the type to use for storing the
 length of a string.
 `FW_FIXED_LENGTH_STRING_SIZE` specifies the size of the buffer
 used to store string data.
+These definitions are required when using the type `string`.
+Typically you provide them as part of the F Prime configuration.
+For more information, see the sections on
+<<Defining-Types_Framework-Types,framework types>> and
+<<Defining-Constants_Framework-Constants,framework constants>>.
 
 * The type name `string size` _e_, where _e_ is a numeric expression
 specifying the maximum string length of any value of that type.

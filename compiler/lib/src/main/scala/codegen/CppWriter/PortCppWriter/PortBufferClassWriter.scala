@@ -55,38 +55,31 @@ case class PortBufferClassWriter(
     CppDoc.Lines.Hpp
   )
 
-  private def getPublicMemberFunctions = addAccessTagAndComment(
-    "public",
-    s"Public member functions for $portBufferName",
-    List(
-      linesClassMember({
-        val buffAddr =
-          if !hasParams then "nullptr" else "m_buff"
-        lines(
-          s"""|
-              |//! Get the capacity of the buffer
-              |//! \\return The capacity
-              |Fw::Serializable::SizeType getCapacity() const override {
-              |  return CAPACITY;
-              |}
-              |
-              |//! Get the buffer address (non-const)
-              |//! \\return The buffer address
-              |U8* getBuffAddr() override {
-              |  return $buffAddr;
-              |}
-              |
-              |//! Get the buffer address (const)
-              |//! \\return The buffer address
-              |const U8* getBuffAddr() const override {
-              |  return $buffAddr;
-              |}
-              |"""
+  private def getPublicMemberFunctions = {
+    // LinearBufferBase has no default constructor: every buffer must forward its
+    // storage. Ports with params forward their fixed buffer; param-less ports
+    // have no storage, so they forward nullptr/0.
+    val baseInit =
+      if hasParams then "Fw::LinearBufferBase(m_buff, CAPACITY)"
+      else "Fw::LinearBufferBase(nullptr, 0)"
+    addAccessTagAndComment(
+      "public",
+      s"Public member functions for $portBufferName",
+      List(
+        linesClassMember(
+          lines(
+            s"""|
+                |//! Constructor
+                |${portBufferName}() : $baseInit {
+                |
+                |}
+                |"""
+          )
         )
-      })
-    ),
-    CppDoc.Lines.Hpp
-  )
+      ),
+      CppDoc.Lines.Hpp
+    )
+  }
 
   private def writeBufferCapacity: List[Line] = writeSum(
     portParams.map(

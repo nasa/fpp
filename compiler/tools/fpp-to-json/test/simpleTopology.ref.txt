@@ -250,6 +250,7 @@
               "node" : {
                 "AstNode" : {
                   "data" : {
+                    "isDeployment" : false,
                     "name" : "Simple",
                     "members" : [
                       [
@@ -2764,31 +2765,7 @@
       }
     },
     "dictionaryMap" : {
-      "65" : {
-        "usedSymbolSet" : [
-        ],
-        "commandEntryMap" : {
-          
-        },
-        "tlmChannelEntryMap" : {
-          
-        },
-        "eventEntryMap" : {
-          
-        },
-        "paramEntryMap" : {
-          
-        },
-        "recordEntryMap" : {
-          
-        },
-        "containerEntryMap" : {
-          
-        },
-        "tlmPacketSetMap" : {
-          
-        }
-      }
+      
     }
   }
 }

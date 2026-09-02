@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>The F Prime Prime (FPP) Language Specification, Unreleased, after v3.2.0</title>
+<title>The F Prime Prime (FPP) Language Specification, v3.3.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) Language Specification, Unreleased, after v3.2.0</h1>
+<h1>The F Prime Prime (FPP) Language Specification, v3.3.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -560,28 +560,35 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_Struct-Definitions_Examples">5.14.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Topology-Definitions">5.15. Topology Definitions</a>
+<li><a href="#Definitions_System-Definitions">5.15. System Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Topology-Definitions_Syntax">5.15.1. Syntax</a></li>
-<li><a href="#Definitions_Topology-Definitions_Semantics">5.15.2. Semantics</a></li>
-<li><a href="#Definitions_Topology-Definitions_Importing-Subtopologies">5.15.3. Importing Subtopologies</a></li>
-<li><a href="#Definitions_Topology-Definitions_Ordering-of-Component-Instance-Connections">5.15.4. Ordering of Component Instance Connections</a></li>
-<li><a href="#Definitions_Topology-Definitions_Implied-Uses">5.15.5. Implied Uses</a></li>
-<li><a href="#Definitions_Topology-Definitions_Examples">5.15.6. Examples</a></li>
+<li><a href="#Definitions_System-Definitions_Syntax">5.15.1. Syntax</a></li>
+<li><a href="#Definitions_System-Definitions_Semantics">5.15.2. Semantics</a></li>
+<li><a href="#Definitions_System-Definitions_Examples">5.15.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Type-Definitions">5.16. Type Definitions</a></li>
-<li><a href="#Definitions_Framework-Definitions">5.17. Framework Definitions</a>
+<li><a href="#Definitions_Topology-Definitions">5.16. Topology Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Framework-Definitions_Constant-Definitions">5.17.1. Constant Definitions</a></li>
-<li><a href="#Definitions_Framework-Definitions_Type-Definitions">5.17.2. Type Definitions</a></li>
-<li><a href="#Definitions_Framework-Definitions_Port-Definitions">5.17.3. Port Definitions</a></li>
+<li><a href="#Definitions_Topology-Definitions_Syntax">5.16.1. Syntax</a></li>
+<li><a href="#Definitions_Topology-Definitions_Semantics">5.16.2. Semantics</a></li>
+<li><a href="#Definitions_Topology-Definitions_Importing-Subtopologies">5.16.3. Importing Subtopologies</a></li>
+<li><a href="#Definitions_Topology-Definitions_Ordering-of-Component-Instance-Connections">5.16.4. Ordering of Component Instance Connections</a></li>
+<li><a href="#Definitions_Topology-Definitions_Implied-Uses">5.16.5. Implied Uses</a></li>
+<li><a href="#Definitions_Topology-Definitions_Examples">5.16.6. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Dictionary-Definitions">5.18. Dictionary Definitions</a>
+<li><a href="#Definitions_Type-Definitions">5.17. Type Definitions</a></li>
+<li><a href="#Definitions_Framework-Definitions">5.18. Framework Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Dictionary-Definitions_Semantics">5.18.1. Semantics</a></li>
-<li><a href="#Definitions_Dictionary-Definitions_Examples">5.18.2. Examples</a></li>
+<li><a href="#Definitions_Framework-Definitions_Constant-Definitions">5.18.1. Constant Definitions</a></li>
+<li><a href="#Definitions_Framework-Definitions_Type-Definitions">5.18.2. Type Definitions</a></li>
+<li><a href="#Definitions_Framework-Definitions_Port-Definitions">5.18.3. Port Definitions</a></li>
+</ul>
+</li>
+<li><a href="#Definitions_Dictionary-Definitions">5.19. Dictionary Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#Definitions_Dictionary-Definitions_Semantics">5.19.1. Semantics</a></li>
+<li><a href="#Definitions_Dictionary-Definitions_Examples">5.19.2. Examples</a></li>
 </ul>
 </li>
 </ul>
@@ -2968,6 +2975,9 @@ A module member is one of the following:</p>
 <p>A <a href="#Definitions_Struct-Definitions">struct definition</a></p>
 </li>
 <li>
+<p>A <a href="#Definitions_System-Definitions">system definition</a></p>
+</li>
+<li>
 <p>A <a href="#Definitions_Topology-Definitions">topology definition</a></p>
 </li>
 <li>
@@ -4007,7 +4017,53 @@ struct D {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Topology-Definitions">5.15. Topology Definitions</h3>
+<h3 id="Definitions_System-Definitions">5.15. System Definitions</h3>
+<div class="paragraph">
+<p>A <strong>system definition</strong> defines an embedded software system.
+When a system definition appears in the model, it
+causes code and a ground dictionary to be generated.</p>
+</div>
+<div class="sect3">
+<h4 id="Definitions_System-Definitions_Syntax">5.15.1. Syntax</h4>
+<div class="paragraph">
+<p><code>system</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>:</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_System-Definitions_Semantics">5.15.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>An FPP model may contain at most one system definition.</p>
+</li>
+<li>
+<p>The qualified identifier must
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
+a topology definition <em>D</em>.
+<em>D</em> must define a <a href="#Definitions_Topology-Definitions_Semantics">deployment
+topology</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_System-Definitions_Examples">5.15.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ The spacecraft system
+system Spacecraft: SpacecraftTopology
+
+@ The deployment topology for the system
+deployment topology SpacecraftTopology { ... }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Definitions_Topology-Definitions">5.16. Topology Definitions</h3>
 <div class="paragraph">
 <p>A <strong>topology definition</strong> defines an F Prime topology,
 that is, a set of objects with ports (component instances and subtopologies)
@@ -4028,9 +4084,10 @@ topology are merged into the first one.
 The connections are merged graph by graph.</p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Syntax">5.15.1. Syntax</h4>
+<h4 id="Definitions_Topology-Definitions_Syntax">5.16.1. Syntax</h4>
 <div class="paragraph">
-<p><code>topology</code>
+<p><em>[</em> <code>deployment</code> <em>]</em>
+<code>topology</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em> <code>implements</code> <em>interface-list</em> <em>]</em>
 <code>{</code> <em>topology-member-sequence</em> <code>}</code></p>
@@ -4069,7 +4126,13 @@ instance specifier</a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Semantics">5.15.2. Semantics</h4>
+<h4 id="Definitions_Topology-Definitions_Semantics">5.16.2. Semantics</h4>
+<div class="paragraph">
+<p>If present, the optional keyword <code>deployment</code> indicates that the topology
+is a <strong>deployment topology</strong>.
+A deployment topology is the top-level topology of a deployment; it
+causes deployment code to be generated.</p>
+</div>
 <div class="paragraph">
 <p>The identifier is the name of the topology.</p>
 </div>
@@ -4480,7 +4543,7 @@ interface</a> <em>I'</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Importing-Subtopologies">5.15.3. Importing Subtopologies</h4>
+<h4 id="Definitions_Topology-Definitions_Importing-Subtopologies">5.16.3. Importing Subtopologies</h4>
 <div class="paragraph">
 <p>When a topology <em>T</em> has a port interface instance specifier <code>instance</code> <em>Q</em>
 as a member, and <em>Q</em> refers to a topology
@@ -4570,7 +4633,7 @@ and connections \$C''_i\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Ordering-of-Component-Instance-Connections">5.15.4. Ordering of Component Instance Connections</h4>
+<h4 id="Definitions_Topology-Definitions_Ordering-of-Component-Instance-Connections">5.16.4. Ordering of Component Instance Connections</h4>
 <div class="paragraph">
 <p>For purposes of port numbering, FPP orders connections between
 component instances as follows.</p>
@@ -4659,19 +4722,20 @@ then \$c_1\$ is less than (respectively greater than) \$c_2\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Implied-Uses">5.15.5. Implied Uses</h4>
+<h4 id="Definitions_Topology-Definitions_Implied-Uses">5.16.5. Implied Uses</h4>
 <div class="paragraph">
-<p>When generating a dictionary from a topology <em>T</em>, the analyzer
-treats the definition of <em>T</em> as if it contained
+<p>When generating a dictionary from a deployment topology <em>T</em>,
+the analyzer treats the definition of <em>T</em> as if it contained
 <a href="#Definitions-and-Uses_Implied-Uses">implied uses</a> of
 several <a href="#Definitions_Framework-Definitions">framework definitions</a> required by the dictionary.
 Those framework definitions are specified
-in the <a href="https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/">F Prime
-dictionary specification</a>.</p>
+in the
+<a href="https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/#framework-definitions-required-by-the-dictionary">F
+Prime dictionary specification</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Examples">5.15.6. Examples</h4>
+<h4 id="Definitions_Topology-Definitions_Examples">5.16.6. Examples</h4>
 <div class="paragraph">
 <p><strong>Example 1.</strong></p>
 </div>
@@ -4804,7 +4868,7 @@ topology AttitudeControl {
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ Release topology
-topology Release {
+deployment topology Release {
 
   # ----------------------------------------------------------------------
   # Imported topologies
@@ -5047,7 +5111,7 @@ expand T(cOut)</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Type-Definitions">5.16. Type Definitions</h3>
+<h3 id="Definitions_Type-Definitions">5.17. Type Definitions</h3>
 <div class="paragraph">
 <p>A <strong>type definition</strong> is one of the following:</p>
 </div>
@@ -5072,13 +5136,13 @@ expand T(cOut)</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Framework-Definitions">5.17. Framework Definitions</h3>
+<h3 id="Definitions_Framework-Definitions">5.18. Framework Definitions</h3>
 <div class="paragraph">
 <p>Several definitions are used specially by the F Prime framework.
 These are called <strong>framework definitions.</strong></p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Framework-Definitions_Constant-Definitions">5.17.1. Constant Definitions</h4>
+<h4 id="Definitions_Framework-Definitions_Constant-Definitions">5.18.1. Constant Definitions</h4>
 <div class="paragraph">
 <p>The table below lists the framework constant definitions.
 Each row in the table has the following meaning:</p>
@@ -5251,7 +5315,7 @@ valid <a href="#Types_String-Types">string size</a>.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Framework-Definitions_Type-Definitions">5.17.2. Type Definitions</h4>
+<h4 id="Definitions_Framework-Definitions_Type-Definitions">5.18.2. Type Definitions</h4>
 <div class="paragraph">
 <p>The table below lists the framework type definitions.
 The rows have the same meaning as stated for
@@ -5377,7 +5441,7 @@ underlying type is unsigned.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Framework-Definitions_Port-Definitions">5.17.3. Port Definitions</h4>
+<h4 id="Definitions_Framework-Definitions_Port-Definitions">5.18.3. Port Definitions</h4>
 <div class="paragraph">
 <p>The F Prime framework provides <a href="#Definitions_Port-Definitions">port definitions</a>
 with the following qualified names:</p>
@@ -5428,7 +5492,7 @@ with the following qualified names:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Dictionary-Definitions">5.18. Dictionary Definitions</h3>
+<h3 id="Definitions_Dictionary-Definitions">5.19. Dictionary Definitions</h3>
 <div class="paragraph">
 <p>If the optional keyword <code>dictionary</code> appears in a
 <a href="#Definitions_Type-Definitions">type definition</a> or
@@ -5439,7 +5503,7 @@ A dictionary definition instructs the code generator to include
 the definition in the ground dictionary.</p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Dictionary-Definitions_Semantics">5.18.1. Semantics</h4>
+<h4 id="Definitions_Dictionary-Definitions_Semantics">5.19.1. Semantics</h4>
 <div class="paragraph">
 <p>If a constant definition <em>D</em> is a dictionary definition, then the
 expression appearing in <em>D</em> must have one of the following types:</p>
@@ -5466,7 +5530,7 @@ defined by <em>D</em> must be a <a href="#Types_Displayable-Types">displayable t
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Dictionary-Definitions_Examples">5.18.2. Examples</h4>
+<h4 id="Definitions_Dictionary-Definitions_Examples">5.19.2. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">dictionary type T = U32
@@ -7703,6 +7767,11 @@ of a <a href="#Definitions">definition</a>.</p>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
+<p>A <strong>system location specifier</strong> <code>locate</code> <code>system</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
+<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+</li>
+<li>
 <p>A <strong>type location specifier</strong> <code>locate</code>
 <em>[</em>
 <code>dictionary</code>
@@ -7733,8 +7802,10 @@ as follows:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>A component instance location specifier refers to a
-<a href="#Definitions_Component-Instance-Definitions">component instance definition</a>.</p>
+<p>An interface instance location specifier refers to a
+<a href="#Definitions_Component-Instance-Definitions">component instance definition</a>
+or
+a <a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </li>
 <li>
 <p>A component location specifier refers to a
@@ -7757,8 +7828,8 @@ as follows:</p>
 <a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
 </li>
 <li>
-<p>A topology location specifier refers to a
-<a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
+<p>A system location specifier refers to a
+<a href="#Definitions_System-Definitions">system definition</a>.</p>
 </li>
 <li>
 <p>A template specifier refers to a
@@ -8450,6 +8521,11 @@ definition or topology definition <em>D</em>.
 A port interface instance specifier <em>S</em> represents <em>D</em>
 if the port interface instance <em>I</em> to which <em>S</em> refers
 <a href="#Ports_Port-Interface-Instances">represents <em>D</em></a>.</p>
+</div>
+<div class="paragraph">
+<p>If the qualified identifier refers to a topology definition <em>D</em>,
+then <em>D</em> must not define a
+<a href="#Definitions_Topology-Definitions_Semantics">deployment topology</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -11157,6 +11233,9 @@ reside in the following <strong>name groups</strong>:</p>
 <p>The <strong>template name group</strong></p>
 </li>
 <li>
+<p>The <strong>system name group</strong></p>
+</li>
+<li>
 <p>The <strong>type name group</strong></p>
 </li>
 <li>
@@ -11223,6 +11302,9 @@ the value name group, and the type name group.</p>
 </li>
 <li>
 <p>Topology definitions reside in the port interface instance name group.</p>
+</li>
+<li>
+<p>System definitions reside in the system name group.</p>
 </li>
 <li>
 <p>Type parameter definitions reside in the type name group.</p>
@@ -14226,7 +14308,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-31 08:39:32 -0700
+Last updated 2026-09-01 21:10:23 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

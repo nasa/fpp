@@ -1,4 +1,6 @@
 tests="
+choice_alias_alias
+choice_alias_i16_i32
 choice_f32_f64
 choice_i16_i32
 choice_i32_f32

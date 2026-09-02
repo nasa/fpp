@@ -45,4 +45,6 @@ module M {
     array TArr = [n] U32
   }
 
+  system S: T
+
 }

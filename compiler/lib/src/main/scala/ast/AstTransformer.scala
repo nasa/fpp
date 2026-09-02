@@ -174,6 +174,12 @@ trait AstTransformer {
   ): ResultAnnotatedNode[Ast.DefStruct] =
     defaultAnnotatedNode(in, node)
 
+  def defSystemAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefSystem]]
+  ): ResultAnnotatedNode[Ast.DefSystem] =
+    defaultAnnotatedNode(in, node)
+
   def defTopologyAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefTopology]]
@@ -548,6 +554,8 @@ trait AstTransformer {
         transform(defStateMachineAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefStateMachine(_))
       case Ast.ModuleMember.DefStruct(node1) =>
         transform(defStructAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefStruct(_))
+      case Ast.ModuleMember.DefSystem(node1) =>
+        transform(defSystemAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefSystem(_))
       case Ast.ModuleMember.DefTopology(node1) =>
         transform(defTopologyAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefTopology(_))
       case Ast.ModuleMember.SpecInclude(node1) =>

@@ -55,7 +55,7 @@ object CheckTopologyDefs
             for (c <- Connection.fromAst(a, ast))
               yield t.addLocalConnection(direct.name, c)
           )
-        case pattern: Ast.SpecConnectionGraph.Pattern => 
+        case pattern: Ast.SpecConnectionGraph.Pattern =>
           for {
             p <- ConnectionPattern.fromSpecConnectionGraph(a, aNode, pattern)
             t <- a.topology.get.addPattern(pattern.kind, p)
@@ -63,5 +63,24 @@ object CheckTopologyDefs
       }
     } yield a.copy(topology = Some(topology))
   }
+
+  override def specTlmPacketSetAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
+  ) =
+    val top = a.topology.get
+    if top.aNode._2.data.isDeployment
+    then Right(a)
+    else
+      val node = aNode._2
+      val loc = Locations.get(node.id)
+      val name = node.data.name
+      Left(
+        SemanticError.InvalidTlmPacketSet(
+          loc,
+          name,
+          "only a deployment topology may specify a telemetry packet set"
+        )
+      )
 
 }

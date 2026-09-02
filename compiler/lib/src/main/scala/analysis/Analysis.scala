@@ -97,7 +97,9 @@ case class Analysis(
   /** Node ID of the template definition we are currently cloning inside of */
   templateDefinition: Option[AstNode.Id] = None,
   /** The set of symbols defined with a dictionary specifier */
-  dictionarySymbolSet: Set[Symbol] = Set()
+  dictionarySymbolSet: Set[Symbol] = Set(),
+  /** The mapping from system symbols to systems */
+  systemMap: Map[Symbol.System, FppSystem] = Map(),
 ) {
 
   /** Gets the qualified name of a symbol */

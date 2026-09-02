@@ -1,6 +1,6 @@
 type A
 dictionary type A2 = A
 
-topology T {
+deployment topology T {
 
 }

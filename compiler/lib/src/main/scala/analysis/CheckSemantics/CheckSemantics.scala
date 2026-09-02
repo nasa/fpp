@@ -37,6 +37,7 @@ object CheckSemantics {
       a <- CheckSpecLocs.visitList(a, tul, CheckSpecLocs.transUnit)
       a <- CheckDictionaryDefs.visitList(a, tul, CheckDictionaryDefs.transUnit)
       a <- ConstructDictionaryMap.visitList(a, tul, ConstructDictionaryMap.transUnit)
+      a <- CheckSystemDefs.visitList(a, tul, CheckSystemDefs.transUnit)
     }
     yield a
   }
