@@ -1168,7 +1168,8 @@
         "qualifiedName" : {
           "qualifier" : [
           ],
-          "base" : "c1"
+          "base" : "c1",
+          "isAbsolute" : true
         },
         "component" : {
           "astNodeId" : 20
@@ -1191,7 +1192,8 @@
         "qualifiedName" : {
           "qualifier" : [
           ],
-          "base" : "c2"
+          "base" : "c2",
+          "isAbsolute" : true
         },
         "component" : {
           "astNodeId" : 20
@@ -1556,7 +1558,8 @@
         "qualifiedName" : {
           "qualifier" : [
           ],
-          "base" : "TelemetryPackets"
+          "base" : "TelemetryPackets",
+          "isAbsolute" : true
         },
         "directTopologies" : {
           
@@ -2101,7 +2104,8 @@
               "qualifiedName" : {
                 "qualifier" : [
                 ],
-                "base" : "c1"
+                "base" : "c1",
+                "isAbsolute" : true
               },
               "component" : {
                 "astNodeId" : 20
@@ -2154,7 +2158,8 @@
               "qualifiedName" : {
                 "qualifier" : [
                 ],
-                "base" : "c2"
+                "base" : "c2",
+                "isAbsolute" : true
               },
               "component" : {
                 "astNodeId" : 20

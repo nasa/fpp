@@ -3467,7 +3467,8 @@
         "qualifiedName" : {
           "qualifier" : [
           ],
-          "base" : "c1"
+          "base" : "c1",
+          "isAbsolute" : true
         },
         "component" : {
           "astNodeId" : 12
@@ -3490,7 +3491,8 @@
         "qualifiedName" : {
           "qualifier" : [
           ],
-          "base" : "c2"
+          "base" : "c2",
+          "isAbsolute" : true
         },
         "component" : {
           "astNodeId" : 37
@@ -3513,7 +3515,8 @@
         "qualifiedName" : {
           "qualifier" : [
           ],
-          "base" : "c3"
+          "base" : "c3",
+          "isAbsolute" : true
         },
         "component" : {
           "astNodeId" : 50
@@ -3536,7 +3539,8 @@
         "qualifiedName" : {
           "qualifier" : [
           ],
-          "base" : "c4"
+          "base" : "c4",
+          "isAbsolute" : true
         },
         "component" : {
           "astNodeId" : 67
@@ -3559,7 +3563,8 @@
         "qualifiedName" : {
           "qualifier" : [
           ],
-          "base" : "c5"
+          "base" : "c5",
+          "isAbsolute" : true
         },
         "component" : {
           "astNodeId" : 84
@@ -3582,7 +3587,8 @@
         "qualifiedName" : {
           "qualifier" : [
           ],
-          "base" : "c6"
+          "base" : "c6",
+          "isAbsolute" : true
         },
         "component" : {
           "astNodeId" : 97
@@ -3605,7 +3611,8 @@
         "qualifiedName" : {
           "qualifier" : [
           ],
-          "base" : "c7"
+          "base" : "c7",
+          "isAbsolute" : true
         },
         "component" : {
           "astNodeId" : 110
@@ -4608,7 +4615,8 @@
         "qualifiedName" : {
           "qualifier" : [
           ],
-          "base" : "T"
+          "base" : "T",
+          "isAbsolute" : true
         },
         "directTopologies" : {
           
@@ -4777,7 +4785,8 @@
                 "qualifiedName" : {
                   "qualifier" : [
                   ],
-                  "base" : "c2"
+                  "base" : "c2",
+                  "isAbsolute" : true
                 },
                 "component" : {
                   "astNodeId" : 37
@@ -4826,7 +4835,8 @@
                 "qualifiedName" : {
                   "qualifier" : [
                   ],
-                  "base" : "c3"
+                  "base" : "c3",
+                  "isAbsolute" : true
                 },
                 "component" : {
                   "astNodeId" : 50
@@ -4875,7 +4885,8 @@
                 "qualifiedName" : {
                   "qualifier" : [
                   ],
-                  "base" : "c4"
+                  "base" : "c4",
+                  "isAbsolute" : true
                 },
                 "component" : {
                   "astNodeId" : 67
@@ -4924,7 +4935,8 @@
                 "qualifiedName" : {
                   "qualifier" : [
                   ],
-                  "base" : "c5"
+                  "base" : "c5",
+                  "isAbsolute" : true
                 },
                 "component" : {
                   "astNodeId" : 84
@@ -4973,7 +4985,8 @@
                 "qualifiedName" : {
                   "qualifier" : [
                   ],
-                  "base" : "c6"
+                  "base" : "c6",
+                  "isAbsolute" : true
                 },
                 "component" : {
                   "astNodeId" : 97
@@ -5022,7 +5035,8 @@
                 "qualifiedName" : {
                   "qualifier" : [
                   ],
-                  "base" : "c7"
+                  "base" : "c7",
+                  "isAbsolute" : true
                 },
                 "component" : {
                   "astNodeId" : 110
@@ -5071,7 +5085,8 @@
                 "qualifiedName" : {
                   "qualifier" : [
                   ],
-                  "base" : "c1"
+                  "base" : "c1",
+                  "isAbsolute" : true
                 },
                 "component" : {
                   "astNodeId" : 12

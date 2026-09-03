@@ -2017,7 +2017,8 @@
           "qualifier" : [
             "FSW"
           ],
-          "base" : "dataCompressor"
+          "base" : "dataCompressor",
+          "isAbsolute" : true
         },
         "component" : {
           "astNodeId" : 58
@@ -2047,7 +2048,8 @@
           "qualifier" : [
             "FSW"
           ],
-          "base" : "stateMachines"
+          "base" : "stateMachines",
+          "isAbsolute" : true
         },
         "component" : {
           "astNodeId" : 137

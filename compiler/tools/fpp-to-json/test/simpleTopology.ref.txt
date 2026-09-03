@@ -829,7 +829,8 @@
         "qualifiedName" : {
           "qualifier" : [
           ],
-          "base" : "c1"
+          "base" : "c1",
+          "isAbsolute" : true
         },
         "component" : {
           "astNodeId" : 14
@@ -852,7 +853,8 @@
         "qualifiedName" : {
           "qualifier" : [
           ],
-          "base" : "c2"
+          "base" : "c2",
+          "isAbsolute" : true
         },
         "component" : {
           "astNodeId" : 14
@@ -1025,7 +1027,8 @@
         "qualifiedName" : {
           "qualifier" : [
           ],
-          "base" : "Simple"
+          "base" : "Simple",
+          "isAbsolute" : true
         },
         "directTopologies" : {
           

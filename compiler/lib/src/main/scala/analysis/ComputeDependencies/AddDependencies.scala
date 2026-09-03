@@ -86,14 +86,17 @@ object AddDependencies extends BasicUseAnalyzer {
     def computeNameList: List[Name.Qualified] = {
       def helper(prefix: List[Name.Unqualified], result: List[Name.Qualified]): List[Name.Qualified] = {
         prefix match {
-          case Nil => (use :: result).reverse
+          case Nil => (use.copy(isAbsolute = true) :: result).reverse
           case head :: tail => {
             val name = Name.Qualified.fromIdentList(prefix.reverse ++ use.toIdentList)
             helper(tail, name :: result)
           }
         }
       }
-      helper(a.scopeNameList, Nil)
+      use.isAbsolute match {
+        case true => List(use)
+        case false => helper(a.scopeNameList, Nil)
+      }
     }
     def findLocation(nameList: List[Name.Qualified]): Option[Ast.SpecLoc] = {
       nameList match {
