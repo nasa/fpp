@@ -2538,7 +2538,12 @@ void PassiveExternalParamsComponentBase ::
 void PassiveExternalParamsComponentBase ::
   parametersLoaded()
 {
-  // Do nothing by default
+  this->parameterUpdated(PARAMID_PARAMI32EXT);
+  this->parameterUpdated(PARAMID_PARAMF64EXT);
+  this->parameterUpdated(PARAMID_PARAMSTRINGEXT);
+  this->parameterUpdated(PARAMID_PARAMENUMEXT);
+  this->parameterUpdated(PARAMID_PARAMARRAYEXT);
+  this->parameterUpdated(PARAMID_PARAMSTRUCTEXT);
 }
 
 // ----------------------------------------------------------------------
