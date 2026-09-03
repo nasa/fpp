@@ -2,7 +2,7 @@
 
 An *identifier expression* is one of the following:
 
-. An <<Lexical-Elements_Identifiers,identifier>> _I_
+. An <<Lexical-Elements_Identifiers,identifier>>
 that refers to a
 <<Definitions_Constant-Definitions,constant definition>>
 or
@@ -10,8 +10,8 @@ or
 according to the
 <<Scoping-of-Names_Resolution-of-Identifiers,rules for resolving identifiers>>.
 
-. A <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> `.` _I_,
-where _I_ is an identifier, that refers to a
+. A <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> of
+the form `.` _I_, where _I_ is an identifier, that refers to a
 <<Definitions_Constant-Definitions,constant definition>>
 according to the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for resolving 
