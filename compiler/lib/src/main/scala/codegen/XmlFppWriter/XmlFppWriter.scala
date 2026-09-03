@@ -275,7 +275,8 @@ object XmlFppWriter extends LineUtils {
     def translateQualIdent(xmlQid: String): AstNode[Ast.QualIdent] =
       AstNode.create(
         Ast.QualIdent.fromNodeList(
-          xmlQid.split("::").toList.map(AstNode.create(_))
+          xmlQid.split("::").toList.map(AstNode.create(_)),
+          false
         )
       )
 
@@ -338,7 +339,7 @@ object XmlFppWriter extends LineUtils {
           else {
             // C++ qualified identifier. Translate to an FPP qualified identifier.
             val head :: tail = xmlValue.split("::").toList
-            val e = tail.foldLeft (Ast.ExprIdent(head): Ast.Expr) ((e1, s) =>
+            val e = tail.foldLeft (Ast.ExprIdent(head, false): Ast.Expr) ((e1, s) =>
               Ast.ExprDot(AstNode.create(e1), AstNode.create(s))
             )
             Some(e)

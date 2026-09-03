@@ -88,7 +88,8 @@
                               "AstNode" : {
                                 "data" : {
                                   "ExprIdent" : {
-                                    "value" : "Decision"
+                                    "value" : "Decision",
+                                    "isAbsolute" : false
                                   }
                                 },
                                 "id" : 6
@@ -237,7 +238,8 @@
                                       "AstNode" : {
                                         "data" : {
                                           "ExprIdent" : {
-                                            "value" : "E"
+                                            "value" : "E",
+                                            "isAbsolute" : false
                                           }
                                         },
                                         "id" : 21
@@ -361,7 +363,8 @@
                         "AstNode" : {
                           "data" : {
                             "ExprIdent" : {
-                              "value" : "B"
+                              "value" : "B",
+                              "isAbsolute" : false
                             }
                           },
                           "id" : 33

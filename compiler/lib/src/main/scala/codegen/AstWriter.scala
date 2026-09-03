@@ -306,7 +306,7 @@ object AstWriter extends AstVisitor with LineUtils {
     node: AstNode[Ast.Expr],
     e: Ast.ExprIdent
   ) =
-    ident(e.value)
+    ident(if e.isAbsolute then s".${e.value}" else e.value)
 
   override def exprLiteralBoolNode(
     in: In,
@@ -875,23 +875,34 @@ object AstWriter extends AstVisitor with LineUtils {
   }
 
   private def portInstanceIdentifier(pii: Ast.PortInstanceIdentifier): Out = {
-    val qid = Ast.QualIdent.Qualified(pii.interfaceInstance, pii.portName)
+    val qid = Ast.QualIdent.Qualified(
+      pii.interfaceInstance,
+      pii.portName,
+    )
     qualIdent(qid)
   }
 
   private def tlmChannelIdentifier(tci: Ast.TlmChannelIdentifier): Out = {
-    val qid = Ast.QualIdent.Qualified(tci.componentInstance, tci.channelName)
+    val qid = Ast.QualIdent.Qualified(
+      tci.componentInstance,
+      tci.channelName,
+    )
     qualIdent(qid)
   }
 
   private def qualIdent(qid: Ast.QualIdent): Out =
     lines("qual ident " ++ qualIdentString(qid))
 
-  private def qualIdentString(qid: Ast.QualIdent): String =
+  private def qualIdentString(qid: Ast.QualIdent): String = {
+    val s = relativeQualIdentString(qid)
+    if qid.isAbsolute then s".$s" else s
+  }
+
+  private def relativeQualIdentString(qid: Ast.QualIdent): String =
     qid match {
-      case Ast.QualIdent.Unqualified(name) => name
+      case Ast.QualIdent.Unqualified(name, _) => name
       case Ast.QualIdent.Qualified(qualifier, name) =>
-        qualIdentString(qualifier.data) ++ "." ++ name.data
+        relativeQualIdentString(qualifier.data) ++ "." ++ name.data
     }
 
   private def queueFull(qf: Ast.QueueFull) = {

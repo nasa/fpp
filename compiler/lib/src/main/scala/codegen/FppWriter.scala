@@ -387,7 +387,8 @@ object FppWriter extends AstVisitor with LineUtils {
     in: In,
     node: AstNode[Ast.Expr],
     e: Ast.ExprIdent
-  ) = lines(e.value)
+  ) =
+    lines(if e.isAbsolute then s".${e.value}" else e.value)
 
   override def exprLiteralBoolNode(
     in: In,
@@ -870,11 +871,16 @@ object FppWriter extends AstVisitor with LineUtils {
   private def qualIdent(qid: Ast.QualIdent): Out =
     lines(qualIdentString(qid))
 
-  private def qualIdentString(qid: Ast.QualIdent): String =
+  private def qualIdentString(qid: Ast.QualIdent): String = {
+    val s = relativeQualIdentString(qid)
+    if qid.isAbsolute then s".$s" else s
+  }
+
+  private def relativeQualIdentString(qid: Ast.QualIdent): String =
     qid match {
-      case Ast.QualIdent.Unqualified(name) => ident(name)
+      case Ast.QualIdent.Unqualified(name, _) => ident(name)
       case Ast.QualIdent.Qualified(qualifier, name) =>
-        qualIdentString(qualifier.data) ++ "." ++ ident(name.data)
+        relativeQualIdentString(qualifier.data) ++ "." ++ ident(name.data)
     }
 
   private def queueFull(qf: Ast.QueueFull) = lines(qf.toString)

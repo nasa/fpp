@@ -325,7 +325,9 @@ object Parser extends Parsers {
 
       def floatExpr = literalFloat ^^ (s => Ast.ExprLiteralFloat(s))
 
-      def identExpr = ident ^^ (id => Ast.ExprIdent(id))
+      def identExpr = opt(dot) ~ ident ^^ {
+        case dot ~ id => Ast.ExprIdent(id, dot.isDefined)
+      }
 
       def intExpr = literalInt ^^ (li => Ast.ExprLiteralInt(li))
 
@@ -531,16 +533,18 @@ object Parser extends Parsers {
   }
 
   def portInstanceIdentifier: Parser[Ast.PortInstanceIdentifier] =
-    node(ident) ~! (dot ~>! qualIdentNodeList) ^^ {
-      case id ~ qid =>
+    opt(dot) ~ node(ident) ~! (dot ~>! qualIdentNodeList) ^^ {
+      case dot ~ id ~ qid =>
         val portName :: tail = qid.reverse
         val componentInstance = id :: tail.reverse
-        val node = Ast.QualIdent.Node.fromNodeList(componentInstance)
+        val node = Ast.QualIdent.Node.fromNodeList(componentInstance, dot.isDefined)
         Ast.PortInstanceIdentifier(node, portName)
     }
 
   def qualIdent: Parser[Ast.QualIdent] =
-    qualIdentNodeList ^^ (qid => Ast.QualIdent.fromNodeList(qid))
+    opt(dot) ~ qualIdentNodeList ^^ {
+      case dot ~ qid => Ast.QualIdent.fromNodeList(qid, dot.isDefined)
+    }
 
   private def qualIdentNodeList: Parser[Ast.QualIdent.NodeList] =
     rep1sep(node(ident), dot)
@@ -946,11 +950,11 @@ object Parser extends Parsers {
   }
 
   def tlmChannelIdentifier: Parser[Ast.TlmChannelIdentifier] =
-    node(ident) ~! (dot ~>! qualIdentNodeList) ^^ {
-      case id ~ qid =>
+    opt(dot) ~ node(ident) ~! (dot ~>! qualIdentNodeList) ^^ {
+      case dot ~ id ~ qid =>
         val channelName :: tail = qid.reverse
         val componentInstance = id :: tail.reverse
-        val node = Ast.QualIdent.Node.fromNodeList(componentInstance)
+        val node = Ast.QualIdent.Node.fromNodeList(componentInstance, dot.isDefined)
         Ast.TlmChannelIdentifier(node, channelName)
     }
 

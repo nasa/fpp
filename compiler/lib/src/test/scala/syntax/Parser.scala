@@ -342,6 +342,9 @@ class ParserSpec extends AnyWordSpec {
         "false",
         "a.b",
         "a.b.c",
+        ".a",
+        ".a.b",
+        ".a.b.c",
         "1.0",
         "a",
         "1",
@@ -420,6 +423,32 @@ class ParserSpec extends AnyWordSpec {
            )""",
         "(ref x: string)",
         "(ref x: string size 256)",
+      )
+    )
+  }
+
+  "port instance identifier OK" should {
+    parseAllOK(
+      Parser.portInstanceIdentifier,
+      List(
+        "a.b",
+        "a.b.c",
+        ".a.b",
+        ".a.b.c",
+      )
+    )
+  }
+
+  "qual ident OK" should {
+    parseAllOK(
+      Parser.qualIdent,
+      List(
+        "a",
+        "a.b",
+        "a.b.c",
+        ".a",
+        ".a.b",
+        ".a.b.c",
       )
     )
   }
@@ -696,6 +725,18 @@ class ParserSpec extends AnyWordSpec {
       List(
         "port a = a.b.c.d",
         "port b = c.b",
+      )
+    )
+  }
+
+  "tlm channel identifier OK" should {
+    parseAllOK(
+      Parser.tlmChannelIdentifier,
+      List(
+        "a.b",
+        "a.b.c",
+        ".a.b",
+        ".a.b.c",
       )
     )
   }

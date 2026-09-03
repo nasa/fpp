@@ -80,7 +80,8 @@
                                         "AstNode" : {
                                           "data" : {
                                             "Unqualified" : {
-                                              "name" : "P"
+                                              "name" : "P",
+                                              "isAbsolute" : false
                                             }
                                           },
                                           "id" : 3
@@ -120,7 +121,8 @@
                                         "AstNode" : {
                                           "data" : {
                                             "Unqualified" : {
-                                              "name" : "P"
+                                              "name" : "P",
+                                              "isAbsolute" : false
                                             }
                                           },
                                           "id" : 12
@@ -162,7 +164,8 @@
                       "AstNode" : {
                         "data" : {
                           "Unqualified" : {
-                            "name" : "C"
+                            "name" : "C",
+                            "isAbsolute" : false
                           }
                         },
                         "id" : 16
@@ -208,7 +211,8 @@
                       "AstNode" : {
                         "data" : {
                           "Unqualified" : {
-                            "name" : "C"
+                            "name" : "C",
+                            "isAbsolute" : false
                           }
                         },
                         "id" : 20
@@ -266,7 +270,8 @@
                                     "AstNode" : {
                                       "data" : {
                                         "Unqualified" : {
-                                          "name" : "c1"
+                                          "name" : "c1",
+                                          "isAbsolute" : false
                                         }
                                       },
                                       "id" : 24
@@ -294,7 +299,8 @@
                                     "AstNode" : {
                                       "data" : {
                                         "Unqualified" : {
-                                          "name" : "c2"
+                                          "name" : "c2",
+                                          "isAbsolute" : false
                                         }
                                       },
                                       "id" : 27
@@ -330,7 +336,8 @@
                                                 "AstNode" : {
                                                   "data" : {
                                                     "Unqualified" : {
-                                                      "name" : "c1"
+                                                      "name" : "c1",
+                                                      "isAbsolute" : false
                                                     }
                                                   },
                                                   "id" : 31
@@ -354,7 +361,8 @@
                                                 "AstNode" : {
                                                   "data" : {
                                                     "Unqualified" : {
-                                                      "name" : "c2"
+                                                      "name" : "c2",
+                                                      "isAbsolute" : false
                                                     }
                                                   },
                                                   "id" : 35
@@ -404,7 +412,8 @@
                                                 "AstNode" : {
                                                   "data" : {
                                                     "Unqualified" : {
-                                                      "name" : "c2"
+                                                      "name" : "c2",
+                                                      "isAbsolute" : false
                                                     }
                                                   },
                                                   "id" : 58
@@ -428,7 +437,8 @@
                                                 "AstNode" : {
                                                   "data" : {
                                                     "Unqualified" : {
-                                                      "name" : "c1"
+                                                      "name" : "c1",
+                                                      "isAbsolute" : false
                                                     }
                                                   },
                                                   "id" : 62
