@@ -1904,7 +1904,9 @@ class PassiveSerialComponentBase :
 
     //! \brief Called whenever parameters are loaded
     //!
-    //! This function does nothing by default. You may override it.
+    //! By default this notifies the component of each parameter via
+    //! parameterUpdated. You may override it, for example to suppress
+    //! notification on load.
     virtual void parametersLoaded();
 
   protected:

@@ -225,13 +225,18 @@ case class ComponentParameters (
     Some(
       s"""|\\brief Called whenever parameters are loaded
           |
-          |This function does nothing by default. You may override it.
+          |By default this notifies the component of each parameter via
+          |parameterUpdated. You may override it, for example to suppress
+          |notification on load.
           |"""
     ),
     "parametersLoaded",
     Nil,
     CppDoc.Type("void"),
-    lines("// Do nothing by default"),
+    if sortedParams.isEmpty then lines("// No parameters")
+    else sortedParams.flatMap((_, param) =>
+      lines(s"this->parameterUpdated(${paramIdConstantName(param.getName)});")
+    ),
     CppDoc.Function.Virtual
   )
 

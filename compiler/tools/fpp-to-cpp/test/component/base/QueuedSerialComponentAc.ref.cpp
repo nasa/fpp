@@ -7117,7 +7117,18 @@ void QueuedSerialComponentBase ::
 void QueuedSerialComponentBase ::
   parametersLoaded()
 {
-  // Do nothing by default
+  this->parameterUpdated(PARAMID_PARAMU32);
+  this->parameterUpdated(PARAMID_PARAMF64);
+  this->parameterUpdated(PARAMID_PARAMSTRING);
+  this->parameterUpdated(PARAMID_PARAMENUM);
+  this->parameterUpdated(PARAMID_PARAMARRAY);
+  this->parameterUpdated(PARAMID_PARAMSTRUCT);
+  this->parameterUpdated(PARAMID_PARAMI32EXT);
+  this->parameterUpdated(PARAMID_PARAMF64EXT);
+  this->parameterUpdated(PARAMID_PARAMSTRINGEXT);
+  this->parameterUpdated(PARAMID_PARAMENUMEXT);
+  this->parameterUpdated(PARAMID_PARAMARRAYEXT);
+  this->parameterUpdated(PARAMID_PARAMSTRUCTEXT);
 }
 
 // ----------------------------------------------------------------------
