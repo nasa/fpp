@@ -51,38 +51,45 @@ object AddDependencies extends BasicUseAnalyzer {
   }
 
   override def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
-    analyzeUse(a, Ast.SpecLoc.StateMachine, use)
+    analyzeUse(a, Ast.SpecLoc.StateMachine, use, node.data.isAbsolute)
 
   override def componentUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
-    analyzeUse(a, Ast.SpecLoc.Component, use)
+    analyzeUse(a, Ast.SpecLoc.Component, use, node.data.isAbsolute)
 
-  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) =
+  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = {
+    val isAbsolute = exprIsAbsolute(node.data)
     for {
       // Analyze as a constant
-      a <- analyzeUse(a, Ast.SpecLoc.Constant, use)
+      a <- analyzeUse(a, Ast.SpecLoc.Constant, use, isAbsolute)
       // If in the form A.B, also analyze as an enumerated constant
       a <- use.qualifier match {
         case Nil => Right(a)
         case q => {
           val enumUse = Name.Qualified.fromIdentList(q)
-          analyzeUse(a, Ast.SpecLoc.Type, enumUse)
+          analyzeUse(a, Ast.SpecLoc.Type, enumUse, isAbsolute)
         }
       }
     } yield a
+  }
 
   override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
-    analyzeUse(a, Ast.SpecLoc.Port, use)
+    analyzeUse(a, Ast.SpecLoc.Port, use, node.data.isAbsolute)
 
   override def interfaceInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
-    analyzeUse(a, Ast.SpecLoc.Instance, use)
+    analyzeUse(a, Ast.SpecLoc.Instance, use, node.data.isAbsolute)
 
   override def interfaceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
-    analyzeUse(a, Ast.SpecLoc.Interface, use)
+    analyzeUse(a, Ast.SpecLoc.Interface, use, node.data.isAbsolute)
 
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) =
-    analyzeUse(a, Ast.SpecLoc.Type, use)
+    analyzeUse(a, Ast.SpecLoc.Type, use, typeNameIsAbsolute(node.data))
 
-  private def analyzeUse(a: Analysis, kind: Ast.SpecLoc.Kind, use: Name.Qualified): Result = {
+  private def analyzeUse(
+    a: Analysis,
+    kind: Ast.SpecLoc.Kind,
+    use: Name.Qualified,
+    isAbsolute: Boolean
+  ): Result = {
     def computeNameList: List[Name.Qualified] = {
       def helper(prefix: List[Name.Unqualified], result: List[Name.Qualified]): List[Name.Qualified] = {
         prefix match {
@@ -93,7 +100,7 @@ object AddDependencies extends BasicUseAnalyzer {
           }
         }
       }
-      helper(a.scopeNameList, Nil)
+      if isAbsolute then List(use) else helper(a.scopeNameList, Nil)
     }
     def findLocation(nameList: List[Name.Qualified]): Option[Ast.SpecLoc] = {
       nameList match {
@@ -143,6 +150,17 @@ object AddDependencies extends BasicUseAnalyzer {
     if !a.inputFileSet.contains(file) && !a.dependencyFileSet.contains(file)
     then addDependenciesHelper(a, specLoc, file)
     else Right(a)
+  }
+
+  private def exprIsAbsolute(e: Ast.Expr): Boolean = e match {
+    case Ast.ExprIdent(_, isAbsolute) => isAbsolute
+    case Ast.ExprDot(e, _) => exprIsAbsolute(e.data)
+    case _ => throw InternalError("expected expr ident or expr dot")
+  }
+
+  private def typeNameIsAbsolute(tn: Ast.TypeName): Boolean = tn match {
+    case Ast.TypeNameQualIdent(name) => name.data.isAbsolute
+    case _ => throw InternalError("expected type name qual ident")
   }
 
 }
