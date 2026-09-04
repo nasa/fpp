@@ -1009,8 +1009,7 @@
           "qualifier" : [
             "FSW"
           ],
-          "base" : "engineTemp",
-          "isAbsolute" : true
+          "base" : "engineTemp"
         },
         "component" : {
           "astNodeId" : 60

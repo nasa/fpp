@@ -10,8 +10,7 @@ object Name {
 
   case class Qualified(
     qualifier: List[Unqualified],
-    base: Unqualified,
-    isAbsolute: Boolean = true
+    base: Unqualified
   ) {
 
     /** Convert a qualified name to a string */
@@ -50,23 +49,19 @@ object Name {
     def fromString(s: String): Qualified = fromIdentList(s.split(".").toList)
 
     /** Create a qualified name A.B.C from an identifer list [ A, B, C ] */
-    def fromIdentList(
-      il: List[Ast.Ident],
-      isAbsolute: Boolean = true
-    ): Qualified = {
+    def fromIdentList(il: List[Ast.Ident]): Qualified = {
       il.reverse match {
-        case head :: tail => Qualified(tail.reverse, head, isAbsolute)
+        case head :: tail => Qualified(tail.reverse, head)
         case _ => throw new InternalError("empty identifier list")
       }
     }
 
     /** Create a qualified name from an identifier */
-    def fromIdent(id: Ast.Ident, isAbsolute: Boolean = true): Qualified =
-      Qualified(Nil, id, isAbsolute)
+    def fromIdent(id: Ast.Ident): Qualified = Qualified(Nil, id)
 
     /** Create a qualified name from a qualified identifier */
     def fromQualIdent(qualIdent: Ast.QualIdent): Qualified =
-      fromIdentList(qualIdent.toIdentList, qualIdent.isAbsolute)
+      fromIdentList(qualIdent.toIdentList)
 
   }
 

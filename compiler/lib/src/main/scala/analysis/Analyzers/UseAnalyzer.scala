@@ -17,8 +17,8 @@ trait UseAnalyzer extends BasicUseAnalyzer {
     e: Ast.Expr,
     qualifier: List[Name.Unqualified] = Nil
   ): Name.Qualified = e match {
-    case Ast.ExprIdent(id, isAbsolute) =>
-      Name.Qualified.fromIdentList(id :: qualifier, isAbsolute)
+    case Ast.ExprIdent(id, _) =>
+      Name.Qualified.fromIdentList(id :: qualifier)
     case Ast.ExprDot(e1, id) =>
       getQualifiedName(e1.data, id.data :: qualifier)
     case _ => throw InternalError("expected a qualified name")
