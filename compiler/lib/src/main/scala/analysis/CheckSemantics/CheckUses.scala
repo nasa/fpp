@@ -84,8 +84,7 @@ object CheckUses extends BasicUseAnalyzer {
     visitExprNode(a, node)
   }
 
-  // Check that an implied use (a) is not a member
-  // of a def and (b) does not shadow the required def
+  // Check that we found the required implied use, and not some other symbol
   override def impliedUse(a: Analysis, iu: ImpliedUse, kind: ImpliedUse.Kind) = {
     val sym = a.useDefMap(iu.id)
     val symQualifiedName = a.getQualifiedName(sym).toString
@@ -99,7 +98,9 @@ object CheckUses extends BasicUseAnalyzer {
       // Definition has a shorter name: the use is a member of the definition
       then s"it has $iuName as a member"
       // Definition has a longer name: it shadows the required definition
-      else s"it shadows $iuName here"
+      // This should not happen, because implied uses are absolute
+      // qualified identifiers
+      else throw new InternalError("definition should not have a longer name")
       Left(
         SemanticError.InvalidSymbol(
           symQualifiedName,
