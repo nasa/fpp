@@ -100,7 +100,7 @@ object CheckUses extends BasicUseAnalyzer {
       // Definition has a longer name: it shadows the required definition
       // This should not happen, because implied uses are absolute
       // qualified identifiers
-      else throw new InternalError("definition should not have a longer name")
+      else throw InternalError("definition should not have a longer name")
       Left(
         SemanticError.InvalidSymbol(
           symQualifiedName,
