@@ -16,6 +16,8 @@ queued_cpu
 queued_no_queue_size
 queued_priority
 queued_stack_size
+shadowed_error
+shadowed_ok
 two_empty_ranges
 undef_component
 "
