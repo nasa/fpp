@@ -8,6 +8,8 @@ invalid_unmatched_connection
 mismatched_port_types
 ok
 serial_to_typed_with_return
+shadowed_port_error
+shadowed_port_ok
 typed_to_serial_with_return
 undef_instance
 "

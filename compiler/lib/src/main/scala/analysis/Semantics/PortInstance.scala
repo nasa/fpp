@@ -69,17 +69,20 @@ sealed trait PortInstance {
 object PortInstance {
 
   /** A port instance type */
-  sealed trait Type
+  sealed trait Type {
+    def show(a: Analysis): String = toString
+  }
   object Type {
     final case class DefPort(symbol: Symbol.Port) extends Type {
       override def toString = symbol.getUnqualifiedName
+      override def show(a: Analysis) = a.getQualifiedName(symbol).toString
     }
     case object Serial extends Type {
       override def toString = "serial"
     }
     /** Show a type option */
-    def show(typeOpt: Option[Type]): String = typeOpt match {
-      case Some(t) => t.toString
+    def show(a: Analysis, typeOpt: Option[Type]): String = typeOpt match {
+      case Some(t) => t.show(a)
       case None => "none"
     }
     /** Check whether types are compatible */

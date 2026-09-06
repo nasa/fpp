@@ -15,7 +15,7 @@ case class Connection(
   override def toString = s"${from.toString} -> ${to.toString}"
 
   /** Checks the types of a connection */
-  def checkTypes: Result.Result[Unit] = {
+  def checkTypes(a: Analysis): Result.Result[Unit] = {
     val fromInstance = from.port.portInstance
     val fromType = fromInstance.getType
     val toInstance = to.port.portInstance
@@ -23,8 +23,8 @@ case class Connection(
     if (PortInstance.Type.areCompatible(fromType, toType))
       Right(())
     else {
-      val fromTypeString = PortInstance.Type.show(fromType)
-      val toTypeString = PortInstance.Type.show(toType)
+      val fromTypeString = PortInstance.Type.show(a, fromType)
+      val toTypeString = PortInstance.Type.show(a, toType)
       val msg = s"cannot connect port types $fromTypeString and $toTypeString"
       val fromLoc = fromInstance.getLoc
       val toLoc = toInstance.getLoc
@@ -34,7 +34,7 @@ case class Connection(
 
   /** Checks the case of a serial port connected to a typed port,
    *  in either direction. The port type may not have a return type. */
-  def checkSerialWithTypedInput: Result.Result[Unit] = {
+  def checkSerialWithTypedInput(a: Analysis): Result.Result[Unit] = {
     val fromInstance = from.port.portInstance
     val fromType = fromInstance.getType
     val toInstance = to.port.portInstance
@@ -46,7 +46,7 @@ case class Connection(
       ) =>
         aNode._2.data.returnType match {
           case Some(_) =>
-            val toTypeString = PortInstance.Type.show(toType)
+            val toTypeString = PortInstance.Type.show(a, toType)
             val msg =
               s"cannot connect serial output port to input port of type $toTypeString, which returns a value"
             val fromLoc = fromInstance.getLoc
@@ -67,7 +67,7 @@ case class Connection(
       ) =>
         aNode._2.data.returnType match {
           case Some(_) =>
-            val fromTypeString = PortInstance.Type.show(fromType)
+            val fromTypeString = PortInstance.Type.show(a, fromType)
             val msg =
               s"cannot connect output port of type $fromTypeString, which returns a value, to serial input port"
             val fromLoc = fromInstance.getLoc
@@ -167,8 +167,8 @@ object Connection {
         to <- Endpoint.fromAst(a, connection.toPort, connection.toIndex)
         connection <- Right(Connection(from, to, connection.isUnmatched))
         _ <- connection.checkDirections
-        _ <- connection.checkTypes
-        _ <- connection.checkSerialWithTypedInput
+        _ <- connection.checkTypes(a)
+        _ <- connection.checkSerialWithTypedInput(a)
         _ <- 
           if !connection.isMatchConstrained && connection.isUnmatched 
           then Left(SemanticError.MissingPortMatching(connection.getLoc))
