@@ -43,6 +43,8 @@ locate_constant_modules_2
 locate_constant_modules_3
 locate_system_inconsistent
 missing
+shadowed_absolute
+shadowed_relative
 spec_async_input_port
 spec_async_product_recv_port
 spec_command
