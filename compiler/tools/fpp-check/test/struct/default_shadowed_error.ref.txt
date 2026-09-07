@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/struct/default_shadowed_error.fpp:4.31
+  struct S { x: U32 } default s
+                              ^
+error: cannot convert { x: bool } to struct S
