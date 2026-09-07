@@ -306,12 +306,30 @@ object Ast {
   )
 
   /** Expression */
-  sealed trait Expr
+  sealed trait Expr {
+
+    /** Gets the identifier list, if the expression represents a qualified identifier */
+    def getIdentListOpt: Option[List[Ident]] = None
+
+    /** Gets isAbsolute, if the expression represents a equalified identifier */
+    def getIsAbsoluteOpt: Option[Boolean] = None
+
+  }
+
   final case class ExprArray(elts: List[AstNode[Expr]]) extends Expr
   final case class ExprArraySubscript(e1: AstNode[Expr], e2: AstNode[Expr]) extends Expr
   final case class ExprBinop(e1: AstNode[Expr], op: Binop, e2: AstNode[Expr]) extends Expr
-  final case class ExprDot(e: AstNode[Expr], id: AstNode[Ident]) extends Expr
-  final case class ExprIdent(value: Ident, isAbsolute: Boolean) extends Expr
+  final case class ExprDot(e: AstNode[Expr], id: AstNode[Ident]) extends Expr {
+    override def getIdentListOpt =
+      e.data.getIdentListOpt.map(_ ++ List(id.data))
+    override def getIsAbsoluteOpt =
+      e.data.getIsAbsoluteOpt
+  }
+  final case class ExprIdent(value: Ident, isAbsolute: Boolean) extends Expr {
+    override def getIdentListOpt = Some(List(value))
+    override def getIsAbsoluteOpt = Some(isAbsolute)
+  }
+
   final case class ExprLiteralBool(value: LiteralBool) extends Expr
   final case class ExprLiteralFloat(value: String) extends Expr
   final case class ExprLiteralInt(value: String) extends Expr
@@ -918,10 +936,18 @@ object Ast {
   }
 
   /** Type name */
-  sealed trait TypeName
+  sealed trait TypeName {
+
+    /** Gets isAbsolute if the type name represents a qualified identifier */
+    def getIsAbsoluteOpt: Option[Boolean] = None
+
+  }
+
   final case class TypeNameFloat(name: TypeFloat) extends TypeName
   final case class TypeNameInt(name: TypeInt) extends TypeName
-  final case class TypeNameQualIdent(name: AstNode[QualIdent]) extends TypeName
+  final case class TypeNameQualIdent(name: AstNode[QualIdent]) extends TypeName {
+    override def getIsAbsoluteOpt = Some(name.data.isAbsolute)
+  }
   case object TypeNameBool extends TypeName
   final case class TypeNameString(size: Option[AstNode[Expr]]) extends TypeName
 

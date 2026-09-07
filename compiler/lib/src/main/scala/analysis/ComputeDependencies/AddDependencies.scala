@@ -57,7 +57,7 @@ object AddDependencies extends BasicUseAnalyzer {
     analyzeUse(a, Ast.SpecLoc.Component, use, node.data.isAbsolute)
 
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = {
-    val isAbsolute = exprIsAbsolute(node.data)
+    val isAbsolute = node.data.getIsAbsoluteOpt.get
     for {
       // Analyze as a constant
       a <- analyzeUse(a, Ast.SpecLoc.Constant, use, isAbsolute)
@@ -82,7 +82,7 @@ object AddDependencies extends BasicUseAnalyzer {
     analyzeUse(a, Ast.SpecLoc.Interface, use, node.data.isAbsolute)
 
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) =
-    analyzeUse(a, Ast.SpecLoc.Type, use, typeNameIsAbsolute(node.data))
+    analyzeUse(a, Ast.SpecLoc.Type, use, node.data.getIsAbsoluteOpt.get)
 
   private def analyzeUse(
     a: Analysis,
@@ -150,17 +150,6 @@ object AddDependencies extends BasicUseAnalyzer {
     if !a.inputFileSet.contains(file) && !a.dependencyFileSet.contains(file)
     then addDependenciesHelper(a, specLoc, file)
     else Right(a)
-  }
-
-  private def exprIsAbsolute(e: Ast.Expr): Boolean = e match {
-    case Ast.ExprIdent(_, isAbsolute) => isAbsolute
-    case Ast.ExprDot(e, _) => exprIsAbsolute(e.data)
-    case _ => throw InternalError("expected expr ident or expr dot")
-  }
-
-  private def typeNameIsAbsolute(tn: Ast.TypeName): Boolean = tn match {
-    case Ast.TypeNameQualIdent(name) => name.data.isAbsolute
-    case _ => throw InternalError("expected type name qual ident")
   }
 
 }
