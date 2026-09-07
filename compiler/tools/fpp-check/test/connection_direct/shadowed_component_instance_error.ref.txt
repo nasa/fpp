@@ -1,0 +1,13 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/shadowed_component_instance_error.fpp:36.7
+      c1.p -> c2.p
+      ^
+error: cannot connect port types P and M.P
+from port is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/shadowed_component_instance_error.fpp:5.3
+  output port p: P
+  ^
+to port is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/shadowed_component_instance_error.fpp:24.5
+    sync input port p: P
+    ^
