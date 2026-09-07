@@ -4,6 +4,8 @@ choice_alias_i16_i32
 choice_f32_f64
 choice_i16_i32
 choice_i32_f32
+choice_shadowed_error
+choice_shadowed_ok
 choice_u32_bool
 choice_u32_bool_transitive
 choice_u32_none

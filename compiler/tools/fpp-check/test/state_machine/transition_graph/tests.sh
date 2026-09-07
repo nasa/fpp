@@ -2,6 +2,8 @@ tests="
 choice_cycle
 choice_cycle_ok
 cycle_ok
+shadowed_state_error
+shadowed_state_ok
 unreachable_choice
 unreachable_state
 "
