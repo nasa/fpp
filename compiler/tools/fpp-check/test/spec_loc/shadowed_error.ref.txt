@@ -1,0 +1,8 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/shadowed_error.fpp:2.24
+  locate constant a at "incorrect.fpp"
+                       ^
+error: incorrect location path [ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/incorrect.fpp
+actual location is [ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/shadowed_error.fpp:3.3
+  constant a = 0
+  ^

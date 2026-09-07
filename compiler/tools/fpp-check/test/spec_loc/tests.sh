@@ -23,6 +23,8 @@ interface_ok
 interface_path_error
 port_ok
 port_path_error
+shadowed_error
+shadowed_ok
 state_machine_ok
 state_machine_path_error
 struct_dictionary_error
