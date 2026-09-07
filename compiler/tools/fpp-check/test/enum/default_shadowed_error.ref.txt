@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/enum/default_shadowed_error.fpp:4.27
+  enum E { A, B } default .a
+                          ^
+error: cannot convert Integer to enum E
