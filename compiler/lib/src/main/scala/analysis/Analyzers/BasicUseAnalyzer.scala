@@ -96,27 +96,15 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     } yield a
   }
 
-  override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) = {
-    def nameOpt(e: Ast.Expr, qualifier: List[Name.Unqualified]): Option[Name.Qualified] = {
-      e match {
-        case Ast.ExprIdent(id, _) => {
-          val list = id :: qualifier
-          val use = Name.Qualified.fromIdentList(list)
-          Some(use)
-        }
-        case Ast.ExprDot(e1, id) => nameOpt(e1.data, id.data :: qualifier)
-        case _ => None
-      }
-    }
-
-    nameOpt(e, Nil) match {
+  override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) =
+    node.data.getIdentListOpt match {
+      // e is a qualified identifier
       // Assume the entire qualified identifier is a use
-      case Some(use) => constantUse(a, node, use)
-      // This is some other type of dot expression (not a qual ident)
+      case Some(il) => constantUse(a, node, Name.Qualified.fromIdentList(il))
+      // e is not a qualified identifier
       // Analyze the left side, which may contain constant uses
       case None => exprNode(a, e.e)
     }
-  }
 
   override def exprIdentNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprIdent) = {
     val use = Name.Qualified(Nil, e.value)

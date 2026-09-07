@@ -11,24 +11,11 @@ import scala.annotation.tailrec
  */
 trait UseAnalyzer extends BasicUseAnalyzer {
 
-  /** Gets a qualified name from a dot expression */
-  @tailrec
-  private def getQualifiedName(
-    e: Ast.Expr,
-    qualifier: List[Name.Unqualified] = Nil
-  ): Name.Qualified = e match {
-    case Ast.ExprIdent(id, _) =>
-      Name.Qualified.fromIdentList(id :: qualifier)
-    case Ast.ExprDot(e1, id) =>
-      getQualifiedName(e1.data, id.data :: qualifier)
-    case _ => throw InternalError("expected a qualified name")
-  }
-
   override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) =
     a.useDefMap.get(node.id) match {
       case Some(Symbol.Constant(_) | Symbol.EnumConstant(_)) =>
         // e is a use, so it must be a constant use
-        val use = getQualifiedName(e)
+        val use = Name.Qualified.fromIdentList(e.getIdentListOpt.get)
         constantUse(a, node, use)
       case Some(_) =>
         // This is some other type of symbol, which it shouldn't be
