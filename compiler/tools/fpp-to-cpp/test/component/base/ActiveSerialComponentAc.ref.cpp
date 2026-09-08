@@ -7117,18 +7117,42 @@ void ActiveSerialComponentBase ::
 void ActiveSerialComponentBase ::
   parametersLoaded()
 {
-  this->parameterUpdated(PARAMID_PARAMU32);
-  this->parameterUpdated(PARAMID_PARAMF64);
-  this->parameterUpdated(PARAMID_PARAMSTRING);
-  this->parameterUpdated(PARAMID_PARAMENUM);
-  this->parameterUpdated(PARAMID_PARAMARRAY);
-  this->parameterUpdated(PARAMID_PARAMSTRUCT);
-  this->parameterUpdated(PARAMID_PARAMI32EXT);
-  this->parameterUpdated(PARAMID_PARAMF64EXT);
-  this->parameterUpdated(PARAMID_PARAMSTRINGEXT);
-  this->parameterUpdated(PARAMID_PARAMENUMEXT);
-  this->parameterUpdated(PARAMID_PARAMARRAYEXT);
-  this->parameterUpdated(PARAMID_PARAMSTRUCTEXT);
+  if (this->m_param_ParamU32_valid == Fw::ParamValid::VALID) {
+    this->parameterUpdated(PARAMID_PARAMU32);
+  }
+  if (this->m_param_ParamF64_valid == Fw::ParamValid::VALID) {
+    this->parameterUpdated(PARAMID_PARAMF64);
+  }
+  if (this->m_param_ParamString_valid == Fw::ParamValid::VALID) {
+    this->parameterUpdated(PARAMID_PARAMSTRING);
+  }
+  if (this->m_param_ParamEnum_valid == Fw::ParamValid::VALID) {
+    this->parameterUpdated(PARAMID_PARAMENUM);
+  }
+  if (this->m_param_ParamArray_valid == Fw::ParamValid::VALID) {
+    this->parameterUpdated(PARAMID_PARAMARRAY);
+  }
+  if (this->m_param_ParamStruct_valid == Fw::ParamValid::VALID) {
+    this->parameterUpdated(PARAMID_PARAMSTRUCT);
+  }
+  if (this->m_param_ParamI32Ext_valid == Fw::ParamValid::VALID) {
+    this->parameterUpdated(PARAMID_PARAMI32EXT);
+  }
+  if (this->m_param_ParamF64Ext_valid == Fw::ParamValid::VALID) {
+    this->parameterUpdated(PARAMID_PARAMF64EXT);
+  }
+  if (this->m_param_ParamStringExt_valid == Fw::ParamValid::VALID) {
+    this->parameterUpdated(PARAMID_PARAMSTRINGEXT);
+  }
+  if (this->m_param_ParamEnumExt_valid == Fw::ParamValid::VALID) {
+    this->parameterUpdated(PARAMID_PARAMENUMEXT);
+  }
+  if (this->m_param_ParamArrayExt_valid == Fw::ParamValid::VALID) {
+    this->parameterUpdated(PARAMID_PARAMARRAYEXT);
+  }
+  if (this->m_param_ParamStructExt_valid == Fw::ParamValid::VALID) {
+    this->parameterUpdated(PARAMID_PARAMSTRUCTEXT);
+  }
 }
 
 // ----------------------------------------------------------------------

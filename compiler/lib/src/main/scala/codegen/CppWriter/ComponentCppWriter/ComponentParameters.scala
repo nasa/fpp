@@ -233,9 +233,11 @@ case class ComponentParameters (
     "parametersLoaded",
     Nil,
     CppDoc.Type("void"),
-    if sortedParams.isEmpty then lines("// No parameters")
-    else sortedParams.flatMap((_, param) =>
-      lines(s"this->parameterUpdated(${paramIdConstantName(param.getName)});")
+    sortedParams.flatMap((_, param) =>
+      wrapInIf(
+        checkValidityFlag(param, "VALID"),
+        lines(s"this->parameterUpdated(${paramIdConstantName(param.getName)});")
+      )
     ),
     CppDoc.Function.Virtual
   )
