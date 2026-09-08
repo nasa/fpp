@@ -2493,6 +2493,16 @@ class QueuedTestComponentBase :
     //! notification on load.
     virtual void parametersLoaded();
 
+    //! \brief Called for each parameter when parameters are loaded
+    //!
+    //! By default this notifies the component via parameterUpdated when
+    //! the parameter loaded successfully (valid or default). You may
+    //! override it, for example to distinguish load from update.
+    virtual void parameterLoaded(
+        FwPrmIdType id, //!< The parameter ID
+        Fw::ParamValid valid //!< The parameter validity status
+    );
+
   protected:
 
     // ----------------------------------------------------------------------

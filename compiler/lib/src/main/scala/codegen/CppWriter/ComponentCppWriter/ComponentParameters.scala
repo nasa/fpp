@@ -130,7 +130,8 @@ case class ComponentParameters (
       "Parameter hook functions",
       List(
         getParamUpdateHookFunction,
-        getParamLoadHookFunction
+        getParamLoadHookFunction,
+        getParamLoadedHookFunction
       )
     )
   }
@@ -233,11 +234,36 @@ case class ComponentParameters (
     "parametersLoaded",
     Nil,
     CppDoc.Type("void"),
-    sortedParams.flatMap((_, param) =>
-      wrapInIf(
-        checkValidityFlag(param, "VALID"),
-        lines(s"this->parameterUpdated(${paramIdConstantName(param.getName)});")
+    lines("// Do nothing by default"),
+    CppDoc.Function.Virtual
+  )
+
+  private def getParamLoadedHookFunction = functionClassMember(
+    Some(
+      s"""|\\brief Called for each parameter when parameters are loaded
+          |
+          |By default this notifies the component via parameterUpdated when
+          |the parameter loaded successfully (valid or default). You may
+          |override it, for example to distinguish load from update.
+          |"""
+    ),
+    "parameterLoaded",
+    List(
+      CppDoc.Function.Param(
+        CppDoc.Type("FwPrmIdType"),
+        "id",
+        Some("The parameter ID")
+      ),
+      CppDoc.Function.Param(
+        CppDoc.Type("Fw::ParamValid"),
+        "valid",
+        Some("The parameter validity status")
       )
+    ),
+    CppDoc.Type("void"),
+    wrapInIf(
+      "FW_PARAM_OK(valid)",
+      lines("this->parameterUpdated(id);")
     ),
     CppDoc.Function.Virtual
   )
@@ -455,6 +481,9 @@ case class ComponentParameters (
       lines(
         """|
            |this->m_paramLock.unlock();"""
+      ),
+      lines(
+        s"this->parameterLoaded(${paramIdConstantName(param.getName)}, this->${paramValidityFlagName(param.getName)});"
       )
     )
   }

@@ -144,12 +144,13 @@ case class ComponentCppWriter (
   }
 
   private def getCppIncludes: CppDoc.Member = {
-    val userHeaders = List(
+    val prmValidHeader = if hasParameters then List("Fw/Prm/ParamValid.hpp") else Nil
+    val userHeaders = (List(
       "Fw/Types/Assert.hpp",
       "Fw/Types/ExternalString.hpp",
       "Fw/Types/String.hpp",
       s.getIncludePath(componentSymbol, fileName)
-    ).sorted.map(CppWriter.headerString).flatMap({
+    ) ++ prmValidHeader).sorted.map(CppWriter.headerString).flatMap({
       case s: "#include \"Fw/Types/String.hpp\"" =>
         lines(
           s"""|#if FW_ENABLE_TEXT_LOGGING
