@@ -41,6 +41,28 @@ constant a = M.a
 constant c = b # Error: b is not in scope here
 --------
 
+Optionally, you can write a qualified name with a leading dot.
+This form says to compute the name starting at the top, instead
+of starting at the current level.
+For example:
+
+[source,fpp]
+----
+constant a = 0
+module M {
+  constant a = 1
+  constant b = a # a refers to M.a here; b = 1
+  constant c = .a # a refers to a here; c = 0
+}
+----
+
+As shown in the example, the leading-dot form is useful when
+a definition is hidden or *shadowed* by another definition
+with the same unqualified name in an inner scope.
+In the example above, inside module `M`, the name `a`
+refers to `M.a`, so to refer to the constant `a` defined at the top
+level, we have to write `.a`.
+
 As with namespaces in {cpp}, you can close a module definition and
 reopen it later.
 All the definitions enclosed by the same name go in the module

@@ -2096,6 +2096,30 @@ constant c = b # Error: b is not in scope here</code></pre>
 </div>
 </div>
 <div class="paragraph">
+<p>Optionally, you can write a qualified name with a leading dot.
+This form says to compute the name starting at the top, instead
+of starting at the current level.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 0
+module M {
+  constant a = 1
+  constant b = a # a refers to M.a here; b = 1
+  constant c = .a # a refers to a here; c = 0
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As shown in the example, the leading-dot form is useful when
+a definition is hidden or <strong>shadowed</strong> by another definition
+with the same unqualified name in an inner scope.
+In the example above, inside module <code>M</code>, the name <code>a</code>
+refers to <code>M.a</code>, so to refer to the constant <code>a</code> defined at the top
+level, we have to write <code>.a</code>.</p>
+</div>
+<div class="paragraph">
 <p>As with namespaces in C&#43;&#43;, you can close a module definition and
 reopen it later.
 All the definitions enclosed by the same name go in the module
@@ -13779,6 +13803,20 @@ The purpose of this rule is to facilitate dependency analysis,
 which occurs before the analyzer has complete information about
 definitions and their uses.</p>
 </div>
+<div class="paragraph">
+<p>You can also write a location specifier using the <a href="#Defining-Modules">leading
+dot syntax</a>, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M { locate constant .a at "M.fpp" }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case, the name <code>.a</code> is resolve to <code>a</code>, not <code>M.a</code>.
+The leading dot says to start the resolution at the top level,
+regardless of where the location specifier appears in the model.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Specifying-Models-as-Files_Location-Specifiers_Included-Files">16.4.4. Included Files</h4>
@@ -13903,8 +13941,15 @@ Running</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">locate constant a at "Constants/a.fpp"</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">locate constant .a at "Constants/a.fpp"</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Notice that the tool uses the <a href="#Defining-Modules">leading dot</a>
+form of the definition name.
+That is because the names are always specified from the top level.
+The leading dot ensures that the name will have the same meaning
+regardless of where the location specifier appears in the model.</p>
 </div>
 </div>
 <div class="sect3">
@@ -13925,7 +13970,7 @@ For example, running</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">locate constant a at "a.fpp"</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">locate constant .a at "a.fpp"</code></pre>
 </div>
 </div>
 </div>
@@ -17353,7 +17398,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-02 10:17:32 -0700
+Last updated 2026-09-08 16:16:00 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

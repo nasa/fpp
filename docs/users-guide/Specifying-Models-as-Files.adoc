@@ -431,6 +431,18 @@ The purpose of this rule is to facilitate dependency analysis,
 which occurs before the analyzer has complete information about
 definitions and their uses.
 
+You can also write a location specifier using the <<Defining-Modules,leading 
+dot syntax>>, like this:
+
+[source,fpp]
+----
+module M { locate constant .a at "M.fpp" }
+----
+
+In this case, the name `.a` is resolve to `a`, not `M.a`.
+The leading dot says to start the resolution at the top level,
+regardless of where the location specifier appears in the model.
+
 ==== Included Files
 
 When you write a file that contains definitions and you 
@@ -527,8 +539,14 @@ generates the location specifier
 
 [source,fpp]
 ----
-locate constant a at "Constants/a.fpp"
+locate constant .a at "Constants/a.fpp"
 ----
+
+Notice that the tool uses the <<Defining-Modules,leading dot>>
+form of the definition name.
+That is because the names are always specified from the top level.
+The leading dot ensures that the name will have the same meaning
+regardless of where the location specifier appears in the model.
 
 ==== Location Paths
 
@@ -545,7 +563,7 @@ generates the location specifier
 
 [source,fpp]
 ----
-locate constant a at "a.fpp"
+locate constant .a at "a.fpp"
 ----
 
 ==== Included Definitions
