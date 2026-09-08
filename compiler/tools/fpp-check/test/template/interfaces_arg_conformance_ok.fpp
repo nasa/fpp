@@ -13,7 +13,7 @@ passive component C {
 
 instance c: C base id 0x100
 
-module template T(interface i: I) {
+module template T(instance i: I) {
     topology Top {
         instance i
     }
@@ -21,5 +21,5 @@ module template T(interface i: I) {
 
 module M {
     # c provides a superset of I, so it conforms
-    expand T(interface c)
+    expand T(instance c)
 }

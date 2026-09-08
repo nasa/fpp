@@ -35,7 +35,9 @@ object FPPToCpp {
       a <- Right(aTulTul._1)
       tulFiles <- Right(aTulTul._2)
       tulImports <- Right(aTulTul._3)
-      a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
+      aTul <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
+      a <- Right(aTul._1)
+      tulFiles <- Right(aTul._2.take(tulFiles.length))
       // Compute the generated file names. This step also checks for
       // name collisions.
       s <- mode match {

@@ -2,6 +2,7 @@ package fpp.compiler.codegen
 
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
+import fpp.compiler.transform._
 import fpp.compiler.util._
 
 /** Computes the names of generated files */
@@ -10,17 +11,17 @@ object ComputeGeneratedFiles {
   /** Computes autocoded files (XML, C++ and JSON Dictionary) */
   def getAutocodeFiles(tul: List[Ast.TransUnit]): Result.Result[List[String]] =
     for {
-      a <- enterSymbols(tul)
-      cppFiles <- getAutocodeCppFiles(a, tul)
-      dictFiles <- getDictionaryJsonFiles(a, tul)
+      aTul <- enterSymbols(tul)
+      cppFiles <- getAutocodeCppFiles(aTul._1, aTul._2)
+      dictFiles <- getDictionaryJsonFiles(aTul._1, aTul._2)
     }
     yield cppFiles ++ dictFiles
 
   /** Computes component implementation files */
   def getImplFiles(tul: List[Ast.TransUnit]): Result.Result[List[String]] =
     for {
-      a <- enterSymbols(tul)
-      cppFiles <- getImplCppFiles(a, tul)
+      aTul <- enterSymbols(tul)
+      cppFiles <- getImplCppFiles(aTul._1, aTul._2)
     }
     yield cppFiles
 
@@ -30,8 +31,8 @@ object ComputeGeneratedFiles {
     testHelperMode: CppWriter.TestHelperMode
   ): Result.Result[List[String]] =
     for {
-      a <- enterSymbols(tul)
-      testFiles <- getTestCppFiles(a, tul, testHelperMode)
+      aTul <- enterSymbols(tul)
+      testFiles <- getTestCppFiles(aTul._1, aTul._2, testHelperMode)
     }
     yield testFiles
 
@@ -41,13 +42,19 @@ object ComputeGeneratedFiles {
     testHelperMode: CppWriter.TestHelperMode
   ): Result.Result[List[String]] =
     for {
-      a <- enterSymbols(tul)
-      cppFiles <- getTestImplCppFiles(a, tul, testHelperMode)
+      aTul <- enterSymbols(tul)
+      cppFiles <- getTestImplCppFiles(aTul._1, aTul._2, testHelperMode)
     }
     yield cppFiles
 
-  private def enterSymbols(tul: List[Ast.TransUnit]): Result.Result[Analysis] =
-    EnterSymbols.visitList(Analysis(), tul, EnterSymbols.transUnit)
+  private def enterSymbols(tul: List[Ast.TransUnit]):
+    Result.Result[(Analysis, List[Ast.TransUnit])] =
+    for {
+      tul <- AddStateEnums.transUnitList(tul)
+      a <- EnterSymbols.visitList(Analysis(), tul, EnterSymbols.transUnit)
+      aTul <- ResolveTemplates.transUnit(a, tul)
+    }
+    yield aTul
 
   private def getAutocodeCppFiles(a: Analysis, tul: List[Ast.TransUnit]):
   Result.Result[List[String]] =

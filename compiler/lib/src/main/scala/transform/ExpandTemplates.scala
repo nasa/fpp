@@ -466,7 +466,7 @@ object ExpandTemplates extends AstTransformer
   ): ResultNode[Ast.TransitionExpr] =
     for {
       actions <- transformList(a, node.data.actions, defaultNode)
-      target <- defaultNode(a, node.data.target)
+      target <- qualIdentNode(a, node.data.target)
     } yield ((), cloneNode(a, node, node.data.copy(
       actions = actions._2,
       target = target._2,
@@ -1117,9 +1117,13 @@ object ExpandTemplates extends AstTransformer
 
           // Clone the template body, recording the expansion node so that any
           // nested expansion specifier is rejected and so that cloned nodes
-          // point back at the expansion site
+          // point back at the expansion site.
+          // Record the template definition too for diagnostics.
           members <- transformList(
-            a.copy(template = Some(node.id)),
+            a.copy(
+              template = Some(node.id),
+              templateDefinition = Some(tmpl.node._2.id)
+            ),
             tmpl.node._2.data.members,
             matchModuleMember
           )
@@ -1127,12 +1131,15 @@ object ExpandTemplates extends AstTransformer
           // Paste the expanded template body into the expansion specifier
           ((), (pre, AstNode.create(data.copy(members = Some(members._2.flatten)), node.id), post))
         }
-      case (template, templateDefinition) =>
+      case (_, Some(templateDefinition)) =>
         // The expansion specifier is nested inside a template body
         Left(SemanticError.TemplateExpansionInTemplate(
           Locations.get(node.id),
-          Locations.get(templateDefinition.orElse(template).get)
+          Locations.get(templateDefinition)
         ))
+      case (Some(_), None) => throw new InternalError(
+        "ExpandTemplates: expanding a template with no template definition"
+      )
     }
   }
 }

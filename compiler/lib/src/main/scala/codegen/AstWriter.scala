@@ -896,12 +896,15 @@ object AstWriter extends AstVisitor with LineUtils {
     tp match {
       case Ast.TemplateParam.Constant(name, typeName) =>
         line("constant template param") ::
-        typeNameNode(typeName).map(indentIn)
+        List.concat(
+          ident(name),
+          typeNameNode(typeName)
+        ).map(indentIn)
       case Ast.TemplateParam.Type(name) =>
-        line(s"type template param") ::
+        line("type template param") ::
         ident(name).map(indentIn)
       case Ast.TemplateParam.Interface(name, interface) =>
-        line(s"interface template param") ::
+        line("instance template param") ::
         List.concat(
           ident(name),
           qualIdent(interface.data)
@@ -921,7 +924,7 @@ object AstWriter extends AstVisitor with LineUtils {
         line("type template arg") ::
         typeNameNode(name).map(indentIn)
       case Ast.TemplateArg.Interface(i) =>
-        line("interface template param") ::
+        line("instance template arg") ::
         qualIdent(i.data).map(indentIn)
     }
   }

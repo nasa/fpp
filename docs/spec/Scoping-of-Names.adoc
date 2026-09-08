@@ -213,23 +213,32 @@ The purpose of these rules is to ensure that all the template parameters
 and all the definitions in the body of the template can coexist
 in the same scope.
 
-For example, the following code violates these rules:
+For example, each of the following templates violates these rules.
+Each template has a distinct name, so the only errors are the
+ones described in the comments.
 
 [source,fpp]
 ----
-module template T(constant x: U32, constant x: I32) { } # Reuse of the parameter name x
-module template T(constant x: U32) {
-  constant x = 0 # constant x conflicts with parameter x
+# Violates rule 1: the parameter name x is reused in the value name group
+module template T1(constant x: U32, constant x: I32) { }
+
+# Violates rule 2: the definition constant x conflicts with the parameter x
+module template T2(constant x: U32) {
+  constant x = 0
 }
 ----
 
-On the other hand, this code is allowed:
+On the other hand, each of these templates is allowed:
 
 [source,fpp]
 ----
-module template T(constant x: U32, type x) { } # OK: constant x, type x
-module template T(constant x: U32) {
-  type x = U32  # OK: constant x, type x
+# OK: constant x is in the value name group, and type x is in the type name group
+module template T3(constant x: U32, type x) { }
+
+# OK: the parameter constant x and the definition type x are in
+# different name groups
+module template T4(constant x: U32) {
+  type x = U32
 }
 ----
 
@@ -375,7 +384,7 @@ module template T(constant a: U32) {
 # Inside the expansion of T, the bound parameter definition
 # (constant a: U32, 0) is in scope, and the name a refers
 # to this definition.
-expand T(0)
+expand T(constant 0)
 ----
 
 ==== Implementation Note

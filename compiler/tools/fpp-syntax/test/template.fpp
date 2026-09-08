@@ -6,7 +6,7 @@ module template Tmpl(
     type TypeParam @< Type parameter
 
     @ Interface instance template parameter
-    interface inst: InterfaceDef @< Instance parameter
+    instance inst: InterfaceDef @< Instance parameter
 ) {
     array Arr = [3] TypeParam
 
@@ -16,5 +16,5 @@ module template Tmpl(
 }
 
 @ Expansion specifier
-expand Tmpl(constant 10, type Type, interface instance1)
+expand Tmpl(constant 10, type Type, instance instance1)
 @< Expansion specifier

@@ -896,6 +896,78 @@
       "pos" : "36.1",
       "includingLoc" : "None",
       "expandingLoc" : "None"
+    },
+    "77" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "10.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "78" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "13.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "79" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "10.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "80" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "13.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "81" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "10.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "82" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "13.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "83" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "10.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "84" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "13.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "85" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "10.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "86" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "13.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "87" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "10.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "88" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "13.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     }
   }
 }

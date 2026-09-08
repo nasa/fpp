@@ -1289,6 +1289,7 @@ enum
 event
 every
 exit
+expand
 external
 false
 fatal
@@ -1350,6 +1351,7 @@ string
 struct
 sync
 telemetry
+template
 text
 throttle
 time
@@ -3101,11 +3103,11 @@ parameters</a>:</p>
 <p>For each constant template parameter, a literal value of the correct type.</p>
 </li>
 <li>
-<p>For each port interface instance template argument, a component
+<p>For each port interface instance template parameter, a component
 instance definition that minimally satisfies the interface.</p>
 </li>
 <li>
-<p>For each type template argument, an abstract type definition.</p>
+<p>For each type template parameter, an abstract type definition.</p>
 </li>
 </ol>
 </div>
@@ -3138,7 +3140,7 @@ definitions are still unevaluated.</p>
 <h4 id="Definitions_Module-Template-Definitions_Example">5.10.3. Example</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">template MT(
+<pre class="prettyprint highlight"><code data-lang="fpp">module template MT(
     constant baseId: FwIdType
     instance comDriver: Drv.ByteStreamDriver
 ) {
@@ -9250,7 +9252,7 @@ must be an interface instance template argument.
 The qualified identifier in <em>A</em> must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
 a <a href="#Ports_Port-Interface-Instances">port interface instance</a> <em>N</em>.
-The port interface of referred to in <em>p</em> must be a
+The port interface referred to in <em>p</em> must be a
 <a href="#Ports_Sub-Interfaces">sub-interface</a> of the <a href="#Ports_Port-Interfaces">port
 interface of <em>N</em></a>.</p>
 </li>
@@ -9673,7 +9675,7 @@ or
  via the
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules
 for name scoping</a>.
-A qualified identifier type name <em>Q</em> names a type a follows:</p>
+A qualified identifier type name <em>Q</em> names a type as follows:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -9685,9 +9687,28 @@ then <em>Q</em> names the
 <li>
 <p>Otherwise <em>Q</em> refers to a bound parameter definition <em>B</em>.
 In this case, <em>B</em> must be a
-<a href="#Specifiers_Template-Expansion-Specifiers">type template parameter
-definition</a>, and <em>Q</em> names the type defined in the global definition
-<a href="#Definitions">represented by</a> <em>B</em>.</p>
+<a href="#Specifiers_Template-Expansion-Specifiers">type parameter definition</a>.
+Let <em>N</em> be the type name appearing in the
+<a href="#Specifiers_Template-Expansion-Specifiers">type template argument</a> of <em>B</em>.
+Then <em>Q</em> names the type named by <em>N</em>.
+There are two cases:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If <em>N</em> is a qualified identifier type name, then <em>B</em>
+<a href="#Definitions">represents</a> a global definition <em>D</em>, and <em>Q</em> names
+the type defined in <em>D</em>.</p>
+</li>
+<li>
+<p>Otherwise <em>N</em> is a
+<a href="#Type-Names_Primitive-Integer-Type-Names">primitive integer type name</a>, a
+<a href="#Type-Names_Floating-Point-Type-Names">floating-point type name</a>,
+<a href="#Type-Names_The-Boolean-Type-Name">the Boolean type name</a>, or a
+<a href="#Type-Names_String-Type-Names">string type name</a>.
+In this case <em>N</em> refers to no definition. <em>Q</em> names the type that <em>N</em> names directly.</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
@@ -9698,7 +9719,7 @@ definition</a>, and <em>Q</em> names the type defined in the global definition
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">module M {
   type T
-  array A = [3] T # T is a qualified identifier t type name. It names the type M.T.
+  array A = [3] T # T is a qualified identifier type name. It names the type M.T.
 }</code></pre>
 </div>
 </div>
@@ -9728,6 +9749,28 @@ definition</a>, and <em>Q</em> names the type defined in the global definition
   struct T {
     s: S # S is a qualified identifier type name. It names the type M.S.
   }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  type T
+  module template Tmpl(type X) {
+    # X is a qualified identifier type name. It refers to the bound
+    # parameter definition for the type parameter X.
+    array A = [3] X
+  }
+}
+module N {
+  # X names the type M.T. The bound parameter definition represents
+  # the global definition M.T.
+  expand M.Tmpl(type M.T)
+}
+module P {
+  # X names the type U32. The bound parameter definition represents
+  # no global definition.
+  expand M.Tmpl(type U32)
 }</code></pre>
 </div>
 </div>
@@ -10684,7 +10727,7 @@ and the terminating punctuation is a comma.</p>
 <p>A <strong>template parameter</strong> is a name to which a
 <a href="#Specifiers_Template-Expansion-Specifiers">template argument</a>
 becomes bound when a <a href="#Expansion-of-Templates">template is expanded</a>.
-Within the scope of an expanded template, a the bound parameter is a
+Within the scope of an expanded template, the bound parameter is a
 <a href="#Definitions">definition</a>.</p>
 </div>
 <div class="sect2">
@@ -10727,7 +10770,7 @@ a <a href="#Definitions_Port-Interface-Definitions">port interface definition</a
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant c: U32
-instance cmdDisp: Svc.CmdDispatcher
+instance comDriver: Drv.ByteStreamDriver # Drv.ByteStreamDriver is a port interface
 type T</code></pre>
 </div>
 </div>
@@ -11423,24 +11466,33 @@ and all the definitions in the body of the template can coexist
 in the same scope.</p>
 </div>
 <div class="paragraph">
-<p>For example, the following code violates these rules:</p>
+<p>For example, each of the following templates violates these rules.
+Each template has a distinct name, so the only errors are the
+ones described in the comments.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module template T(constant x: U32, constant x: I32) { } # Reuse of the parameter name x
-module template T(constant x: U32) {
-  constant x = 0 # constant x conflicts with parameter x
+<pre class="prettyprint highlight"><code data-lang="fpp"># Violates rule 1: the parameter name x is reused in the value name group
+module template T1(constant x: U32, constant x: I32) { }
+
+# Violates rule 2: the definition constant x conflicts with the parameter x
+module template T2(constant x: U32) {
+  constant x = 0
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>On the other hand, this code is allowed:</p>
+<p>On the other hand, each of these templates is allowed:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module template T(constant x: U32, type x) { } # OK: constant x, type x
-module template T(constant x: U32) {
-  type x = U32  # OK: constant x, type x
+<pre class="prettyprint highlight"><code data-lang="fpp"># OK: constant x is in the value name group, and type x is in the type name group
+module template T3(constant x: U32, type x) { }
+
+# OK: the parameter constant x and the definition type x are in
+# different name groups
+module template T4(constant x: U32) {
+  type x = U32
 }</code></pre>
 </div>
 </div>
@@ -11630,7 +11682,7 @@ constant c = N.b</code></pre>
 # Inside the expansion of T, the bound parameter definition
 # (constant a: U32, 0) is in scope, and the name a refers
 # to this definition.
-expand T(0)</code></pre>
+expand T(constant 0)</code></pre>
 </div>
 </div>
 </div>
@@ -14308,7 +14360,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-01 21:10:23 -0700
+Last updated 2026-09-08 12:26:47 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

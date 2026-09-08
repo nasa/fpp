@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/definition_point_scoping.fpp:15.24
+array Discriminator = [N.b] U32
+                       ^
+error: invalid array size 0
+note: size must be greater than zero

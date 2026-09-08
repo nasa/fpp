@@ -411,7 +411,7 @@ def module
   @< Topology definition
   @ Deployment topology
   def deployment topology
-    ident T
+    ident T1
   @< Deployment topology
   @ Topology definition with one implements
   def topology

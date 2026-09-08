@@ -93,7 +93,12 @@ object TlmPacketSet {
       then {
         val entry = d.tlmChannelEntryMap(id)
         val channelName = entry.getQualifiedName
-        val instanceLoc = t.instanceMap(InterfaceInstance.fromComponentInstance(entry.instance))
+        val instanceLoc = t.lookUpComponentInstanceLoc(entry.instance) match {
+          case Some(loc) => loc
+          case None => throw InternalError(
+            s"component instance ${entry.instance.getQualifiedName} of telemetry channel $channelName is not an instance of topology ${t.getName}"
+          )
+        }
         val channelLoc = entry.tlmChannel.getLoc
         val msg = s"""|telemetry channel $channelName is neither used nor marked as omitted
                       |

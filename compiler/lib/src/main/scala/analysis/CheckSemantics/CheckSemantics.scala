@@ -7,8 +7,10 @@ import fpp.compiler.transform._
 /** Check semantics for a list of translation units */
 object CheckSemantics {
 
-  def tuList(a: Analysis, tul: List[Ast.TransUnit]): Result.Result[Analysis] = {
+  def tuList(a: Analysis, tul: List[Ast.TransUnit]):
+    Result.Result[(Analysis, List[Ast.TransUnit])] = {
     for {
+      tul <- AddStateEnums.transUnitList(tul)
       a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
       a_tul <- ResolveTemplates.transUnit(a, tul)
       a <- Right(a_tul._1)
@@ -39,7 +41,7 @@ object CheckSemantics {
       a <- ConstructDictionaryMap.visitList(a, tul, ConstructDictionaryMap.transUnit)
       a <- CheckSystemDefs.visitList(a, tul, CheckSystemDefs.transUnit)
     }
-    yield a
+    yield (a, tul)
   }
 
 }

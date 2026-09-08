@@ -30,7 +30,7 @@ active component B {
 instance a1: A1 base id 10 queue size 10 stack size 1024
 instance b: B base id 100 queue size 10 stack size 1024
 
-module template T(interface i1: A_I1, interface i2: A_I2, constant idx: U32) {
+module template T(instance i1: A_I1, instance i2: A_I2, constant idx: U32) {
     constant a = 0
     constant b = a + 1
 
@@ -55,5 +55,5 @@ module template T(interface i1: A_I1, interface i2: A_I2, constant idx: U32) {
 
 # Instantiate two topologies that point to separate connections of b
 module M1 {
-    expand T(interface a1, interface a1, constant 0)
+    expand T(instance a1, instance a1, constant 0)
 }

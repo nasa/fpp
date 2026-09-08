@@ -95,6 +95,41 @@ template_test()
   run_test "-u" "template" template_test
 }
 
+# ----------------------------------------------------------------------
+# Differential tests
+#
+# template_hand.fpp is template.fpp with the expansion written out by
+# hand. The two models must yield the same file names, so check the
+# output of the hand-written model against the reference output of the
+# model that uses a module template. That way there is a single
+# reference, and it pins the two models together: if the names
+# contributed by an expansion are dropped again, updating the reference
+# will not hide it.
+# ----------------------------------------------------------------------
+run_hand_test()
+{
+  args=$1
+  outfile=$2
+  reffile=$3
+  $fpp_filenames $args template_hand.fpp 2>&1 | remove_path_prefix > $outfile.out.txt
+  diff -u $reffile.ref.txt $outfile.out.txt > $outfile.diff.txt 2>&1
+}
+
+template_hand()
+{
+  run_hand_test "" template_hand template
+}
+
+template_hand_template()
+{
+  run_hand_test "-t" template_hand_template template_template
+}
+
+template_hand_test()
+{
+  run_hand_test "-u" template_hand_test template_test
+}
+
 tests="
 include
 include_template
@@ -111,6 +146,9 @@ ok_test_template_auto_helpers
 template
 template_template
 template_test
+template_hand
+template_hand_template
+template_hand_test
 "
 
 run_suite $tests

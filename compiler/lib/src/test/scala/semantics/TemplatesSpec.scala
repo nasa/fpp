@@ -70,7 +70,9 @@ class TemplatesSpec extends AnyWordSpec {
     private def checkAllNodesUnique(tul: List[Ast.TransUnit]): Unit = {
         val j = AstJsonEncoder.astToJson(tul)
         // Console.err.println(j)
-        j.findAllByKey("AstNode").foldRight(Set())(checkNodeIsUnique)
+        val nodes = j.findAllByKey("AstNode")
+        assert(nodes.nonEmpty)
+        nodes.foldRight(Set())(checkNodeIsUnique)
     }
 
     def expandUniqueString(s: String): Unit = {

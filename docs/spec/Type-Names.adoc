@@ -84,7 +84,7 @@ or
  via the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules
 for name scoping>>.
-A qualified identifier type name _Q_ names a type a follows:
+A qualified identifier type name _Q_ names a type as follows:
 
 .  If _Q_ refers to a global definition _D_,
 then _Q_ names the
@@ -92,9 +92,22 @@ then _Q_ names the
 
 .  Otherwise _Q_ refers to a bound parameter definition _B_.
 In this case, _B_ must be a
-<<Specifiers_Template-Expansion-Specifiers,type template parameter 
-definition>>, and _Q_ names the type defined in the global definition
-<<Definitions,represented by>> _B_.
+<<Specifiers_Template-Expansion-Specifiers,type parameter definition>>.
+Let _N_ be the type name appearing in the
+<<Specifiers_Template-Expansion-Specifiers,type template argument>> of _B_.
+Then _Q_ names the type named by _N_.
+There are two cases:
+
+.. If _N_ is a qualified identifier type name, then _B_
+<<Definitions,represents>> a global definition _D_, and _Q_ names
+the type defined in _D_.
+
+.. Otherwise _N_ is a
+<<Type-Names_Primitive-Integer-Type-Names,primitive integer type name>>, a
+<<Type-Names_Floating-Point-Type-Names,floating-point type name>>,
+<<Type-Names_The-Boolean-Type-Name,the Boolean type name>>, or a
+<<Type-Names_String-Type-Names,string type name>>.
+In this case _N_ refers to no definition. _Q_ names the type that _N_ names directly.
 
 For example:
 
@@ -102,7 +115,7 @@ For example:
 ----
 module M {
   type T
-  array A = [3] T # T is a qualified identifier t type name. It names the type M.T.
+  array A = [3] T # T is a qualified identifier type name. It names the type M.T.
 }
 ----
 
@@ -132,5 +145,27 @@ module M {
   struct T {
     s: S # S is a qualified identifier type name. It names the type M.S.
   }
+}
+----
+
+[source,fpp]
+----
+module M {
+  type T
+  module template Tmpl(type X) {
+    # X is a qualified identifier type name. It refers to the bound
+    # parameter definition for the type parameter X.
+    array A = [3] X
+  }
+}
+module N {
+  # X names the type M.T. The bound parameter definition represents
+  # the global definition M.T.
+  expand M.Tmpl(type M.T)
+}
+module P {
+  # X names the type U32. The bound parameter definition represents
+  # no global definition.
+  expand M.Tmpl(type U32)
 }
 ----

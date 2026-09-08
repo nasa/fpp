@@ -24,9 +24,10 @@ object FPPtoJson {
     }
     for {
       tul <- ToolUtils.parseFilesAndResolveAsts(Analysis(), files).map(_._2)
-      _ <- writeAst (options) (tul)
+      aTulOpt <- analyze (options) (tul)
+      _ <- writeAst (options) (aTulOpt.map(_._2).getOrElse(tul))
       _ <- writeLocMap (options)
-      _ <- writeAnalysis (options) (tul)
+      _ <- writeAnalysis (options) (aTulOpt.map(_._1))
     } yield ()
   }
 
@@ -59,20 +60,23 @@ object FPPtoJson {
   def writeLocMap (options: Options): Result.Result[Unit] =
     writeJson(options, "fpp-loc-map.json", LocMapJsonEncoder.locMapToJson)
 
-  def writeAnalysis (options: Options) (tul: List[Ast.TransUnit]):
-    Result.Result[Unit] =
+  /** Analyze the model, returning the analysis and the translation units with
+   *  templates expanded. Return None if only the syntax was requested. */
+  def analyze (options: Options) (tul: List[Ast.TransUnit]):
+    Result.Result[Option[(Analysis, List[Ast.TransUnit])]] =
     options.syntaxOnly match {
       case false =>
-        val files = options.files.reverse match {
-          case Nil  => List(File.StdIn)
-          case list => list
-        }
         val a = Analysis(inputFileSet = options.files.toSet)
-        for {
-          a <- CheckSemantics.tuList(a, tul)
-          _ <- writeJson(options, "fpp-analysis.json", AnalysisJsonEncoder.analysisToJson(a))
-        } yield ()
-      case true => Right(())
+        for (aTul <- CheckSemantics.tuList(a, tul)) yield Some(aTul)
+      case true => Right(None)
+    }
+
+  def writeAnalysis (options: Options) (aOpt: Option[Analysis]):
+    Result.Result[Unit] =
+    aOpt match {
+      case Some(a) =>
+        writeJson(options, "fpp-analysis.json", AnalysisJsonEncoder.analysisToJson(a))
+      case None => Right(())
     }
 
   val builder = OParser.builder[Options]
