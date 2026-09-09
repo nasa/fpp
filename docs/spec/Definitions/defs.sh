@@ -11,6 +11,7 @@ Introduction.adoc
 Abstract-Type-Definitions.adoc
 Alias-Type-Definitions.adoc
 Array-Definitions.adoc
+Vector-Definitions.adoc
 Component-Definitions.adoc
 Component-Instance-Definitions.adoc
 Constant-Definitions.adoc

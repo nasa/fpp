@@ -326,8 +326,9 @@ is an
 <<Types_Abstract-Types,abstract type>>,
 <<Types_Alias-Types,alias type>>,
 <<Types_Array-Types,array type>>,
-<<Types_Enum-Types,enum type>>, or
-<<Types_Struct-Types,struct type>>,
+<<Types_Enum-Types,enum type>>,
+<<Types_Struct-Types,struct type>>, or
+<<Types_Vector-Types,vector type>>,
 and both types refer to the same definition.
 
 Note that string types are never identical.
@@ -375,6 +376,32 @@ if stem:[n = m] and stem:[T'_1] may be converted to stem:[T'_2].
 <<Types_String-Types,string type>> stem:[T_1] may be converted to an anonymous
 array type stem:[T_2] if stem:[T_1] may be converted to the member type of
 stem:[T_2].
+
+. If stem:[T_1] or stem:[T_2] or both are
+<<Types_Vector-Types,vector types>>, then
+stem:[T_1] may be converted to stem:[T_2] if the conversion
+is allowed after replacing the vector type or types with
+structurally equivalent
+<<Types_Internal-Types_Anonymous-Vector-Types,anonymous vector types>>.
+
+. An anonymous array type stem:[T_1 =] _[_ stem:[n] _]_ stem:[T'_1]
+may be converted to the anonymous vector type
+stem:[T_2 =] _[_ `size` stem:[m] _]_ stem:[T'_2]
+if stem:[n <= m] and stem:[T'_1] may be converted to stem:[T'_2].
+
+. An anonymous vector type stem:[T_1 =] _[_ `size` stem:[n] _]_ stem:[T'_1]
+may be converted to the anonymous vector type
+stem:[T_2 =] _[_ `size` stem:[m] _]_ stem:[T'_2]
+if stem:[n <= m] and stem:[T'_1] may be converted to stem:[T'_2].
+Note that the size-prefix type of a vector type does not affect convertibility.
+
+. A <<Types_Internal-Types_Numeric-Types,numeric type>>,
+<<Types_The-Boolean-Type,Boolean type>>, <<Types_Enum-Types,enum type>>, or
+<<Types_String-Types,string type>> is never convertible to a
+<<Types_Vector-Types,vector type>> or anonymous vector type, notwithstanding the
+transitivity rule below.
+Unlike an array value, a vector value is not filled from a single scalar value;
+its elements must be given explicitly, for example as an array expression.
 
 . If stem:[T_1] or stem:[T_2] or both are
 <<Types_Struct-Types,struct types>>, then
