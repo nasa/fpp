@@ -50,7 +50,6 @@ object ComputeGeneratedFiles {
   private def enterSymbols(tul: List[Ast.TransUnit]):
     Result.Result[(Analysis, List[Ast.TransUnit])] =
     for {
-      tul <- AddStateEnums.transUnitList(tul)
       a <- EnterSymbols.visitList(Analysis(), tul, EnterSymbols.transUnit)
       aTul <- ResolveTemplates.transUnit(a, tul)
     }

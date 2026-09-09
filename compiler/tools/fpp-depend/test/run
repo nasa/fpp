@@ -41,66 +41,84 @@ done > default-tests.sh
 direct()
 {
   run_test '-d tmp.out.txt' direct_a direct
+  run_test_status=$?
   remove_path_prefix < tmp.out.txt > direct_output.out.txt
-  compare direct_output
+  compare direct_output && \
+  test $run_test_status -eq 0
 }
 
 filenames()
 {
   run_test '-g filenames_generated_output.out.txt -u filenames_ut_output.out.txt' \
     ../../fpp-filenames/test/ok filenames
+  run_test_status=$?
   compare filenames_generated_output && \
-  compare filenames_ut_output
+  compare filenames_ut_output && \
+  test $run_test_status -eq 0
 }
 
 filenames_auto()
 {
   run_test '-a -g filenames_auto_generated_output.out.txt -u filenames_auto_ut_output.out.txt' \
     ../../fpp-filenames/test/ok filenames
+  run_test_status=$?
   compare filenames_auto_generated_output && \
-  compare filenames_auto_ut_output
+  compare filenames_auto_ut_output && \
+  test $run_test_status -eq 0
 }
 
 filenames_include()
 {
   run_test '-g filenames_include_generated_output.out.txt -u filenames_include_ut_output.out.txt' \
     ../../fpp-filenames/test/include filenames_include
+  run_test_status=$?
   compare filenames_include_generated_output && \
-  compare filenames_include_ut_output
+  compare filenames_include_ut_output && \
+  test $run_test_status -eq 0
 }
 
 filenames_include_auto()
 {
   run_test '-a -g filenames_include_auto_generated_output.out.txt -u filenames_include_auto_ut_output.out.txt' \
     ../../fpp-filenames/test/include filenames_include
+  run_test_status=$?
   compare filenames_include_auto_generated_output && \
-  compare filenames_include_auto_ut_output
+  compare filenames_include_auto_ut_output && \
+  test $run_test_status -eq 0
 }
 
 framework()
 {
   run_test '-f framework_output.out.txt' framework
-  compare framework_output
+  run_test_status=$?
+  compare framework_output && \
+  test $run_test_status -eq 0
 }
 
 framework_include()
 {
   run_test '-f framework_include_output.out.txt' framework_include
-  compare framework_include_output
+  run_test_status=$?
+  compare framework_include_output && \
+  test $run_test_status -eq 0
 }
 
 include()
 {
   run_test '-i tmp.out.txt' include
+  run_test_status=$?
   remove_path_prefix < tmp.out.txt > include_output.out.txt
-  compare include_output
+  compare include_output && \
+  test $run_test_status -eq 0
 }
 
 included_dep_i()
 {
   run_test '-i tmp.out.txt' included_dep included_dep_i
+  run_test_status=$?
   remove_path_prefix < tmp.out.txt > included_dep_i_output.out.txt
-  compare included_dep_i_output
+  compare included_dep_i_output && \
+  test $run_test_status -eq 0
 }
 
 input()
@@ -116,15 +134,19 @@ locate_constant_include_no_i()
 locate_constant_include_i()
 {
   run_test '-i tmp.out.txt' locate_constant_include_1 locate_constant_include_i
+  run_test_status=$?
   remove_path_prefix < tmp.out.txt > locate_constant_include_i_output.out.txt
-  compare locate_constant_include_i_output
+  compare locate_constant_include_i_output && \
+  test $run_test_status -eq 0
 }
 
 missing()
 {
   run_test '-m tmp.out.txt' missing
+  run_test_status=$?
   remove_path_prefix < tmp.out.txt > missing_output.out.txt
-  compare missing_output
+  compare missing_output && \
+  test $run_test_status -eq 0
 }
 
 run_suite $tests
