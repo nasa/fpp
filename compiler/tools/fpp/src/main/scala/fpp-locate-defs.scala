@@ -46,8 +46,7 @@ object FPPLocateDefs {
     tul: List[Ast.TransUnit]
   ): Result.Result[List[Ast.TransUnit]] = {
     val result = for {
-      a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
-      aTul <- ResolveTemplates.transUnit(a, tul)
+      aTul <- ResolveTemplates.tuList(a, tul)
     } yield aTul._2
     result match {
       case Right(tul) => Right(tul)

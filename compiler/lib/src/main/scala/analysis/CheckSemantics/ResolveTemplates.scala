@@ -6,11 +6,13 @@ import fpp.compiler.transform._
 
 /** Expand template expansion specifiers and enter the symbols they produce. */
 object ResolveTemplates {
-  def transUnit(
+  def tuList(
     a: Analysis,
     tul: List[Ast.TransUnit]
   ): Result.Result[(Analysis, List[Ast.TransUnit])] = {
     for {
+      tul <- AddStateEnums.transUnitList(tul)
+      a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
       a <- CheckTemplateUses.visitList(a, tul, CheckTemplateUses.transUnit)
       s_tul <- ExpandTemplates.transformList(a, tul, ExpandTemplates.transUnit)
       tul <- Right(s_tul._2)

@@ -38,9 +38,11 @@ object FPPToDict {
             a <- Right(aTulTul._1)
             tulFiles <- Right(aTulTul._2)
             tulImports <- Right(aTulTul._3)
-            aTul <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
+            aTul <- ResolveTemplates.tuList(a, tulFiles ++ tulImports)
             a <- Right(aTul._1)
-            tulFiles <- Right(aTul._2.take(tulFiles.length))
+            tul <- Right(aTul._2)
+            aTul <- CheckSemantics.tuList(a, tul)
+            tulFiles <- Right(tul.take(tulFiles.length))
             state <- {
                 val dir = options.dir match {
                     case Some(dir1) => dir1

@@ -11,7 +11,7 @@ object ComputeGeneratedFiles {
   /** Computes autocoded files (XML, C++ and JSON Dictionary) */
   def getAutocodeFiles(tul: List[Ast.TransUnit]): Result.Result[List[String]] =
     for {
-      aTul <- enterSymbols(tul)
+      aTul <- ResolveTemplates.tuList(Analysis(), tul)
       cppFiles <- getAutocodeCppFiles(aTul._1, aTul._2)
       dictFiles <- getDictionaryJsonFiles(aTul._1, aTul._2)
     }
@@ -20,7 +20,7 @@ object ComputeGeneratedFiles {
   /** Computes component implementation files */
   def getImplFiles(tul: List[Ast.TransUnit]): Result.Result[List[String]] =
     for {
-      aTul <- enterSymbols(tul)
+      aTul <- ResolveTemplates.tuList(Analysis(), tul)
       cppFiles <- getImplCppFiles(aTul._1, aTul._2)
     }
     yield cppFiles
@@ -31,7 +31,7 @@ object ComputeGeneratedFiles {
     testHelperMode: CppWriter.TestHelperMode
   ): Result.Result[List[String]] =
     for {
-      aTul <- enterSymbols(tul)
+      aTul <- ResolveTemplates.tuList(Analysis(), tul)
       testFiles <- getTestCppFiles(aTul._1, aTul._2, testHelperMode)
     }
     yield testFiles
@@ -42,18 +42,10 @@ object ComputeGeneratedFiles {
     testHelperMode: CppWriter.TestHelperMode
   ): Result.Result[List[String]] =
     for {
-      aTul <- enterSymbols(tul)
+      aTul <- ResolveTemplates.tuList(Analysis(), tul)
       cppFiles <- getTestImplCppFiles(aTul._1, aTul._2, testHelperMode)
     }
     yield cppFiles
-
-  private def enterSymbols(tul: List[Ast.TransUnit]):
-    Result.Result[(Analysis, List[Ast.TransUnit])] =
-    for {
-      a <- EnterSymbols.visitList(Analysis(), tul, EnterSymbols.transUnit)
-      aTul <- ResolveTemplates.transUnit(a, tul)
-    }
-    yield aTul
 
   private def getAutocodeCppFiles(a: Analysis, tul: List[Ast.TransUnit]):
   Result.Result[List[String]] =

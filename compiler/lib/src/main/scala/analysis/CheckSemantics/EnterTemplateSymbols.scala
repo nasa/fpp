@@ -121,7 +121,7 @@ object EnterTemplateSymbols
           _ <- {
             if data.args.length == defParams.length
             then Right(())
-            else Left(SemanticError.MismatchedTemplateParameters(
+            else Left(SemanticError.WrongNumberOfTemplateParameters(
               Locations.get(node.id),
               Locations.get(tmpl.node._2.id),
               data.args.length,

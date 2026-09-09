@@ -270,7 +270,7 @@ sealed trait Error {
         System.err.println("conflicting port number is here:")
         System.err.println(p2Loc)
         printMatchingLoc(matchingLoc)
-      case SemanticError.MismatchedTemplateParameters(
+      case SemanticError.WrongNumberOfTemplateParameters(
         expandLoc: Location,
         defLoc: Location,
         expandLength: Number,
@@ -771,7 +771,7 @@ object SemanticError {
     matchingLoc: Location
   ) extends Error
   /** Wrong number of template arguments */
-  final case class MismatchedTemplateParameters(
+  final case class WrongNumberOfTemplateParameters(
     expandLoc: Location,
     defLoc: Location,
     expandLength: Number,

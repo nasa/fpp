@@ -28,8 +28,10 @@ object FPPToLayout {
             a <- Right(aTulTul._1)
             tulFiles <- Right(aTulTul._2)
             tulImports <- Right(aTulTul._3)
-            aTul <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
+            aTul <- ResolveTemplates.tuList(a, tulFiles ++ tulImports)
             a <- Right(aTul._1)
+            tul <- Right(aTul._2)
+            a <- CheckSemantics.tuList(a, tul)
             tulFiles <- Right(aTul._2.take(tulFiles.length))
             state <- {
                 val dir = options.dir match {

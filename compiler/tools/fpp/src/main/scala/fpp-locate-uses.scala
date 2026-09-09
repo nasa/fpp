@@ -30,9 +30,11 @@ object FPPLocateUses {
       a <- Right(aTulTul._1)
       tulFiles <- Right(aTulTul._2)
       tulImports <- Right(aTulTul._3)
-      aTul <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
+      aTul <- ResolveTemplates.tuList(a, tulFiles ++ tulImports)
       a <- Right(aTul._1)
-      tulFiles <- Right(aTul._2.take(tulFiles.length))
+      tul <- Right(aTul._2)
+      a <- CheckSemantics.tuList(a, tul)
+      tulFiles <- Right(tul.take(tulFiles.length))
       a <- UsedSymbols.visitList(a, tulFiles, UsedSymbols.transUnit)
     } yield {
       val list = a.usedSymbolSet.flatMap(writeUsedSymbol(a, options) _).toList

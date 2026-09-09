@@ -66,8 +66,7 @@ object FPPSyntax {
       case true => {
         val a = Analysis()
         for {
-          a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
-          a_tul <- ResolveTemplates.transUnit(a, tul)
+          a_tul <- ResolveTemplates.tuList(a, tul)
           tul <- Right(a_tul._2)
         } yield tul
       }
