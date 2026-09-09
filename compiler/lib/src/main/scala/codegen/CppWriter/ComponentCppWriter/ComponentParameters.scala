@@ -131,7 +131,7 @@ case class ComponentParameters (
       List(
         getParamUpdateHookFunction,
         getParamLoadHookFunction,
-        getParamLoadedHookFunction
+        getParamsLoadHookFunction
       )
     )
   }
@@ -238,7 +238,7 @@ case class ComponentParameters (
     CppDoc.Function.Virtual
   )
 
-  private def getParamLoadedHookFunction = functionClassMember(
+  private def getParamsLoadHookFunction = functionClassMember(
     Some(
       s"""|\\brief Called for each parameter when parameters are loaded
           |
