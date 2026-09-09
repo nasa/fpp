@@ -6,16 +6,16 @@
 
 . The https://www.scala-sbt.org[Simple Build Tool (sbt)] for Scala.
 
-. Version 11 of the Java Development Kit (JDK).
+. Version 25 of the Java Development Kit (JDK).
 If you have a different version of Java installed on your system, then
 you can do the following:
 
-.. Install version 11 of the JDK.
+.. Install version 25 of the JDK.
 For example, in MacPorts you can run
 +
 [source,bash]
 ----
-% sudo port install openjdk11-graalvm
+% sudo port install openjdk25-graalvm
 ----
 
 .. Set the environment variable `FPP_JAVA_HOME` to the home directory associated
@@ -24,7 +24,7 @@ For example, on Mac OS:
 +
 [source,bash]
 ----
-% export FPP_JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk11-graalvm/Contents/Home
+% export FPP_JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-25-graalvm-community.jdk/Contents/Home
 ----
 
 == Installing
@@ -135,7 +135,7 @@ For example, using MacPorts on Mac OS:
 +
 [source,bash]
 ----
-% sudo port install openjdk11-graalvm
+% sudo port install openjdk25-graalvm
 ----
 
 . Set the global environment variable `FPP_GRAALVM_JAVA_HOME` to the `Home` directory
@@ -144,14 +144,8 @@ For example, on Mac OS:
 +
 [source,bash]
 ----
-% export FPP_GRAALVM_JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk11-graalvm/Contents/Home
+% export FPP_GRAALVM_JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-25-graalvm-community.jdk/Contents/Home
 ----
-
-. Run `sudo $FPP_GRAALVM_JAVA_HOME/bin/gu install native-image`
-*You must rerun this step every time you update or reinstall GraalVM (step 1).*
-If you update or reinstall GraalVM, and you forget to re-install `native-image`,
-then your GraalVM installation and your `native-image` installation will be out
-of sync, and the native image build may not work.
 
 . Run `./release` in this directory.
 The script will build the native binary tools and install them at
