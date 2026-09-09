@@ -101,7 +101,7 @@ case class PortCppWriter (
   }
 
   private def writeIncludeDirectives: List[String] = {
-    val Right(a) = UsedSymbols.defPortAnnotatedNode(s.a, aNode)
+    val Right(a) = UsedSymbols.defPortAnnotatedNode(s.a, aNode): @unchecked
     s.writeIncludeDirectives(a.usedSymbolSet)
   }
 

@@ -21,22 +21,22 @@ object ComponentXmlFppWriter extends LineUtils {
         yield Line.blankSeparated (FppWriter.componentMember) (members)
 
   /** Writes a commands file */
-  val writeCommandsFile: XmlFppWriter.File => XmlFppWriter.Result = writeImportedFile(FppBuilder.MemberGenerator.Command) _
+  val writeCommandsFile: XmlFppWriter.File => XmlFppWriter.Result = writeImportedFile(FppBuilder.MemberGenerator.Command)
 
   /** Writes a params file */
-  val writeParamsFile: XmlFppWriter.File => XmlFppWriter.Result = writeImportedFile(FppBuilder.MemberGenerator.Param) _
+  val writeParamsFile: XmlFppWriter.File => XmlFppWriter.Result = writeImportedFile(FppBuilder.MemberGenerator.Param)
 
   /** Writes a ports file */
-  val writePortsFile: XmlFppWriter.File => XmlFppWriter.Result = writeImportedFile(FppBuilder.MemberGenerator.Port) _
+  val writePortsFile: XmlFppWriter.File => XmlFppWriter.Result = writeImportedFile(FppBuilder.MemberGenerator.Port)
 
   /** Writes a tlm channels file */
-  val writeTlmChannelsFile: XmlFppWriter.File => XmlFppWriter.Result = writeImportedFile(FppBuilder.MemberGenerator.TlmChannel) _
+  val writeTlmChannelsFile: XmlFppWriter.File => XmlFppWriter.Result = writeImportedFile(FppBuilder.MemberGenerator.TlmChannel)
 
   /** Writes an events file */
-  val writeEventsFile: XmlFppWriter.File => XmlFppWriter.Result = writeImportedFile(FppBuilder.MemberGenerator.Event) _
+  val writeEventsFile: XmlFppWriter.File => XmlFppWriter.Result = writeImportedFile(FppBuilder.MemberGenerator.Event)
 
   /** Writes an internal ports file */
-  val writeInternalPortsFile: XmlFppWriter.File => XmlFppWriter.Result = writeImportedFile(FppBuilder.MemberGenerator.InternalPort) _
+  val writeInternalPortsFile: XmlFppWriter.File => XmlFppWriter.Result = writeImportedFile(FppBuilder.MemberGenerator.InternalPort)
 
   /** Builds FPP for translating Component XML */
   private object FppBuilder {
@@ -113,7 +113,7 @@ object ComponentXmlFppWriter extends LineUtils {
 
     /** Translates an XML type to an FPP type name */
     def translateType(file: XmlFppWriter.File): Node => Result.Result[Ast.TypeName] =
-      file.translateType(node => file.getAttribute(node, "data_type")) _
+      file.translateType(node => file.getAttribute(node, "data_type"))
 
     case object MemberGenerator {
 
@@ -502,7 +502,7 @@ object ComponentXmlFppWriter extends LineUtils {
               ("parameters", MemberGenerator.Param),
               ("telemetry", MemberGenerator.TlmChannel)
             ),
-            mapChildrenOfName _
+            mapChildrenOfName
           )
         }
         yield (includes :: lists).flatten

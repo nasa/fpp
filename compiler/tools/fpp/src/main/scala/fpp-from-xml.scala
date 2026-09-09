@@ -15,7 +15,7 @@ object FPPFromXml {
       xmlFiles <- Result.map(options.files, parseXmlFile)
       lines <- XmlFppWriter.writeFileList(xmlFiles)
     }
-    yield lines.map(Line.write(Line.stdout) _)
+    yield lines.map(Line.write(Line.stdout))
   }
 
   def parseXmlFile(file: File): Result.Result[XmlFppWriter.File] = {

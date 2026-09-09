@@ -96,13 +96,13 @@ object UsedSymbols extends UseAnalyzer {
     def resolveEnumConstant(s: Symbol) =
       s match
         case Symbol.EnumConstant(node) =>
-          val t @ Type.Enum(enumNode, _, _) = a.typeMap(node._2.id)
+          val t @ Type.Enum(enumNode, _, _) = a.typeMap(node._2.id): @unchecked
           Symbol.Enum(enumNode)
         case _ => s
     // Helper function for recursive resolution
     val a1: Analysis = a.copy(usedSymbolSet = Set())
     def resolveNode(s: Symbol): Set[Symbol] = {
-      val Right(a2) = s match {
+      val Right(a2) = (s match {
         case Symbol.AbsType(node) => defAbsTypeAnnotatedNode(a1, node)
         case Symbol.AliasType(node) => defAliasTypeAnnotatedNode(a1, node)
         case Symbol.Array(node) => defArrayAnnotatedNode(a1, node)
@@ -118,7 +118,7 @@ object UsedSymbols extends UseAnalyzer {
         case Symbol.Struct(node) => defStructAnnotatedNode(a1, node)
         case Symbol.System(node) => defSystemAnnotatedNode(a1, node)
         case Symbol.Topology(node) => defTopologyAnnotatedNode(a1, node)
-      }
+      }): @unchecked
       a2.usedSymbolSet.flatMap(resolveNode) + resolveEnumConstant(s)
     }
     ss.flatMap(resolveNode)

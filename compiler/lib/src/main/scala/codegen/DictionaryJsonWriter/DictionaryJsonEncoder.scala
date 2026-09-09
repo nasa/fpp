@@ -43,14 +43,14 @@ case class DictionaryJsonEncoder(
     
     /** Enum Constant JSON Encoding */
     private def enumConstantAsJson(aNode: AstNode[Ast.DefEnumConstant]): Map[String, Json] = {
-        val Value.EnumConstant(value, _) = dictionaryState.a.valueMap(aNode.id)
+        val Value.EnumConstant(value, _) = dictionaryState.a.valueMap(aNode.id): @unchecked
         Map(value._1 -> value._2.asJson)
     }
 
     /** Symbol JSON Encoding */
     private implicit def typeSymbolSetEncoder [T <: Symbol]: Encoder[Set[T]] = {
         def f(symbol: T) = symbol.asJson
-        Encoder.instance (dictionarySymbolSetAsJson (f) _)
+        Encoder.instance (dictionarySymbolSetAsJson (f))
     }
 
     /** DictionaryMetadata JSON Encoding */
@@ -70,37 +70,37 @@ case class DictionaryJsonEncoder(
     /** JSON Encoding for Maps of Commands, Parameters, Events, Telemetry Channels, Records, and Containers */
     private implicit val commandMapEncoder: Encoder[Map[BigInt, Dictionary.CommandEntry]] = {
         def f(opcode: BigInt, command: Dictionary.CommandEntry) = (opcode -> command).asJson
-        Encoder.instance (dictionaryEntryMapAsJson (f) _)
+        Encoder.instance (dictionaryEntryMapAsJson (f))
     }
 
     private implicit val paramMapEncoder: Encoder[Map[BigInt, Dictionary.ParamEntry]] = {
         def f(identifier: BigInt, param: Dictionary.ParamEntry) = (identifier -> param).asJson
-        Encoder.instance (dictionaryEntryMapAsJson (f) _)
+        Encoder.instance (dictionaryEntryMapAsJson (f))
     }
 
     private implicit val eventMapEncoder: Encoder[Map[BigInt, Dictionary.EventEntry]] = {
         def f(identifier: BigInt, event: Dictionary.EventEntry) = (identifier -> event).asJson
-        Encoder.instance (dictionaryEntryMapAsJson (f) _)
+        Encoder.instance (dictionaryEntryMapAsJson (f))
     }
 
     private implicit val channelMapEncoder: Encoder[Map[BigInt, Dictionary.TlmChannelEntry]] = {
         def f(identifier: BigInt, event: Dictionary.TlmChannelEntry) = (identifier -> event).asJson
-        Encoder.instance (dictionaryEntryMapAsJson (f) _)
+        Encoder.instance (dictionaryEntryMapAsJson (f))
     }
 
     private implicit val recordMapEncoder: Encoder[Map[BigInt, Dictionary.RecordEntry]] = {
         def f(identifier: BigInt, record: Dictionary.RecordEntry) = (identifier -> record).asJson
-        Encoder.instance (dictionaryEntryMapAsJson (f) _)
+        Encoder.instance (dictionaryEntryMapAsJson (f))
     }
 
     private implicit val containerMapEncoder: Encoder[Map[BigInt, Dictionary.ContainerEntry]] = {
         def f(identifier: BigInt, container: Dictionary.ContainerEntry) = (identifier -> container).asJson
-        Encoder.instance (dictionaryEntryMapAsJson (f) _)
+        Encoder.instance (dictionaryEntryMapAsJson (f))
     }
 
     private implicit val tlmPacketSetMapEncoder: Encoder[Map[Name.Unqualified, TlmPacketSet]] = {
         def f(name: Name.Unqualified, group: TlmPacketSet) = (name -> group).asJson
-        Encoder.instance (dictionaryTlmPacketSetMapAsJson (f) _)
+        Encoder.instance (dictionaryTlmPacketSetMapAsJson (f))
     }
 
     /** JSON Encoding for FPP Types */
@@ -176,7 +176,7 @@ case class DictionaryJsonEncoder(
     /** JSON Encoding for struct values */
     def structValueAsJson(value: Value.Struct): Json = {
         val Value.Struct(Value.AnonStruct(members), t) = value
-        val Type.Struct(_, _, _, sizes, _) = dictionaryState.a.typeMap(t.node._2.id)
+        val Type.Struct(_, _, _, sizes, _) = dictionaryState.a.typeMap(t.node._2.id): @unchecked
         members.map((key, v) =>
             val valueJson = valueAsJson(v)
             sizes.get(key) match
@@ -214,7 +214,7 @@ case class DictionaryJsonEncoder(
             symbol match {
                 case Symbol.Array(preA, node, postA) => {
                     val arrayType = dictionaryState.a.typeMap(symbol.getNodeId)
-                    val Type.Array(_, anonArray, default, format) = arrayType
+                    val Type.Array(_, anonArray, default, format) = arrayType: @unchecked
                     val defaultJsonList: List[Json]= default match {
                         case Some(defaultVal) => for (elem <- defaultVal._1._1) yield valueAsJson(elem)
                         case None => List.empty[Json]
@@ -233,7 +233,7 @@ case class DictionaryJsonEncoder(
                     jsonWithOptionalValues(json, optionalValues)
                 }
                 case Symbol.Enum(preA, node, postA) => {
-                    val Type.Enum(_, repType, default) = dictionaryState.a.typeMap(symbol.getNodeId)
+                    val Type.Enum(_, repType, default) = dictionaryState.a.typeMap(symbol.getNodeId): @unchecked
                     val enumDefault = default match {
                         case Some(defaultVal) => defaultVal.value._1
                         case None => ""
@@ -259,7 +259,7 @@ case class DictionaryJsonEncoder(
                     jsonWithOptionalValues(json, optionalValues)
                 }
                 case Symbol.Struct(preA, node, postA) => {
-                    val Type.Struct(_, _, default, sizes, _) = dictionaryState.a.typeMap(symbol.getNodeId)
+                    val Type.Struct(_, _, default, sizes, _) = dictionaryState.a.typeMap(symbol.getNodeId): @unchecked
                     val memberFormatMap = node.data.members.flatMap { case (_, memberNode, _) =>
                         memberNode.data.format.map(format => memberNode.data.name -> format.data)
                     }.toMap
@@ -292,7 +292,7 @@ case class DictionaryJsonEncoder(
                 }
                 case Symbol.AliasType(preA, node, postA) => {
                     val alias = dictionaryState.a.typeMap(symbol.getNodeId)
-                    val Type.AliasType(_, aliasType) = alias
+                    val Type.AliasType(_, aliasType) = alias: @unchecked
                     val json = Json.obj(
                         "kind" -> "alias".asJson,
                         "qualifiedName" -> qualifiedName.asJson,

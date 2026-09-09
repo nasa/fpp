@@ -15,7 +15,7 @@ case class ImpliedUse(
 
   def asExprNode: AstNode[Ast.Expr] = {
     val Name.Qualified(qualifier, base) = name
-    val head :: tail = name.toIdentList
+    val head :: tail = name.toIdentList: @unchecked
     val expr = tail.foldLeft (Ast.ExprIdent(head): Ast.Expr) ((e1, s) =>
       Ast.ExprDot(AstNode.create(e1, id), AstNode.create(s, id))
     )

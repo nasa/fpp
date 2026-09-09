@@ -274,7 +274,7 @@ case class Topology(
     inputConnectionMap.getOrElse(to, TreeSet.empty[Connection])
 
   /** Get the connections at a port instance */
-  def getConnectionsAt(pii: PortInstanceIdentifier): scala.collection.immutable.SortedSet[_ <: Connection] = {
+  def getConnectionsAt(pii: PortInstanceIdentifier): scala.collection.immutable.SortedSet[? <: Connection] = {
     import PortInstance.Direction._
     val pi = pii.portInstance
     pi.getDirection match {

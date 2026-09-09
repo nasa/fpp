@@ -285,7 +285,7 @@ abstract class ComponentTestUtils(
     p match {
       case PortInstance.Special(aNode, _, _, _, _, _) =>
         import Ast.SpecPortInstance._
-        val spec @ Special(_, kind, _, _, _) = aNode._2.data
+        val spec @ Special(_, kind, _, _, _) = aNode._2.data: @unchecked
         kind match {
           case CommandRecv => hasCommands
           case CommandReg => hasCommands

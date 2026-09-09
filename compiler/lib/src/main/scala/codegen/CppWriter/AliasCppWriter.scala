@@ -20,7 +20,7 @@ case class AliasCppWriter (
 
   private val fileName = ComputeCppFiles.FileNames.getAliasType(name)
 
-  private val aliasType @ Type.AliasType(_, _) = s.a.typeMap(node.id)
+  private val aliasType @ Type.AliasType(_, _) = s.a.typeMap(node.id): @unchecked
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
@@ -32,7 +32,7 @@ case class AliasCppWriter (
     s: CppWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]
   ): List[String] = {
-    val Right(a) = UsedSymbols.defAliasTypeAnnotatedNode(s.a, aNode)
+    val Right(a) = UsedSymbols.defAliasTypeAnnotatedNode(s.a, aNode): @unchecked
     s.writeIncludeDirectives(a.usedSymbolSet)
   }
 
@@ -40,7 +40,7 @@ case class AliasCppWriter (
     s: CppWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]
   ): List[String] = {
-    val Right(a) = UsedSymbols.defAliasTypeAnnotatedNode(s.a, aNode)
+    val Right(a) = UsedSymbols.defAliasTypeAnnotatedNode(s.a, aNode): @unchecked
     // Here we can assume that all symbols referenced with be numeric primitives (U/I[8-64] or F32/F64)
     // ..or an alias to one of those types.
     // We already are including `FpConfig.h` as part of the system headers so we only have to handle the
