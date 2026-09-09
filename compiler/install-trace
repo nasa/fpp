@@ -15,6 +15,6 @@ dir="`pwd`"
 merge_dir="$dir/lib/src/main/resources/META-INF/native-image"
 
 export FPP_JAVA_HOME=$FPP_GRAALVM_JAVA_HOME
-export FPP_JAVA_FLAGS="--sun-misc-unsafe-memory-access=allow --enable-native-access=ALL-UNNAMED -agentlib:native-image-agent=config-merge-dir=$merge_dir"
+export FPP_JAVA_FLAGS="-agentlib:native-image-agent=config-merge-dir=$merge_dir"
 
 $dir/install "$@"
