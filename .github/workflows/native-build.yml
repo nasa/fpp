@@ -214,7 +214,7 @@ jobs:
     runs-on: ${{ matrix.run.runner }}
     steps:
       - name: "Setup Native Image Tools"
-        uses: fprime-community/native-images-action@unified-tool
+        uses: ./.github/actions/native-tools-setup/env-setup
       - name: "Download Native Wheels"
         uses: actions/download-artifact@v8
         with:
