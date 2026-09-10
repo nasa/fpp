@@ -5,7 +5,7 @@
 # ----------------------------------------------------------------------
 # To use this script, you must first
 #
-# 1. Install GraalVM and native-image.
+# 1. Install GraalVM.
 #
 # 2. Set the environment variable FPP_GRAALVM_JAVA_HOME.
 #

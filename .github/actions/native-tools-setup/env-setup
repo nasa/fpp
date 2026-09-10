@@ -1,22 +1,38 @@
 #!/bin/bash
 
-# Resolve architecture. Note: this is dependent on the graal version
-graal_arch="$(uname -m)"
+set -e
 
-# Override graal_arch when on amd64
+# Map uname output to the OS name used by GraalVM release assets
+graal_os="$( uname -s | tr "[:upper:]" "[:lower:]")"
+if [[ "$graal_os" == "darwin" ]]
+then
+  graal_os="macos"
+fi
+
+# Map uname output to the architecture name used by GraalVM release assets
+graal_arch="$(uname -m)"
 if [[ "$graal_arch" == "x86_64" ]] || [[ "$graal_arch" == "x64" ]]
 then
-  graal_arch="amd64"
+  graal_arch="x64"
 elif [[ "$graal_arch" == "arm64" ]] || [[ "$graal_arch" == "aarch64" ]]
 then
   graal_arch="aarch64"
 fi
 
-graal_ver="22.3.0"
-graal_os="$( uname -s | tr "[:upper:]" "[:lower:]")"
-graal_ar="graalvm-ce-java11-${graal_os}-${graal_arch}-${graal_ver}.tar.gz"
-graal_dir="$(pwd)/graalvm-ce-java11-${graal_ver}"
-graal_url="https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${graal_ver}/${graal_ar}"
+# The GraalVM Community Edition release to use: graal_tag is the tag of the
+# GitHub release, and graal_jdk is the JDK version that it provides
+graal_tag="graal-25.3.4.1"
+graal_jdk="25i3-25.0.4.1"
+graal_ar="graalvm-community-jdk-${graal_jdk}_${graal_os}-${graal_arch}_bin.tar.gz"
+graal_url="https://github.com/graalvm/graalvm-ce-builds/releases/download/${graal_tag}/${graal_ar}"
+
+# Download Graal
+echo "Downloading GraalVM from: ${graal_url}"
+curl -fL -o "${graal_ar}" "${graal_url}"
+
+# The name of the extracted directory does not match the name of the archive,
+# so read it out of the archive
+graal_dir="$(pwd)/$(tar -tzf "${graal_ar}" | head -1 | cut -d/ -f1)"
 
 # Start fresh
 if [ -d "${graal_dir}" ]
@@ -24,20 +40,24 @@ then
    rm -r "${graal_dir}"
 fi
 
-
-# Download Graal
-echo "Downloading GraalVM from: ${graal_url}"
-curl -L "${graal_url}" > "${graal_ar}"
 tar -xzf "${graal_ar}"
 graal_bin="${graal_dir}/bin"
 if [ ! -d "${graal_bin}" ]
 then
     graal_bin="${graal_dir}/Contents/Home/bin"
 fi
+
+# native-image is bundled with GraalVM for JDK 21 and later, so there is
+# nothing to install. Check that we resolved the layout of the release
+# correctly.
+if [ ! -x "${graal_bin}/native-image" ]
+then
+    echo "[ERROR] native-image not found in ${graal_bin}" 1>&2
+    exit 1
+fi
+
 export PATH="${graal_bin}:${PATH}"
 export FPP_GRAALVM_JAVA_HOME="$(dirname ${graal_bin})"
-# Install native image
-${graal_bin}/gu install native-image
 
 if [ -n "$GITHUB_ENV" ]
 then

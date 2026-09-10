@@ -96,10 +96,6 @@ jobs:
                 "tag": "macosx_14_0_arm64"
               },
               {
-                "runner": "macos-15-intel",
-                "tag": "macosx_15_0_x86_64"
-              },
-              {
                 "runner": "ubuntu-22.04",
                 "tag": "manylinux_2_28_x86_64",
                 "container": "quay.io/pypa/manylinux_2_28_x86_64"

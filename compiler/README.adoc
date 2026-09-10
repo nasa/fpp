@@ -172,8 +172,7 @@ Occasionally when developing FPP, you may need to re-run the tracing
 agent to capture new runtime behavior.
 To do that, use the following procedure:
 
-. Ensure that `native-image` is installed and up-to-date,
-as described above.
+. Ensure that GraalVM is installed, as described above.
 
 . Run `./install-trace` to install JVM versions of the FPP tools with
 tracing enabled in the `bin` directory.
