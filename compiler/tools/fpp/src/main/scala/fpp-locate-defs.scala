@@ -27,7 +27,6 @@ object FPPLocateDefs {
       aTul <- ToolUtils.parseFilesAndResolveAsts(Analysis(), files)
       a <- Right(aTul._1)
       tul <- Right(aTul._2)
-      tul <- AddStateEnums.transUnitList(tul)
       tul <- expandTemplates(a, tul)
     }
     yield {
