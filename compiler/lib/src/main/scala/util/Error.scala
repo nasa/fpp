@@ -270,13 +270,13 @@ sealed trait Error {
         System.err.println("conflicting port number is here:")
         System.err.println(p2Loc)
         printMatchingLoc(matchingLoc)
-      case SemanticError.WrongNumberOfTemplateParameters(
+      case SemanticError.WrongNumberOfTemplateArguments(
         expandLoc: Location,
         defLoc: Location,
         expandLength: Number,
         defLength: Number,
       ) =>
-        val parameters = if defLength == 1 then "parameter" else "parameters"
+        val parameters = if defLength == 1 then "argument" else "arguments"
         Error.print (Some(expandLoc)) (
           s"expected $defLength template $parameters, got $expandLength"
         )
