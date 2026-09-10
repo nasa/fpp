@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/arg_kind_type_param_constant_arg.fpp:5.10
+expand T(constant 0)
+         ^
+error: invalid argument for template parameter Ty: expected a type argument, got a constant argument
+template parameter is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/template/arg_kind_type_param_constant_arg.fpp:1.19
+module template T(type Ty) {
+                  ^

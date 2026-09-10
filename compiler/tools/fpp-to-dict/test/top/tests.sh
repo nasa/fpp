@@ -9,6 +9,8 @@ missingFwFixedLengthStringSizeConstant
 missingFwOpcodeType
 missingUserDataSizeConstant
 multipleTops
+template
+template_hand
 unqualifiedComponentInstances
 userDataSizeAsMember
 "

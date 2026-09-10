@@ -47,7 +47,8 @@ object FPPDepend {
     for {
       aTul <- ToolUtils.parseFilesAndResolveAsts(a, files)
       a <- Right(aTul._1)
-      tul <- Right(aTul._2)
+      tulParsed <- Right(aTul._2)
+      tul <- AddStateEnums.transUnitList(tulParsed)
       a <- ComputeDependencies.tuList(a, tul)
       _ <- options.directFile match {
         case Some(file) => writeIterable(a.directDependencyFileSet, file)
@@ -72,7 +73,7 @@ object FPPDepend {
       }
       _ <- options.generatedAutocodeFile match {
         case Some(file) =>
-          for (files <- ComputeGeneratedFiles.getAutocodeFiles(tul))
+          for (files <- ComputeGeneratedFiles.getAutocodeFiles(tulParsed))
           yield writeIterable(files, file)
         case None => Right(())
       }
@@ -80,7 +81,7 @@ object FPPDepend {
         case Some(file) =>
           for {
             files <- ComputeGeneratedFiles.getTestFiles(
-              tul,
+              tulParsed,
               CppWriter.getTestHelperMode(options.autoTestHelpers)
             )
           }

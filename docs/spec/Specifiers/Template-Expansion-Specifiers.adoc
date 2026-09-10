@@ -50,7 +50,7 @@ must be an interface instance template argument.
 The qualified identifier in _A_ must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a <<Ports_Port-Interface-Instances,port interface instance>> _N_.
-The port interface of referred to in _p_ must be a
+The port interface referred to in _p_ must be a
 <<Ports_Sub-Interfaces,sub-interface>> of the <<Ports_Port-Interfaces,port 
 interface of _N_>>.
 

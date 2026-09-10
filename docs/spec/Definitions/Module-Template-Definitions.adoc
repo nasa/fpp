@@ -49,10 +49,10 @@ is expanded.
 
 .. For each constant template parameter, a literal value of the correct type.
 
-.. For each port interface instance template argument, a component
+.. For each port interface instance template parameter, a component
    instance definition that minimally satisfies the interface.
 
-.. For each type template argument, an abstract type definition.
+.. For each type template parameter, an abstract type definition.
 
 . In the expansion _E_, do the following:
 
@@ -71,7 +71,7 @@ is expanded.
 
 [source,fpp]
 ----
-template MT(
+module template MT(
     constant baseId: FwIdType
     instance comDriver: Drv.ByteStreamDriver
 ) {

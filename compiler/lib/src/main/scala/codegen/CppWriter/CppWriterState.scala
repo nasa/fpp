@@ -189,8 +189,10 @@ case class CppWriterState(
               this.a.interfaceMap(iface).aNode,
             )
             a.usedSymbolSet.flatMap(getIncludeFiles).toList
-          case arg: Symbol.TemplateTypeArg => getIncludeFiles(a.useDefMap(arg.getNodeId))
-          case arg: Symbol.TemplateInterfaceArg => getIncludeFiles(a.useDefMap(arg.getNodeId))
+          case arg: Symbol.TemplateTypeArg =>
+            a.useDefMap.get(arg.getNodeId).toList.flatMap(getIncludeFiles)
+          case arg: Symbol.TemplateInterfaceArg =>
+            a.useDefMap.get(arg.getNodeId).toList.flatMap(getIncludeFiles)
           case _: Symbol.Constant => List()
           case _: Symbol.EnumConstant => List()
           case _: Symbol.Module => List()

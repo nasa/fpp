@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+. ../../../../scripts/utils.sh
+
+for dir in `find . -maxdepth 1 -type d -name '*.out.dir'`
+do
+  rm -r $dir
+done
+clean
+rm -f default-tests.sh default-update-ref.sh
+for file in `find . -name '*out.*' -or -name '*.names.txt' -or -name '*Ac.hpp' -or -name '*Ac.cpp'`
+do
+  rm $file
+done

@@ -3107,6 +3107,54 @@
       "pos" : "5.1",
       "includingLoc" : "None",
       "expandingLoc" : "None"
+    },
+    "273" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+      "pos" : "10.37",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "274" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+      "pos" : "10.37",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "275" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+      "pos" : "5.1",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "276" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+      "pos" : "5.1",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "277" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+      "pos" : "5.1",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "278" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+      "pos" : "5.1",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "279" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+      "pos" : "5.1",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "280" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+      "pos" : "5.1",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     }
   }
 }

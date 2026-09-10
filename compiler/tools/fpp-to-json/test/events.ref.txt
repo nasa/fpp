@@ -2160,6 +2160,222 @@
       "pos" : "102.1",
       "includingLoc" : "None",
       "expandingLoc" : "None"
+    },
+    "204" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "9.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "205" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "12.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "206" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "15.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "207" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "52.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "208" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "55.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "209" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "58.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "210" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "9.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "211" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "12.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "212" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "15.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "213" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "52.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "214" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "55.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "215" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "58.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "216" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "9.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "217" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "12.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "218" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "15.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "219" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "52.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "220" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "55.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "221" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "58.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "222" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "9.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "223" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "12.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "224" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "15.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "225" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "52.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "226" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "55.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "227" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "58.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "228" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "9.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "229" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "12.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "230" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "15.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "231" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "52.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "232" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "55.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "233" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "58.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "234" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "9.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "235" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "12.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "236" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "15.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "237" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "52.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "238" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "55.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "239" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+      "pos" : "58.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     }
   }
 }

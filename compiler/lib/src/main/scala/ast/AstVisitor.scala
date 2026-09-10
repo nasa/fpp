@@ -110,7 +110,22 @@ trait AstVisitor {
 
   def specLocAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecLoc]]): Out = default(in)
 
-  def specTemplateExpandAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]): Out = default(in)
+  def specTemplateExpandAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]): Out =
+    node._2.data.members match {
+      case Some(members) => specTemplateExpandAnnotatedNodeExpanded(in, node, members)
+      case None => specTemplateExpandAnnotatedNodeUnexpanded(in, node)
+    }
+
+  def specTemplateExpandAnnotatedNodeUnexpanded(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+  ): Out = default(in)
+
+  def specTemplateExpandAnnotatedNodeExpanded(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]],
+    members: List[Ast.ModuleMember]
+  ): Out = default(in)
 
   def specParamAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecParam]]): Out = default(in)
 

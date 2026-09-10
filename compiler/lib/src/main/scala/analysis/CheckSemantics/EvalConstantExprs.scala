@@ -105,10 +105,7 @@ object EvalConstantExprs extends UseAnalyzer {
           case None => Left(SemanticError.TypeMismatch(loc, s"cannot convert value $v to type $ty"))
         }
       }
-    } yield {
-      a.assignType(value -> ty)
-      a.assignValue(value -> newVal)
-    }
+    } yield a.assignType(value -> ty).assignValue(value -> newVal)
   }
 
   override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray) =

@@ -18,6 +18,8 @@ not_deployment_topology
 ok
 omit_instance_not_defined
 omit_instance_not_in_topology
+template_channel_neither_used_nor_omitted
+template_ok
 "
 
 ok()

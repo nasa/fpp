@@ -7,12 +7,9 @@ import fpp.compiler.transform._
 /** Check semantics for a list of translation units */
 object CheckSemantics {
 
-  def tuList(a: Analysis, tul: List[Ast.TransUnit]): Result.Result[Analysis] = {
+  def tuList(a: Analysis, tul: List[Ast.TransUnit]):
+    Result.Result[Analysis] = {
     for {
-      a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
-      a_tul <- ResolveTemplates.transUnit(a, tul)
-      a <- Right(a_tul._1)
-      tul <- Right(a_tul._2)
       a <- ConstructImpliedUseMap.visitList(a, tul, ConstructImpliedUseMap.transUnit)
       a <- CheckUses.visitList(a, tul, CheckUses.transUnit)
       _ <- CheckUseDefCycles.visitList(a, tul, CheckUseDefCycles.transUnit)

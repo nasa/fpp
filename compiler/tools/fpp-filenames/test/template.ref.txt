@@ -1,4 +1,8 @@
 PPortAc.cpp
 PPortAc.hpp
+TemplateArrArrayAc.cpp
+TemplateArrArrayAc.hpp
+TemplateCompComponentAc.cpp
+TemplateCompComponentAc.hpp
 TopCompComponentAc.cpp
 TopCompComponentAc.hpp

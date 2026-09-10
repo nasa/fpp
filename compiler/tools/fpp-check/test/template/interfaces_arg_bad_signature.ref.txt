@@ -1,7 +1,7 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_arg_bad_signature.fpp:23.24
-    expand T(interface c)
-                       ^
+[ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_arg_bad_signature.fpp:23.23
+    expand T(instance c)
+                      ^
 error: port interface not implemented
 fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_arg_bad_signature.fpp:10.5

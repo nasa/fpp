@@ -121,7 +121,7 @@ object EnterTemplateSymbols
           _ <- {
             if data.args.length == defParams.length
             then Right(())
-            else Left(SemanticError.MismatchedTemplateParameters(
+            else Left(SemanticError.WrongNumberOfTemplateArguments(
               Locations.get(node.id),
               Locations.get(tmpl.node._2.id),
               data.args.length,
@@ -147,20 +147,20 @@ object EnterTemplateSymbols
                   val (name, defKind) = dp match {
                     case Ast.TemplateParam.Constant(name, _) => (name, "constant")
                     case Ast.TemplateParam.Type(name) => (name, "type")
-                    case Ast.TemplateParam.Interface(name, _) => (name, "interface")
+                    case Ast.TemplateParam.Interface(name, _) => (name, "instance")
                   }
 
                   val valKind = vp match {
                     case Ast.TemplateArg.Constant(_) => "constant"
                     case Ast.TemplateArg.Type(_) => "type"
-                    case Ast.TemplateArg.Interface(_) => "interface"
+                    case Ast.TemplateArg.Interface(_) => "instance"
                   }
 
-                  Left(SemanticError.InvalidTemplateParameter(
+                  Left(SemanticError.InvalidTemplateArg(
                     name,
                     Locations.get(valueParam.id),
                     Locations.get(defParam._2.id),
-                    s"expected ${defKind} template parameter, got ${valKind} parameter"
+                    s"expected a ${defKind} argument, got a ${valKind} argument"
                   ))
                 }
               }
@@ -170,13 +170,12 @@ object EnterTemplateSymbols
           // Enter the template parameters into a new scope
           nestedScope <- {
             val scope = Scope.empty
-            Result.foldLeft(params) (a.nestedScope.push(scope)) ((nestedScope, param) => {
-              param match {
-                case Symbol.TemplateConstantArg(_, _) => nestedScope.put(NameGroup.Value)(param.getUnqualifiedName, param)
-                case Symbol.TemplateTypeArg(_, _) => nestedScope.put(NameGroup.Type)(param.getUnqualifiedName, param)
-                case Symbol.TemplateInterfaceArg(_, _) => nestedScope.put(NameGroup.PortInterfaceInstance)(param.getUnqualifiedName, param)
-              }
-            })
+            Result.foldLeft(params) (a.nestedScope.push(scope)) ((nestedScope, param) =>
+              nestedScope.put (TemplateExpansion.nameGroup(param)) (
+                param.getUnqualifiedName,
+                param
+              )
+            )
           }
 
           paramScope <- Right(nestedScope.innerScope)
@@ -191,35 +190,88 @@ object EnterTemplateSymbols
           // Enter the child symbols in to the analysis
           a <- EnterSymbols.visitList(a, List(Ast.TransUnit(members)), EnterSymbols.transUnit)
 
+          templateScope <- Right(a.nestedScope.innerScope)
+
+          // The parameter scope and the expansion scope are visible at the same
+          // time, so no parameter may have the same name as a definition in the
+          // expansion in the same name group
+          _ <- Result.foldLeft (params zip defParams) (()) ((_, pair) => {
+            val (param, defParam) = pair
+            val name = param.getUnqualifiedName
+            templateScope.get (TemplateExpansion.nameGroup(param)) (name) match {
+              case Some(defSymbol) => Left(SemanticError.TemplateParameterConflict(
+                name,
+                Locations.get(defParam._2.id),
+                defSymbol.getLoc
+              ))
+              case None => Right(())
+            }
+          })
+
           // Duplicate the symbols entries into the outer scope
           a <- {
-            val templateScope = a.nestedScope.innerScope
             val nestedScope = a.nestedScope.pop
 
             for {
-              nestedScope <- Result.foldLeft (templateScope.map.toList) (nestedScope) ((ns, ngs) => {
-                val (ng, symbols) = ngs
-                Result.foldLeft (symbols.map.toList) (ns) ((ns, symEntry) => {
-                  val (name, symbol) = symEntry
-                  ns.put (ng) (name, symbol)
-                })
-              })
-            } yield a.copy(
-                nestedScope = nestedScope,
-                templateExpansionMap = a.templateExpansionMap + (node.id -> TemplateExpansion(
+              pair <- mergeScope(a, nestedScope.innerScope, templateScope)
+            } yield {
+              val (a1, mergedScope) = pair
+              a1.copy(
+                nestedScope = nestedScope.pop.push(mergedScope),
+                templateExpansionMap = a1.templateExpansionMap + (node.id -> TemplateExpansion(
                   tmpl.node,
                   aNode,
-                  Map.from(params.map(p => (p.getUnqualifiedName, p))),
+                  Map.from(params.map(p => (TemplateExpansion.paramKey(p), p))),
                   paramScope,
                   templateScope,
                 ))
               )
+            }
           }
 
           a <- this.visitList(a, members, this.matchModuleMember)
         } yield a
       }
     }
+  }
+
+  private def mergeScope(a: Analysis, dest: Scope, src: Scope):
+    Result.Result[(Analysis, Scope)] =
+    Result.foldLeft (src.map.toList) ((a, dest)) ((pair, ngs) => {
+      val (ng, symbols) = ngs
+      Result.foldLeft (symbols.map.toList) (pair) ((pair, symEntry) => {
+        val (a, dest) = pair
+        val (name, symbol) = symEntry
+        (dest.get (ng) (name), symbol) match {
+          // The name is already bound to this symbol, e.g., because we
+          // merged it when visiting another name group
+          case (Some(prevSymbol), _) if prevSymbol == symbol => Right((a, dest))
+          // Two modules with the same name: merge their scopes and keep
+          // the binding that is already there
+          case (Some(prevSymbol: Symbol.Module), symbol: Symbol.Module) =>
+            for (a <- mergeModuleScopes(a, prevSymbol, symbol)) yield (a, dest)
+          case _ => for (dest <- dest.put (ng) (name, symbol)) yield (a, dest)
+        }
+      })
+    })
+
+  /** Merge the scopes of two module symbols denoting the same module */
+  private def mergeModuleScopes(
+    a: Analysis,
+    prevSymbol: Symbol.Module,
+    symbol: Symbol.Module
+  ): Result.Result[Analysis] = {
+    val prevScope = a.symbolScopeMap.getOrElse(prevSymbol, Scope.empty)
+    val scope = a.symbolScopeMap.getOrElse(symbol, Scope.empty)
+    if prevScope == scope then Right(a)
+    else for (pair <- mergeScope(a, prevScope, scope))
+      yield {
+        val (a1, mergedScope) = pair
+        // Both symbols denote the same module, so both must see all its members
+        a1.copy(symbolScopeMap =
+          a1.symbolScopeMap + (prevSymbol -> mergedScope) + (symbol -> mergedScope)
+        )
+      }
   }
 
   private def updateMap(a: Analysis, s: Symbol): Analysis = {

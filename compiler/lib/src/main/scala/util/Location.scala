@@ -49,7 +49,7 @@ final case class Location(
   }
 
   /** Get the location of the associated translation unit */
-  def tuLocation: Location = (includingLoc, expandingLoc) match {
+  def tuLocation: Location = (expandingLoc, includingLoc) match {
     case (None, None) => this
     case (Some(loc), _) => loc.tuLocation
     case (_, Some(loc)) => loc.tuLocation
