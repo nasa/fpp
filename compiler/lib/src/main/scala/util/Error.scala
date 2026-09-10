@@ -771,7 +771,7 @@ object SemanticError {
     matchingLoc: Location
   ) extends Error
   /** Wrong number of template arguments */
-  final case class WrongNumberOfTemplateParameters(
+  final case class WrongNumberOfTemplateArguments(
     expandLoc: Location,
     defLoc: Location,
     expandLength: Number,
