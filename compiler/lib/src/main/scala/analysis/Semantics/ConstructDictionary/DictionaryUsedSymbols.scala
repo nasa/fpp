@@ -67,7 +67,7 @@ final case class DictionaryUsedSymbols(a: Analysis, t: Topology) {
   ): Set[Symbol] =
     map.values.toSet.flatMap (
       specifier => {
-        val Right(a) = usedSymbols(specifier)
+        val Right(a) = usedSymbols(specifier): @unchecked
         a.usedSymbolSet
       }
     )

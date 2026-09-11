@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# ----------------------------------------------------------------------
+# Install the FPP wheel found in a directory and check that each tool runs
+#
+# Usage: test-wheels wheel-dir
+#
+# Run this with the target Python virtual environment already activated.
+# ----------------------------------------------------------------------
+
+if test $# -ne 1
+then
+  echo "usage: test-wheels wheel-dir" 1>&2
+  exit 1
+fi
+
+wheel_dir="$1"
+repo_root=$(cd $(dirname $0)/../..; pwd)
+
+if test ! -d "$wheel_dir"
+then
+  echo "[ERROR] no such directory: $wheel_dir" 1>&2
+  exit 1
+fi
+
+wheels=$(find "$wheel_dir" -name "*.whl")
+if test -z "$wheels"
+then
+  echo "[ERROR] no wheel files in $wheel_dir" 1>&2
+  exit 1
+fi
+
+# The FPP package has no dependencies, so install without consulting an index
+echo "[INFO] Installing $wheels"
+python3 -m pip install --no-index $wheels || exit 1
+
+# Report which tools we are about to test, so that a wheel that installs no
+# entry points is easy to diagnose
+echo "[INFO] Using fpp at $(command -v fpp)"
+
+# Build the list of tool names
+tools="fpp"
+for tool in $(cat "$repo_root/compiler/tools.txt")
+do
+  tools="$tools fpp-$tool"
+done
+
+# Check that each tool runs. Every tool exits 0 on --help; note that --version
+# does not work for the subcommand wrappers.
+num_failed=0
+for tool in $tools
+do
+  if $tool --help > /dev/null 2>&1 < /dev/null
+  then
+    echo "[INFO] $tool --help: ok"
+  else
+    echo "[ERROR] $tool --help failed" 1>&2
+    num_failed=$(expr $num_failed + 1)
+  fi
+done
+
+if test $num_failed -ne 0
+then
+  echo "[ERROR] $num_failed tools failed" 1>&2
+  exit 1
+fi
+
+echo "[INFO] All tools passed"

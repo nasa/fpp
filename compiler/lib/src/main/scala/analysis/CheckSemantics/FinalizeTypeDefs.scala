@@ -23,7 +23,7 @@ object FinalizeTypeDefs
       val node = aNode._2
       val data = node.data
       // Get the type of this node as an alias type A
-      val aliasType @ Type.AliasType(_, _) = a.typeMap(node.id)
+      val aliasType @ Type.AliasType(_, _) = a.typeMap(node.id): @unchecked
       for {
         referencedType <- TypeVisitor.ty(a, aliasType.aliasType)
         aliasType1 <- Right(aliasType.copy(aliasType = referencedType))
@@ -41,7 +41,7 @@ object FinalizeTypeDefs
       val node = aNode._2
       val data = node.data
       // Get the type of this node as an array type A
-      val arrayType @ Type.Array(_, _, _, _) = a.typeMap(node.id)
+      val arrayType @ Type.Array(_, _, _, _) = a.typeMap(node.id): @unchecked
       for {
         // Visit the element type of A, to update its members
         eltType <- TypeVisitor.ty(a, arrayType.anonArray.eltType)
@@ -59,12 +59,12 @@ object FinalizeTypeDefs
             val loc = Locations.get(id)
             for (_ <- Analysis.convertTypes(loc, v.getType -> arrayType))
               yield {
-                val array @ Value.Array(_, _) = Analysis.convertValueToType(v, arrayType)
+                val array @ Value.Array(_, _) = Analysis.convertValueToType(v, arrayType): @unchecked
                 array
               }
           }
           case None => {
-            val Some(anonArray) = arrayType.anonArray.getDefaultValue
+            val Some(anonArray) = arrayType.anonArray.getDefaultValue: @unchecked
             Right(Value.Array(anonArray, arrayType))
           }
         }
@@ -89,12 +89,12 @@ object FinalizeTypeDefs
     def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
       val (_, node, _) = aNode
       val data = node.data
-      val enumType @ Type.Enum(_, _, _) = a.typeMap(node.id)
+      val enumType @ Type.Enum(_, _, _) = a.typeMap(node.id): @unchecked
       val default = data.default match {
         case Some(default) => a.valueMap(default.id)
         case None => a.valueMap(data.constants.head._2.id)
       }
-      val enumConstant @ Value.EnumConstant(_, _) = default
+      val enumConstant @ Value.EnumConstant(_, _) = default: @unchecked
       val enumType1 = enumType.copy(default = Some(enumConstant))
       Right(a.assignType(node -> enumType1))
     }
@@ -107,13 +107,13 @@ object FinalizeTypeDefs
       val (_, node, _) = aNode
       val data = node.data
       // Get the type of this node as a struct type S
-      val structType @ Type.Struct(_, _, _, _, _) = a.typeMap(node.id)
+      val structType @ Type.Struct(_, _, _, _, _) = a.typeMap(node.id): @unchecked
       for {
         // Visit the anonymous struct type of S, to update its members
         t <- TypeVisitor.ty(a, structType.anonStruct)
         // Update the anonymous struct type of S
         structType <- {
-          val anonStructType @ Type.AnonStruct(_) = t
+          val anonStructType @ Type.AnonStruct(_) = t: @unchecked
           Right(structType.copy(anonStruct = anonStructType))
         }
         // Compute the default value
@@ -124,12 +124,12 @@ object FinalizeTypeDefs
             val loc = Locations.get(id)
             for (_ <- Analysis.convertTypes(loc, v.getType -> structType))
               yield {
-                val struct @ Value.Struct(_, _) = Analysis.convertValueToType(v, structType)
+                val struct @ Value.Struct(_, _) = Analysis.convertValueToType(v, structType): @unchecked
                 struct
               }
           }
           case None => {
-            val Some(anonStruct) = structType.anonStruct.getDefaultValue
+            val Some(anonStruct) = structType.anonStruct.getDefaultValue: @unchecked
             Right(Value.Struct(anonStruct, structType))
           }
         }
@@ -218,7 +218,7 @@ object FinalizeTypeDefs
           val Value.Integer(size) = Analysis.convertValueToType(
             a.valueMap(id),
             Type.Integer
-          )
+          ): @unchecked
           if Type.String.isValidSize(size) then Right(t)
           else {
             val loc = Locations.get(id)

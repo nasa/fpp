@@ -96,10 +96,6 @@ jobs:
                 "tag": "macosx_14_0_arm64"
               },
               {
-                "runner": "macos-15-intel",
-                "tag": "macosx_15_0_x86_64"
-              },
-              {
                 "runner": "ubuntu-22.04",
                 "tag": "manylinux_2_28_x86_64",
                 "container": "quay.io/pypa/manylinux_2_28_x86_64"
@@ -217,8 +213,12 @@ jobs:
       matrix: ${{ fromJson(needs.generate-run-matricies.outputs.native) }}
     runs-on: ${{ matrix.run.runner }}
     steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v6
+        with:
+          submodules: recursive
       - name: "Setup Native Image Tools"
-        uses: fprime-community/native-images-action@unified-tool
+        uses: ./.github/actions/native-tools-setup
       - name: "Download Native Wheels"
         uses: actions/download-artifact@v8
         with:
@@ -235,8 +235,11 @@ jobs:
           do
               python3 -m venv ./test-${subdir}
               . ./test-${subdir}/bin/activate
-              echo "[INFO] Testin ${subdir} Wheels"
-              $NATIVE_IMAGE_TOOLS_PATH/test-wheels "${{ inputs.output-directory }}/${subdir}" "${{ inputs.meta-package }}" || exit $?
+              echo "[INFO] Testing ${subdir} wheels"
+              .github/scripts/test-wheels "${{ inputs.output-directory }}/${subdir}" || exit $?
+              # Leave the virtual environment, so that the next iteration does
+              # not find this one's tools on the PATH
+              deactivate
           done
         shell: bash
   publish-wheels:

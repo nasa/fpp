@@ -19,7 +19,7 @@ case class StructCppWriter(
 
   private val fileName = ComputeCppFiles.FileNames.getStruct(structName)
 
-  private val structType@Type.Struct(_, _, _, _, _) = s.a.typeMap(node.id)
+  private val structType@Type.Struct(_, _, _, _, _) = s.a.typeMap(node.id): @unchecked
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
@@ -538,7 +538,7 @@ case class StructCppWriter(
     )
 
   private def writeIncludeDirectives = {
-    val Right(a) = UsedSymbols.defStructAnnotatedNode(s.a, aNode)
+    val Right(a) = UsedSymbols.defStructAnnotatedNode(s.a, aNode): @unchecked
     s.writeIncludeDirectives(a.usedSymbolSet)
   }
 

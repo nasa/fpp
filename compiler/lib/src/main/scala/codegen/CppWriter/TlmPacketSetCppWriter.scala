@@ -15,7 +15,7 @@ case class TlmPacketSetCppWriter(
 
   private val name = data.name
 
-  private val Some(t) = s.a.topology
+  private val Some(t) = s.a.topology: @unchecked
 
   private val topologySymbol = Symbol.Topology(t.aNode)
 

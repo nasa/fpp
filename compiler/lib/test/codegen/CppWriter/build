@@ -10,4 +10,4 @@ $codegen/Line.scala
 Main.scala
 "
 
-scalac -deprecation $files
+scalac -J--sun-misc-unsafe-memory-access=allow -deprecation $files

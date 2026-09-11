@@ -22,7 +22,7 @@ class ParserSpec extends AnyWordSpec {
 
       """
     )
-    val Right(Ast.TransUnit(List(tum))) = r
+    val Right(Ast.TransUnit(List(tum))) = r: @unchecked
     val Ast.TUMember((pre, _, post)) = tum
     assert(pre == List("Line 1", "Line 2"))
     assert(post == List("Line 3", "Line 4"))
