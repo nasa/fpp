@@ -34,6 +34,14 @@ def java_major_version(java):
         return int(match.group(2))
     return major
 
+def find_java():
+    java_home = os.environ.get("JAVA_HOME")
+    if java_home:
+        candidate = Path(java_home) / "bin" / ("java.exe" if os.name == "nt" else "java")
+        if candidate.is_file():
+            return str(candidate)
+    return shutil.which("java")
+
 def main():
     """ Run fpp inferring a subcommand from the provided executable path
 
@@ -58,9 +66,9 @@ def main():
     # Then check for the JAR file
     elif jar_file.exists():
         # Check for java availability when running the JAR file
-        java = shutil.which("java")
+        java = find_java()
         if not java:
-            print(f"[ERROR] {sys.argv[0]} requires 'java'. Please install 'java' and ensure it is available on the PATH.")
+            print(f"[ERROR] {sys.argv[0]} requires 'java'. Please install 'java' and ensure it is available at JAVA_HOME or on the PATH.")
             sys.exit(-23)
         # Check the java version, so that a too-old JVM produces a clear message
         # instead of an UnsupportedClassVersionError
