@@ -68,7 +68,7 @@ object CheckActionAndGuardTypes
   ): Result.Result[StateMachineAnalysis] = {
     val siteKind = "action"
     def getTypeOption(sym: StateMachineSymbol): Option[Type] = {
-      val actionSym @ StateMachineSymbol.Action(_) = sym: @unchecked
+      val actionSym @ StateMachineSymbol.Action(_) = sym.runtimeChecked
       actionSym.node._2.data.typeName.map(tn => sma.a.typeMap(tn.id))
     }
     checkCallSiteTypes(sma, te, actions, siteKind, getTypeOption)
@@ -82,7 +82,7 @@ object CheckActionAndGuardTypes
   ): Result.Result[StateMachineAnalysis] = {
     val siteKind = "guard"
     def getTypeOption(sym: StateMachineSymbol): Option[Type] = {
-      val guardSym @ StateMachineSymbol.Guard(_) = sym: @unchecked
+      val guardSym @ StateMachineSymbol.Guard(_) = sym.runtimeChecked
       guardSym.node._2.data.typeName.map(tn => sma.a.typeMap(tn.id))
     }
     checkCallSiteTypes(sma, te, List(guard), siteKind, getTypeOption)

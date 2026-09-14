@@ -42,7 +42,7 @@ case class ComponentCppWriter (
   private val exitConstantName = s"${componentName.toUpperCase}_COMPONENT_EXIT"
 
   private def writeIncludeDirectives: List[String] = {
-    val Right(a) = UsedSymbols.defComponentAnnotatedNode(s.a, aNode): @unchecked
+    val Right(a) = UsedSymbols.defComponentAnnotatedNode(s.a, aNode).runtimeChecked
     s.writeIncludeDirectives(a.usedSymbolSet)
   }
 
@@ -335,7 +335,7 @@ case class ComponentCppWriter (
       // Data product and typed async input ports
       asyncInputPortsWithFormalParams.flatMap(p => {
         val portName = p.getUnqualifiedName
-        val _ @ Some(PortInstance.Type.DefPort(symbol)) = p.getType: @unchecked
+        val _ @ Some(PortInstance.Type.DefPort(symbol)) = p.getType.runtimeChecked
         val cppPortName = s.writeSymbol(symbol)
         val cppPortBufferName = PortCppWriterUtils.getPortBufferName(cppPortName)
         lines(s"BYTE ${portName}PortSize[$cppPortBufferName::CAPACITY];")
