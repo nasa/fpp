@@ -20,7 +20,7 @@ case class EnumCppWriter(
 
   private val fileName = ComputeCppFiles.FileNames.getEnum(name)
 
-  private val enumType @ Type.Enum(_, _, _) = s.a.typeMap(node.id): @unchecked
+  private val enumType @ Type.Enum(_, _, _) = s.a.typeMap(node.id).runtimeChecked
 
   private val defaultValue = ValueCppWriter.write(s, enumType.getDefaultValue.get).
     replaceAll("^.*::", "")
@@ -40,7 +40,7 @@ case class EnumCppWriter(
    *  { 0, 1, 3 } yields the list { [ 0, 1 ], [ 3, 3 ] }. */
   private val intervals = {
     val values = data.constants.map(aNode => {
-      val Value.EnumConstant(value, _) = s.a.valueMap(aNode._2.id): @unchecked
+      val Value.EnumConstant(value, _) = s.a.valueMap(aNode._2.id).runtimeChecked
       value
     }).sortWith(_._2 < _._2)
     val state = values.foldLeft (EnumCppWriter.IntervalState()) ((s, v) => {
@@ -157,7 +157,7 @@ case class EnumCppWriter(
             "enum T {",
             data.constants.flatMap(aNode => {
               val node = aNode._2
-              val Value.EnumConstant(value, _) = s.a.valueMap(node.id): @unchecked
+              val Value.EnumConstant(value, _) = s.a.valueMap(node.id).runtimeChecked
               val valueString = value._2.toString
               val name = node.data.name
               AnnotationCppWriter.writePreComment(aNode) ++
@@ -573,7 +573,7 @@ case class EnumCppWriter(
   private def writeFormatStr = {
     val pit @ Type.PrimitiveInt(_) =
       data.typeName.map(tn => s.a.typeMap(tn.id).getUnderlyingType).
-      getOrElse(Type.I32): @unchecked
+      getOrElse(Type.I32).runtimeChecked
     FormatCppWriter.getDecimalFormat(pit)
   }
 
