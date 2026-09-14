@@ -2,7 +2,7 @@ interface I {
 
 }
 
-module template T(interface i: I) {
+module template T(instance i: I) {
     topology P {
         instance i
     }
@@ -12,4 +12,4 @@ passive component C {}
 
 instance c: C base id 1
 
-expand T(interface c)
+expand T(instance c)

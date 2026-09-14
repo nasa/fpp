@@ -20,6 +20,9 @@ sealed trait InterfaceInstance {
   /** Get the full port interface of this instance */
   def getInterface: PortInterface
 
+  /** Get the underlying component instance from this interface instance, None if it's a topology */
+  def getComponentInstanceOpt: Option[ComponentInstance]
+
   /* Get a port instance given the name of the port instance */
   def getPortInstance(name: AstNode[Ast.Ident]): Result.Result[PortInstance] =
     getInterface.getPortInstance(name, getUnqualifiedName)
@@ -36,6 +39,7 @@ object InterfaceInstance {
     override def getUnqualifiedName: String = ci.getUnqualifiedName
     override def getLoc: Location = ci.getLoc
     override def getInterface: PortInterface = ci.getInterface
+    override def getComponentInstanceOpt: Option[ComponentInstance] = Some(ci)
   }
 
   final case class InterfaceTopology(top: Topology) extends InterfaceInstance {
@@ -43,6 +47,7 @@ object InterfaceInstance {
     override def getUnqualifiedName: String = top.getUnqualifiedName
     override def getLoc: Location = top.getLoc
     override def getInterface: PortInterface = top.portInterface
+    override def getComponentInstanceOpt: Option[ComponentInstance] = None
   }
 
   final case class InterfaceTemplateArg(
@@ -54,6 +59,8 @@ object InterfaceInstance {
     override def getUnqualifiedName: String = paramDef.name
     override def getLoc: Location = Locations.get(paramDef.interface.id)
     override def getInterface: PortInterface = interface.portInterface
+    override def getComponentInstanceOpt: Option[ComponentInstance] =
+      ii.getComponentInstanceOpt
 
     override def getPortInstance(name: AstNode[Ast.Ident]): Result.Result[PortInstance] =
       getInterface.getPortInstance(name, interface.getUnqualifiedName)

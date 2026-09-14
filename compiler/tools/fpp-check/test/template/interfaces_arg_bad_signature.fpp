@@ -12,7 +12,7 @@ passive component C {
 
 instance c: C base id 0x100
 
-module template T(interface i: I) {
+module template T(instance i: I) {
     topology Top {
         instance i
     }
@@ -20,5 +20,5 @@ module template T(interface i: I) {
 
 module M {
     # c.pIn does not match I.pIn, so it does not implement I
-    expand T(interface c)
+    expand T(instance c)
 }

@@ -44,9 +44,6 @@ object NameGroup {
     override def toString(): String = "constant"
   }
 
-  // Template parameters can only be referred inside an expansion
-  case object TemplateParam extends NameGroup
-
   val groups: List[NameGroup] = List(
     Component,
     Port,

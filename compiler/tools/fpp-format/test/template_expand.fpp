@@ -7,7 +7,7 @@ interface Iface {
 module template T(
     constant c: U32, @< A constant parameter
     type Ty, @< A type parameter
-    interface inst: Iface @< An interface parameter
+    instance inst: Iface @< An interface parameter
 ) {
     @ A port that uses the type parameter
     port P(
@@ -19,7 +19,7 @@ module template T(
 }
 
 @ Expand the template with concrete arguments
-expand T(constant 10, type U32, interface inst1)
+expand T(constant 10, type U32, instance inst1)
 
 @ A template with an empty body
 module template Empty(

@@ -61,6 +61,26 @@ multipleTops()
     diff_json SecondTop
 }
 
+# template.fpp puts a deployment topology and a system in the body of a module
+# template. template_hand.fpp is the same model with the expansion written out
+# by hand. The two must generate identical dictionaries, so both are checked
+# against the same reference output.
+template()
+{
+  run_test "-i builtin.fpp,config.fpp -p 1.0.0 -f 3.4.3" template && \
+    validate_json_schema Expanded && \
+    diff_json Expanded && \
+    diff_system_json Dep_Expanded
+}
+
+template_hand()
+{
+  run_test "-i builtin.fpp,config.fpp -p 1.0.0 -f 3.4.3" template_hand && \
+    validate_json_schema Expanded && \
+    diff_json Expanded && \
+    diff_system_json Dep_Expanded
+}
+
 unqualifiedComponentInstances()
 {
   run_test "-i builtin.fpp,config.fpp -p 1.0.0 -f 3.4.3 -l lib1-1.0.0,lib2-2.0.0" unqualifiedComponentInstances && \

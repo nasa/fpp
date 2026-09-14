@@ -70,7 +70,9 @@ class TemplatesSpec extends AnyWordSpec {
     private def checkAllNodesUnique(tul: List[Ast.TransUnit]): Unit = {
         val j = AstJsonEncoder.astToJson(tul)
         // Console.err.println(j)
-        j.findAllByKey("AstNode").foldRight(Set())(checkNodeIsUnique)
+        val nodes = j.findAllByKey("AstNode")
+        assert(nodes.nonEmpty)
+        nodes.foldRight(Set())(checkNodeIsUnique)
     }
 
     def expandUniqueString(s: String): Unit = {
@@ -86,12 +88,9 @@ class TemplatesSpec extends AnyWordSpec {
             a_tul <- ResolveSpecInclude.transformList(a, List(tul), ResolveSpecInclude.transUnit)
             a <- Right(a_tul._1)
             tul <- Right(a_tul._2)
-
-            a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
-            a_tul <- ResolveTemplates.transUnit(a, tul)
-
-            a <- Right(a_tul._1)
-            tul <- Right(a_tul._2)
+            aTul <- ResolveTemplates.tuList(a, tul)
+            a <- Right(aTul._1)
+            tul <- Right(aTul._2)
         } yield tul
 
         tul1 match {

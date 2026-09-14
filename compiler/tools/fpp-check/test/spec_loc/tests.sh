@@ -30,6 +30,8 @@ struct_ok
 struct_path_error
 system_ok
 system_path_error
+template_ok
+template_path_error
 topology_ok
 topology_path_error
 "

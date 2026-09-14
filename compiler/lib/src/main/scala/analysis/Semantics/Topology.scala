@@ -312,12 +312,18 @@ case class Topology(
   def getLoc: Location = Locations.get(aNode._2.id)
 
   /** Precompute the set of component instances in the topology */
-  lazy val componentInstanceMap: Map[ComponentInstance, Location] = {
-    instanceMap collect {
-      case (InterfaceInstance.InterfaceComponentInstance(ci), loc) => (ci, loc)
-      case (InterfaceInstance.InterfaceTemplateArg(_, _, InterfaceInstance.InterfaceComponentInstance(ci)), loc) => (ci, loc)
+  lazy val componentInstanceMap: Map[ComponentInstance, Location] =
+    instanceMap.foldLeft (TreeMap[ComponentInstance, Location]()) {
+      case (map, (instance, loc)) => instance.getComponentInstanceOpt match {
+        case Some(ci) => map + (ci -> loc)
+        case None => map
+      }
     }
-  }
+
+  /** Looks up the location where a component instance appears in this topology.
+   *  The instance may appear directly or through a template interface parameter. */
+  def lookUpComponentInstanceLoc(ci: ComponentInstance): Option[Location] =
+    componentInstanceMap.get(ci)
 
   /** Gets the set of used port numbers */
   def getUsedPortNumbers(pi: PortInstance, cs: Iterable[Connection]): Set[Int] = 

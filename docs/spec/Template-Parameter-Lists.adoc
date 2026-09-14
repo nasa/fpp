@@ -8,7 +8,7 @@ and the terminating punctuation is a comma.
 A *template parameter* is a name to which a 
 <<Specifiers_Template-Expansion-Specifiers,template argument>>
 becomes bound when a <<Expansion-of-Templates,template is expanded>>.
-Within the scope of an expanded template, a the bound parameter is a
+Within the scope of an expanded template, the bound parameter is a
 <<Definitions,definition>>.
 
 === Syntax
@@ -39,6 +39,6 @@ a <<Definitions_Port-Interface-Definitions,port interface definition>>.
 [source,fpp]
 ----
 constant c: U32
-instance cmdDisp: Svc.CmdDispatcher
+instance comDriver: Drv.ByteStreamDriver # Drv.ByteStreamDriver is a port interface
 type T
 ----

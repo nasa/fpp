@@ -109,18 +109,16 @@ case class Connection(
     def portMatchingExists(pml: List[Component.PortMatching], pi: PortInstance): Boolean =
       pml.exists(pm => pi.equals(pm.instance1) || pi.equals(pm.instance2))
 
-    (from.port.interfaceInstance, to.port.interfaceInstance) match {
-      case (InterfaceInstance.InterfaceComponentInstance(fromCi), InterfaceInstance.InterfaceComponentInstance(toCi)) => {
-        val fromPi = from.port.portInstance
-        val toPi = to.port.portInstance
-        val fromPml = fromCi.component.portMatchingList
-        val toPml = toCi.component.portMatchingList
-
-        portMatchingExists(fromPml, fromPi) || portMatchingExists(toPml, toPi)
+    def isConstrainedAt(endpoint: Connection.Endpoint): Boolean = {
+      val port = endpoint.getUnderlyingEndpoint().port
+      port.interfaceInstance match {
+        case InterfaceInstance.InterfaceComponentInstance(ci) =>
+          portMatchingExists(ci.component.portMatchingList, port.portInstance)
+        case _ => false
       }
-
-      case _ => false
     }
+
+    isConstrainedAt(from) || isConstrainedAt(to)
   }
 
   /** Compare two connections */
@@ -217,20 +215,29 @@ object Connection {
       case None => Right(())
     }
 
-    /** Get underlying endpoint by stripping off topology port aliases */
+    /** Get underlying endpoint by stripping off topology port aliases
+     *  and template interface parameters */
     def getUnderlyingEndpoint(): Endpoint = {
       def underlyingEndpointHelper(ii: InterfaceInstance): Endpoint = {
         ii match {
           // This endpoint is already a component instance
-          case InterfaceInstance.InterfaceComponentInstance(ci) => this
+          case InterfaceInstance.InterfaceComponentInstance(_) => this
           case InterfaceInstance.InterfaceTopology(top) => this.copy(
             // Look up the mapping for this port instance
             port = top.portMap(port.portInstance.getUnqualifiedName).pii,
             topologyPort = Some(this)
             // Recursively resolve the endpoint to a component instance
           ).getUnderlyingEndpoint()
-          case InterfaceInstance.InterfaceTemplateArg(_, _, tii) =>
-            underlyingEndpointHelper(tii)
+          case InterfaceInstance.InterfaceTemplateArg(_, _, boundInstance) =>
+            this.copy(
+              port = PortInstanceIdentifier(
+                boundInstance,
+                boundInstance.getInterface.portMap.getOrElse(
+                  port.portInstance.getUnqualifiedName,
+                  port.portInstance
+                )
+              )
+            ).getUnderlyingEndpoint()
         }
       }
 
