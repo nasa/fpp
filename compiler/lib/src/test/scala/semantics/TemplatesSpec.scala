@@ -39,7 +39,7 @@ class TemplatesSpec extends AnyWordSpec {
         def ok(file: File): Unit = {
             val Right(tul) = Parser.parseFile(Parser.transUnit)(None)(FppFile.fromString(
                 file.toPath().toString()
-            ))
+            )).runtimeChecked
 
             checkExpandUnique(tul)
         }
@@ -74,7 +74,7 @@ class TemplatesSpec extends AnyWordSpec {
     }
 
     def expandUniqueString(s: String): Unit = {
-        val Right(tul) = Parser.parseString(Parser.transUnit)(s)
+        val Right(tul) = Parser.parseString(Parser.transUnit)(s).runtimeChecked
         "expand" in {
             checkExpandUnique(tul)
         }
