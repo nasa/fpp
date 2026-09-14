@@ -10,7 +10,7 @@ import fpp.compiler.util._
 object ToolUtils {
 
   def parseFiles(files: List[File]) =
-    Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
+    Result.map(files, Parser.parseFile (Parser.transUnit) (None))
 
   def resolveAsts(a: Analysis, tul: List[Ast.TransUnit]) =
     for {

@@ -1,8 +1,1 @@
-{
-  "resources":{
-  "includes":[]},
-  "bundles":[{
-      "name":"com.sun.org.apache.xerces.internal.impl.msg.XMLMessages",
-      "locales":["und"]
-    }]
-}
+{"resources":{"includes":[]},"bundles":[{"name":"com.sun.org.apache.xerces.internal.impl.msg.XMLMessages","locales":["und"]}],"globs":[{"glob":"META-INF/services/javax.xml.parsers.SAXParserFactory"},{"module":"java.xml","glob":"com/sun/org/apache/xerces/internal/impl/msg/XMLMessages.properties"},{"module":"java.xml","glob":"com/sun/org/apache/xerces/internal/impl/msg/XMLMessages_en.properties"},{"module":"java.xml","glob":"com/sun/org/apache/xerces/internal/impl/msg/XMLMessages_en_US.properties"}]}
