@@ -249,7 +249,7 @@ object MatchedPortNumbering {
           Right(m)
         else {
           val piiRemote = c.getOtherEndpoint(pi).port
-          val _ @ InterfaceInstance.InterfaceComponentInstance(ciRemote) = piiRemote.interfaceInstance
+          val _ @ InterfaceInstance.InterfaceComponentInstance(ciRemote) = piiRemote.interfaceInstance: @unchecked
           m.get(ciRemote) match {
             case Some(cPrev) => Left(
               SemanticError.DuplicateMatchedConnection(

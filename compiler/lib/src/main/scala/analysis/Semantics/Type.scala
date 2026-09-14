@@ -440,7 +440,7 @@ object Type {
         case _ -> Struct(_, anonStruct2, _, _, _) =>
           t1.isConvertibleTo(anonStruct2)
         case AnonStruct(members1) -> AnonStruct(members2) =>
-          members1.forall(memberExistsIn(members2) _)
+          members1.forall(memberExistsIn(members2))
         case _ -> AnonStruct(members2) =>
           t1.isPromotableToStruct &&
           members2.values.forall(t1.isConvertibleTo(_))
@@ -553,7 +553,7 @@ object Type {
           }
         }
         /** Resolve each member of t1 against the corresponding member of t2, if it exists */
-        def resolveT1Members = Struct.resolveMembers (resolveT1Member) _
+        def resolveT1Members = Struct.resolveMembers (resolveT1Member)
         for (t1ResolvedMembers <- resolveT1Members(members1))
           yield {
             def pred(member: Struct.Member) = !members1.contains(member._1)
@@ -569,7 +569,7 @@ object Type {
             for (t <- commonType(other, member._2))
               yield (member._1 -> t)
           /** Resolve all members of t2 against t1 */
-          def resolveMembers = Struct.resolveMembers (resolveMember) _
+          def resolveMembers = Struct.resolveMembers (resolveMember)
           for (resolvedMembers <- resolveMembers(members))
             yield AnonStruct(resolvedMembers)
         }
@@ -654,7 +654,7 @@ object Type {
             val defaultStringSizeSymbol =
               a.frameworkDefinitions.constantMap("FW_FIXED_LENGTH_STRING_SIZE")
             val Value.Integer(value) =
-              a.valueMap(defaultStringSizeSymbol.getNodeId)
+              a.valueMap(defaultStringSizeSymbol.getNodeId): @unchecked
             value
         }
         lengthSize + dataSize

@@ -155,7 +155,7 @@ case class TopComponentCppWriter (
     val functionName = {
       // Connections must be flattened at this point
       val _ @ InterfaceInstance.InterfaceComponentInstance(toComponentInstance) =
-        toPort.interfaceInstance
+        toPort.interfaceInstance: @unchecked
       val componentInstanceName = CppWriter.writeQualifiedName(toComponentInstance.qualifiedName)
       val toPortName = toPortInstance.getUnqualifiedName
       val handlerBaseName = inputPortHandlerBaseName(toPortName)

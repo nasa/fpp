@@ -187,7 +187,7 @@ case class CppWriterState(
             val Right(a) = UsedSymbols.defInterfaceAnnotatedNode(
               this.a,
               this.a.interfaceMap(iface).aNode,
-            )
+            ): @unchecked
             a.usedSymbolSet.flatMap(getIncludeFiles).toList
           case arg: Symbol.TemplateTypeArg => getIncludeFiles(a.useDefMap(arg.getNodeId))
           case arg: Symbol.TemplateInterfaceArg => getIncludeFiles(a.useDefMap(arg.getNodeId))

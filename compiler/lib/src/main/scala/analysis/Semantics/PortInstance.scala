@@ -337,7 +337,7 @@ object PortInstance {
     specifier: Ast.SpecPortInstance.Special
   ) = {
     val node = aNode._2
-    val symbol @ Symbol.Port(_) = a.useDefMap(node.id)
+    val symbol @ Symbol.Port(_) = a.useDefMap(node.id): @unchecked
     val loc = Locations.get(node.id)
     val kindString = specifier.kind.toString
     for {

@@ -146,7 +146,7 @@ case class StateMachineCppWriter(
 
   private def getHppIncludes: CppDoc.Member = {
     val symbolHeaders = {
-      val Right(a) = UsedSymbols.defStateMachineAnnotatedNode(s.a, aNode)
+      val Right(a) = UsedSymbols.defStateMachineAnnotatedNode(s.a, aNode): @unchecked
       s.writeIncludeDirectives(a.usedSymbolSet)
     }
     val userHeaders = List.concat(

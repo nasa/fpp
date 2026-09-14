@@ -25,9 +25,9 @@ object FPPFormat {
     Result.seq(
       ToolUtils.parseFiles(files),
       List(
-        resolveIncludes (options) _,
-        expandTemplates (options) _,
-        writeFpp (options) _
+        resolveIncludes (options),
+        expandTemplates (options),
+        writeFpp (options)
       )
     )
   }
@@ -66,7 +66,7 @@ object FPPFormat {
     Result.Result[List[Ast.TransUnit]] =
   {
     val lines = tul.map(FppWriter.transUnit).flatten
-    lines.map(Line.write(Line.stdout) _)
+    lines.map(Line.write(Line.stdout))
     Right(tul)
   }
 

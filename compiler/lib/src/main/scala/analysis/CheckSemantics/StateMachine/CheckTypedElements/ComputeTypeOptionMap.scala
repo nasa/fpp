@@ -69,7 +69,7 @@ object ComputeTypeOptionMap
     te: StateMachineTypedElement.StateTransition
   ): Result = {
     val signalId = te.aNode._2.data.signal.id
-    val signalSymbol @ StateMachineSymbol.Signal(_) = sma.useDefMap(signalId)
+    val signalSymbol @ StateMachineSymbol.Signal(_) = sma.useDefMap(signalId): @unchecked
     val signalDef = signalSymbol.node._2.data
     val to = signalDef.typeName.map(node => sma.a.typeMap(node.id))
     Right(

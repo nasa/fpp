@@ -20,7 +20,7 @@ case class ArrayCppWriter (
 
   private val fileName = ComputeCppFiles.FileNames.getArray(name)
 
-  private val arrayType @ Type.Array(_, _, _, _) = s.a.typeMap(node.id)
+  private val arrayType @ Type.Array(_, _, _, _) = s.a.typeMap(node.id): @unchecked
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
@@ -50,7 +50,7 @@ case class ArrayCppWriter (
     s: CppWriterState,
     aNode: Ast.Annotated[AstNode[Ast.DefArray]]
   ): List[String] = {
-    val Right(a) = UsedSymbols.defArrayAnnotatedNode(s.a, aNode)
+    val Right(a) = UsedSymbols.defArrayAnnotatedNode(s.a, aNode): @unchecked
     s.writeIncludeDirectives(a.usedSymbolSet)
   }
 
