@@ -88,8 +88,8 @@ a <<Definitions_Topology-Definitions,topology definition>>.
    definition>>.
 
 . When a location specifier appears inside a
-<<Definitions_Module-Definitions,module definition _M_>>,
-_Q_ is implicitly qualified by the
+<<Definitions_Module-Definitions,module definition _M_>>
+and does not begin with a dot, _Q_ is implicitly qualified by the
 <<Scoping-of-Names_Names-of-Definitions,qualified name>>
 of _M_.
 This rule allows the resolution to occur during dependency analysis,
