@@ -14,7 +14,7 @@ case class ImpliedUse(
 ) {
 
   def asExprNode: AstNode[Ast.Expr] = {
-    val head :: tail = name.toIdentList
+    val head :: tail = name.toIdentList.runtimeChecked
     val expr = tail.foldLeft (Ast.ExprIdent(head): Ast.Expr) ((e1, s) =>
       Ast.ExprDot(AstNode.create(e1, id), AstNode.create(s, id))
     )
@@ -22,7 +22,7 @@ case class ImpliedUse(
   }
 
   def asUniqueExprNode: AstNode[Ast.Expr] = {
-    val head :: tail = name.toIdentList
+    val head :: tail = name.toIdentList.runtimeChecked
     val expr = tail.foldLeft (Ast.ExprIdent(head): Ast.Expr) ((e1, s) =>
       Ast.ExprDot(
         AstNode.create(e1, ImpliedUse.replicateId(id)),

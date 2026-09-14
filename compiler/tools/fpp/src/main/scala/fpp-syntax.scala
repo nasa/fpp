@@ -26,9 +26,9 @@ object FPPSyntax {
     Result.seq(
       ToolUtils.parseFiles(files),
       List(
-        resolveIncludes (options) _,
-        expandTemplates (options) _,
-        printAst (options) _
+        resolveIncludes (options),
+        expandTemplates (options),
+        printAst (options)
       )
     )
   }
@@ -42,7 +42,7 @@ object FPPSyntax {
     options.ast match {
       case true => {
         val lines = tul.flatMap(AstWriter.transUnit)
-        lines.map(Line.write(Line.stdout) _)
+        lines.map(Line.write(Line.stdout))
       }
       case false => ()
     }

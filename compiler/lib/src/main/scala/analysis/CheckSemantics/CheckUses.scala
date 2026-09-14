@@ -23,7 +23,7 @@ object CheckUses extends BasicUseAnalyzer {
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = {
     def visitExprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = {
       def visitExprIdent(a: Analysis, node: AstNode[Ast.Expr], name: Name.Unqualified) = {
-        val mapping = a.nestedScope.get (NameGroup.Value) _
+        val mapping = a.nestedScope.get (NameGroup.Value)
         for (symbol <- helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)) yield {
           val useDefMap = a.useDefMap + (node.id -> symbol)
           a.copy(useDefMap = useDefMap)
@@ -46,7 +46,7 @@ object CheckUses extends BasicUseAnalyzer {
               // look up this symbol and add it to the use-def entries
               case Some(qual) =>
                 val scope = a.symbolScopeMap(qual)
-                val mapping = scope.get (NameGroup.Value) _
+                val mapping = scope.get (NameGroup.Value)
                 helpers.getSymbolForName(NameGroup.Value, mapping)(id.id, id.data) match {
                   case Right(value) => Right(Some(value))
                   case Left(err) => Left(err)
@@ -142,7 +142,7 @@ object CheckUses extends BasicUseAnalyzer {
     val Ast.DefModule(name, members) = node.data
     for {
       symbol <- {
-        val mapping = a.nestedScope.get (NameGroup.Value) _
+        val mapping = a.nestedScope.get (NameGroup.Value)
         helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)
       }
       a <- {
@@ -161,7 +161,7 @@ object CheckUses extends BasicUseAnalyzer {
   ) = {
     val node = aNode._2
     val expansion = a.templateExpansionMap(node.id)
-    val Right(tmpl) = a.getTemplateSymbol(node.data.template.id)
+    val Right(tmpl) = a.getTemplateSymbol(node.data.template.id).runtimeChecked
     val scope = expansion.scope
 
     // We do use-analysis on the scope of the definition + param scope
@@ -183,7 +183,7 @@ object CheckUses extends BasicUseAnalyzer {
       .push(expansion.paramScope)
       .push(expansion.scope)
 
-    val Some(members) = node.data.members
+    val Some(members) = node.data.members.runtimeChecked
 
     for {
       // Analyze the inside of the template expansion
