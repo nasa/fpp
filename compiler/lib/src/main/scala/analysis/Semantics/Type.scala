@@ -654,7 +654,7 @@ object Type {
             val defaultStringSizeSymbol =
               a.frameworkDefinitions.constantMap("FW_FIXED_LENGTH_STRING_SIZE")
             val Value.Integer(value) =
-              a.valueMap(defaultStringSizeSymbol.getNodeId): @unchecked
+              a.valueMap(defaultStringSizeSymbol.getNodeId).runtimeChecked
             value
         }
         lengthSize + dataSize

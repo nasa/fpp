@@ -96,7 +96,7 @@ object UsedSymbols extends UseAnalyzer {
     def resolveEnumConstant(s: Symbol) =
       s match
         case Symbol.EnumConstant(node) =>
-          val t @ Type.Enum(enumNode, _, _) = a.typeMap(node._2.id): @unchecked
+          val t @ Type.Enum(enumNode, _, _) = a.typeMap(node._2.id).runtimeChecked
           Symbol.Enum(enumNode)
         case _ => s
     // Helper function for recursive resolution
@@ -122,7 +122,7 @@ object UsedSymbols extends UseAnalyzer {
         case Symbol.TemplateConstantArg(_, expr) => exprNode(a, expr)
         case Symbol.TemplateTypeArg(_, tn) => typeNameNode(a, tn)
         case Symbol.TemplateInterfaceArg(_, name) => qualIdentNode (interfaceInstanceUse) (a, name)
-      }): @unchecked
+      }).runtimeChecked
       a2.usedSymbolSet.flatMap(resolveNode) + resolveEnumConstant(s)
     }
     ss.flatMap(resolveNode)
