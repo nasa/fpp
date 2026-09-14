@@ -13,12 +13,7 @@ object ToolUtils {
     Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
 
   def resolveAsts(a: Analysis, tul: List[Ast.TransUnit]) =
-    for {
-      aTul <- ResolveSpecInclude.transUnitList(a, tul)
-      a <- Right(aTul._1)
-      tul <- Right(aTul._2)
-      tul <- AddStateEnums.transUnitList(tul)
-    } yield (a, tul)
+    ResolveSpecInclude.transUnitList(a, tul)
 
   def parseFilesAndResolveAsts(a: Analysis, files: List[File]):
     Result.Result[(Analysis, List[Ast.TransUnit])] =

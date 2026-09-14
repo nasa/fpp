@@ -1260,6 +1260,78 @@
       "pos" : "20.1",
       "includingLoc" : "None",
       "expandingLoc" : "None"
+    },
+    "114" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+      "pos" : "11.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "115" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+      "pos" : "12.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "116" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+      "pos" : "11.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "117" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+      "pos" : "12.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "118" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+      "pos" : "11.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "119" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+      "pos" : "12.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "120" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+      "pos" : "11.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "121" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+      "pos" : "12.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "122" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+      "pos" : "11.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "123" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+      "pos" : "12.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "124" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+      "pos" : "11.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "125" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+      "pos" : "12.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     }
   }
 }

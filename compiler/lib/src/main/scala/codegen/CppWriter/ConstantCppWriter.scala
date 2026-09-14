@@ -98,6 +98,12 @@ object ConstantCppWriter extends CppWriterUtils {
       }
     }
 
+    override def specTemplateExpandAnnotatedNodeExpanded(
+      s: CppWriterState,
+      aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]],
+      members: List[Ast.ModuleMember]
+    ) = members.flatMap(matchModuleMember(s, _))
+
     override def defComponentAnnotatedNode(
       s: CppWriterState,
       aNode: Ast.Annotated[AstNode[Ast.DefComponent]]

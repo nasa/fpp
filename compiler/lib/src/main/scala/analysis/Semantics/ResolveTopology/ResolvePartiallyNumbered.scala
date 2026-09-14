@@ -99,10 +99,12 @@ object ResolvePartiallyNumbered {
     // Check whether an instance exists
     def endpointExists(endpoint: Connection.Endpoint) = {
       val instance = endpoint.port.interfaceInstance
-      t.instanceMap.get(instance) match {
-        case Some(_) => true
-        case None => false
+      def componentInstanceExists = instance match {
+        case InterfaceInstance.InterfaceComponentInstance(ci) =>
+          t.componentInstanceMap.contains(ci)
+        case _ => false
       }
+      t.instanceMap.contains(instance) || componentInstanceExists
     }
     // Check whether a connection exists
     def exists(connection: Connection) =

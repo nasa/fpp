@@ -1117,6 +1117,78 @@
       "pos" : "43.1",
       "includingLoc" : "None",
       "expandingLoc" : "None"
+    },
+    "96" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
+      "pos" : "16.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "97" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
+      "pos" : "19.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "98" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
+      "pos" : "16.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "99" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
+      "pos" : "19.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "100" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
+      "pos" : "16.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "101" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
+      "pos" : "19.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "102" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
+      "pos" : "16.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "103" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
+      "pos" : "19.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "104" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
+      "pos" : "16.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "105" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
+      "pos" : "19.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "106" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
+      "pos" : "16.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "107" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp",
+      "pos" : "19.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     }
   }
 }

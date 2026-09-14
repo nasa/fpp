@@ -270,23 +270,36 @@ sealed trait Error {
         System.err.println("conflicting port number is here:")
         System.err.println(p2Loc)
         printMatchingLoc(matchingLoc)
-      case SemanticError.MismatchedTemplateParameters(
+      case SemanticError.WrongNumberOfTemplateArguments(
         expandLoc: Location,
         defLoc: Location,
         expandLength: Number,
         defLength: Number,
       ) =>
-        Error.print (Some(expandLoc)) (s"expected $defLength templates parameter, got $expandLength")
+        val parameters = if defLength == 1 then "argument" else "arguments"
+        Error.print (Some(expandLoc)) (
+          s"expected $defLength template $parameters, got $expandLength"
+        )
         System.err.println("template defined here:")
         System.err.println(defLoc)
-      case SemanticError.InvalidTemplateParameter(
+      case SemanticError.InvalidTemplateArg(
         paramName: String,
-        expandLoc: Location,
-        defLoc: Location,
+        argLoc: Location,
+        paramLoc: Location,
         msg: String,
       ) =>
-        Error.print (Some(expandLoc)) (s"invalid template parameter value for $paramName: $msg")
-        System.err.println("template defined here:")
+        Error.print (Some(argLoc)) (s"invalid argument for template parameter $paramName: $msg")
+        System.err.println("template parameter is defined here:")
+        System.err.println(paramLoc)
+      case SemanticError.TemplateParameterConflict(
+        paramName: String,
+        paramLoc: Location,
+        defLoc: Location,
+      ) =>
+        Error.print (Some(paramLoc)) (
+          s"template parameter $paramName conflicts with a definition in the template body"
+        )
+        System.err.println("conflicting definition is here:")
         System.err.println(defLoc)
       case SemanticError.NestedTemplateDefinition(
         nestedLoc: Location,
@@ -757,19 +770,25 @@ object SemanticError {
     p2Number: Int,
     matchingLoc: Location
   ) extends Error
-  /** Mismatched template parameter */
-  final case class MismatchedTemplateParameters(
+  /** Wrong number of template arguments */
+  final case class WrongNumberOfTemplateArguments(
     expandLoc: Location,
     defLoc: Location,
     expandLength: Number,
     defLength: Number,
   ) extends Error
-  /** Mismatched template parameter */
-  final case class InvalidTemplateParameter(
+  /** Template argument of the wrong kind */
+  final case class InvalidTemplateArg(
     paramName: String,
-    expandLoc: Location,
-    defLoc: Location,
+    argLoc: Location,
+    paramLoc: Location,
     msg: String,
+  ) extends Error
+  /** Template parameter conflicts with a definition in the template body */
+  final case class TemplateParameterConflict(
+    paramName: String,
+    paramLoc: Location,
+    defLoc: Location,
   ) extends Error
   /** Nested template definition */
   final case class NestedTemplateDefinition(

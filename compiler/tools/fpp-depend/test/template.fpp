@@ -3,7 +3,7 @@ locate constant bodyConst at "template_body_dep.fpp"
 locate type ArgType at "template_arg_type.fpp"
 locate instance argInst at "template_arg_instance.fpp"
 
-module template T(interface i: ParamIface, type ty) {
+module template T(instance i: ParamIface, type ty) {
   constant cOut = bodyConst
   struct S { x: ty }
   topology Top {
@@ -12,5 +12,5 @@ module template T(interface i: ParamIface, type ty) {
 }
 
 module M {
-  expand T(interface argInst, type ArgType)
+  expand T(instance argInst, type ArgType)
 }

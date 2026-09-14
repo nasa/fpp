@@ -413,13 +413,13 @@ object FppWriter extends AstVisitor with LineUtils {
     in: In,
     node: AstNode[Ast.Expr],
     e: Ast.ExprDot
-  ) = exprNode(e.e).join (".") (lines(e.id.data))
+  ) = exprNode(e.e).join (".") (identAsLines(e.id.data))
 
   override def exprIdentNode(
     in: In,
     node: AstNode[Ast.Expr],
     e: Ast.ExprIdent
-  ) = lines(e.value)
+  ) = identAsLines(e.value)
 
   override def exprLiteralBoolNode(
     in: In,
@@ -899,7 +899,7 @@ object FppWriter extends AstVisitor with LineUtils {
       case Ast.TemplateArg.Type(name) =>
         lines("type").join(" ") (typeNameNode(name))
       case Ast.TemplateArg.Interface(i) =>
-        lines("interface").join(" ") (qualIdent(i.data))
+        lines("instance").join(" ") (qualIdent(i.data))
     }
 
   private def argList[T] (f: T => List[Line]) (args: List[AstNode[T]]) =
@@ -964,12 +964,12 @@ object FppWriter extends AstVisitor with LineUtils {
   private def templateParam(tp: Ast.TemplateParam) = {
     tp match {
       case Ast.TemplateParam.Constant(name, typeName) =>
-        lines(s"constant $name: ").
+        lines(s"constant ${ident(name)}: ").
           join("") (typeNameNode(typeName))
       case Ast.TemplateParam.Type(name) =>
-        lines(s"type $name")
+        lines(s"type ${ident(name)}")
       case Ast.TemplateParam.Interface(name, interface) =>
-        lines(s"interface $name: ").
+        lines(s"instance ${ident(name)}: ").
           join("") (qualIdent(interface.data))
     }
   }

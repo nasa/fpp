@@ -1,1 +1,1 @@
-module template T(interface i: S) {}
+module template T(instance i: S) {}

@@ -2,6 +2,7 @@ def module template
   ident Tmpl
   @ Constant template parameter
   constant template param
+    ident c
     type name qual ident SomeType
   @< Constant parameter
   @ Type template parameter
@@ -9,7 +10,7 @@ def module template
     ident TypeParam
   @< Type parameter
   @ Interface instance template parameter
-  interface template param
+  instance template param
     ident inst
     qual ident InterfaceDef
   @< Instance parameter
@@ -28,6 +29,6 @@ expand
     literal int 10
   type template arg
     type name qual ident Type
-  interface template param
+  instance template arg
     qual ident instance1
 @< Expansion specifier

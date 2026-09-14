@@ -1865,6 +1865,48 @@
       "pos" : "47.1",
       "includingLoc" : "None",
       "expandingLoc" : "None"
+    },
+    "124" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "5.25",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "125" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "13.6",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "126" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "13.6",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "127" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "17.23",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "128" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "17.23",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "129" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "18.24",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "130" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "18.24",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     }
   }
 }

@@ -1,2 +1,4 @@
+TemplateComp.template.cpp
+TemplateComp.template.hpp
 TopComp.template.cpp
 TopComp.template.hpp

@@ -1057,7 +1057,7 @@ object Parser extends Parsers {
     }
 
     def paramInterface: Parser[Ast.TemplateParam.Interface] = {
-      (interface ~>! ident) ~! (colon ~>! node(qualIdent)) ^^ {
+      (instance ~>! ident) ~! (colon ~>! node(qualIdent)) ^^ {
         case id ~ iface => Ast.TemplateParam.Interface(id, iface)
       }
     }
@@ -1078,7 +1078,7 @@ object Parser extends Parsers {
   def templateArg: Parser[Ast.TemplateArg] = {
     (constant ~>! exprNode) ^^ { case e => Ast.TemplateArg.Constant(e) } |
       typeToken ~>! node(typeName) ^^ { case tn => Ast.TemplateArg.Type(tn) } |
-      interface ~>! node(qualIdent) ^^ { case i => Ast.TemplateArg.Interface(i) } |
+      instance ~>! node(qualIdent) ^^ { case i => Ast.TemplateArg.Interface(i) } |
       failure("template argument expected")
   }
 
