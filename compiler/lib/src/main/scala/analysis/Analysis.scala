@@ -360,7 +360,7 @@ case class Analysis(
     val Value.Integer(v) = Analysis.convertValueToType(
       valueMap(id),
       Type.Integer
-    ): @unchecked
+    ).runtimeChecked
     v
   }
 
