@@ -338,7 +338,7 @@ object XmlFppWriter extends LineUtils {
             None
           else {
             // C++ qualified identifier. Translate to an FPP qualified identifier.
-            val head :: tail = xmlValue.split("::").toList
+            val head :: tail = xmlValue.split("::").toList.runtimeChecked
             val e = tail.foldLeft (Ast.ExprIdent(head, false): Ast.Expr) ((e1, s) =>
               Ast.ExprDot(AstNode.create(e1), AstNode.create(s))
             )

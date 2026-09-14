@@ -1,8 +1,38 @@
+import re
 import subprocess
 import sys
 import shutil
 
 from pathlib import Path
+
+# The JAR file is compiled for this version of Java
+MINIMUM_JAVA_VERSION = 25
+
+# Flags that suppress JVM warnings. These require JDK 23 or later.
+JAVA_WARNING_FLAGS = [
+    "--sun-misc-unsafe-memory-access=allow",
+    "--enable-native-access=ALL-UNNAMED",
+]
+
+def java_major_version(java):
+    """ Return the major version of the given java executable
+
+    Returns None if the version cannot be determined, in which case we let java
+    report its own error rather than refusing to run.
+    """
+    try:
+        result = subprocess.run([java, "-version"], capture_output=True, text=True)
+    except OSError:
+        return None
+    # Most JVMs report the version on stderr, but check both streams
+    match = re.search(r'version "(\d+)(?:\.(\d+))?', result.stderr + result.stdout)
+    if match is None:
+        return None
+    major = int(match.group(1))
+    # Versions before 9 have the form 1.N
+    if major == 1 and match.group(2) is not None:
+        return int(match.group(2))
+    return major
 
 def main():
     """ Run fpp inferring a subcommand from the provided executable path
@@ -28,10 +58,17 @@ def main():
     # Then check for the JAR file
     elif jar_file.exists():
         # Check for java availability when running the JAR file
-        if not shutil.which("java"):
+        java = shutil.which("java")
+        if not java:
             print(f"[ERROR] {sys.argv[0]} requires 'java'. Please install 'java' and ensure it is available on the PATH.")
             sys.exit(-23)
-        process = subprocess.run(["java", "-jar", str(jar_file)] + base_arguments)
+        # Check the java version, so that a too-old JVM produces a clear message
+        # instead of an UnsupportedClassVersionError
+        version = java_major_version(java)
+        if version is not None and version < MINIMUM_JAVA_VERSION:
+            print(f"[ERROR] {sys.argv[0]} requires Java {MINIMUM_JAVA_VERSION} or later, but '{java}' is Java {version}.")
+            sys.exit(-23)
+        process = subprocess.run([java] + JAVA_WARNING_FLAGS + ["-jar", str(jar_file)] + base_arguments)
     else:
         print(f"[ERROR] Neither {binary_file} nor {jar_file} could be found. Please ensure fpp is installed correctly.")
         sys.exit(-42)

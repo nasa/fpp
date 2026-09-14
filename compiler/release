@@ -5,9 +5,9 @@
 # ----------------------------------------------------------------------
 # To use this script, you must first
 #
-# 1. Install GraalVM and native-image.
+# 1. Install GraalVM.
 #
-# 2. Set the environment variable GRAALVM_JAVA_HOME.
+# 2. Set the environment variable FPP_GRAALVM_JAVA_HOME.
 #
 # 3. To pass flags to native-image, set the environment variable
 #    FPP_NATIVE_IMAGE_FLAGS.
@@ -43,10 +43,10 @@ print_phase()
   echo "----------------------------------------------------------------------"
 }
 
-# Check that GRAALVM_JAVA_HOME is set
-if test -z "$GRAALVM_JAVA_HOME"
+# Check that FPP_GRAALVM_JAVA_HOME is set
+if test -z "$FPP_GRAALVM_JAVA_HOME"
 then
-  echo "[ERROR] Environment variable GRAALVM_JAVA_HOME is not set" 1>&2
+  echo "[ERROR] Environment variable FPP_GRAALVM_JAVA_HOME is not set" 1>&2
   exit 1
 fi
 
@@ -55,7 +55,7 @@ cd `dirname $0`
 
 # Set local variables
 native_bin="native-fpp-`uname`-`uname -m`"
-native_image="$GRAALVM_JAVA_HOME/bin/native-image"
+native_image="$FPP_GRAALVM_JAVA_HOME/bin/native-image"
 meta_inf_dir="lib/src/main/resources/META-INF/native-image"
 release_tgz="$native_bin.tar.gz"
 # Use gtar if it's available
@@ -86,14 +86,14 @@ print_phase "Installing JVM tools in bin"
 
 print_phase "Constructing binary tools in $native_bin"
 
-# Get the tool names from bin
-tool_names=`get_tool_names bin`
 
+# Use GraalVM to build the native binary for fpp
 jar_file="bin/fpp.jar"
 out_file="$native_bin/fpp"
 echo "Building fpp"
 evalp "$native_image" $FPP_NATIVE_IMAGE_FLAGS \
-  --no-fallback --install-exit-handlers \
+  --sun-misc-unsafe-memory-access=allow \
+  --enable-native-access=ALL-UNNAMED \
   -jar "$jar_file" "$out_file"
 if [ $? -ne 0 ]
 then
@@ -107,7 +107,10 @@ then
     exit 1
 fi
 
-# Use GraalVM to convert the jar files to native binaries
+# Get the tool names from bin
+tool_names=`get_tool_names bin`
+
+# Construct the scripts for running the tools
 for tool in $tool_names
 do
   echo '#!/bin/sh
