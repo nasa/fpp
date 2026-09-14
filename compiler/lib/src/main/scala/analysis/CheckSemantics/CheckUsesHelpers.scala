@@ -76,7 +76,7 @@ case class CheckUsesHelpers[A,NG,S <: SymbolInterface](
         )
       }
       symbol <- {
-        val mapping = scope.get (ng) _
+        val mapping = scope.get (ng)
         getSymbolForName(ng, mapping)(name.id, name.data)
       }
     }
