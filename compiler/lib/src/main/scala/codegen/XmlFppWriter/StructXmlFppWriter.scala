@@ -17,7 +17,7 @@ object StructXmlFppWriter extends LineUtils {
 
     /** Translates an XML type to an FPP type name */
     def translateType(file: XmlFppWriter.File): Node => Result.Result[Ast.TypeName] = 
-      file.translateType(node => file.getAttribute(node, "type")) _
+      file.translateType(node => file.getAttribute(node, "type"))
 
     /** Extracts a struct type member */
     def structTypeMemberAnnotatedNode(
