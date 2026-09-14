@@ -166,7 +166,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     loc.file match {
       case File.Path(path) => {
         val nodeList = (name :: s.scopeNameList).reverse.map(s => AstNode.create(s))
-        val qualIdentNode = AstNode.create(Ast.QualIdent.fromNodeList(nodeList))
+        val qualIdentNode = AstNode.create(Ast.QualIdent.fromNodeList(nodeList, false))
         val baseDir = s.baseDir match {
           case Some(dir) => dir
           case None => ""

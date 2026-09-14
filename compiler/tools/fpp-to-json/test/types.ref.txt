@@ -107,7 +107,8 @@
                       "AstNode" : {
                         "data" : {
                           "ExprIdent" : {
-                            "value" : "numElements"
+                            "value" : "numElements",
+                            "isAbsolute" : false
                           }
                         },
                         "id" : 6
@@ -222,7 +223,8 @@
                               "AstNode" : {
                                 "data" : {
                                   "Unqualified" : {
-                                    "name" : "A"
+                                    "name" : "A",
+                                    "isAbsolute" : false
                                   }
                                 },
                                 "id" : 17
@@ -467,7 +469,8 @@
                         "AstNode" : {
                           "data" : {
                             "ExprIdent" : {
-                              "value" : "s"
+                              "value" : "s",
+                              "isAbsolute" : false
                             }
                           },
                           "id" : 52
@@ -556,7 +559,8 @@
                         "AstNode" : {
                           "data" : {
                             "ExprIdent" : {
-                              "value" : "s"
+                              "value" : "s",
+                              "isAbsolute" : false
                             }
                           },
                           "id" : 62
@@ -618,7 +622,8 @@
                               "AstNode" : {
                                 "data" : {
                                   "Unqualified" : {
-                                    "name" : "T"
+                                    "name" : "T",
+                                    "isAbsolute" : false
                                   }
                                 },
                                 "id" : 67
@@ -667,7 +672,8 @@
                                         "AstNode" : {
                                           "data" : {
                                             "Unqualified" : {
-                                              "name" : "SignalType"
+                                              "name" : "SignalType",
+                                              "isAbsolute" : false
                                             }
                                           },
                                           "id" : 71
@@ -702,7 +708,8 @@
                                         "AstNode" : {
                                           "data" : {
                                             "Unqualified" : {
-                                              "name" : "SignalSet"
+                                              "name" : "SignalSet",
+                                              "isAbsolute" : false
                                             }
                                           },
                                           "id" : 75
@@ -737,7 +744,8 @@
                                         "AstNode" : {
                                           "data" : {
                                             "Unqualified" : {
-                                              "name" : "SignalPairSet"
+                                              "name" : "SignalPairSet",
+                                              "isAbsolute" : false
                                             }
                                           },
                                           "id" : 87
@@ -891,7 +899,8 @@
                               "AstNode" : {
                                 "data" : {
                                   "Unqualified" : {
-                                    "name" : "SignalPair"
+                                    "name" : "SignalPair",
+                                    "isAbsolute" : false
                                   }
                                 },
                                 "id" : 106
@@ -6537,12 +6546,6 @@
     },
     "dictionarySymbolSet" : [
       {
-        "Struct" : {
-          "nodeId" : 90,
-          "unqualifiedName" : "SignalInfo"
-        }
-      },
-      {
         "AliasType" : {
           "nodeId" : 121,
           "unqualifiedName" : "Alias1"
@@ -6552,6 +6555,12 @@
         "Constant" : {
           "nodeId" : 5,
           "unqualifiedName" : "numElements"
+        }
+      },
+      {
+        "Struct" : {
+          "nodeId" : 90,
+          "unqualifiedName" : "SignalInfo"
         }
       },
       {

@@ -198,7 +198,8 @@
                                                       "AstNode" : {
                                                         "data" : {
                                                           "Unqualified" : {
-                                                            "name" : "State"
+                                                            "name" : "State",
+                                                            "isAbsolute" : false
                                                           }
                                                         },
                                                         "id" : 31
