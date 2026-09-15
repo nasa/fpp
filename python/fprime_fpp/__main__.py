@@ -40,8 +40,8 @@ def find_java():
     if java_home:
         candidate = Path(java_home) / "bin" / ("java.exe" if os.name == "nt" else "java")
         if candidate.is_file():
-            return str(candidate)
-    return shutil.which("java")
+            return str(candidate), "JAVA_HOME"
+    return shutil.which("java"), "PATH"
 
 def main():
     """ Run fpp inferring a subcommand from the provided executable path
@@ -67,7 +67,7 @@ def main():
     # Then check for the JAR file
     elif jar_file.exists():
         # Check for java availability when running the JAR file
-        java = find_java()
+        java, java_source = find_java()
         if not java:
             print(f"[ERROR] {sys.argv[0]} requires 'java'. Please install 'java' and ensure it is available at JAVA_HOME or on the PATH.", file=sys.stderr)
             sys.exit(-23)
@@ -76,6 +76,7 @@ def main():
         version = java_major_version(java)
         if version is not None and version < MINIMUM_JAVA_VERSION:
             print(f"[ERROR] {sys.argv[0]} requires Java {MINIMUM_JAVA_VERSION} or later, but '{java}' is Java {version}.", file=sys.stderr)
+            print(f"[ERROR] note: searched JAVA_HOME, then PATH; found this java in {java_source}", file=sys.stderr)
             sys.exit(-23)
         process = subprocess.run([java] + JAVA_WARNING_FLAGS + ["-jar", str(jar_file)] + base_arguments)
     else:
