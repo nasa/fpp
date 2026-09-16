@@ -213,7 +213,14 @@ The purpose of these rules is to ensure that all the template parameters
 and all the definitions in the body of the template can coexist
 in the same scope.
 
-For example, each of the following templates violates these rules.
+Because these rules apply within the scope of an expanded template,
+they are checked at each expansion of a template, and not at the point
+of the template definition.
+See the section on
+<<Definitions_Module-Template-Definitions,module template definitions>>.
+
+For example, each of the following templates violates these rules
+when it is expanded.
 Each template has a distinct name, so the only errors are the
 ones described in the comments.
 
@@ -221,11 +228,13 @@ ones described in the comments.
 ----
 # Violates rule 1: the parameter name x is reused in the value name group
 module template T1(constant x: U32, constant x: I32) { }
+expand T1(constant 0, constant 1)
 
 # Violates rule 2: the definition constant x conflicts with the parameter x
 module template T2(constant x: U32) {
   constant x = 0
 }
+expand T2(constant 0)
 ----
 
 On the other hand, each of these templates is allowed:
@@ -234,12 +243,14 @@ On the other hand, each of these templates is allowed:
 ----
 # OK: constant x is in the value name group, and type x is in the type name group
 module template T3(constant x: U32, type x) { }
+expand T3(constant 0, type U32)
 
 # OK: the parameter constant x and the definition type x are in
 # different name groups
 module template T4(constant x: U32) {
   type x = U32
 }
+expand T4(constant 0)
 ----
 
 === Resolution of Identifiers

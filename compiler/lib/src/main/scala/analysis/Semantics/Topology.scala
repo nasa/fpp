@@ -47,6 +47,18 @@ case class Topology(
   /** Gets the name of the topology */
   def getName = aNode._2.data.name
 
+  /** Gets the symbols of the topologies imported into this topology. */
+  def getImportedTopologySymbols(a: Analysis): List[Symbol.Topology] = {
+    def boundTopology(symbol: Symbol): Option[Symbol.Topology] = symbol match {
+      case ts: Symbol.Topology => Some(ts)
+      case arg: Symbol.TemplateInterfaceArg =>
+        a.useDefMap.get(arg.value.id).flatMap(boundTopology)
+      case _ => None
+    }
+    directTopologies.keys.toList ++
+      directTemplateArgs.keys.toList.flatMap(boundTopology)
+  }
+
   /** Add a port to the topology */
   def addPortNode(
     node: Ast.Annotated[AstNode[Ast.SpecTopPort]]
@@ -324,6 +336,24 @@ case class Topology(
    *  The instance may appear directly or through a template interface parameter. */
   def lookUpComponentInstanceLoc(ci: ComponentInstance): Option[Location] =
     componentInstanceMap.get(ci)
+
+  /** Look up a component instance used at a location.
+   *  The instance may appear directly, through an imported subtopology, or
+   *  through a bound interface template parameter. */
+  def lookUpComponentInstanceAt(
+    ci: ComponentInstance,
+    loc: Location
+  ): Result.Result[Location] =
+    lookUpComponentInstanceLoc(ci) match {
+      case Some(result) => Right(result)
+      case None => Left(
+        SemanticError.InvalidInterfaceInstance(
+          loc,
+          ci.getUnqualifiedName,
+          this.getUnqualifiedName
+        )
+      )
+    }
 
   /** Gets the set of used port numbers */
   def getUsedPortNumbers(pi: PortInstance, cs: Iterable[Connection]): Set[Int] = 

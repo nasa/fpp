@@ -186,7 +186,7 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
-  override def specTemplateExpandAnnotatedNode(
+  override def specTemplateExpandAnnotatedNodeUnexpanded(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
   ) = {
@@ -196,6 +196,21 @@ object AstWriter extends AstVisitor with LineUtils {
     List.concat(
       qualIdent(data.template.data),
       templateArgList(data.args)
+    ).map(indentIn)
+  }
+
+  override def specTemplateExpandAnnotatedNodeExpanded(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]],
+    members: List[Ast.ModuleMember]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("expand") ++
+    List.concat(
+      qualIdent(data.template.data),
+      templateArgList(data.args),
+      members.flatMap(moduleMember)
     ).map(indentIn)
   }
 

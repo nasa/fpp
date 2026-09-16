@@ -39,7 +39,7 @@ Each of the following FPP elements has an associated port interface:
 
 * A <<Definitions_Topology-Definitions,topology definition>>.
 
-* A <<Definitions_Module-Template-Definitions,port interface instance template parameter>>.
+* A <<Template-Parameter-Lists,port interface instance template parameter>>.
 
 ==== Port Interface Definitions
 
@@ -90,9 +90,9 @@ with the port name in _n_.
 
 . Add _i'_ to _I_.
 
-==== Template Parameter Definitions
+==== Port Interface Instance Template Parameters
 
-For every <<Template-Parameter-Lists,port interface instance template 
+For every <<Template-Parameter-Lists,port interface instance template
 parameter>> _P_, there
 is an associated port interface _I_.
 It is given by the port interface definition referred to in _P_.
@@ -118,7 +118,8 @@ Each of these elements has an *associated port interface* _I_:
 
 . For a topology definition, the port interface is given by the definition.
 
-. For a port interface instance template definition stem:[(p, A)], the port 
+. For a <<Specifiers_Template-Expansion-Specifiers_Semantics,port interface
+  instance parameter definition>> stem:[(p, A)], the port
   interface is specified in the parameter _p_.
 
 Each port interface instance *represents* a component instance definition

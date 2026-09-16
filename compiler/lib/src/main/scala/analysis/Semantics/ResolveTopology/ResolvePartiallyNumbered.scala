@@ -50,14 +50,14 @@ object ResolvePartiallyNumbered {
       // Check the source
       _ <- {
         val (instance, loc) = pattern.source
-        t.lookUpInstanceAt(InterfaceInstance.fromComponentInstance(instance), loc)
+        t.lookUpComponentInstanceAt(instance, loc)
       }
       // Check the targets
       _ <- Result.map(
         pattern.targets.toList,
         (pair: (ComponentInstance, Location)) => {
           val (instance, loc) = pair
-          t.lookUpInstanceAt(InterfaceInstance.fromComponentInstance(instance), loc)
+          t.lookUpComponentInstanceAt(instance, loc)
         }
       )
     }
@@ -65,7 +65,7 @@ object ResolvePartiallyNumbered {
 
   /** Compute the transitively imported topologies */
   private def computeTransitiveImports(a: Analysis, t: Topology) = {
-    val tis = t.directTopologies.keys.foldLeft (Set[Symbol.Topology]()) ((tis, ts) => {
+    val tis = t.getImportedTopologySymbols(a).foldLeft (Set[Symbol.Topology]()) ((tis, ts) => {
       val t = a.topologyMap(ts)
       tis.union(t.transitiveImportSet) + ts
     })
@@ -158,7 +158,7 @@ object ResolvePartiallyNumbered {
     }
     def importInstances(into: Topology, fromSymbol: Symbol.Topology) =
       a.topologyMap(fromSymbol).instanceMap.foldLeft (into) (importInstance)
-    Right(t.directTopologies.keys.foldLeft (t) (importInstances))
+    Right(t.getImportedTopologySymbols(a).foldLeft (t) (importInstances))
   }
 
   /** Resolve this topology to a partially numbered topology */

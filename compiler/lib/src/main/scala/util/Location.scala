@@ -70,11 +70,30 @@ final case class Location(
   def getRelativePath(path: String): java.nio.file.Path =
     getDirPath.resolve(path).normalize
 
-  def compare(that: Location) = {
+  def compare(that: Location): Int = {
     val fileCompare = this.file.toString().compare(that.file.toString())
     if (fileCompare != 0) fileCompare
     else if (this.pos.line != that.pos.line) this.pos.line - that.pos.line
-    else this.pos.column - that.pos.column
+    else if (this.pos.column != that.pos.column) this.pos.column - that.pos.column
+    else {
+      val includingCompare =
+        Location.compareOpt(this.includingLoc, that.includingLoc)
+      if (includingCompare != 0) includingCompare
+      else Location.compareOpt(this.expandingLoc, that.expandingLoc)
+    }
   }
+
+}
+
+object Location {
+
+  /** Compare two optional locations, ordering None before Some */
+  def compareOpt(loc1: Option[Location], loc2: Option[Location]): Int =
+    (loc1, loc2) match {
+      case (None, None) => 0
+      case (None, Some(_)) => -1
+      case (Some(_), None) => 1
+      case (Some(l1), Some(l2)) => l1.compare(l2)
+    }
 
 }

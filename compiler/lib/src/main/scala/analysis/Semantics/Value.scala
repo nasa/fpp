@@ -326,10 +326,21 @@ object Value {
           }
         }
       val Type.AnonArray(size, eltType) = anonArrayType
-      if (Type.Array.sizesMatch(Some(elements.size), size))
-        for (elements <- convertElements(elements, eltType, Nil))
-          yield AnonArray(elements)
-      else None
+      scalar match {
+        // This value is a scalar promoted to an array of unknown size
+        // Fill in the elements, if the size is now known
+        case Some(scalarValue) =>
+          for (elt <- scalarValue.convertToType(eltType))
+            yield size match {
+              case Some(n) => AnonArray(List.fill(n)(elt), None)
+              case None => AnonArray(Nil, Some(elt))
+            }
+        case None =>
+          if (Type.Array.sizesMatch(Some(elements.size), size))
+            for (elements <- convertElements(elements, eltType, Nil))
+              yield AnonArray(elements)
+          else None
+      }
     }
 
     def convertToArray(arrayType: Type.Array): Option[Value.Array] = {
@@ -345,11 +356,25 @@ object Value {
         case _ => None
       }
 
-    override def getType = Type.AnonArray(Some(elements.size), elements.head.getType)
+    override def getType = scalar match {
+      // A scalar value promoted to an array whose size is not yet known
+      case Some(scalarValue) => Type.AnonArray(None, scalarValue.getType)
+      case None => elements match {
+        case head :: _ => Type.AnonArray(Some(elements.size), head.getType)
+        // An empty array value has no element type
+        // This case cannot arise when analyzing a model: an array expression
+        // may not be empty, and an array size may not be zero
+        case Nil => Type.AnonArray(Some(0), Type.Integer)
+      }
+    }
 
-    override def toString = "[ " ++ elements.mkString(", ") ++ " ]"
+    override def toString = scalar match {
+      case Some(scalarValue) => "[ " ++ scalarValue.toString ++ ", ... ]"
+      case None => "[ " ++ elements.mkString(", ") ++ " ]"
+    }
 
-    override def truncate: AnonArray = AnonArray(elements.map(_.truncate))
+    override def truncate: AnonArray =
+      AnonArray(elements.map(_.truncate), scalar.map(_.truncate))
 
   }
 
@@ -415,15 +440,16 @@ object Value {
   /** Anonymous struct values */
   case class AnonStruct(members: Struct.Members) extends Value {
 
-    def convertToAnonStruct(anonStructType: Type.AnonStruct, memberDefaults: Struct.Members): Option[Value.AnonStruct] = {
+    def convertToAnonStruct(anonStructType: Type.AnonStruct): Option[Value.AnonStruct] = {
       def convertMembers(in: List[Type.Struct.Member], out: Struct.Members): Option[Struct.Members] =
         in match {
           case Nil => Some(out)
           case (m -> t) :: tail => {
-            val vOpt = (members.get(m), memberDefaults.get(m)) match {
-              case (Some(v), _) => v.convertToType(t)
-              case (None, Some(v)) => Some(v)
-              case (None, None) => t.getDefaultValue
+            // If this value has member m, then convert its value to the
+            // member type. Otherwise use the default value at the member type.
+            val vOpt = members.get(m) match {
+              case Some(v) => v.convertToType(t)
+              case None => t.getDefaultValue
             }
             vOpt match {
               case Some(v) => convertMembers(tail, out + (m -> v))
@@ -436,14 +462,14 @@ object Value {
     }
 
     def convertToStruct(structType: Type.Struct): Option[Value.Struct] = {
-      val Type.Struct(_, anonStructType, default, _, _) = structType
-      for (anonStruct <- convertToAnonStruct(anonStructType, default.map(_.anonStruct.members).getOrElse(Map())))
+      val Type.Struct(_, anonStructType, _, _, _) = structType
+      for (anonStruct <- convertToAnonStruct(anonStructType))
         yield Struct(anonStruct, structType)
     }
 
     override def convertToDistinctType(t: Type) =
       t.getUnderlyingType match {
-        case anonStructType : Type.AnonStruct => convertToAnonStruct(anonStructType, Map())
+        case anonStructType : Type.AnonStruct => convertToAnonStruct(anonStructType)
         case structType : Type.Struct => convertToStruct(structType)
         case _ => None
       }
@@ -476,7 +502,7 @@ object Value {
   case class Struct(anonStruct: AnonStruct, t: Type.Struct) extends Value {
 
     def convertToAnonStruct(anonStructType: Type.AnonStruct): Option[Value.AnonStruct] =
-      anonStruct.convertToAnonStruct(anonStructType, t.default.map(_.anonStruct.members).getOrElse(Map()))
+      anonStruct.convertToAnonStruct(anonStructType)
     def convertToStruct(structType: Type.Struct): Option[Value.Struct] =
       anonStruct.convertToStruct(structType)
     override def convertToDistinctType(t: Type) =
