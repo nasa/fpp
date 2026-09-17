@@ -69,7 +69,8 @@
                                         "AstNode" : {
                                           "data" : {
                                             "ExprIdent" : {
-                                              "value" : "numPingPorts"
+                                              "value" : "numPingPorts",
+                                              "isAbsolute" : false
                                             }
                                           },
                                           "id" : 2
@@ -85,7 +86,8 @@
                                                 "AstNode" : {
                                                   "data" : {
                                                     "Unqualified" : {
-                                                      "name" : "Svc"
+                                                      "name" : "Svc",
+                                                      "isAbsolute" : false
                                                     }
                                                   },
                                                   "id" : 3
@@ -136,7 +138,8 @@
                                         "AstNode" : {
                                           "data" : {
                                             "ExprIdent" : {
-                                              "value" : "numPingPorts"
+                                              "value" : "numPingPorts",
+                                              "isAbsolute" : false
                                             }
                                           },
                                           "id" : 7
@@ -152,7 +155,8 @@
                                                 "AstNode" : {
                                                   "data" : {
                                                     "Unqualified" : {
-                                                      "name" : "Svc"
+                                                      "name" : "Svc",
+                                                      "isAbsolute" : false
                                                     }
                                                   },
                                                   "id" : 8

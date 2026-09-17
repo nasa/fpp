@@ -51,7 +51,7 @@ state machine M {
   initial do { a1 } enter C
 
   @ Choice C
-  choice C { if g1 enter S1 else enter S2 }
+  choice C { if g1 enter S1 else enter .S2 }
 
   @ State S1
   state S1
@@ -66,7 +66,7 @@ state machine M {
     initial do { a1, a2 } enter S3
 
     @ Choice C
-    choice C { if g1 do { a1, a2 } enter S1 else do { a2, a3 } enter S2.S3 }
+    choice C { if g1 do { a1, a2 } enter S1 else do { a2, a3 } enter .S2.S3 }
 
     @ State S3
     state S3

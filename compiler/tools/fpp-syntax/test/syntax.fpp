@@ -182,11 +182,16 @@ module DefinitionsAndSpecifiers {
     instance i1
     @< Public instance specifier
 
+    @ Public instance specifier with absolute qualified identifier
+    instance .i1Abs
+    @< Public instance specifier with absolute qualified identifier
+
     @ Direct connection graph specifier
     connections C {
       i1.p[0] -> i2.p[1]
       unmatched i1.p1[0] -> i2.p2[0]
       unmatched i1.p1 -> i2.p2
+      .i1.p3 -> .i2.p3
     }
     @< Direct connection graph specifier
 
@@ -205,6 +210,7 @@ module DefinitionsAndSpecifiers {
       packet P1 id 0 group 0 {
         i1.c1
         i2.c2
+        .i1.c3
       }
       @< Telemetry packet
 
@@ -214,12 +220,17 @@ module DefinitionsAndSpecifiers {
 
     } omit {
       i3.c3
+      .i3.c4
     }
     @< Telemetry packet group
 
     @ Topology port specifier
     port a = b.a
     @< Topology port specifier
+
+    @ Topology port specifier with absolute qualified identifier
+    port aAbs = .b.a
+    @< Topology port specifier with absolute qualified identifier
   }
   @< Topology definition
 
@@ -239,9 +250,17 @@ module DefinitionsAndSpecifiers {
   system S: M.T
   @< System definition
 
+  @ System definition with absolute qualified identifier
+  system SAbs: .M.T
+  @< System definition with absolute qualified identifier
+
   @ Location specifier
   locate instance i at "instances.fpp"
   @< Location specifier
+
+  @ Location specifier with absolute qualified identifier
+  locate instance .i at "instances.fpp"
+  @< Location specifier with absolute qualified identifier
 
   @ System location specifier
   locate system S at "system.fpp"
@@ -258,6 +277,7 @@ module TypeNames {
   array typeNameBool = [10] bool
   array typeNameString = [10] string size 256
   array typeNameQID = [10] a.b.c
+  array typeNameAbsoluteQID = [10] .a.b.c
 
 }
 @< Type names
@@ -297,6 +317,10 @@ module Expressions {
   constant dotExp = a.b.c
   @< Dot
 
+  @ Dot with absolute qualified identifier
+  constant dotAbsoluteExp = .a.b.c
+  @< Dot with absolute qualified identifier
+
   @ FP literal
   constant fpLiteralExp = 0.1234
   @< FP literal
@@ -304,6 +328,10 @@ module Expressions {
   @ Identifier
   constant identExp = x
   @< Identifier
+
+  @ Identifier with absolute qualified identifier
+  constant identAbsoluteExp = .x
+  @< Identifier with absolute qualified identifier
 
   @ Int literal
   constant intLiteralExp = 1234

@@ -55,7 +55,8 @@
                                                               "AstNode" : {
                                                                 "data" : {
                                                                   "Unqualified" : {
-                                                                    "name" : "Svc"
+                                                                    "name" : "Svc",
+                                                                    "isAbsolute" : false
                                                                   }
                                                                 },
                                                                 "id" : 30
@@ -271,7 +272,8 @@
                                             "AstNode" : {
                                               "data" : {
                                                 "Unqualified" : {
-                                                  "name" : "Sensors"
+                                                  "name" : "Sensors",
+                                                  "isAbsolute" : false
                                                 }
                                               },
                                               "id" : 56

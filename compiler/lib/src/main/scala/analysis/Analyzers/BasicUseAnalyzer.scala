@@ -99,7 +99,7 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
   override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) = {
     def nameOpt(e: Ast.Expr, qualifier: List[Name.Unqualified]): Option[Name.Qualified] = {
       e match {
-        case Ast.ExprIdent(id) => {
+        case Ast.ExprIdent(id, _) => {
           val list = id :: qualifier
           val use = Name.Qualified.fromIdentList(list)
           Some(use)

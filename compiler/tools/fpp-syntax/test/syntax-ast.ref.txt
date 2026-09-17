@@ -344,6 +344,10 @@ def module
     spec interface instance
       qual ident i1
     @< Public instance specifier
+    @ Public instance specifier with absolute qualified identifier
+    spec interface instance
+      qual ident .i1Abs
+    @< Public instance specifier with absolute qualified identifier
     @ Direct connection graph specifier
     spec connection graph direct
       ident C
@@ -360,6 +364,9 @@ def module
       unmatched connection
         from port qual ident i1.p1
         to port qual ident i2.p2
+      connection
+        from port qual ident .i1.p3
+        to port qual ident .i2.p3
     @< Direct connection graph specifier
     @ Graph pattern specifier
     spec connection graph pattern
@@ -386,6 +393,8 @@ def module
             qual ident i1.c1
           tlm channel identifier
             qual ident i2.c2
+          tlm channel identifier
+            qual ident .i1.c3
         @< Telemetry packet
         @ Include specifier
         spec include
@@ -393,12 +402,18 @@ def module
         @< Include specifier
       omitted
         qual ident i3.c3
+        qual ident .i3.c4
     @< Telemetry packet group
     @ Topology port specifier
     spec top port
       ident a
       qual ident b.a
     @< Topology port specifier
+    @ Topology port specifier with absolute qualified identifier
+    spec top port
+      ident aAbs
+      qual ident .b.a
+    @< Topology port specifier with absolute qualified identifier
   @< Topology definition
   @ Deployment topology
   def deployment topology
@@ -422,12 +437,23 @@ def module
     ident S
     qual ident M.T
   @< System definition
+  @ System definition with absolute qualified identifier
+  def system
+    ident SAbs
+    qual ident .M.T
+  @< System definition with absolute qualified identifier
   @ Location specifier
   spec loc
     kind instance
     symbol qual ident i
     file instances.fpp
   @< Location specifier
+  @ Location specifier with absolute qualified identifier
+  spec loc
+    kind instance
+    symbol qual ident .i
+    file instances.fpp
+  @< Location specifier with absolute qualified identifier
   @ System location specifier
   spec loc
     kind system
@@ -459,6 +485,10 @@ def module
     ident typeNameQID
     size literal int 10
     type name qual ident a.b.c
+  def array
+    ident typeNameAbsoluteQID
+    size literal int 10
+    type name qual ident .a.b.c
 @< Type names
 @ Expressions
 def module
@@ -559,6 +589,15 @@ def module
         ident b
       ident c
   @< Dot
+  @ Dot with absolute qualified identifier
+  def constant
+    ident dotAbsoluteExp
+    expr dot
+      expr dot
+        ident .a
+        ident b
+      ident c
+  @< Dot with absolute qualified identifier
   @ FP literal
   def constant
     ident fpLiteralExp
@@ -569,6 +608,11 @@ def module
     ident identExp
     ident x
   @< Identifier
+  @ Identifier with absolute qualified identifier
+  def constant
+    ident identAbsoluteExp
+    ident .x
+  @< Identifier with absolute qualified identifier
   @ Int literal
   def constant
     ident intLiteralExp
