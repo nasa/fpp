@@ -158,14 +158,9 @@ It may refer to the component instance directly, or it may refer to a
 <<Specifiers_Template-Expansion-Specifiers,port interface instance parameter
 definition>> that <<Ports_Port-Interface-Instances,represents>> a component
 instance definition.
-Because a pattern graph is resolved after every connection endpoint is a
-component instance endpoint, a pattern connects the ports of the component
-instance represented by such a parameter, including ports that are not in the
-port interface declared for the parameter.
 
 . If the instance sequence _I_ appears, then each qualified identifier
-_Q_ appearing in _I_ must refer, in the same way as the qualified identifier
-following the keyword `instance`, to a component instance that exists
+_Q_ appearing in _I_ must refer, to a component instance that exists
 in the enclosing topology, after resolving to a partially numbered topology,
 and each component instance must be valid for the pattern
 (i.e., must have a port of the type required for the pattern).

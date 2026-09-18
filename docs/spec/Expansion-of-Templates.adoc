@@ -23,11 +23,9 @@ Let _M_ be the model initially presented to the analyzer,
 with <<Specifiers_Include-Specifiers,include specifiers>> resolved.
 Construct the output model _M'_ as follows:
 
-. Perform enough analysis on _M_ to match all template expansion
+. Perform enough analysis on _M_ to 
+  <<Definitions_Module-Template-Definitions_Semantics,check all the template definitions>> and to 
   specifiers with the template definitions to which they refer.
-  The bodies of the template definitions are not analyzed in this step;
-  see the section on
-  <<Definitions_Module-Template-Definitions,module template definitions>>.
 
 . For each template expansion specifier _S_ in _M_,
   do the following:
@@ -37,19 +35,6 @@ Construct the output model _M'_ as follows:
 .. Let _X_ be a copy of the syntax specified in the body of _T_.
 
 .. Replace _S_ with stem:[S { X }].
-
-=== Termination
-
-Expansion of templates always terminates, and one pass of step 2 of the
-algorithm is sufficient. No
-<<Definitions_Module-Template-Definitions,module template definition>>
-may be the ancestor in the abstract syntax tree of another module
-template definition or of a
-<<Specifiers_Template-Expansion-Specifiers,template expansion specifier>>.
-
-An implementation must report an error if a module template definition
-or a template expansion specifier appears inside the body of a module
-template definition.
 
 === Example
 

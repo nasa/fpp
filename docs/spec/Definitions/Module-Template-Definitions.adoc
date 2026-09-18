@@ -49,14 +49,9 @@ which does not depend on the body of _M_:
   <<Scoping-of-Names_Conflicting-Parameter-Names,rules for conflicting
   parameter names>>.
 
-The body of _M_ is analyzed once for each
-<<Specifiers_Template-Expansion-Specifiers,template expansion specifier>>
-_S_ that refers to _M_.
-Each <<Expansion-of-Templates,expanded template>> stem:[E = S { X }] is
-analyzed in the same way as the corresponding syntax written out by hand,
-subject to the special rules for
-<<Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template,
-resolving names inside an expanded template>>.
+. The rules governing <<Scoping-of-Names_Conflicting-Parameter-Names,rules for conflicting definitions>>.
+
+. The rules governing <<Definitions-and-Uses_Uses,definitions and uses>>.
 
 [NOTE] 
 .Implementation Gap
