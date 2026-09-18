@@ -36,7 +36,6 @@ a <<Definitions_Port-Interface-Definitions,port interface definition>>.
 
 === Examples
 
-// check-examples: skip template parameter list, not a translation unit
 [source,fpp]
 ----
 constant c: U32

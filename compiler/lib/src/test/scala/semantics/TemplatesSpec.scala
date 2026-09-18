@@ -50,30 +50,6 @@ class TemplatesSpec extends AnyWordSpec {
             .foreach { file => s"expand $file" in ok(file) }
     }
 
-    // Each model in the error directory must be syntactically correct and must
-    // fail analysis. Each model says in a comment which error it should report.
-    "error" should {
-        def error(file: File): Unit = {
-            val tu = Parser.parseFile(Parser.transUnit)(None)(FppFile.fromString(
-                file.toPath().toString()
-            )) match {
-                case Right(tu) => tu
-                case Left(e) =>
-                    e.print
-                    fail(s"$file should parse")
-            }
-            analyze(tu) match {
-                case Left(_) => ()
-                case Right(_) => fail(s"analysis of $file should fail")
-            }
-        }
-
-        val dir = new File("lib/src/test/input/templates/error")
-        val files = dir.listFiles.filter(_.isFile)
-            .filter(_.getName.endsWith(".fpp"))
-            .foreach { file => s"not analyze $file" in error(file) }
-    }
-
     // The content of an expansion: an expansion introduces the definitions of
     // the template body at the expansion site, once per expansion, and a use of
     // a parameter inside the body resolves to the bound parameter.

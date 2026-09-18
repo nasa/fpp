@@ -30,7 +30,6 @@ _A_ refers to a bound parameter definition _B'_ that represents _D_.
 Not all bound parameter definitions represent global definitions.
 For example, the bound parameter definition
 
-// check-examples: skip bound parameter definition, not source syntax
 [source,fpp]
 ----
 ( constant x : U32 , 0 )
