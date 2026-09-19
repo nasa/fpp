@@ -3097,19 +3097,17 @@ which does not depend on the body of <em>M</em>:</p>
 </li>
 <li>
 <p>The rules governing the
-<a href="#Template-Parameter-Lists">template parameter list</a> of <em>M</em>, including the
-<a href="#Scoping-of-Names_Conflicting-Parameter-Names">rules for conflicting
-parameter names</a>.</p>
+<a href="#Template-Parameter-Lists">template parameter list</a> of <em>M</em>.</p>
 </li>
 <li>
-<p>The rules governing <a href="#Scoping-of-Names_Conflicting-Parameter-Names">rules for conflicting definitions</a>.</p>
+<p>The rules governing <a href="#Scoping-of-Names_Multiple-Global-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions">conflicting definitions</a>.</p>
 </li>
 <li>
 <p>The rules governing <a href="#Definitions-and-Uses_Uses">definitions and uses</a>.</p>
 </li>
 </ol>
 </div>
-<div id="Definitions_Module-Template-Definitions_" class="admonitionblock note">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
@@ -3125,7 +3123,14 @@ the body of <em>M</em> is checked for syntactic correctness, but it is not
 otherwise analyzed.
 An error that occurs only in the body of <em>M</em>, such as a use of an
 undefined symbol or a type error, is reported at each expansion of <em>M</em>,
-and is not reported at all if <em>M</em> is never expanded.</p>
+and is not reported at all if <em>M</em> is never expanded.
+The <a href="#Scoping-of-Names_Conflicting-Parameter-Names">rules for conflicting
+parameter names</a> are checked in the same way: at each expansion of <em>M</em>,
+and not at the point of the definition of <em>M</em>.
+As an exception to the above, a
+<a href="#Specifiers_Location-Specifiers">location specifier</a> appearing in the body
+of <em>M</em> is analyzed at the point of the definition of <em>M</em>, whether or not
+<em>M</em> is expanded.</p>
 </div>
 </td>
 </tr>
@@ -6941,7 +6946,7 @@ instance definition.</p>
 </li>
 <li>
 <p>If the instance sequence <em>I</em> appears, then each qualified identifier
-<em>Q</em> appearing in <em>I</em> must refer, to a component instance that exists
+<em>Q</em> appearing in <em>I</em> must refer to a component instance that exists
 in the enclosing topology, after resolving to a partially numbered topology,
 and each component instance must be valid for the pattern
 (i.e., must have a port of the type required for the pattern).
@@ -11469,9 +11474,6 @@ and all the definitions in the body of the template can coexist
 in the same scope.</p>
 </div>
 <div class="paragraph">
-<p>For example, each of the following templates violates these rules.</p>
-</div>
-<div class="paragraph">
 <p>For example, each of the following templates violates these rules.
 Each template has a distinct name, so the only errors are the
 ones described in the comments.</p>
@@ -12060,7 +12062,7 @@ Construct the output model <em>M'</em> as follows:</p>
 <li>
 <p>Perform enough analysis on <em>M</em> to
 <a href="#Definitions_Module-Template-Definitions_Semantics">check all the template definitions</a> and to
-specifiers with the template definitions to which they refer.</p>
+match all template expansion specifiers with the template definitions to which they refer.</p>
 </li>
 <li>
 <p>For each template expansion specifier <em>S</em> in <em>M</em>,
@@ -14366,7 +14368,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-18 11:35:10 -0700
+Last updated 2026-09-19 10:45:43 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

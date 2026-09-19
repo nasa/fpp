@@ -45,11 +45,9 @@ which does not depend on the body of _M_:
 . The syntactic rule stated above.
 
 . The rules governing the
-  <<Template-Parameter-Lists,template parameter list>> of _M_, including the
-  <<Scoping-of-Names_Conflicting-Parameter-Names,rules for conflicting
-  parameter names>>.
+  <<Template-Parameter-Lists,template parameter list>> of _M_.
 
-. The rules governing <<Scoping-of-Names_Conflicting-Parameter-Names,rules for conflicting definitions>>.
+. The rules governing <<Scoping-of-Names_Multiple-Global-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions,conflicting definitions>>.
 
 . The rules governing <<Definitions-and-Uses_Uses,definitions and uses>>.
 
@@ -64,6 +62,13 @@ otherwise analyzed.
 An error that occurs only in the body of _M_, such as a use of an
 undefined symbol or a type error, is reported at each expansion of _M_,
 and is not reported at all if _M_ is never expanded.
+The <<Scoping-of-Names_Conflicting-Parameter-Names,rules for conflicting
+parameter names>> are checked in the same way: at each expansion of _M_,
+and not at the point of the definition of _M_.
+As an exception to the above, a
+<<Specifiers_Location-Specifiers,location specifier>> appearing in the body
+of _M_ is analyzed at the point of the definition of _M_, whether or not
+_M_ is expanded.
 ====
 
 ==== Example

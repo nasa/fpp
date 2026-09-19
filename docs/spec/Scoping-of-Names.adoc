@@ -214,8 +214,6 @@ and all the definitions in the body of the template can coexist
 in the same scope.
 
 For example, each of the following templates violates these rules.
-
-For example, each of the following templates violates these rules.
 Each template has a distinct name, so the only errors are the
 ones described in the comments.
 
