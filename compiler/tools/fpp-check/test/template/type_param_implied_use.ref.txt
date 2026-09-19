@@ -1,0 +1,12 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/type_param_implied_use.fpp:7.19
+    array A = [1] string size 256
+                  ^
+  expanded at [ local path prefix ]/compiler/tools/fpp-check/test/template/type_param_implied_use.fpp:10.1
+error: invalid use of symbol FwSizeStoreType: a template parameter may not satisfy the implied use of FwSizeStoreType
+symbol is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/template/type_param_implied_use.fpp:10.15
+expand T(type U32)
+              ^
+note: the symbol FwSizeStoreType has an implied use at the point of the error
+note: use of a string type requires this definition

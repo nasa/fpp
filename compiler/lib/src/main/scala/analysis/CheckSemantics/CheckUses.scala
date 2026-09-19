@@ -9,10 +9,25 @@ object CheckUses extends BasicUseAnalyzer {
   val helpers = CheckUsesHelpers(
     (a: Analysis) => a.nestedScope,
     (a: Analysis, ns: NestedScope) => a.copy(nestedScope = ns),
-    (a: Analysis) => a.symbolScopeMap,
+    (a: Analysis) => getSymbolScopeMap(a),
     (a: Analysis) => a.useDefMap,
     (a: Analysis, udm: Map[AstNode.Id, Symbol]) => a.copy(useDefMap = udm)
   )
+
+  /** Gets the map from symbols to scopes to use for resolving names.
+   * Includes symbols defined by a template expansion. */
+  private def getSymbolScopeMap(a: Analysis): Map[Symbol, Scope] =
+    a.templateExpansion match {
+      case Some(expansion) => a.symbolScopeMap ++ expansion.localScopeMap
+      case None => a.symbolScopeMap
+    }
+
+  /** Gets the scope of a symbol for resolving names. See getSymbolScopeMap. */
+  private def getScope(a: Analysis, symbol: Symbol): Scope =
+    a.templateExpansion.flatMap(_.localScopeMap.get(symbol)) match {
+      case Some(scope) => scope
+      case None => a.symbolScopeMap(symbol)
+    }
 
   override def componentUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     helpers.visitQualIdentNode (NameGroup.Component) (a, node)
@@ -45,7 +60,7 @@ object CheckUses extends BasicUseAnalyzer {
               // The left side is some symbol other than a constant (a qualifier),
               // look up this symbol and add it to the use-def entries
               case Some(qual) =>
-                val scope = a.symbolScopeMap(qual)
+                val scope = getScope(a, qual)
                 val mapping = scope.get (NameGroup.Value) _
                 helpers.getSymbolForName(NameGroup.Value, mapping)(id.id, id.data) match {
                   case Right(value) => Right(Some(value))
@@ -78,29 +93,43 @@ object CheckUses extends BasicUseAnalyzer {
   }
 
   // Check that an implied use (a) is not a member
-  // of a def and (b) does not shadow the required def
+  // of a def, (b) does not shadow the required def, and (c) does not resolve
+  // to a bound template parameter
   override def impliedUse(a: Analysis, iu: ImpliedUse, kind: ImpliedUse.Kind) = {
     val sym = a.useDefMap(iu.id)
-    val symQualifiedName = a.getQualifiedName(sym).toString
     val iuName = iu.name.toString
-    // Check that the name of the def matches the name of the use
-    if symQualifiedName == iuName
-    // OK, they match
-    then Right(a)
-    else {
-      val msg = if symQualifiedName.length < iuName.length
-      // Definition has a shorter name: the use is a member of the definition
-      then s"it has $iuName as a member"
-      // Definition has a longer name: it shadows the required definition
-      else s"it shadows $iuName here"
-      Left(
+    sym match {
+      // A bound template parameter is not a global definition, so it cannot
+      // satisfy an implied use
+      case _: TemplateArgSymbol => Left(
         SemanticError.InvalidSymbol(
-          symQualifiedName,
+          sym.getUnqualifiedName,
           Locations.get(iu.id),
-          msg,
+          s"a template parameter may not satisfy the implied use of $iuName",
           sym.getLoc
         )
       )
+      case _ =>
+        val symQualifiedName = a.getQualifiedName(sym).toString
+        // Check that the name of the def matches the name of the use
+        if symQualifiedName == iuName
+        // OK, they match
+        then Right(a)
+        else {
+          val msg = if symQualifiedName.length < iuName.length
+          // Definition has a shorter name: the use is a member of the definition
+          then s"it has $iuName as a member"
+          // Definition has a longer name: it shadows the required definition
+          else s"it shadows $iuName here"
+          Left(
+            SemanticError.InvalidSymbol(
+              symQualifiedName,
+              Locations.get(iu.id),
+              msg,
+              sym.getLoc
+            )
+          )
+        }
     }
   }
 
@@ -146,7 +175,7 @@ object CheckUses extends BasicUseAnalyzer {
         helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)
       }
       a <- {
-        val scope = a.symbolScopeMap(symbol)
+        val scope = getScope(a, symbol)
         val newNestedScope = a.nestedScope.push(scope)
         val a1 = a.copy(nestedScope = newNestedScope)
         visitList(a1, members, matchModuleMember)
@@ -179,6 +208,7 @@ object CheckUses extends BasicUseAnalyzer {
     }
 
     val oldNestedScope = a.nestedScope
+    val oldTemplateExpansion = a.templateExpansion
     val newNestedScope = getNestedScope(tmpl)
       .push(expansion.paramScope)
       .push(expansion.scope)
@@ -188,12 +218,18 @@ object CheckUses extends BasicUseAnalyzer {
     for {
       // Analyze the inside of the template expansion
       a <- {
-        val a1 = a.copy(nestedScope = newNestedScope)
+        val a1 = a.copy(
+          nestedScope = newNestedScope,
+          templateExpansion = Some(expansion)
+        )
         visitList(a1, members, matchModuleMember)
       }
 
       // Reset the use analysis scope back to the outer scope
-      a <- Right(a.copy(nestedScope = oldNestedScope))
+      a <- Right(a.copy(
+        nestedScope = oldNestedScope,
+        templateExpansion = oldTemplateExpansion
+      ))
 
       // Analyze the parameter list
       a <- {

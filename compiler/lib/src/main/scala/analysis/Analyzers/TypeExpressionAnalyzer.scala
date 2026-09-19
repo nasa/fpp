@@ -315,4 +315,17 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
+  override def templateTypeArg(a: Analysis, arg: Symbol.TemplateTypeArg) = {
+    for {
+      a <- typeNameNode(a, arg.value)
+    } yield a
+  }
+
+  override def templateArgNode(a: Analysis, node: AstNode[Ast.TemplateArg]) =
+    node.data match {
+      case Ast.TemplateArg.Constant(e) => exprNode(a, e)
+      case Ast.TemplateArg.Type(typeName) => typeNameNode(a, typeName)
+      case _ : Ast.TemplateArg.Interface => Right(a)
+    }
+
 }

@@ -1,10 +1,15 @@
 tests="
 constant_param
 duplicate
+enum_state_machine
 expansion
 expansion_template
 expansion_test
 imports
 primitive
+string_type_arg
+topology_instance_param
+topology_subtopology_param
 two_expansions
+two_topologies
 "

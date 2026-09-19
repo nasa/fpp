@@ -297,6 +297,23 @@ case class Analysis(
     for (cis <- getComponentInstanceSymbol(id))
       yield this.componentInstanceMap(cis)
 
+  /** Gets the component instance represented by a use. Strip off any template args. */
+  def getRepresentedComponentInstance(id: AstNode.Id):
+  Result.Result[ComponentInstance] =
+    this.useDefMap(id) match {
+      case cis: Symbol.ComponentInstance => Right(this.componentInstanceMap(cis))
+      case arg: Symbol.TemplateInterfaceArg =>
+        getRepresentedComponentInstance(arg.value.id)
+      case s => Left(
+        SemanticError.InvalidSymbol(
+          s.getUnqualifiedName,
+          Locations.get(id),
+          "not a component instance symbol",
+          s.getLoc
+        )
+      )
+    }
+
   /** Gets an interface instance symbol from the use-def map */
   def getInterfaceInstanceSymbol(id: AstNode.Id): Result.Result[InterfaceInstanceSymbol] =
     this.useDefMap(id) match {
@@ -320,7 +337,17 @@ case class Analysis(
       ii <- {
         iis match {
           case cis: Symbol.ComponentInstance => Right(InterfaceInstance.fromComponentInstance(this.componentInstanceMap(cis)))
-          case top: Symbol.Topology => Right(InterfaceInstance.fromTopology(this.topologyMap(top)))
+          case top: Symbol.Topology => this.topologyMap.get(top) match {
+            case Some(t) => Right(InterfaceInstance.fromTopology(t))
+            case None => Left(
+              SemanticError.InvalidSymbol(
+                top.getUnqualifiedName,
+                Locations.get(id),
+                "this topology could not be resolved before it was used here",
+                top.getLoc
+              )
+            )
+          }
           case ts: Symbol.TemplateInterfaceArg =>
             for {
               ii <- getInterfaceInstance(ts.value.id)

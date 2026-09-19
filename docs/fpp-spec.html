@@ -814,14 +814,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Specifiers_Template-Expansion-Specifiers_Syntax">7.19.1. Syntax</a></li>
 <li><a href="#Specifiers_Template-Expansion-Specifiers_Semantics">7.19.2. Semantics</a></li>
+<li><a href="#Specifiers_Template-Expansion-Specifiers_Examples">7.19.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Examples">7.20. Examples</a></li>
-<li><a href="#Specifiers_Topology-Port-Instance-Specifiers">7.21. Topology Port Instance Specifiers</a>
+<li><a href="#Specifiers_Topology-Port-Instance-Specifiers">7.20. Topology Port Instance Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Topology-Port-Instance-Specifiers_Syntax">7.21.1. Syntax</a></li>
-<li><a href="#Specifiers_Topology-Port-Instance-Specifiers_Semantics">7.21.2. Semantics</a></li>
-<li><a href="#Specifiers_Topology-Port-Instance-Specifiers_Example">7.21.3. Example</a></li>
+<li><a href="#Specifiers_Topology-Port-Instance-Specifiers_Syntax">7.20.1. Syntax</a></li>
+<li><a href="#Specifiers_Topology-Port-Instance-Specifiers_Semantics">7.20.2. Semantics</a></li>
+<li><a href="#Specifiers_Topology-Port-Instance-Specifiers_Example">7.20.3. Example</a></li>
 </ul>
 </li>
 </ul>
@@ -1120,7 +1120,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Ports_Port-Interfaces_Component-Definitions">24.2.2. Component Definitions</a></li>
 <li><a href="#Ports_Port-Interfaces_Component-Instance-Definitions">24.2.3. Component Instance Definitions</a></li>
 <li><a href="#Ports_Port-Interfaces_Topology-Definitions">24.2.4. Topology Definitions</a></li>
-<li><a href="#Ports_Port-Interfaces_Template-Parameter-Definitions">24.2.5. Template Parameter Definitions</a></li>
+<li><a href="#Ports_Port-Interfaces_Port-Interface-Instance-Template-Parameters">24.2.5. Port Interface Instance Template Parameters</a></li>
 </ul>
 </li>
 <li><a href="#Ports_Port-Interface-Instances">24.3. Port Interface Instances</a></li>
@@ -3087,53 +3087,54 @@ never causes another template to be defined or another
 template expansion to occur.</p>
 </div>
 <div class="paragraph">
-<p>Each module template definition <em>M</em> that appears in a model
-must pass the following analysis, regardless of whether it
-is expanded.</p>
+<p>A module template definition <em>M</em> must pass the following analysis,
+which does not depend on the body of <em>M</em>:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Expand <em>M</em> at the point of the definition of <em>M</em>, providing the following
-<a href="#Specifiers_Template-Expansion-Specifiers">arguments for the template
-parameters</a>:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>For each constant template parameter, a literal value of the correct type.</p>
+<p>The syntactic rule stated above.</p>
 </li>
 <li>
-<p>For each port interface instance template parameter, a component
-instance definition that minimally satisfies the interface.</p>
+<p>The rules governing the
+<a href="#Template-Parameter-Lists">template parameter list</a> of <em>M</em>.</p>
 </li>
 <li>
-<p>For each type template parameter, an abstract type definition.</p>
+<p>The rules governing <a href="#Scoping-of-Names_Multiple-Global-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions">conflicting definitions</a>.</p>
+</li>
+<li>
+<p>The rules governing <a href="#Definitions-and-Uses_Uses">definitions and uses</a>.</p>
 </li>
 </ol>
 </div>
-</li>
-<li>
-<p>In the expansion <em>E</em>, do the following:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Construct the <a href="#Definitions-and-Uses_Use-Def-Graph">use-def
-graph</a>, checking for cycles.</p>
-</li>
-<li>
-<p>Compute the types associated with type definition symbols, enumerated
-constant symbols, and type names, except that array size expressions
-and default value expressions are still unevaluated.</p>
-</li>
-<li>
-<p>Perform <a href="#Type-Checking">type checking</a>,
-except that array size expressions and default value expressions in type
-definitions are still unevaluated.</p>
-</li>
-</ol>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="title">Implementation Gap</div>
+<div class="paragraph">
+<p>In this version of FPP, the body of <em>M</em> receives no analysis at the point
+of the definition of <em>M</em>.
+In particular, if no template expansion specifier refers to <em>M</em>, then
+the body of <em>M</em> is checked for syntactic correctness, but it is not
+otherwise analyzed.
+An error that occurs only in the body of <em>M</em>, such as a use of an
+undefined symbol or a type error, is reported at each expansion of <em>M</em>,
+and is not reported at all if <em>M</em> is never expanded.
+The <a href="#Scoping-of-Names_Conflicting-Parameter-Names">rules for conflicting
+parameter names</a> are checked in the same way: at each expansion of <em>M</em>,
+and not at the point of the definition of <em>M</em>.
+As an exception to the above, a
+<a href="#Specifiers_Location-Specifiers">location specifier</a> appearing in the body
+of <em>M</em> is analyzed at the point of the definition of <em>M</em>, whether or not
+<em>M</em> is expanded.</p>
 </div>
-</li>
-</ol>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect3">
@@ -5024,18 +5025,18 @@ topology B {
 
   instance a
 
-  instance B
+  instance A
 
   connections C {
-    a.p -&gt; B.p
+    a.p -&gt; A.p
   }
 
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Here we have imported topology <code>B</code> with the <code>instance</code> keyword, emphasizing
-that <code>B</code> is to be treated as an interface instance with ports.
+<p>Here we have imported topology <code>A</code> with the <code>instance</code> keyword, emphasizing
+that <code>A</code> is to be treated as an interface instance with ports.
 We could also have used <code>import</code> as in the examples above.
 See the section on <a href="#Specifiers_Port-Interface-Instance-Specifiers_Syntax">port
 interface instance specifiers</a>.</p>
@@ -5045,7 +5046,7 @@ interface instance specifiers</a>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+<pre class="prettyprint highlight"><code data-lang="fpp">topology B {
 
   instance a
   instance b
@@ -5105,9 +5106,9 @@ module template T(
   }
 }
 
-# In the expansion, the bound parameter (iOut: IOut, cOut) is in scope.
+# In the expansion, the bound parameter (iOut: IOut, instance cOut) is in scope.
 # After resolution, the connection is cOut.p -&gt; cIn.p.
-expand T(cOut)</code></pre>
+expand T(instance cOut)</code></pre>
 </div>
 </div>
 </div>
@@ -6937,7 +6938,11 @@ target instances.</p>
 <p>The qualified identifier following the keyword <code>instance</code> must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
 a component instance that exists in the enclosing topology,
-after resolving to a <a href="#Definitions_Topology-Definitions_Semantics">partially numbered topology</a>.</p>
+after resolving to a <a href="#Definitions_Topology-Definitions_Semantics">partially numbered topology</a>.
+It may refer to the component instance directly, or it may refer to a
+<a href="#Specifiers_Template-Expansion-Specifiers">port interface instance parameter
+definition</a> that <a href="#Ports_Port-Interface-Instances">represents</a> a component
+instance definition.</p>
 </li>
 <li>
 <p>If the instance sequence <em>I</em> appears, then each qualified identifier
@@ -9247,8 +9252,8 @@ template argument. The type of the expression in <em>A</em> must be
 <a href="#Type-Checking_Type-Conversion">convertible to</a> the type specified in <em>p</em>.</p>
 </li>
 <li>
-<p>If <em>p</em> is an interface instance template parameter, then <em>A</em>
-must be an interface instance template argument.
+<p>If <em>p</em> is a port interface instance template parameter, then <em>A</em>
+must be a port interface instance template argument.
 The qualified identifier in <em>A</em> must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
 a <a href="#Ports_Port-Interface-Instances">port interface instance</a> <em>N</em>.
@@ -9289,9 +9294,8 @@ is called a <strong>type parameter definition</strong>.</p>
 </ol>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="Specifiers_Examples">7.20. Examples</h3>
+<div class="sect3">
+<h4 id="Specifiers_Template-Expansion-Specifiers_Examples">7.19.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">port P
@@ -9321,8 +9325,9 @@ module M {
 </div>
 </div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="Specifiers_Topology-Port-Instance-Specifiers">7.21. Topology Port Instance Specifiers</h3>
+<h3 id="Specifiers_Topology-Port-Instance-Specifiers">7.20. Topology Port Instance Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>topology port instance specifier</strong> specifies a
 port instance in a <a href="#Definitions_Topology-Definitions">topology definition</a>
@@ -9334,7 +9339,7 @@ Such a specifier can be the endpoint of a
 <a href="#Specifiers_Connection-Graph-Specifiers">connection</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Port-Instance-Specifiers_Syntax">7.21.1. Syntax</h4>
+<h4 id="Specifiers_Topology-Port-Instance-Specifiers_Syntax">7.20.1. Syntax</h4>
 <div class="paragraph">
 <p><code>port</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -9343,7 +9348,7 @@ Such a specifier can be the endpoint of a
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Port-Instance-Specifiers_Semantics">7.21.2. Semantics</h4>
+<h4 id="Specifiers_Topology-Port-Instance-Specifiers_Semantics">7.20.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -9361,7 +9366,7 @@ topology</a>, after renaming it with name <em>N</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Port-Instance-Specifiers_Example">7.21.3. Example</h4>
+<h4 id="Specifiers_Topology-Port-Instance-Specifiers_Example">7.20.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">topology T {
@@ -10945,6 +10950,9 @@ is to include annotations as comments in generated code.</p>
 <li>
 <p>A <a href="#State-Machine-Behavior-Elements_State-Definitions_Syntax">state definition member</a>.</p>
 </li>
+<li>
+<p>A <a href="#Template-Parameter-Lists">template parameter</a>.</p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -12053,9 +12061,8 @@ Construct the output model <em>M'</em> as follows:</p>
 <ol class="arabic">
 <li>
 <p>Perform enough analysis on <em>M</em> to
-  <a href="#Definitions_Module-Template-Definitions_Semantics">check all the template
-definitions</a> and to match all template expansion
-  specifiers with the template definitions to which they refer.</p>
+<a href="#Definitions_Module-Template-Definitions_Semantics">check all the template definitions</a> and to
+match all template expansion specifiers with the template definitions to which they refer.</p>
 </li>
 <li>
 <p>For each template expansion specifier <em>S</em> in <em>M</em>,
@@ -14085,7 +14092,7 @@ Each of the following FPP elements has an associated port interface:</p>
 <p>A <a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </li>
 <li>
-<p>A <a href="#Definitions_Module-Template-Definitions">port interface instance template parameter</a>.</p>
+<p>A <a href="#Template-Parameter-Lists">port interface instance template parameter</a>.</p>
 </li>
 </ul>
 </div>
@@ -14166,7 +14173,7 @@ with the port name in <em>n</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Ports_Port-Interfaces_Template-Parameter-Definitions">24.2.5. Template Parameter Definitions</h4>
+<h4 id="Ports_Port-Interfaces_Port-Interface-Instance-Template-Parameters">24.2.5. Port Interface Instance Template Parameters</h4>
 <div class="paragraph">
 <p>For every <a href="#Template-Parameter-Lists">port interface instance template
 parameter</a> <em>P</em>, there
@@ -14210,7 +14217,8 @@ component definition referred to in <em>D</em>.</p>
 <p>For a topology definition, the port interface is given by the definition.</p>
 </li>
 <li>
-<p>For a port interface instance template definition \$(p, A)\$, the port
+<p>For a <a href="#Specifiers_Template-Expansion-Specifiers_Semantics">port interface
+instance parameter definition</a> \$(p, A)\$, the port
 interface is specified in the parameter <em>p</em>.</p>
 </li>
 </ol>
@@ -14360,7 +14368,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-08 12:26:47 -0700
+Last updated 2026-09-19 10:45:43 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
