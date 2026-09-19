@@ -38,51 +38,18 @@ object FPPLocateDefs {
 
   /** Expand templates, returning the translation units with expanded members.
    *  We must expand templates, because the expansions generate definitions
-   *  that we have to locate. */
+   *  that we have to locate.
+   * 
+   * On expansion failure (incomplete model), fall back to unexpanded translation units.
+   */
   private def expandTemplates(
     a: Analysis,
     tul: List[Ast.TransUnit]
-  ): Result.Result[List[Ast.TransUnit]] = {
+  ): Result.Result[List[Ast.TransUnit]] =
     ResolveTemplates.tuList(a, tul) match {
       case Right(aTul) => Right(aTul._2)
-      case Left(error) =>
-        if HasTemplateExpansion.check(tul)
-        then Left(error)
-        else AddStateEnums.transUnitList(tul)
+      case Left(_) => AddStateEnums.transUnitList(tul)
     }
-  }
-
-  /** Does a model contain a template expansion specifier? */
-  private object HasTemplateExpansion extends AstStateVisitor {
-
-    type State = Boolean
-
-    /** Check a list of translation units */
-    def check(tul: List[Ast.TransUnit]): Boolean =
-      visitList(false, tul, transUnit) match {
-        case Right(result) => result
-        case Left(_) => true
-      }
-
-    override def defModuleAnnotatedNode(
-      s: State,
-      aNode: Ast.Annotated[AstNode[Ast.DefModule]]
-    ) = visitList(s, aNode._2.data.members, matchModuleMember)
-
-    override def defModuleTemplateAnnotatedNode(
-      s: State,
-      aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
-    ) = visitList(s, aNode._2.data.members, matchModuleMember)
-
-    override def specTemplateExpandAnnotatedNode(
-      s: State,
-      aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
-    ) = Right(true)
-
-    override def transUnit(s: State, tu: Ast.TransUnit) =
-      visitList(s, tu.members, matchTuMember)
-
-  }
 
   def toolMain(args: Array[String]) =
     Tool(name).mainMethod(args, oparser, Options(), command)

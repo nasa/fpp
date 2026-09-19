@@ -8,19 +8,23 @@ import fpp.compiler.util._
 /** Add dependencies */
 object AddDependencies extends BasicUseAnalyzer {
 
-  override def transUnit(a: Analysis, tu: Ast.TransUnit): Result = {
-    val analyzer = TuAnalyzer(CollectTemplateExpansions.namesIn(tu))
-    analyzer.transUnit(a, tu)
+  /** Add the dependencies of a list of translation units.
+   *  The set of expanded template names must be collected from the whole list,
+   *  because the definition of a template and the expansion of that template
+   *  may appear in different translation units. */
+  def tuList(a: Analysis, tul: List[Ast.TransUnit]): Result = {
+    val analyzer = TuAnalyzer(CollectTemplateExpansions.namesIn(tul))
+    analyzer.visitList(a, tul, analyzer.transUnit)
   }
 
-  /** Collect the names of the templates expanded in a translation unit */
+  /** Collect the names of the templates expanded in a list of translation units */
   private object CollectTemplateExpansions extends AstStateVisitor {
 
     type State = Set[Name.Unqualified]
 
-    /** Get the names of the templates expanded in a translation unit */
-    def namesIn(tu: Ast.TransUnit): State =
-      transUnit(Set[Name.Unqualified](), tu) match {
+    /** Get the names of the templates expanded in a list of translation units */
+    def namesIn(tul: List[Ast.TransUnit]): State =
+      visitList(Set[Name.Unqualified](), tul, transUnit) match {
         case Right(names) => names
         case Left(_) => Set()
       }
@@ -48,9 +52,9 @@ object AddDependencies extends BasicUseAnalyzer {
 
   }
 
-  /** Add the dependencies of one translation unit.
+  /** Add the dependencies of the translation units at one dependency level.
    *  expandedTemplateNames is the set of names of the module templates that
-   *  the translation unit expands. */
+   *  those translation units expand. */
   private final case class TuAnalyzer(
     expandedTemplateNames: Set[Name.Unqualified]
   ) extends BasicUseAnalyzer {

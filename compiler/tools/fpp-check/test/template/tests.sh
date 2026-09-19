@@ -15,6 +15,7 @@ bound_param_capture_ok
 chained_constants
 composition_invalid
 constant_param_array_promote
+constant_param_array_promote_bad_subscript
 constant_with_default
 definition_point_scoping
 definition_point_scoping_ok
@@ -29,6 +30,7 @@ interfaces_invalid_port_instance
 interfaces_invalid_port_instance_name
 interfaces_invalid_port_instance_name_aliased
 interfaces_pattern_explicit_target_ok
+interfaces_pattern_explicit_target_topology
 interfaces_topology_arg_deployment
 interfaces_topology_arg_ok
 interfaces_topology_arg_order_ok
@@ -46,7 +48,11 @@ struct_parameter_bad_arg
 struct_parameter_bad_concat
 struct_parameter_concat_primitives_promote
 struct_parameter_ok
+struct_parameter_omitted_member_ok
 type_arg_string
+type_param_implied_use
 types
 undef_constant_param_type
-undef_interface_param_type"
+undef_interface_param_type
+use_before_expand
+use_before_expand_ok"
