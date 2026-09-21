@@ -177,10 +177,9 @@ To do that, use the following procedure:
 . Run `./install-trace` to install JVM versions of the FPP tools with
 tracing enabled in the `bin` directory.
 
-. Edit the file
-`compiler/lib/src/main/resources/META-INF/native-image/reflect-config.json`
-so that it contains a pair of square brackets `[]` and nothing else.
-This will clear out any old trace information.
+. Delete all files in the directory
+`compiler/lib/src/main/resources/META-INF/native-image`.
+This step will clear out any old trace information.
 
 . Run `./test` to use the installed tools to run the unit tests.
 This step will run the tracing agent and update the trace files.

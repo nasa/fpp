@@ -11,7 +11,10 @@ alias_type()
   run_test "$fpp_options" alias_type && \
     diff_cpp AliasTypeArray && \
     diff -u ATAliasAc.ref.h ATAliasAc.h && \
-    diff -u ATAliasAc.ref.hpp ATAliasAc.hpp
+    diff -u ATAliasAc.ref.hpp ATAliasAc.hpp && \
+    diff_cpp AliasTypeFormatArray && \
+    diff -u ATF32AliasAc.ref.h ATF32AliasAc.h && \
+    diff -u ATF32AliasAc.ref.hpp ATF32AliasAc.hpp
 }
 
 component()

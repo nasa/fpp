@@ -144,11 +144,14 @@ case class ComponentCppWriter (
   }
 
   private def getCppIncludes: CppDoc.Member = {
-    val userHeaders = List(
-      "Fw/Types/Assert.hpp",
-      "Fw/Types/ExternalString.hpp",
-      "Fw/Types/String.hpp",
-      s.getIncludePath(componentSymbol, fileName)
+    val userHeaders = List.concat(
+      guardedList (hasParameters) (List("Fw/Prm/ParamValid.hpp")),
+      List(
+        "Fw/Types/Assert.hpp",
+        "Fw/Types/ExternalString.hpp",
+        "Fw/Types/String.hpp",
+        s.getIncludePath(componentSymbol, fileName)
+      )
     ).sorted.map(CppWriter.headerString).flatMap({
       case s: "#include \"Fw/Types/String.hpp\"" =>
         lines(
