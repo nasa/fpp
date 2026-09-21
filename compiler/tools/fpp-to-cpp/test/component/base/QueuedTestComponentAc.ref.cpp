@@ -4,6 +4,7 @@
 // \brief  cpp file for QueuedTest component base class
 // ======================================================================
 
+#include "Fw/Prm/ParamValid.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #if FW_ENABLE_TEXT_LOGGING
@@ -2223,6 +2224,7 @@ void QueuedTestComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMU32, this->m_param_ParamU32_valid);
 
   _id = _baseId + PARAMID_PARAMF64;
 
@@ -2244,6 +2246,7 @@ void QueuedTestComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMF64, this->m_param_ParamF64_valid);
 
   _id = _baseId + PARAMID_PARAMSTRING;
 
@@ -2271,6 +2274,7 @@ void QueuedTestComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMSTRING, this->m_param_ParamString_valid);
 
   _id = _baseId + PARAMID_PARAMENUM;
 
@@ -2292,6 +2296,7 @@ void QueuedTestComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMENUM, this->m_param_ParamEnum_valid);
 
   _id = _baseId + PARAMID_PARAMARRAY;
 
@@ -2319,6 +2324,7 @@ void QueuedTestComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMARRAY, this->m_param_ParamArray_valid);
 
   _id = _baseId + PARAMID_PARAMSTRUCT;
 
@@ -2340,6 +2346,7 @@ void QueuedTestComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMSTRUCT, this->m_param_ParamStruct_valid);
 
   _id = _baseId + PARAMID_PARAMI32EXT;
 
@@ -2365,6 +2372,7 @@ void QueuedTestComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMI32EXT, this->m_param_ParamI32Ext_valid);
 
   _id = _baseId + PARAMID_PARAMF64EXT;
 
@@ -2390,6 +2398,7 @@ void QueuedTestComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMF64EXT, this->m_param_ParamF64Ext_valid);
 
   _id = _baseId + PARAMID_PARAMSTRINGEXT;
 
@@ -2436,6 +2445,7 @@ void QueuedTestComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMSTRINGEXT, this->m_param_ParamStringExt_valid);
 
   _id = _baseId + PARAMID_PARAMENUMEXT;
 
@@ -2461,6 +2471,7 @@ void QueuedTestComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMENUMEXT, this->m_param_ParamEnumExt_valid);
 
   _id = _baseId + PARAMID_PARAMARRAYEXT;
 
@@ -2507,6 +2518,7 @@ void QueuedTestComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMARRAYEXT, this->m_param_ParamArrayExt_valid);
 
   _id = _baseId + PARAMID_PARAMSTRUCTEXT;
 
@@ -2532,6 +2544,7 @@ void QueuedTestComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMSTRUCTEXT, this->m_param_ParamStructExt_valid);
 
   // Call notifier
   this->parametersLoaded();
@@ -6948,6 +6961,17 @@ void QueuedTestComponentBase ::
   parametersLoaded()
 {
   // Do nothing by default
+}
+
+void QueuedTestComponentBase ::
+  parameterLoaded(
+      FwPrmIdType id,
+      Fw::ParamValid valid
+  )
+{
+  if (FW_PARAM_OK(valid)) {
+    this->parameterUpdated(id);
+  }
 }
 
 // ----------------------------------------------------------------------
