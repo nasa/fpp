@@ -4,6 +4,7 @@
 // \brief  cpp file for QueuedParams component base class
 // ======================================================================
 
+#include "Fw/Prm/ParamValid.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #if FW_ENABLE_TEXT_LOGGING
@@ -1685,6 +1686,7 @@ void QueuedParamsComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMU32, this->m_param_ParamU32_valid);
 
   _id = _baseId + PARAMID_PARAMF64;
 
@@ -1706,6 +1708,7 @@ void QueuedParamsComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMF64, this->m_param_ParamF64_valid);
 
   _id = _baseId + PARAMID_PARAMSTRING;
 
@@ -1733,6 +1736,7 @@ void QueuedParamsComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMSTRING, this->m_param_ParamString_valid);
 
   _id = _baseId + PARAMID_PARAMENUM;
 
@@ -1754,6 +1758,7 @@ void QueuedParamsComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMENUM, this->m_param_ParamEnum_valid);
 
   _id = _baseId + PARAMID_PARAMARRAY;
 
@@ -1781,6 +1786,7 @@ void QueuedParamsComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMARRAY, this->m_param_ParamArray_valid);
 
   _id = _baseId + PARAMID_PARAMSTRUCT;
 
@@ -1802,6 +1808,7 @@ void QueuedParamsComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMSTRUCT, this->m_param_ParamStruct_valid);
 
   // Call notifier
   this->parametersLoaded();
@@ -3439,6 +3446,17 @@ void QueuedParamsComponentBase ::
   parametersLoaded()
 {
   // Do nothing by default
+}
+
+void QueuedParamsComponentBase ::
+  parameterLoaded(
+      FwPrmIdType id,
+      Fw::ParamValid valid
+  )
+{
+  if (FW_PARAM_OK(valid)) {
+    this->parameterUpdated(id);
+  }
 }
 
 // ----------------------------------------------------------------------
