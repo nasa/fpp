@@ -1,7 +1,8 @@
+import os
 import re
+import shutil
 import subprocess
 import sys
-import shutil
 
 from pathlib import Path
 
@@ -34,6 +35,14 @@ def java_major_version(java):
         return int(match.group(2))
     return major
 
+def find_java():
+    java_home = os.environ.get("JAVA_HOME")
+    if java_home:
+        candidate = Path(java_home) / "bin" / ("java.exe" if os.name == "nt" else "java")
+        if candidate.is_file():
+            return str(candidate), "JAVA_HOME"
+    return shutil.which("java"), "PATH"
+
 def main():
     """ Run fpp inferring a subcommand from the provided executable path
 
@@ -58,19 +67,20 @@ def main():
     # Then check for the JAR file
     elif jar_file.exists():
         # Check for java availability when running the JAR file
-        java = shutil.which("java")
+        java, java_source = find_java()
         if not java:
-            print(f"[ERROR] {sys.argv[0]} requires 'java'. Please install 'java' and ensure it is available on the PATH.")
+            print(f"[ERROR] {sys.argv[0]} requires 'java'. Please install 'java' and ensure it is available at JAVA_HOME or on the PATH.", file=sys.stderr)
             sys.exit(-23)
         # Check the java version, so that a too-old JVM produces a clear message
         # instead of an UnsupportedClassVersionError
         version = java_major_version(java)
         if version is not None and version < MINIMUM_JAVA_VERSION:
-            print(f"[ERROR] {sys.argv[0]} requires Java {MINIMUM_JAVA_VERSION} or later, but '{java}' is Java {version}.")
+            print(f"[ERROR] {sys.argv[0]} requires Java {MINIMUM_JAVA_VERSION} or later, but '{java}' is Java {version}.", file=sys.stderr)
+            print(f"[ERROR] note: searched JAVA_HOME, then PATH; found this java in {java_source}", file=sys.stderr)
             sys.exit(-23)
         process = subprocess.run([java] + JAVA_WARNING_FLAGS + ["-jar", str(jar_file)] + base_arguments)
     else:
-        print(f"[ERROR] Neither {binary_file} nor {jar_file} could be found. Please ensure fpp is installed correctly.")
+        print(f"[ERROR] Neither {binary_file} nor {jar_file} could be found. Please ensure fpp is installed correctly.", file=sys.stderr)
         sys.exit(-42)
     sys.exit(process.returncode)
 
