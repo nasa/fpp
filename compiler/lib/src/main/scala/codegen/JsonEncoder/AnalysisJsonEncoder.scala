@@ -81,7 +81,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
       Json.obj(
         map.toList
           .sortBy(_._1.getNodeId)
-          .map { case (k, v) => (ke(k), v.asJson) }: _*
+          .map { case (k, v) => (ke(k), v.asJson) }*
       )
     }
 
@@ -94,7 +94,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
       Json.obj(
         map.toList
           .sortBy(_._1)
-          .map { case (k, v) => (ke(k), v.asJson) }: _*
+          .map { case (k, v) => (ke(k), v.asJson) }*
       )
     }
 
@@ -107,7 +107,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
       Json.obj(
         map.toList
           .map { case (k, v) => (ke(k), ve(v)) }
-          .sortBy(_._1): _*
+          .sortBy(_._1)*
       )
     }
 

@@ -37,7 +37,7 @@ object FPPLocateUses {
       tulFiles <- Right(tul.take(tulFiles.length))
       a <- UsedSymbols.visitList(a, tulFiles, UsedSymbols.transUnit)
     } yield {
-      val list = a.usedSymbolSet.flatMap(writeUsedSymbol(a, options) _).toList
+      val list = a.usedSymbolSet.flatMap(writeUsedSymbol(a, options)).toList
       mapSeq(list, System.out.println(_))
     }
   }
