@@ -41,6 +41,9 @@ Each of the following FPP elements has an associated port interface:
 
 * A <<Template-Parameter-Lists,port interface instance template parameter>>.
 
+* A <<Specifiers_Template-Expansion-Specifiers_Semantics,port interface
+instance parameter definition>>.
+
 ==== Port Interface Definitions
 
 For every port interface definition _D_, there is an associated
@@ -73,7 +76,7 @@ For every component instance definition _D_, there is an associated port
 interface _I_.
 It is the port interface associated with the
 <<Ports_Port-Interfaces_Component-Definitions,component definition>>
-referred to in _I_.
+referred to in _D_.
 
 ==== Topology Definitions
 
@@ -95,7 +98,20 @@ with the port name in _n_.
 For every <<Template-Parameter-Lists,port interface instance template
 parameter>> _P_, there
 is an associated port interface _I_.
-It is given by the port interface definition referred to in _P_.
+It is the port interface associated with the
+<<Ports_Port-Interfaces_Port-Interface-Definitions,port interface definition>>
+referred to in _P_.
+
+==== Port Interface Instance Parameter Definitions
+
+For every <<Specifiers_Template-Expansion-Specifiers_Semantics,port interface
+instance parameter definition>> stem:[(p, A)], there is an associated
+port interface _I_.
+It is the port interface associated with the
+<<Ports_Port-Interfaces_Port-Interface-Instance-Template-Parameters,port
+interface instance template parameter>> _p_.
+_I_ is a <<Ports_Sub-Interfaces,sub-interface>> of the port interface of the
+<<Ports_Port-Interface-Instances,port interface instance>> to which _A_ refers.
 
 === Port Interface Instances
 
@@ -120,7 +136,9 @@ Each of these elements has an *associated port interface* _I_:
 
 . For a <<Specifiers_Template-Expansion-Specifiers_Semantics,port interface
   instance parameter definition>> stem:[(p, A)], the port
-  interface is specified in the parameter _p_.
+  interface is given by the
+  <<Ports_Port-Interfaces_Port-Interface-Instance-Template-Parameters,template
+  parameter>> _p_.
 
 Each port interface instance *represents* a component instance definition
 or topology definition _D_:

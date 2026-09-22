@@ -39,36 +39,71 @@ This rule ensures that <<Expansion-of-Templates,expanding a template>>
 never causes another template to be defined or another
 template expansion to occur.
 
-A module template definition _M_ must pass the following analysis,
-which does not depend on the body of _M_:
+Each module template definition _M_ that appears in a model
+must pass the following analysis, regardless of whether it
+is expanded.
+
+. Expand _M_ at the point of the definition of _M_, providing the following
+  <<Specifiers_Template-Expansion-Specifiers,arguments for the template
+  parameters>>:
+
+.. For each constant template parameter, a literal value of the correct type.
+
+.. For each port interface instance template parameter, a component
+   instance definition that minimally satisfies the interface.
+
+.. For each type template parameter, an abstract type definition.
+
+. In the expansion _E_, do the following:
+
+.. Construct the <<Definitions-and-Uses_Use-Def-Graph,use-def
+   graph>>, checking for cycles.
+
+.. Compute the types associated with type definition symbols, enumerated
+   constant symbols, and type names, except that array size expressions
+   and default value expressions are still unevaluated.
+
+.. Perform <<Type-Checking,type checking>>,
+   except that array size expressions and default value expressions in type
+   definitions are still unevaluated.
+
+.. For each <<Specifiers_Connection-Graph-Specifiers_Syntax,endpoint>>
+   _Q_ `.` _p_ of each connection appearing in each
+   <<Definitions_Topology-Definitions,topology definition>> in _E_:
+
+... Check that _Q_ refers to a
+   <<Ports_Port-Interface-Instances,port interface instance>> _N_ that contains
+   the port instance _p_.
+
+... Check that _p_ is the proper <<Specifiers_Connection-Graph-Specifiers_Semantics,direction>> in the connection where it appears.
+
+[NOTE]
+.Implementation Gap
+====
+This version of FPP does not implement the analysis stated above.
+At the point of the definition of _M_, it checks only the following:
 
 . The syntactic rule stated above.
 
 . The rules governing the
   <<Template-Parameter-Lists,template parameter list>> of _M_.
 
-. The rules governing <<Scoping-of-Names_Multiple-Global-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions,conflicting definitions>>.
+. The rules governing
+  <<Scoping-of-Names_Multiple-Global-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions,conflicting definitions>>,
+  as they apply to the name of _M_.
 
-. The rules governing <<Definitions-and-Uses_Uses,definitions and uses>>.
+. The rules governing any
+  <<Specifiers_Location-Specifiers,location specifier>> appearing in the body
+  of _M_.
 
-[NOTE] 
-.Implementation Gap
-==== 
-In this version of FPP, the body of _M_ receives no analysis at the point
-of the definition of _M_.
-In particular, if no template expansion specifier refers to _M_, then
-the body of _M_ is checked for syntactic correctness, but it is not
-otherwise analyzed.
+Otherwise the body of _M_ is checked for syntactic correctness, but it is
+not analyzed.
 An error that occurs only in the body of _M_, such as a use of an
 undefined symbol or a type error, is reported at each expansion of _M_,
 and is not reported at all if _M_ is never expanded.
 The <<Scoping-of-Names_Conflicting-Parameter-Names,rules for conflicting
 parameter names>> are checked in the same way: at each expansion of _M_,
 and not at the point of the definition of _M_.
-As an exception to the above, a
-<<Specifiers_Location-Specifiers,location specifier>> appearing in the body
-of _M_ is analyzed at the point of the definition of _M_, whether or not
-_M_ is expanded.
 ====
 
 ==== Example

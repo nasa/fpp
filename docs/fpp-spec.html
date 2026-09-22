@@ -1121,6 +1121,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Ports_Port-Interfaces_Component-Instance-Definitions">24.2.3. Component Instance Definitions</a></li>
 <li><a href="#Ports_Port-Interfaces_Topology-Definitions">24.2.4. Topology Definitions</a></li>
 <li><a href="#Ports_Port-Interfaces_Port-Interface-Instance-Template-Parameters">24.2.5. Port Interface Instance Template Parameters</a></li>
+<li><a href="#Ports_Port-Interfaces_Port-Interface-Instance-Parameter-Definitions">24.2.6. Port Interface Instance Parameter Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Ports_Port-Interface-Instances">24.3. Port Interface Instances</a></li>
@@ -3087,23 +3088,68 @@ never causes another template to be defined or another
 template expansion to occur.</p>
 </div>
 <div class="paragraph">
-<p>A module template definition <em>M</em> must pass the following analysis,
-which does not depend on the body of <em>M</em>:</p>
+<p>Each module template definition <em>M</em> that appears in a model
+must pass the following analysis, regardless of whether it
+is expanded.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The syntactic rule stated above.</p>
+<p>Expand <em>M</em> at the point of the definition of <em>M</em>, providing the following
+<a href="#Specifiers_Template-Expansion-Specifiers">arguments for the template
+parameters</a>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>For each constant template parameter, a literal value of the correct type.</p>
 </li>
 <li>
-<p>The rules governing the
-<a href="#Template-Parameter-Lists">template parameter list</a> of <em>M</em>.</p>
+<p>For each port interface instance template parameter, a component
+instance definition that minimally satisfies the interface.</p>
 </li>
 <li>
-<p>The rules governing <a href="#Scoping-of-Names_Multiple-Global-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions">conflicting definitions</a>.</p>
+<p>For each type template parameter, an abstract type definition.</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
-<p>The rules governing <a href="#Definitions-and-Uses_Uses">definitions and uses</a>.</p>
+<p>In the expansion <em>E</em>, do the following:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Construct the <a href="#Definitions-and-Uses_Use-Def-Graph">use-def
+graph</a>, checking for cycles.</p>
+</li>
+<li>
+<p>Compute the types associated with type definition symbols, enumerated
+constant symbols, and type names, except that array size expressions
+and default value expressions are still unevaluated.</p>
+</li>
+<li>
+<p>Perform <a href="#Type-Checking">type checking</a>,
+except that array size expressions and default value expressions in type
+definitions are still unevaluated.</p>
+</li>
+<li>
+<p>For each <a href="#Specifiers_Connection-Graph-Specifiers_Syntax">endpoint</a>
+<em>Q</em> <code>.</code> <em>p</em> of each connection appearing in each
+<a href="#Definitions_Topology-Definitions">topology definition</a> in <em>E</em>:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Check that <em>Q</em> refers to a
+<a href="#Ports_Port-Interface-Instances">port interface instance</a> <em>N</em> that contains
+the port instance <em>p</em>.</p>
+</li>
+<li>
+<p>Check that <em>p</em> is the proper <a href="#Specifiers_Connection-Graph-Specifiers_Semantics">direction</a> in the connection where it appears.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
@@ -3116,21 +3162,39 @@ which does not depend on the body of <em>M</em>:</p>
 <td class="content">
 <div class="title">Implementation Gap</div>
 <div class="paragraph">
-<p>In this version of FPP, the body of <em>M</em> receives no analysis at the point
-of the definition of <em>M</em>.
-In particular, if no template expansion specifier refers to <em>M</em>, then
-the body of <em>M</em> is checked for syntactic correctness, but it is not
-otherwise analyzed.
+<p>This version of FPP does not implement the analysis stated above.
+At the point of the definition of <em>M</em>, it checks only the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The syntactic rule stated above.</p>
+</li>
+<li>
+<p>The rules governing the
+<a href="#Template-Parameter-Lists">template parameter list</a> of <em>M</em>.</p>
+</li>
+<li>
+<p>The rules governing
+<a href="#Scoping-of-Names_Multiple-Global-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions">conflicting definitions</a>,
+as they apply to the name of <em>M</em>.</p>
+</li>
+<li>
+<p>The rules governing any
+<a href="#Specifiers_Location-Specifiers">location specifier</a> appearing in the body
+of <em>M</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Otherwise the body of <em>M</em> is checked for syntactic correctness, but it is
+not analyzed.
 An error that occurs only in the body of <em>M</em>, such as a use of an
 undefined symbol or a type error, is reported at each expansion of <em>M</em>,
 and is not reported at all if <em>M</em> is never expanded.
 The <a href="#Scoping-of-Names_Conflicting-Parameter-Names">rules for conflicting
 parameter names</a> are checked in the same way: at each expansion of <em>M</em>,
-and not at the point of the definition of <em>M</em>.
-As an exception to the above, a
-<a href="#Specifiers_Location-Specifiers">location specifier</a> appearing in the body
-of <em>M</em> is analyzed at the point of the definition of <em>M</em>, whether or not
-<em>M</em> is expanded.</p>
+and not at the point of the definition of <em>M</em>.</p>
 </div>
 </td>
 </tr>
@@ -8530,7 +8594,7 @@ if the port interface instance <em>I</em> to which <em>S</em> refers
 <a href="#Ports_Port-Interface-Instances">represents <em>D</em></a>.</p>
 </div>
 <div class="paragraph">
-<p>If the qualified identifier refers to a topology definition <em>D</em>,
+<p>If the port interface instance specifier represents a topology definition <em>D</em>,
 then <em>D</em> must not define a
 <a href="#Definitions_Topology-Definitions_Semantics">deployment topology</a>.</p>
 </div>
@@ -12007,6 +12071,26 @@ in the type <code>string size 100</code>:</p>
 </div>
 </div>
 <div class="paragraph">
+<p>A <a href="#Definitions">bound parameter definition</a> <em>B</em> may not satisfy an implied use.
+An error occurs if the name of an implied use resolves to <em>B</em>.
+For example, this model is illegal, because inside the expansion of <code>T</code>
+the <a href="#Specifiers_Template-Expansion-Specifiers">type parameter definition</a>
+for <code>FwSizeStoreType</code> hides the framework definition <code>FwSizeStoreType</code>
+at the point of the <a href="#Type-Names_String-Type-Names">implied use</a> in the
+type <code>string size 256</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T(type FwSizeStoreType) {
+
+  array A = [1] string size 256
+
+}
+
+expand T(type U32)</code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>An error also occurs if the rules
 for resolving <a href="#Expressions_Dot-Expressions_Semantics">dot expressions</a>
 cause an implied constant use to be resolved to a member
@@ -14095,6 +14179,10 @@ Each of the following FPP elements has an associated port interface:</p>
 <li>
 <p>A <a href="#Template-Parameter-Lists">port interface instance template parameter</a>.</p>
 </li>
+<li>
+<p>A <a href="#Specifiers_Template-Expansion-Specifiers_Semantics">port interface
+instance parameter definition</a>.</p>
+</li>
 </ul>
 </div>
 <div class="sect3">
@@ -14146,7 +14234,7 @@ to a port instance.</p>
 interface <em>I</em>.
 It is the port interface associated with the
 <a href="#Ports_Port-Interfaces_Component-Definitions">component definition</a>
-referred to in <em>I</em>.</p>
+referred to in <em>D</em>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -14179,7 +14267,22 @@ with the port name in <em>n</em>.</p>
 <p>For every <a href="#Template-Parameter-Lists">port interface instance template
 parameter</a> <em>P</em>, there
 is an associated port interface <em>I</em>.
-It is given by the port interface definition referred to in <em>P</em>.</p>
+It is the port interface associated with the
+<a href="#Ports_Port-Interfaces_Port-Interface-Definitions">port interface definition</a>
+referred to in <em>P</em>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Ports_Port-Interfaces_Port-Interface-Instance-Parameter-Definitions">24.2.6. Port Interface Instance Parameter Definitions</h4>
+<div class="paragraph">
+<p>For every <a href="#Specifiers_Template-Expansion-Specifiers_Semantics">port interface
+instance parameter definition</a> \$(p, A)\$, there is an associated
+port interface <em>I</em>.
+It is the port interface associated with the
+<a href="#Ports_Port-Interfaces_Port-Interface-Instance-Template-Parameters">port
+interface instance template parameter</a> <em>p</em>.
+<em>I</em> is a <a href="#Ports_Sub-Interfaces">sub-interface</a> of the port interface of the
+<a href="#Ports_Port-Interface-Instances">port interface instance</a> to which <em>A</em> refers.</p>
 </div>
 </div>
 </div>
@@ -14220,7 +14323,9 @@ component definition referred to in <em>D</em>.</p>
 <li>
 <p>For a <a href="#Specifiers_Template-Expansion-Specifiers_Semantics">port interface
 instance parameter definition</a> \$(p, A)\$, the port
-interface is specified in the parameter <em>p</em>.</p>
+interface is given by the
+<a href="#Ports_Port-Interfaces_Port-Interface-Instance-Template-Parameters">template
+parameter</a> <em>p</em>.</p>
 </li>
 </ol>
 </div>
@@ -14369,7 +14474,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-21 15:49:27 -0700
+Last updated 2026-09-22 08:40:42 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
