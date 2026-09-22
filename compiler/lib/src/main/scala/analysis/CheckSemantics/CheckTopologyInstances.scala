@@ -56,7 +56,7 @@ object CheckTopologyInstances
     val instanceNode = node.data.instance
     for {
       symbol <- a.getInterfaceInstanceSymbol(instanceNode.id)
-      topology <- a.topology.get.addInstanceSymbol(symbol, Locations.get(node.id))
+      topology <- a.topology.get.addInstanceSymbol(a, symbol, Locations.get(node.id))
     }
     yield a.copy(topology = Some(topology))
   }

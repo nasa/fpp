@@ -196,7 +196,7 @@ case class CppWriterState(
             ).runtimeChecked
             a1.usedSymbolSet.flatMap(getIncludeFiles).toList
           case arg: Symbol.TemplateInterfaceArg =>
-            a.useDefMap.get(arg.getNodeId).toList.flatMap(getIncludeFiles)
+            a.getRepresentedSymbolOpt(arg).toList.flatMap(getIncludeFiles)
           case _: Symbol.Constant => List()
           case _: Symbol.EnumConstant => List()
           case _: Symbol.Module => List()

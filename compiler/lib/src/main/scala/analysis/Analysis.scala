@@ -297,22 +297,37 @@ case class Analysis(
     for (cis <- getComponentInstanceSymbol(id))
       yield this.componentInstanceMap(cis)
 
+  /** Gets the use represented by a use. If the use refers to a bound template
+   *  parameter, then the represented use is the use appearing in the template
+   *  argument, resolved recursively. Otherwise the use represents itself. */
+  def getRepresentedUse(id: AstNode.Id): AstNode.Id =
+    this.useDefMap.get(id) match {
+      case Some(arg: TemplateArgSymbol) => getRepresentedUse(arg.getNodeId)
+      case _ => id
+    }
+
+  /** Gets the symbol represented by a use. Strips off any bound template
+   *  parameters. Returns None if the represented use refers to no symbol,
+   *  e.g., if the template argument is a literal value or a primitive
+   *  type name. */
+  def getRepresentedSymbolOpt(id: AstNode.Id): Option[Symbol] =
+    this.useDefMap.get(getRepresentedUse(id))
+
+  /** Gets the symbol represented by a symbol. See getRepresentedSymbolOpt. */
+  def getRepresentedSymbolOpt(symbol: Symbol): Option[Symbol] =
+    symbol match {
+      case arg: TemplateArgSymbol => getRepresentedSymbolOpt(arg.getNodeId)
+      case _ => Some(symbol)
+    }
+
+  /** Gets the topology symbol represented by a symbol, if there is one */
+  def getRepresentedTopologySymbolOpt(symbol: Symbol): Option[Symbol.Topology] =
+    getRepresentedSymbolOpt(symbol).collect { case ts: Symbol.Topology => ts }
+
   /** Gets the component instance represented by a use. Strip off any template args. */
   def getRepresentedComponentInstance(id: AstNode.Id):
   Result.Result[ComponentInstance] =
-    this.useDefMap(id) match {
-      case cis: Symbol.ComponentInstance => Right(this.componentInstanceMap(cis))
-      case arg: Symbol.TemplateInterfaceArg =>
-        getRepresentedComponentInstance(arg.value.id)
-      case s => Left(
-        SemanticError.InvalidSymbol(
-          s.getUnqualifiedName,
-          Locations.get(id),
-          "not a component instance symbol",
-          s.getLoc
-        )
-      )
-    }
+    getComponentInstance(getRepresentedUse(id))
 
   /** Gets an interface instance symbol from the use-def map */
   def getInterfaceInstanceSymbol(id: AstNode.Id): Result.Result[InterfaceInstanceSymbol] =

@@ -48,16 +48,9 @@ case class Topology(
   def getName = aNode._2.data.name
 
   /** Gets the symbols of the topologies imported into this topology. */
-  def getImportedTopologySymbols(a: Analysis): List[Symbol.Topology] = {
-    def boundTopology(symbol: Symbol): Option[Symbol.Topology] = symbol match {
-      case ts: Symbol.Topology => Some(ts)
-      case arg: Symbol.TemplateInterfaceArg =>
-        a.useDefMap.get(arg.value.id).flatMap(boundTopology)
-      case _ => None
-    }
+  def getImportedTopologySymbols(a: Analysis): List[Symbol.Topology] =
     directTopologies.keys.toList ++
-      directTemplateArgs.keys.toList.flatMap(boundTopology)
-  }
+      directTemplateArgs.keys.toList.flatMap(a.getRepresentedTopologySymbolOpt)
 
   /** Add a port to the topology */
   def addPortNode(
@@ -199,64 +192,54 @@ case class Topology(
 
   /** Add an instance that must be unique */
   def addInstanceSymbol(
+    a: Analysis,
     symbol: InterfaceInstanceSymbol,
     loc: Location
-  ): Result.Result[Topology] =
-    symbol match {
-      case ci: Symbol.ComponentInstance =>
-        directComponentInstances.get(ci) match {
-          case Some(prevLoc) => Left(
-            SemanticError.DuplicateInstance(
-              symbol.getUnqualifiedName,
-              loc,
-              prevLoc
-            )
+  ): Result.Result[Topology] = {
+    // Check that the symbol is not already an instance of this topology
+    def checkNotDuplicate(prevLocOpt: Option[Location]): Result.Result[Unit] =
+      prevLocOpt match {
+        case Some(prevLoc) => Left(
+          SemanticError.DuplicateInstance(
+            symbol.getUnqualifiedName,
+            loc,
+            prevLoc
           )
-          case None =>
-            val map = directComponentInstances + (ci -> loc)
-            Right(this.copy(directComponentInstances = map))
-        }
-
-      case top: Symbol.Topology =>
-        directTopologies.get(top) match {
-          case Some(prevLoc) => Left(
-            SemanticError.DuplicateInstance(
-              symbol.getUnqualifiedName,
-              loc,
-              prevLoc
-            )
+        )
+        case None => Right(())
+      }
+    // Check that the symbol does not represent a deployment topology.
+    // The symbol may be a bound template parameter, so resolve it first.
+    def checkNotDeployment: Result.Result[Unit] =
+      a.getRepresentedTopologySymbolOpt(symbol) match {
+        case Some(top) if top.node._2.data.isDeployment => Left(
+          SemanticError.InvalidSymbol(
+            symbol.getUnqualifiedName,
+            loc,
+            "use of deployment topology is not allowed here",
+            top.getLoc
           )
-          case None =>
-            if !top.node._2.data.isDeployment
-            then
-              val map = directTopologies + (top -> loc)
-              Right(this.copy(directTopologies = map))
-            else
-              val defLoc = Locations.get(top.node._2.id)
-              Left(
-                SemanticError.InvalidSymbol(
-                  symbol.getUnqualifiedName,
-                  loc,
-                  "use of deployment topology is not allowed here",
-                  defLoc
-                )
-              )
-        }
-
-      case arg: Symbol.TemplateInterfaceArg =>
-        directTemplateArgs.get(arg) match {
-          case Some(prevLoc) => Left(
-            SemanticError.DuplicateInstance(
-              symbol.getUnqualifiedName,
-              loc,
-              prevLoc
+        )
+        case _ => Right(())
+      }
+    for {
+      _ <- checkNotDeployment
+      t <- symbol match {
+        case ci: Symbol.ComponentInstance =>
+          for (_ <- checkNotDuplicate(directComponentInstances.get(ci)))
+            yield this.copy(
+              directComponentInstances = directComponentInstances + (ci -> loc)
             )
-          )
-          case None =>
-            val map = directTemplateArgs + (arg -> loc)
-            Right(this.copy(directTemplateArgs = map))
-        }
+        case top: Symbol.Topology =>
+          for (_ <- checkNotDuplicate(directTopologies.get(top)))
+            yield this.copy(directTopologies = directTopologies + (top -> loc))
+        case arg: Symbol.TemplateInterfaceArg =>
+          for (_ <- checkNotDuplicate(directTemplateArgs.get(arg)))
+            yield this.copy(directTemplateArgs = directTemplateArgs + (arg -> loc))
+      }
     }
+    yield t
+  }
 
   /** Assigns a port number to a connection at a port instance */
   def assignPortNumber(
