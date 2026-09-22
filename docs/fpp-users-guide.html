@@ -772,7 +772,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Compiling-the-Generated-Code">18.2.5. Compiling the Generated Code</a></li>
 </ul>
 </li>
-<li><a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">18.3. Formatting FPP Source</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source">18.3. Rewriting FPP Source</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Visualizing-Topologies">18.4. Visualizing Topologies</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">18.5. Generating Ground Dictionaries</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">18.6. Identifying Generated Files</a>
@@ -13208,15 +13208,21 @@ beginning of this section.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">module template T {
+
   constant c = 0
+
 }
 
 module M {
+
   expand T
+
 }
 
 module N {
+
   expand T
+
 }</code></pre>
 </div>
 </div>
@@ -13239,6 +13245,70 @@ A module template definition is an
 module <code>M</code> and once inside module <code>N</code>.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>When you run the FPP analyzer on this model, it carries out a
+process called <strong>template expansion</strong>.
+Template expansion causes the syntax elements specified in the
+template definition to be replicated at each expansion point.
+After template expansion, the model looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T {
+
+  constant c = 0
+
+}
+
+module M {
+
+  expand T {
+
+    constant c = 0
+
+  }
+
+}
+
+module N {
+
+  expand T {
+
+    constant c = 0
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can see this by running the tool <code>fpp-to-fpp -t</code> on the
+original model shown above.
+We will explain this tool in the section on
+<a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source">rewriting FPP source</a>.</p>
+</div>
+<div class="paragraph">
+<p>Notice that in the expanded version, each template expansion
+contains within it the constant specified in the template
+definition.
+Also, because we put each expansion in a separate module,
+each expanded definition has a separate name.
+If we tried to expand the same template twice at the top
+level, we would get an error, because the names would clash.
+(Try this in <code>fpp-check</code>. Note that we have to run <code>fpp-check</code>
+to get the error, because <code>fpp-to-fpp</code> just does syntactic
+expansion, not semantic error checking.)</p>
+</div>
+<div class="paragraph">
+<p>Notice also that each of the expanded templates has the
+syntax <code>expand { &#8230;&#8203; }</code> around it.
+The purpose of this extra bit of syntax is to
+keep track of arguments to template parameters and
+scopes of definitions.
+We will explain these concepts below.
+In this simple example, the expanded templates behave
+in the same way as if the syntax <code>expand { &#8230;&#8203; }</code> were not there.</p>
 </div>
 </div>
 <div class="sect2">
@@ -13529,15 +13599,15 @@ constant b = a</code></pre>
 above.</p>
 </li>
 <li>
-<p>Run <code>fpp-format -i b.fpp</code>.</p>
+<p>Run <code>fpp-to-fpp -i b.fpp</code>.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p><code>fpp-format</code> is a tool for formatting FPP source files.
+<p><code>fpp-to-fpp</code> is a tool for rewriting FPP source files.
 It also can expand include specifiers.
-<code>fpp-format</code> is discussed further in the section on
-<a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">formatting FPP source</a>.</p>
+<code>fpp-to-fpp</code> is discussed further in the section on
+<a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source">rewriting FPP source</a>.</p>
 </div>
 <div class="paragraph">
 <p>As mentioned above, the path is relative to the directory
@@ -15665,7 +15735,7 @@ and clang compiler flags:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Formatting-FPP-Source">18.3. Formatting FPP Source</h3>
+<h3 id="Analyzing-and-Translating-Models_Rewriting-FPP-Source">18.3. Rewriting FPP Source</h3>
 <div class="paragraph">
 <p>TODO: Give the new name and explain the new purpose of the tool:
 not formatting, but rewriting with expansion.</p>
@@ -17510,7 +17580,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-22 11:37:24 -0700
+Last updated 2026-09-22 13:05:20 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

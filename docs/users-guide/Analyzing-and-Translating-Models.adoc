@@ -710,7 +710,7 @@ When using clang, the following flags must also be set:
 -Wno-vla-extension
 ----
 
-=== Formatting FPP Source
+=== Rewriting FPP Source
 
 TODO: Give the new name and explain the new purpose of the tool:
 not formatting, but rewriting with expansion.

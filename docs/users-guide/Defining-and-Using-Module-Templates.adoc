@@ -39,15 +39,21 @@ beginning of this section.
 [source,fpp]
 ----
 module template T {
+
   constant c = 0
+
 }
 
 module M {
+
   expand T
+
 }
 
 module N {
+
   expand T
+
 }
 ----
 
@@ -63,6 +69,66 @@ A module template definition is an
 
 . We have expanded the template `T` twice, once inside
 module `M` and once inside module `N`.
+
+When you run the FPP analyzer on this model, it carries out a
+process called *template expansion*.
+Template expansion causes the syntax elements specified in the
+template definition to be replicated at each expansion point.
+After template expansion, the model looks like this:
+
+[source,fpp]
+--------
+module template T {
+
+  constant c = 0
+
+}
+
+module M {
+
+  expand T {
+
+    constant c = 0
+
+  }
+
+}
+
+module N {
+
+  expand T {
+
+    constant c = 0
+
+  }
+
+}
+--------
+
+You can see this by running the tool `fpp-to-fpp -t` on the
+original model shown above.
+We will explain this tool in the section on 
+<<Analyzing-and-Translating-Models_Rewriting-FPP-Source,rewriting FPP source>>.
+
+Notice that in the expanded version, each template expansion
+contains within it the constant specified in the template
+definition.
+Also, because we put each expansion in a separate module,
+each expanded definition has a separate name.
+If we tried to expand the same template twice at the top
+level, we would get an error, because the names would clash.
+(Try this in `fpp-check`. Note that we have to run `fpp-check`
+to see this error, because `fpp-to-fpp` just does syntactic
+expansion, not semantic error checking.)
+
+Notice also that each of the expanded templates has the
+syntax `expand { ... }` around it.
+The purpose of this extra bit of syntax is to
+keep track of arguments to template parameters and
+scopes of definitions.
+We will explain these concepts below.
+In this simple example, the expanded templates behave
+in the same way as if the syntax `expand { ... }` were not there.
 
 === Module Template Parameters
 
