@@ -5,6 +5,7 @@ active_no_stack_size
 conflicting_ids
 conflicting_ids_empty_range_first
 conflicting_ids_empty_range_second
+conflicting_ids_record
 invalid_negative_int
 large_int
 ok

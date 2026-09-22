@@ -12,6 +12,9 @@ alias_type()
   move_cpp AliasTypeArray
   mv ATAliasAc.hpp ATAliasAc.ref.hpp
   mv ATAliasAc.h ATAliasAc.ref.h
+  move_cpp AliasTypeFormatArray
+  mv ATF32AliasAc.hpp ATF32AliasAc.ref.hpp
+  mv ATF32AliasAc.h ATF32AliasAc.ref.h
 }
 
 component()
