@@ -17,7 +17,7 @@ may need a communication subtopology that includes a radio.
 
 For this kind of replicated structure, FPP provides a feature called a
 *module template*.
-By defining a module template, you can specify model elements (types, 
+By defining a module template, you can specify a list of model elements (types, 
 constants, components, topologies, etc.)
 that may occur at the top level or within a module definition.
 Then you can *expand* the template any number of times, each in a different
@@ -131,6 +131,36 @@ In this simple example, the expanded templates behave
 in the same way as if the syntax `expand { ... }` were not there.
 
 === Module Template Parameters
+
+In the example given in the previous section, we used template
+expansion to produce
+two modules `M` and `N` that are structurally identical,
+except for their names.
+Sometimes this is useful.
+More often, though, you will want to expand a template
+with one or more elements that you provide at the
+point of expansion.
+That way, each expansion can be slightly different.
+For example, in model from the previous section, 
+it may be more useful to specify the values of the
+constants `M.c` and `N.c` at the point of expansion,
+instead of giving them both the same value zero
+specified in the definition.
+
+To carry out this kind of customized expansion, FPP
+provides a feature called *module template parameters*.
+As with templates in {cpp}, you can specify that a
+template has one or more parameters.
+The parameters introduce names that you can use
+in the template definition, but the values bound
+to the names are unknown in the definition; the
+values become bound by providing *parameter arguments*
+when the template is expanded.
+
+There are three kinds of module template parameters:
+constant parameters, type parameters, and interface
+instance parameters.
+We discuss each kind in turn.
 
 ==== Constant Parameters
 

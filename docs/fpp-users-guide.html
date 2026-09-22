@@ -13185,7 +13185,7 @@ may need a communication subtopology that includes a radio.</p>
 <div class="paragraph">
 <p>For this kind of replicated structure, FPP provides a feature called a
 <strong>module template</strong>.
-By defining a module template, you can specify model elements (types,
+By defining a module template, you can specify a list of model elements (types,
 constants, components, topologies, etc.)
 that may occur at the top level or within a module definition.
 Then you can <strong>expand</strong> the template any number of times, each in a different
@@ -13297,7 +13297,7 @@ each expanded definition has a separate name.
 If we tried to expand the same template twice at the top
 level, we would get an error, because the names would clash.
 (Try this in <code>fpp-check</code>. Note that we have to run <code>fpp-check</code>
-to get the error, because <code>fpp-to-fpp</code> just does syntactic
+to see this error, because <code>fpp-to-fpp</code> just does syntactic
 expansion, not semantic error checking.)</p>
 </div>
 <div class="paragraph">
@@ -13313,6 +13313,39 @@ in the same way as if the syntax <code>expand { &#8230;&#8203; }</code> were not
 </div>
 <div class="sect2">
 <h3 id="Defining-and-Using-Module-Templates_Module-Template-Parameters">15.2. Module Template Parameters</h3>
+<div class="paragraph">
+<p>In the example given in the previous section, we used template
+expansion to produce
+two modules <code>M</code> and <code>N</code> that are structurally identical,
+except for their names.
+Sometimes this is useful.
+More often, though, you will want to expand a template
+with one or more elements that you provide at the
+point of expansion.
+That way, each expansion can be slightly different.
+For example, in model from the previous section,
+it may be more useful to specify the values of the
+constants <code>M.c</code> and <code>N.c</code> at the point of expansion,
+instead of giving them both the same value zero
+specified in the definition.</p>
+</div>
+<div class="paragraph">
+<p>To carry out this kind of customized expansion, FPP
+provides a feature called <strong>module template parameters</strong>.
+As with templates in C&#43;&#43;, you can specify that a
+template has one or more parameters.
+The parameters introduce names that you can use
+in the template definition, but the values bound
+to the names are unknown in the definition; the
+values become bound by providing <strong>parameter arguments</strong>
+when the template is expanded.</p>
+</div>
+<div class="paragraph">
+<p>There are three kinds of module template parameters:
+constant parameters, type parameters, and interface
+instance parameters.
+We discuss each kind in turn.</p>
+</div>
 <div class="sect3">
 <h4 id="Defining-and-Using-Module-Templates_Module-Template-Parameters_Constant-Parameters">15.2.1. Constant Parameters</h4>
 <div class="paragraph">
@@ -17580,7 +17613,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-22 13:05:20 -0700
+Last updated 2026-09-22 13:17:48 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
