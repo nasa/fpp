@@ -81,13 +81,10 @@ object EnterTemplateSymbols
   ) = {
     val (_, node, _) = aNode
     val data = node.data
+    val members = data.members.get
 
-    (data.members, a.templateExpansionMap.get(node.id)) match {
-      case (None, _) => {
-        // This template has not been expanded yet, can't do much
-        Right(a)
-      }
-      case (Some(members), Some(expansion)) => {
+    a.templateExpansionMap.get(node.id) match {
+      case Some(expansion) => {
         // We already entered this expansion
         // Make sure we recursively enter all the symbols
         // We still need to update the scope on re-expand
@@ -106,7 +103,7 @@ object EnterTemplateSymbols
           )
         }
       }
-      case (Some(members), None) => {
+      case None => {
         val tmpl = a.getTemplateSymbol(data.template.id) match {
           case Right(tmpl) => tmpl
           case Left(error) => throw InternalError(
@@ -192,6 +189,8 @@ object EnterTemplateSymbols
 
           templateScope <- Right(a.nestedScope.innerScope)
 
+          localScopeMap <- Right(collectModuleScopes(a, templateScope))
+
           // The parameter scope and the expansion scope are visible at the same
           // time, so no parameter may have the same name as a definition in the
           // expansion in the same name group
@@ -224,6 +223,7 @@ object EnterTemplateSymbols
                   Map.from(params.map(p => (TemplateExpansion.paramKey(p), p))),
                   paramScope,
                   templateScope,
+                  localScopeMap,
                 ))
               )
             }
@@ -233,6 +233,24 @@ object EnterTemplateSymbols
         } yield a
       }
     }
+  }
+
+  private def collectModuleScopes(
+    a: Analysis,
+    scope: Scope,
+    map: Map[Symbol, Scope] = Map()
+  ): Map[Symbol, Scope] = {
+    val moduleSymbols = scope.map.values.flatMap(_.map.values).collect {
+      case symbol: Symbol.Module => symbol
+    }.toSet
+    moduleSymbols.foldLeft (map) ((map, symbol) =>
+      if map.contains(symbol) then map
+      else a.symbolScopeMap.get(symbol) match {
+        case Some(moduleScope) =>
+          collectModuleScopes(a, moduleScope, map + (symbol -> moduleScope))
+        case None => map
+      }
+    )
   }
 
   private def mergeScope(a: Analysis, dest: Scope, src: Scope):

@@ -17,9 +17,10 @@ object CheckExprTypes extends UseAnalyzer {
         // Enum symbol: if this is in scope, then we are in
         // the enum definition, so it already has a type
         case Symbol.EnumConstant(node) => Right(a)
-        // Template constant argument symbol: we are already inside the template expansion
-        // therefore this already has a type
-        case Symbol.TemplateConstantArg(_, _) => Right(a)
+        // Template constant argument symbol
+        case arg @ Symbol.TemplateConstantArg(_, value) =>
+          if (a.typeMap.contains(value.id)) Right(a)
+          else templateConstantArg(a, arg)
         // Invalid use of a symbol in an expression
         case _ =>
           Left(SemanticError.InvalidSymbol(

@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_pattern_explicit_target_topology.fpp:29.19
+expand T(instance Sub)
+                  ^
+error: invalid use of symbol Sub: not a component instance symbol
+symbol is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_pattern_explicit_target_topology.fpp:16.1
+topology Sub {
+^

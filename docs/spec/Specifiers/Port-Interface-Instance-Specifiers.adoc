@@ -30,7 +30,7 @@ A port interface instance specifier _S_ represents _D_
 if the port interface instance _I_ to which _S_ refers
 <<Ports_Port-Interface-Instances,represents _D_>>.
 
-If the qualified identifier refers to a topology definition _D_,
+If the port interface instance specifier represents a topology definition _D_,
 then _D_ must not define a
 <<Definitions_Topology-Definitions_Semantics,deployment topology>>.
 

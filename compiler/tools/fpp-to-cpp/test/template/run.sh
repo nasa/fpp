@@ -31,10 +31,26 @@ diff_expansion()
     diff -r $expand_dir $hand_dir
 }
 
+# Compare the topology implementation generated from the template model
+# against a reference. $1 is the directory that diff_expansion created
+# for the template model and $2 is the unqualified topology name.
+diff_topology()
+{
+  dir=$1
+  top=$2
+  diff -u $top'TopologyAc.ref.hpp' $dir/$top'TopologyAc.hpp' && \
+    diff -u $top'TopologyAc.ref.cpp' $dir/$top'TopologyAc.cpp'
+}
+
 constant_param()
 {
   run_test "-p $PWD" constant_param && \
     diff_cpp_suffix FppConstants _constant_param
+}
+
+enum_state_machine()
+{
+  diff_expansion '' enum_state_machine
 }
 
 expansion()
@@ -66,8 +82,31 @@ primitive()
   diff_expansion '' primitive
 }
 
+string_type_arg()
+{
+  diff_expansion '' string_type_arg
+}
+
+topology_instance_param()
+{
+  diff_expansion '' topology_instance_param && \
+    diff_topology topology_instance_param.expand.out.dir InstParam
+}
+
+topology_subtopology_param()
+{
+  diff_expansion '' topology_subtopology_param && \
+    diff_topology topology_subtopology_param.expand.out.dir SubParam
+}
+
 two_expansions()
 {
   run_test "-p $PWD" two_expansions && \
     diff_cpp_suffix FppConstants _two_expansions
+}
+
+two_topologies()
+{
+  diff_expansion '' two_topologies && \
+    diff_topology two_topologies.expand.out.dir TwoSubs
 }

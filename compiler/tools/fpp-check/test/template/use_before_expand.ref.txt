@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/use_before_expand.fpp:9.38
+array UsesConstant = [k] U32 default [1, 2, 3]
+                                     ^
+error: cannot convert [3] Integer to array UsesConstant

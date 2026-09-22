@@ -15,6 +15,9 @@ trait TemplateExpandAnalyzer extends Analyzer {
   /** A use of a template interface parameter */
   def templateInterfaceArg(a: Analysis, arg: Symbol.TemplateInterfaceArg) = default(a)
 
+  /** A template argument of an expansion that has not been resolved. */
+  def templateArgNode(a: Analysis, node: AstNode[Ast.TemplateArg]) = default(a)
+
   def templateParam(a: Analysis, arg: TemplateArgSymbol) = {
     arg match {
       case param: Symbol.TemplateConstantArg => templateConstantArg(a, param)
@@ -35,7 +38,7 @@ trait TemplateExpandAnalyzer extends Analyzer {
       a <- a.templateExpansionMap.get(node.id) match {
         case Some(expansion) =>
           Result.foldLeft (expansion.params.values.toList) (a) (templateParam)
-        case None => Right(a)
+        case None => visitList(a, data.args, templateArgNode)
       }
 
       a <- super.specTemplateExpandAnnotatedNode(a, aNode)

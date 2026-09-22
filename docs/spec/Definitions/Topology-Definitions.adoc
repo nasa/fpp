@@ -744,17 +744,17 @@ topology B {
 
   instance a
 
-  instance B
+  instance A
 
   connections C {
-    a.p -> B.p
+    a.p -> A.p
   }
 
 }
 ----
 
-Here we have imported topology `B` with the `instance` keyword, emphasizing
-that `B` is to be treated as an interface instance with ports.
+Here we have imported topology `A` with the `instance` keyword, emphasizing
+that `A` is to be treated as an interface instance with ports.
 We could also have used `import` as in the examples above.
 See the section on <<Specifiers_Port-Interface-Instance-Specifiers_Syntax,port
 interface instance specifiers>>.
@@ -763,7 +763,7 @@ Import resolution produces this topology:
 
 [source,fpp]
 ----
-topology A {
+topology B {
 
   instance a
   instance b
@@ -822,9 +822,9 @@ module template T(
   }
 }
 
-# In the expansion, the bound parameter (iOut: IOut, cOut) is in scope.
+# In the expansion, the bound parameter (iOut: IOut, instance cOut) is in scope.
 # After resolution, the connection is cOut.p -> cIn.p.
-expand T(cOut)
+expand T(instance cOut)
 ----
 
 

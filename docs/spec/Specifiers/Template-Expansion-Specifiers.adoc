@@ -45,8 +45,8 @@ If there are no parameters, then the argument list may be omitted.
 template argument. The type of the expression in _A_ must be 
 <<Type-Checking_Type-Conversion,convertible to>> the type specified in _p_.
 
-.. If _p_ is an interface instance template parameter, then _A_
-must be an interface instance template argument.
+.. If _p_ is a port interface instance template parameter, then _A_
+must be a port interface instance template argument.
 The qualified identifier in _A_ must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a <<Ports_Port-Interface-Instances,port interface instance>> _N_.
@@ -72,7 +72,7 @@ template argument.
 ... When _p_ is a type template parameter, _B_
     is called a *type parameter definition*.
 
-=== Examples
+==== Examples
 
 [source,fpp]
 ----

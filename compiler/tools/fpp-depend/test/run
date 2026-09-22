@@ -149,4 +149,30 @@ missing()
   test $run_test_status -eq 0
 }
 
+template_body_locate_split()
+{
+  run_test '' \
+    'template_body_locate_split_a.fpp template_body_locate_split_b' \
+    template_body_locate_split
+}
+
+template_include()
+{
+  run_test '-i tmp.out.txt' template_include
+  run_test_status=$?
+  remove_path_prefix < tmp.out.txt > template_include_output.out.txt
+  compare template_include_output && \
+  test $run_test_status -eq 0
+}
+
+template_incomplete()
+{
+  run_test '-g template_incomplete_generated_output.out.txt -u template_incomplete_ut_output.out.txt' \
+    template_incomplete
+  run_test_status=$?
+  compare template_incomplete_generated_output && \
+  compare template_incomplete_ut_output && \
+  test $run_test_status -eq 0
+}
+
 run_suite $tests
