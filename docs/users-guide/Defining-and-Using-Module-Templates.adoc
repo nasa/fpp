@@ -288,9 +288,82 @@ module M2 {
 
 ==== Type Parameters
 
-TODO
+You can also specify one or more *type parameters* for a module template.
+When you expand the template, you can bind types to the parameters.
+Here is an example:
 
-==== Interface Instance Parameters
+[source,fpp]
+----
+module template T(type T) {
+
+  port P(x: T)
+
+  passive component C {
+
+    sync input port pIn: P
+
+    output port pOut: P
+
+  }
+
+}
+
+module M {
+
+  expand T(type U32)
+
+}
+
+module N {
+
+  expand T(type F32)
+
+}
+----
+
+Here we have defined two passive components, `M.C`
+and `N.C`.
+The first one has instances `pIn` and `pOut` of
+port `M.P`, which carries data of type `U32`.
+The second one has instances `pIn` and `pOut` of
+port `N.P`, which carries data of type `F32`.
+
+You can also mix type parameters and constant parameters:
+
+[source,fpp]
+----
+module template T(constant p: U32, type P) {
+  constant c = p
+  type T = P
+}
+
+expand T(constant 0, type F32)
+----
+
+In the current version of FPP, you may not use type parameters
+in constant parameters.
+For example, this is not allowed:
+
+[source,fpp]
+--------
+module template T(
+  @ This parameter defines a type P in the body of the template
+  type P
+  @ Error: The type T is not defined here
+  constant p: T
+) {
+  constant c = P
+}
+--------
+
+==== Port Interface Instance Parameters
+
+Finally, you can specify that a module template has one or more
+*port interface instance parameters*.
+Recall that a 
+<<Defining-Topologies_Topology-Ports_Port-Interface-Instances,port interface 
+instance>> is either a component instance definition or a topology
+definition.
 
 TODO
 

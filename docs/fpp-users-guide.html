@@ -709,7 +709,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Defining-and-Using-Module-Templates_Module-Template-Parameters_Constant-Parameters">15.2.1. Constant Parameters</a></li>
 <li><a href="#Defining-and-Using-Module-Templates_Module-Template-Parameters_Type-Parameters">15.2.2. Type Parameters</a></li>
-<li><a href="#Defining-and-Using-Module-Templates_Module-Template-Parameters_Interface-Instance-Parameters">15.2.3. Interface Instance Parameters</a></li>
+<li><a href="#Defining-and-Using-Module-Templates_Module-Template-Parameters_Port-Interface-Instance-Parameters">15.2.3. Port Interface Instance Parameters</a></li>
 </ul>
 </li>
 <li><a href="#Defining-and-Using-Module-Templates_Resolving-Names-in-Expanded-Templates">15.3. Resolving Names in Expanded Templates</a></li>
@@ -12669,25 +12669,10 @@ the concept of a component instance in a way that includes
 the concept of a topology.</p>
 </div>
 <div class="paragraph">
-<p>The concept of a port interface instance will become more obviously useful
-in a future version of FPP, where we will introduce the following
-features:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Module templates</strong> that you can expand several times to generate
-different sections of of FPP code (for example, different topologies) that are
-largely the same, but that differ in particular ways that you specify.</p>
-</li>
-<li>
-<p><strong>Template parameters</strong> that let you bind concrete values to parameters
-when instantiating templates.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>When instantiating templates, it will be useful to treat component
+<p>The concept of a port interface instance is most useful
+in connection with module templates, which we will describe
+<a href="#Defining-and-Using-Module-Templates">in a later section</a>.
+When expanding module templates, it will be useful to treat component
 instances and topologies in the same way, so that a single <code>instance</code>
 parameter can be bound to either a component instance or a topology,
 as long as the constraints of the parameter are satisfied.</p>
@@ -13482,11 +13467,88 @@ module M2 {
 <div class="sect3">
 <h4 id="Defining-and-Using-Module-Templates_Module-Template-Parameters_Type-Parameters">15.2.2. Type Parameters</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>You can also specify one or more <strong>type parameters</strong> for a module template.
+When you expand the template, you can bind types to the parameters.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T(type T) {
+
+  port P(x: T)
+
+  passive component C {
+
+    sync input port pIn: P
+
+    output port pOut: P
+
+  }
+
+}
+
+module M {
+
+  expand T(type U32)
+
+}
+
+module N {
+
+  expand T(type F32)
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we have defined two passive components, <code>M.C</code>
+and <code>N.C</code>.
+The first one has instances <code>pIn</code> and <code>pOut</code> of
+port <code>M.P</code>, which carries data of type <code>U32</code>.
+The second one has instances <code>pIn</code> and <code>pOut</code> of
+port <code>N.P</code>, which carries data of type <code>F32</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can also mix type parameters and constant parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T(constant p: U32, type P) {
+  constant c = p
+  type T = P
+}
+
+expand T(constant 0, type F32)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the current version of FPP, you may not use type parameters
+in constant parameters.
+For example, this is not allowed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T(
+  @ This parameter defines a type P in the body of the template
+  type P
+  @ Error: The type T is not defined here
+  constant p: T
+) {
+  constant c = P
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-and-Using-Module-Templates_Module-Template-Parameters_Interface-Instance-Parameters">15.2.3. Interface Instance Parameters</h4>
+<h4 id="Defining-and-Using-Module-Templates_Module-Template-Parameters_Port-Interface-Instance-Parameters">15.2.3. Port Interface Instance Parameters</h4>
+<div class="paragraph">
+<p>Finally, you can specify that a module template has one or more
+<strong>port interface instance parameters</strong>.
+Recall that a
+<a href="#Defining-Topologies_Topology-Ports_Port-Interface-Instances">port interface
+instance</a> is either a component instance definition or a topology
+definition.</p>
+</div>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -17746,7 +17808,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-22 15:55:31 -0700
+Last updated 2026-09-22 16:23:58 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

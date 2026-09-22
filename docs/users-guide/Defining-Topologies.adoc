@@ -1459,18 +1459,10 @@ Thus the concept of a port interface instance generalizes
 the concept of a component instance in a way that includes
 the concept of a topology.
 
-The concept of a port interface instance will become more obviously useful
-in a future version of FPP, where we will introduce the following
-features:
-
-* *Module templates* that you can expand several times to generate
-different sections of of FPP code (for example, different topologies) that are 
-largely the same, but that differ in particular ways that you specify.
-
-* *Template parameters* that let you bind concrete values to parameters
-when instantiating templates.
-
-When instantiating templates, it will be useful to treat component
+The concept of a port interface instance is most useful
+in connection with module templates, which we will describe
+<<Defining-and-Using-Module-Templates,in a later section>>.
+When expanding module templates, it will be useful to treat component
 instances and topologies in the same way, so that a single `instance`
 parameter can be bound to either a component instance or a topology,
 as long as the constraints of the parameter are satisfied.
