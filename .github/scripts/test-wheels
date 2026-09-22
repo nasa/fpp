@@ -50,7 +50,7 @@ done
 num_failed=0
 for tool in $tools
 do
-  if $tool --help > /dev/null 2>&1 < /dev/null
+  if $tool --help > /dev/null < /dev/null
   then
     echo "[INFO] $tool --help: ok"
   else
