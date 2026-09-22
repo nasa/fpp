@@ -193,7 +193,7 @@ case class CppWriterState(
             val Right(a1) = UsedSymbols.typeNameNode(
               this.a.copy(usedSymbolSet = Set()),
               arg.value
-            )
+            ).runtimeChecked
             a1.usedSymbolSet.flatMap(getIncludeFiles).toList
           case arg: Symbol.TemplateInterfaceArg =>
             a.useDefMap.get(arg.getNodeId).toList.flatMap(getIncludeFiles)

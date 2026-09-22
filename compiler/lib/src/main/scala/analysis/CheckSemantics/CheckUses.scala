@@ -61,7 +61,7 @@ object CheckUses extends BasicUseAnalyzer {
               // look up this symbol and add it to the use-def entries
               case Some(qual) =>
                 val scope = getScope(a, qual)
-                val mapping = scope.get (NameGroup.Value) _
+                val mapping = scope.get (NameGroup.Value)
                 helpers.getSymbolForName(NameGroup.Value, mapping)(id.id, id.data) match {
                   case Right(value) => Right(Some(value))
                   case Left(err) => Left(err)
