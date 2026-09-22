@@ -1,3 +1,57 @@
 == Defining and Using Module Templates
 
+When you are constructing an FPP model, you may find that you need to repeat
+essentially the same structure at different points of the model, possibly with
+variations in detail.
+For example:
+
+* You may need to use the same subtopology in different deployments
+of the same multi-deployment system.
+For example, each of the deployments may require the same subtopology for 
+command and data handling.
+
+* Different deployments may need variants of the same subtopology.
+For example, a deployment for testing may need a communication subtopology
+that connects directly to a test harness, whereas the flight deployment
+may need a communication subtopology that includes a radio.
+
+For this kind of replicated structure, FPP provides a feature called a
+*module template*.
+By defining a module template, you can specify model elements (types, 
+constants, components, topologies, etc.)
+that may occur within a module definition.
+Then you can *expand* the template any number of times, each in a different
+module.
+This process creates a distinct element for each expansion.
+For example, you can define a module template that includes the
+definition of a constant `c`.
+Expanding that template inside a module `M` would create a definition
+`M.c`, whereas expanding that template inside a module `N` would
+create a definition `N.c`.
+In this section, we explain how to define and use module templates.
+
+=== Basic Module Templates
+
+TODO
+
+=== Module Template Parameters
+
+==== Constant Parameters
+
+TODO
+
+==== Type Parameters
+
+TODO
+
+==== Interface Instance Parameters
+
+TODO
+
+=== Resolving Names in Expanded Templates
+
+TODO
+
+=== Nesting of Module Templates
+
 TODO

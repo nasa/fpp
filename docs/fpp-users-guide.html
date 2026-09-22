@@ -702,7 +702,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#Defining-and-Using-Module-Templates">15. Defining and Using Module Templates</a></li>
+<li><a href="#Defining-and-Using-Module-Templates">15. Defining and Using Module Templates</a>
+<ul class="sectlevel2">
+<li><a href="#Defining-and-Using-Module-Templates_Basic-Module-Templates">15.1. Basic Module Templates</a></li>
+<li><a href="#Defining-and-Using-Module-Templates_Module-Template-Parameters">15.2. Module Template Parameters</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-and-Using-Module-Templates_Module-Template-Parameters_Constant-Parameters">15.2.1. Constant Parameters</a></li>
+<li><a href="#Defining-and-Using-Module-Templates_Module-Template-Parameters_Type-Parameters">15.2.2. Type Parameters</a></li>
+<li><a href="#Defining-and-Using-Module-Templates_Module-Template-Parameters_Interface-Instance-Parameters">15.2.3. Interface Instance Parameters</a></li>
+</ul>
+</li>
+<li><a href="#Defining-and-Using-Module-Templates_Resolving-Names-in-Expanded-Templates">15.3. Resolving Names in Expanded Templates</a></li>
+</ul>
+</li>
 <li><a href="#Defining-Systems">16. Defining Systems</a></li>
 <li><a href="#Specifying-Models-as-Files">17. Specifying Models as Files</a>
 <ul class="sectlevel2">
@@ -11999,7 +12011,10 @@ each topology to be able to run on its own.</p>
 <div class="paragraph">
 <p>In FPP, the way we accomplish these goals is to <strong>import</strong>
 one topology into another one.
-In this section of the User Guide, we explain how to do that.</p>
+In this case the imported topology is called a <strong>subtopology</strong>
+of the topology into which it is imported.
+In this section of the User&#8217;s Guide, we explain how to define and
+use subtopologies.</p>
 </div>
 <div class="sect3">
 <h4 id="Defining-Topologies_Importing-Topologies_Importing-Instances-and-Connections">14.4.1. Importing Instances and Connections</h4>
@@ -13145,7 +13160,75 @@ from other files, if you wish.</p>
 <h2 id="Defining-and-Using-Module-Templates">15. Defining and Using Module Templates</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>When you are constructing an FPP model, you may find that you need to repeat
+essentially the same structure at different points of the model, possibly with
+variations in detail.
+For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You may need to use the same subtopology in different deployments
+of the same multi-deployment system.
+For example, each of the deployments may require the same subtopology for
+command and data handling.</p>
+</li>
+<li>
+<p>Different deployments may need variants of the same subtopology.
+For example, a deployment for testing may need a communication subtopology
+that connects directly to a test harness, whereas the flight deployment
+may need a communication subtopology that includes a radio.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For this kind of replicated structure, FPP provides a feature called a
+<strong>module template</strong>.
+By defining a module template, you can specify model elements (types,
+constants, components, topologies, etc.)
+that may occur within a module definition.
+Then you can <strong>expand</strong> the template any number of times, each in a different
+module.
+This process creates a distinct element for each expansion.
+For example, you can define a module template that includes the
+definition of a constant <code>c</code>.
+Expanding that template inside a module <code>M</code> would create a definition
+<code>M.c</code>, whereas expanding that template inside a module <code>N</code> would
+create a definition <code>N.c</code>.
+In this section, we explain how to define and use module templates.</p>
+</div>
+<div class="sect2">
+<h3 id="Defining-and-Using-Module-Templates_Basic-Module-Templates">15.1. Basic Module Templates</h3>
+<div class="paragraph">
 <p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-and-Using-Module-Templates_Module-Template-Parameters">15.2. Module Template Parameters</h3>
+<div class="sect3">
+<h4 id="Defining-and-Using-Module-Templates_Module-Template-Parameters_Constant-Parameters">15.2.1. Constant Parameters</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-and-Using-Module-Templates_Module-Template-Parameters_Type-Parameters">15.2.2. Type Parameters</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-and-Using-Module-Templates_Module-Template-Parameters_Interface-Instance-Parameters">15.2.3. Interface Instance Parameters</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-and-Using-Module-Templates_Resolving-Names-in-Expanded-Templates">15.3. Resolving Names in Expanded Templates</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
 </div>
 </div>
 </div>
@@ -17376,7 +17459,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-21 18:06:22 -0700
+Last updated 2026-09-22 11:03:42 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

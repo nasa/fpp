@@ -893,7 +893,10 @@ each topology to be able to run on its own.
 
 In FPP, the way we accomplish these goals is to *import*
 one topology into another one.
-In this section of the User Guide, we explain how to do that.
+In this case the imported topology is called a *subtopology*
+of the topology into which it is imported.
+In this section of the User's Guide, we explain how to define and
+use subtopologies.
 
 ==== Importing Instances and Connections
 
