@@ -81,13 +81,10 @@ object EnterTemplateSymbols
   ) = {
     val (_, node, _) = aNode
     val data = node.data
+    val members = data.members.get
 
-    (data.members, a.templateExpansionMap.get(node.id)) match {
-      case (None, _) => {
-        // This template has not been expanded yet, can't do much
-        Right(a)
-      }
-      case (Some(members), Some(expansion)) => {
+    a.templateExpansionMap.get(node.id) match {
+      case Some(expansion) => {
         // We already entered this expansion
         // Make sure we recursively enter all the symbols
         // We still need to update the scope on re-expand
@@ -106,7 +103,7 @@ object EnterTemplateSymbols
           )
         }
       }
-      case (Some(members), None) => {
+      case None => {
         val tmpl = a.getTemplateSymbol(data.template.id) match {
           case Right(tmpl) => tmpl
           case Left(error) => throw InternalError(
