@@ -712,6 +712,9 @@ When using clang, the following flags must also be set:
 
 === Formatting FPP Source
 
+TODO: Give the new name and explain the new purpose of the tool:
+not formatting, but rewriting with expansion.
+
 The tool `fpp-format` accepts FPP source files as input
 and rewrites them as formatted output.
 You can use this tool to put your source files into
@@ -754,6 +757,8 @@ include "a.fppi"
 ^D
 constant a = 0
 ----
+
+TODO: Explain the template expansion option.
 
 `fpp-format` has one big limitation: it goes through
 the FPP parser, so it deletes all

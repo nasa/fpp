@@ -713,6 +713,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#Defining-and-Using-Module-Templates_Resolving-Names-in-Expanded-Templates">15.3. Resolving Names in Expanded Templates</a></li>
+<li><a href="#Defining-and-Using-Module-Templates_Nesting-of-Module-Templates">15.4. Nesting of Module Templates</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Systems">16. Defining Systems</a></li>
@@ -13186,7 +13187,7 @@ may need a communication subtopology that includes a radio.</p>
 <strong>module template</strong>.
 By defining a module template, you can specify model elements (types,
 constants, components, topologies, etc.)
-that may occur within a module definition.
+that may occur at the top level or within a module definition.
 Then you can <strong>expand</strong> the template any number of times, each in a different
 module.
 This process creates a distinct element for each expansion.
@@ -13200,7 +13201,44 @@ In this section, we explain how to define and use module templates.</p>
 <div class="sect2">
 <h3 id="Defining-and-Using-Module-Templates_Basic-Module-Templates">15.1. Basic Module Templates</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>Here is a basic example of defining and using a module template.
+It is based on the constant definition example sketched at the
+beginning of this section.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T {
+  constant c = 0
+}
+
+module M {
+  expand T
+}
+
+module N {
+  expand T
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, we have done the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>We have defined a module template <code>T</code> containing the constant
+definition <code>constant c = 0</code>.
+In general, to write a module template definition you write
+<code>module</code> <code>template</code> followed by the name of the template
+and the elements of the template enclosed in curly braces.
+A module template definition is an
+<a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.</p>
+</li>
+<li>
+<p>We have expanded the template <code>T</code> twice, once inside
+module <code>M</code> and once inside module <code>N</code>.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
@@ -13226,6 +13264,12 @@ In this section, we explain how to define and use module templates.</p>
 </div>
 <div class="sect2">
 <h3 id="Defining-and-Using-Module-Templates_Resolving-Names-in-Expanded-Templates">15.3. Resolving Names in Expanded Templates</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-and-Using-Module-Templates_Nesting-of-Module-Templates">15.4. Nesting of Module Templates</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -15623,6 +15667,10 @@ and clang compiler flags:</p>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Formatting-FPP-Source">18.3. Formatting FPP Source</h3>
 <div class="paragraph">
+<p>TODO: Give the new name and explain the new purpose of the tool:
+not formatting, but rewriting with expansion.</p>
+</div>
+<div class="paragraph">
 <p>The tool <code>fpp-format</code> accepts FPP source files as input
 and rewrites them as formatted output.
 You can use this tool to put your source files into
@@ -15672,6 +15720,9 @@ include "a.fppi"
 ^D
 constant a = 0</pre>
 </div>
+</div>
+<div class="paragraph">
+<p>TODO: Explain the template expansion option.</p>
 </div>
 <div class="paragraph">
 <p><code>fpp-format</code> has one big limitation: it goes through
@@ -17459,7 +17510,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-22 11:03:42 -0700
+Last updated 2026-09-22 11:37:24 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

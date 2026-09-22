@@ -271,7 +271,7 @@ object FppWriter extends AstVisitor with LineUtils {
     lines (s"module template ${ident(data.name)}").
       join ("") (paramList (templateParam) (data.params)).
       addSuffix(" {") ++
-    ((Line.blankSeparated (moduleMember) (data.members)).map(indentIn)) ++
+    (Line.blank :: (Line.blankSeparated (moduleMember) (data.members)).map(indentIn)) ++
     List(Line.blank, line("}"))
   }
 
@@ -289,7 +289,7 @@ object FppWriter extends AstVisitor with LineUtils {
       case None => header
       case Some(members) =>
         header.addSuffix(" {") ++
-        (Line.blankSeparated (moduleMember) (members)).map(indentIn) ++
+        (Line.blank :: Line.blankSeparated (moduleMember) (members)).map(indentIn) ++
         List(Line.blank, line("}"))
     }
   }

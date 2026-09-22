@@ -19,7 +19,7 @@ For this kind of replicated structure, FPP provides a feature called a
 *module template*.
 By defining a module template, you can specify model elements (types, 
 constants, components, topologies, etc.)
-that may occur within a module definition.
+that may occur at the top level or within a module definition.
 Then you can *expand* the template any number of times, each in a different
 module.
 This process creates a distinct element for each expansion.
@@ -32,7 +32,37 @@ In this section, we explain how to define and use module templates.
 
 === Basic Module Templates
 
-TODO
+Here is a basic example of defining and using a module template.
+It is based on the constant definition example sketched at the
+beginning of this section.
+
+[source,fpp]
+----
+module template T {
+  constant c = 0
+}
+
+module M {
+  expand T
+}
+
+module N {
+  expand T
+}
+----
+
+In this example, we have done the following:
+
+. We have defined a module template `T` containing the constant
+definition `constant c = 0`.
+In general, to write a module template definition you write
+`module` `template` followed by the name of the template
+and the elements of the template enclosed in curly braces.
+A module template definition is an
+<<Writing-Comments-and-Annotations_Annotations,annotatable element>>.
+
+. We have expanded the template `T` twice, once inside
+module `M` and once inside module `N`.
 
 === Module Template Parameters
 

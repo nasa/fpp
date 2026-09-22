@@ -2,6 +2,7 @@
 module template Included(
                           constant n: U32 @< A constant parameter
                         ) {
+
   @ A constant defined by the included template
   constant m = n + 1
 
@@ -12,6 +13,7 @@ module template Included(
 expand Included(
                  constant 42
                ) {
+
   @ A constant defined by the included template
   constant m = n + 1
 
