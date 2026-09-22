@@ -10,7 +10,7 @@ of the same multi-deployment system.
 For example, each of the deployments may require the same subtopology for 
 command and data handling.
 
-* Different deployments may need variants of the same subtopology.
+* Different deployments may need different variants of the same subtopology.
 For example, a deployment for testing may need a communication subtopology
 that connects directly to a test harness, whereas the flight deployment
 may need a communication subtopology that includes a radio.
@@ -152,9 +152,10 @@ provides a feature called *module template parameters*.
 As with templates in {cpp}, you can specify that a
 template has one or more parameters.
 The parameters introduce names that you can use
-in the template definition, but the values bound
-to the names are unknown in the definition; the
-values become bound by providing *parameter arguments*
+in the template definition.
+The values bound
+to the names are unknown in the definition; they
+become bound by providing *parameter arguments*
 when the template is expanded.
 
 There are three kinds of module template parameters:
@@ -164,7 +165,126 @@ We discuss each kind in turn.
 
 ==== Constant Parameters
 
-TODO
+First, suppose we wish to modify the previous example
+so that, in the expanded templates, the constant `M.c`
+has the value 1 and the constant `N.c` has the value 2.
+To do that, we can give the template `T` a
+*constant parameter* `p`.
+In the template definition, we can define `c` to be
+equal to `p`.
+Then when we expand the template, we can provide 1 and 2
+as the arguments to `p`.
+
+Here is how this example looks in FPP:
+
+[source,fpp]
+----
+module template T(constant p: U32) {
+
+  constant c = p
+
+}
+
+module M {
+
+  expand T(constant 1)
+
+}
+
+module N {
+
+  expand T(constant 2)
+
+}
+----
+
+In the definition of the template `T`, we have provided
+a constant parameter `p`, denoted by the keyword `constant`
+followed by the name `p`, a colon and the name of a type.
+Here the type is `U32`; in general it can be any type.
+Since `T` has is one parameter of type `U32`, each
+expansion must provide one argument of a type compatible
+with `U32`.
+Here we provide 1 and 2 as the arguments, and we write
+`constant` to tell the FPP parser that these are constant arguments.
+
+After template expansion, the model looks like this:
+
+[source,fpp]
+--------
+module template T(constant p: U32) {
+
+  constant c = p
+
+}
+
+module M {
+
+  expand T(constant 1) {
+
+    constant c = p
+
+  }
+
+}
+
+module N {
+
+  expand T(constant 2) {
+
+    constant c = p
+
+  }
+
+}
+--------
+
+Notice that the `expand { ... }` syntax provides the bindings
+of the constant values at the points of expansion.
+
+As with other cases of binding values to formal parameters (for example,
+when providing <<Defining-Components_Parameters_Default-Values,default values 
+for parameter arguments>>), the types must work out.
+For example, if we tried to expand the template `T` with
+the argument `"abc"`, we would get a typing error (try it and see).
+
+When defining a module template, you can provide any number of parameters.
+The formal parameters form an
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,element
+sequence>> in which the optional terminating punctuation is a comma.
+The same is true of the template arguments in the expansion.
+For example:
+
+[source,fpp]
+----
+type FwSizeStoreType = U16
+
+module template T1(constant p1: U32, constant p2: I32) {
+  constant c1 = p1
+  constant c2 = p2
+}
+
+module template T2(
+  @ Constant parameter p1
+  constant p1: string size 100
+  @ Constant parameter p2
+  constant p2: F32
+) {
+  constant c1 = p1
+  constant c2 = p2
+}
+
+module M1 {
+  expand T1(constant 1, constant 2)
+}
+
+module M2 {
+  expand T2(
+    constant "abc"
+    constant 1.0
+  )
+}
+----
 
 ==== Type Parameters
 

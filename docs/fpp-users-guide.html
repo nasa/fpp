@@ -13176,7 +13176,7 @@ For example, each of the deployments may require the same subtopology for
 command and data handling.</p>
 </li>
 <li>
-<p>Different deployments may need variants of the same subtopology.
+<p>Different deployments may need different variants of the same subtopology.
 For example, a deployment for testing may need a communication subtopology
 that connects directly to a test harness, whereas the flight deployment
 may need a communication subtopology that includes a radio.</p>
@@ -13336,9 +13336,10 @@ provides a feature called <strong>module template parameters</strong>.
 As with templates in C&#43;&#43;, you can specify that a
 template has one or more parameters.
 The parameters introduce names that you can use
-in the template definition, but the values bound
-to the names are unknown in the definition; the
-values become bound by providing <strong>parameter arguments</strong>
+in the template definition.
+The values bound
+to the names are unknown in the definition; they
+become bound by providing <strong>parameter arguments</strong>
 when the template is expanded.</p>
 </div>
 <div class="paragraph">
@@ -13350,7 +13351,132 @@ We discuss each kind in turn.</p>
 <div class="sect3">
 <h4 id="Defining-and-Using-Module-Templates_Module-Template-Parameters_Constant-Parameters">15.2.1. Constant Parameters</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>First, suppose we wish to modify the previous example
+so that, in the expanded templates, the constant <code>M.c</code>
+has the value 1 and the constant <code>N.c</code> has the value 2.
+To do that, we can give the template <code>T</code> a
+<strong>constant parameter</strong> <code>p</code>.
+In the template definition, we can define <code>c</code> to be
+equal to <code>p</code>.
+Then when we expand the template, we can provide 1 and 2
+as the arguments to <code>p</code>.</p>
+</div>
+<div class="paragraph">
+<p>Here is how this example looks in FPP:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T(constant p: U32) {
+
+  constant c = p
+
+}
+
+module M {
+
+  expand T(constant 1)
+
+}
+
+module N {
+
+  expand T(constant 2)
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the definition of the template <code>T</code>, we have provided
+a constant parameter <code>p</code>, denoted by the keyword <code>constant</code>
+followed by the name <code>p</code>, a colon and the name of a type.
+Here the type is <code>U32</code>; in general it can be any type.
+Since <code>T</code> has is one parameter of type <code>U32</code>, each
+expansion must provide one argument of a type compatible
+with <code>U32</code>.
+Here we provide 1 and 2 as the arguments, and we write
+<code>constant</code> to tell the FPP parser that these are constant arguments.</p>
+</div>
+<div class="paragraph">
+<p>After template expansion, the model looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T(constant p: U32) {
+
+  constant c = p
+
+}
+
+module M {
+
+  expand T(constant 1) {
+
+    constant c = p
+
+  }
+
+}
+
+module N {
+
+  expand T(constant 2) {
+
+    constant c = p
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that the <code>expand { &#8230;&#8203; }</code> syntax provides the bindings
+of the constant values at the points of expansion.</p>
+</div>
+<div class="paragraph">
+<p>As with other cases of binding values to formal parameters (for example,
+when providing <a href="#Defining-Components_Parameters_Default-Values">default values
+for parameter arguments</a>), the types must work out.
+For example, if we tried to expand the template <code>T</code> with
+the argument <code>"abc"</code>, we would get a typing error (try it and see).</p>
+</div>
+<div class="paragraph">
+<p>When defining a module template, you can provide any number of parameters.
+The formal parameters form an
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element
+sequence</a> in which the optional terminating punctuation is a comma.
+The same is true of the template arguments in the expansion.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+
+module template T1(constant p1: U32, constant p2: I32) {
+  constant c1 = p1
+  constant c2 = p2
+}
+
+module template T2(
+  @ Constant parameter p1
+  constant p1: string size 100
+  @ Constant parameter p2
+  constant p2: F32
+) {
+  constant c1 = p1
+  constant c2 = p2
+}
+
+module M1 {
+  expand T1(constant 1, constant 2)
+}
+
+module M2 {
+  expand T2(
+    constant "abc"
+    constant 1.0
+  )
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -17620,7 +17746,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-22 13:20:26 -0700
+Last updated 2026-09-22 15:35:22 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
