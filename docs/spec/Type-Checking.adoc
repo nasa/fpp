@@ -446,7 +446,8 @@ produce the same result.
 . Otherwise if stem:[T_1] and stem:[T_2] are both
 <<Types_Internal-Types_Numeric-Types,numeric types>>, then do the following:
 
-.. If stem:[T_1] and stem:[T_2] are both floating-point types, then use `F64`.
+.. If either of stem:[T_1] and stem:[T_2] is a floating-point type, then use 
+   `F64`.
 
 .. Otherwise use <<Types_Internal-Types_Integer,_Integer_>>.
 
