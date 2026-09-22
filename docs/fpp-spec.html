@@ -11145,12 +11145,11 @@ definition</a> has implied uses when a dictionary is being generated.</p>
 <p>Whenever an implied use is called out in this specification, the
 definition being used must be available at the point of the implied
 use.
-If the definition is unavailable because it is hidden by another
-definition in an inner scope, then an error occurs.
-For example, this model is illegal, because the definition
-<code>M.FwSizeStoreType</code> hides the framework definition <code>FwSizeStoreType</code>
-at the point of the <a href="#Type-Names_String-Type-Names">implied use</a>
-in the type <code>string size 100</code>:</p>
+For example, this model is illegal, because it uses the type <code>string size 100</code>,
+which represents an <a href="#Type-Names_String-Type-Names">implied use</a> of
+<code>FwSizeStoreType</code>,
+but it does not define <code>FwSizeStoreType</code>.  Instead it defines
+<code>M.FwSizeStoreType</code>, which is a different symbol.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -11164,7 +11163,7 @@ in the type <code>string size 100</code>:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>An error also occurs if the rules
+<p>An also error occurs if the rules
 for resolving <a href="#Expressions_Dot-Expressions_Semantics">dot expressions</a>
 causes an implied constant use to be resolved to a member
 of a struct value instead of a constant definition. For example, suppose this
@@ -12256,7 +12255,8 @@ produce the same result.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>If \$T_1\$ and \$T_2\$ are both floating-point types, then use <code>F64</code>.</p>
+<p>If either of \$T_1\$ and \$T_2\$ is a floating-point type, then use
+<code>F64</code>.</p>
 </li>
 <li>
 <p>Otherwise use <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.</p>
@@ -13358,7 +13358,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-02 21:16:02 -0700
+Last updated 2026-09-21 17:52:29 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

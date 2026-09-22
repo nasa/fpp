@@ -132,12 +132,11 @@ definition>> has implied uses when a dictionary is being generated.
 Whenever an implied use is called out in this specification, the
 definition being used must be available at the point of the implied
 use.
-If the definition is unavailable because it is hidden by another
-definition in an inner scope, then an error occurs.
-For example, this model is illegal, because the definition
-`M.FwSizeStoreType` hides the framework definition `FwSizeStoreType`
-at the point of the <<Type-Names_String-Type-Names,implied use>>
-in the type `string size 100`:
+For example, this model is illegal, because it uses the type `string size 100`,
+which represents an <<Type-Names_String-Type-Names,implied use>> of 
+`FwSizeStoreType`,
+but it does not define `FwSizeStoreType`.  Instead it defines
+`M.FwSizeStoreType`, which is a different symbol.
 
 [source,fpp]
 ----
@@ -150,7 +149,7 @@ module M {
 }
 ----
 
-An error also occurs if the rules
+An also error occurs if the rules
 for resolving <<Expressions_Dot-Expressions_Semantics,dot expressions>>
 causes an implied constant use to be resolved to a member
 of a struct value instead of a constant definition. For example, suppose this 
