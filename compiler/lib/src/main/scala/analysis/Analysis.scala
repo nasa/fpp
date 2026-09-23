@@ -326,8 +326,21 @@ case class Analysis(
 
   /** Gets the component instance represented by a use. Strip off any template args. */
   def getRepresentedComponentInstance(id: AstNode.Id):
-  Result.Result[ComponentInstance] =
-    getComponentInstance(getRepresentedUse(id))
+  Result.Result[ComponentInstance] = {
+    val symbol = this.useDefMap(id)
+    getRepresentedSymbolOpt(id) match {
+      case Some(cis: Symbol.ComponentInstance) =>
+        Right(this.componentInstanceMap(cis))
+      case representedOpt => Left(
+        SemanticError.InvalidSymbol(
+          symbol.getUnqualifiedName,
+          Locations.get(id),
+          "not a component instance symbol",
+          representedOpt.getOrElse(symbol).getLoc
+        )
+      )
+    }
+  }
 
   /** Gets an interface instance symbol from the use-def map */
   def getInterfaceInstanceSymbol(id: AstNode.Id): Result.Result[InterfaceInstanceSymbol] =
