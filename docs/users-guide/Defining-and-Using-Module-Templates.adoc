@@ -349,8 +349,8 @@ For example, this is not allowed:
 module template T(
   @ This parameter defines a type P in the body of the template
   type P
-  @ Error: The type T is not defined here
-  constant p: T
+  @ Error: The type P is not defined here
+  constant p: P
 ) {
   constant c = P
 }
