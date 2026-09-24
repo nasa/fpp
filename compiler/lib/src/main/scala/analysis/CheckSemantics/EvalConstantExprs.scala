@@ -12,6 +12,11 @@ object EvalConstantExprs extends UseAnalyzer {
       a <- symbol match {
         case Symbol.EnumConstant(node) => defEnumConstantAnnotatedNode(a, node)
         case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
+        // Template constant argument symbol: evaluate the bound argument to
+        // ensure that it has a value
+        case arg @ Symbol.TemplateConstantArg(_, value) =>
+          if (a.valueMap.contains(value.id)) Right(a)
+          else templateConstantArg(a, arg)
         case _ => throw InternalError(s"invalid constant use symbol ${symbol} (${symbol.getClass.getName()})")
       }
     } yield {
@@ -83,12 +88,33 @@ object EvalConstantExprs extends UseAnalyzer {
     else Right(a)
   }
 
+  override def templateConstantArg(
+    a: Analysis,
+    arg: Symbol.TemplateConstantArg
+  ) = {
+    val Symbol.TemplateConstantArg(paramDef, value) = arg
+    val loc = Locations.get(arg.value.id)
+    for {
+      a <- super.templateConstantArg(a, arg)
+      a <- FinalizeTypeDefs.typeNameNode(a, paramDef.typeName)
+      ty <- Right(a.typeMap(paramDef.typeName.id))
+      v <- Right(a.valueMap(value.id))
+      newVal <- {
+        v.convertToType(ty) match {
+          case Some(v) => Right(v)
+          case None => Left(SemanticError.TypeMismatch(loc, s"cannot convert value $v to type $ty"))
+        }
+      }
+    } yield a.assignType(value -> ty).assignValue(value -> newVal)
+  }
+
   override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray) =
     for (a <- super.exprArrayNode(a, node, e))
       yield {
         val eltType = a.typeMap(node.id) match {
           case Type.AnonArray(_, eltType) => eltType
-          case _ => throw InternalError("element type of array expression should be AnonArray")
+          case Type.Array(_, Type.AnonArray(_, eltType), _, _) => eltType
+          case _ => throw InternalError("element type of array expression should be AnonArray or Array")
         }
         def f(node: AstNode[Ast.Expr]) = {
           val v = a.valueMap(node.id)
@@ -104,10 +130,10 @@ object EvalConstantExprs extends UseAnalyzer {
       a <- super.exprNode(a, e.e1)
       a <- super.exprNode(a, e.e2)
 
-      elements <- {
+      anonArray <- {
         a.valueMap(e.e1.id) match {
-          case Value.AnonArray(elements) => Right(elements)
-          case Value.Array(Value.AnonArray(elements), _) => Right(elements)
+          case anonArray : Value.AnonArray => Right(anonArray)
+          case Value.Array(anonArray, _) => Right(anonArray)
           case _ => throw InternalError("expected array value")
         }
       }
@@ -121,6 +147,8 @@ object EvalConstantExprs extends UseAnalyzer {
       }
 
       // Check if the index is in bounds
+      // If the size of the array is not yet known, then we can check only the
+      // lower bound here
       _ <- {
         if index < 0
         then Left(SemanticError.InvalidIntValue(
@@ -128,15 +156,18 @@ object EvalConstantExprs extends UseAnalyzer {
           index,
           "value may not be negative"
         ))
-        else if index >= elements.length
+        else if anonArray.scalar.isEmpty && index >= anonArray.elements.length
         then Left(SemanticError.InvalidIntValue(
           Locations.get(e.e2.id),
           index,
-          s"index value is not in the range [0, ${elements.length-1}]"
+          s"index value is not in the range [0, ${anonArray.elements.length-1}]"
         ))
         else Right(None)
       }
-    } yield a.assignValue(node -> elements(index.toInt))
+    } yield {
+      val v = anonArray.scalar.getOrElse(anonArray.elements(index.toInt))
+      a.assignValue(node -> v)
+    }
   }
 
   override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop) =
@@ -160,7 +191,6 @@ object EvalConstantExprs extends UseAnalyzer {
     val v = Value.Boolean(b)
     Right(a.assignValue(node -> v))
   }
-
 
   override def exprLiteralFloatNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat) = {
     val v = Value.Float(e.value.toDouble, Type.Float.F64)

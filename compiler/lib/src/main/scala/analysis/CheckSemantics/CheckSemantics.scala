@@ -7,9 +7,9 @@ import fpp.compiler.transform._
 /** Check semantics for a list of translation units */
 object CheckSemantics {
 
-  def tuList(a: Analysis, tul: List[Ast.TransUnit]): Result.Result[Analysis] = {
+  def tuList(a: Analysis, tul: List[Ast.TransUnit]):
+    Result.Result[Analysis] = {
     for {
-      a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
       a <- ConstructImpliedUseMap.visitList(a, tul, ConstructImpliedUseMap.transUnit)
       a <- CheckUses.visitList(a, tul, CheckUses.transUnit)
       _ <- CheckUseDefCycles.visitList(a, tul, CheckUseDefCycles.transUnit)
@@ -19,6 +19,7 @@ object CheckSemantics {
       a <- EvalImpliedEnumConsts.visitList(a, tul, EvalImpliedEnumConsts.transUnit)
       a <- EvalConstantExprs.visitList(a, tul, EvalConstantExprs.transUnit)
       a <- FinalizeTypeDefs.visitList(a, tul, FinalizeTypeDefs.transUnit)
+      a <- FinalizeConstantExprs.visitList(a, tul, FinalizeConstantExprs.transUnit)
       _ <- CheckFrameworkConstantValues.check(a)
       a <- CheckPortDefs.visitList(a, tul, CheckPortDefs.transUnit)
       a <- CheckInterfaceDefs.visitList(a, tul, CheckInterfaceDefs.transUnit)
@@ -28,6 +29,7 @@ object CheckSemantics {
       a <- CheckStateMachineDefs.visitList(a, tul, CheckStateMachineDefs.transUnit)
       a <- CheckTopologyInstances.visitList(a, tul, CheckTopologyInstances.transUnit)
       a <- CheckTopologyDefs.visitList(a, tul, CheckTopologyDefs.transUnit)
+      _ <- CheckTemplateInterfaceArgs.check(a)
       a <- BuildSpecLocMap.visitList(a, tul, BuildSpecLocMap.transUnit)
       a <- CheckSpecLocs.visitList(a, tul, CheckSpecLocs.transUnit)
       a <- CheckDictionaryDefs.visitList(a, tul, CheckDictionaryDefs.transUnit)
