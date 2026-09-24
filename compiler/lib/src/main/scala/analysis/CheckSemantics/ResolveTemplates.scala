@@ -14,8 +14,7 @@ object ResolveTemplates {
       tul <- AddStateEnums.transUnitList(tul)
       a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
       a <- CheckTemplateUses.visitList(a, tul, CheckTemplateUses.transUnit)
-      s_tul <- ExpandTemplates.transformList(a, tul, ExpandTemplates.transUnit)
-      tul <- Right(s_tul._2)
+      (_, tul) <- ExpandTemplates.transformList(a, tul, ExpandTemplates.transUnit)
       a <- EnterTemplateSymbols.visitList(a, tul, EnterTemplateSymbols.transUnit)
     } yield (a, tul)
   }

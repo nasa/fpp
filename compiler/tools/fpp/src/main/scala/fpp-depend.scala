@@ -45,10 +45,8 @@ object FPPDepend {
     }
     val a = Analysis(inputFileSet = options.files.toSet, dictionaryGeneration = true)
     for {
-      aTul <- ToolUtils.parseFilesAndResolveAsts(a, files)
-      a <- Right(aTul._1)
-      tulParsed <- Right(aTul._2)
-      tul <- AddStateEnums.transUnitList(tulParsed)
+      (a, tul) <- ToolUtils.parseFilesAndResolveAsts(a, files)
+      (a, tul) <- resolveTemplates(a, tul)
       a <- ComputeDependencies.tuList(a, tul)
       _ <- options.directFile match {
         case Some(file) => writeIterable(a.directDependencyFileSet, file)
@@ -73,7 +71,7 @@ object FPPDepend {
       }
       _ <- options.generatedAutocodeFile match {
         case Some(file) =>
-          for (files <- ComputeGeneratedFiles.getAutocodeFiles(tulParsed))
+          for (files <- ComputeGeneratedFiles.getAutocodeFiles(a, tul))
           yield writeIterable(files, file)
         case None => Right(())
       }
@@ -81,7 +79,7 @@ object FPPDepend {
         case Some(file) =>
           for {
             files <- ComputeGeneratedFiles.getTestFiles(
-              tulParsed,
+              a, tul,
               CppWriter.getTestHelperMode(options.autoTestHelpers)
             )
           }
@@ -98,6 +96,20 @@ object FPPDepend {
       }
     } yield mapIterable(a.dependencyFileSet, System.out.println(_))
   }
+
+  def resolveTemplates(a: Analysis, tul: List[Ast.TransUnit]):
+    Result.Result[(Analysis, List[Ast.TransUnit])] =
+      ResolveTemplates.tuList(a, tul) match {
+        case result @ Right(_) => result
+        case Left(_) =>
+          for {
+            tul <- AddStateEnums.transUnitList(tul)
+          }
+          yield (
+            EnterSymbols.visitList(a, tul, EnterSymbols.transUnit).getOrElse(a),
+            tul
+          )
+      }
 
   def writeIterable[T](
     its: Iterable[T],
