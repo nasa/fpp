@@ -204,7 +204,7 @@ object MatchedPortNumbering {
   def apply(t: Topology): Result.Result[Topology] =
     for {
       // Check for invalid 'unmatched' keyords
-      _ <- Result.foldLeft (t.connectionMap.values.flatten) (()) ((t, c) =>
+      _ <- Result.foldLeft (t.unmatchedConnectionSet.toList) (()) ((t, c) =>
         if !c.isMatchConstrained && c.isUnmatched
         then Left(SemanticError.MissingPortMatching(c.getLoc))
         else Right(())
