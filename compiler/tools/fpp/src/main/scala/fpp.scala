@@ -76,7 +76,7 @@ to-layout   writes layout text files for connection graphs within F Prime topolo
           c match {
             case "check" | "depend" | "filenames" | "format" | "from-xml" |
                 "locate-defs" | "locate-uses" | "syntax" |
-                "to-cpp" | "to-dict" | "to-json" | "to-layout" =>
+                "to-cpp" | "to-dict" | "to-layout" =>
               Right(())
             case _ => Left(s"invalid fpp command '$c'")
           }

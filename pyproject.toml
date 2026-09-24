@@ -56,7 +56,7 @@ fpp-to-json = "fprime_fpp.__main__:main"
 fpp-to-layout = "fprime_fpp.__main__:main"
 
 [tool.setuptools.package-data]
-fprime_fpp = ["fpp", "fpp.jar"]
+fprime_fpp = ["fpp"]
 
 ####
 [tool.setuptools_scm]
