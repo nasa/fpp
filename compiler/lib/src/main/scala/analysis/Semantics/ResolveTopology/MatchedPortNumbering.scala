@@ -203,7 +203,7 @@ object MatchedPortNumbering {
   /** Apply matched numbering */
   def apply(t: Topology): Result.Result[Topology] =
     for {
-      // Check for invalid 'unmatched' keyords
+      // Check for invalid 'unmatched' keywords
       _ <- Result.foldLeft (t.unmatchedConnectionSet.toList) (()) ((t, c) =>
         if !c.isMatchConstrained
         then Left(SemanticError.MissingPortMatching(c.getLoc))
