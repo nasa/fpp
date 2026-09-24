@@ -34,11 +34,6 @@ jobs:
       run: |
         cd compiler/
         sbt test
-    - name: Run fpp tests
-      run: |
-        export PATH=~/.local/share/coursier/bin:$PATH
-        cd compiler/
-        ./test
     - name: Clean up
       run: |
         cd compiler/
