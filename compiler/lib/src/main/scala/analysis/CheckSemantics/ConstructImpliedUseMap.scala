@@ -6,6 +6,16 @@ import fpp.compiler.util._
 /** Construct the implied use map */
 object ConstructImpliedUseMap extends TypeExpressionAnalyzer {
 
+  override def defModuleTemplateAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = {
+    for {
+      a <- super.defModuleTemplateAnnotatedNode(a, aNode)
+      a <- visitList(a, aNode._2.data.members, matchModuleMember)
+    } yield a
+  }
+
   override def specPortInstanceAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]

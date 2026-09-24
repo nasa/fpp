@@ -37,3 +37,6 @@ update "-u" "ok" ok_test
 update "-u -a" "ok" ok_test_auto_helpers
 update "-u -t" "ok" ok_test_template
 update "-u -t -a" "ok" ok_test_template_auto_helpers
+update "" template
+update "-t" "template" template_template
+update "-u" "template" template_test

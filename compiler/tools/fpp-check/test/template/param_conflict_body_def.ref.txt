@@ -1,0 +1,10 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/param_conflict_body_def.fpp:1.19
+module template T(constant x: U32) {
+                  ^
+error: template parameter x conflicts with a definition in the template body
+conflicting definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/template/param_conflict_body_def.fpp:2.5
+    constant x = 0
+    ^
+  expanded at [ local path prefix ]/compiler/tools/fpp-check/test/template/param_conflict_body_def.fpp:6.1

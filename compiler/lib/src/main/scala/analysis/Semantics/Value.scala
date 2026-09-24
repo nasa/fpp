@@ -64,10 +64,14 @@ sealed trait Value {
     def promoteToAnonArray(anonArray: Type.AnonArray): Option[Value.AnonArray] = {
       if (this.getType.isPromotableToArray)
         for {
-          size <- anonArray.size
           elt <- this.convertToType(anonArray.eltType)
         }
-        yield Value.AnonArray(List.fill(size)(elt))
+        yield {
+          anonArray.size match {
+            case Some(size) => Value.AnonArray(List.fill(size)(elt), None)
+            case None => Value.AnonArray(Nil, Some(elt))
+          }
+        }
       else None
     }
     def promoteToArray(array: Type.Array): Option[Value.Array] =
@@ -310,7 +314,7 @@ object Value {
   }
 
   /** Anonymous array values */
-  case class AnonArray(elements: List[Value]) extends Value {
+  case class AnonArray(elements: List[Value], scalar: Option[Value] = None) extends Value {
 
     def convertToAnonArray(anonArrayType: Type.AnonArray): Option[Value.AnonArray] = {
       def convertElements(in: List[Value], t: Type, out: List[Value]): Option[List[Value]] =
@@ -322,10 +326,21 @@ object Value {
           }
         }
       val Type.AnonArray(size, eltType) = anonArrayType
-      if (Type.Array.sizesMatch(Some(elements.size), size))
-        for (elements <- convertElements(elements, eltType, Nil))
-          yield AnonArray(elements)
-      else None
+      scalar match {
+        // This value is a scalar promoted to an array of unknown size
+        // Fill in the elements, if the size is now known
+        case Some(scalarValue) =>
+          for (elt <- scalarValue.convertToType(eltType))
+            yield size match {
+              case Some(n) => AnonArray(List.fill(n)(elt), None)
+              case None => AnonArray(Nil, Some(elt))
+            }
+        case None =>
+          if (Type.Array.sizesMatch(Some(elements.size), size))
+            for (elements <- convertElements(elements, eltType, Nil))
+              yield AnonArray(elements)
+          else None
+      }
     }
 
     def convertToArray(arrayType: Type.Array): Option[Value.Array] = {
@@ -341,11 +356,25 @@ object Value {
         case _ => None
       }
 
-    override def getType = Type.AnonArray(Some(elements.size), elements.head.getType)
+    override def getType = scalar match {
+      // A scalar value promoted to an array whose size is not yet known
+      case Some(scalarValue) => Type.AnonArray(None, scalarValue.getType)
+      case None => elements match {
+        case head :: _ => Type.AnonArray(Some(elements.size), head.getType)
+        // An empty array value has no element type
+        // This case cannot arise when analyzing a model: an array expression
+        // may not be empty, and an array size may not be zero
+        case Nil => Type.AnonArray(Some(0), Type.Integer)
+      }
+    }
 
-    override def toString = "[ " ++ elements.mkString(", ") ++ " ]"
+    override def toString = scalar match {
+      case Some(scalarValue) => "[ " ++ scalarValue.toString ++ ", ... ]"
+      case None => "[ " ++ elements.mkString(", ") ++ " ]"
+    }
 
-    override def truncate: AnonArray = AnonArray(elements.map(_.truncate))
+    override def truncate: AnonArray =
+      AnonArray(elements.map(_.truncate), scalar.map(_.truncate))
 
   }
 
@@ -416,6 +445,8 @@ object Value {
         in match {
           case Nil => Some(out)
           case (m -> t) :: tail => {
+            // If this value has member m, then convert its value to the
+            // member type. Otherwise use the default value at the member type.
             val vOpt = members.get(m) match {
               case Some(v) => v.convertToType(t)
               case None => t.getDefaultValue
