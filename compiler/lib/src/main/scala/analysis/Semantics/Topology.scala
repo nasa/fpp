@@ -28,6 +28,8 @@ case class Topology(
   patternMap: Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern] = Map(),
   /** The connections of this topology, indexed by graph name */
   connectionMap: Map[Name.Unqualified, List[Connection]] = Map(),
+  /** The connections of this topology marked as unmatched */
+  unmatchedConnectionSet: Set[Connection] = Set(),
   /** The connections defined locally, not imported */
   localConnectionMap: Map[Name.Unqualified, List[Connection]] = Map(),
   /** The output connections going from each port */
@@ -111,6 +113,10 @@ case class Topology(
       val connections = connectionMap.getOrElse(graphName, Nil)
       connectionMap + (graphName -> (connection :: connections))
     }
+    val ucSet = {
+      val connections = unmatchedConnectionSet
+      if connection.isUnmatched then connections + connection else connections
+    }
     val ocMap = {
       val from = connection.from.port
       val connections = outputConnectionMap.getOrElse(from, TreeSet.empty[Connection])
@@ -131,6 +137,7 @@ case class Topology(
     }
     this.copy(
       connectionMap = cgMap,
+      unmatchedConnectionSet = ucSet,
       outputConnectionMap = ocMap,
       inputConnectionMap = icMap,
       fromPortNumberMap = fpnMap,

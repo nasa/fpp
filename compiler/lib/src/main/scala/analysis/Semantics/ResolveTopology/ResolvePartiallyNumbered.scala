@@ -136,8 +136,9 @@ object ResolvePartiallyNumbered {
     // Clear out connections of T and reprocess them
     // Resolve all port instance identifiers to their 'true' component instance port
     Right(t.localConnectionMap.foldLeft (t.copy(
-      localConnectionMap = Map(),
       connectionMap = Map(),
+      unmatchedConnectionSet = Set(),
+      localConnectionMap = Map(),
       outputConnectionMap = TreeMap(),
       inputConnectionMap = TreeMap(),
       fromPortNumberMap = TreeMap(),
