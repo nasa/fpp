@@ -201,14 +201,21 @@ object MatchedPortNumbering {
   }
 
   /** Apply matched numbering */
-  def apply(t: Topology): Result.Result[Topology] = {
-    // Fold over instances and matchings
-    Result.foldLeft (t.componentInstanceMap.keys.toList) (t) ((t, ci) =>
-      Result.foldLeft (ci.component.portMatchingList) (t) ((t, pm) =>
-        handlePortMatching(t, ci, pm)
+  def apply(t: Topology): Result.Result[Topology] =
+    for {
+      // Check for invalid 'unmatched' keyords
+      _ <- Result.foldLeft (t.connectionMap.values.flatten) (()) ((t, c) =>
+        if !c.isMatchConstrained && c.isUnmatched
+        then Left(SemanticError.MissingPortMatching(c.getLoc))
+        else Right(())
       )
-    )
-  }
+      // Fold over instances and matchings
+      t <- Result.foldLeft (t.componentInstanceMap.keys.toList) (t) ((t, ci) =>
+        Result.foldLeft (ci.component.portMatchingList) (t) ((t, pm) =>
+          handlePortMatching(t, ci, pm)
+        )
+      )
+    } yield t
 
   // Check for missing connections
   private def checkForMissingConnections(
