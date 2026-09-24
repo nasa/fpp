@@ -51,6 +51,7 @@ fpp-locate-uses = "fprime_fpp.__main__:main"
 fpp-syntax = "fprime_fpp.__main__:main"
 fpp-to-cpp = "fprime_fpp.__main__:main"
 fpp-to-dict = "fprime_fpp.__main__:main"
+fpp-to-fpp = "fprime_fpp.__main__:main"
 fpp-to-json = "fprime_fpp.__main__:main"
 fpp-to-layout = "fprime_fpp.__main__:main"
 

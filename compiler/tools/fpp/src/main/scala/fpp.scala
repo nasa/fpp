@@ -14,13 +14,13 @@ object FPP {
       case "check"       => FPPCheck.toolMain(options.args)
       case "depend"      => FPPDepend.toolMain(options.args)
       case "filenames"   => FPPFilenames.toolMain(options.args)
-      case "format"      => FPPFormat.toolMain(options.args)
       case "from-xml"    => FPPFromXml.toolMain(options.args)
       case "locate-defs" => FPPLocateDefs.toolMain(options.args)
       case "locate-uses" => FPPLocateUses.toolMain(options.args)
       case "syntax"      => FPPSyntax.toolMain(options.args)
       case "to-cpp"      => FPPToCpp.toolMain(options.args)
       case "to-dict"     => FPPToDict.toolMain(options.args)
+      case "to-fpp"      => FPPToFPP.toolMain(options.args)
       case "to-json"     => FPPtoJson.toolMain(options.args)
       case "to-layout"   => FPPToLayout.toolMain(options.args)
     }
@@ -59,13 +59,13 @@ object FPP {
 check       performs semantic checking of FPP models
 depend      computes dependencies for FPP source files
 filenames   writes out the names of C++ files generated from FPP source files
-format      parses FPP source files and writes out formatted source files
 from-xml    parses older F Prime XML files and converts them to FPP files
 locate-defs parses FPP source files and reports the locations of symbol definitions
 locate-uses parses FPP source files and reports the locations of symbols used in the files
 syntax      parses FPP source files into an abstract syntax tree (AST) and optionally writes out the AST
 to-cpp      parses FPP models, performs semantic checking on them, and writes out C++ files
 to-dict     writes JSON dictionaries corresponding to F Prime topologies
+to-fpp      parses FPP source files optionally expands source and writes out FPP source files
 to-json     parses an FPP model, performs semantic checking on it, and writes out the model in JSON
 to-layout   writes layout text files for connection graphs within F Prime topologies
 """),

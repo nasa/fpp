@@ -13190,15 +13190,12 @@ constant b = a</code></pre>
 above.</p>
 </li>
 <li>
-<p>Run <code>fpp-format -i b.fpp</code>.</p>
+<p>Run <code>fpp-to-fpp -i b.fpp</code>.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p><code>fpp-format</code> is a tool for formatting FPP source files.
-It also can expand include specifiers.
-<code>fpp-format</code> is discussed further in the section on
-<a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">formatting FPP source</a>.</p>
+<p><code>fpp-to-fpp</code> is a tool for expanding FPP source files.</p>
 </div>
 <div class="paragraph">
 <p>As mentioned above, the path is relative to the directory
@@ -15306,17 +15303,16 @@ and clang compiler flags:</p>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Formatting-FPP-Source">16.3. Formatting FPP Source</h3>
 <div class="paragraph">
-<p>The tool <code>fpp-format</code> accepts FPP source files as input
-and rewrites them as formatted output.
-You can use this tool to put your source files into
-a standard form.</p>
+<p>The tool <code>fpp-to-fpp</code> accepts FPP source files as input
+and rewrites them after applying transformations.
+You can use this tool to expand the FPP model.</p>
 </div>
 <div class="paragraph">
 <p>For example, try this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% fpp-format
+<pre>% fpp-to-fpp
 array A = [3] U32 default [ 1, 2, 3 ]
 ^D
 array A = [3] U32 default [
@@ -15327,54 +15323,30 @@ array A = [3] U32 default [
 </div>
 </div>
 <div class="paragraph">
-<p><code>fpp-format</code> has reformatted the default value so that each array
-element is on its own line.</p>
-</div>
-<div class="paragraph">
-<p>By default, <code>fpp-format</code> does not resolve include specifiers.
+<p>By default, <code>fpp-to-fpp</code> does not resolve include specifiers.
 For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre>% echo 'constant a = 0' &gt; a.fppi
-% fpp-format
+% fpp-to-fpp
 include "a.fppi"
 ^D
 include "a.fppi"</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>-i</code> option causes <code>fpp-format</code> to resolve include specifiers.
+<p>The <code>-i</code> option causes <code>fpp-to-fpp</code> to resolve include specifiers.
 For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre>% echo 'constant a = 0' &gt; a.fpp
-% fpp-format -i
+% fpp-to-fpp -i
 include "a.fppi"
 ^D
 constant a = 0</pre>
 </div>
-</div>
-<div class="paragraph">
-<p><code>fpp-format</code> has one big limitation: it goes through
-the FPP parser, so it deletes all
-<a href="#Writing-Comments-and-Annotations_Comments">comments</a>
-from the program
-(<a href="#Writing-Comments-and-Annotations_Annotations">annotations</a>
-are preserved).
-To preserve comments on their own lines that precede
-annotatable elements, you can run this script:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">#!/bin/sh
-sed 's/^\( *\)#/\1@ #/' | fpp-format $@ | sed 's/^\( *\)@ #/\1#/'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>It converts comments to annotations, runs <code>fpp-format</code>, and converts the
-annotations back to comments.</p>
 </div>
 </div>
 <div class="sect2">
@@ -16609,11 +16581,10 @@ directly, you provide the storage for the buffer and pass its address and
 capacity (allocated size) to the <code>Fw::LinearBufferBase</code> constructor; the base
 class uses this address and capacity to implement <code>serializeTo</code> and
 <code>deserializeFrom</code>.
-This can be done by inheriting from <code>Fw::LinearBufferBase</code> directly (see
-<code>HashBuffer</code> constructor in <code>Utils/Hash/HashBufferCommon.cpp</code>) or by using
-the <code>Fw::LinearBufferTemplate</code> class template (see <code>Fw/Cmd/CmdArgBuffer.hpp</code>
-for an example, it defines <code>Fw::CmdArgBuffer</code> as a specialization of
-<code>Fw::LinearBufferTemplate</code>).
+To do this, you can write a custom buffer that inherits from <code>Fw::LinearBufferBase</code> (for example,
+see the <code>HashBuffer</code> constructor in <code>Utils/Hash/HashBufferCommon.cpp</code>), or you can use
+the <code>Fw::LinearBufferTemplate</code> class template (for example, see <code>Fw/Cmd/CmdArgBuffer.hpp</code>;
+it defines <code>Fw::CmdArgBuffer</code> as a specialization of <code>Fw::LinearBufferTemplate</code>).
 Be careful, though: if you implement an abstract type <code>T</code> this way
 and you try to use the type <code>T</code> outside of a port definition,
 the generated C&#43;&#43; may not compile.</p>
@@ -17133,7 +17104,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-08-11 08:51:38 -0700
+Last updated 2026-09-24 08:07:03 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

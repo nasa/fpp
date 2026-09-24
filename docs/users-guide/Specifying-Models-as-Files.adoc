@@ -116,13 +116,9 @@ To see this, do the following:
 . Create files `a.fppi` and `b.fpp` as described
 above.
 
-. Run `fpp-format -i b.fpp`.
+. Run `fpp-to-fpp -i b.fpp`.
 
-`fpp-format` is a tool for formatting FPP source files.
-It also can expand include specifiers.
-`fpp-format` is discussed further in the section on
-<<Analyzing-and-Translating-Models_Formatting-FPP-Source,
-formatting FPP source>>.
+`fpp-to-fpp` is a tool for expanding FPP source files.
 
 As mentioned above, the path is relative to the directory
 of the file containing the include specifier.

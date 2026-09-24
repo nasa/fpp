@@ -8,7 +8,7 @@ import fpp.compiler.transform._
 import fpp.compiler.util._
 import scopt.OParser
 
-object FPPFormat {
+object FPPToFPP {
 
   case class Options(
     include: Boolean = false,
@@ -50,7 +50,7 @@ object FPPFormat {
 
   val builder = OParser.builder[Options]
 
-  val name = "fpp-format"
+  val name = "fpp-to-fpp"
 
   val oparser = {
     import builder._

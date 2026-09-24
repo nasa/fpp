@@ -706,15 +706,14 @@ When using clang, the following flags must also be set:
 
 === Formatting FPP Source
 
-The tool `fpp-format` accepts FPP source files as input
-and rewrites them as formatted output.
-You can use this tool to put your source files into
-a standard form.
+The tool `fpp-to-fpp` accepts FPP source files as input
+and rewrites them after applying transformations.
+You can use this tool to expand the FPP model.
 
 For example, try this:
 
 ----
-% fpp-format
+% fpp-to-fpp
 array A = [3] U32 default [ 1, 2, 3 ]
 ^D
 array A = [3] U32 default [
@@ -724,48 +723,27 @@ array A = [3] U32 default [
                           ]
 ----
 
-`fpp-format` has reformatted the default value so that each array
-element is on its own line.
-
-By default, `fpp-format` does not resolve include specifiers.
+By default, `fpp-to-fpp` does not resolve include specifiers.
 For example:
 
 ----
 % echo 'constant a = 0' > a.fppi
-% fpp-format
+% fpp-to-fpp
 include "a.fppi"
 ^D
 include "a.fppi"
 ----
 
-The `-i` option causes `fpp-format` to resolve include specifiers.
+The `-i` option causes `fpp-to-fpp` to resolve include specifiers.
 For example:
 
 ----
 % echo 'constant a = 0' > a.fpp
-% fpp-format -i
+% fpp-to-fpp -i
 include "a.fppi"
 ^D
 constant a = 0
 ----
-
-`fpp-format` has one big limitation: it goes through
-the FPP parser, so it deletes all
-<<Writing-Comments-and-Annotations_Comments,comments>>
-from the program
-(<<Writing-Comments-and-Annotations_Annotations,annotations>>
-are preserved).
-To preserve comments on their own lines that precede
-annotatable elements, you can run this script:
-
-[source,bash]
-----
-#!/bin/sh
-sed 's/^\( *\)#/\1@ #/' | fpp-format $@ | sed 's/^\( *\)@ #/\1#/'
-----
-
-It converts comments to annotations, runs `fpp-format`, and converts the
-annotations back to comments.
 
 === Visualizing Topologies
 

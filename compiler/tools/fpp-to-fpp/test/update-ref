@@ -2,7 +2,7 @@
 
 . ../../../scripts/test-utils.sh
 
-fpp_format=../../../bin/fpp-format
+fpp_to_fpp=../../../bin/fpp-to-fpp
 
 update()
 {
@@ -14,7 +14,7 @@ update()
   else
     outfile=$infile
   fi
-  $fpp_format $args $infile.fpp 2>&1 | remove_path_prefix > $outfile.ref.txt
+  $fpp_to_fpp $args $infile.fpp 2>&1 | remove_path_prefix > $outfile.ref.txt
 }
 
 for file in `find . -name '*.ref.txt'`
