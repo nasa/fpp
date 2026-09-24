@@ -5,6 +5,9 @@ essentially the same structure at different points of the model, possibly with
 variations in detail.
 For example:
 
+* You may need to define several components that are all the same,
+except that they handle different data types.
+
 * You may need to use the same subtopology in different deployments
 of the same multi-deployment system.
 For example, each of the deployments may require the same subtopology for 
@@ -105,7 +108,7 @@ module N {
 }
 --------
 
-You can see this by running the tool `fpp-to-fpp -t` on the
+You can see this by running the tool `fpp-to-fpp -e` on the
 original model shown above.
 We will explain this tool in the section on 
 <<Analyzing-and-Translating-Models_Rewriting-FPP-Source,rewriting FPP source>>.
@@ -200,7 +203,7 @@ module N {
 
 In the definition of the template `T`, we have provided
 a constant parameter `p`, denoted by the keyword `constant`
-followed by the name `p`, a colon and the name of a type.
+followed by the name `p`, a colon, and the name of a type.
 Here the type is `U32`; in general it can be any type.
 Since `T` has is one parameter of type `U32`, each
 expansion must provide one argument of a type compatible
@@ -352,9 +355,32 @@ module template T(
   @ Error: The type P is not defined here
   constant p: P
 ) {
-  constant c = P
+  constant c = p
 }
 --------
+
+It is also not allowed for a template to have two parameters
+of the same kind with the same name, or for a template
+to have a parameter and a definition of the same kind with the same
+name.
+For example, these cases are not allowed:
+
+[source,fpp]
+--------
+@ Error: Two occurrences of constant parameter a
+module template T1(constant a: U32, constant a: I32)
+
+@ Error: Constant parameter a and constant definition a
+module template T2(constant a: U32) {
+
+  constant a = 0
+
+}
+--------
+
+and a definition to define a symbol in the template
+with the same name as a para
+TODO: No definition of symbol in template with same name as parameter.
 
 ==== Port Interface Instance Parameters
 
@@ -364,12 +390,260 @@ Recall that a
 <<Defining-Topologies_Topology-Ports_Port-Interface-Instances,port interface 
 instance>> is either a component instance definition or a topology
 definition.
+By using port interface instance parameters, you can parameterize
+a module over an instance that has ports.
+This can be a single component instance or an entire topology.
 
-TODO
+As an example, consider a topology that provides a downlink
+capability by framing data and sending it to a radio.
+Without templates, the topology might look like this:
+
+[source,fpp]
+--------
+interface DownlinkInterface {
+  async input port dataIn: DownlinkData
+}
+
+topology DownlinkTopology implements DownlinkInterface {
+
+  instance framer
+  instance radio
+
+  port dataIn = framer.dataIn
+
+  connections Downlink {
+    framer.dataOut -> radio.dataIn
+  }
+
+}
+--------
+
+Now suppose that you want two versions of this topology,
+one for integration testing that uses a stub radio, and
+one for system testing that uses an actual radio.
+In this case, you can make the topology into a template,
+and you can make the `radio` instance into a template
+parameter, like this:
+
+[source,fpp]
+--------
+module template DownlinkTopologyTemplate(instance radio: DownlinkInterface) {
+
+  topology DownlinkTopology implements DownlinkInterface {
+
+    instance framer
+    instance radio
+
+    port dataIn = framer.dataIn
+
+    connections Downlink {
+      framer.dataOut -> radio.dataIn
+    }
+
+  }
+
+}
+--------
+
+Notice the following:
+
+* In the definition of `DownlinkTopologyTemplate`, we have
+provided an interface parameter by writing `interface`,
+the name of the parameter, a colon, and the name of
+a <<Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces,
+port interface>>.
+
+* The topology itself is the same as before, but
+now the specifier `instance radio` in the topology refers
+to the interface parameter `radio` of the template, instead of
+directly referring to a component instance or topology.
+
+Now you can expand the template twice, once with a stub radio
+and once with an actual radio:
+
+[source,fpp]
+--------
+module IntegrationDeployment {
+
+  instance radioStub: RadioStub base id 0x10000000 \
+    queue size Default.QUEUE_SIZE \
+    stack size Default.STACK_SIZE \
+    priority 50
+
+  expand DownlinkTopologyTemplate(instance radioStub)
+
+}
+
+module FlightDeployment {
+
+  instance radio: Radio base id 0x10000000 \
+    queue size Default.QUEUE_SIZE \
+    stack size Default.STACK_SIZE \
+    priority 50
+
+  expand DownlinkTopologyTemplate(instance radio)
+
+}
+--------
+  
+Further, because the topology `DownlinkTopology` (in either expansion)
+implements the interface `DownlinkInterface`, you can use either
+expansion as an argument to another template with an interface parameter.
+For example, suppose you have a template for a CDH (command and data handling)
+topology that looks like this:
+
+[source,fpp]
+--------
+template CDHTopologyTemplate(interface downlink: DownlinkInterface) {
+  ...
+}
+--------
+
+Then you could expand that template twice, like this:
+
+[source,fpp]
+--------
+module IntegrationDeployment {
+
+  expand CDHTopologyTemplate(interface DownlinkTopology)
+
+}
+
+module FlightDeployment {
+
+  expand CDHTopologyTemplate(interface DownlinkTopology)
+
+}
+--------
+
+Notice that each of the expansions here is in the same module
+as the corresponding expansion above, so we can use the simple
+name `DownlinkTopology` to refer to the topology expansion,
+which is defined in the same module.
 
 === Resolving Names in Expanded Templates
 
-TODO
+FPP uses a special rule for resolving the names of symbols
+used in expanded templates.
+When a name appears in an expanded template, the name
+is resolved as if it appeared at the point of the template
+_definition_ rather than at the point of the template _expansion_.
+This is to make it easy to see, when writing a template definition,
+how the names will be resolved when the template is expanded.
+
+To understand this rule, consider the following model:
+
+[source,fpp]
+----
+module M {
+
+  constant a = 0
+
+  module template T {
+
+    constant b = a
+
+  }
+
+}
+
+expand M.T
+----
+
+After template expansion, the model looks like this:
+
+[source,fpp]
+--------
+module M {
+
+  constant a = 0
+
+  module template T {
+
+    constant b = a
+
+  }
+
+}
+
+expand M.T {
+
+  constant b = a
+
+}
+--------
+
+Notice that in the expanded template, there is a use of the
+name `a`.
+In this model, there is a constant `a` defined in the module `M`,
+but here we are outside the module `M`.
+So under the ordinary rules for name resolution, the symbol
+`a` would be undefined at this point; only `M.a` would be defined.
+However, because we are in an `expand` block, we use the
+special rule.
+The special rule says to resolve the name `a` occurring
+in the expansion of template `M.T` as if it occurred at the point
+of the definition of `M.T`.
+That definition occurs inside the module `M`, so the name `a`
+is in scope there, and it refers to the constant `M.a`.
+So this model passes through the analyzer.
+
+Here is another example:
+
+[source,fpp]
+----
+module M {
+
+  constant a = 0
+
+  module template T {
+
+    constant b = a
+
+  }
+
+}
+
+constant a = 1
+
+expand M.T
+----
+
+Here is the model after expansion:
+
+[source,fpp]
+--------
+module M {
+
+  constant a = 0
+
+  module template T {
+
+    constant b = a
+
+  }
+
+}
+
+constant a = 1
+
+expand M.T {
+
+  constant b = a
+
+}
+--------
+
+Here the symbol `a` is defined at the point of the expansion.
+However, the definition there gives `a` the value 1, whereas
+the definition in the template definition gives `a` the value 0.
+According to the special rule, `a` evaluates to 0, not 1,
+in the expanded template, because that is the value of `a`
+at the point of the template definition.
+This rule removes a point of possible confusion or surprise
+that could occur if the names used in template definitions
+could refer to different symbols in different expansions,
+depending upon where the expansions occurred.
 
 === The expand Syntax
 

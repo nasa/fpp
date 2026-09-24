@@ -758,7 +758,9 @@ include "a.fppi"
 constant a = 0
 ----
 
-TODO: Explain the template expansion option.
+TODO: Explain the syntax expansion option.
+Use `-e` as the switch for syntactic expansion.
+This will add state machine enums and expand templates.
 
 `fpp-format` has one big limitation: it goes through
 the FPP parser, so it deletes all

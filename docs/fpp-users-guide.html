@@ -13155,6 +13155,10 @@ For example:</p>
 <div class="ulist">
 <ul>
 <li>
+<p>You may need to define several components that are all the same,
+except that they handle different data types.</p>
+</li>
+<li>
 <p>You may need to use the same subtopology in different deployments
 of the same multi-deployment system.
 For example, each of the deployments may require the same subtopology for
@@ -13269,7 +13273,7 @@ module N {
 </div>
 </div>
 <div class="paragraph">
-<p>You can see this by running the tool <code>fpp-to-fpp -t</code> on the
+<p>You can see this by running the tool <code>fpp-to-fpp -e</code> on the
 original model shown above.
 We will explain this tool in the section on
 <a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source">rewriting FPP source</a>.</p>
@@ -13373,7 +13377,7 @@ module N {
 <div class="paragraph">
 <p>In the definition of the template <code>T</code>, we have provided
 a constant parameter <code>p</code>, denoted by the keyword <code>constant</code>
-followed by the name <code>p</code>, a colon and the name of a type.
+followed by the name <code>p</code>, a colon, and the name of a type.
 Here the type is <code>U32</code>; in general it can be any type.
 Since <code>T</code> has is one parameter of type <code>U32</code>, each
 expansion must provide one argument of a type compatible
@@ -13534,9 +13538,34 @@ For example, this is not allowed:</p>
   @ Error: The type P is not defined here
   constant p: P
 ) {
-  constant c = P
+  constant c = p
 }</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>It is also not allowed for a template to have two parameters
+of the same kind with the same name, or for a template
+to have a parameter and a definition of the same kind with the same
+name.
+For example, these cases are not allowed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Error: Two occurrences of constant parameter a
+module template T1(constant a: U32, constant a: I32)
+
+@ Error: Constant parameter a and constant definition a
+module template T2(constant a: U32) {
+
+  constant a = 0
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and a definition to define a symbol in the template
+with the same name as a para
+TODO: No definition of symbol in template with same name as parameter.</p>
 </div>
 </div>
 <div class="sect3">
@@ -13547,17 +13576,282 @@ For example, this is not allowed:</p>
 Recall that a
 <a href="#Defining-Topologies_Topology-Ports_Port-Interface-Instances">port interface
 instance</a> is either a component instance definition or a topology
-definition.</p>
+definition.
+By using port interface instance parameters, you can parameterize
+a module over an instance that has ports.
+This can be a single component instance or an entire topology.</p>
 </div>
 <div class="paragraph">
-<p>TODO</p>
+<p>As an example, consider a topology that provides a downlink
+capability by framing data and sending it to a radio.
+Without templates, the topology might look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">interface DownlinkInterface {
+  async input port dataIn: DownlinkData
+}
+
+topology DownlinkTopology implements DownlinkInterface {
+
+  instance framer
+  instance radio
+
+  port dataIn = framer.dataIn
+
+  connections Downlink {
+    framer.dataOut -&gt; radio.dataIn
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now suppose that you want two versions of this topology,
+one for integration testing that uses a stub radio, and
+one for system testing that uses an actual radio.
+In this case, you can make the topology into a template,
+and you can make the <code>radio</code> instance into a template
+parameter, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template DownlinkTopologyTemplate(instance radio: DownlinkInterface) {
+
+  topology DownlinkTopology implements DownlinkInterface {
+
+    instance framer
+    instance radio
+
+    port dataIn = framer.dataIn
+
+    connections Downlink {
+      framer.dataOut -&gt; radio.dataIn
+    }
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the definition of <code>DownlinkTopologyTemplate</code>, we have
+provided an interface parameter by writing <code>interface</code>,
+the name of the parameter, a colon, and the name of
+a <a href="#Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces">port interface</a>.</p>
+</li>
+<li>
+<p>The topology itself is the same as before, but
+now the specifier <code>instance radio</code> in the topology refers
+to the interface parameter <code>radio</code> of the template, instead of
+directly referring to a component instance or topology.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Now you can expand the template twice, once with a stub radio
+and once with an actual radio:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module IntegrationDeployment {
+
+  instance radioStub: RadioStub base id 0x10000000 \
+    queue size Default.QUEUE_SIZE \
+    stack size Default.STACK_SIZE \
+    priority 50
+
+  expand DownlinkTopologyTemplate(instance radioStub)
+
+}
+
+module FlightDeployment {
+
+  instance radio: Radio base id 0x10000000 \
+    queue size Default.QUEUE_SIZE \
+    stack size Default.STACK_SIZE \
+    priority 50
+
+  expand DownlinkTopologyTemplate(instance radio)
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Further, because the topology <code>DownlinkTopology</code> (in either expansion)
+implements the interface <code>DownlinkInterface</code>, you can use either
+expansion as an argument to another template with an interface parameter.
+For example, suppose you have a template for a CDH (command and data handling)
+topology that looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">template CDHTopologyTemplate(interface downlink: DownlinkInterface) {
+  ...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then you could expand that template twice, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module IntegrationDeployment {
+
+  expand CDHTopologyTemplate(interface DownlinkTopology)
+
+}
+
+module FlightDeployment {
+
+  expand CDHTopologyTemplate(interface DownlinkTopology)
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that each of the expansions here is in the same module
+as the corresponding expansion above, so we can use the simple
+name <code>DownlinkTopology</code> to refer to the topology expansion,
+which is defined in the same module.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="Defining-and-Using-Module-Templates_Resolving-Names-in-Expanded-Templates">15.3. Resolving Names in Expanded Templates</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>FPP uses a special rule for resolving the names of symbols
+used in expanded templates.
+When a name appears in an expanded template, the name
+is resolved as if it appeared at the point of the template
+<em>definition</em> rather than at the point of the template <em>expansion</em>.
+This is to make it easy to see, when writing a template definition,
+how the names will be resolved when the template is expanded.</p>
+</div>
+<div class="paragraph">
+<p>To understand this rule, consider the following model:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+
+  constant a = 0
+
+  module template T {
+
+    constant b = a
+
+  }
+
+}
+
+expand M.T</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After template expansion, the model looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+
+  constant a = 0
+
+  module template T {
+
+    constant b = a
+
+  }
+
+}
+
+expand M.T {
+
+  constant b = a
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that in the expanded template, there is a use of the
+name <code>a</code>.
+In this model, there is a constant <code>a</code> defined in the module <code>M</code>,
+but here we are outside the module <code>M</code>.
+So under the ordinary rules for name resolution, the symbol
+<code>a</code> would be undefined at this point; only <code>M.a</code> would be defined.
+However, because we are in an <code>expand</code> block, we use the
+special rule.
+The special rule says to resolve the name <code>a</code> occurring
+in the expansion of template <code>M.T</code> as if it occurred at the point
+of the definition of <code>M.T</code>.
+That definition occurs inside the module <code>M</code>, so the name <code>a</code>
+is in scope there, and it refers to the constant <code>M.a</code>.
+So this model passes through the analyzer.</p>
+</div>
+<div class="paragraph">
+<p>Here is another example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+
+  constant a = 0
+
+  module template T {
+
+    constant b = a
+
+  }
+
+}
+
+constant a = 1
+
+expand M.T</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is the model after expansion:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+
+  constant a = 0
+
+  module template T {
+
+    constant b = a
+
+  }
+
+}
+
+constant a = 1
+
+expand M.T {
+
+  constant b = a
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here the symbol <code>a</code> is defined at the point of the expansion.
+However, the definition there gives <code>a</code> the value 1, whereas
+the definition in the template definition gives <code>a</code> the value 0.
+According to the special rule, <code>a</code> evaluates to 0, not 1,
+in the expanded template, because that is the value of <code>a</code>
+at the point of the template definition.
+This rule removes a point of possible confusion or surprise
+that could occur if the names used in template definitions
+could refer to different symbols in different expansions,
+depending upon where the expansions occurred.</p>
 </div>
 </div>
 <div class="sect2">
@@ -16020,7 +16314,9 @@ constant a = 0</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>TODO: Explain the template expansion option.</p>
+<p>TODO: Explain the syntax expansion option.
+Use <code>-e</code> as the switch for syntactic expansion.
+This will add state machine enums and expand templates.</p>
 </div>
 <div class="paragraph">
 <p><code>fpp-format</code> has one big limitation: it goes through
@@ -17808,7 +18104,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-22 16:24:55 -0700
+Last updated 2026-09-23 17:33:28 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
