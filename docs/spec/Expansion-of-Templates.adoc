@@ -24,9 +24,8 @@ with <<Specifiers_Include-Specifiers,include specifiers>> resolved.
 Construct the output model _M'_ as follows:
 
 . Perform enough analysis on _M_ to 
-  <<Definitions_Module-Template-Definitions_Semantics,check all the template 
-definitions>> and to match all template expansion
-  specifiers with the template definitions to which they refer.
+  <<Definitions_Module-Template-Definitions_Semantics,check all the template definitions>> and to 
+  match all template expansion specifiers with the template definitions to which they refer.
 
 . For each template expansion specifier _S_ in _M_,
   do the following:
@@ -36,7 +35,7 @@ definitions>> and to match all template expansion
 .. Let _X_ be a copy of the syntax specified in the body of _T_.
 
 .. Replace _S_ with stem:[S { X }].
-  
+
 === Example
 
 *Model _M_:*

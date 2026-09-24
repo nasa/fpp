@@ -154,6 +154,10 @@ target instances.
 a component instance that exists in the enclosing topology,
 after resolving to a <<Definitions_Topology-Definitions_Semantics,
 partially numbered topology>>.
+It may refer to the component instance directly, or it may refer to a
+<<Specifiers_Template-Expansion-Specifiers,port interface instance parameter
+definition>> that <<Ports_Port-Interface-Instances,represents>> a component
+instance definition.
 
 . If the instance sequence _I_ appears, then each qualified identifier
 _Q_ appearing in _I_ must refer to a component instance that exists

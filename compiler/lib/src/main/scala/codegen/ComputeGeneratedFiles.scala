@@ -9,41 +9,39 @@ import fpp.compiler.util._
 object ComputeGeneratedFiles {
 
   /** Computes autocoded files (XML, C++ and JSON Dictionary) */
-  def getAutocodeFiles(tul: List[Ast.TransUnit]): Result.Result[List[String]] =
+  def getAutocodeFiles(a: Analysis, tul: List[Ast.TransUnit]): Result.Result[List[String]] =
     for {
-      aTul <- ResolveTemplates.tuList(Analysis(), tul)
-      cppFiles <- getAutocodeCppFiles(aTul._1, aTul._2)
-      dictFiles <- getDictionaryJsonFiles(aTul._1, aTul._2)
+      cppFiles <- getAutocodeCppFiles(a, tul)
+      dictFiles <- getDictionaryJsonFiles(a, tul)
     }
     yield cppFiles ++ dictFiles
 
   /** Computes component implementation files */
-  def getImplFiles(tul: List[Ast.TransUnit]): Result.Result[List[String]] =
+  def getImplFiles(a: Analysis, tul: List[Ast.TransUnit]): Result.Result[List[String]] =
     for {
-      aTul <- ResolveTemplates.tuList(Analysis(), tul)
-      cppFiles <- getImplCppFiles(aTul._1, aTul._2)
+      cppFiles <- getImplCppFiles(a, tul)
     }
     yield cppFiles
 
   /** Computes autocoded C++ files for testing */
   def getTestFiles(
+    a: Analysis,
     tul: List[Ast.TransUnit],
     testHelperMode: CppWriter.TestHelperMode
   ): Result.Result[List[String]] =
     for {
-      aTul <- ResolveTemplates.tuList(Analysis(), tul)
-      testFiles <- getTestCppFiles(aTul._1, aTul._2, testHelperMode)
+      testFiles <- getTestCppFiles(a, tul, testHelperMode)
     }
     yield testFiles
 
   /** Computes unit test implementation files */
   def getTestImplFiles(
+    a: Analysis,
     tul: List[Ast.TransUnit],
     testHelperMode: CppWriter.TestHelperMode
   ): Result.Result[List[String]] =
     for {
-      aTul <- ResolveTemplates.tuList(Analysis(), tul)
-      cppFiles <- getTestImplCppFiles(aTul._1, aTul._2, testHelperMode)
+      cppFiles <- getTestImplCppFiles(a, tul, testHelperMode)
     }
     yield cppFiles
 

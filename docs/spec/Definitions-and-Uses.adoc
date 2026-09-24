@@ -148,6 +148,25 @@ module M {
 }
 ----
 
+A <<Definitions,bound parameter definition>> _B_ may not satisfy an implied use.
+An error occurs if the name of an implied use resolves to _B_.
+For example, this model is illegal, because inside the expansion of `T`
+the <<Specifiers_Template-Expansion-Specifiers,type parameter definition>>
+for `FwSizeStoreType` hides the framework definition `FwSizeStoreType`
+at the point of the <<Type-Names_String-Type-Names,implied use>> in the
+type `string size 256`:
+
+[source,fpp]
+----
+module template T(type FwSizeStoreType) {
+
+  array A = [1] string size 256
+
+}
+
+expand T(type U32)
+----
+
 An error also occurs if the rules
 for resolving <<Expressions_Dot-Expressions_Semantics,dot expressions>>
 cause an implied constant use to be resolved to a member

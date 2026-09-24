@@ -17,10 +17,23 @@ update_expansion()
   update "$mode -p $PWD -d $hand_dir" $model'_hand' $name'_hand'
 }
 
+move_topology()
+{
+  dir=$1
+  top=$2
+  cp $dir/$top'TopologyAc.hpp' $top'TopologyAc.ref.hpp'
+  cp $dir/$top'TopologyAc.cpp' $top'TopologyAc.ref.cpp'
+}
+
 constant_param()
 {
   update "-p $PWD" constant_param
   move_cpp_suffix FppConstants _constant_param
+}
+
+enum_state_machine()
+{
+  update_expansion '' enum_state_machine
 }
 
 expansion()
@@ -52,8 +65,31 @@ primitive()
   update_expansion '' primitive
 }
 
+string_type_arg()
+{
+  update_expansion '' string_type_arg
+}
+
+topology_instance_param()
+{
+  update_expansion '' topology_instance_param
+  move_topology topology_instance_param.expand.out.dir InstParam
+}
+
+topology_subtopology_param()
+{
+  update_expansion '' topology_subtopology_param
+  move_topology topology_subtopology_param.expand.out.dir SubParam
+}
+
 two_expansions()
 {
   update "-p $PWD" two_expansions
   move_cpp_suffix FppConstants _two_expansions
+}
+
+two_topologies()
+{
+  update_expansion '' two_topologies
+  move_topology two_topologies.expand.out.dir TwoSubs
 }

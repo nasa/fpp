@@ -31,8 +31,41 @@ sealed trait InterfaceInstance {
 
 object InterfaceInstance {
 
+  /** Ordering on interface instances. */
   implicit val ordering: Ordering[InterfaceInstance] =
-    Ordering.by[InterfaceInstance,String](_.getQualifiedName.toString)
+    new Ordering[InterfaceInstance] {
+
+      /** An ordinal for each kind of instance, used to break ties between
+       *  instances of different kinds that have the same qualified name */
+      private def kind(ii: InterfaceInstance): Int = ii match {
+        case _: InterfaceComponentInstance => 0
+        case _: InterfaceTopology => 1
+        case _: InterfaceTemplateArg => 2
+      }
+
+      override def compare(ii1: InterfaceInstance, ii2: InterfaceInstance): Int = {
+        val nameCompare =
+          ii1.getQualifiedName.toString.compare(ii2.getQualifiedName.toString)
+        if (nameCompare != 0) nameCompare
+        else {
+          val kindCompare = kind(ii1).compare(kind(ii2))
+          if (kindCompare != 0) kindCompare
+          else (ii1, ii2) match {
+            case (a1: InterfaceTemplateArg, a2: InterfaceTemplateArg) =>
+              // Two bound template parameters with the same name are the same
+              // instance only if they name the same parameter of the same
+              // template and are bound to the same argument
+              val argCompare = compare(a1.ii, a2.ii)
+              if (argCompare != 0) argCompare
+              else a1.paramDef.interface.id.compare(a2.paramDef.interface.id)
+            // Component instance and topology names are unique in a model,
+            // so equal names mean equal instances
+            case _ => 0
+          }
+        }
+      }
+
+    }
 
   final case class InterfaceComponentInstance(ci: ComponentInstance) extends InterfaceInstance {
     override def getQualifiedName: Name.Qualified = ci.getQualifiedName

@@ -37,18 +37,19 @@ object FPPLocateDefs {
   }
 
   /** Expand templates, returning the translation units with expanded members.
-   *  If expansion fails (for example, because the model is incomplete), fall
-   *  back to the unexpanded translation units so that the tool still reports
-   *  the locations it can determine. */
+   *  We must expand templates, because the expansions generate definitions
+   *  that we have to locate.
+   * 
+   * On expansion failure (incomplete model), fall back to unexpanded translation units.
+   */
   private def expandTemplates(
     a: Analysis,
     tul: List[Ast.TransUnit]
-  ): Result.Result[List[Ast.TransUnit]] = {
+  ): Result.Result[List[Ast.TransUnit]] =
     ResolveTemplates.tuList(a, tul) match {
       case Right(aTul) => Right(aTul._2)
       case Left(_) => AddStateEnums.transUnitList(tul)
     }
-  }
 
   def toolMain(args: Array[String]) =
     Tool(name).mainMethod(args, oparser, Options(), command)
