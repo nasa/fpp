@@ -205,7 +205,7 @@ object MatchedPortNumbering {
     for {
       // Check for invalid 'unmatched' keyords
       _ <- Result.foldLeft (t.unmatchedConnectionSet.toList) (()) ((t, c) =>
-        if !c.isMatchConstrained && c.isUnmatched
+        if !c.isMatchConstrained
         then Left(SemanticError.MissingPortMatching(c.getLoc))
         else Right(())
       )

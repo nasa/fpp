@@ -10,8 +10,9 @@ lazy val settings = Seq(
     "-unchecked",
     "-Xmax-inlines:100"
   ),
-  libraryDependencies ++= dependencies, 
+  libraryDependencies ++= dependencies,
   Test / testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-oNCXELOPQRM"),
+  Test / parallelExecution := false,
 )
 
 lazy val dependencies = Seq(
