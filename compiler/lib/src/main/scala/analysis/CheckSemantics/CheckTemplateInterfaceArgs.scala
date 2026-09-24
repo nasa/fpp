@@ -12,7 +12,7 @@ object CheckTemplateInterfaceArgs
       val (expansionNodeId, t) = expansion
       Result.foldLeft(t.params.values.collect {
         case arg @ Symbol.TemplateInterfaceArg(_, _) => arg
-      })(())((_, arg) => {
+      }.toList)(())((_, arg) => {
         for {
           // Resolve the concrete instance supplied as the argument
           instance <- a.getInterfaceInstance(arg.value.id)
