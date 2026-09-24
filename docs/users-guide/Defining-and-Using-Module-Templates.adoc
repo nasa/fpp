@@ -125,13 +125,13 @@ to see this error, because `fpp-to-fpp` just does syntactic
 expansion, not semantic error checking.)
 
 Notice also that each of the expanded templates has the
-syntax `expand { ... }` around it.
+syntax `expand T { ... }` around it.
 The purpose of this extra bit of syntax is to
 keep track of arguments to template parameters and
 scopes of definitions.
 We will explain these concepts below.
 In this simple example, the expanded templates behave
-in the same way as if the syntax `expand { ... }` were not there.
+in the same way as if the syntax `expand T { ... }` were not there.
 
 === Module Template Parameters
 
@@ -242,7 +242,7 @@ module N {
 }
 --------
 
-Notice that the `expand { ... }` syntax provides the bindings
+Notice that the `expand T { ... }` syntax provides the bindings
 of the constant values at the points of expansion.
 
 As with other cases of binding values to formal parameters (for example,
@@ -378,8 +378,6 @@ module template T2(constant a: U32) {
 }
 --------
 
-and a definition to define a symbol in the template
-with the same name as a para
 TODO: No definition of symbol in template with same name as parameter.
 
 ==== Port Interface Instance Parameters
@@ -647,7 +645,38 @@ depending upon where the expansions occurred.
 
 === The expand Syntax
 
-TODO
+In this section we provide a bit more detail on the `expand`
+syntax introduced in the previous sections.
+First, as described in the previous sections, when the source model contains 
+the syntax `expand T`, the analyzer replaces that syntax with `expand T { ... 
+}`, where the dots
+represent the body of the template definition.
+Second, when the source model contains the syntax `expand T { ... }`
+(in other words, `expand T` followed by some more syntax in curly braces),
+then the analyzer expects the syntax in the curly braces to be
+valid for a template expansion, and it uses that syntax instead
+of the syntax specified in the template definition.
+The analyzer still checks for the existence of the template definition
+`T` and will report an error if it is missing.
+
+The purpose of this behavior is twofold. First, we want to have a way,
+in the FPP source language, to show the syntax of the model after running
+template expansion.
+This is the purpose of defining the syntax `expand T { ... }`.
+Second, we want the result of template expansion on a valid FPP model to 
+produce another valid model.
+That is the reason for defining the semantics of `expand T { ... }`
+to use the syntax provided in the curly braces.
+In the ordinary use case, the syntax in the curly braces will be provided
+by template expansion, so it will be valid if and only if the
+original source model is valid.
+
+You may, if you wish, write the syntax `expand T { ... }` yourself;
+it is valid FPP syntax.
+Further, doing this may be useful for learning or debugging.
+However, it is not expected that you will ordinarily do this.
+The common expected use case is to write `expand T` and let the analyzer
+do the expansion.
 
 === Nesting of Module Templates
 

@@ -13292,13 +13292,13 @@ expansion, not semantic error checking.)</p>
 </div>
 <div class="paragraph">
 <p>Notice also that each of the expanded templates has the
-syntax <code>expand { &#8230;&#8203; }</code> around it.
+syntax <code>expand T { &#8230;&#8203; }</code> around it.
 The purpose of this extra bit of syntax is to
 keep track of arguments to template parameters and
 scopes of definitions.
 We will explain these concepts below.
 In this simple example, the expanded templates behave
-in the same way as if the syntax <code>expand { &#8230;&#8203; }</code> were not there.</p>
+in the same way as if the syntax <code>expand T { &#8230;&#8203; }</code> were not there.</p>
 </div>
 </div>
 <div class="sect2">
@@ -13418,7 +13418,7 @@ module N {
 </div>
 </div>
 <div class="paragraph">
-<p>Notice that the <code>expand { &#8230;&#8203; }</code> syntax provides the bindings
+<p>Notice that the <code>expand T { &#8230;&#8203; }</code> syntax provides the bindings
 of the constant values at the points of expansion.</p>
 </div>
 <div class="paragraph">
@@ -13563,9 +13563,7 @@ module template T2(constant a: U32) {
 </div>
 </div>
 <div class="paragraph">
-<p>and a definition to define a symbol in the template
-with the same name as a para
-TODO: No definition of symbol in template with same name as parameter.</p>
+<p>TODO: No definition of symbol in template with same name as parameter.</p>
 </div>
 </div>
 <div class="sect3">
@@ -13857,7 +13855,40 @@ depending upon where the expansions occurred.</p>
 <div class="sect2">
 <h3 id="Defining-and-Using-Module-Templates_The-expand-Syntax">15.4. The expand Syntax</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>In this section we provide a bit more detail on the <code>expand</code>
+syntax introduced in the previous sections.
+First, as described in the previous sections, when the source model contains
+the syntax <code>expand T</code>, the analyzer replaces that syntax with <code>expand T { &#8230;&#8203;
+}</code>, where the dots
+represent the body of the template definition.
+Second, when the source model contains the syntax <code>expand T { &#8230;&#8203; }</code>
+(in other words, <code>expand T</code> followed by some more syntax in curly braces),
+then the analyzer expects the syntax in the curly braces to be
+valid for a template expansion, and it uses that syntax instead
+of the syntax specified in the template definition.
+The analyzer still checks for the existence of the template definition
+<code>T</code> and will report an error if it is missing.</p>
+</div>
+<div class="paragraph">
+<p>The purpose of this behavior is twofold. First, we want to have a way,
+in the FPP source language, to show the syntax of the model after running
+template expansion.
+This is the purpose of defining the syntax <code>expand T { &#8230;&#8203; }</code>.
+Second, we want the result of template expansion on a valid FPP model to
+produce another valid model.
+That is the reason for defining the semantics of <code>expand T { &#8230;&#8203; }</code>
+to use the syntax provided in the curly braces.
+In the ordinary use case, the syntax in the curly braces will be provided
+by template expansion, so it will be valid if and only if the
+original source model is valid.</p>
+</div>
+<div class="paragraph">
+<p>You may, if you wish, write the syntax <code>expand T { &#8230;&#8203; }</code> yourself;
+it is valid FPP syntax.
+Further, doing this may be useful for learning or debugging.
+However, it is not expected that you will ordinarily do this.
+The common expected use case is to write <code>expand T</code> and let the analyzer
+do the expansion.</p>
 </div>
 </div>
 <div class="sect2">
@@ -18104,7 +18135,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-23 17:33:28 -0700
+Last updated 2026-09-23 18:02:10 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
