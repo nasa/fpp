@@ -21,7 +21,6 @@ def main():
     base_arguments = [] if subcommand == "fpp" else [subcommand]
     base_arguments += sys.argv[1:]
 
-
     # Locate the fpp binary
     binary_file = Path(__file__).parent / "fpp"
 
