@@ -11700,7 +11700,9 @@ with a brace-delimited scope and with the following properties:</p>
 <li>
 <p>The scope of <em>D</em> contains the following definitions: (a) all the
    <a href="#Definitions">bound parameter definitions</a> of <em>E</em> and (b) all the
-<a href="#Definitions">global definitions</a> introduced in the expansion <em>E</em>.</p>
+<a href="#Definitions">global definitions</a> introduced in the expansion <em>E</em>.
+Note that if a definition added in this step itself introduces definitions,
+then those definitions must be added as well.</p>
 </li>
 <li>
 <p>The name of <em>D</em> is different from any name appearing as a qualifier in the
@@ -14474,7 +14476,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-22 08:40:42 -0700
+Last updated 2026-09-24 09:50:59 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

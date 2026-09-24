@@ -340,6 +340,8 @@ To resolve an identifier _I_ inside an
 .. The scope of _D_ contains the following definitions: (a) all the 
    <<Definitions,bound parameter definitions>> of _E_ and (b) all the 
 <<Definitions,global definitions>> introduced in the expansion _E_.
+Note that if a definition added in this step itself introduces definitions,
+then those definitions must be added as well.
 
 .. The name of _D_ is different from any name appearing as a qualifier in the 
    model.
