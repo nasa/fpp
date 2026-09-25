@@ -103,16 +103,11 @@ object CheckUses extends BasicUseAnalyzer {
     val sym = a.useDefMap(iu.id)
     val iuName = iu.name.toString
     sym match {
-      // A bound template parameter is not a global definition, so it cannot
-      // satisfy an implied use
-      case _: TemplateArgSymbol => Left(
-        SemanticError.InvalidSymbol(
-          sym.getUnqualifiedName,
-          Locations.get(iu.id),
-          s"a template parameter may not satisfy the implied use of $iuName",
-          sym.getLoc
-        )
-      )
+      case _: TemplateArgSymbol =>
+        // Definition is a template argument
+        // This should not happen, because implied uses are absolute
+        // qualified identifiers
+        throw InternalError("definition should not be a template arg")
       case _ =>
         val symQualifiedName = a.getQualifiedName(sym).toString
         // Check that the name of the def matches the name of the use
@@ -136,7 +131,7 @@ object CheckUses extends BasicUseAnalyzer {
             )
           )
         }
-    }
+      }
   }
 
   override def defComponentAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
