@@ -201,14 +201,21 @@ object MatchedPortNumbering {
   }
 
   /** Apply matched numbering */
-  def apply(t: Topology): Result.Result[Topology] = {
-    // Fold over instances and matchings
-    Result.foldLeft (t.componentInstanceMap.keys.toList) (t) ((t, ci) =>
-      Result.foldLeft (ci.component.portMatchingList) (t) ((t, pm) =>
-        handlePortMatching(t, ci, pm)
+  def apply(t: Topology): Result.Result[Topology] =
+    for {
+      // Check for invalid 'unmatched' keywords
+      _ <- Result.foldLeft (t.unmatchedConnectionSet.toList) (()) ((t, c) =>
+        if !c.isMatchConstrained
+        then Left(SemanticError.MissingPortMatching(c.getLoc))
+        else Right(())
       )
-    )
-  }
+      // Fold over instances and matchings
+      t <- Result.foldLeft (t.componentInstanceMap.keys.toList) (t) ((t, ci) =>
+        Result.foldLeft (ci.component.portMatchingList) (t) ((t, pm) =>
+          handlePortMatching(t, ci, pm)
+        )
+      )
+    } yield t
 
   // Check for missing connections
   private def checkForMissingConnections(
@@ -249,7 +256,12 @@ object MatchedPortNumbering {
           Right(m)
         else {
           val piiRemote = c.getOtherEndpoint(pi).port
-          val _ @ InterfaceInstance.InterfaceComponentInstance(ciRemote) = piiRemote.interfaceInstance.runtimeChecked
+          val ciRemote = piiRemote.interfaceInstance match {
+            case InterfaceInstance.InterfaceComponentInstance(ciRemote) => ciRemote
+            case ii => throw InternalError(
+              s"endpoint $piiRemote should refer to a component instance, not to ${ii.getClass.getSimpleName}"
+            )
+          }
           m.get(ciRemote) match {
             case Some(cPrev) => Left(
               SemanticError.DuplicateMatchedConnection(

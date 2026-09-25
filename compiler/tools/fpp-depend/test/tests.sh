@@ -66,6 +66,16 @@ special_ports
 top_implements
 string_no_size_implied_framework_defs
 string_with_size_implied_framework_defs
+template
+template_body_locate
+template_body_locate_split
+template_cycle_a
+template_cycle_b
+template_dict_top
+template_include
+template_incomplete
+template_locate
+template_type_arg_string
 topology_implied_type
 transitive_instance
 "

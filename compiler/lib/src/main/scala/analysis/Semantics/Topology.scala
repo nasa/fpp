@@ -14,6 +14,8 @@ case class Topology(
   directTopologies: Map[Symbol.Topology, Location] = Map(),
   /** The directly imported component instances */
   directComponentInstances: Map[Symbol.ComponentInstance, Location] = Map(),
+  /** The directly imported template arguments */
+  directTemplateArgs: Map[Symbol.TemplateInterfaceArg, Location] = Map(),
   /** The transitively imported topologies */
   transitiveImportSet: Set[Symbol.Topology] = Set(),
   /** The instances of this topology */
@@ -28,6 +30,8 @@ case class Topology(
   patternMap: Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern] = Map(),
   /** The connections of this topology, indexed by graph name */
   connectionMap: Map[Name.Unqualified, List[Connection]] = Map(),
+  /** The connections of this topology marked as unmatched */
+  unmatchedConnectionSet: Set[Connection] = Set(),
   /** The connections defined locally, not imported */
   localConnectionMap: Map[Name.Unqualified, List[Connection]] = Map(),
   /** The output connections going from each port */
@@ -44,6 +48,11 @@ case class Topology(
 
   /** Gets the name of the topology */
   def getName = aNode._2.data.name
+
+  /** Gets the symbols of the topologies imported into this topology. */
+  def getImportedTopologySymbols(a: Analysis): List[Symbol.Topology] =
+    directTopologies.keys.toList ++
+      directTemplateArgs.keys.toList.flatMap(a.getRepresentedTopologySymbolOpt)
 
   /** Add a port to the topology */
   def addPortNode(
@@ -111,6 +120,10 @@ case class Topology(
       val connections = connectionMap.getOrElse(graphName, Nil)
       connectionMap + (graphName -> (connection :: connections))
     }
+    val ucSet = {
+      val connections = unmatchedConnectionSet
+      if connection.isUnmatched then connections + connection else connections
+    }
     val ocMap = {
       val from = connection.from.port
       val connections = outputConnectionMap.getOrElse(from, TreeSet.empty[Connection])
@@ -131,6 +144,7 @@ case class Topology(
     }
     this.copy(
       connectionMap = cgMap,
+      unmatchedConnectionSet = ucSet,
       outputConnectionMap = ocMap,
       inputConnectionMap = icMap,
       fromPortNumberMap = fpnMap,
@@ -173,59 +187,66 @@ case class Topology(
     instance: InterfaceInstance,
     loc: Location
   ): Topology = {
-    val pairOpt = instanceMap.get(instance)
     // Use the previous location, if it exists
-    val mergedLoc = pairOpt.getOrElse(loc)
-    val map = instanceMap + (instance -> mergedLoc)
+    val o = instanceMap.get(instance) match {
+      case None => loc
+      case Some(otherLoc) => otherLoc
+    }
+
+    val map = instanceMap + (instance -> o)
     this.copy(instanceMap = map)
   }
 
   /** Add an instance that must be unique */
   def addInstanceSymbol(
+    a: Analysis,
     symbol: InterfaceInstanceSymbol,
     loc: Location
-  ): Result.Result[Topology] =
-    symbol match {
-      case ci: Symbol.ComponentInstance =>
-        directComponentInstances.get(ci) match {
-          case Some(prevLoc) => Left(
-            SemanticError.DuplicateInstance(
-              symbol.getUnqualifiedName,
-              loc,
-              prevLoc
-            )
+  ): Result.Result[Topology] = {
+    // Check that the symbol is not already an instance of this topology
+    def checkNotDuplicate(prevLocOpt: Option[Location]): Result.Result[Unit] =
+      prevLocOpt match {
+        case Some(prevLoc) => Left(
+          SemanticError.DuplicateInstance(
+            symbol.getUnqualifiedName,
+            loc,
+            prevLoc
           )
-          case None =>
-            val map = directComponentInstances + (ci -> loc)
-            Right(this.copy(directComponentInstances = map))
-        }
-
-      case top: Symbol.Topology =>
-        directTopologies.get(top) match {
-          case Some(prevLoc) => Left(
-            SemanticError.DuplicateInstance(
-              symbol.getUnqualifiedName,
-              loc,
-              prevLoc
-            )
+        )
+        case None => Right(())
+      }
+    // Check that the symbol does not represent a deployment topology.
+    // The symbol may be a bound template parameter, so resolve it first.
+    def checkNotDeployment: Result.Result[Unit] =
+      a.getRepresentedTopologySymbolOpt(symbol) match {
+        case Some(top) if top.node._2.data.isDeployment => Left(
+          SemanticError.InvalidSymbol(
+            symbol.getUnqualifiedName,
+            loc,
+            "use of deployment topology is not allowed here",
+            top.getLoc
           )
-          case None =>
-            if !top.node._2.data.isDeployment
-            then
-              val map = directTopologies + (top -> loc)
-              Right(this.copy(directTopologies = map))
-            else
-              val defLoc = Locations.get(top.node._2.id)
-              Left(
-                SemanticError.InvalidSymbol(
-                  symbol.getUnqualifiedName,
-                  loc,
-                  "use of deployment topology is not allowed here",
-                  defLoc
-                )
-              )
-        }
+        )
+        case _ => Right(())
+      }
+    for {
+      _ <- checkNotDeployment
+      t <- symbol match {
+        case ci: Symbol.ComponentInstance =>
+          for (_ <- checkNotDuplicate(directComponentInstances.get(ci)))
+            yield this.copy(
+              directComponentInstances = directComponentInstances + (ci -> loc)
+            )
+        case top: Symbol.Topology =>
+          for (_ <- checkNotDuplicate(directTopologies.get(top)))
+            yield this.copy(directTopologies = directTopologies + (top -> loc))
+        case arg: Symbol.TemplateInterfaceArg =>
+          for (_ <- checkNotDuplicate(directTemplateArgs.get(arg)))
+            yield this.copy(directTemplateArgs = directTemplateArgs + (arg -> loc))
+      }
     }
+    yield t
+  }
 
   /** Assigns a port number to a connection at a port instance */
   def assignPortNumber(
@@ -293,9 +314,36 @@ case class Topology(
   def getLoc: Location = Locations.get(aNode._2.id)
 
   /** Precompute the set of component instances in the topology */
-  lazy val componentInstanceMap: Map[ComponentInstance, Location] = {
-    instanceMap collect { case (InterfaceInstance.InterfaceComponentInstance(ci), loc: Location) => (ci, loc) }
-  }
+  lazy val componentInstanceMap: Map[ComponentInstance, Location] =
+    instanceMap.foldLeft (TreeMap[ComponentInstance, Location]()) {
+      case (map, (instance, loc)) => instance.getComponentInstanceOpt match {
+        case Some(ci) => map + (ci -> loc)
+        case None => map
+      }
+    }
+
+  /** Looks up the location where a component instance appears in this topology.
+   *  The instance may appear directly or through a template interface parameter. */
+  def lookUpComponentInstanceLoc(ci: ComponentInstance): Option[Location] =
+    componentInstanceMap.get(ci)
+
+  /** Look up a component instance used at a location.
+   *  The instance may appear directly, through an imported subtopology, or
+   *  through a bound interface template parameter. */
+  def lookUpComponentInstanceAt(
+    ci: ComponentInstance,
+    loc: Location
+  ): Result.Result[Location] =
+    lookUpComponentInstanceLoc(ci) match {
+      case Some(result) => Right(result)
+      case None => Left(
+        SemanticError.InvalidInterfaceInstance(
+          loc,
+          ci.getUnqualifiedName,
+          this.getUnqualifiedName
+        )
+      )
+    }
 
   /** Gets the set of used port numbers */
   def getUsedPortNumbers(pi: PortInstance, cs: Iterable[Connection]): Set[Int] = 

@@ -1,23 +1,47 @@
 === Identifier Expressions
 
+==== Syntax
+
 An *identifier expression* is one of the following:
 
-. An <<Lexical-Elements_Identifiers,identifier>>
-that refers to a
+. An <<Lexical-Elements_Identifiers,identifier>>.
+
+. A <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> of
+the form `.` _I_, where _I_ is an identifier.
+
+=== Semantics
+
+An identifier expression _I_ must refer to a
 <<Definitions_Constant-Definitions,constant definition>>
 or
 <<Definitions_Enumerated-Constant-Definitions,enumerated constant definition>>,
+or <<Definitions,bound parameter definition>>
 according to the
 <<Scoping-of-Names_Resolution-of-Identifiers,rules for resolving identifiers>>.
+If the identifier refers to a bound parameter definition _B_,
+then _B_ must be a <<Specifiers_Template-Expansion-Specifiers,constant template 
+parameter definition>>.
 
-. A <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> of
-the form `.` _I_, where _I_ is an identifier, that refers to a
+An identifier expression `.` _I_ must refer to a
 <<Definitions_Constant-Definitions,constant definition>>
 according to the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules for resolving 
 qualified identifiers>>.
 
-**Example:**
+An identifier expression _e_ is evaluated as follows:
+
+* If _e_ refers to a constant definition or enumerated constant
+  definition _D_, then the value of the expression is the value provided
+  by _D_.
+
+* Otherwise _e_ refers to a bound parameter definition
+  stem:[B = (p, A)].
+  By the rules for <<Specifiers_Template-Expansion-Specifiers,binding arguments 
+  to template parameters>>,
+  _A_ is `constant` _e'_ for some expression _e'_.
+  In this case the value is provided by evaluating the expression _e'_.
+
+==== Example
 
 [source,fpp]
 ----

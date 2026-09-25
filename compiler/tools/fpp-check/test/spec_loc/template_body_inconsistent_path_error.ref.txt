@@ -1,0 +1,10 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/template_body_inconsistent_path_error.fpp:5.22
+locate constant a at "template_body_inconsistent_path_error.fpp"
+                     ^
+error: inconsistent location path [ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/template_body_inconsistent_path_error.fpp
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/template_body_inconsistent_path_error.fpp:2.24
+  locate constant a at "incorrect.fpp"
+                       ^
+previous path is [ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/incorrect.fpp

@@ -59,18 +59,18 @@
                                                                     "isAbsolute" : false
                                                                   }
                                                                 },
-                                                                "id" : 30
+                                                                "id" : 34
                                                               }
                                                             },
                                                             "name" : {
                                                               "AstNode" : {
                                                                 "data" : "Sched",
-                                                                "id" : 31
+                                                                "id" : 33
                                                               }
                                                             }
                                                           }
                                                         },
-                                                        "id" : 32
+                                                        "id" : 35
                                                       }
                                                     }
                                                   },
@@ -78,7 +78,7 @@
                                                   "queueFull" : "None"
                                                 }
                                               },
-                                              "id" : 33
+                                              "id" : 36
                                             }
                                           }
                                         }
@@ -107,7 +107,7 @@
                                                   "queueFull" : "None"
                                                 }
                                               },
-                                              "id" : 34
+                                              "id" : 37
                                             }
                                           }
                                         }
@@ -136,7 +136,7 @@
                                                   "queueFull" : "None"
                                                 }
                                               },
-                                              "id" : 35
+                                              "id" : 38
                                             }
                                           }
                                         }
@@ -165,7 +165,7 @@
                                                         }
                                                       }
                                                     },
-                                                    "id" : 36
+                                                    "id" : 39
                                                   }
                                                 },
                                                 "id" : "None",
@@ -176,7 +176,7 @@
                                                 "high" : [
                                                 ]
                                               },
-                                              "id" : 37
+                                              "id" : 40
                                             }
                                           }
                                         }
@@ -205,7 +205,7 @@
                                                         }
                                                       }
                                                     },
-                                                    "id" : 42
+                                                    "id" : 45
                                                   }
                                                 },
                                                 "id" : "None",
@@ -216,7 +216,7 @@
                                                 "high" : [
                                                 ]
                                               },
-                                              "id" : 43
+                                              "id" : 46
                                             }
                                           }
                                         }
@@ -226,7 +226,7 @@
                                     ]
                                   ]
                                 },
-                                "id" : 44
+                                "id" : 47
                               }
                             }
                           }
@@ -236,7 +236,7 @@
                       ]
                     ]
                   },
-                  "id" : 45
+                  "id" : 48
                 }
               }
             }
@@ -276,18 +276,18 @@
                                                   "isAbsolute" : false
                                                 }
                                               },
-                                              "id" : 56
+                                              "id" : 63
                                             }
                                           },
                                           "name" : {
                                             "AstNode" : {
                                               "data" : "EngineTemp",
-                                              "id" : 57
+                                              "id" : 62
                                             }
                                           }
                                         }
                                       },
-                                      "id" : 58
+                                      "id" : 64
                                     }
                                   },
                                   "baseId" : {
@@ -297,7 +297,7 @@
                                           "value" : "0x100"
                                         }
                                       },
-                                      "id" : 59
+                                      "id" : 65
                                     }
                                   },
                                   "implType" : "None",
@@ -309,7 +309,7 @@
                                   "initSpecs" : [
                                   ]
                                 },
-                                "id" : 60
+                                "id" : 66
                               }
                             }
                           }
@@ -319,7 +319,7 @@
                       ]
                     ]
                   },
-                  "id" : 61
+                  "id" : 67
                 }
               }
             }
@@ -350,7 +350,7 @@
                                   ],
                                   "returnType" : "None"
                                 },
-                                "id" : 64
+                                "id" : 70
                               }
                             }
                           }
@@ -360,7 +360,7 @@
                       ]
                     ]
                   },
-                  "id" : 65
+                  "id" : 71
                 }
               }
             }
@@ -391,7 +391,7 @@
                                   ],
                                   "returnType" : "None"
                                 },
-                                "id" : 66
+                                "id" : 72
                               }
                             }
                           }
@@ -412,7 +412,7 @@
                                   ],
                                   "returnType" : "None"
                                 },
-                                "id" : 69
+                                "id" : 75
                               }
                             }
                           }
@@ -422,7 +422,7 @@
                       ]
                     ]
                   },
-                  "id" : 70
+                  "id" : 76
                 }
               }
             }
@@ -440,357 +440,536 @@
     "0" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
       "pos" : "7.30",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "1" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
       "pos" : "7.34",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "2" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
       "pos" : "7.30",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "3" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "7.5",
-      "includingLoc" : "None"
+      "pos" : "7.30",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "4" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "10.5",
-      "includingLoc" : "None"
+      "pos" : "7.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "5" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "13.5",
-      "includingLoc" : "None"
+      "pos" : "10.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "6" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "16.28",
-      "includingLoc" : "None"
+      "pos" : "13.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "7" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "16.5",
-      "includingLoc" : "None"
+      "pos" : "16.28",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "8" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "19.25",
-      "includingLoc" : "None"
+      "pos" : "16.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "9" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "19.5",
-      "includingLoc" : "None"
+      "pos" : "19.25",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "10" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "19.25",
-      "includingLoc" : "None"
+      "pos" : "19.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "11" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "19.5",
-      "includingLoc" : "None"
+      "pos" : "19.25",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "12" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "19.25",
-      "includingLoc" : "None"
+      "pos" : "19.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "13" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "19.5",
-      "includingLoc" : "None"
+      "pos" : "19.25",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "14" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "4.3",
-      "includingLoc" : "None"
+      "pos" : "19.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "15" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "7.30",
-      "includingLoc" : "None"
+      "pos" : "4.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "16" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "7.34",
-      "includingLoc" : "None"
+      "pos" : "7.30",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "17" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "7.30",
-      "includingLoc" : "None"
+      "pos" : "7.34",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "18" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "7.5",
-      "includingLoc" : "None"
+      "pos" : "7.30",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "19" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "10.5",
-      "includingLoc" : "None"
+      "pos" : "7.30",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "20" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "13.5",
-      "includingLoc" : "None"
+      "pos" : "7.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "21" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "16.28",
-      "includingLoc" : "None"
+      "pos" : "10.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "22" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "16.5",
-      "includingLoc" : "None"
+      "pos" : "13.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "23" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "19.25",
-      "includingLoc" : "None"
+      "pos" : "16.28",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "24" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "19.5",
-      "includingLoc" : "None"
+      "pos" : "16.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "25" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
       "pos" : "19.25",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "26" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
       "pos" : "19.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "27" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
       "pos" : "19.25",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "28" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
       "pos" : "19.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "29" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "4.3",
-      "includingLoc" : "None"
+      "pos" : "19.25",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "30" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "7.30",
-      "includingLoc" : "None"
+      "pos" : "19.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "31" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "7.34",
-      "includingLoc" : "None"
+      "pos" : "4.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "32" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
       "pos" : "7.30",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "33" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "7.5",
-      "includingLoc" : "None"
+      "pos" : "7.34",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "34" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "10.5",
-      "includingLoc" : "None"
+      "pos" : "7.30",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "35" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "13.5",
-      "includingLoc" : "None"
+      "pos" : "7.30",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "36" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "16.28",
-      "includingLoc" : "None"
+      "pos" : "7.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "37" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "16.5",
-      "includingLoc" : "None"
+      "pos" : "10.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "38" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "19.25",
-      "includingLoc" : "None"
+      "pos" : "13.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "39" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "19.5",
-      "includingLoc" : "None"
+      "pos" : "16.28",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "40" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "19.25",
-      "includingLoc" : "None"
+      "pos" : "16.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "41" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "19.5",
-      "includingLoc" : "None"
+      "pos" : "19.25",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "42" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "19.25",
-      "includingLoc" : "None"
+      "pos" : "19.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "43" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "19.5",
-      "includingLoc" : "None"
+      "pos" : "19.25",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "44" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "4.3",
-      "includingLoc" : "None"
+      "pos" : "19.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "45" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "1.1",
-      "includingLoc" : "None"
+      "pos" : "19.25",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "46" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "28.24",
-      "includingLoc" : "None"
+      "pos" : "19.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "47" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "28.32",
-      "includingLoc" : "None"
+      "pos" : "4.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "48" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "28.24",
-      "includingLoc" : "None"
+      "pos" : "1.1",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "49" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "28.51",
-      "includingLoc" : "None"
+      "pos" : "28.24",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "50" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "28.3",
-      "includingLoc" : "None"
+      "pos" : "28.32",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "51" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
       "pos" : "28.24",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "52" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "28.32",
-      "includingLoc" : "None"
+      "pos" : "28.24",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "53" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "28.24",
-      "includingLoc" : "None"
+      "pos" : "28.51",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "54" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "28.51",
-      "includingLoc" : "None"
+      "pos" : "28.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "55" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "28.3",
-      "includingLoc" : "None"
+      "pos" : "28.24",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "56" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "28.24",
-      "includingLoc" : "None"
+      "pos" : "28.32",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "57" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "28.32",
-      "includingLoc" : "None"
+      "pos" : "28.24",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "58" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
       "pos" : "28.24",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "59" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
       "pos" : "28.51",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "60" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
       "pos" : "28.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "61" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "25.1",
-      "includingLoc" : "None"
+      "pos" : "28.24",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "62" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "33.3",
-      "includingLoc" : "None"
+      "pos" : "28.32",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "63" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "33.3",
-      "includingLoc" : "None"
+      "pos" : "28.24",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "64" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "33.3",
-      "includingLoc" : "None"
+      "pos" : "28.24",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "65" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "32.1",
-      "includingLoc" : "None"
+      "pos" : "28.51",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "66" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "37.3",
-      "includingLoc" : "None"
+      "pos" : "28.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "67" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "38.3",
-      "includingLoc" : "None"
+      "pos" : "25.1",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "68" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "38.3",
-      "includingLoc" : "None"
+      "pos" : "33.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "69" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
-      "pos" : "38.3",
-      "includingLoc" : "None"
+      "pos" : "33.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "70" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "33.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "71" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "32.1",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "72" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "37.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "73" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "38.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "74" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "38.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "75" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "38.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "76" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
       "pos" : "36.1",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "77" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "10.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "78" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "13.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "79" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "10.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "80" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "13.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "81" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "10.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "82" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "13.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "83" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "10.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "84" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "13.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "85" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "10.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "86" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "13.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "87" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "10.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "88" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/passiveComponent.fpp",
+      "pos" : "13.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     }
   }
 }
@@ -798,9 +977,9 @@
   "fppVersion" : "[ fpp version ]",
   "analysis" : {
     "componentInstanceMap" : {
-      "60" : {
+      "66" : {
         "aNode" : {
-          "astNodeId" : 60
+          "astNodeId" : 66
         },
         "qualifiedName" : {
           "qualifier" : [
@@ -809,7 +988,7 @@
           "base" : "engineTemp"
         },
         "component" : {
-          "astNodeId" : 44
+          "astNodeId" : 47
         },
         "baseId" : 256,
         "maxId" : 257,
@@ -824,9 +1003,9 @@
       }
     },
     "componentMap" : {
-      "44" : {
+      "47" : {
         "aNode" : {
-          "astNodeId" : 44
+          "astNodeId" : 47
         },
         "portInterface" : {
           "instanceType" : "component",
@@ -834,7 +1013,7 @@
             "schedIn" : {
               "General" : {
                 "aNode" : {
-                  "astNodeId" : 33
+                  "astNodeId" : 36
                 },
                 "specifier" : {
                   "kind" : {
@@ -846,7 +1025,7 @@
                   "size" : "None",
                   "port" : {
                     "Some" : {
-                      "astNodeId" : 32
+                      "astNodeId" : 35
                     }
                   },
                   "priority" : "None",
@@ -858,7 +1037,7 @@
                   "DefPort" : {
                     "symbol" : {
                       "Port" : {
-                        "nodeId" : 64,
+                        "nodeId" : 70,
                         "unqualifiedName" : "Sched"
                       }
                     }
@@ -871,7 +1050,7 @@
             "timeGetOut" : {
               "Special" : {
                 "aNode" : {
-                  "astNodeId" : 35
+                  "astNodeId" : 38
                 },
                 "specifier" : {
                   "inputKind" : "None",
@@ -886,7 +1065,7 @@
                 },
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 69,
+                    "nodeId" : 75,
                     "unqualifiedName" : "Time"
                   }
                 },
@@ -899,7 +1078,7 @@
             "tlmOut" : {
               "Special" : {
                 "aNode" : {
-                  "astNodeId" : 34
+                  "astNodeId" : 37
                 },
                 "specifier" : {
                   "inputKind" : "None",
@@ -914,7 +1093,7 @@
                 },
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 66,
+                    "nodeId" : 72,
                     "unqualifiedName" : "Tlm"
                   }
                 },
@@ -928,7 +1107,7 @@
           "specialPortMap" : {
             "telemetry" : {
               "aNode" : {
-                "astNodeId" : 34
+                "astNodeId" : 37
               },
               "specifier" : {
                 "inputKind" : "None",
@@ -943,7 +1122,7 @@
               },
               "symbol" : {
                 "Port" : {
-                  "nodeId" : 66,
+                  "nodeId" : 72,
                   "unqualifiedName" : "Tlm"
                 }
               },
@@ -954,7 +1133,7 @@
             },
             "time get" : {
               "aNode" : {
-                "astNodeId" : 35
+                "astNodeId" : 38
               },
               "specifier" : {
                 "inputKind" : "None",
@@ -969,7 +1148,7 @@
               },
               "symbol" : {
                 "Port" : {
-                  "nodeId" : 69,
+                  "nodeId" : 75,
                   "unqualifiedName" : "Time"
                 }
               },
@@ -987,7 +1166,7 @@
         "tlmChannelMap" : {
           "0" : {
             "aNode" : {
-              "astNodeId" : 37
+              "astNodeId" : 40
             },
             "channelType" : {
               "Primitive" : {
@@ -1015,7 +1194,7 @@
           },
           "1" : {
             "aNode" : {
-              "astNodeId" : 43
+              "astNodeId" : 46
             },
             "channelType" : {
               "Primitive" : {
@@ -1045,7 +1224,7 @@
         "tlmChannelNameMap" : {
           "ImpulseTemp" : {
             "aNode" : {
-              "astNodeId" : 37
+              "astNodeId" : 40
             },
             "channelType" : {
               "Primitive" : {
@@ -1073,7 +1252,7 @@
           },
           "WarpTemp" : {
             "aNode" : {
-              "astNodeId" : 43
+              "astNodeId" : 46
             },
             "channelType" : {
               "Primitive" : {
@@ -1142,50 +1321,50 @@
     "locationSpecifierMap" : [
     ],
     "parentSymbolMap" : {
-      "44" : {
+      "47" : {
         "Module" : {
-          "nodeId" : 45,
+          "nodeId" : 48,
           "unqualifiedName" : "Sensors"
-        }
-      },
-      "60" : {
-        "Module" : {
-          "nodeId" : 61,
-          "unqualifiedName" : "FSW"
-        }
-      },
-      "64" : {
-        "Module" : {
-          "nodeId" : 65,
-          "unqualifiedName" : "Svc"
         }
       },
       "66" : {
         "Module" : {
-          "nodeId" : 70,
+          "nodeId" : 67,
+          "unqualifiedName" : "FSW"
+        }
+      },
+      "70" : {
+        "Module" : {
+          "nodeId" : 71,
+          "unqualifiedName" : "Svc"
+        }
+      },
+      "72" : {
+        "Module" : {
+          "nodeId" : 76,
           "unqualifiedName" : "Fw"
         }
       },
-      "69" : {
+      "75" : {
         "Module" : {
-          "nodeId" : 70,
+          "nodeId" : 76,
           "unqualifiedName" : "Fw"
         }
       }
     },
     "symbolScopeMap" : {
-      "44" : {
+      "47" : {
         "map" : {
           
         }
       },
-      "45" : {
+      "48" : {
         "map" : {
           "Component" : {
             "map" : {
               "EngineTemp" : {
                 "Component" : {
-                  "nodeId" : 44,
+                  "nodeId" : 47,
                   "unqualifiedName" : "EngineTemp"
                 }
               }
@@ -1195,7 +1374,7 @@
             "map" : {
               "EngineTemp" : {
                 "Component" : {
-                  "nodeId" : 44,
+                  "nodeId" : 47,
                   "unqualifiedName" : "EngineTemp"
                 }
               }
@@ -1205,7 +1384,7 @@
             "map" : {
               "EngineTemp" : {
                 "Component" : {
-                  "nodeId" : 44,
+                  "nodeId" : 47,
                   "unqualifiedName" : "EngineTemp"
                 }
               }
@@ -1215,7 +1394,7 @@
             "map" : {
               "EngineTemp" : {
                 "Component" : {
-                  "nodeId" : 44,
+                  "nodeId" : 47,
                   "unqualifiedName" : "EngineTemp"
                 }
               }
@@ -1223,13 +1402,13 @@
           }
         }
       },
-      "61" : {
+      "67" : {
         "map" : {
           "PortInterfaceInstance" : {
             "map" : {
               "engineTemp" : {
                 "ComponentInstance" : {
-                  "nodeId" : 60,
+                  "nodeId" : 66,
                   "unqualifiedName" : "engineTemp"
                 }
               }
@@ -1237,13 +1416,13 @@
           }
         }
       },
-      "65" : {
+      "71" : {
         "map" : {
           "Port" : {
             "map" : {
               "Sched" : {
                 "Port" : {
-                  "nodeId" : 64,
+                  "nodeId" : 70,
                   "unqualifiedName" : "Sched"
                 }
               }
@@ -1251,19 +1430,19 @@
           }
         }
       },
-      "70" : {
+      "76" : {
         "map" : {
           "Port" : {
             "map" : {
               "Time" : {
                 "Port" : {
-                  "nodeId" : 69,
+                  "nodeId" : 75,
                   "unqualifiedName" : "Time"
                 }
               },
               "Tlm" : {
                 "Port" : {
-                  "nodeId" : 66,
+                  "nodeId" : 72,
                   "unqualifiedName" : "Tlm"
                 }
               }
@@ -1276,7 +1455,7 @@
       
     },
     "typeMap" : {
-      "36" : {
+      "39" : {
         "Primitive" : {
           "Float" : {
             "kind" : {
@@ -1287,7 +1466,7 @@
           }
         }
       },
-      "42" : {
+      "45" : {
         "Primitive" : {
           "Float" : {
             "kind" : {
@@ -1298,7 +1477,7 @@
           }
         }
       },
-      "59" : {
+      "65" : {
         "Int" : {
           "Integer" : {
             
@@ -1307,45 +1486,57 @@
       }
     },
     "useDefMap" : {
-      "30" : {
-        "Module" : {
-          "nodeId" : 65,
-          "unqualifiedName" : "Svc"
-        }
-      },
-      "32" : {
-        "Port" : {
-          "nodeId" : 64,
-          "unqualifiedName" : "Sched"
-        }
-      },
       "34" : {
-        "Port" : {
-          "nodeId" : 66,
-          "unqualifiedName" : "Tlm"
+        "Module" : {
+          "nodeId" : 71,
+          "unqualifiedName" : "Svc"
         }
       },
       "35" : {
         "Port" : {
-          "nodeId" : 69,
+          "nodeId" : 70,
+          "unqualifiedName" : "Sched"
+        }
+      },
+      "37" : {
+        "Port" : {
+          "nodeId" : 72,
+          "unqualifiedName" : "Tlm"
+        }
+      },
+      "38" : {
+        "Port" : {
+          "nodeId" : 75,
           "unqualifiedName" : "Time"
         }
       },
-      "56" : {
+      "63" : {
         "Module" : {
-          "nodeId" : 45,
+          "nodeId" : 48,
           "unqualifiedName" : "Sensors"
         }
       },
-      "58" : {
+      "64" : {
         "Component" : {
-          "nodeId" : 44,
+          "nodeId" : 47,
           "unqualifiedName" : "EngineTemp"
+        }
+      },
+      "77" : {
+        "Module" : {
+          "nodeId" : 76,
+          "unqualifiedName" : "Fw"
+        }
+      },
+      "78" : {
+        "Module" : {
+          "nodeId" : 76,
+          "unqualifiedName" : "Fw"
         }
       }
     },
     "valueMap" : {
-      "59" : {
+      "65" : {
         "Integer" : {
           "value" : 256
         }

@@ -1,0 +1,10 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_topology_arg_deployment.fpp:9.5
+    instance i
+    ^
+  expanded at [ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_topology_arg_deployment.fpp:13.1
+error: invalid use of symbol i: use of deployment topology is not allowed here
+symbol is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_topology_arg_deployment.fpp:4.1
+deployment topology Dep {
+^
