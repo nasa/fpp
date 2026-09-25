@@ -47,6 +47,12 @@ object UsedSymbols extends UseAnalyzer {
     use: Name.Qualified
   ) = addSymbol(a, node)
 
+  override def templateUse(
+    a: Analysis,
+    node: AstNode[Ast.QualIdent],
+    use: Name.Qualified
+  ) = addSymbol(a, node)
+
   override def interfaceInstanceUse(
     a: Analysis,
     node: AstNode[Ast.QualIdent],
@@ -118,6 +124,10 @@ object UsedSymbols extends UseAnalyzer {
         case Symbol.Struct(node) => defStructAnnotatedNode(a1, node)
         case Symbol.System(node) => defSystemAnnotatedNode(a1, node)
         case Symbol.Topology(node) => defTopologyAnnotatedNode(a1, node)
+        case Symbol.Template(node) => defModuleTemplateAnnotatedNode(a1, node)
+        case Symbol.TemplateConstantArg(_, expr) => exprNode(a, expr)
+        case Symbol.TemplateTypeArg(_, tn) => typeNameNode(a, tn)
+        case Symbol.TemplateInterfaceArg(_, name) => qualIdentNode (interfaceInstanceUse) (a, name)
       }).runtimeChecked
       a2.usedSymbolSet.flatMap(resolveNode) + resolveEnumConstant(s)
     }

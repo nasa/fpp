@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/param_conflict_same_name_group.fpp:5.31
+expand T(constant 1, constant 2)
+                              ^
+error: redefinition of symbol x
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/template/param_conflict_same_name_group.fpp:5.19
+expand T(constant 1, constant 2)
+                  ^

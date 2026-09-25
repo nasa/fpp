@@ -6,6 +6,11 @@ import fpp.compiler.util._
 /** Build the location specifier map */
 object BuildSpecLocMap extends ModuleAnalyzer {
 
+  override def defModuleTemplateAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = visitList(a, aNode._2.data.members, matchModuleMember)
+
   override def specLocAnnotatedNode(
     a: Analysis,
     node: Ast.Annotated[AstNode[Ast.SpecLoc]]

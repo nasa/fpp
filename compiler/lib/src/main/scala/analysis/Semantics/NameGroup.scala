@@ -36,6 +36,10 @@ object NameGroup {
     override def toString(): String = "type"
   }
 
+  case object Template extends NameGroup {
+    override def toString(): String = "template"
+  }
+
   case object Value extends NameGroup {
     override def toString(): String = "constant"
   }
@@ -46,6 +50,7 @@ object NameGroup {
     StateMachine,
     PortInterfaceInstance,
     PortInterface,
+    Template,
     Type,
     Value
   )
