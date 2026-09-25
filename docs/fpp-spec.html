@@ -888,46 +888,49 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Expressions_Identifier-Expressions">10.7. Identifier Expressions</a>
 <ul class="sectlevel3">
 <li><a href="#Expressions_Identifier-Expressions_Syntax">10.7.1. Syntax</a></li>
-<li><a href="#Expressions_Identifier-Expressions_Semantics">10.7.2. Semantics</a></li>
-<li><a href="#Expressions_Identifier-Expressions_Example">10.7.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Integer-Literals">10.8. Integer Literals</a></li>
-<li><a href="#Expressions_Parenthesis-Expressions">10.9. Parenthesis Expressions</a>
+<li><a href="#Expressions_Semantics">10.8. Semantics</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Parenthesis-Expressions_Syntax">10.9.1. Syntax</a></li>
-<li><a href="#Expressions_Parenthesis-Expressions_Semantics">10.9.2. Semantics</a></li>
-<li><a href="#Expressions_Parenthesis-Expressions_Example">10.9.3. Example</a></li>
+<li><a href="#Expressions_Semantics_Example">10.8.1. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Sizeof-Expressions">10.10. Sizeof Expressions</a>
+<li><a href="#Expressions_Integer-Literals">10.9. Integer Literals</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions">10.10. Parenthesis Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Sizeof-Expressions_Syntax">10.10.1. Syntax</a></li>
-<li><a href="#Expressions_Sizeof-Expressions_Semantics">10.10.2. Semantics</a></li>
-<li><a href="#Expressions_Sizeof-Expressions_Example">10.10.3. Example</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Syntax">10.10.1. Syntax</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Semantics">10.10.2. Semantics</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Example">10.10.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_String-Literals">10.11. String Literals</a>
+<li><a href="#Expressions_Sizeof-Expressions">10.11. Sizeof Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_String-Literals_Single-Line-String-Literals">10.11.1. Single-Line String Literals</a></li>
-<li><a href="#Expressions_String-Literals_Multiline-String-Literals">10.11.2. Multiline String Literals</a></li>
+<li><a href="#Expressions_Sizeof-Expressions_Syntax">10.11.1. Syntax</a></li>
+<li><a href="#Expressions_Sizeof-Expressions_Semantics">10.11.2. Semantics</a></li>
+<li><a href="#Expressions_Sizeof-Expressions_Example">10.11.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Struct-Expressions">10.12. Struct Expressions</a>
+<li><a href="#Expressions_String-Literals">10.12. String Literals</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Struct-Expressions_Syntax">10.12.1. Syntax</a></li>
-<li><a href="#Expressions_Struct-Expressions_Semantics">10.12.2. Semantics</a></li>
-<li><a href="#Expressions_Struct-Expressions_Example">10.12.3. Example</a></li>
+<li><a href="#Expressions_String-Literals_Single-Line-String-Literals">10.12.1. Single-Line String Literals</a></li>
+<li><a href="#Expressions_String-Literals_Multiline-String-Literals">10.12.2. Multiline String Literals</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Unary-Negation-Expressions">10.13. Unary Negation Expressions</a>
+<li><a href="#Expressions_Struct-Expressions">10.13. Struct Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Unary-Negation-Expressions_Syntax">10.13.1. Syntax</a></li>
-<li><a href="#Expressions_Unary-Negation-Expressions_Semantics">10.13.2. Semantics</a></li>
-<li><a href="#Expressions_Unary-Negation-Expressions_Example">10.13.3. Example</a></li>
+<li><a href="#Expressions_Struct-Expressions_Syntax">10.13.1. Syntax</a></li>
+<li><a href="#Expressions_Struct-Expressions_Semantics">10.13.2. Semantics</a></li>
+<li><a href="#Expressions_Struct-Expressions_Example">10.13.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Precedence-and-Associativity">10.14. Precedence and Associativity</a></li>
+<li><a href="#Expressions_Unary-Negation-Expressions">10.14. Unary Negation Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Expressions_Unary-Negation-Expressions_Syntax">10.14.1. Syntax</a></li>
+<li><a href="#Expressions_Unary-Negation-Expressions_Semantics">10.14.2. Semantics</a></li>
+<li><a href="#Expressions_Unary-Negation-Expressions_Example">10.14.3. Example</a></li>
+</ul>
+</li>
+<li><a href="#Expressions_Precedence-and-Associativity">10.15. Precedence and Associativity</a></li>
 </ul>
 </li>
 <li><a href="#Formal-Parameter-Lists">11. Formal Parameter Lists</a>
@@ -10271,8 +10274,20 @@ IEEE floating-point number.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>An <a href="#Lexical-Elements_Identifiers">identifier</a>
-that refers to a
+<p>An <a href="#Lexical-Elements_Identifiers">identifier</a>.</p>
+</li>
+<li>
+<p>A <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a> of
+the form <code>.</code> <em>I</em>, where <em>I</em> is an identifier.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Semantics">10.8. Semantics</h3>
+<div class="paragraph">
+<p>An identifier expression <em>I</em> must refer to a
 <a href="#Definitions_Constant-Definitions">constant definition</a>
 or
 <a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>,
@@ -10282,43 +10297,36 @@ according to the
 If the identifier refers to a bound parameter definition <em>B</em>,
 then <em>B</em> must be a <a href="#Specifiers_Template-Expansion-Specifiers">constant template
 parameter definition</a>.</p>
-</li>
-<li>
-<p>A <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a> of
-the form <code>.</code> <em>I</em>, where <em>I</em> is an identifier, that refers to a
+</div>
+<div class="paragraph">
+<p>An identifier expression <code>.</code> <em>I</em> must refer to a
 <a href="#Definitions_Constant-Definitions">constant definition</a>
 according to the
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules for resolving
 qualified identifiers</a>.</p>
-</li>
-</ol>
 </div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Identifier-Expressions_Semantics">10.7.2. Semantics</h4>
 <div class="paragraph">
-<p>An identifier expression is evaluated as follows:</p>
+<p>An identifier expression <em>e</em> is evaluated as follows:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>If the identifier refers to a constant definition or enumerated constant
+<p>If <em>e</em> refers to a constant definition or enumerated constant
 definition <em>D</em>, then the value of the expression is the value provided
 by <em>D</em>.</p>
 </li>
 <li>
-<p>Otherwise the identifier refers to a bound parameter definition
+<p>Otherwise <em>e</em> refers to a bound parameter definition
 \$B = (p, A)\$.
 By the rules for <a href="#Specifiers_Template-Expansion-Specifiers">binding arguments
 to template parameters</a>,
-<em>A</em> is <code>constant</code> <em>e</em> for some expression <em>e</em>.
-In this case the value is provided by evaluating the expression <em>e</em>.</p>
+<em>A</em> is <code>constant</code> <em>e'</em> for some expression <em>e'</em>.
+In this case the value is provided by evaluating the expression <em>e'</em>.</p>
 </li>
 </ul>
 </div>
-</div>
 <div class="sect3">
-<h4 id="Expressions_Identifier-Expressions_Example">10.7.3. Example</h4>
+<h4 id="Expressions_Semantics_Example">10.8.1. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = 42
@@ -10332,7 +10340,7 @@ module M {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Integer-Literals">10.8. Integer Literals</h3>
+<h3 id="Expressions_Integer-Literals">10.9. Integer Literals</h3>
 <div class="paragraph">
 <p>An <strong>integer literal expression</strong> is one of the following:</p>
 </div>
@@ -10367,14 +10375,14 @@ less than or equal to 64 bits.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Parenthesis-Expressions">10.9. Parenthesis Expressions</h3>
+<h3 id="Expressions_Parenthesis-Expressions">10.10. Parenthesis Expressions</h3>
 <div class="paragraph">
 <p>A <strong>parenthesis expression</strong> is an expression surrounded
 by parentheses in order to group subexpressions and to
 force evaluation order.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Parenthesis-Expressions_Syntax">10.9.1. Syntax</h4>
+<h4 id="Expressions_Parenthesis-Expressions_Syntax">10.10.1. Syntax</h4>
 <div class="paragraph">
 <p><code>(</code>
 <a href="#Expressions"><em>expression</em></a>
@@ -10382,13 +10390,13 @@ force evaluation order.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Parenthesis-Expressions_Semantics">10.9.2. Semantics</h4>
+<h4 id="Expressions_Parenthesis-Expressions_Semantics">10.10.2. Semantics</h4>
 <div class="paragraph">
 <p>The type and value of the expression are the type and value of the subexpression.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Parenthesis-Expressions_Example">10.9.3. Example</h4>
+<h4 id="Expressions_Parenthesis-Expressions_Example">10.10.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = (1 + 2) * 3</code></pre>
@@ -10401,18 +10409,18 @@ force evaluation order.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Sizeof-Expressions">10.10. Sizeof Expressions</h3>
+<h3 id="Expressions_Sizeof-Expressions">10.11. Sizeof Expressions</h3>
 <div class="paragraph">
 <p>A <strong>sizeof expression</strong> represents the size of the storage associated with a type.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Sizeof-Expressions_Syntax">10.10.1. Syntax</h4>
+<h4 id="Expressions_Sizeof-Expressions_Syntax">10.11.1. Syntax</h4>
 <div class="paragraph">
 <p><code>sizeof</code> <code>(</code> <a href="#Type-Names"><em>type-name</em></a> <code>)</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Sizeof-Expressions_Semantics">10.10.2. Semantics</h4>
+<h4 id="Expressions_Sizeof-Expressions_Semantics">10.11.2. Semantics</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -10429,7 +10437,7 @@ a type \$T\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Sizeof-Expressions_Example">10.10.3. Example</h4>
+<h4 id="Expressions_Sizeof-Expressions_Example">10.11.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">type T = U32
@@ -10444,7 +10452,7 @@ constant c = sizeof(A) # sizeof(A) evaluates to 6</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_String-Literals">10.11. String Literals</h3>
+<h3 id="Expressions_String-Literals">10.12. String Literals</h3>
 <div class="paragraph">
 <p>A <strong>string literal expression</strong> is a single-line string literal
 or a multiline string literal.
@@ -10474,7 +10482,7 @@ optionally preceded by a CR character (ASCII code 0x0D).</p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="Expressions_String-Literals_Single-Line-String-Literals">10.11.1. Single-Line String Literals</h4>
+<h4 id="Expressions_String-Literals_Single-Line-String-Literals">10.12.1. Single-Line String Literals</h4>
 <div class="paragraph">
 <p>A <strong>single-line string literal</strong> is a sequence of <strong>single-line literal characters</strong>
 enclosed in double
@@ -10530,7 +10538,7 @@ unmatched double quote character.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_String-Literals_Multiline-String-Literals">10.11.2. Multiline String Literals</h4>
+<h4 id="Expressions_String-Literals_Multiline-String-Literals">10.12.2. Multiline String Literals</h4>
 <div class="paragraph">
 <p>A <strong>multiline string literal</strong> is a sequence of <strong>multiline literal characters</strong> enclosed
 in sequences <code>"""</code> of three double quote characters.
@@ -10617,12 +10625,12 @@ The value of the string constant <code>s</code> is <code>"""</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Struct-Expressions">10.12. Struct Expressions</h3>
+<h3 id="Expressions_Struct-Expressions">10.13. Struct Expressions</h3>
 <div class="paragraph">
 <p>An <strong>struct expression</strong> is an expression that represents a struct value.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Syntax">10.12.1. Syntax</h4>
+<h4 id="Expressions_Struct-Expressions_Syntax">10.13.1. Syntax</h4>
 <div class="paragraph">
 <p><code>{</code> <em>struct-element-sequence</em> <code>}</code></p>
 </div>
@@ -10637,7 +10645,7 @@ A <strong>struct element</strong> has the following syntax:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Semantics">10.12.2. Semantics</h4>
+<h4 id="Expressions_Struct-Expressions_Semantics">10.13.2. Semantics</h4>
 <div class="paragraph">
 <p>The following must be true of the struct element sequence <em>S</em>:</p>
 </div>
@@ -10658,7 +10666,7 @@ corresponding member names and values.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Example">10.12.3. Example</h4>
+<h4 id="Expressions_Struct-Expressions_Example">10.13.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># s is a struct value with members x = 0, y = 1
@@ -10671,19 +10679,19 @@ constant s = {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Unary-Negation-Expressions">10.13. Unary Negation Expressions</h3>
+<h3 id="Expressions_Unary-Negation-Expressions">10.14. Unary Negation Expressions</h3>
 <div class="paragraph">
 <p>A <strong>unary negation expression</strong> is an expression that negates
 a numeric value.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Unary-Negation-Expressions_Syntax">10.13.1. Syntax</h4>
+<h4 id="Expressions_Unary-Negation-Expressions_Syntax">10.14.1. Syntax</h4>
 <div class="paragraph">
 <p><code>-</code> <a href="#Expressions"><em>expression</em></a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Unary-Negation-Expressions_Semantics">10.13.2. Semantics</h4>
+<h4 id="Expressions_Unary-Negation-Expressions_Semantics">10.14.2. Semantics</h4>
 <div class="paragraph">
 <p>The entire expression must have a valid
 <a href="#Type-Checking_Unary-Negation-Expressions">type</a>.
@@ -10692,7 +10700,7 @@ type of the expression.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Unary-Negation-Expressions_Example">10.13.3. Example</h4>
+<h4 id="Expressions_Unary-Negation-Expressions_Example">10.14.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = -1 # a has value -1</code></pre>
@@ -10701,7 +10709,7 @@ type of the expression.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Precedence-and-Associativity">10.14. Precedence and Associativity</h3>
+<h3 id="Expressions_Precedence-and-Associativity">10.15. Precedence and Associativity</h3>
 <div class="paragraph">
 <p>Ambiguity in parsing expressions is resolved with the following
 precedence table. Expressions appearing earlier in the table
@@ -14522,7 +14530,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-24 17:55:25 -0700
+Last updated 2026-09-24 18:02:56 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
