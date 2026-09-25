@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/top_import/shadowed_error.fpp:7.3
+  topology T {
+  ^
+error: encountered a use-def cycle:
+  use T at [ local path prefix ]/compiler/tools/fpp-check/test/top_import/shadowed_error.fpp:9.12 refers to definition T at [ local path prefix ]/compiler/tools/fpp-check/test/top_import/shadowed_error.fpp:7.3

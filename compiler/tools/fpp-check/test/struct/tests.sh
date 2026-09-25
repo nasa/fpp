@@ -1,6 +1,8 @@
 tests="
 default_error
 default_ok
+default_shadowed_error
+default_shadowed_ok
 dictionary_not_displayable
 dictionary_ok
 duplicate_names

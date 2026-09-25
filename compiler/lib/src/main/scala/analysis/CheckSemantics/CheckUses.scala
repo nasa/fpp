@@ -37,8 +37,13 @@ object CheckUses extends BasicUseAnalyzer {
 
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = {
     def visitExprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = {
-      def visitExprIdent(a: Analysis, node: AstNode[Ast.Expr], name: Name.Unqualified) = {
-        val mapping = a.nestedScope.get (NameGroup.Value)
+      def visitExprIdent(
+        a: Analysis,
+        node: AstNode[Ast.Expr],
+        name: Name.Unqualified,
+        isAbsolute: Boolean
+      ) = {
+        val mapping = a.nestedScope.get (isAbsolute) (NameGroup.Value)
         for (symbol <- helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)) yield {
           val useDefMap = a.useDefMap + (node.id -> symbol)
           a.copy(useDefMap = useDefMap)
@@ -84,7 +89,8 @@ object CheckUses extends BasicUseAnalyzer {
       }
       val data = node.data
       data match {
-        case Ast.ExprIdent(name, _) => visitExprIdent(a, node, name)
+        case Ast.ExprIdent(name, isAbsolute) =>
+          visitExprIdent(a, node, name, isAbsolute)
         case Ast.ExprDot(e, id) => visitExprDot(a, node, e, id)
         case _ => throw InternalError("constant use should be qualified identifier")
       }
@@ -92,9 +98,7 @@ object CheckUses extends BasicUseAnalyzer {
     visitExprNode(a, node)
   }
 
-  // Check that an implied use (a) is not a member
-  // of a def, (b) does not shadow the required def, and (c) does not resolve
-  // to a bound template parameter
+  // Check that we found the required implied use, and not some other symbol
   override def impliedUse(a: Analysis, iu: ImpliedUse, kind: ImpliedUse.Kind) = {
     val sym = a.useDefMap(iu.id)
     val iuName = iu.name.toString
@@ -110,26 +114,19 @@ object CheckUses extends BasicUseAnalyzer {
         )
       )
       case _ =>
-        val symQualifiedName = a.getQualifiedName(sym).toString
-        // Check that the name of the def matches the name of the use
-        if symQualifiedName == iuName
-        // OK, they match
-        then Right(a)
-        else {
-          val msg = if symQualifiedName.length < iuName.length
-          // Definition has a shorter name: the use is a member of the definition
-          then s"it has $iuName as a member"
-          // Definition has a longer name: it shadows the required definition
-          else s"it shadows $iuName here"
-          Left(
-            SemanticError.InvalidSymbol(
-              symQualifiedName,
-              Locations.get(iu.id),
-              msg,
-              sym.getLoc
-            )
-          )
-        }
+      // Check that the name of the def matches the name of the use
+      if symQualifiedName == iuName
+      // OK, they match
+      then Right(a)
+      else {
+        val msg = if symQualifiedName.length < iuName.length
+        // Definition has a shorter name: the use is a member of the definition
+        then s"it has $iuName as a member"
+        // Definition has a longer name: it shadows the required definition
+        // This should not happen, because implied uses are absolute
+        // qualified identifiers
+        else throw InternalError("definition should not have a longer name")
+      }
     }
   }
 
@@ -171,7 +168,7 @@ object CheckUses extends BasicUseAnalyzer {
     val Ast.DefModule(name, members) = node.data
     for {
       symbol <- {
-        val mapping = a.nestedScope.get (NameGroup.Value)
+        val mapping = a.nestedScope.getRelative (NameGroup.Value)
         helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)
       }
       a <- {

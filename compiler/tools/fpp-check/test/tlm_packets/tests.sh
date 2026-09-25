@@ -18,10 +18,15 @@ not_deployment_topology
 ok
 omit_instance_not_defined
 omit_instance_not_in_topology
+<<<<<<< HEAD
 template_arg_channel
 template_arg_topology
 template_channel_neither_used_nor_omitted
 template_ok
+=======
+shadowed_instance_error
+shadowed_instance_ok
+>>>>>>> absolute-qual-id-semantics
 "
 
 ok()

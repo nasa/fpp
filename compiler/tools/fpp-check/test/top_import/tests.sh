@@ -3,5 +3,7 @@ basic
 deployment_topology
 duplicate_topology
 instance_public
+shadowed_error
+shadowed_ok
 undef_topology
 "

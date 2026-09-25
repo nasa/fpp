@@ -5,6 +5,8 @@ bad_constant
 bad_default
 bad_rep_type
 default_ok
+default_shadowed_error
+default_shadowed_ok
 dictionary_ok
 duplicate_value
 explicit

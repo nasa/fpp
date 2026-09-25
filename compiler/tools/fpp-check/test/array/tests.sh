@@ -1,7 +1,8 @@
 tests="
-default_ok
 default_error
-no_default_ok
+default_ok
+default_shadowed_error
+default_shadowed_ok
 dictionary_not_displayable
 dictionary_ok
 enum_default_error
@@ -22,6 +23,7 @@ format_precision_too_large
 format_too_many_repls
 invalid_size
 large_size
+no_default_ok
 string_size_default_ok
 struct_default_ok
 struct_no_default_ok

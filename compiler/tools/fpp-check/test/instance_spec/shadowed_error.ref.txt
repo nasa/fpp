@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/instance_spec/shadowed_error.fpp:11.14
+    instance T.c
+             ^
+error: invalid use of symbol T: not a qualifier
+symbol is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/instance_spec/shadowed_error.fpp:9.3
+  topology T {
+  ^
