@@ -9,10 +9,11 @@ object CheckTemplateInterfaceArgs
   /** Check all interface parameters template expansions implement the proper interfaces */
   def check(a: Analysis): Result.Result[Unit] =
     Result.foldLeft(a.templateExpansionMap.toList) (()) ((_, expansion) => {
-      val (expansionNodeId, t) = expansion
-      Result.foldLeft(t.params.values.collect {
+      val (_, t) = expansion
+      val args = t.params.values.collect {
         case arg @ Symbol.TemplateInterfaceArg(_, _) => arg
-      }.toList)(())((_, arg) => {
+      }
+      Result.foldLeft(args.toList) (()) ((_, arg) => {
         for {
           // Resolve the concrete instance supplied as the argument
           instance <- a.getInterfaceInstance(arg.value.id)
