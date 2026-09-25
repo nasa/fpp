@@ -130,7 +130,7 @@ object AddDependencies extends BasicUseAnalyzer {
     }
 
     override def templateUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
-      analyzeUse(a, Ast.SpecLoc.Template, use)
+      analyzeUse(a, Ast.SpecLoc.Template, use, node.data.isAbsolute)
 
     override def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
       analyzeUse(a, Ast.SpecLoc.StateMachine, use, node.data.isAbsolute)

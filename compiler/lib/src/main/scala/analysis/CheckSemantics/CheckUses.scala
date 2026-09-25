@@ -114,19 +114,28 @@ object CheckUses extends BasicUseAnalyzer {
         )
       )
       case _ =>
-      // Check that the name of the def matches the name of the use
-      if symQualifiedName == iuName
-      // OK, they match
-      then Right(a)
-      else {
-        val msg = if symQualifiedName.length < iuName.length
-        // Definition has a shorter name: the use is a member of the definition
-        then s"it has $iuName as a member"
-        // Definition has a longer name: it shadows the required definition
-        // This should not happen, because implied uses are absolute
-        // qualified identifiers
-        else throw InternalError("definition should not have a longer name")
-      }
+        val symQualifiedName = a.getQualifiedName(sym).toString
+        // Check that the name of the def matches the name of the use
+        if symQualifiedName == iuName
+        // OK, they match
+        then Right(a)
+        else {
+          val msg = if symQualifiedName.length < iuName.length
+          // Definition has a shorter name: the use is a member of the definition
+          then s"it has $iuName as a member"
+          // Definition has a longer name: it shadows the required definition
+          // This should not happen, because implied uses are absolute
+          // qualified identifiers
+          else throw InternalError("definition should not have a longer name")
+          Left(
+            SemanticError.InvalidSymbol(
+              symQualifiedName,
+              Locations.get(iu.id),
+              msg,
+              sym.getLoc
+            )
+          )
+        }
     }
   }
 
