@@ -167,10 +167,6 @@ object Connection {
         _ <- connection.checkDirections
         _ <- connection.checkTypes(a)
         _ <- connection.checkSerialWithTypedInput(a)
-        _ <- 
-          if !connection.isMatchConstrained && connection.isUnmatched 
-          then Left(SemanticError.MissingPortMatching(connection.getLoc))
-          else Right(())
       }
       yield connection
 
