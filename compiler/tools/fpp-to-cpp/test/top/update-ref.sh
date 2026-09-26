@@ -143,3 +143,11 @@ typed_ports_queued()
   move_cpp TypedPortsQueuedTopology
   cd $TOP_DIR
 }
+
+config_objects()
+{
+  cd $TOP_DIR/config_objects
+  update "-p $PWD,$FPRIME_DIR -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology
+  move_cpp ConfigObjectsTopology
+  cd $TOP_DIR
+}

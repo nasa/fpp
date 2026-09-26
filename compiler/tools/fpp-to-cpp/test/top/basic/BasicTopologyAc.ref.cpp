@@ -54,7 +54,11 @@ namespace M {
   // ----------------------------------------------------------------------
 
   void initComponents(const TopologyState& state) {
-    M::active2.initSpecial();
+    {
+      using namespace ConfigObjects::M_active2;
+
+      M::active2.initSpecial();
+    }
     M::active3.init(QueueSizes::M_active3, InstanceIds::M_active3);
     M::passive1.init(InstanceIds::M_passive1);
     M::passive2.init(InstanceIds::M_passive2);
@@ -62,7 +66,11 @@ namespace M {
   }
 
   void configComponents(const TopologyState& state) {
-    M::active2.config();
+    {
+      using namespace ConfigObjects::M_active2;
+
+      M::active2.config();
+    }
   }
 
   void setBaseIds() {
@@ -106,7 +114,11 @@ namespace M {
   }
 
   void startTasks(const TopologyState& state) {
-    M::active2.startSpecial();
+    {
+      using namespace ConfigObjects::M_active2;
+
+      M::active2.startSpecial();
+    }
     M::active3.start(
       Os::Task::TASK_PRIORITY_DEFAULT, // Default priority
       Os::Task::TASK_DEFAULT, // Default stack size
@@ -122,23 +134,39 @@ namespace M {
   }
 
   void stopTasks(const TopologyState& state) {
-    M::active2.stopSpecial();
+    {
+      using namespace ConfigObjects::M_active2;
+
+      M::active2.stopSpecial();
+    }
     M::active3.exit();
     active1.exit();
   }
 
   void freeThreads(const TopologyState& state) {
-    M::active2.freeSpecial();
+    {
+      using namespace ConfigObjects::M_active2;
+
+      M::active2.freeSpecial();
+    }
     (void) M::active3.ActiveComponentBase::join();
     (void) active1.ActiveComponentBase::join();
   }
 
   void tearDownComponents(const TopologyState& state) {
-    M::active2.tearDown();
+    {
+      using namespace ConfigObjects::M_active2;
+
+      M::active2.tearDown();
+    }
   }
 
   void deinitComponents(const TopologyState& state) {
-    M::active2.deinitSpecial();
+    {
+      using namespace ConfigObjects::M_active2;
+
+      M::active2.deinitSpecial();
+    }
     M::active3.deinit();
     M::passive1.deinit();
     M::passive2.deinit();
