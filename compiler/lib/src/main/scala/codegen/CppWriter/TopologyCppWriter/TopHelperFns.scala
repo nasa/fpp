@@ -10,6 +10,23 @@ case class TopHelperFns(
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
 ) extends TopologyCppWriterUtils(s, aNode) {
 
+  private val configObjects = TopConfigObjects(s, aNode)
+
+  /** Keep an instance's configuration-object names local to its init snippet. */
+  override def getCodeLinesForPhase (phase: Int) (ci: ComponentInstance):
+    Option[List[Line]] = super.getCodeLinesForPhase(phase)(ci).map { code =>
+      if (configObjects.getInstanceConfigObjectLines(ci).isDefined &&
+          getCodeForPhase(phase)(ci).exists(_.trim.nonEmpty)) {
+        val name = CppWriter.identFromQualifiedName(ci.qualifiedName)
+        wrapInScope(
+          "{",
+          lines(s"using namespace ConfigObjects::$name;") ::: Line.blank :: code,
+          "}"
+        )
+      }
+      else code
+    }
+
   /** Compute the set of defined function names and the list
    *  of CppDoc members defining the functions */
   def getMembers: (Set[String], List[CppDoc.Member]) = {

@@ -30,6 +30,12 @@ namespace M {
 
 namespace M {
 
+  Svc::Health unconnectedHealth(FW_OPTIONAL_NAME("M.unconnectedHealth"));
+
+}
+
+namespace M {
+
   // ----------------------------------------------------------------------
   // Component configuration objects
   // ----------------------------------------------------------------------
@@ -61,16 +67,23 @@ namespace M {
     M::c1.init(InstanceIds::M_c1);
     M::c2.init(InstanceIds::M_c2);
     M::health.init(InstanceIds::M_health);
+    M::unconnectedHealth.init(InstanceIds::M_unconnectedHealth);
   }
 
   void configComponents(const TopologyState& state) {
-    // Nothing to do
+    {
+      using namespace ConfigObjects::M_health;
+
+      (void) pingEntries;
+    }
+    (void) state;
   }
 
   void setBaseIds() {
     M::health.setIdBase(BaseIds::M_health);
     M::c1.setIdBase(BaseIds::M_c1);
     M::c2.setIdBase(BaseIds::M_c2);
+    M::unconnectedHealth.setIdBase(BaseIds::M_unconnectedHealth);
   }
 
   void connectComponents() {
@@ -131,6 +144,7 @@ namespace M {
     M::c1.deinit();
     M::c2.deinit();
     M::health.deinit();
+    M::unconnectedHealth.deinit();
   }
 
   // ----------------------------------------------------------------------
@@ -261,14 +275,32 @@ namespace Svc {
       static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS)
     );
     bool result = false;
-    switch (portNum) {
-      case 0:
-        result = true;
-        break;
-      case 1:
-        result = true;
-        break;
+    const auto instance = this->getInstance();
+    switch (instance) {
       default:
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(false, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_health:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          case 1:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_unconnectedHealth:
+        switch (portNum) {
+          default:
+            break;
+        }
         break;
     }
     return result;
@@ -283,21 +315,40 @@ namespace Svc {
       static_cast<FwAssertArgType>(portNum),
       static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS)
     );
-    switch (portNum) {
-      case 0:
-        M::c1.pingIn_handlerBase(
-          0,
-          key
-        );
-        break;
-      case 1:
-        M::c2.pingIn_handlerBase(
-          0,
-          key
-        );
-        break;
+    const auto instance = this->getInstance();
+    switch (instance) {
       default:
-        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
+#ifdef FW_STRICT_ASSERTIONS
+        FW_ASSERT(false, static_cast<FwAssertArgType>(instance));
+        break;
+#else
+        // Fall through
+#endif
+      case ::M::InstanceIds::M_health:
+        switch (portNum) {
+          case 0:
+            M::c1.pingIn_handlerBase(
+              0,
+              key
+            );
+            break;
+          case 1:
+            M::c2.pingIn_handlerBase(
+              0,
+              key
+            );
+            break;
+          default:
+            FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_unconnectedHealth:
+        switch (portNum) {
+          default:
+            FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
         break;
     }
   }

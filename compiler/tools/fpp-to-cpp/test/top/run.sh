@@ -177,3 +177,13 @@ typed_ports_queued()
   cd $TOP_DIR
   return $status
 }
+
+config_objects()
+{
+  cd $TOP_DIR/config_objects
+  run_test "-p $PWD,$FPRIME_DIR -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
+    diff_cpp ConfigObjectsTopology
+  status=$?
+  cd $TOP_DIR
+  return $status
+}

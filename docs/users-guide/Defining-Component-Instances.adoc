@@ -606,6 +606,17 @@ acquired by _I_ during the `initComponents` phase.
 
 |===
 
+When FPP generates a `ConfigObjects` namespace for an instance, each nonempty
+init specifier placed in a helper function is enclosed in its own block with a
+`using namespace ConfigObjects::` _I_ directive. Here _I_ is the qualified
+instance name with namespace separators replaced by underscores. The snippet
+can refer to that instance's configuration objects without qualifying each name.
+The block prevents names from leaking into another instance's snippet, so local
+variables declared in it are not available to other snippets. Fully qualified
+references remain valid. Instances without configuration objects, empty
+snippets, and namespace-scope phases (`configConstants`, `configObjects`, and
+`instances`) keep their existing placement.
+
 You will most often need to write code for `configConstants`,
 `configObjects`, and `configComponents`.
 These phases often require implementation-specific input that
