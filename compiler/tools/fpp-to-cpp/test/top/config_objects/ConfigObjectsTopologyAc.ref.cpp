@@ -19,6 +19,7 @@ namespace M {
   }
 
 }
+
 M::C constantOnly(FW_OPTIONAL_NAME("constantOnly"));
 
 M::C emptyConfig(FW_OPTIONAL_NAME("emptyConfig"));
