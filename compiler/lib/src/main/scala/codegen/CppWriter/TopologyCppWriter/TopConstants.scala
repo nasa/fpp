@@ -41,7 +41,7 @@ case class TopConstants(
       pairs.flatMap { 
         case (ci, code) => wrapInNamespace(
           CppWriter.identFromQualifiedName(ci.qualifiedName),
-          lines(code)
+          code
         )
       }
     )
