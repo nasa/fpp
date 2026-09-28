@@ -30,7 +30,7 @@ expand
   type template arg
     type name qual ident Type
   instance template arg
-    qual ident instance1
+    qual ident .instance1
   def array
     ident Arr
     size literal int 3

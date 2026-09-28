@@ -546,8 +546,8 @@ class ParserSpec extends AnyWordSpec {
         "expand M.T(constant 1)",
         "expand M.T(constant 1, constant 2)",
         "expand M.T(constant 1, constant 2, instance mod.$instance)",
-        "expand M.T(constant 1, constant 2, instance mod.$instance, type Type.Name)",
-        "expand M.T(constant 1, instance inst1, type U32)",
+        "expand M.T(constant 1, constant 2, instance .mod.$instance, type Type.Name)",
+        "expand M.T(constant 1, instance .inst1, type U32)",
         "expand M.T(constant 1, constant 2, constant {member=1}, constant [1, 2])",
       )
     )
@@ -580,8 +580,10 @@ class ParserSpec extends AnyWordSpec {
       Parser.specLoc,
       List(
         "locate component a.b at \"c.fpp\"",
-        "locate instance a.b at \"c.fpp\"",
+        "locate component .a.b at \"c.fpp\"",
         "locate constant a.b at \"c.fpp\"",
+        "locate constant .a.b at \"c.fpp\"",
+        "locate instance a.b at \"c.fpp\"",
         "locate port a.b at \"c.fpp\"",
         "locate state machine a.b at \"c.fpp\"",
         "locate system a.b at \"c.fpp\"",
