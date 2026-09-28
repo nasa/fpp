@@ -9,7 +9,7 @@ An *identifier expression* is one of the following:
 . A <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> of
 the form `.` _I_, where _I_ is an identifier.
 
-=== Semantics
+==== Semantics
 
 An identifier expression _I_ must refer to a
 <<Definitions_Constant-Definitions,constant definition>>
