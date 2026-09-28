@@ -1,0 +1,7 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/nested_scope_resolution.fpp:7.18
+      array A = [n] U32
+                 ^
+  expanded at [ local path prefix ]/compiler/tools/fpp-check/test/template/nested_scope_resolution.fpp:16.3
+error: invalid array size 0
+note: size must be greater than zero

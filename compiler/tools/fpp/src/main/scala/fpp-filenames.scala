@@ -24,22 +24,31 @@ object FPPFilenames {
     }
     for {
       tul <- ToolUtils.parseFilesAndResolveAsts(Analysis(), files).map(_._2)
+      (a, tul) <- enterSymbols(tul)
       files <-
         CppWriter.getMode(options.template, options.unitTest) match {
-          case CppWriter.Autocode => ComputeGeneratedFiles.getAutocodeFiles(tul)
-          case CppWriter.ImplTemplate => ComputeGeneratedFiles.getImplFiles(tul)
+          case CppWriter.Autocode => ComputeGeneratedFiles.getAutocodeFiles(a, tul)
+          case CppWriter.ImplTemplate => ComputeGeneratedFiles.getImplFiles(a, tul)
           case CppWriter.UnitTest => ComputeGeneratedFiles.getTestFiles(
-            tul,
+            a, tul,
             CppWriter.getTestHelperMode(options.autoTestHelpers)
           )
           case CppWriter.UnitTestTemplate => ComputeGeneratedFiles.getTestImplFiles(
-            tul,
+            a, tul,
             CppWriter.getTestHelperMode(options.autoTestHelpers)
           )
         }
     }
     yield files.sorted.map(System.out.println)
   }
+
+  def enterSymbols(tul: List[Ast.TransUnit]):
+    Result.Result[(Analysis, List[Ast.TransUnit])] =
+      for {
+        tul <- AddStateEnums.transUnitList(tul)
+        a <- EnterSymbols.visitList(Analysis(), tul, EnterSymbols.transUnit)
+      }
+      yield (a, tul)
 
   def toolMain(args: Array[String]) =
     Tool(name).mainMethod(args, oparser, Options(), command)

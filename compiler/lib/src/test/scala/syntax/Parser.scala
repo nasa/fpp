@@ -1,6 +1,7 @@
 package fpp.compiler.test
 
 import fpp.compiler.ast._
+import fpp.compiler.codegen.{AstWriter,FppWriter}
 import fpp.compiler.syntax.{Lexer,Parser,TokenId}
 import java.io.File
 import java.io.FileReader
@@ -507,6 +508,22 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
+  "spec template expand OK" should {
+    parseAllOK(
+      Parser.specTemplateExpand,
+      List(
+        "expand T",
+        "expand M.T()",
+        "expand M.T(constant 1)",
+        "expand M.T(constant 1, constant 2)",
+        "expand M.T(constant 1, constant 2, instance mod.$instance)",
+        "expand M.T(constant 1, constant 2, instance mod.$instance, type Type.Name)",
+        "expand M.T(constant 1, instance inst1, type U32)",
+        "expand M.T(constant 1, constant 2, constant {member=1}, constant [1, 2])",
+      )
+    )
+  }
+
   "spec include OK" should {
     parseAllOK(
       Parser.specInclude,
@@ -542,6 +559,8 @@ class ParserSpec extends AnyWordSpec {
         "locate type a.b at \"c.fpp\"",
         "locate dictionary type a.b at \"c.fpp\"",
         "locate dictionary constant a.b at \"c.fpp\"",
+        "locate template a.b at \"c.fpp\"",
+        "locate template $template at \"c.fpp\"",
       )
     )
   }
@@ -723,6 +742,197 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
+  "template ok" should {
+    parseAllOK(
+      Parser.transUnit,
+      List(
+        "module template T {}",
+        "module template T() {}",
+        "module template T(constant c: U32, instance i: I, type Ty) {}",
+        """
+        module template T(
+          constant c: U32,
+          type Ty,
+          instance i: Interface
+        ) {
+        }
+        """,
+
+        """
+        module template T(
+          constant c: U32,
+          type Ty,
+          instance i: Interface
+        ) {
+          array a = [3] Ty
+        }
+        """,
+
+        """
+        module template T(
+          constant c: U32
+          instance i: Interface
+          type Ty
+        ) {
+        }
+        """,
+
+        """
+        module template T(
+          constant c: U32,
+          instance i: Interface,
+          type Ty
+        ) {
+          instance inst: Comp base id 0x100
+          topology Top {
+            instance i
+            instance inst
+          }
+        }
+        expand T(constant 1, instance inst1, type U32)
+        """,
+
+        // Newline-separated argument list with no commas
+        """
+        expand T(
+          constant 1
+          instance inst1
+          type U32
+        )
+        """,
+
+        // An expansion with an empty argument list. A template argument list is
+        // an element sequence, and an element sequence may be empty, so this is
+        // legal and means the same thing as 'expand T'.
+        "expand T()",
+
+        // Annotations on template parameters
+        """
+        module template T(
+          @ Constant parameter
+          constant c: U32 @< Constant parameter
+          @ Instance parameter
+          instance i: Interface @< Instance parameter
+          @ Type parameter
+          type Ty @< Type parameter
+        ) {
+        }
+        """,
+
+        // A trailing comma on the last element of a parameter list or an
+        // argument list. An element sequence permits terminating punctuation on
+        // its last element: see docs/spec/Element-Sequences.adoc.
+        """
+        module template T(
+          constant c: U32,
+          instance i: Interface,
+          type Ty,
+        ) {
+        }
+        expand T(
+          constant 1,
+          instance inst1,
+          type U32,
+        )
+        """,
+
+        // Escaped reserved words as the names of a template, its parameters,
+        // and the definitions in its body
+        """
+        module template $template(
+          constant $constant: U32
+          instance $instance: Interface
+          type $type
+        ) {
+          constant $expand = $constant
+        }
+        expand $template(constant 1, instance inst1, type U32)
+        """,
+
+        // A qualified template name
+        "expand A.B.T(constant 1)",
+      )
+    )
+  }
+
+  "template error" should {
+    parseAllError(
+      Parser.transUnit,
+      List(
+        // A template argument must begin with 'constant', 'instance', or
+        // 'type'. Omitting the prefix appeared in the specification's own
+        // worked example.
+        "expand T(1)",
+        "expand T(U32)",
+        "expand T(constant 1, 2)",
+        // A constant template argument must have an expression
+        "expand T(constant)",
+        // An expansion must name a template
+        "expand",
+        // A template parameter must begin with 'constant', 'instance', or
+        // 'type'
+        "module template T(c: U32) {}",
+        // A constant template parameter must have a type
+        "module template T(constant c) {}",
+        // An instance template parameter must have an interface
+        "module template T(instance i) {}",
+        // A type template parameter may not have a type
+        "module template T(type Ty: U32) {}",
+        // A template definition must have an identifier
+        "module template {}",
+        // A template definition must have a body
+        "module template T",
+        // A template location specifier must have a name and a file
+        "locate template at \"c.fpp\"",
+        "locate template T",
+      )
+    )
+  }
+
+  // Formatting an AST and parsing the result must give back the same AST. This
+  // is what fpp-format does, so a construct that FppWriter does not write, or
+  // writes in a form that does not parse, shows up here.
+  "template format round trip OK" should {
+    roundTripAllOK(
+      List(
+        "locate template T at \"t.fpp\"",
+        "locate template a.b at \"t.fpp\"",
+        "locate template $template at \"t.fpp\"",
+        "module template T {}",
+        "module template T() {}",
+        "module template T(constant c: U32, instance i: I, type Ty) {}",
+        """
+        module template T(
+          @ Constant parameter
+          constant c: U32 @< Constant parameter
+          @ Instance parameter
+          instance i: I @< Instance parameter
+          @ Type parameter
+          type Ty @< Type parameter
+        ) {
+          array A = [c] Ty
+          topology Top {
+            instance i
+          }
+        }
+        """,
+        """
+        module template $template(
+          constant $constant: U32
+          instance $instance: I
+          type $type
+        ) {
+          constant $expand = $constant
+        }
+        """,
+        "expand T",
+        "expand T()",
+        "expand A.B.T(constant 1 + 2, instance a.b, type U32)",
+        "expand $template(constant 0, instance i1, type U32)",
+      )
+    )
+  }
+
   "trans unit OK" should {
     parseAllOK(
       Parser.transUnit,
@@ -738,6 +948,7 @@ class ParserSpec extends AnyWordSpec {
         instance i: C base id 0x100
         constant a = 0
         module M {}
+        module template TT () {}
         port P
         struct S {}
         topology T {}
@@ -745,6 +956,7 @@ class ParserSpec extends AnyWordSpec {
         type T
         array A = [10] U32
         enum E { X, Y }
+        expand TT (constant 1, constant 2, constant 3, constant {member=[1, 2, 3]}, type TypeName, instance i)
         include "a.fpp"
         """,
         """
@@ -814,5 +1026,41 @@ class ParserSpec extends AnyWordSpec {
       }
     }
   }
+
+  def roundTripAllOK(ss: List[String]): Unit = {
+    ss.foreach { s => s"round trip $s" in roundTripOK(s) }
+  }
+
+  /** Write a translation unit as FPP source, parse the result, and check that
+   *  the two ASTs are the same */
+  def roundTripOK(s: String): Unit = {
+    val tu = parseTransUnit(s)
+    val formatted = FppWriter.transUnit(tu).map(_.toString).mkString("\n")
+    val tu1 = Parser.parseString(Parser.transUnit)(formatted) match {
+      case Right(tu1) => tu1
+      case Left(l) => {
+        Console.err.println(s"could not parse formatted output:\n$formatted")
+        Console.err.println(s"failed with error $l")
+        fail("formatted output should parse")
+      }
+    }
+    val ast = AstWriter.transUnit(tu).map(_.toString)
+    val ast1 = AstWriter.transUnit(tu1).map(_.toString)
+    if (ast != ast1) {
+      Console.err.println(s"formatted output:\n$formatted")
+      Console.err.println(s"AST before formatting:\n${ast.mkString("\n")}")
+      Console.err.println(s"AST after formatting:\n${ast1.mkString("\n")}")
+      fail("formatting should preserve the AST")
+    }
+  }
+
+  def parseTransUnit(s: String): Ast.TransUnit =
+    Parser.parseString(Parser.transUnit)(s) match {
+      case Right(tu) => tu
+      case Left(l) => {
+        Console.err.println(s"failed with error $l")
+        fail(s"could not parse $s")
+      }
+    }
 
 }

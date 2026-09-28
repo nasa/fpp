@@ -15,7 +15,16 @@ case class PortInstanceIdentifier(
 
   /** Compare two port instance identifiers */
   override def compare(that: PortInstanceIdentifier) = {
-    this.toString.compare(that.toString)
+    val nameCompare = this.toString.compare(that.toString)
+    if (nameCompare != 0) nameCompare
+    else {
+      val instanceCompare = InterfaceInstance.ordering.compare(
+        this.interfaceInstance,
+        that.interfaceInstance
+      )
+      if (instanceCompare != 0) instanceCompare
+      else this.portInstance.getNodeId.compare(that.portInstance.getNodeId)
+    }
   }
 
   /** Gets the qualified name */

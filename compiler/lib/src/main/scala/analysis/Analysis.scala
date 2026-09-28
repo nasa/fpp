@@ -88,6 +88,14 @@ case class Analysis(
   tlmPacketSet: Option[TlmPacketSet] = None,
   /** The mapping from nodes to implied uses */
   impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map(),
+  /** Node ID of the template expansion currently */
+  template: Option[AstNode.Id] = None,
+  /** Maps template expansion AST nodes to their */
+  templateExpansionMap: Map[AstNode.Id, TemplateExpansion] = Map(),
+  /** Tracks the current expansion we are analyzing inside of */
+  templateExpansion: Option[TemplateExpansion] = None,
+  /** Node ID of the template definition we are currently cloning inside of */
+  templateDefinition: Option[AstNode.Id] = None,
   /** The set of symbols defined with a dictionary specifier */
   dictionarySymbolSet: Set[Symbol] = Set(),
   /** The mapping from system symbols to systems */
@@ -289,11 +297,57 @@ case class Analysis(
     for (cis <- getComponentInstanceSymbol(id))
       yield this.componentInstanceMap(cis)
 
+  /** Gets the use represented by a use. If the use refers to a bound template
+   *  parameter, then the represented use is the use appearing in the template
+   *  argument, resolved recursively. Otherwise the use represents itself. */
+  def getRepresentedUse(id: AstNode.Id): AstNode.Id =
+    this.useDefMap.get(id) match {
+      case Some(arg: TemplateArgSymbol) => getRepresentedUse(arg.getNodeId)
+      case _ => id
+    }
+
+  /** Gets the symbol represented by a use. Strips off any bound template
+   *  parameters. Returns None if the represented use refers to no symbol,
+   *  e.g., if the template argument is a literal value or a primitive
+   *  type name. */
+  def getRepresentedSymbolOpt(id: AstNode.Id): Option[Symbol] =
+    this.useDefMap.get(getRepresentedUse(id))
+
+  /** Gets the symbol represented by a symbol. See getRepresentedSymbolOpt. */
+  def getRepresentedSymbolOpt(symbol: Symbol): Option[Symbol] =
+    symbol match {
+      case arg: TemplateArgSymbol => getRepresentedSymbolOpt(arg.getNodeId)
+      case _ => Some(symbol)
+    }
+
+  /** Gets the topology symbol represented by a symbol, if there is one */
+  def getRepresentedTopologySymbolOpt(symbol: Symbol): Option[Symbol.Topology] =
+    getRepresentedSymbolOpt(symbol).collect { case ts: Symbol.Topology => ts }
+
+  /** Gets the component instance represented by a use. Strip off any template args. */
+  def getRepresentedComponentInstance(id: AstNode.Id):
+  Result.Result[ComponentInstance] = {
+    val symbol = this.useDefMap(id)
+    getRepresentedSymbolOpt(id) match {
+      case Some(cis: Symbol.ComponentInstance) =>
+        Right(this.componentInstanceMap(cis))
+      case representedOpt => Left(
+        SemanticError.InvalidSymbol(
+          symbol.getUnqualifiedName,
+          Locations.get(id),
+          "not a component instance symbol",
+          representedOpt.getOrElse(symbol).getLoc
+        )
+      )
+    }
+  }
+
   /** Gets an interface instance symbol from the use-def map */
   def getInterfaceInstanceSymbol(id: AstNode.Id): Result.Result[InterfaceInstanceSymbol] =
     this.useDefMap(id) match {
       case cis: Symbol.ComponentInstance => Right(cis)
       case ts: Symbol.Topology => Right(ts)
+      case ps: Symbol.TemplateInterfaceArg => Right(ps)
       case s => Left(
         SemanticError.InvalidSymbol(
           s.getUnqualifiedName,
@@ -306,11 +360,30 @@ case class Analysis(
 
   /** Gets an interface instance from the topology or component instance map */
   def getInterfaceInstance(id: AstNode.Id): Result.Result[InterfaceInstance] =
-    for (iis <- getInterfaceInstanceSymbol(id))
-      yield iis match {
-        case cis: Symbol.ComponentInstance => InterfaceInstance.fromComponentInstance(this.componentInstanceMap(cis))
-        case top: Symbol.Topology => InterfaceInstance.fromTopology(this.topologyMap(top))
+    for {
+      iis <- getInterfaceInstanceSymbol(id)
+      ii <- {
+        iis match {
+          case cis: Symbol.ComponentInstance => Right(InterfaceInstance.fromComponentInstance(this.componentInstanceMap(cis)))
+          case top: Symbol.Topology => this.topologyMap.get(top) match {
+            case Some(t) => Right(InterfaceInstance.fromTopology(t))
+            case None => Left(
+              SemanticError.InvalidSymbol(
+                top.getUnqualifiedName,
+                Locations.get(id),
+                "this topology could not be resolved before it was used here",
+                top.getLoc
+              )
+            )
+          }
+          case ts: Symbol.TemplateInterfaceArg =>
+            for {
+              ii <- getInterfaceInstance(ts.value.id)
+              iface <- this.getInterface(ts.paramDef.interface.id)
+            } yield InterfaceInstance.fromTemplateArg(ts.paramDef, iface, ii)
+        }
       }
+    } yield ii
 
   /** Gets an interface symbol from use-def map */
   def getInterfaceSymbol(id: AstNode.Id): Result.Result[Symbol.Interface] =
@@ -330,6 +403,20 @@ case class Analysis(
   def getInterface(id: AstNode.Id): Result.Result[Interface] =
     for (cis <- getInterfaceSymbol(id))
       yield this.interfaceMap(cis)
+
+  /** Gets a template symbol from use-def map */
+  def getTemplateSymbol(id: AstNode.Id): Result.Result[Symbol.Template] =
+    this.useDefMap(id) match {
+      case ts: Symbol.Template => Right(ts)
+      case s => Left(
+        SemanticError.InvalidSymbol(
+          s.getUnqualifiedName,
+          Locations.get(id),
+          "not a template symbol",
+          s.getLoc
+        )
+      )
+    }
 
   /** Gets a topology symbol from use-def map */
   def getTopologySymbol(id: AstNode.Id): Result.Result[Symbol.Topology] =

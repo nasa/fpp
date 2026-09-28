@@ -1,0 +1,18 @@
+@ A module template defined in an included file
+module template Included(
+                          constant n: U32 @< A constant parameter
+                        ) {
+  @ A constant defined by the included template
+  constant m = n + 1
+
+}
+
+@ Expanding a template defined in an included file requires -t to also
+@ resolve the include so the template definition can be found
+expand Included(
+                 constant 42
+               ) {
+  @ A constant defined by the included template
+  constant m = n + 1
+
+}

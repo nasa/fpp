@@ -94,7 +94,7 @@ echo "Building fpp"
 evalp "$native_image" $FPP_NATIVE_IMAGE_FLAGS \
   --sun-misc-unsafe-memory-access=allow \
   --enable-native-access=ALL-UNNAMED \
-  -jar "$jar_file" "$out_file"
+  -jar "$jar_file" -o "$out_file"
 if [ $? -ne 0 ]
 then
     echo "[ERROR] Failed to build $out_file"

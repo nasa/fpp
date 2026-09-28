@@ -2,3 +2,39 @@
 
 A *definition* is a unit of syntax that introduces a name _N_
 and associates some code with _N_.
+
+In FPP, there are two kinds of definitions:
+
+. *Global definitions* that introduce globally visible 
+  <<Scoping-of-Names_Names-of-Definitions,qualified names>>.
+
+. *Bound parameter definitions* introduced by binding
+<<Specifiers_Template-Expansion-Specifiers,template arguments>> to
+<<Template-Parameter-Lists,template parameters>> within
+the scope of an <<Expansion-of-Templates,expanded template>>.
+A bound parameter definition is a pair stem:[(p, A)] consisting of
+a template parameter _p_ and a template argument _A_.
+The name associated with a bound parameter definition stem:[(p, A)]
+is the identifier specified in _p_.
+Bound parameter definitions come into scope
+<<Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template,during 
+template expansion>>.
+
+Within an expanded template, a bound parameter definition may *represent*
+a global definition, either directly or indirectly.
+A bound parameter definition stem:[B = (p, A)] represents
+a global definition _D_ if (1) _A_ 
+<<Scoping-of-Names_Resolution-of-Identifiers,refers to>> _D_ or (2)
+_A_ refers to a bound parameter definition _B'_ that represents _D_.
+
+Not all bound parameter definitions represent global definitions.
+For example, the bound parameter definition
+
+[source,fpp]
+----
+( constant x : U32 , 0 )
+----
+
+does not represent any global definition.
+
+The rest of this section discusses the global definitions.

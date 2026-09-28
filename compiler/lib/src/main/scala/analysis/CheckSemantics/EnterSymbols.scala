@@ -233,6 +233,25 @@ object EnterSymbols
     }
   }
 
+  override def defModuleTemplateAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val name = data.name
+    val symbol = Symbol.Template(aNode)
+    val nestedScope = a.nestedScope
+
+    for (nestedScope <- nestedScope.put(NameGroup.Template)(name, symbol))
+      yield updateMap(a, symbol).copy(nestedScope = nestedScope)
+  }
+
+  override def specTemplateExpandAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+  ) = Right(a)
+
   override def defPortAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefPort]]

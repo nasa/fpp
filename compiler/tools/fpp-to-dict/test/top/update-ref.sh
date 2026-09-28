@@ -41,6 +41,20 @@ multipleTops()
   move_json SecondTop
 }
 
+# The reference dictionaries are shared with template_hand, so update them
+# here and not there.
+template()
+{
+  update "-i builtin.fpp,config.fpp -p 1.0.0 -f 3.4.3" template
+  move_json Expanded
+  move_system_json Dep_Expanded
+}
+
+template_hand()
+{
+  update "-i builtin.fpp,config.fpp -p 1.0.0 -f 3.4.3" template_hand
+}
+
 unqualifiedComponentInstances()
 {
   update "-i builtin.fpp,config.fpp -p 1.0.0 -f 3.4.3 -l lib1-1.0.0,lib2-2.0.0" unqualifiedComponentInstances

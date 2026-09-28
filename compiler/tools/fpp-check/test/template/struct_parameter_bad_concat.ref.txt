@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/struct_parameter_bad_concat.fpp:7.18
+  constant c = [ s.a, s.b ]
+                 ^
+  expanded at [ local path prefix ]/compiler/tools/fpp-check/test/template/struct_parameter_bad_concat.fpp:10.1
+error: cannot compute common type of array A and array B

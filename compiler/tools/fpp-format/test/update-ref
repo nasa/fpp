@@ -65,6 +65,16 @@ dictionary_specifier()
   update '' ../../fpp-syntax/test/dictionary-specifier dictionary_specifier
 }
 
+template_expand()
+{
+  update '-t' template_expand
+}
+
+template_include()
+{
+  update '-t' template_include
+}
+
 for t in $tests
 do
   echo "updating ref output for $t"

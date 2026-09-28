@@ -16,6 +16,13 @@ trait AstStateVisitor extends AstVisitor {
   /** Default state transformation */
   override def default(s: State) = Right(s)
 
+  /** Visit the members of an expanded template */
+  override def specTemplateExpandAnnotatedNodeExpanded(
+    s: State,
+    node: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]],
+    members: List[Ast.ModuleMember]
+  ) = visitList(s, members, matchModuleMember)
+
   /** Visit a list in sequence, threading state */
   def visitList[T](
     s: State,

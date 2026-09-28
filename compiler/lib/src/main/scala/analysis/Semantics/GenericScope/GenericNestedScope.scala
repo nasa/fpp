@@ -49,6 +49,9 @@ case class GenericNestedScope[NG, S <: SymbolInterface](
   /** Get the innermost nested scope */
   def innerScope: GenericScope[NG,S] = splitScopes._1
 
+  /** Get the outmost nested scope (the global scope) */
+  def globalScope: GenericNestedScope[NG,S] = GenericNestedScope(List(scopes.last))
+
   private def splitScopes: (GenericScope[NG,S], List[GenericScope[NG,S]]) = scopes match {
     case head :: tail => (head, tail)
     case _ => throw new InternalError("empty scope stack")

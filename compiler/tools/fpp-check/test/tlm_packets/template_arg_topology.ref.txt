@@ -1,0 +1,10 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/template_arg_topology.fpp:21.9
+        i.T
+        ^
+  expanded at [ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/template_arg_topology.fpp:30.1
+error: invalid use of symbol i: not a component instance symbol
+symbol is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/template_arg_topology.fpp:9.1
+topology Sub {
+^

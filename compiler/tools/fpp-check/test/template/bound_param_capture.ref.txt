@@ -1,0 +1,7 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/bound_param_capture.fpp:3.16
+    array A = [n] U32
+               ^
+  expanded at [ local path prefix ]/compiler/tools/fpp-check/test/template/bound_param_capture.fpp:12.3
+error: invalid array size 0
+note: size must be greater than zero

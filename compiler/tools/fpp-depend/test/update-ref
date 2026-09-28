@@ -98,6 +98,22 @@ missing() {
   update '-m tmp.out.txt' missing; remove_path_prefix < tmp.out.txt > missing_output.ref.txt
 }
 
+template_body_locate_split() {
+  update '' \
+    'template_body_locate_split_a.fpp template_body_locate_split_b' \
+    template_body_locate_split
+}
+
+template_include() {
+  update '-i tmp.out.txt' template_include
+  remove_path_prefix < tmp.out.txt > template_include_output.ref.txt
+}
+
+template_incomplete() {
+  update '-g template_incomplete_generated_output.ref.txt -u template_incomplete_ut_output.ref.txt' \
+    template_incomplete
+}
+
 for t in $tests
 do
   echo "updating ref output for $t"

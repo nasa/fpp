@@ -436,6 +436,7 @@ var IN_GLOBAL_SCOPE = false;
           "event," +
           "every," +
           "exit," +
+          "expand," +
           "external," +
           "fatal," +
           "format," +
@@ -498,6 +499,7 @@ var IN_GLOBAL_SCOPE = false;
           "sync," +
           "system," +
           "telemetry," +
+          "template," +
           "text," +
           "throttle," +
           "time," +
