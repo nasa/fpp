@@ -55,6 +55,7 @@ namespace M {
 
   void initComponents(const TopologyState& state) {
     {
+      using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
 
       M::active2.initSpecial();
@@ -67,6 +68,7 @@ namespace M {
 
   void configComponents(const TopologyState& state) {
     {
+      using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
 
       M::active2.config();
@@ -115,6 +117,7 @@ namespace M {
 
   void startTasks(const TopologyState& state) {
     {
+      using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
 
       M::active2.startSpecial();
@@ -135,6 +138,7 @@ namespace M {
 
   void stopTasks(const TopologyState& state) {
     {
+      using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
 
       M::active2.stopSpecial();
@@ -145,6 +149,7 @@ namespace M {
 
   void freeThreads(const TopologyState& state) {
     {
+      using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
 
       M::active2.freeSpecial();
@@ -155,6 +160,7 @@ namespace M {
 
   void tearDownComponents(const TopologyState& state) {
     {
+      using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
 
       M::active2.tearDown();
@@ -163,6 +169,7 @@ namespace M {
 
   void deinitComponents(const TopologyState& state) {
     {
+      using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
 
       M::active2.deinitSpecial();

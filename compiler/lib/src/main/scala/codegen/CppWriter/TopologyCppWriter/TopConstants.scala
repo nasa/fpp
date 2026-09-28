@@ -27,10 +27,13 @@ case class TopConstants(
       )
     )
 
+  /** Configuration constants generated for one instance. */
+  def getInstanceConfigConstantLines(ci: ComponentInstance): Option[List[Line]] =
+    getCodeForPhase (CppWriter.Phases.configConstants) (ci).map(lines)
+
   private def getComponentConfigLines: List[Line] = {
-    val getCode = getCodeForPhase (CppWriter.Phases.configConstants)
-    val pairs = instances.map(ci => (ci, getCode(ci))).
-      filter(_._2.isDefined).map { 
+    val pairs = instances.map(ci => (ci, getInstanceConfigConstantLines(ci))).
+      filter(_._2.isDefined).map {
         case (ci, codeOpt) => (ci, codeOpt.get)
       }
     wrapInNamespace(

@@ -10,17 +10,25 @@ case class TopHelperFns(
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
 ) extends TopologyCppWriterUtils(s, aNode) {
 
+  private val configConstants = TopConstants(s, aNode)
   private val configObjects = TopConfigObjects(s, aNode)
 
-  /** Keep an instance's configuration-object names local to its init snippet. */
+  /** Keep an instance's configuration names local to its init snippet. */
   override def getCodeLinesForPhase (phase: Int) (ci: ComponentInstance):
     Option[List[Line]] = super.getCodeLinesForPhase(phase)(ci).map { code =>
-      if (configObjects.getInstanceConfigObjectLines(ci).isDefined &&
+      val name = CppWriter.identFromQualifiedName(ci.qualifiedName)
+      val configNamespaces = List(
+        configConstants.getInstanceConfigConstantLines(ci).map(_ => "ConfigConstants"),
+        configObjects.getInstanceConfigObjectLines(ci).map(_ => "ConfigObjects")
+      ).flatten
+      if (configNamespaces.nonEmpty &&
           getCodeForPhase(phase)(ci).exists(_.trim.nonEmpty)) {
-        val name = CppWriter.identFromQualifiedName(ci.qualifiedName)
+        val usingLines = configNamespaces.flatMap(
+          namespace => lines(s"using namespace $namespace::$name;")
+        )
         wrapInScope(
           "{",
-          lines(s"using namespace ConfigObjects::$name;") ::: Line.blank :: code,
+          usingLines ::: Line.blank :: code,
           "}"
         )
       }

@@ -1,7 +1,8 @@
 instance first: M.C base id 256 {
+  phase Phases.configConstants "constexpr U32 constant = 101;"
   phase Phases.configObjects "U32 value = 11;"
   phase Phases.initComponents """
-  const U32 local = value;
+  const U32 local = value + constant;
   first.record(local);
   """
   phase Phases.configComponents """
@@ -45,9 +46,10 @@ instance first: M.C base id 256 {
 module M {
   module Nested {
 instance second: M.C base id 512 {
+  phase Phases.configConstants "constexpr U32 constant = 202;"
   phase Phases.configObjects "U32 value = 22;"
   phase Phases.initComponents """
-  const U32 local = value;
+  const U32 local = value + constant;
   M::Nested::second.record(local);
   """
   phase Phases.configComponents """
@@ -90,6 +92,12 @@ instance second: M.C base id 512 {
   }
 }
 
+
+instance constantOnly: M.C base id 0x250 {
+  phase Phases.configConstants "constexpr U32 constant = 25;"
+  phase Phases.configComponents "constantOnly.record(constant);"
+}
+
 instance noConfig: M.C base id 0x300 {
   phase Phases.configComponents "noConfig.record(33);"
 }
@@ -108,6 +116,7 @@ module M {
   deployment topology ConfigObjects {
     instance first
     instance Nested.second
+    instance constantOnly
     instance noConfig
     instance emptyConfig
     instance emptyPhase

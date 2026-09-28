@@ -19,6 +19,7 @@ namespace M {
   }
 
 }
+M::C constantOnly(FW_OPTIONAL_NAME("constantOnly"));
 
 M::C emptyConfig(FW_OPTIONAL_NAME("emptyConfig"));
 
@@ -60,17 +61,20 @@ namespace M {
 
   void initComponents(const TopologyState& state) {
     {
+      using namespace ConfigConstants::M_Nested_second;
       using namespace ConfigObjects::M_Nested_second;
 
-      const U32 local = value;
+      const U32 local = value + constant;
       M::Nested::second.record(local);
     }
+    constantOnly.init(InstanceIds::constantOnly);
     emptyConfig.init(InstanceIds::emptyConfig);
     emptyPhase.init(InstanceIds::emptyPhase);
     {
+      using namespace ConfigConstants::first;
       using namespace ConfigObjects::first;
 
-      const U32 local = value;
+      const U32 local = value + constant;
       first.record(local);
     }
     noConfig.init(InstanceIds::noConfig);
@@ -78,10 +82,16 @@ namespace M {
 
   void configComponents(const TopologyState& state) {
     {
+      using namespace ConfigConstants::M_Nested_second;
       using namespace ConfigObjects::M_Nested_second;
 
       const U32 local = value;
       M::Nested::second.record(local);
+    }
+    {
+      using namespace ConfigConstants::constantOnly;
+
+      constantOnly.record(constant);
     }
     {
       using namespace ConfigObjects::emptyConfig;
@@ -90,6 +100,7 @@ namespace M {
     }
 
     {
+      using namespace ConfigConstants::first;
       using namespace ConfigObjects::first;
 
       const U32 local = value;
@@ -101,6 +112,7 @@ namespace M {
   void setBaseIds() {
     first.setIdBase(BaseIds::first);
     M::Nested::second.setIdBase(BaseIds::M_Nested_second);
+    constantOnly.setIdBase(BaseIds::constantOnly);
     noConfig.setIdBase(BaseIds::noConfig);
     emptyConfig.setIdBase(BaseIds::emptyConfig);
     emptyPhase.setIdBase(BaseIds::emptyPhase);
@@ -112,12 +124,14 @@ namespace M {
 
   void regCommands() {
     {
+      using namespace ConfigConstants::M_Nested_second;
       using namespace ConfigObjects::M_Nested_second;
 
       const U32 local = value;
       M::Nested::second.record(local);
     }
     {
+      using namespace ConfigConstants::first;
       using namespace ConfigObjects::first;
 
       const U32 local = value;
@@ -127,12 +141,14 @@ namespace M {
 
   void readParameters() {
     {
+      using namespace ConfigConstants::M_Nested_second;
       using namespace ConfigObjects::M_Nested_second;
 
       const U32 local = value;
       M::Nested::second.record(local);
     }
     {
+      using namespace ConfigConstants::first;
       using namespace ConfigObjects::first;
 
       const U32 local = value;
@@ -142,12 +158,14 @@ namespace M {
 
   void loadParameters() {
     {
+      using namespace ConfigConstants::M_Nested_second;
       using namespace ConfigObjects::M_Nested_second;
 
       const U32 local = value;
       M::Nested::second.record(local);
     }
     {
+      using namespace ConfigConstants::first;
       using namespace ConfigObjects::first;
 
       const U32 local = value;
@@ -157,12 +175,14 @@ namespace M {
 
   void startTasks(const TopologyState& state) {
     {
+      using namespace ConfigConstants::M_Nested_second;
       using namespace ConfigObjects::M_Nested_second;
 
       const U32 local = value;
       M::Nested::second.record(local);
     }
     {
+      using namespace ConfigConstants::first;
       using namespace ConfigObjects::first;
 
       const U32 local = value;
@@ -172,12 +192,14 @@ namespace M {
 
   void stopTasks(const TopologyState& state) {
     {
+      using namespace ConfigConstants::M_Nested_second;
       using namespace ConfigObjects::M_Nested_second;
 
       const U32 local = value;
       M::Nested::second.record(local);
     }
     {
+      using namespace ConfigConstants::first;
       using namespace ConfigObjects::first;
 
       const U32 local = value;
@@ -187,12 +209,14 @@ namespace M {
 
   void freeThreads(const TopologyState& state) {
     {
+      using namespace ConfigConstants::M_Nested_second;
       using namespace ConfigObjects::M_Nested_second;
 
       const U32 local = value;
       M::Nested::second.record(local);
     }
     {
+      using namespace ConfigConstants::first;
       using namespace ConfigObjects::first;
 
       const U32 local = value;
@@ -202,12 +226,14 @@ namespace M {
 
   void tearDownComponents(const TopologyState& state) {
     {
+      using namespace ConfigConstants::M_Nested_second;
       using namespace ConfigObjects::M_Nested_second;
 
       const U32 local = value;
       M::Nested::second.record(local);
     }
     {
+      using namespace ConfigConstants::first;
       using namespace ConfigObjects::first;
 
       const U32 local = value;
@@ -217,14 +243,17 @@ namespace M {
 
   void deinitComponents(const TopologyState& state) {
     {
+      using namespace ConfigConstants::M_Nested_second;
       using namespace ConfigObjects::M_Nested_second;
 
       const U32 local = value;
       M::Nested::second.record(local);
     }
+    constantOnly.deinit();
     emptyConfig.deinit();
     emptyPhase.deinit();
     {
+      using namespace ConfigConstants::first;
       using namespace ConfigObjects::first;
 
       const U32 local = value;

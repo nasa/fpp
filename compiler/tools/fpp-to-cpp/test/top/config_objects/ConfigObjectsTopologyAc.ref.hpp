@@ -24,6 +24,8 @@ namespace M {
   }
 
 }
+//! constantOnly
+extern M::C constantOnly;
 
 //! emptyConfig
 extern M::C emptyConfig;
@@ -43,10 +45,27 @@ namespace M {
   // Constants
   // ----------------------------------------------------------------------
 
+  namespace ConfigConstants {
+
+    namespace M_Nested_second {
+      constexpr U32 constant = 202;
+    }
+
+    namespace constantOnly {
+      constexpr U32 constant = 25;
+    }
+
+    namespace first {
+      constexpr U32 constant = 101;
+    }
+
+  }
+
   namespace BaseIds {
     enum {
       first = 0x100,
       M_Nested_second = 0x200,
+      constantOnly = 0x250,
       noConfig = 0x300,
       emptyConfig = 0x400,
       emptyPhase = 0x500,
@@ -56,6 +75,7 @@ namespace M {
   namespace InstanceIds {
     enum {
       M_Nested_second,
+      constantOnly,
       emptyConfig,
       emptyPhase,
       first,
