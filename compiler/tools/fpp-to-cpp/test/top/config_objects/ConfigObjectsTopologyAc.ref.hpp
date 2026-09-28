@@ -24,6 +24,7 @@ namespace M {
   }
 
 }
+
 //! constantOnly
 extern M::C constantOnly;
 
@@ -46,19 +47,15 @@ namespace M {
   // ----------------------------------------------------------------------
 
   namespace ConfigConstants {
-
     namespace M_Nested_second {
       constexpr U32 constant = 202;
     }
-
     namespace constantOnly {
       constexpr U32 constant = 25;
     }
-
     namespace first {
       constexpr U32 constant = 101;
     }
-
   }
 
   namespace BaseIds {
