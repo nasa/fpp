@@ -69,6 +69,7 @@ namespace M {
 
       (void) pingEntries;
     }
+    (void) state;
   }
 
   void setBaseIds() {
@@ -265,32 +266,14 @@ namespace Svc {
       static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS)
     );
     bool result = false;
-    const auto instance = this->getInstance();
-    switch (instance) {
+    switch (portNum) {
+      case 0:
+        result = true;
+        break;
+      case 1:
+        result = true;
+        break;
       default:
-#ifdef FW_STRICT_ASSERTIONS
-        FW_ASSERT(false, static_cast<FwAssertArgType>(instance));
-        break;
-#else
-        // Fall through
-#endif
-      case ::M::InstanceIds::M_health:
-        switch (portNum) {
-          case 0:
-            result = true;
-            break;
-          case 1:
-            result = true;
-            break;
-          default:
-            break;
-        }
-        break;
-      case ::M::InstanceIds::M_unconnectedHealth:
-        switch (portNum) {
-          default:
-            break;
-        }
         break;
     }
     return result;
@@ -305,40 +288,21 @@ namespace Svc {
       static_cast<FwAssertArgType>(portNum),
       static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS)
     );
-    const auto instance = this->getInstance();
-    switch (instance) {
+    switch (portNum) {
+      case 0:
+        M::c1.pingIn_handlerBase(
+          0,
+          key
+        );
+        break;
+      case 1:
+        M::c2.pingIn_handlerBase(
+          0,
+          key
+        );
+        break;
       default:
-#ifdef FW_STRICT_ASSERTIONS
-        FW_ASSERT(false, static_cast<FwAssertArgType>(instance));
-        break;
-#else
-        // Fall through
-#endif
-      case ::M::InstanceIds::M_health:
-        switch (portNum) {
-          case 0:
-            M::c1.pingIn_handlerBase(
-              0,
-              key
-            );
-            break;
-          case 1:
-            M::c2.pingIn_handlerBase(
-              0,
-              key
-            );
-            break;
-          default:
-            FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
-            break;
-        }
-        break;
-      case ::M::InstanceIds::M_unconnectedHealth:
-        switch (portNum) {
-          default:
-            FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
-            break;
-        }
+        FW_ASSERT(false, static_cast<FwAssertArgType>(portNum));
         break;
     }
   }
