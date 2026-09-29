@@ -17,21 +17,17 @@ case class TopHelperFns(
   override def getCodeLinesForPhase (phase: Int) (ci: ComponentInstance):
     Option[List[Line]] = super.getCodeLinesForPhase(phase)(ci).map { code =>
       val name = CppWriter.identFromQualifiedName(ci.qualifiedName)
-      val configNamespaces = List(
+      val configNamespaces = List.concat(
         configConstants.getInstanceConfigConstantLines(ci).map(_ => "ConfigConstants"),
         configObjects.getInstanceConfigObjectLines(ci).map(_ => "ConfigObjects")
-      ).flatMap(_.toList)
+      )
       if configNamespaces.nonEmpty &&
           getCodeForPhase(phase)(ci).exists(_.trim.nonEmpty)
       then
         val usingLines = configNamespaces.flatMap(
           namespace => lines(s"using namespace $namespace::$name;")
         )
-        wrapInScope(
-          "{",
-          usingLines ::: Line.blank :: code,
-          "}"
-        )
+        wrapInBlock(usingLines ::: Line.blank :: code)
       else code
     }
 
