@@ -69,7 +69,6 @@ namespace M {
 
       (void) pingEntries;
     }
-    (void) state;
   }
 
   void setBaseIds() {
