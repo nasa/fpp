@@ -28,6 +28,8 @@ module M {
     """
 
     phase Phases.configComponents """
+    (void) X;
+    (void) x;
     M::active2.config();
     """
 

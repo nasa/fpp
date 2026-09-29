@@ -38,13 +38,6 @@ namespace M {
 
 namespace M {
 
-  //! unconnectedHealth
-  extern Svc::Health unconnectedHealth;
-
-}
-
-namespace M {
-
   // ----------------------------------------------------------------------
   // Constants
   // ----------------------------------------------------------------------
@@ -54,7 +47,6 @@ namespace M {
       M_health = 0x100,
       M_c1 = 0x200,
       M_c2 = 0x300,
-      M_unconnectedHealth = 0x400,
     };
   }
 
@@ -63,7 +55,6 @@ namespace M {
       M_c1,
       M_c2,
       M_health,
-      M_unconnectedHealth,
     };
   }
 

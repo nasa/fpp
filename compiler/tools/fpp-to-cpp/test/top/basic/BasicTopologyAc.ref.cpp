@@ -71,6 +71,8 @@ namespace M {
       using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
 
+      (void) X;
+      (void) x;
       M::active2.config();
     }
   }

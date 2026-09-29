@@ -20,9 +20,10 @@ case class TopHelperFns(
       val configNamespaces = List(
         configConstants.getInstanceConfigConstantLines(ci).map(_ => "ConfigConstants"),
         configObjects.getInstanceConfigObjectLines(ci).map(_ => "ConfigObjects")
-      ).flatten
-      if (configNamespaces.nonEmpty &&
-          getCodeForPhase(phase)(ci).exists(_.trim.nonEmpty)) {
+      ).flatMap(_.toList)
+      if configNamespaces.nonEmpty &&
+          getCodeForPhase(phase)(ci).exists(_.trim.nonEmpty)
+      then
         val usingLines = configNamespaces.flatMap(
           namespace => lines(s"using namespace $namespace::$name;")
         )
@@ -31,7 +32,6 @@ case class TopHelperFns(
           usingLines ::: Line.blank :: code,
           "}"
         )
-      }
       else code
     }
 

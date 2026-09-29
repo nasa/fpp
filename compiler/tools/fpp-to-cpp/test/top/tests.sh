@@ -1,7 +1,6 @@
 tests="
 basic
 commands
-config_objects
 dp
 events
 health

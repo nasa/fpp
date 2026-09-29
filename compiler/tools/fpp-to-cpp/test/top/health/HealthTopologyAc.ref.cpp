@@ -30,12 +30,6 @@ namespace M {
 
 namespace M {
 
-  Svc::Health unconnectedHealth(FW_OPTIONAL_NAME("M.unconnectedHealth"));
-
-}
-
-namespace M {
-
   // ----------------------------------------------------------------------
   // Component configuration objects
   // ----------------------------------------------------------------------
@@ -67,7 +61,6 @@ namespace M {
     M::c1.init(InstanceIds::M_c1);
     M::c2.init(InstanceIds::M_c2);
     M::health.init(InstanceIds::M_health);
-    M::unconnectedHealth.init(InstanceIds::M_unconnectedHealth);
   }
 
   void configComponents(const TopologyState& state) {
@@ -76,14 +69,12 @@ namespace M {
 
       (void) pingEntries;
     }
-    (void) state;
   }
 
   void setBaseIds() {
     M::health.setIdBase(BaseIds::M_health);
     M::c1.setIdBase(BaseIds::M_c1);
     M::c2.setIdBase(BaseIds::M_c2);
-    M::unconnectedHealth.setIdBase(BaseIds::M_unconnectedHealth);
   }
 
   void connectComponents() {
@@ -144,7 +135,6 @@ namespace M {
     M::c1.deinit();
     M::c2.deinit();
     M::health.deinit();
-    M::unconnectedHealth.deinit();
   }
 
   // ----------------------------------------------------------------------
