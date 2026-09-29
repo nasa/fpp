@@ -28,7 +28,9 @@ module M {
     """
 
     phase Phases.configComponents """
+    // Test that ConfigConstants::M_active2::X is in scope here
     (void) X;
+    // Test that ConfigObjects::M_active2::x is in scope here
     (void) x;
     M::active2.config();
     """

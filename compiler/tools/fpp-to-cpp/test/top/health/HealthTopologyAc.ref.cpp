@@ -67,6 +67,7 @@ namespace M {
     {
       using namespace ConfigObjects::M_health;
 
+      // Test that ConfigObjects::M_health::pingEntries is in scope here
       (void) pingEntries;
     }
   }
