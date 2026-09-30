@@ -756,9 +756,9 @@ sed 's/^\( *\)#/\1@ #/' | fpp-to-fpp $@ | sed 's/^\( *\)@ #/\1#/'
 
 It converts comments to annotations, runs `fpp-to-fpp`, and converts the
 annotations back to comments.
-While you can use `fpp-to-fpp` as a formatting tool in this way,
+However, while you can use `fpp-to-fpp` as a formatting tool in this way,
 it is recommended that you use a more capable formatter, such
-as the one available in the VS Code plugin, to format FPP
+as the one available in the FPP VS Code plugin, to format FPP
 source files.
 
 ==== Code Transformation
