@@ -738,7 +738,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifying-Models-as-Files_Locating-Definitions_Running-fpp-locate-defs">17.5.1. Running fpp-locate-defs</a></li>
 <li><a href="#Specifying-Models-as-Files_Locating-Definitions_Location-Paths">17.5.2. Location Paths</a></li>
 <li><a href="#Specifying-Models-as-Files_Locating-Definitions_Included-Definitions">17.5.3. Included Definitions</a></li>
-<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Module-Templates">17.5.4. Module Templates</a></li>
+<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Definitions-in-Module-Template-Expansions">17.5.4. Definitions in Module Template Expansions</a></li>
 </ul>
 </li>
 <li><a href="#Specifying-Models-as-Files_Computing-Dependencies">17.6. Computing Dependencies</a>
@@ -14782,9 +14782,62 @@ If your main FPP files end with <code>.fpp</code> and your included FPP files en
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Locating-Definitions_Module-Templates">17.5.4. Module Templates</h4>
+<h4 id="Specifying-Models-as-Files_Locating-Definitions_Definitions-in-Module-Template-Expansions">17.5.4. Definitions in Module Template Expansions</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>Consider the case where expanding a
+<a href="#Defining-and-Using-Module-Templates">module template</a>
+introduces a definition.
+For example, suppose the file <code>template.fpp</code> looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T {
+
+  constant a = 0
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And suppose the file <code>expand.fpp</code> looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">expand T</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you run <code>fpp-locate-defs</code> on these two files, the tool will
+expand the template and report the definition introduced
+by the template expansion:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-locate-defs template.fpp expand.fpp
+locate constant a at "expand.fpp"
+locate template T at "template.fpp"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that both definitions are reported (the template definition
+and the constant definition in the template expansion),
+and the constant definition is located in the file where
+the expansion occurs.</p>
+</div>
+<div class="paragraph">
+<p>This is the ordinary use case for model files containing
+template expansions: you provide all the template definitions
+and expansions to the tool, and it finds and reports all
+the definitions introduced by the expansions.</p>
+</div>
+<div class="paragraph">
+<p><em>TODO: We need to define, implement, and describe the behavior
+when we provide just <code>template.fpp</code> to the tool, so that
+the symbol <code>T</code> in the expansion is undefined.
+Currently the tool reports nothing and exits with status zero
+in this case.
+I think this is too permissive.
+See <a href="https://github.com/nasa/fpp/issues/1137">GitHub issue #1137</a>.</em></p>
 </div>
 </div>
 </div>
@@ -18260,7 +18313,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-30 09:20:06 -0700
+Last updated 2026-09-30 09:45:21 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
