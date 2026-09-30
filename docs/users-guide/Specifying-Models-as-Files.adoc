@@ -331,6 +331,9 @@ The kind of definition must be one of the following:
 |`system`
 |A <<Defining-Systems,system definition>>
 
+|`template`
+|A <<Defining-and-Using-Module-Templates,module template definition>>
+
 |`type`
 |A <<Defining-Types,type>> or <<Defining-Enums,enum>> definition
 |===
@@ -854,6 +857,81 @@ enabled.
 Then option 1 corresponds to the output of the tool, and option 2 corresponds
 to the output plus the contents of _file_.
 
+==== Module Template Expansions
+
+Expanding a
+<<Defining-and-Using-Module-Templates,module template>>
+can introduce uses of symbols, which can cause new dependencies to
+appear.
+For example, suppose the file `a.fpp` looks like this
+
+[source,fpp]
+----
+constant a = 0
+----
+
+and suppose the file `T.fpp` looks like this
+
+[source,fpp]
+--------
+template T {
+
+  constant b = a
+
+}
+--------
+
+and suppose the file `expand.fpp` looks like this:
+
+[source,fpp]
+--------
+expand T
+--------
+
+and suppose the file `locs.fpp` looks like this:
+
+[source,fpp]
+----
+locate constant a at "a.fpp"
+locate template T at "T.fpp"
+----
+
+Now suppose we run `fpp-depend locs.fpp expand.fpp`.
+Then the FPP analyzer does the following:
+
+. Add `T.fpp` to the set of dependency files, based on the
+use of `T` in `expand.fpp` and the location specifier
+
++
+[source,fpp]
+----
+locate template T at "T.fpp"
+----
+
++
+in `locs.fpp`.
+
+. Expand the definition of `T` in `template.fpp`.
+
+. Add `a.fpp` to the set of dependency files, based
+on the use of `a` in the expanded template and the
+location
+
++
+[source,fpp]
+----
+locate constant a at "a.fpp"
+----
+
++
+in `locs.fpp`.
+
+In general, the analyzer runs dependency analysis,
+then expands templates, then runs dependency analysis again.
+Because <<Defining-and-Using-Module-Templates_Nesting-of-Module-Templates,
+nested templates are not allowed>>, it suffices to expand
+templates and rerun dependency analysis once.
+
 ==== Dependencies Between Build Modules
 
 As discussed
@@ -946,10 +1024,6 @@ Each dependency corresponds to a build module (i.e., a
 statically compiled library) of the F Prime framework.
 `fpp-depend` writes the dependencies in the order that they must
 be provided to the linker.
-
-==== Module Templates
-
-TODO
 
 === Locating Uses
 
