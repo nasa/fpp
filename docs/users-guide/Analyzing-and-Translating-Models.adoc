@@ -716,8 +716,9 @@ The tool `fpp-to-fpp` accepts FPP source files as input,
 processes them using options that you specify,
 and rewrites them as output.
 
-*Basic use:*
-The most basic use of this tool is to put FPP source files into
+==== Basic Use
+
+The most basic use of `fpp-to-fpp` is to put FPP source files into
 a standard form.
 For example, try this:
 
@@ -735,7 +736,10 @@ array A = [3] U32 default [
 `fpp-to-fpp` has reformatted the default value so that each array
 element is on its own line.
 
-As a formatting tool, `fpp-to-fpp` has one big limitation: it goes through
+This capability is useful for testing and debugging, and the FPP
+tool suite uses it internally for this purpose.
+As a general formatting tool, though, `fpp-to-fpp` has one big limitation: it 
+goes through
 the FPP parser, so it deletes all
 <<Writing-Comments-and-Annotations_Comments,comments>>
 from the program
@@ -752,17 +756,19 @@ sed 's/^\( *\)#/\1@ #/' | fpp-to-fpp $@ | sed 's/^\( *\)@ #/\1#/'
 
 It converts comments to annotations, runs `fpp-to-fpp`, and converts the
 annotations back to comments.
-
 While you can use `fpp-to-fpp` as a formatting tool in this way,
 it is recommended that you use a more capable formatter, such
 as the one available in the VS Code plugin, to format FPP
 source files.
-The real purpose of `fpp-to-fpp` is to provide syntax transformation
+
+==== Code Transformation
+
+`fpp-to-fpp` also provides syntax transformation
 on source files.
 There are two kinds of transformation available: resolving
 include specifiers and expanding syntax.
 
-*Include specifiers:*
+*Resolving include specifiers:*
 By default, `fpp-to-fpp` does not resolve include specifiers.
 For example:
 
@@ -787,15 +793,14 @@ constant a = 0
 
 *Expanding syntax:*
 There are currently two forms of syntax expansion:
-<<Defining-and-Using-Module-Templates,expanding templates>>
-and generating the
+generating the
 <<Defining-State-Machines_The-State-Enum,state enum>>
-for state machine definitions.
+for state machine definitions and
+<<Defining-and-Using-Module-Templates,expanding templates>>.
 By default this expansion does not occur; you can enable
 it with the `-e` option.
 Here is a state machine example:
 
-[source]
 ----
 % cat state_machine.fpp
 state machine M {
@@ -805,15 +810,7 @@ state machine M {
   initial enter S
 
 }
-% fpp-to-fpp state_machine.fpp
-state machine M {
-
-  state S
-
-  initial enter S
-
-}
-% fpp-to-fpp -e state-machine.fpp
+% fpp-to-fpp -e state_machine.fpp
 
 state machine M {
 
@@ -830,10 +827,36 @@ state machine M {
 }
 ----
 
-Notice how, with the `-e` option, the tool generates state machine enum 
-and inserts it into the state machine definition.
+Notice how, with the `-e` option, the tool generates the state machine enum and 
+inserts it into the state machine definition.
 
-TODO
+Here is a template example:
+
+----
+% cat template.fpp
+module template T {
+
+  constant a = 0
+
+}
+
+expand T
+% fpp-to-fpp -e template.fpp
+module template T {
+
+  constant a = 0
+
+}
+
+expand T {
+
+  constant a = 0
+
+}
+----
+
+Notice how, with the `-e` option, the tool generates the `expand { ... }`
+syntax for the template expansion and inserts it into the model.
 
 When you provide the `-e` option, the `-i` option is automatically
 enabled.

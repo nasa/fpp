@@ -773,7 +773,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Compiling-the-Generated-Code">18.2.5. Compiling the Generated Code</a></li>
 </ul>
 </li>
-<li><a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source">18.3. Rewriting FPP Source</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source">18.3. Rewriting FPP Source</a>
+<ul class="sectlevel3">
+<li><a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source_Basic-Use">18.3.1. Basic Use</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source_Code-Transformation">18.3.2. Code Transformation</a></li>
+</ul>
+</li>
 <li><a href="#Analyzing-and-Translating-Models_Visualizing-Topologies">18.4. Visualizing Topologies</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">18.5. Generating Ground Dictionaries</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">18.6. Identifying Generated Files</a>
@@ -16325,9 +16330,10 @@ and clang compiler flags:</p>
 processes them using options that you specify,
 and rewrites them as output.</p>
 </div>
+<div class="sect3">
+<h4 id="Analyzing-and-Translating-Models_Rewriting-FPP-Source_Basic-Use">18.3.1. Basic Use</h4>
 <div class="paragraph">
-<p><strong>Basic use:</strong>
-The most basic use of this tool is to put FPP source files into
+<p>The most basic use of <code>fpp-to-fpp</code> is to put FPP source files into
 a standard form.
 For example, try this:</p>
 </div>
@@ -16348,7 +16354,10 @@ array A = [3] U32 default [
 element is on its own line.</p>
 </div>
 <div class="paragraph">
-<p>As a formatting tool, <code>fpp-to-fpp</code> has one big limitation: it goes through
+<p>This capability is useful for testing and debugging, and the FPP
+tool suite uses it internally for this purpose.
+As a general formatting tool, though, <code>fpp-to-fpp</code> has one big limitation: it
+goes through
 the FPP parser, so it deletes all
 <a href="#Writing-Comments-and-Annotations_Comments">comments</a>
 from the program
@@ -16365,20 +16374,23 @@ sed 's/^\( *\)#/\1@ #/' | fpp-to-fpp $@ | sed 's/^\( *\)@ #/\1#/'</code></pre>
 </div>
 <div class="paragraph">
 <p>It converts comments to annotations, runs <code>fpp-to-fpp</code>, and converts the
-annotations back to comments.</p>
-</div>
-<div class="paragraph">
-<p>While you can use <code>fpp-to-fpp</code> as a formatting tool in this way,
+annotations back to comments.
+While you can use <code>fpp-to-fpp</code> as a formatting tool in this way,
 it is recommended that you use a more capable formatter, such
 as the one available in the VS Code plugin, to format FPP
-source files.
-The real purpose of <code>fpp-to-fpp</code> is to provide syntax transformation
+source files.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Analyzing-and-Translating-Models_Rewriting-FPP-Source_Code-Transformation">18.3.2. Code Transformation</h4>
+<div class="paragraph">
+<p><code>fpp-to-fpp</code> also provides syntax transformation
 on source files.
 There are two kinds of transformation available: resolving
 include specifiers and expanding syntax.</p>
 </div>
 <div class="paragraph">
-<p><strong>Include specifiers:</strong>
+<p><strong>Resolving include specifiers:</strong>
 By default, <code>fpp-to-fpp</code> does not resolve include specifiers.
 For example:</p>
 </div>
@@ -16407,17 +16419,17 @@ constant a = 0</pre>
 <div class="paragraph">
 <p><strong>Expanding syntax:</strong>
 There are currently two forms of syntax expansion:
-<a href="#Defining-and-Using-Module-Templates">expanding templates</a>
-and generating the
+generating the
 <a href="#Defining-State-Machines_The-State-Enum">state enum</a>
-for state machine definitions.
+for state machine definitions and
+<a href="#Defining-and-Using-Module-Templates">expanding templates</a>.
 By default this expansion does not occur; you can enable
 it with the <code>-e</code> option.
 Here is a state machine example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code>% cat state_machine.fpp
+<pre>% cat state_machine.fpp
 state machine M {
 
   state S
@@ -16425,15 +16437,7 @@ state machine M {
   initial enter S
 
 }
-% fpp-to-fpp state_machine.fpp
-state machine M {
-
-  state S
-
-  initial enter S
-
-}
-% fpp-to-fpp -e state-machine.fpp
+% fpp-to-fpp -e state_machine.fpp
 
 state machine M {
 
@@ -16447,19 +16451,48 @@ state machine M {
 
   initial enter S
 
-}</code></pre>
+}</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Notice how, with the <code>-e</code> option, the tool generates state machine enum
-and inserts it into the state machine definition.</p>
+<p>Notice how, with the <code>-e</code> option, the tool generates the state machine enum and
+inserts it into the state machine definition.</p>
 </div>
 <div class="paragraph">
-<p>TODO</p>
+<p>Here is a template example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% cat template.fpp
+module template T {
+
+  constant a = 0
+
+}
+
+expand T
+% fpp-to-fpp -e template.fpp
+module template T {
+
+  constant a = 0
+
+}
+
+expand T {
+
+  constant a = 0
+
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice how, with the <code>-e</code> option, the tool generates the <code>expand { &#8230;&#8203; }</code>
+syntax for the template expansion and inserts it into the model.</p>
 </div>
 <div class="paragraph">
 <p>When you provide the <code>-e</code> option, the <code>-i</code> option is automatically
 enabled.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -18227,7 +18260,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-30 09:02:50 -0700
+Last updated 2026-09-30 09:20:06 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
