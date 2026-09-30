@@ -9,55 +9,41 @@ import fpp.compiler.util._
 object ComputeGeneratedFiles {
 
   /** Computes autocoded files (XML, C++ and JSON Dictionary) */
-  def getAutocodeFiles(tul: List[Ast.TransUnit]): Result.Result[List[String]] =
+  def getAutocodeFiles(a: Analysis, tul: List[Ast.TransUnit]): Result.Result[List[String]] =
     for {
-      aTul <- resolveTemplates(tul)
-      cppFiles <- getAutocodeCppFiles(aTul._1, aTul._2)
-      dictFiles <- getDictionaryJsonFiles(aTul._1, aTul._2)
+      cppFiles <- getAutocodeCppFiles(a, tul)
+      dictFiles <- getDictionaryJsonFiles(a, tul)
     }
     yield cppFiles ++ dictFiles
 
   /** Computes component implementation files */
-  def getImplFiles(tul: List[Ast.TransUnit]): Result.Result[List[String]] =
+  def getImplFiles(a: Analysis, tul: List[Ast.TransUnit]): Result.Result[List[String]] =
     for {
-      aTul <- resolveTemplates(tul)
-      cppFiles <- getImplCppFiles(aTul._1, aTul._2)
+      cppFiles <- getImplCppFiles(a, tul)
     }
     yield cppFiles
 
   /** Computes autocoded C++ files for testing */
   def getTestFiles(
+    a: Analysis,
     tul: List[Ast.TransUnit],
     testHelperMode: CppWriter.TestHelperMode
   ): Result.Result[List[String]] =
     for {
-      aTul <- resolveTemplates(tul)
-      testFiles <- getTestCppFiles(aTul._1, aTul._2, testHelperMode)
+      testFiles <- getTestCppFiles(a, tul, testHelperMode)
     }
     yield testFiles
 
   /** Computes unit test implementation files */
   def getTestImplFiles(
+    a: Analysis,
     tul: List[Ast.TransUnit],
     testHelperMode: CppWriter.TestHelperMode
   ): Result.Result[List[String]] =
     for {
-      aTul <- resolveTemplates(tul)
-      cppFiles <- getTestImplCppFiles(aTul._1, aTul._2, testHelperMode)
+      cppFiles <- getTestImplCppFiles(a, tul, testHelperMode)
     }
     yield cppFiles
-
-  private def resolveTemplates(tul: List[Ast.TransUnit]):
-  Result.Result[(Analysis, List[Ast.TransUnit])] =
-    ResolveTemplates.tuList(Analysis(), tul) match {
-      case result @ Right(_) => result
-      case Left(_) =>
-        for {
-          tul <- AddStateEnums.transUnitList(tul)
-          a <- EnterSymbols.visitList(Analysis(), tul, EnterSymbols.transUnit)
-        }
-        yield (a, tul)
-    }
 
   private def getAutocodeCppFiles(a: Analysis, tul: List[Ast.TransUnit]):
   Result.Result[List[String]] =
