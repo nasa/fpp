@@ -16321,21 +16321,19 @@ and clang compiler flags:</p>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Rewriting-FPP-Source">18.3. Rewriting FPP Source</h3>
 <div class="paragraph">
-<p>TODO: Give the new name and explain the new purpose of the tool:
-not formatting, but rewriting with expansion.</p>
+<p>The tool <code>fpp-to-fpp</code> accepts FPP source files as input,
+processes them using options that you specify,
+and rewrites them as output.</p>
 </div>
 <div class="paragraph">
-<p>The tool <code>fpp-format</code> accepts FPP source files as input
-and rewrites them as formatted output.
-You can use this tool to put your source files into
-a standard form.</p>
-</div>
-<div class="paragraph">
-<p>For example, try this:</p>
+<p><strong>Basic use:</strong>
+The most basic use of this tool is to put FPP source files into
+a standard form.
+For example, try this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% fpp-format
+<pre>% fpp-to-fpp
 array A = [3] U32 default [ 1, 2, 3 ]
 ^D
 array A = [3] U32 default [
@@ -16346,42 +16344,11 @@ array A = [3] U32 default [
 </div>
 </div>
 <div class="paragraph">
-<p><code>fpp-format</code> has reformatted the default value so that each array
+<p><code>fpp-to-fpp</code> has reformatted the default value so that each array
 element is on its own line.</p>
 </div>
 <div class="paragraph">
-<p>By default, <code>fpp-format</code> does not resolve include specifiers.
-For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% echo 'constant a = 0' &gt; a.fppi
-% fpp-format
-include "a.fppi"
-^D
-include "a.fppi"</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>-i</code> option causes <code>fpp-format</code> to resolve include specifiers.
-For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% echo 'constant a = 0' &gt; a.fpp
-% fpp-format -i
-include "a.fppi"
-^D
-constant a = 0</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>TODO: Explain the syntax expansion option.
-Use <code>-e</code> as the switch for syntactic expansion.
-This will add state machine enums and expand templates.</p>
-</div>
-<div class="paragraph">
-<p><code>fpp-format</code> has one big limitation: it goes through
+<p>As a formatting tool, <code>fpp-to-fpp</code> has one big limitation: it goes through
 the FPP parser, so it deletes all
 <a href="#Writing-Comments-and-Annotations_Comments">comments</a>
 from the program
@@ -16393,12 +16360,106 @@ annotatable elements, you can run this script:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">#!/bin/sh
-sed 's/^\( *\)#/\1@ #/' | fpp-format $@ | sed 's/^\( *\)@ #/\1#/'</code></pre>
+sed 's/^\( *\)#/\1@ #/' | fpp-to-fpp $@ | sed 's/^\( *\)@ #/\1#/'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>It converts comments to annotations, runs <code>fpp-format</code>, and converts the
+<p>It converts comments to annotations, runs <code>fpp-to-fpp</code>, and converts the
 annotations back to comments.</p>
+</div>
+<div class="paragraph">
+<p>While you can use <code>fpp-to-fpp</code> as a formatting tool in this way,
+it is recommended that you use a more capable formatter, such
+as the one available in the VS Code plugin, to format FPP
+source files.
+The real purpose of <code>fpp-to-fpp</code> is to provide syntax transformation
+on source files.
+There are two kinds of transformation available: resolving
+include specifiers and expanding syntax.</p>
+</div>
+<div class="paragraph">
+<p><strong>Include specifiers:</strong>
+By default, <code>fpp-to-fpp</code> does not resolve include specifiers.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% echo 'constant a = 0' &gt; a.fppi
+% fpp-to-fpp
+include "a.fppi"
+^D
+include "a.fppi"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>-i</code> option causes <code>fpp-to-fpp</code> to resolve include specifiers.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% echo 'constant a = 0' &gt; a.fpp
+% fpp-to-fpp -i
+include "a.fppi"
+^D
+constant a = 0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Expanding syntax:</strong>
+There are currently two forms of syntax expansion:
+<a href="#Defining-and-Using-Module-Templates">expanding templates</a>
+and generating the
+<a href="#Defining-State-Machines_The-State-Enum">state enum</a>
+for state machine definitions.
+By default this expansion does not occur; you can enable
+it with the <code>-e</code> option.
+Here is a state machine example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code>% cat state_machine.fpp
+state machine M {
+
+  state S
+
+  initial enter S
+
+}
+% fpp-to-fpp state_machine.fpp
+state machine M {
+
+  state S
+
+  initial enter S
+
+}
+% fpp-to-fpp -e state-machine.fpp
+
+state machine M {
+
+  enum State: U8 {
+    @ The uninitialized state
+    __FPRIME_UNINITIALIZED
+    S
+  }
+
+  state S
+
+  initial enter S
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice how, with the <code>-e</code> option, the tool generates state machine enum
+and inserts it into the state machine definition.</p>
+</div>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+<div class="paragraph">
+<p>When you provide the <code>-e</code> option, the <code>-i</code> option is automatically
+enabled.</p>
 </div>
 </div>
 <div class="sect2">
@@ -18166,7 +18227,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-30 08:38:33 -0700
+Last updated 2026-09-30 09:02:50 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
