@@ -13177,7 +13177,7 @@ may need a communication subtopology that includes a radio.</p>
 <strong>module template</strong>.
 By defining a module template, you can specify a list of model elements (types,
 constants, components, topologies, etc.)
-that may occur at the top level or within a module definition.
+that may occur within a module definition.
 Then you can <strong>expand</strong> the template any number of times, each in a different
 module.
 This process creates a distinct element for each expansion.
@@ -13298,7 +13298,8 @@ keep track of arguments to template parameters and
 scopes of definitions.
 We will explain these concepts below.
 In this simple example, the expanded templates behave
-in the same way as if the syntax <code>expand T { &#8230;&#8203; }</code> were not there.</p>
+in the same way as if the syntax <code>expand T { &#8230;&#8203; }</code> were replaced
+by the inner syntax <code>&#8230;&#8203;</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -13561,9 +13562,6 @@ module template T2(constant a: U32) {
 
 }</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>TODO: No definition of symbol in template with same name as parameter.</p>
 </div>
 </div>
 <div class="sect3">
@@ -13894,7 +13892,40 @@ do the expansion.</p>
 <div class="sect2">
 <h3 id="Defining-and-Using-Module-Templates_Nesting-of-Module-Templates">15.5. Nesting of Module Templates</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>To keep the analysis simple, the FPP analyzer does not allow you to define
+a module template or expand a module template inside another
+module template.
+For example, these models are not allowed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T1 {
+
+  # Error: You cannot define a template inside a template
+  module template T2 {
+
+    constant a = 0
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T1 {
+
+  constant a = 0
+
+}
+
+module template T2 {
+
+  # Error: You cannot expand a template inside a template
+  expand T1
+
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -18135,7 +18166,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-30 08:08:46 -0700
+Last updated 2026-09-30 08:38:33 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
