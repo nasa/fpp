@@ -1,7 +1,11 @@
 module M {
 
-  instance $health: Svc.Health base id 0x100
-
+  instance $health: Svc.Health base id 0x100 {
+    phase Phases.configComponents """
+      // Test that ConfigObjects::M_health::pingEntries is in scope here
+      (void) pingEntries;
+    """
+  }
   instance c1: C base id 0x200
   instance c2: C base id 0x300
 
