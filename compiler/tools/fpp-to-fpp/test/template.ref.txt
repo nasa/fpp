@@ -9,6 +9,7 @@ module template T(
                    type Ty @< A type parameter
                    instance inst: Iface @< An interface parameter
                  ) {
+
   port P(
           a: Ty
         ) -> Ty
@@ -31,6 +32,7 @@ module template Escaped(
                          type $array @< An escaped type parameter
                          instance $instance: Iface @< An escaped instance parameter
                        ) {
+
   array a = [3] $array
 
   constant y = $type + 1

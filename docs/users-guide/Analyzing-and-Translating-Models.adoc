@@ -710,12 +710,16 @@ When using clang, the following flags must also be set:
 -Wno-vla-extension
 ----
 
-=== Formatting FPP Source
+=== Rewriting FPP Source
 
-The tool `fpp-to-fpp` accepts FPP source files as input
-and rewrites them after applying transformations.
-You can use this tool to expand the FPP model.
+The tool `fpp-to-fpp` accepts FPP source files as input,
+processes them using options that you specify,
+and rewrites them as output.
 
+==== Basic Use
+
+The most basic use of `fpp-to-fpp` is to put FPP source files into
+a standard form.
 For example, try this:
 
 ----
@@ -729,7 +733,48 @@ array A = [3] U32 default [
                           ]
 ----
 
-By default, `fpp-to-fpp` does not resolve include specifiers.
+`fpp-to-fpp` has reformatted the default value so that each array
+element is on its own line.
+
+This capability is useful for testing and debugging, and the FPP
+tool suite uses it internally for this purpose.
+As a general formatting tool, though, `fpp-to-fpp` has one big limitation: it 
+goes through
+the FPP parser, so it deletes all
+<<Writing-Comments-and-Annotations_Comments,comments>>
+from the program
+(<<Writing-Comments-and-Annotations_Annotations,annotations>>
+are preserved).
+To preserve comments on their own lines that precede
+annotatable elements, you can run this script:
+
+[source,bash]
+----
+#!/bin/sh
+sed 's/^\( *\)#/\1@ #/' | fpp-to-fpp $@ | sed 's/^\( *\)@ #/\1#/'
+----
+
+It converts comments to annotations, runs `fpp-to-fpp`, and converts the
+annotations back to comments.
+However, while you can use `fpp-to-fpp` as a formatting tool in this way,
+it is recommended that you use a more capable formatter, such
+as the one available in the FPP VS Code plugin, to format FPP
+source files.
+
+==== Syntax Expansion
+
+`fpp-to-fpp` also performs *syntax expansion* on source files.
+Syntax expansion means replacing one piece of syntax (which is generally
+shorter) with another one (which is generally longer).
+By default, when you run `fpp-to-fpp`, syntax expansion does not occur;
+to enable it, you use the `-e` option.
+There are currently three kinds of syntax expansion: resolving
+include specifiers, generating state machine enums,
+and expanding templates.
+
+*Resolving include specifiers:*
+By default, `fpp-to-fpp` does not resolve 
+<<Specifying-Models-as-Files_Include-Specifiers,include specifiers>>.
 For example:
 
 ----
@@ -740,15 +785,99 @@ include "a.fppi"
 include "a.fppi"
 ----
 
-The `-i` option causes `fpp-to-fpp` to resolve include specifiers.
+The `-e` option causes `fpp-to-fpp` to resolve include specifiers.
 For example:
 
 ----
 % echo 'constant a = 0' > a.fpp
-% fpp-to-fpp -i
+% fpp-to-fpp -e
 include "a.fppi"
 ^D
 constant a = 0
+----
+
+You can also use the option `-i` if you wish to resolve include
+specifiers without expanding any other syntax.
+
+*State machine enums:*
+The `-e` option causes the analyzer to generate the
+<<Defining-State-Machines_The-State-Enum,state enums>>
+associated with state machine definitions.
+Here is an example:
+
+----
+% cat state_machine.fpp
+state machine M {
+
+  state S
+
+  initial enter S
+
+}
+% fpp-to-fpp -e state_machine.fpp
+
+state machine M {
+
+  enum State: U8 {
+    @ The uninitialized state
+    __FPRIME_UNINITIALIZED
+    S
+  }
+
+  state S
+
+  initial enter S
+
+}
+----
+
+Notice how, with the `-e` option, the tool generates the state machine enum and 
+inserts it into the state machine definition.
+
+*Template expansion:*
+The `-e` option causes `fpp-to-fpp` to 
+<<Defining-and-Using-Module-Templates,expand templates>>.
+Here is an example:
+
+----
+% cat template.fpp
+module template T {
+
+  constant a = 0
+
+}
+
+expand T
+% fpp-to-fpp -e template.fpp
+module template T {
+
+  constant a = 0
+
+}
+
+expand T {
+
+  constant a = 0
+
+}
+----
+
+Notice how, with the `-e` option, the tool generates the `expand { ... }`
+syntax for the template expansion and inserts it into the model.
+
+If you try to expand a template for which the definition is not available
+in input model, you will get an error:
+
+----
+% fpp-format -e
+expand T
+^D
+fpp-format
+stdin:1.8
+expand T
+       ^
+error: symbol T is not defined
+note: looking for a template here
 ----
 
 === Visualizing Topologies

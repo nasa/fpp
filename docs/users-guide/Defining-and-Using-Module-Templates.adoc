@@ -1,0 +1,715 @@
+== Defining and Using Module Templates
+
+When you are constructing an FPP model, you may find that you need to repeat
+essentially the same structure at different points of the model, possibly with
+variations in detail.
+For example:
+
+* You may need to define several components that are all the same,
+except that they handle different data types.
+
+* You may need to use the same subtopology in different deployments
+of the same multi-deployment system.
+For example, each of the deployments may require the same subtopology for 
+command and data handling.
+
+* Different deployments may need different variants of the same subtopology.
+For example, a deployment for testing may need a communication subtopology
+that connects directly to a test harness, whereas the flight deployment
+may need a communication subtopology that includes a radio.
+
+For this kind of replicated structure, FPP provides a feature called a
+*module template*.
+By defining a module template, you can specify a list of model elements (types, 
+constants, components, topologies, etc.)
+that may occur within a module definition.
+Then you can *expand* the template any number of times, each in a different
+module.
+This process creates a distinct element for each expansion.
+For example, you can define a module template that includes the
+definition of a constant `c`.
+Expanding that template inside a module `M` would create a definition
+`M.c`, whereas expanding that template inside a module `N` would
+create a definition `N.c`.
+In this section, we explain how to define and use module templates.
+
+=== Basic Module Templates
+
+Here is a basic example of defining and using a module template.
+It is based on the constant definition example sketched at the
+beginning of this section.
+
+[source,fpp]
+----
+module template T {
+
+  constant c = 0
+
+}
+
+module M {
+
+  expand T
+
+}
+
+module N {
+
+  expand T
+
+}
+----
+
+In this example, we have done the following:
+
+. We have defined a module template `T` containing the constant
+definition `constant c = 0`.
+In general, to write a module template definition you write
+`module` `template` followed by the name of the template
+and the elements of the template enclosed in curly braces.
+A module template definition is an
+<<Writing-Comments-and-Annotations_Annotations,annotatable element>>.
+
+. We have expanded the template `T` twice, once inside
+module `M` and once inside module `N`.
+
+When you run the FPP analyzer on this model, it carries out a
+process called *template expansion*.
+Template expansion causes the syntax elements specified in the
+template definition to be replicated at each expansion point.
+After template expansion, the model looks like this:
+
+[source,fpp]
+--------
+module template T {
+
+  constant c = 0
+
+}
+
+module M {
+
+  expand T {
+
+    constant c = 0
+
+  }
+
+}
+
+module N {
+
+  expand T {
+
+    constant c = 0
+
+  }
+
+}
+--------
+
+You can see this by running the tool `fpp-to-fpp -e` on the
+original model shown above.
+We will explain this tool in the section on 
+<<Analyzing-and-Translating-Models_Rewriting-FPP-Source,rewriting FPP source>>.
+
+Notice that in the expanded version, each template expansion
+contains within it the constant specified in the template
+definition.
+Also, because we put each expansion in a separate module,
+each expanded definition has a separate name.
+If we tried to expand the same template twice at the top
+level, we would get an error, because the names would clash.
+(Try this in `fpp-check`. Note that we have to run `fpp-check`
+to see this error, because `fpp-to-fpp` just does syntactic
+expansion, not semantic error checking.)
+
+Notice also that each of the expanded templates has the
+syntax `expand T { ... }` around it.
+The purpose of this extra bit of syntax is to
+keep track of arguments to template parameters and
+scopes of definitions.
+We will explain these concepts below.
+In this simple example, the expanded templates behave
+in the same way as if the syntax `expand T { ... }` were replaced
+by the inner syntax `...`.
+
+=== Module Template Parameters
+
+In the example given in the previous section, we used template
+expansion to produce
+two modules `M` and `N` that are structurally identical,
+except for their names.
+Sometimes this is useful.
+More often, though, you will want to expand a template
+with one or more elements that you provide at the
+point of expansion.
+That way, each expansion can be slightly different.
+For example, in model from the previous section, 
+it may be more useful to specify the values of the
+constants `M.c` and `N.c` at the point of expansion,
+instead of giving them both the same value zero
+specified in the definition.
+
+To carry out this kind of customized expansion, FPP
+provides a feature called *module template parameters*.
+As with templates in {cpp}, you can specify that a
+template has one or more parameters.
+The parameters introduce names that you can use
+in the template definition.
+The values bound
+to the names are unknown in the definition; they
+become bound by providing *parameter arguments*
+when the template is expanded.
+
+There are three kinds of module template parameters:
+constant parameters, type parameters, and interface
+instance parameters.
+We discuss each kind in turn.
+
+==== Constant Parameters
+
+First, suppose we wish to modify the previous example
+so that, in the expanded templates, the constant `M.c`
+has the value 1 and the constant `N.c` has the value 2.
+To do that, we can give the template `T` a
+*constant parameter* `p`.
+In the template definition, we can define `c` to be
+equal to `p`.
+Then when we expand the template, we can provide 1 and 2
+as the arguments to `p`.
+
+Here is how this example looks in FPP:
+
+[source,fpp]
+----
+module template T(constant p: U32) {
+
+  constant c = p
+
+}
+
+module M {
+
+  expand T(constant 1)
+
+}
+
+module N {
+
+  expand T(constant 2)
+
+}
+----
+
+In the definition of the template `T`, we have provided
+a constant parameter `p`, denoted by the keyword `constant`
+followed by the name `p`, a colon, and the name of a type.
+Here the type is `U32`; in general it can be any type.
+Since `T` has is one parameter of type `U32`, each
+expansion must provide one argument of a type compatible
+with `U32`.
+Here we provide 1 and 2 as the arguments, and we write
+`constant` to tell the FPP parser that these are constant arguments.
+
+After template expansion, the model looks like this:
+
+[source,fpp]
+--------
+module template T(constant p: U32) {
+
+  constant c = p
+
+}
+
+module M {
+
+  expand T(constant 1) {
+
+    constant c = p
+
+  }
+
+}
+
+module N {
+
+  expand T(constant 2) {
+
+    constant c = p
+
+  }
+
+}
+--------
+
+Notice that the `expand T { ... }` syntax provides the bindings
+of the constant values at the points of expansion.
+
+As with other cases of binding values to formal parameters (for example,
+when providing <<Defining-Components_Parameters_Default-Values,default values 
+for parameter arguments>>), the types must work out.
+For example, if we tried to expand the template `T` with
+the argument `"abc"`, we would get a typing error (try it and see).
+
+When defining a module template, you can provide any number of parameters.
+The formal parameters form an
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,element
+sequence>> in which the optional terminating punctuation is a comma.
+The same is true of the template arguments in the expansion.
+For example:
+
+[source,fpp]
+----
+type FwSizeStoreType = U16
+
+module template T1(constant p1: U32, constant p2: I32) {
+  constant c1 = p1
+  constant c2 = p2
+}
+
+module template T2(
+  @ Constant parameter p1
+  constant p1: string size 100
+  @ Constant parameter p2
+  constant p2: F32
+) {
+  constant c1 = p1
+  constant c2 = p2
+}
+
+module M1 {
+  expand T1(constant 1, constant 2)
+}
+
+module M2 {
+  expand T2(
+    constant "abc"
+    constant 1.0
+  )
+}
+----
+
+==== Type Parameters
+
+You can also specify one or more *type parameters* for a module template.
+When you expand the template, you can bind types to the parameters.
+Here is an example:
+
+[source,fpp]
+----
+module template T(type T) {
+
+  port P(x: T)
+
+  passive component C {
+
+    sync input port pIn: P
+
+    output port pOut: P
+
+  }
+
+}
+
+module M {
+
+  expand T(type U32)
+
+}
+
+module N {
+
+  expand T(type F32)
+
+}
+----
+
+Here we have defined two passive components, `M.C`
+and `N.C`.
+The first one has instances `pIn` and `pOut` of
+port `M.P`, which carries data of type `U32`.
+The second one has instances `pIn` and `pOut` of
+port `N.P`, which carries data of type `F32`.
+
+You can also mix type parameters and constant parameters:
+
+[source,fpp]
+----
+module template T(constant p: U32, type P) {
+  constant c = p
+  type T = P
+}
+
+expand T(constant 0, type F32)
+----
+
+In the current version of FPP, you may not use type parameters
+in constant parameters.
+For example, this is not allowed:
+
+[source,fpp]
+--------
+module template T(
+  @ This parameter defines a type P in the body of the template
+  type P
+  @ Error: The type P is not defined here
+  constant p: P
+) {
+  constant c = p
+}
+--------
+
+It is also not allowed for a template to have two parameters
+of the same kind with the same name, or for a template
+to have a parameter and a definition of the same kind with the same
+name.
+For example, these cases are not allowed:
+
+[source,fpp]
+--------
+@ Error: Two occurrences of constant parameter a
+module template T1(constant a: U32, constant a: I32)
+
+@ Error: Constant parameter a and constant definition a
+module template T2(constant a: U32) {
+
+  constant a = 0
+
+}
+--------
+
+==== Port Interface Instance Parameters
+
+Finally, you can specify that a module template has one or more
+*port interface instance parameters*.
+Recall that a 
+<<Defining-Topologies_Topology-Ports_Port-Interface-Instances,port interface 
+instance>> is either a component instance definition or a topology
+definition.
+By using port interface instance parameters, you can parameterize
+a module over an instance that has ports.
+This can be a single component instance or an entire topology.
+
+As an example, consider a topology that provides a downlink
+capability by framing data and sending it to a radio.
+Without templates, the topology might look like this:
+
+[source,fpp]
+--------
+interface DownlinkInterface {
+  async input port dataIn: DownlinkData
+}
+
+topology DownlinkTopology implements DownlinkInterface {
+
+  instance framer
+  instance radio
+
+  port dataIn = framer.dataIn
+
+  connections Downlink {
+    framer.dataOut -> radio.dataIn
+  }
+
+}
+--------
+
+Now suppose that you want two versions of this topology,
+one for integration testing that uses a stub radio, and
+one for system testing that uses an actual radio.
+In this case, you can make the topology into a template,
+and you can make the `radio` instance into a template
+parameter, like this:
+
+[source,fpp]
+--------
+module template DownlinkTopologyTemplate(instance radio: DownlinkInterface) {
+
+  topology DownlinkTopology implements DownlinkInterface {
+
+    instance framer
+    instance radio
+
+    port dataIn = framer.dataIn
+
+    connections Downlink {
+      framer.dataOut -> radio.dataIn
+    }
+
+  }
+
+}
+--------
+
+Notice the following:
+
+* In the definition of `DownlinkTopologyTemplate`, we have
+provided an interface parameter by writing `interface`,
+the name of the parameter, a colon, and the name of
+a <<Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces,
+port interface>>.
+
+* The topology itself is the same as before, but
+now the specifier `instance radio` in the topology refers
+to the interface parameter `radio` of the template, instead of
+directly referring to a component instance or topology.
+
+Now you can expand the template twice, once with a stub radio
+and once with an actual radio:
+
+[source,fpp]
+--------
+module IntegrationDeployment {
+
+  instance radioStub: RadioStub base id 0x10000000 \
+    queue size Default.QUEUE_SIZE \
+    stack size Default.STACK_SIZE \
+    priority 50
+
+  expand DownlinkTopologyTemplate(instance radioStub)
+
+}
+
+module FlightDeployment {
+
+  instance radio: Radio base id 0x10000000 \
+    queue size Default.QUEUE_SIZE \
+    stack size Default.STACK_SIZE \
+    priority 50
+
+  expand DownlinkTopologyTemplate(instance radio)
+
+}
+--------
+  
+Further, because the topology `DownlinkTopology` (in either expansion)
+implements the interface `DownlinkInterface`, you can use either
+expansion as an argument to another template with an interface parameter.
+For example, suppose you have a template for a CDH (command and data handling)
+topology that looks like this:
+
+[source,fpp]
+--------
+template CDHTopologyTemplate(interface downlink: DownlinkInterface) {
+  ...
+}
+--------
+
+Then you could expand that template twice, like this:
+
+[source,fpp]
+--------
+module IntegrationDeployment {
+
+  expand CDHTopologyTemplate(interface DownlinkTopology)
+
+}
+
+module FlightDeployment {
+
+  expand CDHTopologyTemplate(interface DownlinkTopology)
+
+}
+--------
+
+Notice that each of the expansions here is in the same module
+as the corresponding expansion above, so we can use the simple
+name `DownlinkTopology` to refer to the topology expansion,
+which is defined in the same module.
+
+=== Resolving Names in Expanded Templates
+
+FPP uses a special rule for resolving the names of symbols
+used in expanded templates.
+When a name appears in an expanded template, the name
+is resolved as if it appeared at the point of the template
+_definition_ rather than at the point of the template _expansion_.
+This is to make it easy to see, when writing a template definition,
+how the names will be resolved when the template is expanded.
+
+To understand this rule, consider the following model:
+
+[source,fpp]
+----
+module M {
+
+  constant a = 0
+
+  module template T {
+
+    constant b = a
+
+  }
+
+}
+
+expand M.T
+----
+
+After template expansion, the model looks like this:
+
+[source,fpp]
+--------
+module M {
+
+  constant a = 0
+
+  module template T {
+
+    constant b = a
+
+  }
+
+}
+
+expand M.T {
+
+  constant b = a
+
+}
+--------
+
+Notice that in the expanded template, there is a use of the
+name `a`.
+In this model, there is a constant `a` defined in the module `M`,
+but here we are outside the module `M`.
+So under the ordinary rules for name resolution, the symbol
+`a` would be undefined at this point; only `M.a` would be defined.
+However, because we are in an `expand` block, we use the
+special rule.
+The special rule says to resolve the name `a` occurring
+in the expansion of template `M.T` as if it occurred at the point
+of the definition of `M.T`.
+That definition occurs inside the module `M`, so the name `a`
+is in scope there, and it refers to the constant `M.a`.
+So this model passes through the analyzer.
+
+Here is another example:
+
+[source,fpp]
+----
+module M {
+
+  constant a = 0
+
+  module template T {
+
+    constant b = a
+
+  }
+
+}
+
+constant a = 1
+
+expand M.T
+----
+
+Here is the model after expansion:
+
+[source,fpp]
+--------
+module M {
+
+  constant a = 0
+
+  module template T {
+
+    constant b = a
+
+  }
+
+}
+
+constant a = 1
+
+expand M.T {
+
+  constant b = a
+
+}
+--------
+
+Here the symbol `a` is defined at the point of the expansion.
+However, the definition there gives `a` the value 1, whereas
+the definition in the template definition gives `a` the value 0.
+According to the special rule, `a` evaluates to 0, not 1,
+in the expanded template, because that is the value of `a`
+at the point of the template definition.
+This rule removes a point of possible confusion or surprise
+that could occur if the names used in template definitions
+could refer to different symbols in different expansions,
+depending upon where the expansions occurred.
+
+=== The expand Syntax
+
+In this section we provide a bit more detail on the `expand`
+syntax introduced in the previous sections.
+First, as described in the previous sections, when the source model contains 
+the syntax `expand T`, the analyzer replaces that syntax with `expand T { ...  
+}`, where the dots
+represent the body of the template definition.
+Second, when the source model contains the syntax `expand T { ... }`
+(in other words, `expand T` followed by some more syntax in curly braces),
+then the analyzer expects the syntax in the curly braces to be
+valid for a template expansion, and it does _not_ expand the template.
+Instead it uses the syntax specified in the curly braces.
+In this case the analyzer still checks for the existence of the template 
+definition `T` and will report an error if it is missing,
+but it ignores the syntax provided in the body of the template definition.
+
+The purpose of this behavior is twofold. First, we want to have a way,
+in the FPP source language, to show the syntax of the model after running
+template expansion.
+This is the purpose of allowing the syntax `expand T { ... }`.
+Second, we want the result of template expansion on a valid FPP model to 
+produce another valid model.
+That is the reason for specifying the semantics of `expand T { ... }`.
+In the ordinary use case, the syntax in the curly braces will be provided
+by running `fpp-to-fpp -e` to expand templates, so it will be 
+valid if and only if the original source model is valid.
+
+You may, if you wish, write the syntax `expand T { ... }` yourself;
+it is valid FPP syntax.
+Further, doing this may be useful for learning or debugging.
+However, it is not expected that you will ordinarily do this.
+The common expected use case is to write `expand T` and let the analyzer
+do the expansion.
+
+=== Nesting of Module Templates
+
+To keep the analysis simple, the FPP analyzer does not allow you to define
+a module template or expand a module template inside another
+module template.
+For example, these models are not allowed:
+
+[source,fpp]
+--------
+module template T1 {
+
+  # Error: You cannot define a template inside a template
+  module template T2 {
+
+    constant a = 0
+
+  }
+
+}
+--------
+
+[source,fpp]
+--------
+module template T1 {
+
+  constant a = 0
+
+}
+
+module template T2 {
+
+  # Error: You cannot expand a template inside a template
+  expand T1
+
+}
+--------
