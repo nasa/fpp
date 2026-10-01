@@ -630,17 +630,23 @@ and the constant definition in the template expansion),
 and the constant definition is located in the file where
 the expansion occurs.
 
-This is the ordinary use case for model files containing
+This is the intended use case for model files containing
 template expansions: you provide all the template definitions
 and expansions to the tool, and it finds and reports all
 the definitions introduced by the expansions.
+If you provide a template expansion without providing the
+corresponding definition, then the tool will report an error.
+For example, running
 
-_TODO: We need to define, implement, and describe the behavior
-when we provide just `template.fpp` to the tool, so that 
-the symbol `T` in the expansion is undefined.
-Currently the tool reports nothing and exits with status zero
-in this case.
-I think this is too permissive.
+----
+% fpp-locate-defs expand.fpp
+----
+
+produces an error, because the definition of the template `T`
+is not available in the files provided as input to `fpp-locate-defs`.
+
+_TODO: Update this section with the specific error output after
+that behavior is implemented.
 See https://github.com/nasa/fpp/issues/1137[GitHub issue #1137]._
 
 === Computing Dependencies

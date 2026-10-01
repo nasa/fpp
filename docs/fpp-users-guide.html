@@ -14861,18 +14861,26 @@ and the constant definition is located in the file where
 the expansion occurs.</p>
 </div>
 <div class="paragraph">
-<p>This is the ordinary use case for model files containing
+<p>This is the intended use case for model files containing
 template expansions: you provide all the template definitions
 and expansions to the tool, and it finds and reports all
-the definitions introduced by the expansions.</p>
+the definitions introduced by the expansions.
+If you provide a template expansion without providing the
+corresponding definition, then the tool will report an error.
+For example, running</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-locate-defs expand.fpp</pre>
+</div>
 </div>
 <div class="paragraph">
-<p><em>TODO: We need to define, implement, and describe the behavior
-when we provide just <code>template.fpp</code> to the tool, so that
-the symbol <code>T</code> in the expansion is undefined.
-Currently the tool reports nothing and exits with status zero
-in this case.
-I think this is too permissive.
+<p>produces an error, because the definition of the template <code>T</code>
+is not available in the files provided as input to <code>fpp-locate-defs</code>.</p>
+</div>
+<div class="paragraph">
+<p><em>TODO: Update this section with the specific error output after
+that behavior is implemented.
 See <a href="https://github.com/nasa/fpp/issues/1137">GitHub issue #1137</a>.</em></p>
 </div>
 </div>
@@ -18429,7 +18437,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-01 09:42:45 -0700
+Last updated 2026-10-01 09:46:31 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
