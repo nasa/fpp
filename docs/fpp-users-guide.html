@@ -10575,7 +10575,11 @@ associated with the instance <em>I</em> and the phase.</p>
 </li>
 <li>
 <p><strong>Where Placed:</strong> Where FPP places the code snippet
-in the generated file.</p>
+in the generated file.
+In this column, <em>I</em> denotes the fully qualified name
+of the instance, with any dots replaced by underscores.
+For example, for an instance <code>i</code> defined in module <code>M</code>,
+<em>I</em> means <code>M_i</code>.</p>
 </li>
 <li>
 <p><strong>Default Code:</strong> Whether FPP generates default code if
@@ -10804,7 +10808,7 @@ command sequencer instance <code>cmdSeq</code> from the
   cmdSeq.allocateBuffer(
       0,
       Allocation::mallocator,
-      ConfigConstants::SystemReference_cmdSeq::BUFFER_SIZE
+      BUFFER_SIZE
   );
   """
 
@@ -10818,7 +10822,8 @@ command sequencer instance <code>cmdSeq</code> from the
 <div class="paragraph">
 <p>The code for <code>configConstants</code> provides a constant <code>BUFFER_SIZE</code>
 that is used in the <code>configComponents</code> phase.
-The code generator places this code snippet in the
+As noted in Table 1 of the previous section, the code generator places this code
+snippet in the
 namespace <code>ConfigConstants::SystemReference_cmdSeq</code>.
 Notice that the second part of the namespace uses the
 fully qualified name <code>SystemReference::cmdSeq</code>, and it replaces
@@ -10833,7 +10838,33 @@ in an allocator object that is declared elsewhere.
 (In the section on
 <a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">implementing deployments</a>, we will explain where this allocator
 object is declared.)
-The code for <code>tearDownComponents</code> calls <code>deallocateBuffer</code> to
+Note that in this code snippet, we have used the name <code>BUFFER_SIZE</code>
+with no qualifier.
+Based on the previous paragraph, you might think that we would need
+to write <code>ConfigConstants::SystemReference_cmdSeq::BUFFER_SIZE</code>.
+That would work, but is verbose.
+To make the init specifiers easier to write, when the FPP code generator
+includes code from an init specifier into the code it generates, it
+does so like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="c++">{
+  using namespace ConfigConstants::SystemReference_cmdSeq;
+  using namespace ConfigObjects::SystemReference_cmdSeq;
+
+  [code from the init specifier]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That way, when you are writing the code snippet in the init specifier,
+you don&#8217;t have to write out all the qualifiers.
+The qualifiers are still there, and they still prevent name clashes outside the
+curly-brace block where the code snippet is inserted.</p>
+</div>
+<div class="paragraph">
+<p>The code for <code>tearDownComponents</code> calls <code>deallocateBuffer</code> to
 deallocate the sequence buffer, passing in the allocator
 object again.</p>
 </div>
@@ -10879,7 +10910,8 @@ section on <a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployment
 </div>
 <div class="paragraph">
 <p>For more examples of init specifiers in action, see the rest of
-the file <code>SystemReference/Top/instances.fpp</code> in the F Prime repository.
+the file <code>SystemReference/Top/instances.fpp</code> in the system reference
+deployment.
 In particular, the init specifiers for the <code>comDriver</code> instance
 use the <code>state</code> value that we just mentioned.</p>
 </div>
@@ -10937,7 +10969,7 @@ the section on <a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deploy
 </div>
 <div class="paragraph">
 <p>Fourth, when generating the name of a constant associated with an instance,
-FPP uses the fully-qualified name of the instance, and it replaces
+FPP uses the fully qualified name of the instance, and it replaces
 the dots (in FPP) or the colons (in C&#43;&#43;) with underscores.
 For example, as discussed in the previous section, the configuration
 constants for the instance <code>SystemReference::cmdSeq</code> are placed in
@@ -17353,7 +17385,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-09-28 16:53:23 -0700
+Last updated 2026-10-01 09:01:25 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
