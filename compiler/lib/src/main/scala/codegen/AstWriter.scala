@@ -2,7 +2,6 @@ package fpp.compiler.codegen
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
-import fpp.compiler.ast.Ast.QualIdent
 
 /** Write out an FPP AST */
 object AstWriter extends AstVisitor with LineUtils {
@@ -173,6 +172,48 @@ object AstWriter extends AstVisitor with LineUtils {
     (ident(data.name) ++ data.members.flatMap(moduleMember)).map(indentIn)
   }
 
+  override def defModuleTemplateAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("def module template") ++
+    List.concat(
+      ident(data.name),
+      templateParamList(data.params),
+      data.members.flatMap(moduleMember)
+    ).map(indentIn)
+  }
+
+  override def specTemplateExpandAnnotatedNodeUnexpanded(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("expand") ++
+    List.concat(
+      qualIdent(data.template.data),
+      templateArgList(data.args)
+    ).map(indentIn)
+  }
+
+  override def specTemplateExpandAnnotatedNodeExpanded(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]],
+    members: List[Ast.ModuleMember]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("expand") ++
+    List.concat(
+      qualIdent(data.template.data),
+      templateArgList(data.args),
+      members.flatMap(moduleMember)
+    ).map(indentIn)
+  }
+
   override def defPortAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefPort]]
@@ -240,18 +281,29 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
+  override def defSystemAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefSystem]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("def system") ++
+    (ident(data.name) ++ qualIdent(data.topology.data)).map(indentIn)
+  }
+
   override def defTopologyAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data
+    val topology = if data.isDeployment then "deployment topology" else "topology"
     val implementsClause = data.implements.length match {
       case 0 => Nil
       case _ => lines("implements") ++ data.implements.flatMap(q => qualIdent(q.data)).map(indentIn)
     }
 
-    lines("def topology") ++
+    lines(s"def $topology") ++
     (ident(data.name) ++ implementsClause ++ data.members.flatMap(topologyMember)).map(indentIn)
   }
 
@@ -854,6 +906,46 @@ object AstWriter extends AstVisitor with LineUtils {
 
   private def formalParamList(params: Ast.FormalParamList) =
     params.flatMap(annotateNode(formalParam))
+
+  private def templateParam(tp: Ast.TemplateParam) = {
+    tp match {
+      case Ast.TemplateParam.Constant(name, typeName) =>
+        line("constant template param") ::
+        List.concat(
+          ident(name),
+          typeNameNode(typeName)
+        ).map(indentIn)
+      case Ast.TemplateParam.Type(name) =>
+        line("type template param") ::
+        ident(name).map(indentIn)
+      case Ast.TemplateParam.Interface(name, interface) =>
+        line("instance template param") ::
+        List.concat(
+          ident(name),
+          qualIdent(interface.data)
+        ).map(indentIn)
+    }
+  }
+
+  private def templateParamList(params: Ast.TemplateParamList) =
+    params.flatMap(annotateNode(templateParam))
+
+  private def templateArg(tp: AstNode[Ast.TemplateArg]) = {
+    tp.data match {
+      case Ast.TemplateArg.Constant(e) =>
+        line("constant template arg") ::
+        exprNode(e).map(indentIn)
+      case Ast.TemplateArg.Type(name) =>
+        line("type template arg") ::
+        typeNameNode(name).map(indentIn)
+      case Ast.TemplateArg.Interface(i) =>
+        line("instance template arg") ::
+        qualIdent(i.data).map(indentIn)
+    }
+  }
+
+  private def templateArgList(args: Ast.TemplateArgList) =
+    args.flatMap(templateArg)
 
   private def ident(s: String) = lines("ident " ++ s)
 

@@ -114,15 +114,18 @@ object ComputeAutocodeCppFiles extends ComputeCppFiles {
   ) = {
     val node = aNode._2
     val data = node.data
-    val name = data.name
-    val loc = Locations.get(node.id)
-    val a = s.a.copy(parentSymbol = Some(Symbol.Topology(aNode)))
-    val s1 = s.copy(a = a)
-    for {
-      s <- addMappings(s1, ComputeCppFiles.FileNames.getTopology(name), Some(loc))
-      s <- visitList (s, data.members, matchTopologyMember)
-    }
-    yield s
+    if data.isDeployment
+    then
+      val name = data.name
+      val loc = Locations.get(node.id)
+      val a = s.a.copy(parentSymbol = Some(Symbol.Topology(aNode)))
+      val s1 = s.copy(a = a)
+      for {
+        s <- addMappings(s1, ComputeCppFiles.FileNames.getTopology(name), Some(loc))
+        s <- visitList (s, data.members, matchTopologyMember)
+      }
+      yield s
+    else Right(s)
   }
 
   override def specTlmPacketSetAnnotatedNode(

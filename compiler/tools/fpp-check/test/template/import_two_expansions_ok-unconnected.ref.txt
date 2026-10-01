@@ -1,0 +1,10 @@
+Topology E1.Sub:
+  w1.spare
+
+Topology E2.Sub:
+  w2.spare
+
+Topology Dep:
+  w1.spare
+  w2.spare
+

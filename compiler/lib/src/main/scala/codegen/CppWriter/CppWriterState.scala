@@ -187,12 +187,23 @@ case class CppWriterState(
             val Right(a) = UsedSymbols.defInterfaceAnnotatedNode(
               this.a,
               this.a.interfaceMap(iface).aNode,
-            )
+            ).runtimeChecked
             a.usedSymbolSet.flatMap(getIncludeFiles).toList
+          case arg: Symbol.TemplateTypeArg =>
+            val Right(a1) = UsedSymbols.typeNameNode(
+              this.a.copy(usedSymbolSet = Set()),
+              arg.value
+            ).runtimeChecked
+            a1.usedSymbolSet.flatMap(getIncludeFiles).toList
+          case arg: Symbol.TemplateInterfaceArg =>
+            a.getRepresentedSymbolOpt(arg).toList.flatMap(getIncludeFiles)
           case _: Symbol.Constant => List()
           case _: Symbol.EnumConstant => List()
           case _: Symbol.Module => List()
           case _: Symbol.ComponentInstance => List()
+          case _: Symbol.Template => List()
+          case _: Symbol.TemplateConstantArg => List()
+          case _: Symbol.System => List()
         }
       }
       yield filenames

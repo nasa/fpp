@@ -1,0 +1,1 @@
+[ local path prefix ]/compiler/tools/fpp-depend/test/template_type_arg_string_dep.fpp

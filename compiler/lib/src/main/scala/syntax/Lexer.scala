@@ -46,6 +46,7 @@ object Lexer {
     ("container", CONTAINER),
     ("cpu", CPU),
     ("default", DEFAULT),
+    ("deployment", DEPLOYMENT),
     ("diagnostic", DIAGNOSTIC),
     ("dictionary", DICTIONARY),
     ("do", DO),
@@ -57,6 +58,7 @@ object Lexer {
     ("event", EVENT),
     ("every", EVERY),
     ("exit", EXIT),
+    ("expand", EXPAND),
     ("external", EXTERNAL),
     ("false", FALSE),
     ("fatal", FATAL),
@@ -118,7 +120,9 @@ object Lexer {
     ("string", STRING),
     ("struct", STRUCT),
     ("sync", SYNC),
+    ("system", SYSTEM),
     ("telemetry", TELEMETRY),
+    ("template", TEMPLATE),
     ("text", TEXT),
     ("throttle", THROTTLE),
     ("time", TIME),
@@ -240,6 +244,7 @@ object Lexer {
         case CONTAINER => Token.CONTAINER()
         case CPU => Token.CPU()
         case DEFAULT => Token.DEFAULT()
+        case DEPLOYMENT => Token.DEPLOYMENT()
         case DIAGNOSTIC => Token.DIAGNOSTIC()
         case DICTIONARY => Token.DICTIONARY()
         case DO => Token.DO()
@@ -255,6 +260,7 @@ object Lexer {
         case EVERY => Token.EVERY()
         case EXIT => Token.EXIT()
         case EXTERNAL => Token.EXTERNAL()
+        case EXPAND => Token.EXPAND()
         case F32 => Token.F32()
         case F64 => Token.F64()
         case FALSE => Token.FALSE()
@@ -342,7 +348,9 @@ object Lexer {
         case STRING => Token.STRING()
         case STRUCT => Token.STRUCT()
         case SYNC => Token.SYNC()
+        case SYSTEM => Token.SYSTEM()
         case TELEMETRY => Token.TELEMETRY()
+        case TEMPLATE => Token.TEMPLATE()
         case TEXT => Token.TEXT()
         case THROTTLE => Token.THROTTLE()
         case TIME => Token.TIME()

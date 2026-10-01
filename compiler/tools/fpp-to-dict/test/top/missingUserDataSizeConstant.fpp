@@ -23,6 +23,6 @@ module Fw {
     }
 }
 
-topology T {
+deployment topology T {
   
 }

@@ -186,6 +186,14 @@ telemetryPackets(){
   run_test "" telemetryPackets
 }
 
+templateSystem(){
+  run_test "" templateSystem
+}
+
+templateSystem_syntax_only(){
+  run_test "-s" templateSystem templateSystem_syntax_only
+}
+
 types()
 {
   run_test "" types
@@ -218,6 +226,8 @@ stateMachine
 syntaxOnly
 telemetry
 telemetryPackets
+templateSystem
+templateSystem_syntax_only
 types
 "
 

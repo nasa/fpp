@@ -88,7 +88,7 @@ module Main {
     instance l: C base id 0x600
     instance m: C base id 0x700
 
-    topology b {
+    deployment topology b {
         instance g
         instance h
         instance i

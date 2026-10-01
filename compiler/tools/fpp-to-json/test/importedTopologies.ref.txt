@@ -322,6 +322,7 @@
               "node" : {
                 "AstNode" : {
                   "data" : {
+                    "isDeployment" : false,
                     "name" : "Simple1",
                     "members" : [
                       [
@@ -549,6 +550,7 @@
               "node" : {
                 "AstNode" : {
                   "data" : {
+                    "isDeployment" : false,
                     "name" : "Simple2",
                     "members" : [
                       [
@@ -803,6 +805,7 @@
               "node" : {
                 "AstNode" : {
                   "data" : {
+                    "isDeployment" : true,
                     "name" : "Simple3",
                     "members" : [
                       [
@@ -854,647 +857,776 @@
     "0" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "1.1",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "1" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "4.24",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "2" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "4.24",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "3" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "4.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "4" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "5.21",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "5" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "5.21",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "6" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "5.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "7" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "5.21",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "8" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "5.21",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "9" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "5.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "10" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "5.21",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "11" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "5.21",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "12" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "5.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "13" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "3.1",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "14" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "8.14",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "15" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "8.14",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "16" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "8.24",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "17" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "8.1",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "18" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "9.14",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "19" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "9.14",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "20" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "9.24",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "21" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "9.1",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "22" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "10.14",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "23" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "10.14",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "24" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "10.24",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "25" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "10.1",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "26" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "11.14",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "27" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "11.14",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "28" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "11.24",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "29" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "11.1",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "30" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "17.12",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "31" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "17.12",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "32" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "17.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "33" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "19.12",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "34" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "19.12",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "35" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "19.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "36" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "23.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "37" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "23.8",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "38" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "23.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "39" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "23.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "40" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "23.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "41" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "23.19",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "42" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "23.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "43" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "23.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "44" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "22.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "45" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "46" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.8",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "47" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "48" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "49" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "50" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.19",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "51" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "52" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "53" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "27.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "54" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "55" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.8",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "56" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "57" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "58" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "59" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.19",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "60" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "61" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "62" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "27.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "63" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "64" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.8",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "65" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "66" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "67" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "68" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.19",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "69" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "70" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "28.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "71" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "27.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "72" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "14.1",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "73" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "35.10",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "74" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "35.10",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "75" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "35.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "76" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "37.12",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "77" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "37.12",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "78" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "37.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "79" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "39.12",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "80" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "39.12",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "81" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "39.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "82" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "43.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "83" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "43.8",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "84" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "43.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "85" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "43.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "86" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "43.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "87" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "43.19",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "88" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "43.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "89" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "43.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "90" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "42.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "91" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "92" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.8",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "93" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "94" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "95" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "96" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.19",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "97" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "98" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "99" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "47.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "100" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "101" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.8",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "102" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "103" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "104" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "105" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.19",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "106" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "107" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "108" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "47.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "109" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "110" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.8",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "111" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "112" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.5",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "113" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "114" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.19",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "115" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "116" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "48.16",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "117" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "47.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "118" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "34.1",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "119" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "55.10",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "120" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "55.10",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "121" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "55.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "122" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "55.10",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "123" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "55.10",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "124" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "55.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "125" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "55.10",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "126" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "55.10",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "127" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "55.3",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     },
     "128" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
       "pos" : "54.1",
-      "includingLoc" : "None"
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
     }
   }
 }
@@ -1760,39 +1892,42 @@
           "17" : {
             "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
             "pos" : "17.3",
-            "includingLoc" : "None"
+            "includingLoc" : "None",
+            "expandingLoc" : "None"
           },
           "21" : {
             "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
             "pos" : "19.3",
-            "includingLoc" : "None"
+            "includingLoc" : "None",
+            "expandingLoc" : "None"
           }
+        },
+        "directTemplateArgs" : {
+          
         },
         "transitiveImportSet" : [
         ],
         "instanceMap" : [
           [
             {
-              "InterfaceComponentInstance" : {
-                "astNodeId" : 17
-              }
+              "InterfaceComponentInstance" : 17
             },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "17.3",
-              "includingLoc" : "None"
+              "includingLoc" : "None",
+              "expandingLoc" : "None"
             }
           ],
           [
             {
-              "InterfaceComponentInstance" : {
-                "astNodeId" : 21
-              }
+              "InterfaceComponentInstance" : 21
             },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "19.3",
-              "includingLoc" : "None"
+              "includingLoc" : "None",
+              "expandingLoc" : "None"
             }
           ]
         ],
@@ -1820,13 +1955,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -1873,13 +2007,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -1931,13 +2064,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -1984,13 +2116,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -2037,6 +2168,8 @@
             }
           ]
         },
+        "unmatchedConnectionSet" : [
+        ],
         "localConnectionMap" : {
           "C1" : [
             {
@@ -2044,13 +2177,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -2097,13 +2229,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -2155,13 +2286,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -2208,13 +2338,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -2265,9 +2394,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 17
-                }
+                "InterfaceComponentInstance" : 17
               },
               "portInstance" : {
                 "General" : {
@@ -2313,13 +2440,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "23.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 17
-                      }
+                      "InterfaceComponentInstance" : 17
                     },
                     "portInstance" : {
                       "General" : {
@@ -2366,13 +2492,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "23.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 21
-                      }
+                      "InterfaceComponentInstance" : 21
                     },
                     "portInstance" : {
                       "General" : {
@@ -2422,9 +2547,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 21
-                }
+                "InterfaceComponentInstance" : 21
               },
               "portInstance" : {
                 "General" : {
@@ -2470,13 +2593,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "28.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 21
-                      }
+                      "InterfaceComponentInstance" : 21
                     },
                     "portInstance" : {
                       "General" : {
@@ -2523,13 +2645,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "28.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 17
-                      }
+                      "InterfaceComponentInstance" : 17
                     },
                     "portInstance" : {
                       "General" : {
@@ -2581,9 +2702,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 17
-                }
+                "InterfaceComponentInstance" : 17
               },
               "portInstance" : {
                 "General" : {
@@ -2629,13 +2748,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "28.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 21
-                      }
+                      "InterfaceComponentInstance" : 21
                     },
                     "portInstance" : {
                       "General" : {
@@ -2682,13 +2800,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "28.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 17
-                      }
+                      "InterfaceComponentInstance" : 17
                     },
                     "portInstance" : {
                       "General" : {
@@ -2738,9 +2855,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 21
-                }
+                "InterfaceComponentInstance" : 21
               },
               "portInstance" : {
                 "General" : {
@@ -2786,13 +2901,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "23.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 17
-                      }
+                      "InterfaceComponentInstance" : 17
                     },
                     "portInstance" : {
                       "General" : {
@@ -2839,13 +2953,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "23.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 21
-                      }
+                      "InterfaceComponentInstance" : 21
                     },
                     "portInstance" : {
                       "General" : {
@@ -2900,13 +3013,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -2953,13 +3065,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -3012,13 +3123,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -3065,13 +3175,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -3126,13 +3235,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -3179,13 +3287,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -3238,13 +3345,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -3291,13 +3397,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -3361,20 +3466,26 @@
           "72" : {
             "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
             "pos" : "35.3",
-            "includingLoc" : "None"
+            "includingLoc" : "None",
+            "expandingLoc" : "None"
           }
         },
         "directComponentInstances" : {
           "25" : {
             "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
             "pos" : "37.3",
-            "includingLoc" : "None"
+            "includingLoc" : "None",
+            "expandingLoc" : "None"
           },
           "29" : {
             "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
             "pos" : "39.3",
-            "includingLoc" : "None"
+            "includingLoc" : "None",
+            "expandingLoc" : "None"
           }
+        },
+        "directTemplateArgs" : {
+          
         },
         "transitiveImportSet" : [
           {
@@ -3386,62 +3497,57 @@
         "instanceMap" : [
           [
             {
-              "InterfaceComponentInstance" : {
-                "astNodeId" : 17
-              }
+              "InterfaceComponentInstance" : 17
             },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "17.3",
-              "includingLoc" : "None"
+              "includingLoc" : "None",
+              "expandingLoc" : "None"
             }
           ],
           [
             {
-              "InterfaceComponentInstance" : {
-                "astNodeId" : 21
-              }
+              "InterfaceComponentInstance" : 21
             },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "19.3",
-              "includingLoc" : "None"
+              "includingLoc" : "None",
+              "expandingLoc" : "None"
             }
           ],
           [
             {
-              "InterfaceTopology" : {
-                "astNodeId" : 72
-              }
+              "InterfaceTopology" : 72
             },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "35.3",
-              "includingLoc" : "None"
+              "includingLoc" : "None",
+              "expandingLoc" : "None"
             }
           ],
           [
             {
-              "InterfaceComponentInstance" : {
-                "astNodeId" : 25
-              }
+              "InterfaceComponentInstance" : 25
             },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "37.3",
-              "includingLoc" : "None"
+              "includingLoc" : "None",
+              "expandingLoc" : "None"
             }
           ],
           [
             {
-              "InterfaceComponentInstance" : {
-                "astNodeId" : 29
-              }
+              "InterfaceComponentInstance" : 29
             },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "39.3",
-              "includingLoc" : "None"
+              "includingLoc" : "None",
+              "expandingLoc" : "None"
             }
           ]
         ],
@@ -3469,13 +3575,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -3522,13 +3627,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -3580,13 +3684,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -3633,13 +3736,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -3691,13 +3793,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 25
-                    }
+                    "InterfaceComponentInstance" : 25
                   },
                   "portInstance" : {
                     "General" : {
@@ -3744,13 +3845,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 29
-                    }
+                    "InterfaceComponentInstance" : 29
                   },
                   "portInstance" : {
                     "General" : {
@@ -3802,13 +3902,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 29
-                    }
+                    "InterfaceComponentInstance" : 29
                   },
                   "portInstance" : {
                     "General" : {
@@ -3855,13 +3954,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 25
-                    }
+                    "InterfaceComponentInstance" : 25
                   },
                   "portInstance" : {
                     "General" : {
@@ -3908,6 +4006,8 @@
             }
           ]
         },
+        "unmatchedConnectionSet" : [
+        ],
         "localConnectionMap" : {
           "C3" : [
             {
@@ -3915,13 +4015,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 25
-                    }
+                    "InterfaceComponentInstance" : 25
                   },
                   "portInstance" : {
                     "General" : {
@@ -3968,13 +4067,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 29
-                    }
+                    "InterfaceComponentInstance" : 29
                   },
                   "portInstance" : {
                     "General" : {
@@ -4026,13 +4124,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 29
-                    }
+                    "InterfaceComponentInstance" : 29
                   },
                   "portInstance" : {
                     "General" : {
@@ -4079,13 +4176,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 25
-                    }
+                    "InterfaceComponentInstance" : 25
                   },
                   "portInstance" : {
                     "General" : {
@@ -4136,9 +4232,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 17
-                }
+                "InterfaceComponentInstance" : 17
               },
               "portInstance" : {
                 "General" : {
@@ -4184,13 +4278,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "23.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 17
-                      }
+                      "InterfaceComponentInstance" : 17
                     },
                     "portInstance" : {
                       "General" : {
@@ -4237,13 +4330,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "23.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 21
-                      }
+                      "InterfaceComponentInstance" : 21
                     },
                     "portInstance" : {
                       "General" : {
@@ -4293,9 +4385,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 21
-                }
+                "InterfaceComponentInstance" : 21
               },
               "portInstance" : {
                 "General" : {
@@ -4341,13 +4431,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "28.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 21
-                      }
+                      "InterfaceComponentInstance" : 21
                     },
                     "portInstance" : {
                       "General" : {
@@ -4394,13 +4483,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "28.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 17
-                      }
+                      "InterfaceComponentInstance" : 17
                     },
                     "portInstance" : {
                       "General" : {
@@ -4450,9 +4538,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 25
-                }
+                "InterfaceComponentInstance" : 25
               },
               "portInstance" : {
                 "General" : {
@@ -4498,13 +4584,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "43.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 25
-                      }
+                      "InterfaceComponentInstance" : 25
                     },
                     "portInstance" : {
                       "General" : {
@@ -4551,13 +4636,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "43.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 29
-                      }
+                      "InterfaceComponentInstance" : 29
                     },
                     "portInstance" : {
                       "General" : {
@@ -4607,9 +4691,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 29
-                }
+                "InterfaceComponentInstance" : 29
               },
               "portInstance" : {
                 "General" : {
@@ -4655,13 +4737,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "48.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 29
-                      }
+                      "InterfaceComponentInstance" : 29
                     },
                     "portInstance" : {
                       "General" : {
@@ -4708,13 +4789,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "48.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 25
-                      }
+                      "InterfaceComponentInstance" : 25
                     },
                     "portInstance" : {
                       "General" : {
@@ -4766,9 +4846,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 17
-                }
+                "InterfaceComponentInstance" : 17
               },
               "portInstance" : {
                 "General" : {
@@ -4814,13 +4892,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "28.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 21
-                      }
+                      "InterfaceComponentInstance" : 21
                     },
                     "portInstance" : {
                       "General" : {
@@ -4867,13 +4944,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "28.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 17
-                      }
+                      "InterfaceComponentInstance" : 17
                     },
                     "portInstance" : {
                       "General" : {
@@ -4923,9 +4999,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 21
-                }
+                "InterfaceComponentInstance" : 21
               },
               "portInstance" : {
                 "General" : {
@@ -4971,13 +5045,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "23.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 17
-                      }
+                      "InterfaceComponentInstance" : 17
                     },
                     "portInstance" : {
                       "General" : {
@@ -5024,13 +5097,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "23.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 21
-                      }
+                      "InterfaceComponentInstance" : 21
                     },
                     "portInstance" : {
                       "General" : {
@@ -5080,9 +5152,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 25
-                }
+                "InterfaceComponentInstance" : 25
               },
               "portInstance" : {
                 "General" : {
@@ -5128,13 +5198,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "48.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 29
-                      }
+                      "InterfaceComponentInstance" : 29
                     },
                     "portInstance" : {
                       "General" : {
@@ -5181,13 +5250,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "48.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 25
-                      }
+                      "InterfaceComponentInstance" : 25
                     },
                     "portInstance" : {
                       "General" : {
@@ -5237,9 +5305,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 29
-                }
+                "InterfaceComponentInstance" : 29
               },
               "portInstance" : {
                 "General" : {
@@ -5285,13 +5351,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "43.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 25
-                      }
+                      "InterfaceComponentInstance" : 25
                     },
                     "portInstance" : {
                       "General" : {
@@ -5338,13 +5403,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "43.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 29
-                      }
+                      "InterfaceComponentInstance" : 29
                     },
                     "portInstance" : {
                       "General" : {
@@ -5399,13 +5463,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -5452,13 +5515,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -5511,13 +5573,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -5564,13 +5625,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -5623,13 +5683,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 25
-                    }
+                    "InterfaceComponentInstance" : 25
                   },
                   "portInstance" : {
                     "General" : {
@@ -5676,13 +5735,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 29
-                    }
+                    "InterfaceComponentInstance" : 29
                   },
                   "portInstance" : {
                     "General" : {
@@ -5735,13 +5793,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 29
-                    }
+                    "InterfaceComponentInstance" : 29
                   },
                   "portInstance" : {
                     "General" : {
@@ -5788,13 +5845,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 25
-                    }
+                    "InterfaceComponentInstance" : 25
                   },
                   "portInstance" : {
                     "General" : {
@@ -5849,13 +5905,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -5902,13 +5957,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -5961,13 +6015,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -6014,13 +6067,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -6073,13 +6125,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 25
-                    }
+                    "InterfaceComponentInstance" : 25
                   },
                   "portInstance" : {
                     "General" : {
@@ -6126,13 +6177,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 29
-                    }
+                    "InterfaceComponentInstance" : 29
                   },
                   "portInstance" : {
                     "General" : {
@@ -6185,13 +6235,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 29
-                    }
+                    "InterfaceComponentInstance" : 29
                   },
                   "portInstance" : {
                     "General" : {
@@ -6238,13 +6287,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 25
-                    }
+                    "InterfaceComponentInstance" : 25
                   },
                   "portInstance" : {
                     "General" : {
@@ -6308,10 +6356,14 @@
           "118" : {
             "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
             "pos" : "55.3",
-            "includingLoc" : "None"
+            "includingLoc" : "None",
+            "expandingLoc" : "None"
           }
         },
         "directComponentInstances" : {
+          
+        },
+        "directTemplateArgs" : {
           
         },
         "transitiveImportSet" : [
@@ -6329,74 +6381,68 @@
         "instanceMap" : [
           [
             {
-              "InterfaceComponentInstance" : {
-                "astNodeId" : 17
-              }
+              "InterfaceComponentInstance" : 17
             },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "17.3",
-              "includingLoc" : "None"
+              "includingLoc" : "None",
+              "expandingLoc" : "None"
             }
           ],
           [
             {
-              "InterfaceComponentInstance" : {
-                "astNodeId" : 21
-              }
+              "InterfaceComponentInstance" : 21
             },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "19.3",
-              "includingLoc" : "None"
+              "includingLoc" : "None",
+              "expandingLoc" : "None"
             }
           ],
           [
             {
-              "InterfaceTopology" : {
-                "astNodeId" : 72
-              }
+              "InterfaceTopology" : 72
             },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "35.3",
-              "includingLoc" : "None"
+              "includingLoc" : "None",
+              "expandingLoc" : "None"
             }
           ],
           [
             {
-              "InterfaceComponentInstance" : {
-                "astNodeId" : 25
-              }
+              "InterfaceComponentInstance" : 25
             },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "37.3",
-              "includingLoc" : "None"
+              "includingLoc" : "None",
+              "expandingLoc" : "None"
             }
           ],
           [
             {
-              "InterfaceComponentInstance" : {
-                "astNodeId" : 29
-              }
+              "InterfaceComponentInstance" : 29
             },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "39.3",
-              "includingLoc" : "None"
+              "includingLoc" : "None",
+              "expandingLoc" : "None"
             }
           ],
           [
             {
-              "InterfaceTopology" : {
-                "astNodeId" : 118
-              }
+              "InterfaceTopology" : 118
             },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "55.3",
-              "includingLoc" : "None"
+              "includingLoc" : "None",
+              "expandingLoc" : "None"
             }
           ]
         ],
@@ -6424,13 +6470,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -6477,13 +6522,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -6535,13 +6579,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -6588,13 +6631,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -6646,13 +6688,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 25
-                    }
+                    "InterfaceComponentInstance" : 25
                   },
                   "portInstance" : {
                     "General" : {
@@ -6699,13 +6740,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 29
-                    }
+                    "InterfaceComponentInstance" : 29
                   },
                   "portInstance" : {
                     "General" : {
@@ -6757,13 +6797,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 29
-                    }
+                    "InterfaceComponentInstance" : 29
                   },
                   "portInstance" : {
                     "General" : {
@@ -6810,13 +6849,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 25
-                    }
+                    "InterfaceComponentInstance" : 25
                   },
                   "portInstance" : {
                     "General" : {
@@ -6863,6 +6901,8 @@
             }
           ]
         },
+        "unmatchedConnectionSet" : [
+        ],
         "localConnectionMap" : {
           
         },
@@ -6870,9 +6910,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 17
-                }
+                "InterfaceComponentInstance" : 17
               },
               "portInstance" : {
                 "General" : {
@@ -6918,13 +6956,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "23.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 17
-                      }
+                      "InterfaceComponentInstance" : 17
                     },
                     "portInstance" : {
                       "General" : {
@@ -6971,13 +7008,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "23.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 21
-                      }
+                      "InterfaceComponentInstance" : 21
                     },
                     "portInstance" : {
                       "General" : {
@@ -7027,9 +7063,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 21
-                }
+                "InterfaceComponentInstance" : 21
               },
               "portInstance" : {
                 "General" : {
@@ -7075,13 +7109,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "28.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 21
-                      }
+                      "InterfaceComponentInstance" : 21
                     },
                     "portInstance" : {
                       "General" : {
@@ -7128,13 +7161,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "28.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 17
-                      }
+                      "InterfaceComponentInstance" : 17
                     },
                     "portInstance" : {
                       "General" : {
@@ -7184,9 +7216,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 25
-                }
+                "InterfaceComponentInstance" : 25
               },
               "portInstance" : {
                 "General" : {
@@ -7232,13 +7262,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "43.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 25
-                      }
+                      "InterfaceComponentInstance" : 25
                     },
                     "portInstance" : {
                       "General" : {
@@ -7285,13 +7314,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "43.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 29
-                      }
+                      "InterfaceComponentInstance" : 29
                     },
                     "portInstance" : {
                       "General" : {
@@ -7341,9 +7369,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 29
-                }
+                "InterfaceComponentInstance" : 29
               },
               "portInstance" : {
                 "General" : {
@@ -7389,13 +7415,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "48.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 29
-                      }
+                      "InterfaceComponentInstance" : 29
                     },
                     "portInstance" : {
                       "General" : {
@@ -7442,13 +7467,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "48.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 25
-                      }
+                      "InterfaceComponentInstance" : 25
                     },
                     "portInstance" : {
                       "General" : {
@@ -7500,9 +7524,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 17
-                }
+                "InterfaceComponentInstance" : 17
               },
               "portInstance" : {
                 "General" : {
@@ -7548,13 +7570,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "28.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 21
-                      }
+                      "InterfaceComponentInstance" : 21
                     },
                     "portInstance" : {
                       "General" : {
@@ -7601,13 +7622,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "28.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 17
-                      }
+                      "InterfaceComponentInstance" : 17
                     },
                     "portInstance" : {
                       "General" : {
@@ -7657,9 +7677,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 21
-                }
+                "InterfaceComponentInstance" : 21
               },
               "portInstance" : {
                 "General" : {
@@ -7705,13 +7723,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "23.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 17
-                      }
+                      "InterfaceComponentInstance" : 17
                     },
                     "portInstance" : {
                       "General" : {
@@ -7758,13 +7775,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "23.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 21
-                      }
+                      "InterfaceComponentInstance" : 21
                     },
                     "portInstance" : {
                       "General" : {
@@ -7814,9 +7830,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 25
-                }
+                "InterfaceComponentInstance" : 25
               },
               "portInstance" : {
                 "General" : {
@@ -7862,13 +7876,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "48.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 29
-                      }
+                      "InterfaceComponentInstance" : 29
                     },
                     "portInstance" : {
                       "General" : {
@@ -7915,13 +7928,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "48.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 25
-                      }
+                      "InterfaceComponentInstance" : 25
                     },
                     "portInstance" : {
                       "General" : {
@@ -7971,9 +7983,7 @@
           [
             {
               "interfaceInstance" : {
-                "InterfaceComponentInstance" : {
-                  "astNodeId" : 29
-                }
+                "InterfaceComponentInstance" : 29
               },
               "portInstance" : {
                 "General" : {
@@ -8019,13 +8029,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "43.5",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 25
-                      }
+                      "InterfaceComponentInstance" : 25
                     },
                     "portInstance" : {
                       "General" : {
@@ -8072,13 +8081,12 @@
                   "loc" : {
                     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                     "pos" : "43.16",
-                    "includingLoc" : "None"
+                    "includingLoc" : "None",
+                    "expandingLoc" : "None"
                   },
                   "port" : {
                     "interfaceInstance" : {
-                      "InterfaceComponentInstance" : {
-                        "astNodeId" : 29
-                      }
+                      "InterfaceComponentInstance" : 29
                     },
                     "portInstance" : {
                       "General" : {
@@ -8133,13 +8141,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -8186,13 +8193,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -8245,13 +8251,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -8298,13 +8303,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -8357,13 +8361,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 25
-                    }
+                    "InterfaceComponentInstance" : 25
                   },
                   "portInstance" : {
                     "General" : {
@@ -8410,13 +8413,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 29
-                    }
+                    "InterfaceComponentInstance" : 29
                   },
                   "portInstance" : {
                     "General" : {
@@ -8469,13 +8471,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 29
-                    }
+                    "InterfaceComponentInstance" : 29
                   },
                   "portInstance" : {
                     "General" : {
@@ -8522,13 +8523,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 25
-                    }
+                    "InterfaceComponentInstance" : 25
                   },
                   "portInstance" : {
                     "General" : {
@@ -8583,13 +8583,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -8636,13 +8635,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "23.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -8695,13 +8693,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 21
-                    }
+                    "InterfaceComponentInstance" : 21
                   },
                   "portInstance" : {
                     "General" : {
@@ -8748,13 +8745,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "28.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 17
-                    }
+                    "InterfaceComponentInstance" : 17
                   },
                   "portInstance" : {
                     "General" : {
@@ -8807,13 +8803,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 25
-                    }
+                    "InterfaceComponentInstance" : 25
                   },
                   "portInstance" : {
                     "General" : {
@@ -8860,13 +8855,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "43.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 29
-                    }
+                    "InterfaceComponentInstance" : 29
                   },
                   "portInstance" : {
                     "General" : {
@@ -8919,13 +8913,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.5",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 29
-                    }
+                    "InterfaceComponentInstance" : 29
                   },
                   "portInstance" : {
                     "General" : {
@@ -8972,13 +8965,12 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
                   "pos" : "48.16",
-                  "includingLoc" : "None"
+                  "includingLoc" : "None",
+                  "expandingLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
-                    "InterfaceComponentInstance" : {
-                      "astNodeId" : 25
-                    }
+                    "InterfaceComponentInstance" : 25
                   },
                   "portInstance" : {
                     "General" : {
@@ -9213,56 +9205,6 @@
       
     },
     "dictionaryMap" : {
-      "72" : {
-        "usedSymbolSet" : [
-        ],
-        "commandEntryMap" : {
-          
-        },
-        "tlmChannelEntryMap" : {
-          
-        },
-        "eventEntryMap" : {
-          
-        },
-        "paramEntryMap" : {
-          
-        },
-        "recordEntryMap" : {
-          
-        },
-        "containerEntryMap" : {
-          
-        },
-        "tlmPacketSetMap" : {
-          
-        }
-      },
-      "118" : {
-        "usedSymbolSet" : [
-        ],
-        "commandEntryMap" : {
-          
-        },
-        "tlmChannelEntryMap" : {
-          
-        },
-        "eventEntryMap" : {
-          
-        },
-        "paramEntryMap" : {
-          
-        },
-        "recordEntryMap" : {
-          
-        },
-        "containerEntryMap" : {
-          
-        },
-        "tlmPacketSetMap" : {
-          
-        }
-      },
       "128" : {
         "usedSymbolSet" : [
         ],

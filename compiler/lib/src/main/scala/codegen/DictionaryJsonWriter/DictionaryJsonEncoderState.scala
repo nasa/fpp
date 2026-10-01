@@ -18,15 +18,7 @@ case class DictionaryJsonEncoderState(
   locationMap: Map[String, Location] = Map()
 ) {
 
-  /** Gets the unqualified name associated with a symbol. */
-  def getName(symbol: Symbol): String = {
-    val name = symbol.getUnqualifiedName
-    a.parentSymbolMap.get(symbol) match {
-      case Some(cs: Symbol.Component) => s"${cs.getUnqualifiedName}_$name"
-      case _ => name
-    }
-  }
-
+  /** Gets the F Prime default string size */
   def getFwDefaultStringSize: BigInt = {
     val s = a.frameworkDefinitions.constantMap("FW_FIXED_LENGTH_STRING_SIZE")
     a.valueMap(s.getNodeId) match {
@@ -34,6 +26,10 @@ case class DictionaryJsonEncoderState(
       case _ => throw InternalError("expected integer value")
     }
   }
+
+  /** Writes the name of a symbol */
+  def writeSymbolName(symbol: Symbol, separator: String = "_") =
+    a.getQualifiedName(symbol).toString.replaceAll("\\.", separator)
 
 }
 
@@ -44,5 +40,8 @@ case object DictionaryJsonEncoderState {
 
   /** Gets the generated JSON file name for a topology definition */
   def getTopologyFileName(baseName: String): String = s"${baseName}TopologyDictionary.json"
+
+  /** Gets the generated JSON file name for a system definition */
+  def getSystemFileName(baseName: String): String = s"${baseName}SystemDictionary.json"
 
 }

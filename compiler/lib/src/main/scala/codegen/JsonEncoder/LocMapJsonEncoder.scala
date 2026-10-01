@@ -31,7 +31,7 @@ object LocMapJsonEncoder extends JsonEncoder {
     // Convert the list elements to function arguments
     Json.obj(
       "fppVersion" -> Version.v.asJson,
-      "locationMap" -> Json.obj(locationsList: _*)
+      "locationMap" -> Json.obj(locationsList*)
     )
   }
 

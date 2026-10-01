@@ -55,8 +55,19 @@ object AnalysisJsonEncoder extends JsonEncoder{
   private implicit val interfaceInstanceEncoder: Encoder[InterfaceInstance] =
     Encoder.instance { instance =>
       val nodeJson = instance match {
-        case InterfaceInstance.InterfaceComponentInstance(ci) => ci.aNode.asJson
-        case InterfaceInstance.InterfaceTopology(t) => t.aNode.asJson
+        case InterfaceInstance.InterfaceComponentInstance(ci) => ci.aNode._2.id.asJson
+        case InterfaceInstance.InterfaceTopology(t) => t.aNode._2.id.asJson
+        case InterfaceInstance.InterfaceTemplateArg(
+          paramDef,
+          interface,
+          ii
+        ) => Json.obj(
+          "paramDef" -> Json.obj(
+            "name" -> paramDef.name.asJson,
+            "interfaceNodeId" -> paramDef.interface.id.asJson
+          ),
+          "ii" -> ii.asJson
+        )
       }
       addTypeNameKey(instance, nodeJson)
   }
@@ -70,7 +81,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
       Json.obj(
         map.toList
           .sortBy(_._1.getNodeId)
-          .map { case (k, v) => (ke(k), v.asJson) }: _*
+          .map { case (k, v) => (ke(k), v.asJson) }*
       )
     }
 
@@ -83,7 +94,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
       Json.obj(
         map.toList
           .sortBy(_._1)
-          .map { case (k, v) => (ke(k), v.asJson) }: _*
+          .map { case (k, v) => (ke(k), v.asJson) }*
       )
     }
 
@@ -96,7 +107,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
       Json.obj(
         map.toList
           .map { case (k, v) => (ke(k), ve(v)) }
-          .sortBy(_._1): _*
+          .sortBy(_._1)*
       )
     }
 

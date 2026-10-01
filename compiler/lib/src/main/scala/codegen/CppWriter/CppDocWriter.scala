@@ -78,15 +78,15 @@ object CppDocWriter extends LineUtils {
 
   /** Write a Doxygen comment */
   def writeDoxygenComment(comment: String): List[Line] =
-    Line.blank :: lines(comment).map(addCommentPrefix("//!")_)
+    Line.blank :: lines(comment).map(addCommentPrefix("//!"))
 
   /** Write a Doxygen post comment */
   def writeDoxygenPostComment(comment: String): List[Line] =
-    lines(comment).map(addCommentPrefix("//!<")_)
+    lines(comment).map(addCommentPrefix("//!<"))
 
   /** Write a comment body */
   def writeCommentBody(comment: String): List[Line] =
-    lines(comment).map(addCommentPrefix("//")_)
+    lines(comment).map(addCommentPrefix("//"))
 
   /** Left align a compiler directive */
   def leftAlignDirective(line: Line): Line =

@@ -1,0 +1,378 @@
+{
+  "metadata" : {
+    "deploymentName" : "UnqualifiedCompInst",
+    "projectVersion" : "1.0.0",
+    "frameworkVersion" : "3.4.3",
+    "libraryVersions" : [
+      "lib1-1.0.0",
+      "lib2-2.0.0"
+    ],
+    "dictionarySpecVersion" : "1.0.0"
+  },
+  "typeDefinitions" : [
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwTlmPacketizeIdType",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "enum",
+      "qualifiedName" : "Fw.DpState",
+      "representationType" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "enumeratedConstants" : [
+        {
+          "name" : "UNTRANSMITTED",
+          "value" : 0,
+          "annotation" : "The untransmitted state"
+        },
+        {
+          "name" : "PARTIAL",
+          "value" : 1,
+          "annotation" : "The partially transmitted state\nA data product is in this state from the start of transmission\nuntil transmission is complete."
+        },
+        {
+          "name" : "TRANSMITTED",
+          "value" : 2,
+          "annotation" : "The transmitted state"
+        }
+      ],
+      "default" : "Fw.DpState.UNTRANSMITTED"
+    },
+    {
+      "kind" : "enum",
+      "qualifiedName" : "M.E1",
+      "representationType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "enumeratedConstants" : [
+        {
+          "name" : "X",
+          "value" : 0
+        },
+        {
+          "name" : "Y",
+          "value" : 1
+        },
+        {
+          "name" : "Z",
+          "value" : 2
+        }
+      ],
+      "default" : "M.E1.X"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "BaseIdType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwTimeContextStoreType",
+      "type" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "annotation" : "The type used to serialize a time context value"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwEventIdType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "enum",
+      "qualifiedName" : "Fw.DpCfg.ProcType",
+      "representationType" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "enumeratedConstants" : [
+        {
+          "name" : "PROC_TYPE_ZERO",
+          "value" : 1,
+          "annotation" : "Processing type 0"
+        },
+        {
+          "name" : "PROC_TYPE_ONE",
+          "value" : 2,
+          "annotation" : "Processing type 1"
+        },
+        {
+          "name" : "PROC_TYPE_TWO",
+          "value" : 4,
+          "annotation" : "Processing type 2"
+        }
+      ],
+      "default" : "Fw.DpCfg.ProcType.PROC_TYPE_ZERO",
+      "annotation" : "A bit mask for selecting the type of processing to perform on\na container before writing it to disk."
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwSizeStoreType",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwPacketDescriptorType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwDpIdType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwTimeBaseStoreType",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "annotation" : "The type used to serialize a time base value"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwChanIdType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwOpcodeType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwDpPriorityType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwSizeType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    }
+  ],
+  "constants" : [
+    {
+      "kind" : "constant",
+      "qualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 256
+    },
+    {
+      "kind" : "constant",
+      "qualifiedName" : "Fw.DpCfg.CONTAINER_USER_DATA_SIZE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 32,
+      "annotation" : "The container user data size"
+    },
+    {
+      "kind" : "constant",
+      "qualifiedName" : "FW_SERIALIZE_TRUE_VALUE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 255
+    },
+    {
+      "kind" : "constant",
+      "qualifiedName" : "FW_SERIALIZE_FALSE_VALUE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 0
+    },
+    {
+      "kind" : "constant",
+      "qualifiedName" : "STRING_SIZE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 256
+    }
+  ],
+  "commands" : [
+    {
+      "name" : "I2.P_PRM_SET",
+      "commandKind" : "set",
+      "opcode" : 768,
+      "formalParams" : [
+        {
+          "name" : "val",
+          "type" : {
+            "name" : "M.E1",
+            "kind" : "qualifiedIdentifier"
+          },
+          "ref" : false
+        }
+      ]
+    },
+    {
+      "name" : "I2.P_PRM_SAVE",
+      "commandKind" : "save",
+      "opcode" : 769,
+      "formalParams" : [
+      ]
+    }
+  ],
+  "parameters" : [
+    {
+      "name" : "I2.P",
+      "type" : {
+        "name" : "M.E1",
+        "kind" : "qualifiedIdentifier"
+      },
+      "id" : 768
+    }
+  ],
+  "events" : [
+  ],
+  "telemetryChannels" : [
+  ],
+  "records" : [
+  ],
+  "containers" : [
+  ],
+  "telemetryPacketSets" : [
+  ]
+}

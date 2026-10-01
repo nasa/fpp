@@ -42,7 +42,7 @@ object TlmChannelIdentifier {
     Result.Result[TlmChannelIdentifier] = {
       val data = node.data
       for {
-        componentInstance <- a.getComponentInstance(
+        componentInstance <- a.getRepresentedComponentInstance(
           data.componentInstance.id
         )
         tlmChannel <- componentInstance.component.getTlmChannelByName(

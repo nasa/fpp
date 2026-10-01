@@ -10,15 +10,10 @@ import fpp.compiler.util._
 object ToolUtils {
 
   def parseFiles(files: List[File]) =
-    Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
+    Result.map(files, Parser.parseFile (Parser.transUnit) (None))
 
   def resolveAsts(a: Analysis, tul: List[Ast.TransUnit]) =
-    for {
-      aTul <- ResolveSpecInclude.transUnitList(a, tul)
-      a <- Right(aTul._1)
-      tul <- Right(aTul._2)
-      tul <- AddStateEnums.transUnitList(tul)
-    } yield (a, tul)
+    ResolveSpecInclude.transUnitList(a, tul)
 
   def parseFilesAndResolveAsts(a: Analysis, files: List[File]):
     Result.Result[(Analysis, List[Ast.TransUnit])] =

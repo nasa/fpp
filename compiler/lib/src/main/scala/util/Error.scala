@@ -120,6 +120,11 @@ sealed trait Error {
         Error.print (Some(loc)) (s"duplicate struct member ${name}")
         System.err.println("previous member is here:")
         System.err.println(prevLoc)
+      case SemanticError.DuplicateSystemDefinition(loc, prevLoc) =>
+        Error.print (Some(loc)) ("duplicate system definition")
+        System.err.println("previous definition is here:")
+        System.err.println(prevLoc)
+        printNote("each model may have at most one system definition")
       case SemanticError.DuplicateTlmPacketSet(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate telemetry packet set ${name}")
         System.err.println("previous set is here:")
@@ -265,6 +270,51 @@ sealed trait Error {
         System.err.println("conflicting port number is here:")
         System.err.println(p2Loc)
         printMatchingLoc(matchingLoc)
+      case SemanticError.WrongNumberOfTemplateArguments(
+        expandLoc: Location,
+        defLoc: Location,
+        expandLength: Number,
+        defLength: Number,
+      ) =>
+        val parameters = if defLength == 1 then "argument" else "arguments"
+        Error.print (Some(expandLoc)) (
+          s"expected $defLength template $parameters, got $expandLength"
+        )
+        System.err.println("template defined here:")
+        System.err.println(defLoc)
+      case SemanticError.InvalidTemplateArg(
+        paramName: String,
+        argLoc: Location,
+        paramLoc: Location,
+        msg: String,
+      ) =>
+        Error.print (Some(argLoc)) (s"invalid argument for template parameter $paramName: $msg")
+        System.err.println("template parameter is defined here:")
+        System.err.println(paramLoc)
+      case SemanticError.TemplateParameterConflict(
+        paramName: String,
+        paramLoc: Location,
+        defLoc: Location,
+      ) =>
+        Error.print (Some(paramLoc)) (
+          s"template parameter $paramName conflicts with a definition in the template body"
+        )
+        System.err.println("conflicting definition is here:")
+        System.err.println(defLoc)
+      case SemanticError.NestedTemplateDefinition(
+        nestedLoc: Location,
+        parentLoc: Location
+      ) =>
+        Error.print (Some(nestedLoc)) ("module template definitions cannot be nested")
+        System.err.println("parent template defined here:")
+        System.err.println(parentLoc)
+      case SemanticError.TemplateExpansionInTemplate(
+        expandLoc: Location,
+        templateLoc: Location
+      ) =>
+        Error.print (Some(expandLoc)) ("template expansion specifiers cannot appear inside a module template")
+        System.err.println("enclosing template defined here:")
+        System.err.println(templateLoc)
       case SemanticError.MissingAsync(kind, loc) =>
         Error.print (Some(loc)) (s"$kind component must have async input")
       case SemanticError.MissingConnection(loc, matchingLoc) =>
@@ -528,6 +578,11 @@ object SemanticError {
     loc: Location,
     prevLoc: Location
   ) extends Error
+  /** Duplicate system definition */
+  final case class DuplicateSystemDefinition(
+    loc: Location,
+    prevLoc: Location
+  ) extends Error
   /** Duplicate telemetry packet set */
   final case class DuplicateTlmPacketSet(
     name: String,
@@ -699,7 +754,7 @@ object SemanticError {
     channelName: String,
     componentName: String
   ) extends Error
-  /** Invalid telemetry packet */
+  /** Invalid telemetry packet set */
   final case class InvalidTlmPacketSet(
     loc: Location,
     name: String,
@@ -714,6 +769,36 @@ object SemanticError {
     p2Loc: Location,
     p2Number: Int,
     matchingLoc: Location
+  ) extends Error
+  /** Wrong number of template arguments */
+  final case class WrongNumberOfTemplateArguments(
+    expandLoc: Location,
+    defLoc: Location,
+    expandLength: Number,
+    defLength: Number,
+  ) extends Error
+  /** Template argument of the wrong kind */
+  final case class InvalidTemplateArg(
+    paramName: String,
+    argLoc: Location,
+    paramLoc: Location,
+    msg: String,
+  ) extends Error
+  /** Template parameter conflicts with a definition in the template body */
+  final case class TemplateParameterConflict(
+    paramName: String,
+    paramLoc: Location,
+    defLoc: Location,
+  ) extends Error
+  /** Nested template definition */
+  final case class NestedTemplateDefinition(
+    nestedLoc: Location,
+    parentLoc: Location,
+  ) extends Error
+  /** Template expansion specifier nested inside a template */
+  final case class TemplateExpansionInTemplate(
+    expandLoc: Location,
+    templateLoc: Location,
   ) extends Error
   /** Missing async input */
   final case class MissingAsync(kind: String, loc: Location) extends Error

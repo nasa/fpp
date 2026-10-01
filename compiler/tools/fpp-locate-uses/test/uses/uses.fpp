@@ -75,7 +75,7 @@ module M {
     phase Phases.teardown "code"
   }
 
-  topology T2 {
+  deployment topology T2 {
 
     import T1
     instance c11
@@ -110,3 +110,5 @@ state machine SM1 {
   state S
 
 }
+
+system S1: M.T3

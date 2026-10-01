@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/top_import/deployment_topology.fpp:2.15
+topology T2 { instance T1 }
+              ^
+error: invalid use of symbol T1: use of deployment topology is not allowed here
+symbol is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/top_import/deployment_topology.fpp:1.1
+deployment topology T1 {}
+^

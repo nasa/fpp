@@ -3,7 +3,7 @@ module TypedPortsPassive {
   instance sender: Sender base id 0x100
   instance receiver: Receiver base id 0x200
 
-  topology TypedPortsPassive {
+  deployment topology TypedPortsPassive {
 
     instance sender
     instance receiver

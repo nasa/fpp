@@ -45,7 +45,7 @@ do
     echo "Building $out_file"
     class_path="${CLASSPATH}"
     evalp "$FPP_GRAALVM_JAVA_HOME/bin/native-image" -H:PageSize=65536 -cp "${class_path}" $FPP_NATIVE_IMAGE_FLAGS \
-      --no-fallback --install-exit-handlers \
+      --sun-misc-unsafe-memory-access=allow --enable-native-access=ALL-UNNAMED \
       -jar "$jar_file" "$out_file"
     if [ $? -ne 0 ]
     then

@@ -14,7 +14,8 @@ The string literal specifies a file path relative to the
 <<Translation-Units-and-Models_Locations,
 location>> of the include specifier.
 
-During parsing, the translator does the following:
+During <<Analysis-and-Translation_Analysis,parsing>>, the translator does the
+following:
 
 . Resolve the path to an absolute file name that refers to a file _F_.
 
@@ -23,6 +24,10 @@ During parsing, the translator does the following:
 . Include its parsed elements as if they appeared
 in the enclosing translation unit at the point where the include
 specifier appears.
+
+All include specifiers are resolved this way, even ones that occur inside or
+transitively inside a <<Definitions_Module-Template-Definitions,template
+definition>>.
 
 The suffix `.fppi` is conventional for included files, to distinguish them
 from files presented directly for analysis or translation.

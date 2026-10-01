@@ -3,6 +3,6 @@ dictionary constant C = {
     Y = 1
 }
 
-topology T {
+deployment topology T {
 
 }

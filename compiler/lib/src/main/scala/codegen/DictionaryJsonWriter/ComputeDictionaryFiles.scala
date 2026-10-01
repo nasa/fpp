@@ -25,9 +25,21 @@ object ComputeDictionaryFiles extends AstStateVisitor {
   override def defTopologyAnnotatedNode(s: State, aNode: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
     val (_, node, _) = aNode
     val data = node.data
+    if data.isDeployment
+    then
+      val loc = Locations.get(node.id)
+      val fileName = DictionaryJsonEncoderState.getTopologyFileName(data.name)
+      addMapping(s, fileName, loc)
+    else
+      Right(s)
+  }
+
+  override def defSystemAnnotatedNode(s: State, aNode: Ast.Annotated[AstNode[Ast.DefSystem]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
     val loc = Locations.get(node.id)
-    val name = s.getName(Symbol.Topology(aNode))
-    val fileName = DictionaryJsonEncoderState.getTopologyFileName(name)
+    val baseName = s.writeSymbolName(Symbol.System(aNode))
+    val fileName = DictionaryJsonEncoderState.getSystemFileName(baseName)
     addMapping(s, fileName, loc)
   }
 

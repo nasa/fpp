@@ -28,6 +28,10 @@ module M {
     """
 
     phase Phases.configComponents """
+    // Test that ConfigConstants::M_active2::X is in scope here
+    (void) X;
+    // Test that ConfigObjects::M_active2::x is in scope here
+    (void) x;
     M::active2.config();
     """
 
@@ -60,7 +64,7 @@ module M {
   instance passive1: Passive base id 0x300
   instance passive2: Passive base id 0x400 type "ConcretePassive"
 
-  topology Basic {
+  deployment topology Basic {
 
     instance active1
     instance active2

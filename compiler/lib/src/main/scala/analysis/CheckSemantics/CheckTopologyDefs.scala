@@ -19,13 +19,13 @@ object CheckTopologyDefs
       case None =>
         // Topology is not in the map: visit it
         for {
-          // Resolve connections on topologies directly imported into this topology
+          // Resolve connections on topologies imported into this topology
           a <- {
-            // Resolve topologies directly imported by top, updating a
+            // Resolve topologies imported by top, updating a.
             val top = a.partialTopologyMap(symbol)
-            val tops = top.directTopologies.toList
-            Result.foldLeft (tops) (a) ((a, tl) => {
-              defTopologyAnnotatedNode(a, tl._1.node)
+            val tops = top.getImportedTopologySymbols(a)
+            Result.foldLeft (tops) (a) ((a, ts) => {
+              defTopologyAnnotatedNode(a, ts.node)
             })
           }
 
@@ -55,7 +55,7 @@ object CheckTopologyDefs
             for (c <- Connection.fromAst(a, ast))
               yield t.addLocalConnection(direct.name, c)
           )
-        case pattern: Ast.SpecConnectionGraph.Pattern => 
+        case pattern: Ast.SpecConnectionGraph.Pattern =>
           for {
             p <- ConnectionPattern.fromSpecConnectionGraph(a, aNode, pattern)
             t <- a.topology.get.addPattern(pattern.kind, p)
@@ -63,5 +63,24 @@ object CheckTopologyDefs
       }
     } yield a.copy(topology = Some(topology))
   }
+
+  override def specTlmPacketSetAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
+  ) =
+    val top = a.topology.get
+    if top.aNode._2.data.isDeployment
+    then Right(a)
+    else
+      val node = aNode._2
+      val loc = Locations.get(node.id)
+      val name = node.data.name
+      Left(
+        SemanticError.InvalidTlmPacketSet(
+          loc,
+          name,
+          "only a deployment topology may specify a telemetry packet set"
+        )
+      )
 
 }

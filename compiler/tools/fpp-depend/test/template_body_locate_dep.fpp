@@ -1,0 +1,1 @@
+constant bodyLocConst = 5

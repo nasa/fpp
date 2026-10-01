@@ -27,6 +27,7 @@ syn keyword fppKeyword constant
 syn keyword fppKeyword container
 syn keyword fppKeyword cpu
 syn keyword fppKeyword default
+syn keyword fppKeyword deployment
 syn keyword fppKeyword diagnostic
 syn keyword fppKeyword dictionary
 syn keyword fppKeyword do
@@ -38,6 +39,7 @@ syn keyword fppKeyword enum
 syn keyword fppKeyword event
 syn keyword fppKeyword every
 syn keyword fppKeyword exit
+syn keyword fppKeyword expand
 syn keyword fppKeyword external
 syn keyword fppKeyword false
 syn keyword fppKeyword fatal
@@ -98,7 +100,9 @@ syn keyword fppKeyword stack
 syn keyword fppKeyword state
 syn keyword fppKeyword struct
 syn keyword fppKeyword sync
+syn keyword fppKeyword system
 syn keyword fppKeyword telemetry
+syn keyword fppKeyword template
 syn keyword fppKeyword text
 syn keyword fppKeyword throttle
 syn keyword fppKeyword time

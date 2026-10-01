@@ -16,20 +16,28 @@ object NameGroup {
     override def toString(): String = "port"
   }
 
+  case object PortInterface extends NameGroup {
+    override def toString(): String = "interface"
+  }
+
   case object StateMachine extends NameGroup {
     override def toString(): String = "state machine"
+  }
+
+  case object System extends NameGroup {
+    override def toString(): String = "system"
   }
 
   case object Topology extends NameGroup {
     override def toString(): String = "topology"
   }
 
-  case object PortInterface extends NameGroup {
-    override def toString(): String = "interface"
-  }
-
   case object Type extends NameGroup {
     override def toString(): String = "type"
+  }
+
+  case object Template extends NameGroup {
+    override def toString(): String = "template"
   }
 
   case object Value extends NameGroup {
@@ -42,6 +50,7 @@ object NameGroup {
     StateMachine,
     PortInterfaceInstance,
     PortInterface,
+    Template,
     Type,
     Value
   )

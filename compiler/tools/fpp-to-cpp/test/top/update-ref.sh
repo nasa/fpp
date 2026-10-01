@@ -100,7 +100,6 @@ ports()
   cd $TOP_DIR/ports
   update "-p $PWD,$FPRIME_DIR -i $FPRIME_DEPS,../phases.fpp,components.fpp -n names.txt" topology
   mv names.txt names.ref.txt
-  move_cpp Ports1Topology
   move_cpp Ports2Topology
   cd $TOP_DIR
 }

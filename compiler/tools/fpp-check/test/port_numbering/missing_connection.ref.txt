@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/missing_connection.fpp:28.5
+    c1.pOut -> c2.pIn
+    ^
+error: no match for this connection
+port matching is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/missing_connection.fpp:8.3
+  match pIn with pOut
+  ^

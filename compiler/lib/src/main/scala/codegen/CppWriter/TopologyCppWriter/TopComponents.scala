@@ -99,8 +99,10 @@ case class TopComponents(
   ) = {
     val port = connection.from.port
     // Connections must be flattened at this point
-    val _ @ InterfaceInstance.InterfaceComponentInstance(componentInstance) =
-      port.interfaceInstance
+    val componentInstance = port.interfaceInstance.getComponentInstanceOpt match {
+      case Some(ci) => ci
+      case None => throw InternalError("topology connections not flattened")
+    }
     val portInstance = port.portInstance
     val component = componentInstance.component
     val portName = portInstance.getUnqualifiedName

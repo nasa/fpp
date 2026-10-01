@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/not_deployment_topology.fpp:2.3
+  telemetry packets P {
+  ^
+error: invalid telemetry packet set P
+only a deployment topology may specify a telemetry packet set

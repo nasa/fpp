@@ -8,7 +8,7 @@ module M {
 
   instance noTlm: NoTlm base id 0x400
 
-  topology Tlm {
+  deployment topology Tlm {
 
     instance c1
     instance c2

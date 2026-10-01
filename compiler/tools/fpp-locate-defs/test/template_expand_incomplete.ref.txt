@@ -1,0 +1,3 @@
+locate state machine Expanded.SM at "template_expand_incomplete.fpp"
+locate template Local.Tmpl at "template_expand_incomplete.fpp"
+locate type Expanded.SM.State at "template_expand_incomplete.fpp"

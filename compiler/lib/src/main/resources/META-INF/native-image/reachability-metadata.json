@@ -1,0 +1,8063 @@
+{
+  "reflection": [
+    {
+      "type": "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.analysis.Connection[]"
+    },
+    {
+      "type": "fpp.compiler.analysis.Format$Parser$",
+      "fields": [
+        {
+          "name": "$tilde$lzy1"
+        },
+        {
+          "name": "Error$lzy1"
+        },
+        {
+          "name": "Failure$lzy1"
+        },
+        {
+          "name": "NoSuccess$lzy1"
+        },
+        {
+          "name": "Success$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.analysis.Topology",
+      "fields": [
+        {
+          "name": "componentInstanceMap$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy407"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1000",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy914"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1001",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy906"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1002",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy907"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1003",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy908"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1004",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy909"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1005",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy910"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1006",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy911"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1007",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy912"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1008",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy913"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1010",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy934"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1011",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy918"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1013",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy919"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1014",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy933"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1015",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy932"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1016",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy920"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1017",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy926"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1018",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy925"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1019",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy921"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1020",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy922"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1021",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy923"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1022",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy924"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1024",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy931"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1025",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy930"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1026",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy927"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1027",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy928"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1028",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy929"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1030",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy935"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1031",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy936"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1032",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy980"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1033",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy958"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1034",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy947"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1035",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy946"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1036",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy938"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1037",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy939"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1038",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy940"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1039",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy941"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1040",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy942"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1041",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy943"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1042",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy944"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1043",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy945"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1045",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy948"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1046",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy952"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1047",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy951"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1048",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy949"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1049",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy950"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1051",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy953"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1052",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy954"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1053",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy957"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1054",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy956"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1055",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy955"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1056",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy979"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1079",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1002"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1080",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1001"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1081",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy990"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1082",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy989"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1083",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy981"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1084",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy982"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1085",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy983"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1086",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy984"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1087",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy985"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1088",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy986"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1089",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy987"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1090",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy988"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1092",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy991"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1093",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy995"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1094",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy994"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1095",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy992"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1096",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy993"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1098",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy996"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1099",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy997"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1100",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1000"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1101",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy999"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1102",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy998"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1103",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1020"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1104",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1019"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1105",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1003"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1106",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1004"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1107",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1018"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1123",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1039"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1124",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1038"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1125",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1022"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1127",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1023"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1128",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1037"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1144",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1060"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1145",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1049"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1156",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1050"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1157",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1054"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1162",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1055"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1163",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1056"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1164",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1059"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1167",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1061"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1168",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1085"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1169",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1075"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1184",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1084"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1185",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1083"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1186",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1076"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1187",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1077"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1188",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1078"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1189",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1079"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1190",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1080"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1191",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1081"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1192",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1082"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1194",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1151"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1195",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1121"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1234",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1145"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1235",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1125"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1236",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1122"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1237",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1123"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1238",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1124"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1240",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1139"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1241",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1126"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1242",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1127"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1243",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1128"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1244",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1129"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1245",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1130"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1246",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1131"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1247",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1132"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1248",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1133"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1249",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1134"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1250",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1135"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1251",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1136"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1252",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1137"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1253",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1138"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1255",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1144"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1260",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1150"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1261",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1146"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1262",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1147"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1263",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1148"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1264",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1149"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1265",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1152"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1266",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1169"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1267",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1165"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1268",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1154"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1269",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1153"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1270",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1164"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1271",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1158"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1272",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1157"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1273",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1156"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1275",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1163"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1276",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1162"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1277",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1161"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1280",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1168"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1283",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1224"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1284",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1186"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1285",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1172"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1286",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1171"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1288",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1174"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1290",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1185"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1291",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1184"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1292",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1178"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1293",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1177"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1294",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1176"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1296",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1183"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1297",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1182"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1298",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1181"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1301",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1206"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1302",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1189"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1303",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1188"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1305",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1194"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1310",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1205"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1311",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1204"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1312",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1198"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1313",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1197"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1314",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1196"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1316",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1203"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1317",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1202"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1318",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1201"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1321",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1223"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1322",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1210"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1323",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1209"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1326",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1211"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1327",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1222"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1328",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1221"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1329",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1215"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1330",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1214"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1331",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1213"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1333",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1220"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1334",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1219"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1335",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1218"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1338",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1225"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1340",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1226"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1341",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1236"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1342",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1227"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1343",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1228"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1344",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1229"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1345",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1230"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1346",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1231"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1347",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1232"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1348",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1233"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1349",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1234"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1350",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1235"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1352",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1237"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1353",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1248"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1365",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1249"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1366",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1252"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1367",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1251"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1369",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1253"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1370",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1265"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1371",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1264"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1372",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1263"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1373",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1257"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1374",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1256"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1375",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1255"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1377",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1262"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1378",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1261"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1379",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1260"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1382",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1277"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1383",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1276"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1384",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1275"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1385",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1269"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1386",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1268"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1387",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1267"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1389",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1274"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1390",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1273"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1391",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1272"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1394",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1297"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1395",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1279"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1396",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1278"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1397",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1296"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1398",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1292"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1399",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1281"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1400",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1280"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1401",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1291"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1402",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1285"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1403",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1284"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1404",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1283"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1406",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1290"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1407",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1289"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1408",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1288"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1411",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1295"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1412",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1294"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1413",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1293"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1416",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1698"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1417",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1430"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$151",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy166"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1562",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1460"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1563",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1454"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1564",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1444"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1580",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1453"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1581",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1450"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1582",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1449"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1583",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1445"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1584",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1446"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1585",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1447"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1586",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1448"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1587",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1451"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1588",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1452"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1590",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1459"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1591",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1455"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1592",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1458"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1593",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1456"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1594",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1457"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1596",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1490"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1597",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1472"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1612",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1475"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1613",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1473"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1614",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1474"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1616",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1489"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1617",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1488"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1618",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1476"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1619",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1482"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1626",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1487"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1627",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1486"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1628",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1483"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1629",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1484"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1630",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1485"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1632",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1520"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1633",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1502"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1648",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1505"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1649",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1503"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1650",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1504"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1652",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1519"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1653",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1518"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1654",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1506"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1655",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1512"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1662",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1517"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1663",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1516"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1664",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1513"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1665",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1514"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1666",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1515"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1668",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1550"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1669",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1533"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1684",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1547"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1685",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1546"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1686",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1534"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1687",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1540"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1688",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1539"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1689",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1535"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1690",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1536"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1691",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1537"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1692",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1538"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1694",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1545"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1695",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1544"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1696",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1541"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1697",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1542"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1698",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1543"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1700",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1549"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1701",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1548"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1702",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1573"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1703",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1551"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1704",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1572"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1705",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1561"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1706",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1560"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1707",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1552"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1708",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1553"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1709",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1554"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1710",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1555"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1711",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1556"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1712",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1557"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1713",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1558"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1714",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1559"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1716",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1562"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1717",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1566"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1718",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1565"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1719",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1563"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1720",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1564"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1722",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1567"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1723",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1568"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1724",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1571"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1727",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1574"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1728",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1589"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1729",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1580"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1735",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1583"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1736",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1582"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1738",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1588"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1739",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1584"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1740",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1585"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1741",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1586"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1742",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1587"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1743",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1693"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1744",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1590"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1745",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1641"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1746",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1626"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1785",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1637"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1786",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1631"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1787",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1627"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1788",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1628"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1789",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1629"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1790",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1630"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1792",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1636"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1797",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1640"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1798",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1638"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1799",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1639"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1800",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1692"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1801",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1677"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1840",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1688"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1841",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1682"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1842",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1678"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1843",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1679"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1844",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1680"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1845",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1681"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1847",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1687"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$185",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy196"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1852",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1691"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1853",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1689"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1854",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1690"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1855",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1695"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1856",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1694"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1857",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1697"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1858",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1696"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1859",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1714"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$186",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy178"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1860",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1700"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1861",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1699"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1862",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1713"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1863",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1702"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1865",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1704"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1866",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1703"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1867",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1706"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1869",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1709"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1870",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1708"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1872",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1712"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1876",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1715"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1877",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1803"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1878",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1754"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1920",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1755"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1921",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1795"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1922",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1794"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1964",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1797"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1966",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1800"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1967",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1799"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1969",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1801"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1970",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1802"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1971",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1824"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1972",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1813"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1973",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1812"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1974",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1804"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1975",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1805"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1976",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1806"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1977",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1807"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1978",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1808"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1979",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1809"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1980",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1810"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1981",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1811"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1983",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1814"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1984",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1818"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1985",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1817"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1986",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1815"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1987",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1816"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1989",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1819"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1990",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1820"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1991",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1823"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1994",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1827"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1995",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1826"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1997",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1870"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1998",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1869"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$2",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy2"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$201",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy181"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$202",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy179"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$203",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy180"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$205",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy195"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$206",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy194"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$207",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy182"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$208",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy188"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$215",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy193"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$216",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy192"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$217",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy189"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$218",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy190"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$219",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy191"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$221",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy226"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$222",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy208"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$237",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy211"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$238",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy209"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$239",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy210"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$241",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy225"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$242",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy224"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$243",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy212"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$244",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy218"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$251",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy223"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$252",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy222"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$253",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy219"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$254",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy220"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$255",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy221"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$257",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy256"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$291",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy279"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$316",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy280"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$317",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy295"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$318",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy286"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$324",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy289"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$325",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy288"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$327",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy294"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$328",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy290"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$329",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy291"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$330",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy292"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$331",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy293"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$332",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy399"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$333",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy296"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$334",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy347"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$335",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy332"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$374",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy343"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$375",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy337"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$376",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy333"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$377",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy334"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$378",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy335"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$379",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy336"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$381",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy342"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$386",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy346"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$387",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy344"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$388",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy345"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$389",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy398"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$390",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy383"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$4",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy3"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$429",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy394"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$430",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy388"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$431",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy384"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$432",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy385"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$433",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy386"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$434",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy387"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$436",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy393"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$441",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy397"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$442",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy395"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$443",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy396"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$444",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy401"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$446",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy403"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$448",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy406"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$449",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy405"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$450",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy540"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$5",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy404"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$595",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy571"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$6",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy136"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$630",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy602"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$631",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy601"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$632",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy583"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$647",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy586"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$648",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy584"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$649",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy585"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$651",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy600"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$667",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy633"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$702",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy657"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$728",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy660"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$731",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy663"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$734",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy684"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$735",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy676"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$749",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy683"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$750",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy682"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$756",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy698"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$757",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy697"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$758",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy686"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$760",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy696"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$761",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy695"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$762",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy687"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$763",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy688"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$764",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy689"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$765",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy690"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$766",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy691"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$767",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy692"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$768",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy693"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$769",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy694"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$771",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy699"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$772",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy836"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$773",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy750"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$774",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy735"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$813",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy746"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$814",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy740"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$815",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy736"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$816",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy737"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$817",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy738"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$818",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy739"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$820",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy745"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$825",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy749"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$826",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy747"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$827",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy748"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$828",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy753"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$829",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy752"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$831",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy819"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$832",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy789"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$871",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy813"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$872",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy793"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$873",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy790"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$874",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy791"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$875",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy792"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$877",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy807"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$878",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy794"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$879",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy795"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$880",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy796"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$881",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy797"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$882",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy798"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$883",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy799"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$884",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy800"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$885",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy801"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$886",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy802"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$887",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy803"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$888",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy804"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$889",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy805"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$890",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy806"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$892",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy812"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$897",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy818"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$898",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy814"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$899",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy815"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$900",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy816"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$901",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy817"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$902",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy835"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$903",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy829"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$914",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy834"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$915",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy830"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$916",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy831"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$917",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy832"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$918",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy833"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$919",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy837"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$920",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy937"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$921",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy849"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$922",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy847"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$923",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy846"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$924",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy838"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$925",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy839"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$926",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy840"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$927",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy841"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$928",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy842"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$929",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy843"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$930",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy844"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$931",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy845"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$933",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy848"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$935",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy865"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$936",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy859"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$947",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy863"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$948",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy862"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$949",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy860"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$950",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy861"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$952",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy864"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$954",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy875"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$965",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy879"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$970",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy880"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$971",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy881"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$972",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy882"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$973",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy884"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$974",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy883"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$975",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy886"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$976",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy885"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$977",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy903"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$978",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy887"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$979",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy888"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$980",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy902"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$981",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy901"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$982",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy889"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$983",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy895"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$984",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy894"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$985",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy890"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$986",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy891"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$987",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy892"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$988",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy893"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$990",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy900"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$991",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy899"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$992",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy896"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$993",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy897"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$994",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy898"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$996",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy916"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$997",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy905"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AnalysisJsonEncoder$$anon$999",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy915"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$",
+      "fields": [
+        {
+          "name": "componentMemberEncoder$lzy1"
+        },
+        {
+          "name": "exprEncoder$lzy1"
+        },
+        {
+          "name": "moduleMemberEncoder$lzy1"
+        },
+        {
+          "name": "moduleMemberNodeEncoder$lzy1"
+        },
+        {
+          "name": "qualIdentEncoder$lzy1"
+        },
+        {
+          "name": "stateMachineMemberEncoder$lzy1"
+        },
+        {
+          "name": "stateMachineMemberNodeEncoder$lzy1"
+        },
+        {
+          "name": "stateMemberEncoder$lzy1"
+        },
+        {
+          "name": "stateMemberNodeEncoder$lzy1"
+        },
+        {
+          "name": "topologyMemberEncoder$lzy1"
+        },
+        {
+          "name": "typeNameEncoder$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$1",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy28"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$10",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy299"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$100",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy42"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$101",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy41"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$102",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy45"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$103",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy44"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$104",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy48"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$105",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy47"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$106",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy46"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$107",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy50"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$108",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy49"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$109",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy52"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$110",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy51"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$111",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy58"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$112",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy57"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$113",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy56"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$114",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy53"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$115",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy54"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$116",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy55"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$117",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy64"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$118",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy63"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$119",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy62"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$12",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy305"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$120",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy61"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$121",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy59"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$122",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy60"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$124",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy66"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$125",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy65"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$126",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy69"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$127",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy68"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$128",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy67"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$129",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy71"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$130",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy70"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$131",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy73"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$132",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy72"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$133",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy75"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$135",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy87"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$136",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy86"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$137",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy85"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$138",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy76"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$139",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy77"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$140",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy78"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$141",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy79"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$142",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy80"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$143",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy81"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$144",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy82"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$145",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy83"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$146",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy84"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$148",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy93"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$149",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy92"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$150",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy91"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$151",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy88"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$152",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy89"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$153",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy90"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$155",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy97"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$156",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy95"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$157",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy96"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$158",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy129"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$159",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy99"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$160",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy98"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$161",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy101"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$162",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy100"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$163",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy103"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$164",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy102"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$165",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy105"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$166",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy104"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$167",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy109"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$168",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy108"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$169",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy106"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$17",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy330"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$170",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy107"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$171",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy111"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$172",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy110"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$173",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy114"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$174",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy113"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$175",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy112"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$176",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy116"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$177",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy115"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$178",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy118"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$179",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy117"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$18",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy310"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$180",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy120"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$181",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy119"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$182",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy123"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$183",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy122"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$184",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy121"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$185",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy125"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$187",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy128"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$188",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy127"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$189",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy126"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$191",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy151"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$192",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy133"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$193",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy132"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$194",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy130"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$195",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy131"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$196",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy135"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$197",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy134"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$198",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy137"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$2",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy335"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$200",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy140"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$201",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy139"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$202",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy138"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$203",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy142"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$204",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy141"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$205",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy144"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$206",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy143"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$207",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy150"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$208",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy149"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$209",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy148"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$210",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy146"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$211",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy145"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$212",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy147"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$214",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy169"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$215",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy155"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$216",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy154"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$217",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy152"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$218",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy153"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$220",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy165"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$221",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy164"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$222",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy156"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$223",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy157"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$224",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy158"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$225",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy159"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$226",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy160"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$227",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy161"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$228",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy162"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$229",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy163"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$23",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy324"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$231",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy166"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$232",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy167"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$233",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy168"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$235",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy295"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$236",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy171"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$237",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy170"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$238",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy173"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$24",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy311"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$240",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy175"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$241",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy174"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$242",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy177"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$243",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy176"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$244",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy180"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$245",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy179"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$246",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy178"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$247",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy182"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$248",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy181"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$249",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy185"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$25",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy312"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$250",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy184"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$251",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy183"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$252",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy200"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$253",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy199"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$254",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy189"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$255",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy186"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$256",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy187"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$257",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy188"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$259",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy193"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$26",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy313"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$260",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy192"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$261",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy190"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$262",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy191"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$264",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy198"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$265",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy194"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$266",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy195"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$267",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy196"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$268",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy197"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$269",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy202"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$27",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy314"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$270",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy201"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$271",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy216"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$272",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy215"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$273",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy206"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$274",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy205"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$275",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy203"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$276",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy204"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$278",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy214"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$279",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy207"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$28",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy315"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$280",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy208"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$281",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy209"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$282",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy210"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$283",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy211"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$284",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy212"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$285",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy213"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$287",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy218"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$289",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy229"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$29",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy316"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$290",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy228"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$291",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy222"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$292",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy221"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$293",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy219"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$294",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy220"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$296",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy227"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$297",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy223"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$298",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy224"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$299",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy225"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$3",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy332"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$30",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy317"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$300",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy226"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$301",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy231"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$302",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy230"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$303",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy268"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$304",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy267"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$305",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy242"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$306",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy236"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$307",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy232"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$308",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy233"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$309",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy234"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$31",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy318"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$310",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy235"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$312",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy241"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$313",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy237"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$314",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy238"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$315",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy239"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$316",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy240"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$317",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy266"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$318",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy246"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$319",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy243"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$32",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy319"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$320",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy244"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$321",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy245"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$323",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy260"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$324",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy247"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$325",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy248"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$326",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy249"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$327",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy250"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$328",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy251"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$329",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy252"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$33",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy320"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$330",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy253"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$331",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy254"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$332",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy255"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$333",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy256"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$334",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy257"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$335",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy258"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$336",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy259"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$338",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy265"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$339",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy261"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$34",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy321"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$340",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy262"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$341",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy263"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$342",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy264"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$343",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy270"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$344",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy269"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$345",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy272"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$346",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy271"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$347",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy279"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$348",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy278"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$349",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy277"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$35",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy322"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$350",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy273"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$351",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy274"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$352",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy275"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$353",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy276"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$354",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy292"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$355",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy291"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$356",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy282"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$357",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy280"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$358",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy281"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$36",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy323"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$360",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy286"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$361",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy283"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$362",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy284"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$363",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy285"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$365",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy290"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$366",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy287"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$367",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy288"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$368",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy289"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$370",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy294"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$371",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy293"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$373",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy371"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$374",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy347"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$375",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy346"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$376",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy362"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$377",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy361"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$378",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy351"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$379",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy350"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$38",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy329"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$380",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy348"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$381",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy349"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$382",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy360"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$383",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy359"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$384",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy352"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$385",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy353"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$386",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy354"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$387",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy355"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$388",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy356"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$389",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy357"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$390",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy358"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$392",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy364"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$394",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy367"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$395",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy366"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$396",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy365"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$397",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy370"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$398",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy369"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$399",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy368"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$4",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy331"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$401",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy372"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$43",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy334"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$44",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy333"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$46",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy345"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$47",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy337"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$49",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy344"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$5",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy306"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$50",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy343"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$51",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy342"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$52",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy339"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$54",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy341"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$55",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy340"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$58",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy27"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$59",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$6",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy300"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$60",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy2"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$61",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy10"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$62",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy9"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$63",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy3"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$64",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy4"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$65",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy5"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$66",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy6"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$67",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy7"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$68",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy8"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$69",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy11"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$7",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy296"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$70",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy12"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$71",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy16"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$72",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy15"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$73",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy13"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$74",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy14"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$75",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy17"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$76",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy18"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$77",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy19"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$78",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy20"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$79",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy21"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$8",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy297"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$80",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy23"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$81",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy22"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$82",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy26"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$83",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy25"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$84",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy24"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$86",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy94"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$87",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy30"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$88",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy29"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$89",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy32"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$9",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy298"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$90",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy31"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$91",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy34"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$92",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy33"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$93",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy40"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$94",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy39"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$95",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy38"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$96",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy35"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$97",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy36"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$98",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy37"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.AstJsonEncoder$$anon$99",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy43"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.ComponentDataProducts",
+      "fields": [
+        {
+          "name": "Container$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.ComponentInternalStateMachines",
+      "fields": [
+        {
+          "name": "SignalBufferWriter$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.CppDocCppWriter$",
+      "fields": [
+        {
+          "name": "Input$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.CppDocHppWriter$",
+      "fields": [
+        {
+          "name": "Input$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.EnumCppWriter",
+      "fields": [
+        {
+          "name": "MemberFunctionMembers$lzy1"
+        },
+        {
+          "name": "StaticFunctionMembers$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.Line[]"
+    },
+    {
+      "type": "fpp.compiler.codegen.LocMapJsonEncoder$$anon$1",
+      "fields": [
+        {
+          "name": "elemEncoders$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.StructCppWriter",
+      "fields": [
+        {
+          "name": "EqualityOperator$lzy1"
+        },
+        {
+          "name": "SerializedSizeFunctionMember$lzy1"
+        },
+        {
+          "name": "ToStringFunctionMember$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.codegen.TypeCppWriter",
+      "fields": [
+        {
+          "name": "NameVisitor$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.syntax.Parser$",
+      "fields": [
+        {
+          "name": "$tilde$lzy1"
+        },
+        {
+          "name": "Error$lzy1"
+        },
+        {
+          "name": "Failure$lzy1"
+        },
+        {
+          "name": "NoSuccess$lzy1"
+        },
+        {
+          "name": "Success$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "io.circe.Encoder$",
+      "fields": [
+        {
+          "name": "0bitmap$1"
+        }
+      ]
+    },
+    {
+      "type": "io.circe.Encoder[]"
+    },
+    {
+      "type": "java.io.File[]"
+    },
+    {
+      "type": "java.lang.ClassValue"
+    },
+    {
+      "type": "java.lang.String[]"
+    },
+    {
+      "type": "scala.Enumeration",
+      "fields": [
+        {
+          "name": "ValueOrdering$lzy1"
+        },
+        {
+          "name": "ValueSet$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "scala.collection.immutable.ArraySeq$",
+      "fields": [
+        {
+          "name": "emptyImpl$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "scala.collection.immutable.NumericRange",
+      "fields": [
+        {
+          "name": "hashCode$lzy1"
+        },
+        {
+          "name": "isEmpty$lzy1"
+        },
+        {
+          "name": "length$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "scala.io.BufferedSource",
+      "fields": [
+        {
+          "name": "charReader$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "scala.io.Codec$",
+      "fields": [
+        {
+          "name": "fallbackSystemCodec$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "scala.io.Source",
+      "fields": [
+        {
+          "name": "NoPositioner$lzy1"
+        },
+        {
+          "name": "RelaxedPosition$lzy1"
+        },
+        {
+          "name": "RelaxedPositioner$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "scala.math.BigDecimal$",
+      "fields": [
+        {
+          "name": "cache$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "scala.util.matching.Regex$Match",
+      "fields": [
+        {
+          "name": "ends$lzy1"
+        },
+        {
+          "name": "scala$util$matching$Regex$MatchData$$nameToIndex$lzy1"
+        },
+        {
+          "name": "starts$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "scala.util.matching.Regex$MatchIterator",
+      "fields": [
+        {
+          "name": "scala$util$matching$Regex$MatchData$$nameToIndex$lzy2"
+        }
+      ]
+    },
+    {
+      "type": "scala.util.parsing.combinator.Parsers$NoSuccess$",
+      "fields": [
+        {
+          "name": "I$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "scala.util.parsing.input.OffsetPosition",
+      "fields": [
+        {
+          "name": "index$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "scala.util.parsing.input.OffsetPosition$",
+      "fields": [
+        {
+          "name": "scala$util$parsing$input$PositionCache$$indexCacheTL$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "scala.xml.XML$",
+      "fields": [
+        {
+          "name": "scala$xml$factory$XMLLoader$$parserInstance$lzy3"
+        }
+      ]
+    },
+    {
+      "type": "scala.xml.parsing.FactoryAdapter",
+      "fields": [
+        {
+          "name": "scala$xml$factory$XMLLoader$$parserInstance$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "scopt.OParser$",
+      "fields": [
+        {
+          "name": "0bitmap$1"
+        }
+      ]
+    },
+    {
+      "type": "sun.misc.Unsafe",
+      "fields": [
+        {
+          "name": "theUnsafe"
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "glob": "META-INF/services/javax.xml.parsers.SAXParserFactory"
+    },
+    {
+      "module": "java.xml",
+      "glob": "com/sun/org/apache/xerces/internal/impl/msg/XMLMessages.properties"
+    },
+    {
+      "module": "java.xml",
+      "glob": "com/sun/org/apache/xerces/internal/impl/msg/XMLMessages_en.properties"
+    },
+    {
+      "module": "java.xml",
+      "glob": "com/sun/org/apache/xerces/internal/impl/msg/XMLMessages_en_US.properties"
+    },
+    {
+      "bundle": "com.sun.org.apache.xerces.internal.impl.msg.XMLMessages"
+    }
+  ]
+}

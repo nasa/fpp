@@ -17,17 +17,17 @@ object TypeOption {
       case (Some(t1), Some(t2)) =>
         if Type.areIdentical(t1, t2)
         then Some(Some(t1))
-        else (t1, t2) match {
+        else (t1.getUnderlyingType, t2.getUnderlyingType) match {
           case (int1 : Type.PrimitiveInt, int2 : Type.PrimitiveInt) =>
             if int1.signedness != int2.signedness
             then None
             else if int2.bitWidth > int1.bitWidth
-                 then Some(to2)
-                 else Some(to1)
+                 then Some(Some(int2))
+                 else Some(Some(int1))
           case (float1 : Type.Float, float2 : Type.Float) =>
             if float2.bitWidth > float1.bitWidth
-            then Some(to2)
-            else Some(to1)
+            then Some(Some(float2))
+            else Some(Some(float1))
           case (Type.String(_), Type.String(_)) =>
             Some(Some(Type.String(None)))
           case _ => None
@@ -40,7 +40,7 @@ object TypeOption {
     case (Some(t1), Some(t2)) =>
       if Type.areIdentical(t1, t2)
         then true
-        else (t1, t2) match {
+        else (t1.getUnderlyingType, t2.getUnderlyingType) match {
           case (int1 : Type.PrimitiveInt, int2 : Type.PrimitiveInt) =>
             (int1.signedness == int2.signedness) &&
             (int2.bitWidth >= int1.bitWidth)

@@ -1,14 +1,15 @@
 == Defining Topologies
 
 In F Prime, a *topology* or connection graph is the
-highest level of software architecture in a FSW application.
+highest level of software architecture in a
+*deployment*, or executable binary program.
 A topology specifies what
 <<Defining-Component-Instances,component instances>>
 are used in the application and how their
 <<Defining-Components_Port-Instances,port instances>>
 are connected.
 
-An F Prime FSW application consists of a topology _T_;
+An F Prime deployment consists of a topology _T_;
 all the types, ports, and components used by _T_;
 and a small amount of top-level {cpp} code that you write by hand.
 In the section on
@@ -34,8 +35,8 @@ passive component C {
 instance c1: C base id 0x100
 instance c2: C base id 0x200
 
-@ A simple topology
-topology Simple {
+@ A simple deployment topology
+deployment topology Simple {
 
   @ This specifier says that instance c1 is part of the topology
   instance c1
@@ -62,8 +63,11 @@ We define two  <<Defining-Component-Instances,instances>> of
 `C`, `c1` and `c2`.
 We put these instances into a topology called `Simple`.
 
-As shown, to define a topology, you write the keyword `topology`,
-the name of the topology, and the members of the topology
+Next we define a *deployment topology*.
+This is the topology associated with an F Prime deployment.
+To do this, we write the keywords `deployment topology`.
+Then we write the name of the topology and
+the members of the topology
 definition enclosed in curly braces.
 In this case, the topology has two kinds of members:
 
@@ -755,7 +759,7 @@ passive component Target {
 instance source: Source base id 0x100
 instance target: Target base id 0x200
 
-topology T {
+deployment topology T {
 
   instance source
   instance target
@@ -893,12 +897,26 @@ In this section of the User Guide, we explain how to do that.
 
 ==== Importing Instances and Connections
 
-To import a topology `A` into a topology `B`, you write
-`import A` inside topology `B`, like this:
+To import a topology `A` into a topology `B`, you do the following:
+
+. Define the topology `A` as described in the previous sections,
+but without the keyword `deployment` at the start of the definition.
+Omitting the keyword `deployment` tells the analyzer that the
+topology definition `A` is for import, and not for code generation.
+
+. Inside topology `B`, write `import A`.
+
+For example:
 
 [source,fpp]
 --------
-topology B {
+topology A {
+
+  ...
+
+}
+
+deployment topology B {
   
   import A
 
@@ -907,8 +925,15 @@ topology B {
 }
 --------
 
-You may add instances and connections as usual to `B`, as shown
-by the dots.
+In this example we have done the following:
+
+. Define a topology `A` that is for import only and
+is not used in a deployment.
+
+. Define a deployment topology `B` that imports `A`.
+
+You may add instances and connections as usual to both
+`A` and `B`, as shown by the dots.
 
 When you do this, the FPP translator does the following:
 
@@ -946,7 +971,7 @@ topology A {
 
 }
 
-topology B {
+deployment topology B {
 
   import A
 
@@ -967,7 +992,7 @@ After import resolution, `B` is equivalent to this topology:
 
 [source,fpp]
 --------
-topology B {
+deployment topology B {
 
   instance a
   instance b
@@ -995,7 +1020,7 @@ For example:
 
 [source,fpp]
 --------
-topology A {
+deployment topology A {
 
   import B
   import C
@@ -1014,7 +1039,7 @@ For example, this is incorrect:
 
 [source,fpp]
 --------
-topology A {
+deployment topology A {
 
   import B
   import B # Error: B imported twice
@@ -1027,13 +1052,54 @@ topology A {
 In general, transitive imports are allowed.
 For example, topology `A` may import topology `B`,
 and topology `B` may import topology `C`.
+In this case, `A` may or may not be a deployment
+topology; neither `B` nor `C` may be a deployment
+topology.
+
 Resolution works bottom-up on the import graph:
 for example, first we resolve `C`, and then we resolve `B`,
 and then we resolve `A`.
-
 Cycles in the import graph are not allowed.
 For example, if `A` imports `B` and `B` imports `C`
 and `C` imports `A`, you will get an error.
+
+==== Using an Imported Topology as a Deployment
+
+Sometimes it is useful to import a topology `B` into a
+topology `A` and also to use `B` as a deployment topology.
+For example, `A` may be a system topology `System`, `B` may be
+a subsystem topology `Subsystem`, and it may be useful to create
+a subsystem deployment for testing the subsystem.
+In this case you can do the following:
+
+. Define a non-deployment topology `Subsystem`
+
+. Define a deployment topology `System` that imports `Subsystem`
+and contains other instances and connections.
+
+. Define a deployment topology `SubsystemDeployment` that just imports
+`Subsystem`.
+
+For example:
+
+[source,fpp]
+----
+topology Subsystem {
+  # Subsystem instances and connections
+}
+
+deployment topology System {
+  import Subsystem
+  # System instances and connections
+}
+
+deployment topology SubsystemDeployment {
+  import Subsystem 
+}
+----
+
+Now you can use `Subsystem` as an imported subsystem and `SubsystemDeployment`
+as a subsystem deployment.
 
 === Topology Ports
 
@@ -1484,7 +1550,7 @@ below.
 
 === Telemetry Packets
 
-When defining a topology, you may (but are not required to)
+When defining a deployment topology, you may (but are not required to)
 specify how the <<Defining-Components_Telemetry,telemetry channels>>
 defined in the topology are grouped into **telemetry packets**.
 If you do this, then you can use an F Prime component called
@@ -1496,7 +1562,8 @@ In this section we explain how to specify telemetry packets in FPP.
 
 ==== Telemetry Packet Sets
 
-To group the channels of a topology _T_ into packets, you write a
+To group the channels of a deployment topology _T_ into packets,
+you write a
 **telemetry packet set** as part of the definition of _T_.
 Here is a simple example showing a complete topology with a
 telemetry packet set:
@@ -1518,7 +1585,7 @@ passive component C {
 instance c1: C base id 0x100
 instance c2: C base id 0x200
 
-topology T {
+deployment topology T {
 
   instance c1
   instance c2
@@ -1635,6 +1702,12 @@ then in the topology `T` we would write
 `instance M.c1` instead of `instance c`, and we would write
 channel `M.c1.T` instead of channel `c1.T`.
 
+Note that telemetry packet sets are permitted only inside
+deployment topologies.
+If you define a topology without the `import` keyword
+and the definition includes a telemetry packet set,
+then you will get an error.
+
 ==== Telemetry Packet Identifiers
 
 Within a telemetry packet set, every packet has a unique numeric identifier.
@@ -1700,7 +1773,7 @@ passive component C {
 instance c1: C base id 0x100
 instance c2: C base id 0x200
 
-topology T {
+deployment topology T {
 
   instance c1
   instance c2
@@ -1749,7 +1822,7 @@ passive component C {
 instance c1: C base id 0x100
 instance c2: C base id 0x200
 
-topology T {
+deployment topology T {
 
   instance c1
   instance c2

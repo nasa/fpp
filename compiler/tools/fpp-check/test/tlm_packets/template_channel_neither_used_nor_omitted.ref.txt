@@ -1,0 +1,18 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/template_channel_neither_used_nor_omitted.fpp:9.5
+    telemetry packets P {
+    ^
+  expanded at [ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/template_channel_neither_used_nor_omitted.fpp:21.1
+error: invalid telemetry packet set P
+telemetry channel c1.T is neither used nor marked as omitted
+
+component instance is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/template_channel_neither_used_nor_omitted.fpp:7.5
+    instance i
+    ^
+  expanded at [ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/template_channel_neither_used_nor_omitted.fpp:21.1
+
+telemetry channel is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/instances.fpp:15.3
+  telemetry T: U32
+  ^

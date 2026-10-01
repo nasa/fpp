@@ -6,6 +6,16 @@ import fpp.compiler.util._
 /** Construct the implied use map */
 object ConstructImpliedUseMap extends TypeExpressionAnalyzer {
 
+  override def defModuleTemplateAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = {
+    for {
+      a <- super.defModuleTemplateAnnotatedNode(a, aNode)
+      a <- visitList(a, aNode._2.data.members, matchModuleMember)
+    } yield a
+  }
+
   override def specPortInstanceAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]
@@ -59,25 +69,29 @@ object ConstructImpliedUseMap extends TypeExpressionAnalyzer {
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
   ) = {
-    val id = aNode._2.id
-    val typeNames = ImpliedUse.getTopologyTypes(a)
-    val empty: ImpliedUse.Uses = Map()
-    val annotations = List("this implied use occurs when constructing a dictionary")
-    val typeMap = typeNames.foldLeft (empty) ((m, tn) => {
-      val id1 = ImpliedUse.replicateId(id)
-      val impliedUse = ImpliedUse.fromIdentListAndId(tn, id1, annotations)
-      val set = m.get(ImpliedUse.Kind.Type).getOrElse(Set())
-      m + (ImpliedUse.Kind.Type -> (set + impliedUse))
-    })
-    val constants = ImpliedUse.getTopologyConstants(a)
-    val map = constants.foldLeft (typeMap) ((m, c) => {
-      val id1 = ImpliedUse.replicateId(id)
-      val impliedUse = ImpliedUse.fromIdentListAndId(c, id1, annotations)
-      val set = m.get(ImpliedUse.Kind.Constant).getOrElse(Set())
-      m + (ImpliedUse.Kind.Constant -> (set + impliedUse))
-    })
-    val a1 = a.copy(impliedUseMap = a.impliedUseMap + (id -> map))
-    super.defTopologyAnnotatedNode(a1, aNode)
+    if aNode._2.data.isDeployment
+    then
+      val id = aNode._2.id
+      val typeNames = ImpliedUse.getTopologyTypes(a)
+      val empty: ImpliedUse.Uses = Map()
+      val annotations = List("this implied use occurs when constructing a dictionary")
+      val typeMap = typeNames.foldLeft (empty) ((m, tn) => {
+        val id1 = ImpliedUse.replicateId(id)
+        val impliedUse = ImpliedUse.fromIdentListAndId(tn, id1, annotations)
+        val set = m.get(ImpliedUse.Kind.Type).getOrElse(Set())
+        m + (ImpliedUse.Kind.Type -> (set + impliedUse))
+      })
+      val constants = ImpliedUse.getTopologyConstants(a)
+      val map = constants.foldLeft (typeMap) ((m, c) => {
+        val id1 = ImpliedUse.replicateId(id)
+        val impliedUse = ImpliedUse.fromIdentListAndId(c, id1, annotations)
+        val set = m.get(ImpliedUse.Kind.Constant).getOrElse(Set())
+        m + (ImpliedUse.Kind.Constant -> (set + impliedUse))
+      })
+      val a1 = a.copy(impliedUseMap = a.impliedUseMap + (id -> map))
+      super.defTopologyAnnotatedNode(a1, aNode)
+    else
+      Right(a)
   }
 
   override def typeNameStringNode(

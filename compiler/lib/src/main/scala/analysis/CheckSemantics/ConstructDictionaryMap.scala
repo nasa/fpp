@@ -15,23 +15,26 @@ object ConstructDictionaryMap
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
   ) = {
-    val symbol = Symbol.Topology(aNode)
-    val t = a.topologyMap(symbol)
-    val d = {
-      val d1 = Dictionary()
-      val d2 = DictionaryUsedSymbols(a, t).updateUsedSymbols(d1)
-      DictionaryEntries(a, t).updateEntries(d2)
-    }
-    for {
-      a <- super.defTopologyAnnotatedNode(
-        a.copy(topology = Some(t), dictionary = Some(d)),
-        aNode
-      )
-    }
-    yield {
-      val d = a.dictionary.get
-      a.copy(dictionaryMap = a.dictionaryMap + (symbol -> d))
-    }
+    if aNode._2.data.isDeployment
+    then
+      val symbol = Symbol.Topology(aNode)
+      val t = a.topologyMap(symbol)
+      val d = {
+        val d1 = Dictionary()
+        val d2 = DictionaryUsedSymbols(a, t).updateUsedSymbols(d1)
+        DictionaryEntries(a, t).updateEntries(d2)
+      }
+      for {
+        a <- super.defTopologyAnnotatedNode(
+          a.copy(topology = Some(t), dictionary = Some(d)),
+          aNode
+        )
+      }
+      yield {
+        val d = a.dictionary.get
+        a.copy(dictionaryMap = a.dictionaryMap + (symbol -> d))
+      }
+    else Right(a)
   }
 
   override def specTlmPacketSetAnnotatedNode(

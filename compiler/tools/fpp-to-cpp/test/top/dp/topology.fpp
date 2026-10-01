@@ -11,7 +11,7 @@ module M {
 
   instance noDp: NoDp base id 0x400
 
-  topology Dp {
+  deployment topology Dp {
 
     instance c1
     instance c2

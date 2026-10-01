@@ -41,7 +41,18 @@ diff_json()
 {
   for file in $@
   do
-    if ! diff $file'TopologyDictionary.json' $file'TopologyDictionary.ref.json'
+    if ! diff -u $file'TopologyDictionary.json' $file'TopologyDictionary.ref.json'
+    then
+      return 1
+    fi
+  done
+}
+
+diff_system_json()
+{
+  for file in $@
+  do
+    if ! diff -u $file'SystemDictionary.json' $file'SystemDictionary.ref.json'
     then
       return 1
     fi

@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/system/undefined.fpp:1.11
+system S: T
+          ^
+error: symbol T is not defined
+note: looking for a component instance or topology here

@@ -49,6 +49,11 @@ object CheckSpecLocs
     aNode: Ast.Annotated[AstNode[Ast.DefInterface]]
   ) = checkSpecLoc(a, Ast.SpecLoc.Interface, Symbol.Interface(aNode))
 
+  override def defModuleTemplateAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = checkSpecLoc(a, Ast.SpecLoc.Template, Symbol.Template(aNode))
+
   override def defPortAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefPort]]
@@ -63,6 +68,11 @@ object CheckSpecLocs
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefStruct]]
   ) = checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.Struct(aNode))
+
+  override def defSystemAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefSystem]]
+  ) = checkSpecLoc(a, Ast.SpecLoc.System, Symbol.System(aNode))
 
   override def defTopologyAnnotatedNode(
     a: Analysis,

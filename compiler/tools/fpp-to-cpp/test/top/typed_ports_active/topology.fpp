@@ -5,7 +5,7 @@ module TypedPortsActive {
     queue size 10 \
     stack size 1024
 
-  topology TypedPortsActive {
+  deployment topology TypedPortsActive {
 
     instance sender
     instance receiver

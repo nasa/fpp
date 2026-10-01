@@ -80,6 +80,21 @@ ok_test_template_auto_helpers()
   run_test "-u -t -a" "ok" ok_test_template_auto_helpers
 }
 
+template()
+{
+  run_test "" template
+}
+
+template_template()
+{
+  run_test "-t" "template" template_template
+}
+
+template_test()
+{
+  run_test "-u" "template" template_test
+}
+
 tests="
 include
 include_template
@@ -93,6 +108,9 @@ ok_test
 ok_test_auto_helpers
 ok_test_template
 ok_test_template_auto_helpers
+template
+template_template
+template_test
 "
 
 run_suite $tests

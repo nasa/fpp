@@ -78,6 +78,8 @@ update "" simpleTopology
 update "" specialPorts
 update "" telemetry
 update "" telemetryPackets
+update "" templateSystem
+update "-s" templateSystem templateSystem_syntax_only
 update "" types
 update "-s" syntaxOnly
 update "fprime/defs.fpp" patternedConnections

@@ -45,7 +45,7 @@ case class CheckUsesHelpers[A,NG,S <: SymbolInterface](
     id: AstNode.Id,
     name: Ast.Ident
   ) = {
-    val mapping = getNestedScope(a).get (ng) _
+    val mapping = getNestedScope(a).get (ng)
     for (symbol <- getSymbolForName(ng, mapping)(id, name)) yield {
       val useDefMap = getUseDefMap(a) + (id -> symbol)
       setUseDefMap(a, useDefMap)
@@ -74,7 +74,7 @@ case class CheckUsesHelpers[A,NG,S <: SymbolInterface](
         )
       }
       symbol <- {
-        val mapping = scope.get (ng) _
+        val mapping = scope.get (ng)
         getSymbolForName(ng, mapping)(name.id, name.data)
       }
     }

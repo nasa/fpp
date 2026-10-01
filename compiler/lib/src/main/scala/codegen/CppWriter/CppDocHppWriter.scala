@@ -51,7 +51,7 @@ object CppDocHppWriter extends CppDocWriter {
     else if (params.length == 1 && params.head.comment.isEmpty)
       lines(s"$prefix(" ++ paramString(params.head) ++ ")")
     else {
-      val head :: tail = params.reverse
+      val head :: tail = params.reverse: @unchecked
       val paramsLines = (paramLines(head) :: tail.map(paramLinesComma(_))).reverse.flatten
       line(s"$prefix(") :: (paramsLines.map(_.indentIn(2 * indentIncrement)) :+ line(")"))
     }
