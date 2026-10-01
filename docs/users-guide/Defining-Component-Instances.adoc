@@ -495,6 +495,10 @@ associated with the instance _I_ and the phase.
 
 * *Where Placed:* Where FPP places the code snippet
 in the generated file.
+In this column, _I_ denotes the fully qualified name
+of the instance, with any dots replaced by underscores.
+For example, for an instance `i` defined in module `M`,
+_I_ means `M_i`.
 
 * *Default Code:* Whether FPP generates default code if
 there is no init specifier for instance _I_
@@ -677,7 +681,7 @@ instance cmdSeq: Svc.CmdSequencer base id 0x0700 \
   cmdSeq.allocateBuffer(
       0,
       Allocation::mallocator,
-      ConfigConstants::SystemReference_cmdSeq::BUFFER_SIZE
+      BUFFER_SIZE
   );
   """
 
@@ -690,7 +694,8 @@ instance cmdSeq: Svc.CmdSequencer base id 0x0700 \
 
 The code for `configConstants` provides a constant `BUFFER_SIZE`
 that is used in the `configComponents` phase.
-The code generator places this code snippet in the
+As noted in Table 1 of the previous section, the code generator places this code 
+snippet in the
 namespace `ConfigConstants::SystemReference_cmdSeq`.
 Notice that the second part of the namespace uses the
 fully qualified name `SystemReference::cmdSeq`, and it replaces
@@ -705,6 +710,30 @@ in an allocator object that is declared elsewhere.
 <<Writing-C-Plus-Plus-Implementations_Implementing-Deployments,
 implementing deployments>>, we will explain where this allocator
 object is declared.)
+Note that in this code snippet, we have used the name `BUFFER_SIZE`
+with no qualifier.
+Based on the previous paragraph, you might think that we would need
+to write `ConfigConstants::SystemReference_cmdSeq::BUFFER_SIZE`.
+That would work, but is verbose.
+To make the init specifiers easier to write, when the FPP code generator
+includes code from an init specifier into the code it generates, it
+does so like this:
+
+[source,c++]
+----
+{
+  using namespace ConfigConstants::SystemReference_cmdSeq;
+  using namespace ConfigObjects::SystemReference_cmdSeq;
+
+  [code from the init specifier]
+}
+----
+
+That way, when you are writing the code snippet in the init specifier,
+you don't have to write out all the qualifiers.
+The qualifiers are still there, and they still prevent name clashes outside the 
+curly-brace block where the code snippet is inserted.
+
 The code for `tearDownComponents` calls `deallocateBuffer` to
 deallocate the sequence buffer, passing in the allocator
 object again.
@@ -748,7 +777,8 @@ section on <<Writing-C-Plus-Plus-Implementations_Implementing-Deployments,
 implementing deployments>>.
 
 For more examples of init specifiers in action, see the rest of
-the file `SystemReference/Top/instances.fpp` in the F Prime repository.
+the file `SystemReference/Top/instances.fpp` in the system reference 
+deployment.
 In particular, the init specifiers for the `comDriver` instance
 use the `state` value that we just mentioned.
 
@@ -800,7 +830,7 @@ the section on <<Writing-C-Plus-Plus-Implementations_Implementing-Deployments,
 implementing deployments>>.
 
 Fourth, when generating the name of a constant associated with an instance,
-FPP uses the fully-qualified name of the instance, and it replaces
+FPP uses the fully qualified name of the instance, and it replaces
 the dots (in FPP) or the colons (in {cpp}) with underscores.
 For example, as discussed in the previous section, the configuration
 constants for the instance `SystemReference::cmdSeq` are placed in
