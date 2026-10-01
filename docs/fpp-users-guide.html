@@ -776,7 +776,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source">18.3. Rewriting FPP Source</a>
 <ul class="sectlevel3">
 <li><a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source_Basic-Use">18.3.1. Basic Use</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source_Code-Transformation">18.3.2. Code Transformation</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source_Syntax-Expansion">18.3.2. Syntax Expansion</a></li>
 </ul>
 </li>
 <li><a href="#Analyzing-and-Translating-Models_Visualizing-Topologies">18.4. Visualizing Topologies</a></li>
@@ -16559,16 +16559,21 @@ source files.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Rewriting-FPP-Source_Code-Transformation">18.3.2. Code Transformation</h4>
+<h4 id="Analyzing-and-Translating-Models_Rewriting-FPP-Source_Syntax-Expansion">18.3.2. Syntax Expansion</h4>
 <div class="paragraph">
-<p><code>fpp-to-fpp</code> also provides syntax transformation
-on source files.
-There are two kinds of transformation available: resolving
-include specifiers and expanding syntax.</p>
+<p><code>fpp-to-fpp</code> also performs <strong>syntax expansion</strong> on source files.
+Syntax expansion means replacing one piece of syntax (which is generally
+shorter) with another one (which is generally longer).
+By default, when you run <code>fpp-to-fpp</code>, syntax expansion does not occur;
+to enable it, you use the <code>-e</code> option.
+There are currently three kinds of syntax expansion: resolving
+include specifiers, generating state machine enums,
+and expanding templates.</p>
 </div>
 <div class="paragraph">
 <p><strong>Resolving include specifiers:</strong>
-By default, <code>fpp-to-fpp</code> does not resolve include specifiers.
+By default, <code>fpp-to-fpp</code> does not resolve
+<a href="#Specifying-Models-as-Files_Include-Specifiers">include specifiers</a>.
 For example:</p>
 </div>
 <div class="listingblock">
@@ -16581,28 +16586,28 @@ include "a.fppi"</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>-i</code> option causes <code>fpp-to-fpp</code> to resolve include specifiers.
+<p>The <code>-e</code> option causes <code>fpp-to-fpp</code> to resolve include specifiers.
 For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre>% echo 'constant a = 0' &gt; a.fpp
-% fpp-to-fpp -i
+% fpp-to-fpp -e
 include "a.fppi"
 ^D
 constant a = 0</pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Expanding syntax:</strong>
-There are currently two forms of syntax expansion:
-generating the
-<a href="#Defining-State-Machines_The-State-Enum">state enum</a>
-for state machine definitions and
-<a href="#Defining-and-Using-Module-Templates">expanding templates</a>.
-By default this expansion does not occur; you can enable
-it with the <code>-e</code> option.
-Here is a state machine example:</p>
+<p>You can also use the option <code>-i</code> if you wish to resolve include
+specifiers without expanding any other syntax.</p>
+</div>
+<div class="paragraph">
+<p><strong>State machine enums:</strong>
+The <code>-e</code> option causes the analyzer to generate the
+<a href="#Defining-State-Machines_The-State-Enum">state enums</a>
+associated with state machine definitions.
+Here is an example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -16636,7 +16641,10 @@ state machine M {
 inserts it into the state machine definition.</p>
 </div>
 <div class="paragraph">
-<p>Here is a template example:</p>
+<p><strong>Template expansion:</strong>
+The <code>-e</code> option causes <code>fpp-to-fpp</code> to
+<a href="#Defining-and-Using-Module-Templates">expand templates</a>.
+Here is an example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -16667,8 +16675,21 @@ expand T {
 syntax for the template expansion and inserts it into the model.</p>
 </div>
 <div class="paragraph">
-<p>When you provide the <code>-e</code> option, the <code>-i</code> option is automatically
-enabled.</p>
+<p>If you try to expand a template for which the definition is not available
+in input model, you will get an error:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-format -e
+expand T
+^D
+fpp-format
+stdin:1.8
+expand T
+       ^
+error: symbol T is not defined
+note: looking for a template here</pre>
+</div>
 </div>
 </div>
 </div>
@@ -18437,7 +18458,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-01 09:46:31 -0700
+Last updated 2026-10-01 10:26:08 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
