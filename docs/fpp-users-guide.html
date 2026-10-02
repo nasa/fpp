@@ -14225,14 +14225,10 @@ above.</p>
 </ol>
 </div>
 <div class="paragraph">
-<<<<<<< HEAD
-<p><code>fpp-to-fpp</code> is a tool for expanding FPP source files.</p>
-=======
 <p><code>fpp-to-fpp</code> is a tool for rewriting FPP source files.
 It also can expand include specifiers.
 <code>fpp-to-fpp</code> is discussed further in the section on
 <a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source">rewriting FPP source</a>.</p>
->>>>>>> template-users-guide
 </div>
 <div class="paragraph">
 <p>As mentioned above, the path is relative to the directory
@@ -16507,15 +16503,9 @@ and clang compiler flags:</p>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Rewriting-FPP-Source">18.3. Rewriting FPP Source</h3>
 <div class="paragraph">
-<<<<<<< HEAD
-<p>The tool <code>fpp-to-fpp</code> accepts FPP source files as input
-and rewrites them after applying transformations.
-You can use this tool to expand the FPP model.</p>
-=======
 <p>The tool <code>fpp-to-fpp</code> accepts FPP source files as input,
 processes them using options that you specify,
 and rewrites them as output.</p>
->>>>>>> template-users-guide
 </div>
 <div class="sect3">
 <h4 id="Analyzing-and-Translating-Models_Rewriting-FPP-Source_Basic-Use">18.3.1. Basic Use</h4>
@@ -16537,9 +16527,6 @@ array A = [3] U32 default [
 </div>
 </div>
 <div class="paragraph">
-<<<<<<< HEAD
-<p>By default, <code>fpp-to-fpp</code> does not resolve include specifiers.
-=======
 <p><code>fpp-to-fpp</code> has reformatted the default value so that each array
 element is on its own line.</p>
 </div>
@@ -16587,7 +16574,6 @@ and expanding templates.</p>
 <p><strong>Resolving include specifiers:</strong>
 By default, <code>fpp-to-fpp</code> does not resolve
 <a href="#Specifying-Models-as-Files_Include-Specifiers">include specifiers</a>.
->>>>>>> template-users-guide
 For example:</p>
 </div>
 <div class="listingblock">
@@ -16600,28 +16586,18 @@ include "a.fppi"</pre>
 </div>
 </div>
 <div class="paragraph">
-<<<<<<< HEAD
-<p>The <code>-i</code> option causes <code>fpp-to-fpp</code> to resolve include specifiers.
-=======
 <p>The <code>-e</code> option causes <code>fpp-to-fpp</code> to resolve include specifiers.
->>>>>>> template-users-guide
 For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre>% echo 'constant a = 0' &gt; a.fpp
-<<<<<<< HEAD
-% fpp-to-fpp -i
-=======
 % fpp-to-fpp -e
->>>>>>> template-users-guide
 include "a.fppi"
 ^D
 constant a = 0</pre>
 </div>
 </div>
-<<<<<<< HEAD
-=======
 <div class="paragraph">
 <p>You can also use the option <code>-i</code> if you wish to resolve include
 specifiers without expanding any other syntax.</p>
@@ -16716,7 +16692,6 @@ note: looking for a template here</pre>
 </div>
 </div>
 </div>
->>>>>>> template-users-guide
 </div>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Visualizing-Topologies">18.4. Visualizing Topologies</h3>
@@ -18483,11 +18458,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-<<<<<<< HEAD
-Last updated 2026-10-01 13:50:29 -0700
-=======
-Last updated 2026-10-01 10:26:08 -0700
->>>>>>> template-users-guide
+Last updated 2026-10-01 17:34:26 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
