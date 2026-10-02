@@ -23,7 +23,7 @@ object CheckTemplateUses
     val Ast.DefModule(name, members) = node.data
     for {
       symbol <- {
-        val mapping = a.nestedScope.get (NameGroup.Value)
+        val mapping = a.nestedScope.getRelative (NameGroup.Value)
         helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)
       }
       a <- {

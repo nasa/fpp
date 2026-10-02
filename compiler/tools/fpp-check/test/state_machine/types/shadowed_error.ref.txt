@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/types/shadowed_error.fpp:4.3
+  struct S { x: S }
+  ^
+error: encountered a use-def cycle:
+  use S at [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/types/shadowed_error.fpp:4.17 refers to definition S at [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/types/shadowed_error.fpp:4.3
