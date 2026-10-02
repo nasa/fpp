@@ -73,12 +73,12 @@ dictionary_specifier()
 # (yet) valid FPP surface syntax, so we do not round-trip it through fpp-syntax.
 template_expand()
 {
-  run_test '-t' template_expand
+  run_test '-e' template_expand
 }
 
 template_include()
 {
-  run_test '-t' template_include
+  run_test '-e' template_include
 }
 
 run_suite $tests

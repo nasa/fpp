@@ -67,12 +67,12 @@ dictionary_specifier()
 
 template_expand()
 {
-  update '-t' template_expand
+  update '-e' template_expand
 }
 
 template_include()
 {
-  update '-t' template_include
+  update '-e' template_include
 }
 
 for t in $tests

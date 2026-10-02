@@ -81,9 +81,9 @@ object FPPToFPP {
       opt[Unit]('i', "include")
         .action((_, c) => c.copy(include = true))
         .text("resolve include specifiers"),
-      opt[Unit]('t', "template")
+      opt[Unit]('e', "expand")
         .action((_, c) => c.copy(templates = true))
-        .text("expand module templates (also resolves includes)"),
+        .text("expand all syntax"),
       help('h', "help").text("print this message and exit"),
       arg[String]("file ...")
         .unbounded()
