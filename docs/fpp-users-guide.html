@@ -14867,21 +14867,24 @@ and expansions to the tool, and it finds and reports all
 the definitions introduced by the expansions.
 If you provide a template expansion without providing the
 corresponding definition, then the tool will report an error.
-For example, running</p>
+For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% fpp-locate-defs expand.fpp</pre>
+<pre>% fpp-locate-defs
+expand T
+^D
+fpp-locate-defs
+stdin:1.8
+expand T
+       ^
+error: symbol T is not defined
+note: looking for a template here</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>produces an error, because the definition of the template <code>T</code>
+<p>The error occurs because the definition of the template <code>T</code>
 is not available in the files provided as input to <code>fpp-locate-defs</code>.</p>
-</div>
-<div class="paragraph">
-<p><em>TODO: Update this section with the specific error output after
-that behavior is implemented.
-See <a href="https://github.com/nasa/fpp/issues/1137">GitHub issue #1137</a>.</em></p>
 </div>
 </div>
 </div>
@@ -18458,7 +18461,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-01 17:34:26 -0700
+Last updated 2026-10-05 16:06:14 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -636,18 +636,22 @@ and expansions to the tool, and it finds and reports all
 the definitions introduced by the expansions.
 If you provide a template expansion without providing the
 corresponding definition, then the tool will report an error.
-For example, running
+For example:
 
 ----
-% fpp-locate-defs expand.fpp
+% fpp-locate-defs
+expand T
+^D
+fpp-locate-defs
+stdin:1.8
+expand T
+       ^
+error: symbol T is not defined
+note: looking for a template here
 ----
 
-produces an error, because the definition of the template `T`
+The error occurs because the definition of the template `T`
 is not available in the files provided as input to `fpp-locate-defs`.
-
-_TODO: Update this section with the specific error output after
-that behavior is implemented.
-See https://github.com/nasa/fpp/issues/1137[GitHub issue #1137]._
 
 === Computing Dependencies
 
