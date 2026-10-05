@@ -34,18 +34,6 @@ object FPPLocateDefs {
     }
   }
 
-//  /** Expand templates, returning the translation units with expanded members.
-//   *  We must expand templates, because the expansions generate definitions
-//   *  that we have to locate. */
-//  private def expandTemplates(
-//    a: Analysis,
-//    tul: List[Ast.TransUnit]
-//  ): Result.Result[List[Ast.TransUnit]] =
-//    ResolveTemplates.tuList(a, tul) match {
-//      case Right(aTul) => Right(aTul._2)
-//      case Left(_) => AddStateEnums.transUnitList(tul)
-//    }
-
   def toolMain(args: Array[String]) =
     Tool(name).mainMethod(args, oparser, Options(), command)
 
