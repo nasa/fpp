@@ -255,7 +255,7 @@ case class TopComponentCppWriter (
     toPortNum: Int
   ) = {
     val toPortParams = toPortSymbol.node._2.data.params
-    val toPortName = s.getName(toPortSymbol)
+    val toPortName = s.writeSymbol(toPortSymbol)
     val portSerializerName = PortCppWriterUtils.getPortSerializerName(toPortName)
     val serializerParamNames = PortCppWriterUtils.getSerializerParamNames(toPortParams)
     wrapInBlock(
@@ -282,7 +282,7 @@ case class TopComponentCppWriter (
     toPortNum: Int
   ) = {
     val params = fromPortSymbol.node._2.data.params
-    val portName = s.getName(fromPortSymbol)
+    val portName = s.writeSymbol(fromPortSymbol)
     val portBufferName = PortCppWriterUtils.getPortBufferName(portName)
     val portSerializerName = PortCppWriterUtils.getPortSerializerName(portName)
     val portParamNames = PortCppWriterUtils.writeParamNames(params)

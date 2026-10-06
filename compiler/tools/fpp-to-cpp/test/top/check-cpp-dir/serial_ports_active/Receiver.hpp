@@ -5,61 +5,65 @@
 
 namespace SerialPortsActive {
 
-  class Receiver final :
-    public ReceiverComponentBase
-  {
+  namespace Components {
 
-    public:
+    class Receiver final :
+      public ReceiverComponentBase
+    {
 
-      Receiver() {
+      public:
 
-      }
+        Receiver() {
 
-      Receiver(const char* name) {
+        }
 
-      }
+        Receiver(const char* name) {
 
-      void pTypedSync_handler(
-          FwIndexType portNum,
-          U32 x1,
-          F32 x2,
-          bool x3,
-          const Fw::StringBase& x4,
-          const SerialPortsActive::A& x5,
-          const SerialPortsActive::E& x6,
-          const SerialPortsActive::S& x7
-      ) override {
+        }
 
-      }
+        void pTypedSync_handler(
+            FwIndexType portNum,
+            U32 x1,
+            F32 x2,
+            bool x3,
+            const Fw::StringBase& x4,
+            const SerialPortsActive::Components::A& x5,
+            const SerialPortsActive::Components::E& x6,
+            const SerialPortsActive::Components::S& x7
+        ) override {
 
-      void pTypedAsync_handler(
-          FwIndexType portNum,
-          U32 x1,
-          F32 x2,
-          bool x3,
-          const Fw::StringBase& x4,
-          const SerialPortsActive::A& x5,
-          const SerialPortsActive::E& x6,
-          const SerialPortsActive::S& x7
-      ) override {
+        }
 
-      }
+        void pTypedAsync_handler(
+            FwIndexType portNum,
+            U32 x1,
+            F32 x2,
+            bool x3,
+            const Fw::StringBase& x4,
+            const SerialPortsActive::Components::A& x5,
+            const SerialPortsActive::Components::E& x6,
+            const SerialPortsActive::Components::S& x7
+        ) override {
 
-      void pSerialSync_handler(
-          FwIndexType portNum,
-          Fw::LinearBufferBase& buffer
-      ) override {
+        }
 
-      }
+        void pSerialSync_handler(
+            FwIndexType portNum,
+            Fw::LinearBufferBase& buffer
+        ) override {
 
-      void pSerialAsync_handler(
-          FwIndexType portNum,
-          Fw::LinearBufferBase& buffer
-      ) override {
+        }
 
-      }
+        void pSerialAsync_handler(
+            FwIndexType portNum,
+            Fw::LinearBufferBase& buffer
+        ) override {
 
-  };
+        }
+
+    };
+
+  }
 
 }
 
