@@ -525,8 +525,11 @@ used in expanded templates.
 When a name appears in an expanded template, the name
 is resolved as if it appeared at the point of the template
 _definition_ rather than at the point of the template _expansion_.
-This is to make it easy to see, when writing a template definition,
+This behavior makes makes it easy to see, when writing a template definition,
 how the names will be resolved when the template is expanded.
+It also ensures that a name appearing inside a template
+will be resolved in the same way regardless of where the template
+is expanded.
 
 To understand this rule, consider the following model:
 

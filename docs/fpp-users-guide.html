@@ -13763,8 +13763,11 @@ used in expanded templates.
 When a name appears in an expanded template, the name
 is resolved as if it appeared at the point of the template
 <em>definition</em> rather than at the point of the template <em>expansion</em>.
-This is to make it easy to see, when writing a template definition,
-how the names will be resolved when the template is expanded.</p>
+This behavior makes makes it easy to see, when writing a template definition,
+how the names will be resolved when the template is expanded.
+It also ensures that a name appearing inside a template
+will be resolved in the same way regardless of where the template
+is expanded.</p>
 </div>
 <div class="paragraph">
 <p>To understand this rule, consider the following model:</p>
@@ -18458,7 +18461,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-01 10:26:08 -0700
+Last updated 2026-10-06 13:37:11 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
