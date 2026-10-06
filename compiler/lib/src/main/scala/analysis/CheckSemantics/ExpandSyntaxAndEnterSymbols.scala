@@ -17,7 +17,7 @@ object ExpandSyntaxAndEnterSymbols {
       a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
       a <- CheckTemplateUses.visitList(a, tul, CheckTemplateUses.transUnit)
       (_, tul) <- ExpandTemplates.transformList(a, tul, ExpandTemplates.transUnit)
-      a <- EnterTemplateSymbols.visitList(a, tul, EnterTemplateSymbols.transUnit)
+      a <- EnterTemplateExpansionSymbols.visitList(a, tul, EnterTemplateExpansionSymbols.transUnit)
     } yield (a, tul)
   }
 }

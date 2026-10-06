@@ -3,14 +3,12 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/**
- * Enter symbols from new template expansions
- * (as well as the template expansion itself)
- */
-object EnterTemplateSymbols
+/** Enter symbols introduced in template expansions */
+object EnterTemplateExpansionSymbols
   extends Analyzer
   with ModuleAnalyzer
 {
+
   override def defModuleAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
