@@ -18,14 +18,14 @@
 namespace SerialPortsPassive {
 
   //! receiver
-  extern SerialPortsPassive::Receiver receiver;
+  extern SerialPortsPassive::Components::Receiver receiver;
 
 }
 
 namespace SerialPortsPassive {
 
   //! sender
-  extern SerialPortsPassive::Sender sender;
+  extern SerialPortsPassive::Components::Sender sender;
 
 }
 
