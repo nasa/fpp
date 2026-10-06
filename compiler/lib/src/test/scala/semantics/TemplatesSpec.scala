@@ -246,7 +246,7 @@ class TemplatesSpec extends AnyWordSpec {
             a_tul <- ResolveSpecInclude.transformList(a, List(tul), ResolveSpecInclude.transUnit)
             a <- Right(a_tul._1)
             tul <- Right(a_tul._2)
-            aTul <- ResolveTemplates.tuList(a, tul)
+            aTul <- ExpandSyntaxAndEnterSymbols.tuList(a, tul)
             a <- Right(aTul._1)
             tul <- Right(aTul._2)
         } yield tul
@@ -271,7 +271,7 @@ class TemplatesSpec extends AnyWordSpec {
                 List(tu),
                 ResolveSpecInclude.transUnit
             )
-            templateResult <- ResolveTemplates.tuList(
+            templateResult <- ExpandSyntaxAndEnterSymbols.tuList(
                 includeResult._1,
                 includeResult._2
             )

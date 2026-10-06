@@ -99,7 +99,7 @@ object FPPDepend {
 
   def resolveTemplates(a: Analysis, tul: List[Ast.TransUnit]):
     Result.Result[(Analysis, List[Ast.TransUnit])] =
-      ResolveTemplates.tuList(a, tul) match {
+      ExpandSyntaxAndEnterSymbols.tuList(a, tul) match {
         case result @ Right(_) => result
         case Left(_) =>
           for {

@@ -25,7 +25,7 @@ object FPPLocateDefs {
     }
     for {
       aTul <- ToolUtils.parseFilesAndResolveIncludes(Analysis(), files)
-      tul <- ResolveTemplates.tuList(aTul._1, aTul._2).map(_._2)
+      tul <- ExpandSyntaxAndEnterSymbols.tuList(aTul._1, aTul._2).map(_._2)
     }
     yield {
       val config = LocateDefsFppWriter.State(options.dir)

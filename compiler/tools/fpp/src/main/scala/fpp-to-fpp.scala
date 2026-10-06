@@ -53,7 +53,7 @@ object FPPToFPP {
       case true => {
         val a = Analysis()
         for {
-          a_tul <- ResolveTemplates.tuList(a, tul)
+          a_tul <- ExpandSyntaxAndEnterSymbols.tuList(a, tul)
           tul <- Right(a_tul._2)
         } yield tul
       }

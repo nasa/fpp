@@ -68,7 +68,7 @@ object FPPtoJson {
       case false =>
         val a = Analysis(inputFileSet = options.files.toSet)
         for {
-          aTul <- ResolveTemplates.tuList(a, tul)
+          aTul <- ExpandSyntaxAndEnterSymbols.tuList(a, tul)
           a <- Right(aTul._1)
           tul <- Right(aTul._2)
           a <- CheckSemantics.tuList(a, tul)

@@ -4,8 +4,10 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 import fpp.compiler.transform._
 
-/** Expand template expansion specifiers and enter the symbols they produce. */
-object ResolveTemplates {
+/** Perform all syntax expansion required for analysis.
+ *  Because template expansion requires def-use analysis,
+ *  also enter all symbols into their scopes */
+object ExpandSyntaxAndEnterSymbols {
   def tuList(
     a: Analysis,
     tul: List[Ast.TransUnit]
