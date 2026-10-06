@@ -653,6 +653,45 @@ note: looking for a template here
 The error occurs because the definition of the template `T`
 is not available in the files provided as input to `fpp-locate-defs`.
 
+==== Name Clashes Between Definitions in Different Models
+
+There is one subtle point about the behavior of `fpp-locate-defs` that is
+worth noting here.
+In order to match uses of templates to their definitions, as described
+in the previous section, `fpp-locate-defs` analyzes all the definitions
+in all the source files presented as input.
+If there is a name clash between any two definitions, the tool will fail with 
+an error.
+For example, FPP won't let you define a module `S` and a struct
+`S` in the same scope of the same model, because there would be
+ambiguity as to the meaning of the symbol `S` in an expression like
+`S.a`: does it refer to the module `S` or the struct `S`?
+Therefore, if you define a module `S` in one file and a struct `S` in another 
+file,
+and you present both files to `fpp-locate-defs`, you will get an
+error.
+
+The subtle point is that this error can occur even if you never intend to use
+both files in the same FPP model.
+For example, you could have a project containing one FPP model that defines a 
+module `S`
+and another FPP model that defines a struct `S`.
+Then neither model would have a name clash, but `fpp-locate-defs`
+would report an error when analyzing the two files together.
+In this case, the error occurs because the purpose of `fpp-locate-defs` is
+usually to collect information about _all_ models in a project; but when it is 
+run,
+it uses the same rules for detecting names that FPP applies
+to a _single_ model.
+
+In practice this behavior should not cause a problem.
+If it does, you can change one of the clashing names, or put it
+in a different module.
+When you have different sets of symbols that are never intended to coexist in a 
+single
+model, it is a good practice in any event to enclose the symbols
+of each set in its own FPP module.
+
 === Computing Dependencies
 
 Given files _F_ and location specifiers _L_ that locate the definitions used in 

@@ -739,6 +739,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifying-Models-as-Files_Locating-Definitions_Location-Paths">17.5.2. Location Paths</a></li>
 <li><a href="#Specifying-Models-as-Files_Locating-Definitions_Included-Definitions">17.5.3. Included Definitions</a></li>
 <li><a href="#Specifying-Models-as-Files_Locating-Definitions_Definitions-in-Module-Template-Expansions">17.5.4. Definitions in Module Template Expansions</a></li>
+<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Name-Clashes-Between-Definitions-in-Different-Models">17.5.5. Name Clashes Between Definitions in Different Models</a></li>
 </ul>
 </li>
 <li><a href="#Specifying-Models-as-Files_Computing-Dependencies">17.6. Computing Dependencies</a>
@@ -14887,6 +14888,49 @@ note: looking for a template here</pre>
 is not available in the files provided as input to <code>fpp-locate-defs</code>.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="Specifying-Models-as-Files_Locating-Definitions_Name-Clashes-Between-Definitions-in-Different-Models">17.5.5. Name Clashes Between Definitions in Different Models</h4>
+<div class="paragraph">
+<p>There is one subtle point about the behavior of <code>fpp-locate-defs</code> that is
+worth noting here.
+In order to match uses of templates to their definitions, as described
+in the previous section, <code>fpp-locate-defs</code> analyzes all the definitions
+in all the source files presented as input.
+If there is a name clash between any two definitions, the tool will fail with
+an error.
+For example, FPP won&#8217;t let you define a module <code>S</code> and a struct
+<code>S</code> in the same scope of the same model, because there would be
+ambiguity as to the meaning of the symbol <code>S</code> in an expression like
+<code>S.a</code>: does it refer to the module <code>S</code> or the struct <code>S</code>?
+Therefore, if you define a module <code>S</code> in one file and a struct <code>S</code> in another
+file,
+and you present both files to <code>fpp-locate-defs</code>, you will get an
+error.</p>
+</div>
+<div class="paragraph">
+<p>The subtle point is that this error can occur even if you never intend to use
+both files in the same FPP model.
+For example, you could have a project containing one FPP model that defines a
+module <code>S</code>
+and another FPP model that defines a struct <code>S</code>.
+Then neither model would have a name clash, but <code>fpp-locate-defs</code>
+would report an error when analyzing the two files together.
+In this case, the error occurs because the purpose of <code>fpp-locate-defs</code> is
+usually to collect information about <em>all</em> models in a project; but when it is
+run,
+it uses the same rules for detecting names that FPP applies
+to a <em>single</em> model.</p>
+</div>
+<div class="paragraph">
+<p>In practice this behavior should not cause a problem.
+If it does, you can change one of the clashing names, or put it
+in a different module.
+When you have different sets of symbols that are never intended to coexist in a
+single
+model, it is a good practice in any event to enclose the symbols
+of each set in its own FPP module.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Specifying-Models-as-Files_Computing-Dependencies">17.6. Computing Dependencies</h3>
@@ -18461,7 +18505,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-05 16:06:14 -0700
+Last updated 2026-10-05 18:05:44 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
