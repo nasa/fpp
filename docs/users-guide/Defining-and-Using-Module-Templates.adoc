@@ -10,7 +10,7 @@ except that they handle different data types.
 
 * You may need to use the same subtopology in different deployments
 of the same multi-deployment system.
-For example, each of the deployments may require the same subtopology for 
+For example, each of the deployments may require the same subtopology for
 command and data handling.
 
 * Different deployments may need different variants of the same subtopology.
@@ -20,7 +20,7 @@ may need a communication subtopology that includes a radio.
 
 For this kind of replicated structure, FPP provides a feature called a
 *module template*.
-By defining a module template, you can specify a list of model elements (types, 
+By defining a module template, you can specify a list of model elements (types,
 constants, components, topologies, etc.)
 that may occur within a module definition.
 Then you can *expand* the template any number of times, each in a different
@@ -110,7 +110,7 @@ module N {
 
 You can see this by running the tool `fpp-to-fpp -e` on the
 original model shown above.
-We will explain this tool in the section on 
+We will explain this tool in the section on
 <<Analyzing-and-Translating-Models_Rewriting-FPP-Source,rewriting FPP source>>.
 
 Notice that in the expanded version, each template expansion
@@ -134,6 +134,21 @@ In this simple example, the expanded templates behave
 in the same way as if the syntax `expand T { ... }` were replaced
 by the inner syntax `...`.
 
+Finally, note that, within an expanded template, the FPP analyzer
+uses a special rule for resolving names (i.e., deciding what
+definition the name refers to).
+A name appearing in an expanded template is resolved as if
+it appeared at the point of the template _definition_,
+not at the point of the template _expansion_..
+This rule makes it easy to see how names will be resolved
+when the template is expanded.
+It also removes the confusion that could otherwise occur
+if the resolution of names within a template expansion depended
+on where the template was expanded.
+We will fully explain this rule in
+<<Defining-and-Using-Module-Templates_Resolving-Names-in-Expanded-Templates,a
+later section>>.
+
 === Module Template Parameters
 
 In the example given in the previous section, we used template
@@ -145,7 +160,7 @@ More often, though, you will want to expand a template
 with one or more elements that you provide at the
 point of expansion.
 That way, each expansion can be slightly different.
-For example, in model from the previous section, 
+For example, in model from the previous section,
 it may be more useful to specify the values of the
 constants `M.c` and `N.c` at the point of expansion,
 instead of giving them both the same value zero
@@ -247,7 +262,7 @@ Notice that the `expand T { ... }` syntax provides the bindings
 of the constant values at the points of expansion.
 
 As with other cases of binding values to formal parameters (for example,
-when providing <<Defining-Components_Parameters_Default-Values,default values 
+when providing <<Defining-Components_Parameters_Default-Values,default values
 for parameter arguments>>), the types must work out.
 For example, if we tried to expand the template `T` with
 the argument `"abc"`, we would get a typing error (try it and see).
@@ -383,8 +398,8 @@ module template T2(constant a: U32) {
 
 Finally, you can specify that a module template has one or more
 *port interface instance parameters*.
-Recall that a 
-<<Defining-Topologies_Topology-Ports_Port-Interface-Instances,port interface 
+Recall that a
+<<Defining-Topologies_Topology-Ports_Port-Interface-Instances,port interface
 instance>> is either a component instance definition or a topology
 definition.
 By using port interface instance parameters, you can parameterize
@@ -482,7 +497,7 @@ module FlightDeployment {
 
 }
 --------
-  
+
 Further, because the topology `DownlinkTopology` (in either expansion)
 implements the interface `DownlinkInterface`, you can use either
 expansion as an argument to another template with an interface parameter.
@@ -520,7 +535,7 @@ which is defined in the same module.
 
 === Resolving Names in Expanded Templates
 
-FPP uses a special rule for resolving the names of symbols
+As mentioned above, FPP uses a special rule for resolving the names of symbols
 used in expanded templates.
 When a name appears in an expanded template, the name
 is resolved as if it appeared at the point of the template
@@ -649,8 +664,8 @@ depending upon where the expansions occurred.
 
 In this section we provide a bit more detail on the `expand`
 syntax introduced in the previous sections.
-First, as described in the previous sections, when the source model contains 
-the syntax `expand T`, the analyzer replaces that syntax with `expand T { ...  
+First, as described in the previous sections, when the source model contains
+the syntax `expand T`, the analyzer replaces that syntax with `expand T { ...
 }`, where the dots
 represent the body of the template definition.
 Second, when the source model contains the syntax `expand T { ... }`
@@ -658,7 +673,7 @@ Second, when the source model contains the syntax `expand T { ... }`
 then the analyzer expects the syntax in the curly braces to be
 valid for a template expansion, and it does _not_ expand the template.
 Instead it uses the syntax specified in the curly braces.
-In this case the analyzer still checks for the existence of the template 
+In this case the analyzer still checks for the existence of the template
 definition `T` and will report an error if it is missing,
 but it ignores the syntax provided in the body of the template definition.
 
@@ -666,11 +681,11 @@ The purpose of this behavior is twofold. First, we want to have a way,
 in the FPP source language, to show the syntax of the model after running
 template expansion.
 This is the purpose of allowing the syntax `expand T { ... }`.
-Second, we want the result of template expansion on a valid FPP model to 
+Second, we want the result of template expansion on a valid FPP model to
 produce another valid model.
 That is the reason for specifying the semantics of `expand T { ... }`.
 In the ordinary use case, the syntax in the curly braces will be provided
-by running `fpp-to-fpp -e` to expand templates, so it will be 
+by running `fpp-to-fpp -e` to expand templates, so it will be
 valid if and only if the original source model is valid.
 
 You may, if you wish, write the syntax `expand T { ... }` yourself;

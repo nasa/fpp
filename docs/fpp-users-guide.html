@@ -13338,6 +13338,22 @@ In this simple example, the expanded templates behave
 in the same way as if the syntax <code>expand T { &#8230;&#8203; }</code> were replaced
 by the inner syntax <code>&#8230;&#8203;</code>.</p>
 </div>
+<div class="paragraph">
+<p>Finally, note that, within an expanded template, the FPP analyzer
+uses a special rule for resolving names (i.e., deciding what
+definition the name refers to).
+A name appearing in an expanded template is resolved as if
+it appeared at the point of the template <em>definition</em>,
+not at the point of the template <em>expansion</em>..
+This rule makes it easy to see how names will be resolved
+when the template is expanded.
+It also removes the confusion that could otherwise occur
+if the resolution of names within a template expansion depended
+on where the template was expanded.
+We will fully explain this rule in
+<a href="#Defining-and-Using-Module-Templates_Resolving-Names-in-Expanded-Templates">a
+later section</a>.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Defining-and-Using-Module-Templates_Module-Template-Parameters">15.2. Module Template Parameters</h3>
@@ -13758,7 +13774,7 @@ which is defined in the same module.</p>
 <div class="sect2">
 <h3 id="Defining-and-Using-Module-Templates_Resolving-Names-in-Expanded-Templates">15.3. Resolving Names in Expanded Templates</h3>
 <div class="paragraph">
-<p>FPP uses a special rule for resolving the names of symbols
+<p>As mentioned above, FPP uses a special rule for resolving the names of symbols
 used in expanded templates.
 When a name appears in an expanded template, the name
 is resolved as if it appeared at the point of the template
@@ -18461,7 +18477,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-06 13:37:11 -0700
+Last updated 2026-10-06 13:57:20 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
