@@ -34,7 +34,7 @@ object FPPToDict {
             dictionarySpecVersion=options.dictionarySpecVersion
         )
         for {
-            aTulTul <- ToolUtils.parseFilesAndResolveAsts(a, files, options.imports)
+            aTulTul <- ToolUtils.parseFilesAndResolveIncludes(a, files, options.imports)
             a <- Right(aTulTul._1)
             tulFiles <- Right(aTulTul._2)
             tulImports <- Right(aTulTul._3)

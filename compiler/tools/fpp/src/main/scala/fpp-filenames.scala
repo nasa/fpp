@@ -23,7 +23,7 @@ object FPPFilenames {
       case list => list
     }
     for {
-      tul <- ToolUtils.parseFilesAndResolveAsts(Analysis(), files).map(_._2)
+      tul <- ToolUtils.parseFilesAndResolveIncludes(Analysis(), files).map(_._2)
       (a, tul) <- enterSymbols(tul)
       files <-
         CppWriter.getMode(options.template, options.unitTest) match {

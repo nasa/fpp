@@ -45,7 +45,7 @@ object FPPDepend {
     }
     val a = Analysis(inputFileSet = options.files.toSet, dictionaryGeneration = true)
     for {
-      (a, tul) <- ToolUtils.parseFilesAndResolveAsts(a, files)
+      (a, tul) <- ToolUtils.parseFilesAndResolveIncludes(a, files)
       (a, tul) <- resolveTemplates(a, tul)
       a <- ComputeDependencies.tuList(a, tul)
       _ <- options.directFile match {

@@ -21,7 +21,7 @@ object FPPCheck {
     }
     val a = Analysis(inputFileSet = options.files.toSet)
     for {
-      aTul <- ToolUtils.parseFilesAndResolveAsts(a, files)
+      aTul <- ToolUtils.parseFilesAndResolveIncludes(a, files)
       aTul <- ResolveTemplates.tuList(aTul._1, aTul._2)
       a <- Right(aTul._1)
       tul <- Right(aTul._2)
