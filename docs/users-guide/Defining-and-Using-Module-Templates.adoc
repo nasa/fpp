@@ -142,9 +142,9 @@ it appeared at the point of the template _definition_,
 not at the point of the template _expansion_..
 This rule makes it easy to see how names will be resolved
 when the template is expanded.
-It also removes the confusion that could otherwise occur
-if the resolution of names within a template expansion depended
-on where the template was expanded.
+It also ensures that every expansion of the same template
+will have its names resolved in the same way, regardless of
+where the expansion occurs.
 We will fully explain this rule in
 <<Defining-and-Using-Module-Templates_Resolving-Names-in-Expanded-Templates,a
 later section>>.

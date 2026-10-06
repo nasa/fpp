@@ -13347,9 +13347,9 @@ it appeared at the point of the template <em>definition</em>,
 not at the point of the template <em>expansion</em>..
 This rule makes it easy to see how names will be resolved
 when the template is expanded.
-It also removes the confusion that could otherwise occur
-if the resolution of names within a template expansion depended
-on where the template was expanded.
+It also ensures that every expansion of the same template
+will have its names resolved in the same way, regardless of
+where the expansion occurs.
 We will fully explain this rule in
 <a href="#Defining-and-Using-Module-Templates_Resolving-Names-in-Expanded-Templates">a
 later section</a>.</p>
@@ -18477,7 +18477,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-06 13:57:20 -0700
+Last updated 2026-10-06 14:01:59 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
