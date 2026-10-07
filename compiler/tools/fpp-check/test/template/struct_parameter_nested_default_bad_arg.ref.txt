@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/struct_parameter_nested_default_bad_arg.fpp:6.19
+expand M(constant { inner = { a = "abc" } })
+                  ^
+error: cannot convert { inner: { a: string } } to struct S
