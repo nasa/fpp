@@ -12,6 +12,7 @@ def_system
 dictionary
 dictionary_no_deployment_top
 direct
+direct_transitive_first
 enum_constant
 expr_array
 expr_binop
@@ -64,11 +65,14 @@ top_implements
 string_no_size_implied_framework_defs
 string_with_size_implied_framework_defs
 template
+template_body_direct
 template_body_locate
 template_body_locate_split
 template_cycle_a
 template_cycle_b
-template_dict_top
+template_expand_chain
+template_expand_missing_def
+template_expand_undefined
 template_include
 template_incomplete
 template_locate

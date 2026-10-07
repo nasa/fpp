@@ -619,6 +619,15 @@ object ExpandTemplates extends AstTransformer
   ): ResultAnnotatedNode[Ast.DefTopology] =
     val data = aNode._2.data
     for {
+      // Validate no deployment topology inside a template
+      _ <- (a.templateDefinition, data.isDeployment) match {
+        case (Some(templateDefinition), true) =>
+          Left(SemanticError.DeploymentTopologyInTemplate(
+            Locations.get(aNode._2.id),
+            Locations.get(templateDefinition)
+          ))
+        case _ => Right(())
+      }
       members <- transformList(a, data.members, matchTopologyMember)
       implements <- transformList(a, data.implements, (a, q) => Right(((), cloneQualIdentNode(a, q))))
     } yield {

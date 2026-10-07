@@ -1,0 +1,1 @@
+constant tBodyDirectConst = 0

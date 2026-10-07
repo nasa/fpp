@@ -1,0 +1,2 @@
+fpp-depend
+error: cannot open file [ local path prefix ]/compiler/tools/fpp-depend/test/template_expand_missing_def_def.fpp

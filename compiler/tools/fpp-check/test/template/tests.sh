@@ -19,6 +19,7 @@ constant_param_array_promote_bad_subscript
 constant_with_default
 definition_point_scoping
 definition_point_scoping_ok
+deployment_topology_in_template
 duplicate_def
 import_two_expansions_ok
 interfaces

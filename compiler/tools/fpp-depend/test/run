@@ -47,6 +47,15 @@ direct()
   test $run_test_status -eq 0
 }
 
+direct_transitive_first()
+{
+  run_test '-d tmp.out.txt' direct_transitive_first
+  run_test_status=$?
+  remove_path_prefix < tmp.out.txt > direct_transitive_first_output.out.txt
+  compare direct_transitive_first_output && \
+  test $run_test_status -eq 0
+}
+
 filenames()
 {
   run_test '-g filenames_generated_output.out.txt -u filenames_ut_output.out.txt' \
@@ -149,11 +158,28 @@ missing()
   test $run_test_status -eq 0
 }
 
+template_body_direct()
+{
+  run_test '-d tmp.out.txt' template_body_direct
+  run_test_status=$?
+  remove_path_prefix < tmp.out.txt > template_body_direct_output.out.txt
+  compare template_body_direct_output && \
+  test $run_test_status -eq 0
+}
+
 template_body_locate_split()
 {
   run_test '' \
     'template_body_locate_split_a.fpp template_body_locate_split_b' \
     template_body_locate_split
+}
+
+template_expand_chain()
+{
+  run_test '-g template_expand_chain_generated_output.out.txt' template_expand_chain
+  run_test_status=$?
+  compare template_expand_chain_generated_output && \
+  test $run_test_status -eq 0
 }
 
 template_include()

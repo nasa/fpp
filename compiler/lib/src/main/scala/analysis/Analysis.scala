@@ -9,8 +9,6 @@ import scala.annotation.tailrec
 case class Analysis(
   /** The set of files presented to the analyzer */
   inputFileSet: Set[File] = Set(),
-  /** The recursive level of the analysis */
-  level: Int = 0,
   /** The set of files on which the analysis transitively depends.
    *  Does not contain included files. */
   dependencyFileSet: Set[File] = Set(),

@@ -42,6 +42,11 @@ direct() {
   remove_path_prefix < tmp.out.txt > direct_output.ref.txt
 }
 
+direct_transitive_first() {
+  update '-d tmp.out.txt' direct_transitive_first
+  remove_path_prefix < tmp.out.txt > direct_transitive_first_output.ref.txt
+}
+
 filenames() {
   update '-g filenames_generated_output.ref.txt -u filenames_ut_output.ref.txt' \
     ../../fpp-filenames/test/ok filenames
@@ -98,10 +103,19 @@ missing() {
   update '-m tmp.out.txt' missing; remove_path_prefix < tmp.out.txt > missing_output.ref.txt
 }
 
+template_body_direct() {
+  update '-d tmp.out.txt' template_body_direct
+  remove_path_prefix < tmp.out.txt > template_body_direct_output.ref.txt
+}
+
 template_body_locate_split() {
   update '' \
     'template_body_locate_split_a.fpp template_body_locate_split_b' \
     template_body_locate_split
+}
+
+template_expand_chain() {
+  update '-g template_expand_chain_generated_output.ref.txt' template_expand_chain
 }
 
 template_include() {

@@ -1,0 +1,2 @@
+[ local path prefix ]/compiler/tools/fpp-depend/test/direct_transitive_first_a.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/direct_transitive_first_b.fpp

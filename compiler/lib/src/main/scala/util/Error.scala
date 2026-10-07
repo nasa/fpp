@@ -315,6 +315,13 @@ sealed trait Error {
         Error.print (Some(expandLoc)) ("template expansion specifiers cannot appear inside a module template")
         System.err.println("enclosing template defined here:")
         System.err.println(templateLoc)
+      case SemanticError.DeploymentTopologyInTemplate(
+        topologyLoc: Location,
+        templateLoc: Location
+      ) =>
+        Error.print (Some(topologyLoc)) ("deployment topologies cannot appear inside a module template")
+        System.err.println("enclosing template defined here:")
+        System.err.println(templateLoc)
       case SemanticError.MissingAsync(kind, loc) =>
         Error.print (Some(loc)) (s"$kind component must have async input")
       case SemanticError.MissingConnection(loc, matchingLoc) =>
@@ -798,6 +805,11 @@ object SemanticError {
   /** Template expansion specifier nested inside a template */
   final case class TemplateExpansionInTemplate(
     expandLoc: Location,
+    templateLoc: Location,
+  ) extends Error
+  /** Deployment topology inside a template */
+  final case class DeploymentTopologyInTemplate(
+    topologyLoc: Location,
     templateLoc: Location,
   ) extends Error
   /** Missing async input */
