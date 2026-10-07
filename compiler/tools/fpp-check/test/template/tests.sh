@@ -43,6 +43,8 @@ param_body_def_different_group_ok
 param_conflict_body_def
 param_conflict_same_name_group
 param_same_name_different_groups_ok
+parameter_shadow_error
+parameter_shadow_ok
 struct_parameter_alias_default_ok
 struct_parameter_anon_array_promote
 struct_parameter_array_member_default_ok
@@ -59,4 +61,5 @@ types
 undef_constant_param_type
 undef_interface_param_type
 use_before_expand
-use_before_expand_ok"
+use_before_expand_ok
+"

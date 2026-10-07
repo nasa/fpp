@@ -12,6 +12,8 @@ enum_ok
 enum_undef_constant
 enum_undef_type
 guard_undef_type
+shadowed_error
+shadowed_ok
 signal_undef_type
 state_enum_ok
 struct_alias_format_not_numeric

@@ -13,6 +13,10 @@ enum_undef_constant
 enum_undef_type
 queued_no_async_input
 ok
+shadowed_constant_error
+shadowed_constant_ok
+shadowed_type_error
+shadowed_type_ok
 struct_alias_format_not_numeric
 struct_default_error
 struct_format_not_numeric

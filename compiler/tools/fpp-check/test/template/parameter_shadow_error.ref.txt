@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/parameter_shadow_error.fpp:4.29
+  array A = [3] U32 default [ a, a, a ]
+                            ^
+  expanded at [ local path prefix ]/compiler/tools/fpp-check/test/template/parameter_shadow_error.fpp:7.1
+error: cannot convert [3] bool to array A
