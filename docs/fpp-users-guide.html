@@ -2100,7 +2100,8 @@ For example:</p>
 encloses.
 To write the qualified name, you write the qualifier, a dot, and the base name:
 for example <code>M.a</code>. (This is also the way that
-name qualification works in Python, Java, and Scala.)
+name qualification works in Python, Java, and Scala.
+The C&#43;&#43; equivalent is <code>M::a</code>.)
 Inside the module, you can use the qualified name or the unqualified
 name.
 Outside the module, you must use the qualified name.
@@ -2140,7 +2141,8 @@ a definition is hidden or <strong>shadowed</strong> by another definition
 with the same unqualified name in an inner scope.
 In the example above, inside module <code>M</code>, the name <code>a</code>
 refers to <code>M.a</code>, so to refer to the constant <code>a</code> defined at the top
-level, we have to write <code>.a</code>.</p>
+level, we have to write <code>.a</code>.
+(The C&#43;&#43; equivalent is <code>::a</code>.)</p>
 </div>
 <div class="paragraph">
 <p>As with namespaces in C&#43;&#43;, you can close a module definition and
@@ -18569,7 +18571,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-06 17:54:43 -0700
+Last updated 2026-10-06 18:15:28 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

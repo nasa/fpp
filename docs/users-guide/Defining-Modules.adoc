@@ -23,7 +23,8 @@ The name of a module qualifies the names of all the definitions that the module
 encloses.
 To write the qualified name, you write the qualifier, a dot, and the base name: 
 for example `M.a`. (This is also the way that
-name qualification works in Python, Java, and Scala.)
+name qualification works in Python, Java, and Scala.
+The {cpp} equivalent is `M::a`.)
 Inside the module, you can use the qualified name or the unqualified
 name.
 Outside the module, you must use the qualified name.
@@ -62,6 +63,7 @@ with the same unqualified name in an inner scope.
 In the example above, inside module `M`, the name `a`
 refers to `M.a`, so to refer to the constant `a` defined at the top
 level, we have to write `.a`.
+(The {cpp} equivalent is `::a`.)
 
 As with namespaces in {cpp}, you can close a module definition and
 reopen it later.
