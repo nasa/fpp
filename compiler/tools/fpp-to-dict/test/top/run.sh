@@ -61,9 +61,9 @@ multipleTops()
     diff_json SecondTop
 }
 
-# template.fpp puts a deployment topology and a system in the body of a module
-# template. template_hand.fpp is the same model with the expansion written out
-# by hand. The two must generate identical dictionaries, so both are checked
+# template.fpp puts a component, an instance, and a topology in the body of a
+# module template, and imports the expanded topology into a deployment topology.
+# template_hand.fpp is the same model with the expansion written out by hand. The two must generate identical dictionaries, so both are checked
 # against the same reference output.
 template()
 {

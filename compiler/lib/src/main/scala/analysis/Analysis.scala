@@ -92,7 +92,7 @@ case class Analysis(
   templateExpansionMap: Map[AstNode.Id, TemplateExpansion] = Map(),
   /** Tracks the current expansion we are analyzing inside of */
   templateExpansion: Option[TemplateExpansion] = None,
-  /** Node ID of the template definition we are currently cloning inside of */
+  /** Node ID of the template definition we are currently inside of */
   templateDefinition: Option[AstNode.Id] = None,
   /** The set of symbols defined with a dictionary specifier */
   dictionarySymbolSet: Set[Symbol] = Set(),

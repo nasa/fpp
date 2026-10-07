@@ -18,8 +18,8 @@ instance cIn: CIn base id 0x200
 
 module template T(instance i: I) {
 
-  @ Deployment topology from a template, wired through the instance parameter
-  deployment topology InstParam {
+  @ Subtopology from a template, wired through the instance parameter
+  topology Sub {
     instance i
     instance cIn
     connections C {
@@ -30,5 +30,12 @@ module template T(instance i: I) {
 }
 
 module M {
+
   expand T(instance cOut)
+
+  @ Deployment topology importing the subtopology from the template
+  deployment topology InstParam {
+    import Sub
+  }
+
 }

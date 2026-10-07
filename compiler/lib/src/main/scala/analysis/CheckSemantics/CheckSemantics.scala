@@ -10,6 +10,7 @@ object CheckSemantics {
   def tuList(a: Analysis, tul: List[Ast.TransUnit]):
     Result.Result[Analysis] = {
     for {
+      _ <- CheckTemplateDefs.visitList(a, tul, CheckTemplateDefs.transUnit)
       a <- ConstructImpliedUseMap.visitList(a, tul, ConstructImpliedUseMap.transUnit)
       a <- CheckUses.visitList(a, tul, CheckUses.transUnit)
       _ <- CheckUseDefCycles.visitList(a, tul, CheckUseDefCycles.transUnit)

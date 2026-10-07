@@ -23,14 +23,20 @@ module template T(constant baseId: U32) {
 
   instance c: C base id baseId
 
-  deployment topology Expanded {
+  topology Sub {
     instance c
   }
-
-  system Expanded: Expanded
 
 }
 
 module Dep {
+
   expand T(constant 0x100)
+
+  deployment topology Expanded {
+    import Sub
+  }
+
+  system Expanded: Expanded
+
 }

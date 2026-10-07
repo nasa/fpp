@@ -24,8 +24,8 @@ topology Sub {
 
 module template T(instance i: I) {
 
-  @ Deployment topology that imports a subtopology through a template parameter
-  deployment topology SubParam {
+  @ Topology that imports a subtopology through a template parameter
+  topology Wired {
     instance i
     instance cIn
     connections C {
@@ -36,5 +36,12 @@ module template T(instance i: I) {
 }
 
 module M {
+
   expand T(instance Sub)
+
+  @ Deployment topology importing the topology from the template
+  deployment topology SubParam {
+    import Wired
+  }
+
 }
