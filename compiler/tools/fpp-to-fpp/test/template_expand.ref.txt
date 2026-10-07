@@ -10,6 +10,7 @@ module template T(
                    type Ty @< A type parameter
                    instance inst: Iface @< An interface parameter
                  ) {
+
   @ A port that uses the type parameter
   port P(
           a: Ty
@@ -26,6 +27,7 @@ expand T(
           type U32
           instance inst1
         ) {
+
   @ A port that uses the type parameter
   port P(
           a: Ty
@@ -41,11 +43,13 @@ module template Empty(
                        constant c: U32 @< A constant parameter
                      ) {
 
+
 }
 
 @ Expanding an empty-bodied template produces an empty brace block
 expand Empty(
               constant 5
             ) {
+
 
 } @< with the specifier annotations attached to it
