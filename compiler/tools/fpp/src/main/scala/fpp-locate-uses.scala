@@ -26,10 +26,8 @@ object FPPLocateUses {
     }
     val a = Analysis(inputFileSet = options.files.toSet)
     for {
-      aTulTul <- ToolUtils.parseFilesAndResolveIncludes(a, files, options.imports)
-      a <- Right(aTulTul._1)
-      tulFiles <- Right(aTulTul._2)
-      tulImports <- Right(aTulTul._3)
+      tulFiles <- ToolUtils.parseFiles(files)
+      tulImports <- ToolUtils.parseFiles(options.imports)
       aTul <- ExpandSyntaxAndEnterSymbols.tuList(a, tulFiles ++ tulImports)
       a <- Right(aTul._1)
       tul <- Right(aTul._2)
