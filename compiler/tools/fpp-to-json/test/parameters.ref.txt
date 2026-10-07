@@ -365,7 +365,8 @@
                                             "AstNode" : {
                                               "data" : {
                                                 "Unqualified" : {
-                                                  "name" : "F64x3"
+                                                  "name" : "F64x3",
+                                                  "isAbsolute" : false
                                                 }
                                               },
                                               "id" : 18

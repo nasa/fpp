@@ -88,7 +88,7 @@ def state machine
     ident C
     guard ident g1
     target qual ident S1
-    target qual ident S2
+    target qual ident .S2
   @ State S1
   def state
     ident S1
@@ -115,7 +115,7 @@ def state machine
       target qual ident S1
       action ident a2
       action ident a3
-      target qual ident S2.S3
+      target qual ident .S2.S3
     @ State S3
     def state
       ident S3

@@ -1,4 +1,4 @@
-locate component Expanded.GenComp at "template_expand_ok.fpp"
-locate port P at "template_expand_ok.fpp"
-locate template Lib.Tmpl at "template_expand_ok.fpp"
-locate type Expanded.GenArr at "template_expand_ok.fpp"
+locate component .Expanded.GenComp at "template_expand_ok.fpp"
+locate port .P at "template_expand_ok.fpp"
+locate template .Lib.Tmpl at "template_expand_ok.fpp"
+locate type .Expanded.GenArr at "template_expand_ok.fpp"

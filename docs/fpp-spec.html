@@ -7915,8 +7915,8 @@ definition</a>.</p>
 </li>
 <li>
 <p>When a location specifier appears inside a
-<a href="#Definitions_Module-Definitions">module definition <em>M</em></a>,
-<em>Q</em> is implicitly qualified by the
+<a href="#Definitions_Module-Definitions">module definition <em>M</em></a>
+and does not begin with a dot, <em>Q</em> is implicitly qualified by the
 <a href="#Scoping-of-Names_Names-of-Definitions">qualified name</a>
 of <em>M</em>.
 This rule allows the resolution to occur during dependency analysis,
@@ -10266,14 +10266,26 @@ IEEE floating-point number.</p>
 <div class="sect3">
 <h4 id="Expressions_Identifier-Expressions_Syntax">10.7.1. Syntax</h4>
 <div class="paragraph">
-<p><em><a href="#Lexical-Elements_Identifiers">identifier</a></em></p>
+<p>An <strong>identifier expression</strong> is one of the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>An <a href="#Lexical-Elements_Identifiers">identifier</a>.</p>
+</li>
+<li>
+<p>A <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a> of
+the form <code>.</code> <em>I</em>, where <em>I</em> is an identifier.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Expressions_Identifier-Expressions_Semantics">10.7.2. Semantics</h4>
 <div class="paragraph">
-<p>The identifier must refer to a
-<a href="#Definitions_Constant-Definitions">constant definition</a>,
+<p>An identifier expression <em>I</em> must refer to a
+<a href="#Definitions_Constant-Definitions">constant definition</a>
+or
 <a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>,
 or <a href="#Definitions">bound parameter definition</a>
 according to the
@@ -10283,22 +10295,29 @@ then <em>B</em> must be a <a href="#Specifiers_Template-Expansion-Specifiers">co
 parameter definition</a>.</p>
 </div>
 <div class="paragraph">
-<p>An identifier expression is evaluated as follows:</p>
+<p>An identifier expression <code>.</code> <em>I</em> must refer to a
+<a href="#Definitions_Constant-Definitions">constant definition</a>
+according to the
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules for resolving
+qualified identifiers</a>.</p>
+</div>
+<div class="paragraph">
+<p>An identifier expression <em>e</em> is evaluated as follows:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>If the identifier refers to a constant definition or enumerated constant
+<p>If <em>e</em> refers to a constant definition or enumerated constant
 definition <em>D</em>, then the value of the expression is the value provided
 by <em>D</em>.</p>
 </li>
 <li>
-<p>Otherwise the identifier refers to a bound parameter definition
+<p>Otherwise <em>e</em> refers to a bound parameter definition
 \$B = (p, A)\$.
 By the rules for <a href="#Specifiers_Template-Expansion-Specifiers">binding arguments
 to template parameters</a>,
-<em>A</em> is <code>constant</code> <em>e</em> for some expression <em>e</em>.
-In this case the value is provided by evaluating the expression <em>e</em>.</p>
+<em>A</em> is <code>constant</code> <em>e'</em> for some expression <em>e'</em>.
+In this case the value is provided by evaluating the expression <em>e'</em>.</p>
 </li>
 </ul>
 </div>
@@ -10308,7 +10327,11 @@ In this case the value is provided by evaluating the expression <em>e</em>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = 42
-constant b = a # a is an identifier expression</code></pre>
+constant b = a # a is an identifier expression
+module M {
+  constant a = 0
+  constant b = .a # .a is an identifier expression
+}</code></pre>
 </div>
 </div>
 </div>
@@ -11258,22 +11281,45 @@ directory in the environment where the analysis occurs.</p>
 <p><em><a href="#Lexical-Elements_Identifiers">identifier</a></em></p>
 </li>
 <li>
+<p><code>.</code> <em><a href="#Lexical-Elements_Identifiers">identifier</a></em></p>
+</li>
+<li>
 <p><em>qual-ident</em> <code>.</code> <em><a href="#Lexical-Elements_Identifiers">identifier</a></em></p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Therefore every qualified identifier consists of
-a nonempty list of identifiers separated by dots.</p>
+<p>Therefore every qualified identifier consists of an optional dot <code>.</code> followed
+by a nonempty list of identifiers separated by dots.</p>
 </div>
 <div class="paragraph">
-<p><strong>Examples:</strong></p>
+<p>A qualified identifier that begins with an identifier is called a <strong>relative
+qualified identifier</strong>.
+It specifies a qualified name relative to an enclosing scope.</p>
+</div>
+<div class="paragraph">
+<p>A qualified identifier that begins with a dot is called an <strong>absolute qualified
+identifier</strong>.
+It specifies a qualified name without reference to an enclosing scope.</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples of relative qualified identifiers:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">a
 a.b
 a.b.c</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Examples of absolute qualified identifiers:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">.a
+.a.b
+.a.b.c</code></pre>
 </div>
 </div>
 </div>
@@ -11834,6 +11880,10 @@ associating qualified identifiers <em>Q</em> with definitions:</p>
 <a href="#Scoping-of-Names_Resolution-of-Identifiers">previous section</a>.</p>
 </li>
 <li>
+<p>Otherwise if <em>Q</em> has the form <code>.</code> <em>I</em>, then resolve <em>Q</em> as
+if it were <em>I</em> appearing at the top level.</p>
+</li>
+<li>
 <p>Otherwise <em>Q</em> has the form <em>Q'</em> <code>.</code> <em>I</em>, where
 <em>Q'</em> is a qualified identifier and <em>I</em> is an identifier. Do the
 following:</p>
@@ -11885,6 +11935,7 @@ module M {
   constant g = M.a # Refers to M.a
   constant h = E.b # Refers to M.E.b
   constant i = M.E.b # Refers to M.E.b
+  constant j = .a # Refers to a
 }</code></pre>
 </div>
 </div>
@@ -12054,12 +12105,11 @@ definition</a> has implied uses when a dictionary is being generated.</p>
 <p>Whenever an implied use is called out in this specification, the
 definition being used must be available at the point of the implied
 use.
-If the definition is unavailable because it is hidden by another
-definition in an inner scope, then an error occurs.
-For example, this model is illegal, because the definition
-<code>M.FwSizeStoreType</code> hides the framework definition <code>FwSizeStoreType</code>
-at the point of the <a href="#Type-Names_String-Type-Names">implied use</a>
-in the type <code>string size 100</code>:</p>
+For example, this model is illegal, because it uses the type <code>string size 100</code>,
+which represents an <a href="#Type-Names_String-Type-Names">implied use</a> of
+<code>FwSizeStoreType</code>,
+but it does not define <code>FwSizeStoreType</code>.  Instead it defines
+<code>M.FwSizeStoreType</code>, which is a different symbol.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -14476,7 +14526,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-06 16:28:32 -0700
+Last updated 2026-10-06 18:15:25 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

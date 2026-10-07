@@ -22,6 +22,8 @@ template_arg_channel
 template_arg_topology
 template_channel_neither_used_nor_omitted
 template_ok
+shadowed_instance_error
+shadowed_instance_ok
 "
 
 ok()

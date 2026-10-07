@@ -309,7 +309,8 @@
                                         "AstNode" : {
                                           "data" : {
                                             "Unqualified" : {
-                                              "name" : "General"
+                                              "name" : "General",
+                                              "isAbsolute" : false
                                             }
                                           },
                                           "id" : 24
@@ -365,7 +366,8 @@
                                     "AstNode" : {
                                       "data" : {
                                         "Unqualified" : {
-                                          "name" : "ICmd"
+                                          "name" : "ICmd",
+                                          "isAbsolute" : false
                                         }
                                       },
                                       "id" : 28
@@ -392,7 +394,8 @@
                                     "AstNode" : {
                                       "data" : {
                                         "Unqualified" : {
-                                          "name" : "IPort"
+                                          "name" : "IPort",
+                                          "isAbsolute" : false
                                         }
                                       },
                                       "id" : 31

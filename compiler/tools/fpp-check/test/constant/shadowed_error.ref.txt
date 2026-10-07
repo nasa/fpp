@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/constant/shadowed_error.fpp:4.18
+  constant b = [ a, 1 ]
+                 ^
+error: cannot compute common type of bool and Integer
