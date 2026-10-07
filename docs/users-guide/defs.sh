@@ -24,6 +24,7 @@ Defining-Components.adoc
 Defining-and-Using-Port-Interfaces.adoc
 Defining-Component-Instances.adoc
 Defining-Topologies.adoc
+Defining-and-Using-Module-Templates.adoc
 Defining-Systems.adoc
 Specifying-Models-as-Files.adoc
 Analyzing-and-Translating-Models.adoc

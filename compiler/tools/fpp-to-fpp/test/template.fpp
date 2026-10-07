@@ -15,7 +15,7 @@ module template T (
     constant d = c + 2
 }
 
-@ Without -t, the expansion specifier is formatted but not expanded
+@ Without -e, the expansion specifier is formatted but not expanded
 expand T(constant 10, type U32, instance inst1)
 
 @ Template parameters and arguments whose names are escaped keywords:
