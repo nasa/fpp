@@ -1,0 +1,6 @@
+fpp-locate-defs
+[ local path prefix ]/compiler/tools/fpp-locate-defs/test/template_expand_undefined.fpp:1.8
+expand T
+       ^
+error: symbol T is not defined
+note: looking for a template here

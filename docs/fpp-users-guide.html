@@ -702,85 +702,108 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#Defining-Systems">15. Defining Systems</a></li>
-<li><a href="#Specifying-Models-as-Files">16. Specifying Models as Files</a>
+<li><a href="#Defining-and-Using-Module-Templates">15. Defining and Using Module Templates</a>
 <ul class="sectlevel2">
-<li><a href="#Specifying-Models-as-Files_Dividing-Models-into-Files">16.1. Dividing Models into Files</a></li>
-<li><a href="#Specifying-Models-as-Files_Include-Specifiers">16.2. Include Specifiers</a></li>
-<li><a href="#Specifying-Models-as-Files_Dependencies">16.3. Dependencies</a></li>
-<li><a href="#Specifying-Models-as-Files_Location-Specifiers">16.4. Location Specifiers</a>
+<li><a href="#Defining-and-Using-Module-Templates_Basic-Module-Templates">15.1. Basic Module Templates</a></li>
+<li><a href="#Defining-and-Using-Module-Templates_Module-Template-Parameters">15.2. Module Template Parameters</a>
 <ul class="sectlevel3">
-<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Syntax">16.4.1. Syntax</a></li>
-<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Path-Names">16.4.2. Path Names</a></li>
-<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Definition-Names">16.4.3. Definition Names</a></li>
-<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Included-Files">16.4.4. Included Files</a></li>
-<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Dictionary-Definitions">16.4.5. Dictionary Definitions</a></li>
-<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Repeated-Location-Specifiers">16.4.6. Repeated Location Specifiers</a></li>
+<li><a href="#Defining-and-Using-Module-Templates_Module-Template-Parameters_Constant-Parameters">15.2.1. Constant Parameters</a></li>
+<li><a href="#Defining-and-Using-Module-Templates_Module-Template-Parameters_Type-Parameters">15.2.2. Type Parameters</a></li>
+<li><a href="#Defining-and-Using-Module-Templates_Module-Template-Parameters_Port-Interface-Instance-Parameters">15.2.3. Port Interface Instance Parameters</a></li>
 </ul>
 </li>
-<li><a href="#Specifying-Models-as-Files_Locating-Definitions">16.5. Locating Definitions</a>
-<ul class="sectlevel3">
-<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Running-fpp-locate-defs">16.5.1. Running fpp-locate-defs</a></li>
-<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Location-Paths">16.5.2. Location Paths</a></li>
-<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Included-Definitions">16.5.3. Included Definitions</a></li>
+<li><a href="#Defining-and-Using-Module-Templates_Resolving-Names-in-Expanded-Templates">15.3. Resolving Names in Expanded Templates</a></li>
+<li><a href="#Defining-and-Using-Module-Templates_The-expand-Syntax">15.4. The expand Syntax</a></li>
+<li><a href="#Defining-and-Using-Module-Templates_Nesting-of-Module-Templates">15.5. Nesting of Module Templates</a></li>
 </ul>
 </li>
-<li><a href="#Specifying-Models-as-Files_Computing-Dependencies">16.6. Computing Dependencies</a>
-<ul class="sectlevel3">
-<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Running-fpp-depend">16.6.1. Running fpp-depend</a></li>
-<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Transitive-Dependencies">16.6.2. Transitive Dependencies</a></li>
-<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Missing-Dependencies">16.6.3. Missing Dependencies</a></li>
-<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Included-Files">16.6.4. Included Files</a></li>
-<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Dependencies-Between-Build-Modules">16.6.5. Dependencies Between Build Modules</a></li>
-<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Framework-Dependencies">16.6.6. Framework Dependencies</a></li>
-</ul>
-</li>
-<li><a href="#Specifying-Models-as-Files_Locating-Uses">16.7. Locating Uses</a></li>
-<li><a href="#Specifying-Models-as-Files_Path-Name-Aliases">16.8. Path Name Aliases</a>
-<ul class="sectlevel3">
-<li><a href="#Specifying-Models-as-Files_Path-Name-Aliases_Relative-Paths-and-Symbolic-Links">16.8.1. Relative Paths and Symbolic Links</a></li>
-<li><a href="#Specifying-Models-as-Files_Path-Name-Aliases_Unique-Locations">16.8.2. Unique Locations</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#Analyzing-and-Translating-Models">17. Analyzing and Translating Models</a>
+<li><a href="#Defining-Systems">16. Defining Systems</a></li>
+<li><a href="#Specifying-Models-as-Files">17. Specifying Models as Files</a>
 <ul class="sectlevel2">
-<li><a href="#Analyzing-and-Translating-Models_Checking-Models">17.1. Checking Models</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">17.2. Generating C Plus Plus</a>
+<li><a href="#Specifying-Models-as-Files_Dividing-Models-into-Files">17.1. Dividing Models into Files</a></li>
+<li><a href="#Specifying-Models-as-Files_Include-Specifiers">17.2. Include Specifiers</a></li>
+<li><a href="#Specifying-Models-as-Files_Dependencies">17.3. Dependencies</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers">17.4. Location Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">17.2.1. Constant Definitions</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-State-Machines-and-Components">17.2.2. Types, Ports, State Machines, and Components</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">17.2.3. Component Implementation and Unit Test Code</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">17.2.4. Topology Definitions</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Compiling-the-Generated-Code">17.2.5. Compiling the Generated Code</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Syntax">17.4.1. Syntax</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Path-Names">17.4.2. Path Names</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Definition-Names">17.4.3. Definition Names</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Included-Files">17.4.4. Included Files</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Dictionary-Definitions">17.4.5. Dictionary Definitions</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Repeated-Location-Specifiers">17.4.6. Repeated Location Specifiers</a></li>
 </ul>
 </li>
-<li><a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">17.3. Formatting FPP Source</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Visualizing-Topologies">17.4. Visualizing Topologies</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">17.5. Generating Ground Dictionaries</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">17.6. Identifying Generated Files</a>
+<li><a href="#Specifying-Models-as-Files_Locating-Definitions">17.5. Locating Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-filenames">17.6.1. Using fpp-filenames</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">17.6.2. Using fpp-depend</a></li>
+<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Running-fpp-locate-defs">17.5.1. Running fpp-locate-defs</a></li>
+<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Location-Paths">17.5.2. Location Paths</a></li>
+<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Included-Definitions">17.5.3. Included Definitions</a></li>
+<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Definitions-in-Module-Template-Expansions">17.5.4. Definitions in Module Template Expansions</a></li>
+<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Name-Clashes-Between-Definitions-in-Different-Models">17.5.5. Name Clashes Between Definitions in Different Models</a></li>
 </ul>
 </li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-JSON-Models">17.7. Generating JSON Models</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Translating-Older-XML-to-FPP">17.8. Translating Older XML to FPP</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies">17.6. Computing Dependencies</a>
+<ul class="sectlevel3">
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Running-fpp-depend">17.6.1. Running fpp-depend</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Transitive-Dependencies">17.6.2. Transitive Dependencies</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Missing-Dependencies">17.6.3. Missing Dependencies</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Included-Files">17.6.4. Included Files</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Module-Template-Expansions">17.6.5. Module Template Expansions</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Dependencies-Between-Build-Modules">17.6.6. Dependencies Between Build Modules</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Framework-Dependencies">17.6.7. Framework Dependencies</a></li>
 </ul>
 </li>
-<li><a href="#Writing-C-Plus-Plus-Implementations">18. Writing C Plus Plus Implementations</a>
+<li><a href="#Specifying-Models-as-Files_Locating-Uses">17.7. Locating Uses</a></li>
+<li><a href="#Specifying-Models-as-Files_Path-Name-Aliases">17.8. Path Name Aliases</a>
+<ul class="sectlevel3">
+<li><a href="#Specifying-Models-as-Files_Path-Name-Aliases_Relative-Paths-and-Symbolic-Links">17.8.1. Relative Paths and Symbolic Links</a></li>
+<li><a href="#Specifying-Models-as-Files_Path-Name-Aliases_Unique-Locations">17.8.2. Unique Locations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#Analyzing-and-Translating-Models">18. Analyzing and Translating Models</a>
 <ul class="sectlevel2">
-<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">18.1. Implementing Abstract Types</a></li>
-<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-External-State-Machines">18.2. Implementing External State Machines</a></li>
-<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">18.3. Implementing Deployments</a>
+<li><a href="#Analyzing-and-Translating-Models_Checking-Models">18.1. Checking Models</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">18.2. Generating C Plus Plus</a>
 <ul class="sectlevel3">
-<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Application-Specific-Definitions">18.3.1. Application-Specific Definitions</a></li>
-<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_The-Main-Function">18.3.2. The Main Function</a></li>
-<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">18.3.3. Public Symbols</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">18.2.1. Constant Definitions</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-State-Machines-and-Components">18.2.2. Types, Ports, State Machines, and Components</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">18.2.3. Component Implementation and Unit Test Code</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">18.2.4. Topology Definitions</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Compiling-the-Generated-Code">18.2.5. Compiling the Generated Code</a></li>
 </ul>
 </li>
-<li><a href="#Writing-C-Plus-Plus-Implementations_Serialization-of-FPP-Values">18.4. Serialization of FPP Values</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source">18.3. Rewriting FPP Source</a>
+<ul class="sectlevel3">
+<li><a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source_Basic-Use">18.3.1. Basic Use</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source_Syntax-Expansion">18.3.2. Syntax Expansion</a></li>
+</ul>
+</li>
+<li><a href="#Analyzing-and-Translating-Models_Visualizing-Topologies">18.4. Visualizing Topologies</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">18.5. Generating Ground Dictionaries</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">18.6. Identifying Generated Files</a>
+<ul class="sectlevel3">
+<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-filenames">18.6.1. Using fpp-filenames</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">18.6.2. Using fpp-depend</a></li>
+</ul>
+</li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-JSON-Models">18.7. Generating JSON Models</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Translating-Older-XML-to-FPP">18.8. Translating Older XML to FPP</a></li>
+</ul>
+</li>
+<li><a href="#Writing-C-Plus-Plus-Implementations">19. Writing C Plus Plus Implementations</a>
+<ul class="sectlevel2">
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">19.1. Implementing Abstract Types</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-External-State-Machines">19.2. Implementing External State Machines</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">19.3. Implementing Deployments</a>
+<ul class="sectlevel3">
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Application-Specific-Definitions">19.3.1. Application-Specific Definitions</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_The-Main-Function">19.3.2. The Main Function</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">19.3.3. Public Symbols</a></li>
+</ul>
+</li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Serialization-of-FPP-Values">19.4. Serialization of FPP Values</a></li>
 </ul>
 </li>
 </ul>
@@ -839,16 +862,16 @@ We recommend that you read this document before consulting that one.</p>
 <div class="paragraph">
 <p><strong>Overview:</strong> The rest of this document proceeds as follows.
 <a href="#Installing-FPP">Section 2</a> explains how to get up and running with FPP.
-Sections <a href="#Defining-Constants">3</a> through <a href="#Defining-Systems">15</a>
+Sections <a href="#Defining-Constants">3</a> through <a href="#Defining-Systems">16</a>
 describe the elements of an FPP
 model, starting with the simplest elements (constants
 and types) and working towards the most complex (components,
 topologies, and systems).
-<a href="#Specifying-Models-as-Files">Section 16</a> explains how to specify
+<a href="#Specifying-Models-as-Files">Section 17</a> explains how to specify
 a model as a collection
 of files: for example, it covers the management of dependencies
 between files.
-<a href="#Analyzing-and-Translating-Models">Section 17</a> explains how to
+<a href="#Analyzing-and-Translating-Models">Section 18</a> explains how to
 analyze FPP models and how to translate FPP models to C&#43;&#43; and JSON.
 It also explains how to translate an XML format previously used
 by F Prime into FPP.
@@ -12052,7 +12075,10 @@ each topology to be able to run on its own.</p>
 <div class="paragraph">
 <p>In FPP, the way we accomplish these goals is to <strong>import</strong>
 one topology into another one.
-In this section of the User Guide, we explain how to do that.</p>
+In this case the imported topology is called a <strong>subtopology</strong>
+of the topology into which it is imported.
+In this section of the User&#8217;s Guide, we explain how to define and
+use subtopologies.</p>
 </div>
 <div class="sect3">
 <h4 id="Defining-Topologies_Importing-Topologies_Importing-Instances-and-Connections">14.4.1. Importing Instances and Connections</h4>
@@ -12705,25 +12731,10 @@ the concept of a component instance in a way that includes
 the concept of a topology.</p>
 </div>
 <div class="paragraph">
-<p>The concept of a port interface instance will become more obviously useful
-in a future version of FPP, where we will introduce the following
-features:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Module templates</strong> that you can expand several times to generate
-different sections of of FPP code (for example, different topologies) that are
-largely the same, but that differ in particular ways that you specify.</p>
-</li>
-<li>
-<p><strong>Template parameters</strong> that let you bind concrete values to parameters
-when instantiating templates.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>When instantiating templates, it will be useful to treat component
+<p>The concept of a port interface instance is most useful
+in connection with module templates, which we will describe
+<a href="#Defining-and-Using-Module-Templates">in a later section</a>.
+When expanding module templates, it will be useful to treat component
 instances and topologies in the same way, so that a single <code>instance</code>
 parameter can be bound to either a component instance or a topology,
 as long as the constraints of the parameter are satisfied.</p>
@@ -13195,7 +13206,813 @@ from other files, if you wish.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Defining-Systems">15. Defining Systems</h2>
+<h2 id="Defining-and-Using-Module-Templates">15. Defining and Using Module Templates</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you are constructing an FPP model, you may find that you need to repeat
+essentially the same structure at different points of the model, possibly with
+variations in detail.
+For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You may need to define several components that are all the same,
+except that they handle different data types.</p>
+</li>
+<li>
+<p>You may need to use the same subtopology in different deployments
+of the same multi-deployment system.
+For example, each of the deployments may require the same subtopology for
+command and data handling.</p>
+</li>
+<li>
+<p>Different deployments may need different variants of the same subtopology.
+For example, a deployment for testing may need a communication subtopology
+that connects directly to a test harness, whereas the flight deployment
+may need a communication subtopology that includes a radio.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For this kind of replicated structure, FPP provides a feature called a
+<strong>module template</strong>.
+By defining a module template, you can specify a list of model elements (types,
+constants, components, topologies, etc.)
+that may occur within a module definition.
+Then you can <strong>expand</strong> the template any number of times, each in a different
+module.
+This process creates a distinct element for each expansion.
+For example, you can define a module template that includes the
+definition of a constant <code>c</code>.
+Expanding that template inside a module <code>M</code> would create a definition
+<code>M.c</code>, whereas expanding that template inside a module <code>N</code> would
+create a definition <code>N.c</code>.
+In this section, we explain how to define and use module templates.</p>
+</div>
+<div class="sect2">
+<h3 id="Defining-and-Using-Module-Templates_Basic-Module-Templates">15.1. Basic Module Templates</h3>
+<div class="paragraph">
+<p>Here is a basic example of defining and using a module template.
+It is based on the constant definition example sketched at the
+beginning of this section.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T {
+
+  constant c = 0
+
+}
+
+module M {
+
+  expand T
+
+}
+
+module N {
+
+  expand T
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, we have done the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>We have defined a module template <code>T</code> containing the constant
+definition <code>constant c = 0</code>.
+In general, to write a module template definition you write
+<code>module</code> <code>template</code> followed by the name of the template
+and the elements of the template enclosed in curly braces.
+A module template definition is an
+<a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.</p>
+</li>
+<li>
+<p>We have expanded the template <code>T</code> twice, once inside
+module <code>M</code> and once inside module <code>N</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>When you run the FPP analyzer on this model, it carries out a
+process called <strong>template expansion</strong>.
+Template expansion causes the syntax elements specified in the
+template definition to be replicated at each expansion point.
+After template expansion, the model looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T {
+
+  constant c = 0
+
+}
+
+module M {
+
+  expand T {
+
+    constant c = 0
+
+  }
+
+}
+
+module N {
+
+  expand T {
+
+    constant c = 0
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can see this by running the tool <code>fpp-to-fpp -e</code> on the
+original model shown above.
+We will explain this tool in the section on
+<a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source">rewriting FPP source</a>.</p>
+</div>
+<div class="paragraph">
+<p>Notice that in the expanded version, each template expansion
+contains within it the constant specified in the template
+definition.
+Also, because we put each expansion in a separate module,
+each expanded definition has a separate name.
+If we tried to expand the same template twice at the top
+level, we would get an error, because the names would clash.
+(Try this in <code>fpp-check</code>. Note that we have to run <code>fpp-check</code>
+to see this error, because <code>fpp-to-fpp</code> just does syntactic
+expansion, not semantic error checking.)</p>
+</div>
+<div class="paragraph">
+<p>Notice also that each of the expanded templates has the
+syntax <code>expand T { &#8230;&#8203; }</code> around it.
+The purpose of this extra bit of syntax is to
+keep track of arguments to template parameters and
+scopes of definitions.
+We will explain these concepts below.
+In this simple example, the expanded templates behave
+in the same way as if the syntax <code>expand T { &#8230;&#8203; }</code> were replaced
+by the inner syntax <code>&#8230;&#8203;</code>.</p>
+</div>
+<div class="paragraph">
+<p>Finally, note that, within an expanded template, the FPP analyzer
+uses a special rule for resolving names (i.e., deciding what
+definition the name refers to).
+A name appearing in an expanded template is resolved as if
+it appeared at the point of the template <em>definition</em>,
+not at the point of the template <em>expansion</em>..
+This rule makes it easy to see how names will be resolved
+when the template is expanded.
+It also ensures that every expansion of the same template
+will have its names resolved in the same way, regardless of
+where the expansion occurs.
+We will fully explain this rule in
+<a href="#Defining-and-Using-Module-Templates_Resolving-Names-in-Expanded-Templates">a
+later section</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-and-Using-Module-Templates_Module-Template-Parameters">15.2. Module Template Parameters</h3>
+<div class="paragraph">
+<p>In the example given in the previous section, we used template
+expansion to produce
+two modules <code>M</code> and <code>N</code> that are structurally identical,
+except for their names.
+Sometimes this is useful.
+More often, though, you will want to expand a template
+with one or more elements that you provide at the
+point of expansion.
+That way, each expansion can be slightly different.
+For example, in model from the previous section,
+it may be more useful to specify the values of the
+constants <code>M.c</code> and <code>N.c</code> at the point of expansion,
+instead of giving them both the same value zero
+specified in the definition.</p>
+</div>
+<div class="paragraph">
+<p>To carry out this kind of customized expansion, FPP
+provides a feature called <strong>module template parameters</strong>.
+As with templates in C&#43;&#43;, you can specify that a
+template has one or more parameters.
+The parameters introduce names that you can use
+in the template definition.
+The values bound
+to the names are unknown in the definition; they
+become bound by providing <strong>parameter arguments</strong>
+when the template is expanded.</p>
+</div>
+<div class="paragraph">
+<p>There are three kinds of module template parameters:
+constant parameters, type parameters, and interface
+instance parameters.
+We discuss each kind in turn.</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-and-Using-Module-Templates_Module-Template-Parameters_Constant-Parameters">15.2.1. Constant Parameters</h4>
+<div class="paragraph">
+<p>First, suppose we wish to modify the previous example
+so that, in the expanded templates, the constant <code>M.c</code>
+has the value 1 and the constant <code>N.c</code> has the value 2.
+To do that, we can give the template <code>T</code> a
+<strong>constant parameter</strong> <code>p</code>.
+In the template definition, we can define <code>c</code> to be
+equal to <code>p</code>.
+Then when we expand the template, we can provide 1 and 2
+as the arguments to <code>p</code>.</p>
+</div>
+<div class="paragraph">
+<p>Here is how this example looks in FPP:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T(constant p: U32) {
+
+  constant c = p
+
+}
+
+module M {
+
+  expand T(constant 1)
+
+}
+
+module N {
+
+  expand T(constant 2)
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the definition of the template <code>T</code>, we have provided
+a constant parameter <code>p</code>, denoted by the keyword <code>constant</code>
+followed by the name <code>p</code>, a colon, and the name of a type.
+Here the type is <code>U32</code>; in general it can be any type.
+Since <code>T</code> has is one parameter of type <code>U32</code>, each
+expansion must provide one argument of a type compatible
+with <code>U32</code>.
+Here we provide 1 and 2 as the arguments, and we write
+<code>constant</code> to tell the FPP parser that these are constant arguments.</p>
+</div>
+<div class="paragraph">
+<p>After template expansion, the model looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T(constant p: U32) {
+
+  constant c = p
+
+}
+
+module M {
+
+  expand T(constant 1) {
+
+    constant c = p
+
+  }
+
+}
+
+module N {
+
+  expand T(constant 2) {
+
+    constant c = p
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that the <code>expand T { &#8230;&#8203; }</code> syntax provides the bindings
+of the constant values at the points of expansion.</p>
+</div>
+<div class="paragraph">
+<p>As with other cases of binding values to formal parameters (for example,
+when providing <a href="#Defining-Components_Parameters_Default-Values">default values
+for parameter arguments</a>), the types must work out.
+For example, if we tried to expand the template <code>T</code> with
+the argument <code>"abc"</code>, we would get a typing error (try it and see).</p>
+</div>
+<div class="paragraph">
+<p>When defining a module template, you can provide any number of parameters.
+The formal parameters form an
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element
+sequence</a> in which the optional terminating punctuation is a comma.
+The same is true of the template arguments in the expansion.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+
+module template T1(constant p1: U32, constant p2: I32) {
+  constant c1 = p1
+  constant c2 = p2
+}
+
+module template T2(
+  @ Constant parameter p1
+  constant p1: string size 100
+  @ Constant parameter p2
+  constant p2: F32
+) {
+  constant c1 = p1
+  constant c2 = p2
+}
+
+module M1 {
+  expand T1(constant 1, constant 2)
+}
+
+module M2 {
+  expand T2(
+    constant "abc"
+    constant 1.0
+  )
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-and-Using-Module-Templates_Module-Template-Parameters_Type-Parameters">15.2.2. Type Parameters</h4>
+<div class="paragraph">
+<p>You can also specify one or more <strong>type parameters</strong> for a module template.
+When you expand the template, you can bind types to the parameters.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T(type T) {
+
+  port P(x: T)
+
+  passive component C {
+
+    sync input port pIn: P
+
+    output port pOut: P
+
+  }
+
+}
+
+module M {
+
+  expand T(type U32)
+
+}
+
+module N {
+
+  expand T(type F32)
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we have defined two passive components, <code>M.C</code>
+and <code>N.C</code>.
+The first one has instances <code>pIn</code> and <code>pOut</code> of
+port <code>M.P</code>, which carries data of type <code>U32</code>.
+The second one has instances <code>pIn</code> and <code>pOut</code> of
+port <code>N.P</code>, which carries data of type <code>F32</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can also mix type parameters and constant parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T(constant p: U32, type P) {
+  constant c = p
+  type T = P
+}
+
+expand T(constant 0, type F32)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the current version of FPP, you may not use type parameters
+in constant parameters.
+For example, this is not allowed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T(
+  @ This parameter defines a type P in the body of the template
+  type P
+  @ Error: The type P is not defined here
+  constant p: P
+) {
+  constant c = p
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is also not allowed for a template to have two parameters
+of the same kind with the same name, or for a template
+to have a parameter and a definition of the same kind with the same
+name.
+For example, these cases are not allowed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Error: Two occurrences of constant parameter a
+module template T1(constant a: U32, constant a: I32)
+
+@ Error: Constant parameter a and constant definition a
+module template T2(constant a: U32) {
+
+  constant a = 0
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-and-Using-Module-Templates_Module-Template-Parameters_Port-Interface-Instance-Parameters">15.2.3. Port Interface Instance Parameters</h4>
+<div class="paragraph">
+<p>Finally, you can specify that a module template has one or more
+<strong>port interface instance parameters</strong>.
+Recall that a
+<a href="#Defining-Topologies_Topology-Ports_Port-Interface-Instances">port interface
+instance</a> is either a component instance definition or a topology
+definition.
+By using port interface instance parameters, you can parameterize
+a module over an instance that has ports.
+This can be a single component instance or an entire topology.</p>
+</div>
+<div class="paragraph">
+<p>As an example, consider a topology that provides a downlink
+capability by framing data and sending it to a radio.
+Without templates, the topology might look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">interface DownlinkInterface {
+  async input port dataIn: DownlinkData
+}
+
+topology DownlinkTopology implements DownlinkInterface {
+
+  instance framer
+  instance radio
+
+  port dataIn = framer.dataIn
+
+  connections Downlink {
+    framer.dataOut -&gt; radio.dataIn
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now suppose that you want two versions of this topology,
+one for integration testing that uses a stub radio, and
+one for system testing that uses an actual radio.
+In this case, you can make the topology into a template,
+and you can make the <code>radio</code> instance into a template
+parameter, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template DownlinkTopologyTemplate(instance radio: DownlinkInterface) {
+
+  topology DownlinkTopology implements DownlinkInterface {
+
+    instance framer
+    instance radio
+
+    port dataIn = framer.dataIn
+
+    connections Downlink {
+      framer.dataOut -&gt; radio.dataIn
+    }
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>In the definition of <code>DownlinkTopologyTemplate</code>, we have
+provided an interface parameter by writing <code>interface</code>,
+the name of the parameter, a colon, and the name of
+a <a href="#Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces">port interface</a>.</p>
+</li>
+<li>
+<p>The topology itself is the same as before, but
+now the specifier <code>instance radio</code> in the topology refers
+to the interface parameter <code>radio</code> of the template, instead of
+directly referring to a component instance or topology.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Now you can expand the template twice, once with a stub radio
+and once with an actual radio:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module IntegrationDeployment {
+
+  instance radioStub: RadioStub base id 0x10000000 \
+    queue size Default.QUEUE_SIZE \
+    stack size Default.STACK_SIZE \
+    priority 50
+
+  expand DownlinkTopologyTemplate(instance radioStub)
+
+}
+
+module FlightDeployment {
+
+  instance radio: Radio base id 0x10000000 \
+    queue size Default.QUEUE_SIZE \
+    stack size Default.STACK_SIZE \
+    priority 50
+
+  expand DownlinkTopologyTemplate(instance radio)
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Further, because the topology <code>DownlinkTopology</code> (in either expansion)
+implements the interface <code>DownlinkInterface</code>, you can use either
+expansion as an argument to another template with an interface parameter.
+For example, suppose you have a template for a CDH (command and data handling)
+topology that looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">template CDHTopologyTemplate(interface downlink: DownlinkInterface) {
+  ...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then you could expand that template twice, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module IntegrationDeployment {
+
+  expand CDHTopologyTemplate(interface DownlinkTopology)
+
+}
+
+module FlightDeployment {
+
+  expand CDHTopologyTemplate(interface DownlinkTopology)
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that each of the expansions here is in the same module
+as the corresponding expansion above, so we can use the simple
+name <code>DownlinkTopology</code> to refer to the topology expansion,
+which is defined in the same module.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-and-Using-Module-Templates_Resolving-Names-in-Expanded-Templates">15.3. Resolving Names in Expanded Templates</h3>
+<div class="paragraph">
+<p>As mentioned above, FPP uses a special rule for resolving the names of symbols
+used in expanded templates.
+When a name appears in an expanded template, the name
+is resolved as if it appeared at the point of the template
+<em>definition</em> rather than at the point of the template <em>expansion</em>.
+This behavior makes makes it easy to see, when writing a template definition,
+how the names will be resolved when the template is expanded.
+It also ensures that a name appearing inside a template
+will be resolved in the same way regardless of where the template
+is expanded.</p>
+</div>
+<div class="paragraph">
+<p>To understand this rule, consider the following model:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+
+  constant a = 0
+
+  module template T {
+
+    constant b = a
+
+  }
+
+}
+
+expand M.T</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After template expansion, the model looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+
+  constant a = 0
+
+  module template T {
+
+    constant b = a
+
+  }
+
+}
+
+expand M.T {
+
+  constant b = a
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that in the expanded template, there is a use of the
+name <code>a</code>.
+In this model, there is a constant <code>a</code> defined in the module <code>M</code>,
+but here we are outside the module <code>M</code>.
+So under the ordinary rules for name resolution, the symbol
+<code>a</code> would be undefined at this point; only <code>M.a</code> would be defined.
+However, because we are in an <code>expand</code> block, we use the
+special rule.
+The special rule says to resolve the name <code>a</code> occurring
+in the expansion of template <code>M.T</code> as if it occurred at the point
+of the definition of <code>M.T</code>.
+That definition occurs inside the module <code>M</code>, so the name <code>a</code>
+is in scope there, and it refers to the constant <code>M.a</code>.
+So this model passes through the analyzer.</p>
+</div>
+<div class="paragraph">
+<p>Here is another example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+
+  constant a = 0
+
+  module template T {
+
+    constant b = a
+
+  }
+
+}
+
+constant a = 1
+
+expand M.T</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is the model after expansion:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+
+  constant a = 0
+
+  module template T {
+
+    constant b = a
+
+  }
+
+}
+
+constant a = 1
+
+expand M.T {
+
+  constant b = a
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here the symbol <code>a</code> is defined at the point of the expansion.
+However, the definition there gives <code>a</code> the value 1, whereas
+the definition in the template definition gives <code>a</code> the value 0.
+According to the special rule, <code>a</code> evaluates to 0, not 1,
+in the expanded template, because that is the value of <code>a</code>
+at the point of the template definition.
+This rule removes a point of possible confusion or surprise
+that could occur if the names used in template definitions
+could refer to different symbols in different expansions,
+depending upon where the expansions occurred.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-and-Using-Module-Templates_The-expand-Syntax">15.4. The expand Syntax</h3>
+<div class="paragraph">
+<p>In this section we provide a bit more detail on the <code>expand</code>
+syntax introduced in the previous sections.
+First, as described in the previous sections, when the source model contains
+the syntax <code>expand T</code>, the analyzer replaces that syntax with <code>expand T { &#8230;&#8203;
+}</code>, where the dots
+represent the body of the template definition.
+Second, when the source model contains the syntax <code>expand T { &#8230;&#8203; }</code>
+(in other words, <code>expand T</code> followed by some more syntax in curly braces),
+then the analyzer expects the syntax in the curly braces to be
+valid for a template expansion, and it does <em>not</em> expand the template.
+Instead it uses the syntax specified in the curly braces.
+In this case the analyzer still checks for the existence of the template
+definition <code>T</code> and will report an error if it is missing,
+but it ignores the syntax provided in the body of the template definition.</p>
+</div>
+<div class="paragraph">
+<p>The purpose of this behavior is twofold. First, we want to have a way,
+in the FPP source language, to show the syntax of the model after running
+template expansion.
+This is the purpose of allowing the syntax <code>expand T { &#8230;&#8203; }</code>.
+Second, we want the result of template expansion on a valid FPP model to
+produce another valid model.
+That is the reason for specifying the semantics of <code>expand T { &#8230;&#8203; }</code>.
+In the ordinary use case, the syntax in the curly braces will be provided
+by running <code>fpp-to-fpp -e</code> to expand templates, so it will be
+valid if and only if the original source model is valid.</p>
+</div>
+<div class="paragraph">
+<p>You may, if you wish, write the syntax <code>expand T { &#8230;&#8203; }</code> yourself;
+it is valid FPP syntax.
+Further, doing this may be useful for learning or debugging.
+However, it is not expected that you will ordinarily do this.
+The common expected use case is to write <code>expand T</code> and let the analyzer
+do the expansion.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-and-Using-Module-Templates_Nesting-of-Module-Templates">15.5. Nesting of Module Templates</h3>
+<div class="paragraph">
+<p>To keep the analysis simple, the FPP analyzer does not allow you to define
+a module template or expand a module template inside another
+module template.
+For example, these models are not allowed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T1 {
+
+  # Error: You cannot define a template inside a template
+  module template T2 {
+
+    constant a = 0
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T1 {
+
+  constant a = 0
+
+}
+
+module template T2 {
+
+  # Error: You cannot expand a template inside a template
+  expand T1
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Defining-Systems">16. Defining Systems</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <strong>system</strong> represents the highest level of architecture in an F Prime
@@ -13291,7 +14108,7 @@ system S2: T # Error: only one system allowed</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Specifying-Models-as-Files">16. Specifying Models as Files</h2>
+<h2 id="Specifying-Models-as-Files">17. Specifying Models as Files</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The previous sections have explained the syntactic and semantic elements
@@ -13310,7 +14127,7 @@ For more comprehensive coverage, see
 <a href="https://github.com/nasa/fpp/wiki/Tools">the FPP wiki</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models-as-Files_Dividing-Models-into-Files">16.1. Dividing Models into Files</h3>
+<h3 id="Specifying-Models-as-Files_Dividing-Models-into-Files">17.1. Dividing Models into Files</h3>
 <div class="paragraph">
 <p>FPP does not require any particular division of model
 elements into files.
@@ -13386,7 +14203,7 @@ multiple blocks
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models-as-Files_Include-Specifiers">16.2. Include Specifiers</h3>
+<h3 id="Specifying-Models-as-Files_Include-Specifiers">17.2. Include Specifiers</h3>
 <div class="paragraph">
 <p>As part of an FPP model, you can write one or more <strong>include specifiers</strong>.
 An include specifier is an instruction to include FPP source elements
@@ -13447,15 +14264,15 @@ constant b = a</code></pre>
 above.</p>
 </li>
 <li>
-<p>Run <code>fpp-format -i b.fpp</code>.</p>
+<p>Run <code>fpp-to-fpp -i b.fpp</code>.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p><code>fpp-format</code> is a tool for formatting FPP source files.
+<p><code>fpp-to-fpp</code> is a tool for rewriting FPP source files.
 It also can expand include specifiers.
-<code>fpp-format</code> is discussed further in the section on
-<a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">formatting FPP source</a>.</p>
+<code>fpp-to-fpp</code> is discussed further in the section on
+<a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source">rewriting FPP source</a>.</p>
 </div>
 <div class="paragraph">
 <p>As mentioned above, the path is relative to the directory
@@ -13538,7 +14355,7 @@ error: identifier expected
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models-as-Files_Dependencies">16.3. Dependencies</h3>
+<h3 id="Specifying-Models-as-Files_Dependencies">17.3. Dependencies</h3>
 <div class="paragraph">
 <p>Whenever a model spans two or more files, one file <em>F</em> may use
 one or more definitions appearing in other files.
@@ -13635,7 +14452,7 @@ the CMake build process included in the F Prime distribution.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models-as-Files_Location-Specifiers">16.4. Location Specifiers</h3>
+<h3 id="Specifying-Models-as-Files_Location-Specifiers">17.4. Location Specifiers</h3>
 <div class="paragraph">
 <p>A location specifier is a unit of syntax in an FPP model.
 It specifies the location of a definition used in the model.</p>
@@ -13649,7 +14466,7 @@ in the section on <a href="#Specifying-Models-as-Files_Locating-Definitions">loc
 definitions</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Location-Specifiers_Syntax">16.4.1. Syntax</h4>
+<h4 id="Specifying-Models-as-Files_Location-Specifiers_Syntax">17.4.1. Syntax</h4>
 <div class="paragraph">
 <p>In general, a location specifier consists of the keyword <code>locate</code>, a kind of
 definition,
@@ -13721,6 +14538,10 @@ locate constant a at "a.fpp"</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Systems">system definition</a></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>template</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-and-Using-Module-Templates">module template definition</a></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Types">type</a> or <a href="#Defining-Enums">enum</a> definition</p></td>
 </tr>
@@ -13761,7 +14582,7 @@ locate type E at "E.fpp"</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Location-Specifiers_Path-Names">16.4.2. Path Names</h4>
+<h4 id="Specifying-Models-as-Files_Location-Specifiers_Path-Names">17.4.2. Path Names</h4>
 <div class="paragraph">
 <p>As with
 <a href="#Specifying-Models-as-Files_Include-Specifiers">include specifiers</a>,
@@ -13790,7 +14611,7 @@ Then in <code>b.fpp</code> we could write this:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Location-Specifiers_Definition-Names">16.4.3. Definition Names</h4>
+<h4 id="Specifying-Models-as-Files_Location-Specifiers_Definition-Names">17.4.3. Definition Names</h4>
 <div class="paragraph">
 <p>The definition name appearing after the keyword <code>locate</code>
 may be a qualified name.
@@ -13851,7 +14672,7 @@ regardless of where the location specifier appears in the model.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Location-Specifiers_Included-Files">16.4.4. Included Files</h4>
+<h4 id="Specifying-Models-as-Files_Location-Specifiers_Included-Files">17.4.4. Included Files</h4>
 <div class="paragraph">
 <p>When you write a file that contains definitions and you
 <a href="#Specifying-Models-as-Files_Include-Specifiers">include that file in another file</a>,
@@ -13865,7 +14686,7 @@ is <code>b.fpp</code>, not <code>a.fppi</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Location-Specifiers_Dictionary-Definitions">16.4.5. Dictionary Definitions</h4>
+<h4 id="Specifying-Models-as-Files_Location-Specifiers_Dictionary-Definitions">17.4.5. Dictionary Definitions</h4>
 <div class="paragraph">
 <p>For type and constant specifiers only, if the definition being located
 is a
@@ -13904,7 +14725,7 @@ will report an error.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Location-Specifiers_Repeated-Location-Specifiers">16.4.6. Repeated Location Specifiers</h4>
+<h4 id="Specifying-Models-as-Files_Location-Specifiers_Repeated-Location-Specifiers">17.4.6. Repeated Location Specifiers</h4>
 <div class="paragraph">
 <p>An FPP model may contain any number of location specifiers for the same
 definition, so long as the following conditions are met:</p>
@@ -13929,7 +14750,7 @@ if and only if the definition is a dictionary definition.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models-as-Files_Locating-Definitions">16.5. Locating Definitions</h3>
+<h3 id="Specifying-Models-as-Files_Locating-Definitions">17.5. Locating Definitions</h3>
 <div class="paragraph">
 <p>Given a collection of FPP source files <em>F</em>, you can generate location specifiers
 for all the definitions in <em>F</em>.
@@ -13941,7 +14762,7 @@ When analyzing other files that use the constants, you can use the location
 specifiers to discover dependencies on individual files within <code>Constants</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Locating-Definitions_Running-fpp-locate-defs">16.5.1. Running fpp-locate-defs</h4>
+<h4 id="Specifying-Models-as-Files_Locating-Definitions_Running-fpp-locate-defs">17.5.1. Running fpp-locate-defs</h4>
 <div class="paragraph">
 <p>To locate definitions, do the following:</p>
 </div>
@@ -13985,7 +14806,7 @@ regardless of where the location specifier appears in the model.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Locating-Definitions_Location-Paths">16.5.2. Location Paths</h4>
+<h4 id="Specifying-Models-as-Files_Locating-Definitions_Location-Paths">17.5.2. Location Paths</h4>
 <div class="paragraph">
 <p>By default, the location path is relative to the current
 directory.
@@ -14007,7 +14828,7 @@ For example, running</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Locating-Definitions_Included-Definitions">16.5.3. Included Definitions</h4>
+<h4 id="Specifying-Models-as-Files_Locating-Definitions_Included-Definitions">17.5.3. Included Definitions</h4>
 <div class="paragraph">
 <p>Consider the case where you write a definition in one file and
 include that file in another file via an
@@ -14061,9 +14882,122 @@ If your main FPP files end with <code>.fpp</code> and your included FPP files en
 <p>will pick up just the main files.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="Specifying-Models-as-Files_Locating-Definitions_Definitions-in-Module-Template-Expansions">17.5.4. Definitions in Module Template Expansions</h4>
+<div class="paragraph">
+<p>Consider the case where expanding a
+<a href="#Defining-and-Using-Module-Templates">module template</a>
+introduces a definition.
+For example, suppose the file <code>template.fpp</code> looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module template T {
+
+  constant a = 0
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And suppose the file <code>expand.fpp</code> looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">expand T</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you run <code>fpp-locate-defs</code> on these two files, the tool will
+expand the template and report the definition introduced
+by the template expansion:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-locate-defs template.fpp expand.fpp
+locate constant a at "expand.fpp"
+locate template T at "template.fpp"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that both definitions are reported (the template definition
+and the constant definition in the template expansion),
+and the constant definition is located in the file where
+the expansion occurs.</p>
+</div>
+<div class="paragraph">
+<p>This is the intended use case for model files containing
+template expansions: you provide all the template definitions
+and expansions to the tool, and it finds and reports all
+the definitions introduced by the expansions.
+If you provide a template expansion without providing the
+corresponding definition, then the tool will report an error.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-locate-defs
+expand T
+^D
+fpp-locate-defs
+stdin:1.8
+expand T
+       ^
+error: symbol T is not defined
+note: looking for a template here</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The error occurs because the definition of the template <code>T</code>
+is not available in the files provided as input to <code>fpp-locate-defs</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifying-Models-as-Files_Locating-Definitions_Name-Clashes-Between-Definitions-in-Different-Models">17.5.5. Name Clashes Between Definitions in Different Models</h4>
+<div class="paragraph">
+<p>There is one subtle point about the behavior of <code>fpp-locate-defs</code> that is
+worth noting here.
+In order to match uses of templates to their definitions, as described
+in the previous section, <code>fpp-locate-defs</code> analyzes all the definitions
+in all the source files presented as input.
+If there is a name clash between any two definitions, the tool will fail with
+an error.
+For example, FPP won&#8217;t let you define a module <code>S</code> and a struct
+<code>S</code> in the same scope of the same model, because there would be
+ambiguity as to the meaning of the symbol <code>S</code> in an expression like
+<code>S.a</code>: does it refer to the module <code>S</code> or the struct <code>S</code>?
+Therefore, if you define a module <code>S</code> in one file and a struct <code>S</code> in another
+file,
+and you present both files to <code>fpp-locate-defs</code>, you will get an
+error.</p>
+</div>
+<div class="paragraph">
+<p>The subtle point is that this error can occur even if you never intend to use
+both files in the same FPP model.
+For example, you could have a project containing one FPP model that defines a
+module <code>S</code>
+and another FPP model that defines a struct <code>S</code>.
+Then neither model would have a name clash, but <code>fpp-locate-defs</code>
+would report an error when analyzing the two files together.
+In this case, the error occurs because the purpose of <code>fpp-locate-defs</code> is
+usually to collect information about <em>all</em> models in a project; but when it is
+run,
+it uses the same rules for detecting names that FPP applies
+to a <em>single</em> model.</p>
+</div>
+<div class="paragraph">
+<p>In practice this behavior should not cause a problem.
+If it does, you can change one of the clashing names, or put it
+in a different module.
+When you have different sets of symbols that are never intended to coexist in a
+single
+model, it is a good practice in any event to enclose the symbols
+of each set in its own FPP module.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models-as-Files_Computing-Dependencies">16.6. Computing Dependencies</h3>
+<h3 id="Specifying-Models-as-Files_Computing-Dependencies">17.6. Computing Dependencies</h3>
 <div class="paragraph">
 <p>Given files <em>F</em> and location specifiers <em>L</em> that locate the definitions used in
 <em>F</em>, you can
@@ -14071,7 +15005,7 @@ generate the dependencies of <em>F</em>.
 The tool for doing this is called <code>fpp-depend</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Running-fpp-depend">16.6.1. Running fpp-depend</h4>
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Running-fpp-depend">17.6.1. Running fpp-depend</h4>
 <div class="paragraph">
 <p>To run <code>fpp-depend</code>, you pass it as input (1) files <em>F</em> that you want to
 analyze
@@ -14143,7 +15077,7 @@ So the following is equivalent:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Transitive-Dependencies">16.6.2. Transitive Dependencies</h4>
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Transitive-Dependencies">17.6.2. Transitive Dependencies</h4>
 <div class="paragraph">
 <p><code>fpp-depend</code> computes dependencies transitively.
 This means that if <em>A</em> depends on <em>B</em> and <em>B</em>
@@ -14202,7 +15136,7 @@ produces both dependencies:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Missing-Dependencies">16.6.3. Missing Dependencies</h4>
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Missing-Dependencies">17.6.3. Missing Dependencies</h4>
 <div class="paragraph">
 <p>Suppose we construct the files <code>locations.fpp</code> and <code>a.fpp</code>, <code>b.fpp</code>, and <code>c.fpp</code>
 as described in the previous section, but then we temporarily remove <code>b.fpp</code>.
@@ -14265,7 +15199,7 @@ the dependency <code>[path-prefix]/b.fpp</code> to standard output.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Included-Files">16.6.4. Included Files</h4>
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Included-Files">17.6.4. Included Files</h4>
 <div class="paragraph">
 <p>Suppose file <code>a.fpp</code> contains the
 <a href="#Specifying-Models-as-Files_Include-Specifiers">include specifier</a>
@@ -14331,7 +15265,93 @@ to the output plus the contents of <em>file</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Dependencies-Between-Build-Modules">16.6.5. Dependencies Between Build Modules</h4>
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Module-Template-Expansions">17.6.5. Module Template Expansions</h4>
+<div class="paragraph">
+<p>Expanding a
+<a href="#Defining-and-Using-Module-Templates">module template</a>
+can introduce uses of symbols, which can cause new dependencies to
+appear.
+For example, suppose the file <code>a.fpp</code> looks like this</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and suppose the file <code>T.fpp</code> looks like this</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">template T {
+
+  constant b = a
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and suppose the file <code>expand.fpp</code> looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">expand T</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and suppose the file <code>locs.fpp</code> looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">locate constant a at "a.fpp"
+locate template T at "T.fpp"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now suppose we run <code>fpp-depend locs.fpp expand.fpp</code>.
+Then the FPP analyzer does the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add <code>T.fpp</code> to the set of dependency files, based on the
+use of <code>T</code> in <code>expand.fpp</code> and the location specifier</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">locate template T at "T.fpp"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>in <code>locs.fpp</code>.</p>
+</div>
+</li>
+<li>
+<p>Expand the definition of <code>T</code> in <code>template.fpp</code>.</p>
+</li>
+<li>
+<p>Add <code>a.fpp</code> to the set of dependency files, based
+on the use of <code>a</code> in the expanded template and the
+location</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">locate constant a at "a.fpp"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>in <code>locs.fpp</code>.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In general, the analyzer runs dependency analysis,
+then expands templates, then runs dependency analysis again.
+Because <a href="#Defining-and-Using-Module-Templates_Nesting-of-Module-Templates">nested templates are not allowed</a>, it suffices to expand
+templates and rerun dependency analysis once.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Dependencies-Between-Build-Modules">17.6.6. Dependencies Between Build Modules</h4>
 <div class="paragraph">
 <p>As discussed
 <a href="#Specifying-Models-as-Files_Computing-Dependencies_Transitive-Dependencies">above</a>, the standard output of <code>fpp-depend</code> reports transitive dependencies.
@@ -14425,7 +15445,7 @@ included files are already present in <code>direct.txt</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Framework-Dependencies">16.6.6. Framework Dependencies</h4>
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Framework-Dependencies">17.6.7. Framework Dependencies</h4>
 <div class="paragraph">
 <p>Certain FPP constructs imply dependencies on parts of the F Prime framework
 that may not be available on all platforms.
@@ -14461,7 +15481,7 @@ be provided to the linker.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models-as-Files_Locating-Uses">16.7. Locating Uses</h3>
+<h3 id="Specifying-Models-as-Files_Locating-Uses">17.7. Locating Uses</h3>
 <div class="paragraph">
 <p>Given a collection of files <em>F</em> and their dependencies <em>D</em>, you can generate
 the locations of the definitions appearing in <em>D</em> and used in <em>F</em>.
@@ -14541,7 +15561,7 @@ for the location specifiers.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models-as-Files_Path-Name-Aliases">16.8. Path Name Aliases</h3>
+<h3 id="Specifying-Models-as-Files_Path-Name-Aliases">17.8. Path Name Aliases</h3>
 <div class="paragraph">
 <p>Because FPP associates locations with symbols, and the locations
 are path names, care is required when using path names that are
@@ -14550,7 +15570,7 @@ There are two issues to consider:
 relative paths and unique locations.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Path-Name-Aliases_Relative-Paths-and-Symbolic-Links">16.8.1. Relative Paths and Symbolic Links</h4>
+<h4 id="Specifying-Models-as-Files_Path-Name-Aliases_Relative-Paths-and-Symbolic-Links">17.8.1. Relative Paths and Symbolic Links</h4>
 <div class="paragraph">
 <p>A <strong>relative path</strong> is a path that does not start with a slash and is
 relative to the current directory path, which is
@@ -14616,7 +15636,7 @@ See that section for details, and for suggested workarounds.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Path-Name-Aliases_Unique-Locations">16.8.2. Unique Locations</h4>
+<h4 id="Specifying-Models-as-Files_Path-Name-Aliases_Unique-Locations">17.8.2. Unique Locations</h4>
 <div class="paragraph">
 <p>The FPP analyzers assume that each symbol <em>s</em> has
 a unique path defining the location of the source file where
@@ -14640,7 +15660,7 @@ time, after resolving relative paths as described above.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Analyzing-and-Translating-Models">17. Analyzing and Translating Models</h2>
+<h2 id="Analyzing-and-Translating-Models">18. Analyzing and Translating Models</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The previous section explained how to specify an FPP model
@@ -14652,7 +15672,7 @@ translation on part or all of an FPP model, after specifying
 the model and computing its dependencies.</p>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Checking-Models">17.1. Checking Models</h3>
+<h3 id="Analyzing-and-Translating-Models_Checking-Models">18.1. Checking Models</h3>
 <div class="paragraph">
 <p>It is often useful to check a model for correctness, without
 doing any translation.
@@ -14822,7 +15842,7 @@ even though <code>c.Out</code> has two ports and only one of them is connected.<
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus">17.2. Generating C Plus Plus</h3>
+<h3 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus">18.2. Generating C Plus Plus</h3>
 <div class="paragraph">
 <p>This section describes how to generate C&#43;&#43; from FPP.</p>
 </div>
@@ -15068,7 +16088,7 @@ type T3 = A # A is not C-compatible</code></pre>
 C programs and the <code>.hpp</code> header in your C&#43;&#43; programs.</p>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">17.2.1. Constant Definitions</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">18.2.1. Constant Definitions</h4>
 <div class="paragraph">
 <p><code>fpp-to-cpp</code> extracts <a href="#Defining-Constants">constant definitions</a>
 from the source files <em>F</em>.
@@ -15345,7 +16365,7 @@ This is useful for collecting autocoder build dependencies.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-State-Machines-and-Components">17.2.2. Types, Ports, State Machines, and Components</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-State-Machines-and-Components">18.2.2. Types, Ports, State Machines, and Components</h4>
 <div class="paragraph">
 <p><strong>Generating code:</strong>
 To generate code for type, port, state machine, and component definitions, you
@@ -15398,7 +16418,7 @@ Prime design documentation</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">17.2.3. Component Implementation and Unit Test Code</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">18.2.3. Component Implementation and Unit Test Code</h4>
 <div class="paragraph">
 <p><code>fpp-to-cpp</code> has options <code>-t</code> and <code>-u</code> for generating component &#8220;templates&#8221;
 or
@@ -15501,7 +16521,7 @@ build system does it for you.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">17.2.4. Topology Definitions</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">18.2.4. Topology Definitions</h4>
 <div class="paragraph">
 <p><code>fpp-to-cpp</code> also extracts the definitions of <a href="#Defining-Topologies">deployment
 topologies</a> from the source files.
@@ -15562,7 +16582,7 @@ the include guard prefix comes from the name of the topology.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Compiling-the-Generated-Code">17.2.5. Compiling the Generated Code</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Compiling-the-Generated-Code">18.2.5. Compiling the Generated Code</h4>
 <div class="paragraph">
 <p>The generated C&#43;&#43; is intended to compile with the following gcc
 and clang compiler flags:</p>
@@ -15592,19 +16612,22 @@ and clang compiler flags:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Formatting-FPP-Source">17.3. Formatting FPP Source</h3>
+<h3 id="Analyzing-and-Translating-Models_Rewriting-FPP-Source">18.3. Rewriting FPP Source</h3>
 <div class="paragraph">
-<p>The tool <code>fpp-format</code> accepts FPP source files as input
-and rewrites them as formatted output.
-You can use this tool to put your source files into
-a standard form.</p>
+<p>The tool <code>fpp-to-fpp</code> accepts FPP source files as input,
+processes them using options that you specify,
+and rewrites them as output.</p>
 </div>
+<div class="sect3">
+<h4 id="Analyzing-and-Translating-Models_Rewriting-FPP-Source_Basic-Use">18.3.1. Basic Use</h4>
 <div class="paragraph">
-<p>For example, try this:</p>
+<p>The most basic use of <code>fpp-to-fpp</code> is to put FPP source files into
+a standard form.
+For example, try this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% fpp-format
+<pre>% fpp-to-fpp
 array A = [3] U32 default [ 1, 2, 3 ]
 ^D
 array A = [3] U32 default [
@@ -15615,37 +16638,14 @@ array A = [3] U32 default [
 </div>
 </div>
 <div class="paragraph">
-<p><code>fpp-format</code> has reformatted the default value so that each array
+<p><code>fpp-to-fpp</code> has reformatted the default value so that each array
 element is on its own line.</p>
 </div>
 <div class="paragraph">
-<p>By default, <code>fpp-format</code> does not resolve include specifiers.
-For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% echo 'constant a = 0' &gt; a.fppi
-% fpp-format
-include "a.fppi"
-^D
-include "a.fppi"</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>-i</code> option causes <code>fpp-format</code> to resolve include specifiers.
-For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% echo 'constant a = 0' &gt; a.fpp
-% fpp-format -i
-include "a.fppi"
-^D
-constant a = 0</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>fpp-format</code> has one big limitation: it goes through
+<p>This capability is useful for testing and debugging, and the FPP
+tool suite uses it internally for this purpose.
+As a general formatting tool, though, <code>fpp-to-fpp</code> has one big limitation: it
+goes through
 the FPP parser, so it deletes all
 <a href="#Writing-Comments-and-Annotations_Comments">comments</a>
 from the program
@@ -15657,16 +16657,155 @@ annotatable elements, you can run this script:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">#!/bin/sh
-sed 's/^\( *\)#/\1@ #/' | fpp-format $@ | sed 's/^\( *\)@ #/\1#/'</code></pre>
+sed 's/^\( *\)#/\1@ #/' | fpp-to-fpp $@ | sed 's/^\( *\)@ #/\1#/'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>It converts comments to annotations, runs <code>fpp-format</code>, and converts the
-annotations back to comments.</p>
+<p>It converts comments to annotations, runs <code>fpp-to-fpp</code>, and converts the
+annotations back to comments.
+However, while you can use <code>fpp-to-fpp</code> as a formatting tool in this way,
+it is recommended that you use a more capable formatter, such
+as the one available in the FPP VS Code plugin, to format FPP
+source files.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Analyzing-and-Translating-Models_Rewriting-FPP-Source_Syntax-Expansion">18.3.2. Syntax Expansion</h4>
+<div class="paragraph">
+<p><code>fpp-to-fpp</code> also performs <strong>syntax expansion</strong> on source files.
+Syntax expansion means replacing one piece of syntax (which is generally
+shorter) with another one (which is generally longer).
+By default, when you run <code>fpp-to-fpp</code>, syntax expansion does not occur;
+to enable it, you use the <code>-e</code> option.
+There are currently three kinds of syntax expansion: resolving
+include specifiers, generating state machine enums,
+and expanding templates.</p>
+</div>
+<div class="paragraph">
+<p><strong>Resolving include specifiers:</strong>
+By default, <code>fpp-to-fpp</code> does not resolve
+<a href="#Specifying-Models-as-Files_Include-Specifiers">include specifiers</a>.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% echo 'constant a = 0' &gt; a.fppi
+% fpp-to-fpp
+include "a.fppi"
+^D
+include "a.fppi"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>-e</code> option causes <code>fpp-to-fpp</code> to resolve include specifiers.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% echo 'constant a = 0' &gt; a.fpp
+% fpp-to-fpp -e
+include "a.fppi"
+^D
+constant a = 0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also use the option <code>-i</code> if you wish to resolve include
+specifiers without expanding any other syntax.</p>
+</div>
+<div class="paragraph">
+<p><strong>State machine enums:</strong>
+The <code>-e</code> option causes the analyzer to generate the
+<a href="#Defining-State-Machines_The-State-Enum">state enums</a>
+associated with state machine definitions.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% cat state_machine.fpp
+state machine M {
+
+  state S
+
+  initial enter S
+
+}
+% fpp-to-fpp -e state_machine.fpp
+
+state machine M {
+
+  enum State: U8 {
+    @ The uninitialized state
+    __FPRIME_UNINITIALIZED
+    S
+  }
+
+  state S
+
+  initial enter S
+
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice how, with the <code>-e</code> option, the tool generates the state machine enum and
+inserts it into the state machine definition.</p>
+</div>
+<div class="paragraph">
+<p><strong>Template expansion:</strong>
+The <code>-e</code> option causes <code>fpp-to-fpp</code> to
+<a href="#Defining-and-Using-Module-Templates">expand templates</a>.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% cat template.fpp
+module template T {
+
+  constant a = 0
+
+}
+
+expand T
+% fpp-to-fpp -e template.fpp
+module template T {
+
+  constant a = 0
+
+}
+
+expand T {
+
+  constant a = 0
+
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice how, with the <code>-e</code> option, the tool generates the <code>expand { &#8230;&#8203; }</code>
+syntax for the template expansion and inserts it into the model.</p>
+</div>
+<div class="paragraph">
+<p>If you try to expand a template for which the definition is not available
+in input model, you will get an error:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-format -e
+expand T
+^D
+fpp-format
+stdin:1.8
+expand T
+       ^
+error: symbol T is not defined
+note: looking for a template here</pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Visualizing-Topologies">17.4. Visualizing Topologies</h3>
+<h3 id="Analyzing-and-Translating-Models_Visualizing-Topologies">18.4. Visualizing Topologies</h3>
 <div class="paragraph">
 <p>FPP provides a tool called <code>fpp-to-layout</code> for generating files
 that you can use to visualize topologies.
@@ -15783,7 +16922,7 @@ repository</a> for more details.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">17.5. Generating Ground Dictionaries</h3>
+<h3 id="Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">18.5. Generating Ground Dictionaries</h3>
 <div class="paragraph">
 <p>A <strong>ground dictionary</strong> specifies all the commands,
 events, telemetry, parameters, and data products in a FSW
@@ -15917,7 +17056,7 @@ in the project.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Identifying-Generated-Files">17.6. Identifying Generated Files</h3>
+<h3 id="Analyzing-and-Translating-Models_Identifying-Generated-Files">18.6. Identifying Generated Files</h3>
 <div class="paragraph">
 <p>As discussed in the
 <a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">section on generating
@@ -15934,7 +17073,7 @@ There are two ways to collect the names of generated files:
 using <code>fpp-filenames</code> and using <code>fpp-depend</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-filenames">17.6.1. Using fpp-filenames</h4>
+<h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-filenames">18.6.1. Using fpp-filenames</h4>
 <div class="paragraph">
 <p>Like <code>fpp-check</code>, <code>fpp-filenames</code> reads the files
 provided as command-line arguments if there are any;
@@ -16034,7 +17173,7 @@ CTester.hpp</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">17.6.2. Using fpp-depend</h4>
+<h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">18.6.2. Using fpp-depend</h4>
 <div class="paragraph">
 <p>Alternatively, you can use
 <a href="#Specifying-Models-as-Files_Computing-Dependencies"><code>fpp-depend</code></a>
@@ -16109,7 +17248,7 @@ needed during dependency analysis.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Generating-JSON-Models">17.7. Generating JSON Models</h3>
+<h3 id="Analyzing-and-Translating-Models_Generating-JSON-Models">18.7. Generating JSON Models</h3>
 <div class="paragraph">
 <p>FPP provides a tool called <code>fpp-to-json</code> for converting FPP models to
 JavaScript Object Notation (JSON) format.
@@ -16297,7 +17436,7 @@ objects will be indented.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Translating-Older-XML-to-FPP">17.8. Translating Older XML to FPP</h3>
+<h3 id="Analyzing-and-Translating-Models_Translating-Older-XML-to-FPP">18.8. Translating Older XML to FPP</h3>
 <div class="paragraph">
 <p>Previous versions of F Prime used XML to represent model
 elements such as components and ports.
@@ -16696,7 +17835,7 @@ to <code>Commands.fppi</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Writing-C-Plus-Plus-Implementations">18. Writing C Plus Plus Implementations</h2>
+<h2 id="Writing-C-Plus-Plus-Implementations">19. Writing C Plus Plus Implementations</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>When constructing an F Prime deployment in C&#43;&#43;, there are generally
@@ -16740,7 +17879,7 @@ We also discuss <strong>serialization</strong> of data values, i.e., representin
 FPP data values as binary data for storage and transmission.</p>
 </div>
 <div class="sect2">
-<h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">18.1. Implementing Abstract Types</h3>
+<h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">19.1. Implementing Abstract Types</h3>
 <div class="paragraph">
 <p>When translating to C&#43;&#43;, an
 <a href="#Defining-Types_Abstract-Type-Definitions">abstract type definition</a>
@@ -16917,7 +18056,7 @@ the generated C&#43;&#43; may not compile.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Writing-C-Plus-Plus-Implementations_Implementing-External-State-Machines">18.2. Implementing External State Machines</h3>
+<h3 id="Writing-C-Plus-Plus-Implementations_Implementing-External-State-Machines">19.2. Implementing External State Machines</h3>
 <div class="paragraph">
 <p>An <a href="#Defining-State-Machines_Writing-a-State-Machine-Definition">external state machine</a> refers to a state machine implementation
 supplied outside the FPP model.
@@ -16935,7 +18074,7 @@ see <code>FppTest/state_machine</code> in the F Prime repository.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments">18.3. Implementing Deployments</h3>
+<h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments">19.3. Implementing Deployments</h3>
 <div class="paragraph">
 <p>At the highest level of an F Prime implementation, you write
 two units of C&#43;&#43; code:</p>
@@ -16956,7 +18095,7 @@ topology code.</p>
 <p>We describe each of these code units below.</p>
 </div>
 <div class="sect3">
-<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Application-Specific-Definitions">18.3.1. Application-Specific Definitions</h4>
+<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Application-Specific-Definitions">19.3.1. Application-Specific Definitions</h4>
 <div class="paragraph">
 <p>As discussed in the section on
 <a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">generating C&#43;&#43; topology definitions</a>, when you translate an FPP
@@ -17138,7 +18277,7 @@ The corresponding link-time symbol is defined in <code>SystemReferenceTopologyDe
 </div>
 </div>
 <div class="sect3">
-<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_The-Main-Function">18.3.2. The Main Function</h4>
+<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_The-Main-Function">19.3.2. The Main Function</h4>
 <div class="paragraph">
 <p>You must write a main function that performs application-specific
 and system-specific tasks such as parsing command-line arguments,
@@ -17222,7 +18361,7 @@ F Prime system reference repository.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">18.3.3. Public Symbols</h4>
+<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">19.3.3. Public Symbols</h4>
 <div class="paragraph">
 <p>The header file <em>T</em> <code>TopologyAc.hpp</code> declares several public
 symbols that you can use when writing your main function.</p>
@@ -17286,7 +18425,7 @@ function, you may.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Writing-C-Plus-Plus-Implementations_Serialization-of-FPP-Values">18.4. Serialization of FPP Values</h3>
+<h3 id="Writing-C-Plus-Plus-Implementations_Serialization-of-FPP-Values">19.4. Serialization of FPP Values</h3>
 <div class="paragraph">
 <p>Every value represented in FPP can be <strong>serialized</strong>, i.e., converted into a
 machine-independent sequence of bytes.
@@ -17430,7 +18569,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-01 09:26:48 -0700
+Last updated 2026-10-06 17:54:43 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

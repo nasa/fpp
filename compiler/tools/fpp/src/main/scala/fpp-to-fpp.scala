@@ -8,7 +8,7 @@ import fpp.compiler.transform._
 import fpp.compiler.util._
 import scopt.OParser
 
-object FPPFormat {
+object FPPToFPP {
 
   case class Options(
     include: Boolean = false,
@@ -71,7 +71,7 @@ object FPPFormat {
 
   val builder = OParser.builder[Options]
 
-  val name = "fpp-format"
+  val name = "fpp-to-fpp"
 
   val oparser = {
     import builder._
@@ -81,9 +81,9 @@ object FPPFormat {
       opt[Unit]('i', "include")
         .action((_, c) => c.copy(include = true))
         .text("resolve include specifiers"),
-      opt[Unit]('t', "template")
+      opt[Unit]('e', "expand")
         .action((_, c) => c.copy(templates = true))
-        .text("expand module templates (also resolves includes)"),
+        .text("expand all syntax"),
       help('h', "help").text("print this message and exit"),
       arg[String]("file ...")
         .unbounded()
