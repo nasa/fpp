@@ -96,6 +96,7 @@ object EvalConstantExprs extends UseAnalyzer {
     val loc = Locations.get(arg.value.id)
     for {
       a <- super.templateConstantArg(a, arg)
+      a <- FinalizeType.finalizeIfNeeded(a, a.typeMap(paramDef.typeName.id))
       a <- FinalizeTypeDefs.typeNameNode(a, paramDef.typeName)
       ty <- Right(a.typeMap(paramDef.typeName.id))
       v <- Right(a.valueMap(value.id))
@@ -303,6 +304,7 @@ object EvalConstantExprs extends UseAnalyzer {
     override def aliasType(a: Analysis, t: Type.AliasType) =
       for {
         a <- defAliasTypeAnnotatedNode(a, t.node)
+        a <- finalizeIfNeeded(a, t.aliasType)
         a <- FinalizeTypeDefs.defAliasTypeAnnotatedNode(a, t.node)
       } yield a
 
