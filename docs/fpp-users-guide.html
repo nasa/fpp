@@ -2100,7 +2100,8 @@ For example:</p>
 encloses.
 To write the qualified name, you write the qualifier, a dot, and the base name:
 for example <code>M.a</code>. (This is also the way that
-name qualification works in Python, Java, and Scala.)
+name qualification works in Python, Java, and Scala.
+The C&#43;&#43; equivalent is <code>M::a</code>.)
 Inside the module, you can use the qualified name or the unqualified
 name.
 Outside the module, you must use the qualified name.
@@ -2140,7 +2141,8 @@ a definition is hidden or <strong>shadowed</strong> by another definition
 with the same unqualified name in an inner scope.
 In the example above, inside module <code>M</code>, the name <code>a</code>
 refers to <code>M.a</code>, so to refer to the constant <code>a</code> defined at the top
-level, we have to write <code>.a</code>.</p>
+level, we have to write <code>.a</code>.
+(The C&#43;&#43; equivalent is <code>::a</code>.)</p>
 </div>
 <div class="paragraph">
 <p>As with namespaces in C&#43;&#43;, you can close a module definition and
@@ -13363,6 +13365,22 @@ In this simple example, the expanded templates behave
 in the same way as if the syntax <code>expand T { &#8230;&#8203; }</code> were replaced
 by the inner syntax <code>&#8230;&#8203;</code>.</p>
 </div>
+<div class="paragraph">
+<p>Finally, note that, within an expanded template, the FPP analyzer
+uses a special rule for resolving names (i.e., deciding what
+definition the name refers to).
+A name appearing in an expanded template is resolved as if
+it appeared at the point of the template <em>definition</em>,
+not at the point of the template <em>expansion</em>..
+This rule makes it easy to see how names will be resolved
+when the template is expanded.
+It also ensures that every expansion of the same template
+will have its names resolved in the same way, regardless of
+where the expansion occurs.
+We will fully explain this rule in
+<a href="#Defining-and-Using-Module-Templates_Resolving-Names-in-Expanded-Templates">a
+later section</a>.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Defining-and-Using-Module-Templates_Module-Template-Parameters">15.2. Module Template Parameters</h3>
@@ -13783,13 +13801,16 @@ which is defined in the same module.</p>
 <div class="sect2">
 <h3 id="Defining-and-Using-Module-Templates_Resolving-Names-in-Expanded-Templates">15.3. Resolving Names in Expanded Templates</h3>
 <div class="paragraph">
-<p>FPP uses a special rule for resolving the names of symbols
+<p>As mentioned above, FPP uses a special rule for resolving the names of symbols
 used in expanded templates.
 When a name appears in an expanded template, the name
 is resolved as if it appeared at the point of the template
 <em>definition</em> rather than at the point of the template <em>expansion</em>.
-This is to make it easy to see, when writing a template definition,
-how the names will be resolved when the template is expanded.</p>
+This behavior makes makes it easy to see, when writing a template definition,
+how the names will be resolved when the template is expanded.
+It also ensures that a name appearing inside a template
+will be resolved in the same way regardless of where the template
+is expanded.</p>
 </div>
 <div class="paragraph">
 <p>To understand this rule, consider the following model:</p>
@@ -18550,7 +18571,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-06 11:16:06 -0700
+Last updated 2026-10-07 08:46:15 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
