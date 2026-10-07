@@ -12,8 +12,8 @@ object FPPSyntax {
 
   case class Options(
     ast: Boolean = false,
+    expand: Boolean = false,
     include: Boolean = false,
-    templates: Boolean = false,
     files: List[File] = List()
   )
 
@@ -26,8 +26,8 @@ object FPPSyntax {
     Result.seq(
       ToolUtils.parseFiles(files),
       List(
+        expandSyntax (options),
         resolveIncludes (options),
-        expandTemplates (options),
         printAst (options)
       )
     )
@@ -52,24 +52,19 @@ object FPPSyntax {
   def resolveIncludes(options: Options)(tul: List[Ast.TransUnit]):
     Result.Result[List[Ast.TransUnit]] =
   {
-    (options.include || options.templates) match {
+    (options.include) match {
       case true => 
         ResolveSpecInclude.transUnitList(Analysis(), tul).map(_._2)
       case false => Right(tul)
     }
   }
 
-  def expandTemplates(options: Options)(tul: List[Ast.TransUnit]):
+  def expandSyntax(options: Options)(tul: List[Ast.TransUnit]):
     Result.Result[List[Ast.TransUnit]] =
   {
-    options.templates match {
-      case true => {
-        val a = Analysis()
-        for {
-          a_tul <- ExpandSyntaxAndEnterSymbols.tuList(a, tul)
-          tul <- Right(a_tul._2)
-        } yield tul
-      }
+    options.expand match {
+      case true =>
+        ExpandSyntaxAndEnterSymbols.tuList(Analysis(), tul).map(_._2)
       case false => Right(tul)
     }
   }
@@ -89,9 +84,9 @@ object FPPSyntax {
       opt[Unit]('i', "include")
         .action((_, c) => c.copy(include = true))
         .text("resolve include specifiers"),
-      opt[Unit]('t', "template")
-        .action((_, c) => c.copy(templates = true))
-        .text("expand module templates (also resolves includes)"),
+      opt[Unit]('e', "expand")
+        .action((_, c) => c.copy(expand = true))
+        .text("expand all syntax"),
       help('h', "help").text("print this message and exit"),
       arg[String]("file ...")
         .unbounded()
