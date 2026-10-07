@@ -46,12 +46,13 @@ object TemplateDefinitionFiles {
       s: State,
       aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
     ) = {
-      val use = Name.Qualified.fromQualIdent(aNode._2.data.template.data)
+      val template = aNode._2.data.template.data
       val specLoc = LocatedUseAnalyzer.findLocation(
         map,
         s.scopeNameList,
         Ast.SpecLoc.Template,
-        use
+        Name.Qualified.fromQualIdent(template),
+        template.isAbsolute
       )
       Right(specLoc.map(LocatedUseAnalyzer.getFile).
         map(file => s.copy(files = s.files + file)).getOrElse(s))

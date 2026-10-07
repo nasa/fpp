@@ -41,8 +41,11 @@ locate_constant_include_no_i
 locate_constant_inconsistent
 locate_constant_modules_1
 locate_constant_modules_2
+locate_constant_modules_3
 locate_system_inconsistent
 missing
+shadowed_absolute
+shadowed_relative
 spec_async_input_port
 spec_async_product_recv_port
 spec_command
@@ -70,6 +73,7 @@ template_body_locate
 template_body_locate_split
 template_cycle_a
 template_cycle_b
+template_expand_absolute
 template_expand_chain
 template_expand_missing_def
 template_expand_undefined

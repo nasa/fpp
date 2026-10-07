@@ -54,7 +54,7 @@ object FPPLocateUses {
           }
         }
         val nodeList = nameList.map(s => AstNode.create(s))
-        val qualIdentNode = AstNode.create(Ast.QualIdent.fromNodeList(nodeList))
+        val qualIdentNode = AstNode.create(Ast.QualIdent.fromNodeList(nodeList, false))
         val baseDir = options.dir match {
           case Some(dir) => dir
           case None => ""

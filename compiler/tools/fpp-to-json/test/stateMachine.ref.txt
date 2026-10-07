@@ -299,7 +299,8 @@
                                         "AstNode" : {
                                           "data" : {
                                             "ExprIdent" : {
-                                              "value" : "X"
+                                              "value" : "X",
+                                              "isAbsolute" : false
                                             }
                                           },
                                           "id" : 14
@@ -795,7 +796,8 @@
                                             "AstNode" : {
                                               "data" : {
                                                 "Unqualified" : {
-                                                  "name" : "C"
+                                                  "name" : "C",
+                                                  "isAbsolute" : false
                                                 }
                                               },
                                               "id" : 48
@@ -839,7 +841,8 @@
                                             "AstNode" : {
                                               "data" : {
                                                 "Unqualified" : {
-                                                  "name" : "S1"
+                                                  "name" : "S1",
+                                                  "isAbsolute" : false
                                                 }
                                               },
                                               "id" : 53
@@ -858,7 +861,8 @@
                                             "AstNode" : {
                                               "data" : {
                                                 "Unqualified" : {
-                                                  "name" : "S2"
+                                                  "name" : "S2",
+                                                  "isAbsolute" : true
                                                 }
                                               },
                                               "id" : 56
@@ -1001,7 +1005,8 @@
                                                           "AstNode" : {
                                                             "data" : {
                                                               "Unqualified" : {
-                                                                "name" : "S3"
+                                                                "name" : "S3",
+                                                                "isAbsolute" : false
                                                               }
                                                             },
                                                             "id" : 207
@@ -1057,7 +1062,8 @@
                                                           "AstNode" : {
                                                             "data" : {
                                                               "Unqualified" : {
-                                                                "name" : "S1"
+                                                                "name" : "S1",
+                                                                "isAbsolute" : false
                                                               }
                                                             },
                                                             "id" : 214
@@ -1092,7 +1098,8 @@
                                                                   "AstNode" : {
                                                                     "data" : {
                                                                       "Unqualified" : {
-                                                                        "name" : "S2"
+                                                                        "name" : "S2",
+                                                                        "isAbsolute" : true
                                                                       }
                                                                     },
                                                                     "id" : 220
@@ -1183,7 +1190,8 @@
                                                               "AstNode" : {
                                                                 "data" : {
                                                                   "Unqualified" : {
-                                                                    "name" : "C"
+                                                                    "name" : "C",
+                                                                    "isAbsolute" : false
                                                                   }
                                                                 },
                                                                 "id" : 229
@@ -1237,7 +1245,8 @@
                                                               "AstNode" : {
                                                                 "data" : {
                                                                   "Unqualified" : {
-                                                                    "name" : "S1"
+                                                                    "name" : "S1",
+                                                                    "isAbsolute" : false
                                                                   }
                                                                 },
                                                                 "id" : 235
@@ -1292,7 +1301,8 @@
                                                               "AstNode" : {
                                                                 "data" : {
                                                                   "Unqualified" : {
-                                                                    "name" : "S1"
+                                                                    "name" : "S1",
+                                                                    "isAbsolute" : false
                                                                   }
                                                                 },
                                                                 "id" : 241
@@ -1340,7 +1350,8 @@
                                                               "AstNode" : {
                                                                 "data" : {
                                                                   "Unqualified" : {
-                                                                    "name" : "S1"
+                                                                    "name" : "S1",
+                                                                    "isAbsolute" : false
                                                                   }
                                                                 },
                                                                 "id" : 246
@@ -1802,7 +1813,7 @@
     },
     "55" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-      "pos" : "54.40",
+      "pos" : "54.41",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
@@ -1952,19 +1963,19 @@
     },
     "80" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-      "pos" : "69.70",
+      "pos" : "69.71",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "81" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-      "pos" : "69.73",
+      "pos" : "69.74",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "82" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-      "pos" : "69.70",
+      "pos" : "69.71",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
@@ -2366,19 +2377,19 @@
     },
     "149" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-      "pos" : "69.70",
+      "pos" : "69.71",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "150" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-      "pos" : "69.73",
+      "pos" : "69.74",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "151" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-      "pos" : "69.70",
+      "pos" : "69.71",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
@@ -2780,19 +2791,19 @@
     },
     "218" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-      "pos" : "69.70",
+      "pos" : "69.71",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "219" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-      "pos" : "69.73",
+      "pos" : "69.74",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "220" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-      "pos" : "69.70",
+      "pos" : "69.71",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },

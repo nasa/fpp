@@ -56,7 +56,8 @@
                                     "AstNode" : {
                                       "data" : {
                                         "ExprIdent" : {
-                                          "value" : "a"
+                                          "value" : "a",
+                                          "isAbsolute" : false
                                         }
                                       },
                                       "id" : 2
@@ -89,7 +90,8 @@
                                             "AstNode" : {
                                               "data" : {
                                                 "ExprIdent" : {
-                                                  "value" : "M1"
+                                                  "value" : "M1",
+                                                  "isAbsolute" : false
                                                 }
                                               },
                                               "id" : 12
@@ -143,7 +145,8 @@
                               "AstNode" : {
                                 "data" : {
                                   "ExprIdent" : {
-                                    "value" : "M1"
+                                    "value" : "M1",
+                                    "isAbsolute" : false
                                   }
                                 },
                                 "id" : 17
@@ -358,7 +361,8 @@
                                       "AstNode" : {
                                         "data" : {
                                           "ExprIdent" : {
-                                            "value" : "A"
+                                            "value" : "A",
+                                            "isAbsolute" : false
                                           }
                                         },
                                         "id" : 57

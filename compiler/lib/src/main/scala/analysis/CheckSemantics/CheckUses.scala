@@ -37,8 +37,13 @@ object CheckUses extends BasicUseAnalyzer {
 
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = {
     def visitExprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = {
-      def visitExprIdent(a: Analysis, node: AstNode[Ast.Expr], name: Name.Unqualified) = {
-        val mapping = a.nestedScope.get (NameGroup.Value)
+      def visitExprIdent(
+        a: Analysis,
+        node: AstNode[Ast.Expr],
+        name: Name.Unqualified,
+        isAbsolute: Boolean
+      ) = {
+        val mapping = a.nestedScope.get (isAbsolute) (NameGroup.Value)
         for (symbol <- helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)) yield {
           val useDefMap = a.useDefMap + (node.id -> symbol)
           a.copy(useDefMap = useDefMap)
@@ -84,7 +89,8 @@ object CheckUses extends BasicUseAnalyzer {
       }
       val data = node.data
       data match {
-        case Ast.ExprIdent(name) => visitExprIdent(a, node, name)
+        case Ast.ExprIdent(name, isAbsolute) =>
+          visitExprIdent(a, node, name, isAbsolute)
         case Ast.ExprDot(e, id) => visitExprDot(a, node, e, id)
         case _ => throw InternalError("constant use should be qualified identifier")
       }
@@ -92,23 +98,16 @@ object CheckUses extends BasicUseAnalyzer {
     visitExprNode(a, node)
   }
 
-  // Check that an implied use (a) is not a member
-  // of a def, (b) does not shadow the required def, and (c) does not resolve
-  // to a bound template parameter
+  // Check that we found the required implied use, and not some other symbol
   override def impliedUse(a: Analysis, iu: ImpliedUse, kind: ImpliedUse.Kind) = {
     val sym = a.useDefMap(iu.id)
     val iuName = iu.name.toString
     sym match {
-      // A bound template parameter is not a global definition, so it cannot
-      // satisfy an implied use
-      case _: TemplateArgSymbol => Left(
-        SemanticError.InvalidSymbol(
-          sym.getUnqualifiedName,
-          Locations.get(iu.id),
-          s"a template parameter may not satisfy the implied use of $iuName",
-          sym.getLoc
-        )
-      )
+      case _: TemplateArgSymbol =>
+        // Definition is a template argument
+        // This should not happen, because implied uses are absolute
+        // qualified identifiers
+        throw InternalError("definition should not be a template arg")
       case _ =>
         val symQualifiedName = a.getQualifiedName(sym).toString
         // Check that the name of the def matches the name of the use
@@ -120,7 +119,9 @@ object CheckUses extends BasicUseAnalyzer {
           // Definition has a shorter name: the use is a member of the definition
           then s"it has $iuName as a member"
           // Definition has a longer name: it shadows the required definition
-          else s"it shadows $iuName here"
+          // This should not happen, because implied uses are absolute
+          // qualified identifiers
+          else throw InternalError("definition should not have a longer name")
           Left(
             SemanticError.InvalidSymbol(
               symQualifiedName,
@@ -130,7 +131,7 @@ object CheckUses extends BasicUseAnalyzer {
             )
           )
         }
-    }
+      }
   }
 
   override def defComponentAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
@@ -171,7 +172,7 @@ object CheckUses extends BasicUseAnalyzer {
     val Ast.DefModule(name, members) = node.data
     for {
       symbol <- {
-        val mapping = a.nestedScope.get (NameGroup.Value)
+        val mapping = a.nestedScope.getRelative (NameGroup.Value)
         helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)
       }
       a <- {

@@ -16,5 +16,5 @@ module template Tmpl(
 }
 
 @ Expansion specifier
-expand Tmpl(constant 10, type Type, instance instance1)
+expand Tmpl(constant 10, type Type, instance .instance1)
 @< Expansion specifier

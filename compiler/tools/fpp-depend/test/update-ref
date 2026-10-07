@@ -114,6 +114,10 @@ template_body_locate_split() {
     template_body_locate_split
 }
 
+template_expand_absolute() {
+  update '-g template_expand_absolute_generated_output.ref.txt' template_expand_absolute
+}
+
 template_expand_chain() {
   update '-g template_expand_chain_generated_output.ref.txt' template_expand_chain
 }

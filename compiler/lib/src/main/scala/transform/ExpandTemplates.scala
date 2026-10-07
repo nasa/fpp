@@ -186,8 +186,8 @@ object ExpandTemplates extends AstTransformer
           cloneQualIdentNode(a, qualifier),
           cloneNode(a, name, name.data)
         ))
-      case Ast.QualIdent.Unqualified(name) =>
-        cloneNode(a, node, Ast.QualIdent.Unqualified(name))
+      case Ast.QualIdent.Unqualified(name, isAbsolute) =>
+        cloneNode(a, node, Ast.QualIdent.Unqualified(name, isAbsolute))
     }
   }
 
