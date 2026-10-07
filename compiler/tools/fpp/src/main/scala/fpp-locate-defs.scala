@@ -25,9 +25,7 @@ object FPPLocateDefs {
     }
     for {
       aTul <- ToolUtils.parseFilesAndResolveAsts(Analysis(), files)
-      a <- Right(aTul._1)
-      tul <- Right(aTul._2)
-      tul <- expandTemplates(a, tul)
+      tul <- ResolveTemplates.tuList(aTul._1, aTul._2).map(_._2)
     }
     yield {
       val config = LocateDefsFppWriter.State(options.dir)
@@ -35,21 +33,6 @@ object FPPLocateDefs {
       mapSeq(lines, System.out.println(_))
     }
   }
-
-  /** Expand templates, returning the translation units with expanded members.
-   *  We must expand templates, because the expansions generate definitions
-   *  that we have to locate.
-   * 
-   * On expansion failure (incomplete model), fall back to unexpanded translation units.
-   */
-  private def expandTemplates(
-    a: Analysis,
-    tul: List[Ast.TransUnit]
-  ): Result.Result[List[Ast.TransUnit]] =
-    ResolveTemplates.tuList(a, tul) match {
-      case Right(aTul) => Right(aTul._2)
-      case Left(_) => AddStateEnums.transUnitList(tul)
-    }
 
   def toolMain(args: Array[String]) =
     Tool(name).mainMethod(args, oparser, Options(), command)

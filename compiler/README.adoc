@@ -50,12 +50,12 @@ That way you can run the tools from anywhere.
 * `fpp-check`
 * `fpp-depend`
 * `fpp-filenames`
-* `fpp-format`
 * `fpp-from-xml`
 * `fpp-locate-defs`
 * `fpp-locate-uses`
 * `fpp-syntax`
 * `fpp-to-cpp`
+* `fpp-to-fpp`
 * `fpp-to-dict`
 * `fpp-to-layout`
 

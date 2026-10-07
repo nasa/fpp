@@ -1,11 +1,11 @@
 check
 depend
 filenames
-format
 from-xml
 locate-defs
 locate-uses
 syntax
 to-cpp
 to-dict
+to-fpp
 to-layout

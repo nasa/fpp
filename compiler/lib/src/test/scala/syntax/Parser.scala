@@ -890,7 +890,7 @@ class ParserSpec extends AnyWordSpec {
   }
 
   // Formatting an AST and parsing the result must give back the same AST. This
-  // is what fpp-format does, so a construct that FppWriter does not write, or
+  // is what fpp-to-fpp does, so a construct that FppWriter does not write, or
   // writes in a form that does not parse, shows up here.
   "template format round trip OK" should {
     roundTripAllOK(
