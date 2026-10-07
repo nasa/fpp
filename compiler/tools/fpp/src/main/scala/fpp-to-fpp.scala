@@ -12,7 +12,7 @@ object FPPToFPP {
 
   case class Options(
     include: Boolean = false,
-    templates: Boolean = false,
+    expand: Boolean = false,
     files: List[File] = List()
   )
 
@@ -38,8 +38,7 @@ object FPPToFPP {
   def resolveIncludes(options: Options)(tul: List[Ast.TransUnit]):
     Result.Result[List[Ast.TransUnit]] =
   {
-    // Expanding templates requires includes to be resolved first
-    (options.include || options.templates) match {
+    options.include match {
       case true =>
         ResolveSpecInclude.transUnitList(Analysis(), tul).map(_._2)
       case false => Right(tul)
@@ -49,14 +48,9 @@ object FPPToFPP {
   def expandTemplates(options: Options)(tul: List[Ast.TransUnit]):
     Result.Result[List[Ast.TransUnit]] =
   {
-    options.templates match {
-      case true => {
-        val a = Analysis()
-        for {
-          a_tul <- ExpandSyntaxAndEnterSymbols.tuList(a, tul)
-          tul <- Right(a_tul._2)
-        } yield tul
-      }
+    options.expand match {
+      case true =>
+        ExpandSyntaxAndEnterSymbols.tuList(Analysis(), tul).map(_._2)
       case false => Right(tul)
     }
   }
@@ -82,7 +76,7 @@ object FPPToFPP {
         .action((_, c) => c.copy(include = true))
         .text("resolve include specifiers"),
       opt[Unit]('e', "expand")
-        .action((_, c) => c.copy(templates = true))
+        .action((_, c) => c.copy(expand = true))
         .text("expand all syntax"),
       help('h', "help").text("print this message and exit"),
       arg[String]("file ...")
