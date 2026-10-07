@@ -45,8 +45,8 @@ object FPPDepend {
     }
     val a = Analysis(inputFileSet = options.files.toSet, dictionaryGeneration = true)
     for {
-      (a, tul) <- ToolUtils.parseFilesAndResolveIncludes(a, files)
-      (a, tul) <- resolveTemplates(a, tul)
+      tul <- ToolUtils.parseFiles(files)
+      (a, tul) <- expandSyntaxAndEnterSymbols(a, tul)
       a <- ComputeDependencies.tuList(a, tul)
       _ <- options.directFile match {
         case Some(file) => writeIterable(a.directDependencyFileSet, file)
@@ -97,7 +97,7 @@ object FPPDepend {
     } yield mapIterable(a.dependencyFileSet, System.out.println(_))
   }
 
-  def resolveTemplates(a: Analysis, tul: List[Ast.TransUnit]):
+  def expandSyntaxAndEnterSymbols(a: Analysis, tul: List[Ast.TransUnit]):
     Result.Result[(Analysis, List[Ast.TransUnit])] =
       ExpandSyntaxAndEnterSymbols.tuList(a, tul) match {
         case result @ Right(_) => result
