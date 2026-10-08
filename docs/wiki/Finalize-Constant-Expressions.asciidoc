@@ -1,0 +1,154 @@
+This algorithm traverses the source model and recomputes the types and
+values of constant symbols and expressions, using the finalized type
+definitions.
+Doing this fills in any missing anonymous array sizes and updates any
+type or value that depends on a finalized type definition.
+
+The rules below are those of
+https://github.com/nasa/fpp/wiki/Evaluate-Constant-Expressions[Evaluate
+Constant Expressions], except that this algorithm also updates the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[type map], and
+that it visits each expression again even if the expression already has a
+value.
+The type and the value of any expression not mentioned below are the ones
+computed by Evaluate Constant Expressions.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis
+data structure] _a_
+representing the results of analysis so far.
+https://github.com/nasa/fpp/wiki/Finalize-Type-Definitions[Finalize Type Definitions]
+must have already been run.
+
+== Output
+
+. The analysis _a_ with an updated
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[type map]
+and
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[value map],
+if the check passes; otherwise an error.
+
+== Procedure
+
+. Visit each translation unit in _tul_ with input _a_,
+yielding either a new analysis _a'_ or an error.
+
+=== AST Visitor Methods
+
+Each method accepts an analysis data structure _a_ as input
+and yields either a new analysis data structure _a'_ or
+an error as output.
+
+==== Translation Units
+
+For each translation unit _tu_, visit each
+definition appearing in _tu_.
+
+==== Definitions
+
+For each constant definition _d_ with value expression _e_, visit _e_ and
+update the type map and the value map with the mappings of _d_ to the type
+and the value of _e_.
+
+For each template expansion specifier _n_, for each
+https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[constant
+parameter symbol] of _n_, apply the rule of
+https://github.com/nasa/fpp/wiki/Evaluate-Constant-Expressions[Evaluate
+Constant Expressions], except that the type of the parameter type name is
+already finalized.
+
+==== Expressions
+
+For each AST node _n_ that represents a use of a constant:
+
+. Look in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[use-def map]
+of _a_ to get the symbol _s_ corresponding to _n_.
+
+. If _s_ is a constant symbol, then visit the constant definition
+corresponding to _s_.
+
+. Otherwise if _s_ is an enumerated constant symbol, then do nothing.
+
+. Otherwise if _s_ is a constant parameter symbol, then apply the rule
+stated above for the constant parameters of a template expansion
+specifier.
+
+. Otherwise report an error: _s_ is not a constant symbol.
+
+. Update the type map and the value map with the mappings of _n_ to the
+type and the value of _s_.
+
+For each AST node _n_ that represents an array expression:
+
+. For each element _e_ of _n_, visit _e_, so that it has a type and a
+value.
+
+. Use the type map to compute the common type _E_ of the elements of _n_.
+If _n_ has no elements, then report an error for an empty array.
+
+. If _E_ is an anonymous array type with no size, then report a type
+mismatch error.
+
+. Let _k_ be the number of elements of _n_, and let _v_ be the anonymous
+array value whose elements are the values of the elements of _n_, each
+converted to _E_.
+
+. Update the type map and the value map with the mappings of _n_ to the
+anonymous array type with size _k_ and element type _E_, and to _v_.
+
+For each AST node _n_ that represents an array subscript expression
+_e~1~_ `[` _e~2~_ `]`:
+
+. Visit _e~1~_ and _e~2~_, so that each has a type and a value.
+
+. Use the value map to get the list _L_ of elements of the array value of
+_e~1~_, and the integer index _i_ of the value of _e~2~_.
+
+. Check that _i_ is greater than or equal to zero and less than the length
+of _L_.
+Evaluate Constant Expressions checks the upper bound only when the size of
+the array is known; the size is known here, so check it in every case.
+If _i_ is out of bounds, then report an error for an invalid integer value.
+
+. Let _T_ be the element type of the
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[underlying
+type] of _e~1~_.
+
+. Update the type map and the value map with the mappings of _n_ to _T_
+and to the element of _L_ at index _i_.
+
+For each AST node _n_ that represents a dot expression _e_ `.` _m_:
+
+. Visit _e_, so that it has a type and a value.
+
+. If _n_ appears in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[use-def map]
+of _a_, then _n_ is a use of a symbol, and visiting it has already
+updated its type and its value.
+Yield _a_ as the result.
+
+. Otherwise _n_ selects the member _m_ of a struct value.
+Let _T_ and _v_ be the type and the value of _m_ in the
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[underlying
+type] and the value of _e_, or the existing type and value of _n_ if _m_
+is not there.
+
+. Update the type map and the value map with the mappings of _n_ to _T_
+and _v_.
+
+For each AST node _n_ that represents a struct expression:
+
+. For each member _m_ of _n_, visit the value expression of _m_, so that
+it has a type and a value.
+
+. Let _T_ and _v_ be the anonymous struct type and the anonymous struct
+value that map the name of each member of _n_ to the type and the value
+of its value expression.
+
+. Update the type map and the value map with the mappings of _n_ to _T_
+and _v_.

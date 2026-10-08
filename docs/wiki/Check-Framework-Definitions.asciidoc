@@ -1,0 +1,47 @@
+This algorithm traverses the source model and checks definitions
+for compatibility with the F Prime framework.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis 
+data structure] _a_
+representing the results of analysis so far.
+https://github.com/nasa/fpp/wiki/Check-Type-Uses[Check Type Uses]
+must have already been run.
+
+== Output
+. If the check passes, an analysis data structure _a_ with updated
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[framework definitions];
+otherwise an error.
+
+== Procedure
+
+. Visit each translation unit in _tul_ with input _a_,
+yielding either _a_ or an error.
+
+=== AST Visitor Methods
+
+Each method accepts an analysis data structure _a_ as input
+and yields either _a_ or an error as output.
+
+==== Translation Units
+
+For each translation unit _tu_, visit each
+definition appearing in _tu_.
+
+==== Definitions
+
+For each definition _d_, check whether _d_
+represents a
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[framework 
+definition].
+If it does, then
+
+. Check that _d_ respects the rules for that framework definition.
+
+. Add _d_ to the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[framework definitions]
+recorded in _a_.

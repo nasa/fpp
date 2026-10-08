@@ -1,0 +1,27 @@
+This tool performs semantic checking of FPP models.
+
+*Options:*
+
+. `-u` _file_: Write unconnected ports to _file_.
+
+*Input:*  A list _fl_ of files: either the single file _stdin_ or a list of 
+files specified on the command line.
+
+*Output:* 
+
+. If the check succeeds, then no standard output; otherwise an error message.
+
+. If the option `-u` is present, then write the names of all
+unconnected port arrays to the specified file.
+A port array is unconnected if it appears in a component instance used in
+a topology, and there is no connection at any of its port numbers.
+
+*Procedure*:
+
+. Parse each of the files in _fl_, generating a list _tul_ of translation units.
+When parsing, recursively resolve include specifiers.
+
+. https://github.com/nasa/fpp/wiki/Resolving-Templates[Resolve templates] for _tul_, yielding a new list _tul_ of translation units
+with templates expanded.
+
+. Perform https://github.com/nasa/fpp/wiki/Checking-Semantics[semantic checking] on _tul_.

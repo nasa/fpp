@@ -1,0 +1,49 @@
+This algorithm traverses the source model and checks state machine definitions.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis 
+data structure] _a_
+representing the results of analysis so far.
+
+== Output
+
+An updated analysis _a'_ with the state machine map filled in if the check 
+passes; otherwise an error.
+
+== Procedure
+
+Visit each translation unit in _tul_ with input _a_,
+yielding either _a'_ or an error.
+
+=== AST Visitor Methods
+
+Each method accepts an analysis data structure _a_ as input
+and yields either an updated analysis data structure _a'_ or an error as 
+output.
+
+==== Translation Units
+
+For each translation unit _tu_, visit each state machine
+definition appearing in _tu_.
+
+==== State Machine Definitions
+
+For each state machine definition _d_
+
+. https://github.com/nasa/fpp/wiki/Checking-State-Machine-Semantics[Check state 
+machine semantics] for _d_.
+
+. Use the 
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[state
+machine analysis data structure] _sma_ resulting from step 1
+to create a new state machine _m_.
+
+. Construct the unique state machine symbol _s_ for _d_.
+
+. Map _s_ to _m_ in the state machine map of _a_.
+
+. Return _a_ as the result.

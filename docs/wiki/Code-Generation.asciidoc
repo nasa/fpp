@@ -1,0 +1,37 @@
+Below we set forth the plan for the current version of code generation.
+
+== {cpp}
+
+*Constants:* Generate a header file `FppConstants.hpp` containing constant definitions.
+
+*Types:* 
+
+. Convert each struct definition to `SerializableAc.{hpp,cpp}` files.
+
+. Convert each enum definition to an `EnumAc.{hpp,cpp}` files.
+
+. Convert each array definition to an `ArrayAc.{hpp,cpp}` files.
+
+. Convert each type alias definition to a `TypeAc.hpp` file.
+If the type supports a C definition, generate a corresponding `TypeAc.h` header.
+Types support being aliases in C if their referenced type is numeric (float or int)
+and it does not reside in a `module` (namespace) 
+
+*Ports:* Convert each port definition to `PortAc.{hpp,cpp}` files.
+
+*Components:*
+
+. Convert each component definition to `ComponentAc.{hpp,cpp}` files.
+
+. Generate an implementation template for each component definition.
+
+. Generate unit test files for each component definition (in development).
+
+*Topologies:* Convert each topology definition to `TopologyAc.{hpp,cpp}` files.
+
+== JSON
+
+*Ground dictionary:* Convert the ground dictionary to a JSON representation.
+
+*Model:* Convert the FPP model (not including the ground dictionary)
+to a JSON representation.

@@ -1,0 +1,154 @@
+This algorithm traverses a source model in which templates have been
+expanded and enters into their scopes the symbols produced by each
+template expansion.
+It also checks that the arguments of each expansion match the parameters
+of the template it expands, and it records each expansion in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[template
+expansion map].
+
+== Input
+
+. A list _tul_ of translation units with templates expanded.
+
+. An
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis
+data structure] _a_
+representing the results of analysis so far.
+The symbols of _tul_ must already be
+https://github.com/nasa/fpp/wiki/Enter-Symbols[entered], and
+https://github.com/nasa/fpp/wiki/Expand-Templates[templates must
+already be expanded].
+
+== Output
+
+. An updated analysis data structure _a_ with the symbols produced by
+template expansions entered and the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[template
+expansion map] filled in.
+
+[[bound-parameter-symbols]]
+== Bound Parameter Symbols
+
+For each parameter _q_ of the expanded template and each corresponding
+argument _p_, this algorithm constructs a *bound parameter symbol*
+representing the
+https://nasa.github.io/fpp/fpp-spec.html#Specifiers_Template-Expansion-Specifiers_Semantics[bound
+parameter definition] stem:[(q, p)].
+A constant parameter yields a constant parameter symbol, which resides in
+the value name group; a type parameter yields a type parameter symbol, in
+the type name group; and an instance parameter yields a port interface
+instance parameter symbol, in the port interface instance name group.
+The unqualified name of the symbol is the name of _q_, and its AST node is
+the node of _p_.
+
+== Procedure
+
+. *Translation unit lists:* Visit each translation unit _tu_ in _tul_ in order.
+
+. *Translation units:* Visit a translation unit _tu_ by visiting its members _tum_.
+
+. *Translation unit members:* Visit a translation unit member _tum_ as follows:
+
+.. *Module definitions:* If _tum_ is a module definition, then visit it
+using the same rules as described in the
+https://github.com/nasa/fpp/wiki/Enter-Symbols#procedure[enter symbols
+algorithm], visiting the members of the module so that expansions
+appearing inside it are reached.
+In particular, if a module symbol with the same name already exists at
+the current level, then reopen its scope instead of creating a new one.
+
+.. *Template expansion specifiers:* If _tum_ is a template expansion
+specifier _te_, then
+
+... If the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[template
+expansion map] of _a_ already has an entry _e_ for _te_, then
+
+.... Push the definition scope of _e_ onto the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested
+scope] of _a_.
+
+.... Visit the members of _te_ with this algorithm.
+
+.... Pop the resulting scope _s_ off the nested scope of _a_ and replace
+the definition scope of _e_ with _s_ in the template expansion map.
+
+... Otherwise let _t_ be the module template definition that the
+template name of _te_ refers to in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[use-def
+map] of _a_, let _P_ be the parameters of _t_, and let _A_ be the
+arguments of _te_.
+Throw an internal error if the template name does not resolve to a
+template symbol.
+Then
+
+.... If the number of arguments in _A_ does not equal the number of
+parameters in _P_, report an error.
+
+.... For each argument _p_ in _A_ paired with its corresponding parameter
+_q_ in _P_:
+
+..... If the kind of _p_ (constant, type, or instance) does not match
+the kind of _q_, report an error.
+
+..... Otherwise construct the
+<<bound-parameter-symbols,bound parameter symbol>> binding _q_ to _p_.
+
+.... Create a fresh
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[scope] _sp_
+for the parameters.
+For each bound parameter symbol, add the mapping from its name to the
+symbol in _sp_, in the single name group determined by the kind of the
+parameter.
+Report an error if the name is already present in that name group.
+Two parameters with the same name in different name groups are allowed.
+
+.... Create a fresh scope _sd_ for the expanded definitions.
+Push _sd_ onto the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested
+scope] of _a_, and enter the symbols for the members of _te_ using the
+https://github.com/nasa/fpp/wiki/Enter-Symbols#procedure[enter symbols
+algorithm], yielding a scope _sd'_.
+Pop _sd'_ off the nested scope of _a_.
+
+.... Compute the *local scope map* of the expansion: starting from the
+module symbols bound in _sd'_, map each such symbol to its scope in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[symbol-scope
+map] of _a_, and repeat transitively for the module symbols bound in
+those scopes.
+
+.... For each bound parameter symbol, check that its name is not bound
+in _sd'_ in the name group of the parameter.
+If it is, report an error for a template parameter conflict.
+
+.... Merge _sd'_ into the innermost
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested
+scope] _s_ of _a_.
+For each name group _g_ and each mapping from a name _n_ to a symbol
+_sym_ in _sd'_:
+
+..... If _n_ is already mapped to _sym_ in _g_ in _s_, then do nothing.
+
+..... Otherwise if _n_ is mapped in _g_ in _s_ to a module symbol _sym'_
+and _sym_ is also a module symbol, then recursively merge their scopes and
+map both symbols to the merged scope in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[symbol-scope
+map] of _a_, keeping the mapping already in _s_.
+
+..... Otherwise add the mapping from _n_ to _sym_ in _g_ in _s_, and
+report an error if _n_ is already mapped in _g_ in _s_ to some other
+symbol.
+
+.... Construct a
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[template
+expansion] consisting of _t_, _te_, the map from parameter keys to
+bound parameter symbols, the parameter scope _sp_, the definition scope
+_sd'_, and the local scope map.
+Add the mapping from _te_ to this expansion in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[template
+expansion map] of _a_.
+
+.... Visit the members of _te_ with this algorithm.
+
+.. Otherwise do nothing.
+In particular, the body of a module template definition is not visited.

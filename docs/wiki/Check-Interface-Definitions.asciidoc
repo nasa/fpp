@@ -1,0 +1,74 @@
+This algorithm traverses the source model and checks interface definitions.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis 
+data structure] _a_
+representing the results of analysis so far.
+
+== Output
+
+An updated analysis _a'_ with the interface map filled in if the check 
+passes; otherwise an error.
+
+== Procedure
+
+Visit each translation unit in _tul_ with input _a_,
+yielding either _a'_ or an error.
+
+=== AST Visitor Methods
+
+Each method accepts an analysis data structure _a_ as input
+and yields either an updated analysis data structure _a'_ or an error as 
+output.
+
+==== Translation Units
+
+For each translation unit _tu_, visit each interface definition
+definition appearing in _tu_.
+
+==== Interface Definitions
+
+For each interface definition _d_
+
+. Create a new interface _i_.
+
+. Visit each member _m_ of _d_ with input _a_.
+
+.. If _m_ is a interface import specifier
+
+... Look up the interface definition _i_ associated with _m_.
+If the interface does not exist, throw an error.
+
+... Check Interface definitions for _i_ and update _a_.
+
+... Visit each port instance member _p_ of _i_.
+
+.... Apply the same rules to _p_ as are applied to interface definition
+port instance specifiers.
+
+.. If _m_ is a port instance specifier, then
+
+... Check that the specifier follows the rules.
+For example, `async` specifiers may not use ports with `ref` parameters;
+specifiers that are not `async` may not specify queue behavior.
+
+... Create a new port instance _pi_
+
+... Add _pi_ to the port instance map of _c_.
+If the name is already in the map, then throw an error.
+
+... If _m_ is a special port instance specifier, then
+
+.... Add _pi_ to the special port instance map of _c_.
+
+.... If the kind is already in the map, then throw an error.
+
+. Construct the unique interface symbol _s_ for _d_.
+
+. Map _s_ to _c_ in the interface map of _a_.
+
+. Return _a_ as the result.

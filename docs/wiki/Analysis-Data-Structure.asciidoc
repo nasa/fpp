@@ -1,0 +1,191 @@
+The https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/analysis/Analysis.scala[*Analysis data structure*] represents the results of FPP source analysis.
+
+It contains the following members.
+
+* *Component map:* A map from
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[component symbols]
+to the corresponding
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[components].
+
+* *Component instance map:* A map from
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[component instance symbols]
+to the corresponding
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[component instances].
+
+* *Current template:* The AST node identifier of the template expansion
+specifier whose body is currently being copied, if there is one.
+Used during
+https://github.com/nasa/fpp/wiki/Expand-Templates[template expansion]:
+when it is present, each node visited is copied, and the copy records
+this node as its expansion point.
+
+* *Current template definition:* The AST node identifier of the module
+template definition whose body is currently being traversed, if there is
+one.
+Used during
+https://github.com/nasa/fpp/wiki/Expand-Templates[template expansion] to
+reject a nested template definition and a template expansion inside a
+template.
+
+* *Current template expansion:* The
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[template
+expansion] whose members are currently being analyzed, if there is one.
+Used during
+https://github.com/nasa/fpp/wiki/Check-Uses[check uses] to resolve names
+against the local scope map of the expansion.
+
+* *Dependency file set:* The set of
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[files] 
+on which the analysis transitively depends.
+Used to calculate the inputs to FPP analysis tools.
+Included files do not appear in this set.
+
+* *Dictionary map:* A map from
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[topology symbols]
+to the corresponding
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[dictionaries].
+
+* *Dictionary generation flag:*
+A Boolean flag indicating whether dictionary generation is required.
+This flag is set when computing dependencies and when generating
+dictionary output.
+
+* *Dictionary symbol set:* A set of dictionary definition symbols and
+all of the symbols transitively used by the definitions
+
+* *Direct dependency file set* The set of
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[files] 
+on which the analysis directly depends.
+Used to calculate the inputs to external build environments.
+Included files do appear in this set.
+
+* *Framework definitions:* A mapping from the name of each
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[framework
+definitions] to the symbol of that definition, if it exists
+in the model.
+
+* *Implied use map:* A map from
+AST nodes to implied use info.
+The implied use info is a map from implied use
+kinds to sets of implied uses.
+
+* *Included file set:* The set of 
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[files] 
+included when parsing input.
+
+* *Input file set:* The set of 
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[files] 
+presented to the analyzer.
+
+* *Level:* A nonnegative integer representing the level of
+recursive analysis.
+
+* *Location specifier map:* A map from pairs (symbol kind, qualified name) to 
+location specifiers.
+Each entry in the map represents the specified location of a 
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[symbol].
+
+* *Missing dependency file set:* The subset of the dependency file set 
+consisting of files that could not be opened.
+
+* *Nested scope:* A 
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[nested 
+scope] object
+that represents the current position in a scope traversal.
+
+* *Parent symbol map:* A map from
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[symbols] 
+to their parent symbols.
+For example, the symbol for a constant definition appearing inside a module
+_M_ is mapped to the symbol _M_.
+
+* *Scope name list:* A list of unqualified names representing the enclosing 
+scopes, with the innermost name at the head of the list. For example, inside 
+module `B` where `B` is inside `A` and `A` is at the top level, the scope name 
+list is `[ B, A ]`.
+
+* *State machine map:* A map from
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[state machine symbols]
+to the corresponding
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[state machines].
+
+* *Symbol-scope map:* A map from 
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[symbols] 
+to their 
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[scopes].
+
+* *System map:* A map from
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[system symbols]
+to the corresponding
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[systems].
+The map has either zero elements (if the model is not a system model)
+or one element (if the model is a system model).
+
+* *Template expansion map*: A map from the AST node identifier of each
+template expansion specifier to the corresponding
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[template
+expansion].
+Filled in by
+https://github.com/nasa/fpp/wiki/Enter-Template-Symbols[enter template
+symbols].
+
+* *Topology map:* A map from
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[topology symbols]
+to the corresponding
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[topologies].
+
+* *Type map:* A map from
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[type and 
+constant symbols],
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[expressions],
+and
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[type 
+names]
+to their
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[types].
+
+* *Use-def map:* A map from uses 
+(https://github.com/nasa/fpp/wiki/Analysis#data-structures[expressions]
+and
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[qualified 
+identifiers]
+that refer to definitions)
+to the 
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[symbols] 
+representing their definitions.
+
+* *Use-def matching list:* The list of
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[use-def 
+matchings]
+on the current use-def path.
+Used during
+https://github.com/nasa/fpp/wiki/Check-Use-Def-Cycles[cycle 
+analysis].
+
+* *Use-def symbol set:* The set of
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[symbols]
+on the current use-def path.
+Used during 
+https://github.com/nasa/fpp/wiki/Check-Use-Def-Cycles[cycle 
+analysis].
+
+* *Used symbol set:* The set of symbols used. Used during code generation.
+
+* *Value map:* A map from
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[constant 
+symbols]
+and
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[expressions]
+to their
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[values].
+
+* *Visited symbol set:* The set of
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[symbols]
+visited so far.
+
+An empty analysis data structure has the following configuration:
+
+. The sets, lists, and maps are empty.
+
+. The nested scope contains a single empty scope representing the global scope.
+

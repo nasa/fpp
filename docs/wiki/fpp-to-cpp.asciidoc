@@ -1,0 +1,81 @@
+This tool parses FPP models, performs semantic checking on them, and writes out 
+{cpp} files.
+
+*Options:*
+
+. `-a`: Enable unit test auto helpers.
+
+. `-d` _dir_: Set the output directory to _dir_.
+If this option is not present, then the output directory is
+the current directory.
+
+. `-i` _files_: Import _files_.
+The definitions in these files are part of the FPP model, but they do not cause 
+any code to be generated.
+
+. `-g` _prefix_: Specify a prefix for include guards that have no associated namespace.
+
+. `-n` _file_: Write the names of the generated files to _file_.
+This is useful for collecting build dependencies.
+
+. `-p` _files_: Specify local prefixes to delete when generating include
+guards and include paths.
+
+. `-u`: Generate unit test code.
+
+. `-t`: Generate component implementation templates.
+
+*Input:*  
+
+. A list _fl_tr_ of files to translate: either the single file _stdin_ or a list of 
+files specified on the command line.
+
+. A list _fl_i_ of files to import, specified as arguments to the `-i` option.
+
+*Output:* 
+
+. A set of {cpp} files, written to the output directory.
+
+.. By default these are the autocoded F Prime {cpp} files for constants,
+types, ports, components, and topologies.
+
+.. If option `-u` is present and option `-t` is not present, then
+
+... These are the autocoded base class files for unit test components.
+
+... If option `-a` is present, then these files include auto-generated helper
+code running unit tests.
+
+.. If option `-t` is present, then
+
+... By default these are the template files for handwritten component
+implementations.
+
+... If option `-u` is also present, then
+
+.... These are the template files
+for handwritten component unit test implementations.
+
+.... If option `-a` is not present, then these files include auto-generated helper
+code running unit tests.
+
+. If option `-n` is present, then write the names of the generated {cpp}
+files to the specified file.
+
+*Procedure*:
+
+. Parse each of the files in _fl_tr_, generating a list _tul_tr_ of translation units.
+When parsing, recursively resolve include specifiers.
+
+. Do the same for _fl_i_, generating a list _tul_i_.
+
+. https://github.com/nasa/fpp/wiki/Resolving-Templates[Resolve templates] for the concatenation of _tul_fl_ and _tul_i_.
+In the steps below, _tul_fl_ and _tul_i_ denote the translation units
+with templates expanded.
+
+. Perform https://github.com/nasa/fpp/wiki/Checking-Semantics[semantic checking] on the concatenation of _tul_fl_ and _tul_i_.
+
+. Check that no two definitions in _tul_tr_ will generate a {cpp} file with the same name.
+If so, halt with an error message.
+
+. Generate the output for the definitions in _tul_tr_.

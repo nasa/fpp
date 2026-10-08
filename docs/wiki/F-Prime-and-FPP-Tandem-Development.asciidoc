@@ -1,0 +1,62 @@
+In some cases a change to FPP requires a change to F Prime, or vice versa.
+For example:
+
+* Some code generation may be added to FPP, and it may rely on a new
+  header file in F Prime.
+
+* Some framework interface may change in F Prime, and this may require
+  changes to the FPP code generation.
+
+Hereafter we will call this situation *F Prime and FPP tandem development*.
+
+== Procedure
+
+In the past, we have sometimes handled F Prime and FPP tandem development by 
+allowing `fpp/main`
+to get out of sync with `fprime/devel` and using a different branch
+(usually a development branch on some developer's fork of `nasa/fprime`)
+to run the code generation tests in FPP.
+As more developers work on FPP, we should avoid this situation.
+We should try to keep
+`fpp/main` in sync with `fprime/devel` at all times
+except during brief periods in which we are merging approved pull requests.
+
+Here is the procedure we will use going forward for F Prime and FPP tandem 
+development:
+
+. In `nasa/fpp`, create a branch _B_ off of `fpp/main`.
+For example, _B_ can be a branch keyed to a specific FPP feature or
+a specific alpha release number.
+
+. Review and approve pull requests to _B_ with the FPP changes.
+
+. Merge the head of `fpp/main` into _B_, but do not merge _B_ into `fpp/main`.
+
+. When the changes to _B_ are ready for delivery
+
+.. Create an alpha release _R_ against _B_
+
+.. Make a pull request to `nasa/fprime/devel` that updates `requirements.txt`
+   to point to _R_ and that makes the corresponding changes to F Prime.
+
+. Review and merge the pull request to F Prime
+
+. Merge _B_ into `fpp/main`.
+
+. Delete _B_.
+
+If we follow this procedure, then all FPP developers will have a guarantee
+that merging `fpp/main` into a development branch will not break any
+testing they do against `fprime/devel`, except perhaps during a brief
+period between steps 5 and 6 above.
+
+== Initiating Pull Requests to FPP
+
+Under this procedure, if you are starting on F Prime and FPP
+tandem development, you should not make a pull request to `fpp/main`.
+Instead, you should work with the FPP maintainers to create
+the branch _B_ before you start development, and you should
+make pull requests to _B_.
+In some cases, you can use an existing branch _B_;
+for example, you may want to contribute changes to
+an existing feature branch.

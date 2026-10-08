@@ -1,0 +1,109 @@
+This algorithm traverses the source model and checks topology definitions.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis 
+data structure] _a_
+representing the results of analysis so far.
+
+== Output
+
+An updated analysis _a'_ with the topology map filled in if the check 
+passes; otherwise an error.
+
+== Procedure
+
+Visit each translation unit in _tul_ with input _a_,
+yielding either _a'_ or an error.
+
+=== AST Visitor Methods
+
+Each method accepts an analysis data structure _a_ as input
+and yields either an updated analysis data structure _a'_ or an error as 
+output.
+
+==== Translation Units
+
+For each translation unit _tu_, visit each
+definition appearing in _tu_.
+
+==== Topology Definitions
+
+For each topology definition _d_ that has not yet
+been resolved:
+
+. Look up the topology data structure _t_ from the partial topology map
+
+. Visit each connection _m_ of _d_ with input _a_ and add it to _t_.
+Check each member for semantic validity.
+For example, ensure that the types of the port connections
+match.
+Check that (i) user-specified port numbers are in bounds for their ports and (ii)
+no two connections at the same output port have the same number.
+If not, throw an error.
+Don't check pattern validity yet, except to resolve
+uses.
+
+. Visit all topologies directly imported into _t_, ensuring
+that they are resolved.
+
+. Resolve _t_ to a partially numbered topology consisting
+of (a) a list of instances and (b) a mapping between
+connection graph names and lists of connections.
+The connection end points have port numbers if and only
+if those numbers are present in the model source.
+
+.. For each topology _t'_ that is directly imported into _t_, let
+_s'_ be the set of transitively imported topologies of _t'_.
+Add _t'_ and _s'_ to the set of transitively imported topologies
+of _t_.
+
+.. Determine the set of all instances in _t_,
+consisting of (a) all instances specified in _t_
+and (b) public instances specified in topologies
+imported into _t_.
+
+.. Check that all directly specified connections are
+between valid instances.
+
+.. Resolve imported connections.
+Include connections from transitively imported topologies
+_t'_ that (a) go between instances present in _t_ and
+(b) were specified directly or by pattern (and not by import) in _t'_.
+
+.. Resolve pattern specifiers and add the resulting connections to _t_.
+Resolve the source and each target of a pattern to the component instance
+that it
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[represents].
+Report an error if it does not represent a component instance.
+
+. Check output port numbers.
+
+.. Check that the number of connections at each output port
+is in bounds for the port size.
+
+.. Check that there are no duplicate numbers
+at any output ports.
+
+. Apply automatic numbering to _t_.
+This step fills in missing port numbers, preserving
+any numbers specified in the model source.
+
+.. Apply matched numbering.
+Use the algorithm described in the language spec.
+
+.. Apply general numbering.
+Use the algorithm described in the language spec.
+
+. Check the topology interface.
+
+. Compute the set of unconnected ports for _t_.
+
+. Construct the unique topology symbol _s_ for _d_.
+
+. Map _s_ to _t_ in the topology map of _a_.
+
+. Return _a_ as the result.

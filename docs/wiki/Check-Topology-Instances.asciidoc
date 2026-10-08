@@ -1,0 +1,50 @@
+This algorithm traverses the source model and checks topology instances & topology ports.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis 
+data structure] _a_
+representing the results of analysis so far.
+
+== Output
+
+An updated analysis _a'_ with the partial topology map filled in if the check 
+passes; otherwise an error.
+
+== Procedure
+
+Visit each translation unit in _tul_ with input _a_,
+yielding either _a'_ or an error.
+
+=== AST Visitor Methods
+
+Each method accepts an analysis data structure _a_ as input
+and yields either an updated analysis data structure _a'_ or an error as 
+output.
+
+==== Translation Units
+
+For each translation unit _tu_, visit each
+definition appearing in _tu_.
+
+==== Topology Definitions
+
+For each topology definition _d_ that has not yet
+been resolved into the partial topology map:
+
+. Visit each member _m_ of _d_ with input _a_, building
+up a topology data structure _t_ for topology port members
+and topology instance specifiers.
+Check that each topology instance specifier refers to an
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[interface instance], that it is not already an instance of _d_, and
+that the topology definition it *represents*, if any, is not a deployment
+topology.
+
+. Construct the unique topology symbol _s_ for _d_.
+
+. Map _s_ to _t_ in the partial topology map of _a_.
+
+. Return _a_ as the result.
