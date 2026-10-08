@@ -27,11 +27,8 @@ object FPPLocateUses {
     val a = Analysis(inputFileSet = options.files.toSet)
     for {
       tul <- ToolUtils.parseFiles(files ++ options.imports)
-      aTul <- ExpandSyntaxAndEnterSymbols.tuList(a, tul)
-      a <- Right(aTul._1)
-      tul <- Right(aTul._2)
-      a <- CheckSemantics.tuList(a, tul)
-      tulFiles <- Right(tul.take(files.length))
+      (a, tul) <- CheckSemantics.tuListWithExpansion(a, tul)
+      tulFiles = tul.take(files.length)
       a <- UsedSymbols.visitList(a, tulFiles, UsedSymbols.transUnit)
     } yield {
       val list = a.usedSymbolSet.flatMap(writeUsedSymbol(a, options)).toList
