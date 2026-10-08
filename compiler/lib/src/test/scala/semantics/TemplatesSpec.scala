@@ -265,19 +265,7 @@ class TemplatesSpec extends AnyWordSpec {
     /** Resolve includes, expand templates, and check semantics */
     private def analyze(tu: Ast.TransUnit):
         Result.Result[(Analysis, List[Ast.TransUnit])] =
-        for {
-            includeResult <- ResolveSpecInclude.transformList(
-                Analysis(),
-                List(tu),
-                ResolveSpecInclude.transUnit
-            )
-            templateResult <- ExpandSyntaxAndEnterSymbols.tuList(
-                includeResult._1,
-                includeResult._2
-            )
-            a <- CheckSemantics.tuList(templateResult._1, templateResult._2)
-        }
-        yield (a, templateResult._2)
+          CheckSemantics.tuListWithExpansion(Analysis(), List(tu))
 
     /** Parse and analyze a string, failing the test if either step fails */
     private def analyzeString(s: String): (Analysis, List[Ast.TransUnit]) = {
