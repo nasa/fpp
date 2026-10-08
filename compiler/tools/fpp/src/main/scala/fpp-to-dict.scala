@@ -36,7 +36,7 @@ object FPPToDict {
         for {
             tulFiles <- ToolUtils.parseFiles(files)
             tulImports <- ToolUtils.parseFiles(options.imports)
-            (a, tul) <- CheckSemantics.tuListWithExpansion(a, tulFiles ++ tulImports)
+            (a, tul) <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
             tulFiles <- Right(tul.take(tulFiles.length))
             state <- {
                 val dir = options.dir match {

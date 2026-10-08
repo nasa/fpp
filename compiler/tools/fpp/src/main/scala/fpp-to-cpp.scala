@@ -33,7 +33,7 @@ object FPPToCpp {
     for {
       tulFiles <- ToolUtils.parseFiles(files)
       tulImports <- ToolUtils.parseFiles(options.imports)
-      (a, tul) <- CheckSemantics.tuListWithExpansion(a, tulFiles ++ tulImports)
+      (a, tul) <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
       tulFiles <- Right(tul.take(tulFiles.length))
       // Compute the generated file names. This step also checks for
       // name collisions.

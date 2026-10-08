@@ -265,7 +265,7 @@ class TemplatesSpec extends AnyWordSpec {
     /** Resolve includes, expand templates, and check semantics */
     private def analyze(tu: Ast.TransUnit):
         Result.Result[(Analysis, List[Ast.TransUnit])] =
-          CheckSemantics.tuListWithExpansion(Analysis(), List(tu))
+          CheckSemantics.tuList(Analysis(), List(tu))
 
     /** Parse and analyze a string, failing the test if either step fails */
     private def analyzeString(s: String): (Analysis, List[Ast.TransUnit]) = {

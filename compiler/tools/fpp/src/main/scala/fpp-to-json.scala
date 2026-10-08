@@ -67,7 +67,7 @@ object FPPtoJson {
     options.syntaxOnly match {
       case false =>
         val a = Analysis(inputFileSet = options.files.toSet)
-        CheckSemantics.tuListWithExpansion(a, tul).map(Some(_))
+        CheckSemantics.tuList(a, tul).map(Some(_))
       case true => Right(None)
     }
 

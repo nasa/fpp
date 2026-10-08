@@ -22,7 +22,7 @@ object FPPCheck {
     val a = Analysis(inputFileSet = options.files.toSet)
     for {
       tul <- ToolUtils.parseFiles(files)
-      (a, _) <- CheckSemantics.tuListWithExpansion(a, tul)
+      (a, _) <- CheckSemantics.tuList(a, tul)
       _ <- options.unconnectedFile match {
         case Some(file) => writeUnconnectedPorts(a, file)
         case None => Right(())
