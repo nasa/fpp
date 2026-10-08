@@ -42,9 +42,7 @@ object CheckSemantics {
   def tuListWithExpansion(a: Analysis, tul: List[Ast.TransUnit]):
     Result.Result[(Analysis,List[Ast.TransUnit])] =
     for {
-      aTul <- ExpandSyntaxAndEnterSymbols.tuList(a, tul)
-      a = aTul._1
-      tul = aTul._2
+      (a, tul) <- ExpandSyntaxAndEnterSymbols.tuList(a, tul)
       a <- tuList(a, tul)
     } yield (a, tul)
 
