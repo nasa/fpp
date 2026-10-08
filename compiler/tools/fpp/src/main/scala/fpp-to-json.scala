@@ -67,12 +67,7 @@ object FPPtoJson {
     options.syntaxOnly match {
       case false =>
         val a = Analysis(inputFileSet = options.files.toSet)
-        for {
-          aTul <- ExpandSyntaxAndEnterSymbols.tuList(a, tul)
-          a <- Right(aTul._1)
-          tul <- Right(aTul._2)
-          a <- CheckSemantics.tuList(a, tul)
-        } yield Some((a, tul))
+        CheckSemantics.tuListWithExpansion(a, tul).map(Some(_))
       case true => Right(None)
     }
 
