@@ -26,10 +26,9 @@ object FPPToLayout {
         for {
             tulFiles <- ToolUtils.parseFiles(files)
             tulImports <- ToolUtils.parseFiles(options.imports)
-            aTul <- ExpandSyntaxAndEnterSymbols.tuList(a, tulFiles ++ tulImports)
-            a <- Right(aTul._1)
-            tul <- Right(aTul._2)
-            a <- CheckSemantics.tuList(a, tul)
+            aTul <- CheckSemantics.tuListWithExpansion(a, tulFiles ++ tulImports)
+            a = aTul._1
+            tul = aTul._2
             tulFiles <- Right(tul.take(tulFiles.length))
             state <- {
                 val dir = options.dir match {
