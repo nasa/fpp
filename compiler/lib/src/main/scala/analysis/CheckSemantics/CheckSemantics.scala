@@ -7,9 +7,10 @@ import fpp.compiler.transform._
 /** Check semantics for a list of translation units */
 object CheckSemantics {
 
-  private def tuListHelper(a: Analysis, tul: List[Ast.TransUnit]):
-    Result.Result[Analysis] = {
+  def tuList(a: Analysis, tul: List[Ast.TransUnit]):
+    Result.Result[(Analysis,List[Ast.TransUnit])] =
     for {
+      (a, tul) <- ExpandSyntaxAndEnterSymbols.tuList(a, tul)
       a <- ConstructImpliedUseMap.visitList(a, tul, ConstructImpliedUseMap.transUnit)
       a <- CheckUses.visitList(a, tul, CheckUses.transUnit)
       _ <- CheckUseDefCycles.visitList(a, tul, CheckUseDefCycles.transUnit)
@@ -35,15 +36,6 @@ object CheckSemantics {
       a <- CheckDictionaryDefs.visitList(a, tul, CheckDictionaryDefs.transUnit)
       a <- ConstructDictionaryMap.visitList(a, tul, ConstructDictionaryMap.transUnit)
       a <- CheckSystemDefs.visitList(a, tul, CheckSystemDefs.transUnit)
-    }
-    yield a
-  }
-
-  def tuList(a: Analysis, tul: List[Ast.TransUnit]):
-    Result.Result[(Analysis,List[Ast.TransUnit])] =
-    for {
-      (a, tul) <- ExpandSyntaxAndEnterSymbols.tuList(a, tul)
-      a <- tuListHelper(a, tul)
     } yield (a, tul)
 
 }
