@@ -1,0 +1,61 @@
+This tool parses FPP source files and reports the locations
+of symbols used in the files.
+It is useful for diagnostic purposes.
+
+As an example, you can do the following:
+
+. Run `fpp-locate-defs` to construct a file `exported.fpp` containing
+the locations of some exported symbols.
+
+. Run `fpp-depend exported.fpp client.fpp`
+to generate a list _F_ of files on which `client.fpp` depends.
+Turn _F_ into a comma-separated list _F1_.
+
+. Run `fpp-locate-uses -i` _F1_  `client.fpp` to
+see the locations of symbols exported in `exported.fpp` and used in 
+`client.fpp`.
+
+*Options:*
+
+. `-d` _dir_: Specify the base directory for locating files.
+The default directory is the current directory.
+
+. `-i` _files_: Import _files_.
+These files are read in for their symbols, but uses in the files are not reported.
+
+*Input:*  
+
+. A list _fl_tr_ of files specified on the command line.
+
+. A list _fl_i_ of files to import, specified as arguments to the `-i` option.
+
+*Output:*
+
+. An FPP source file, written to stdout.
+The source file contains one location specifier for each
+symbol used in _fl_tr_.
+
+*Procedure*:
+
+. Parse each of the files in _fl_tr_, generating a list _tul_tr_ of translation units.
+When parsing, recursively resolve include specifiers.
+
+. Do the same for _fl_i_, generating a list _tul_i_.
+
+. https://github.com/nasa/fpp/wiki/Resolving-Templates[Resolve templates] for the concatenation of _tul_fl_ and _tul_i_.
+In the steps below, _tul_fl_ and _tul_i_ denote the translation units
+with templates expanded.
+
+. Perform https://github.com/nasa/fpp/wiki/Checking-Semantics[semantic checking] on the concatenation of _tul_fl_ and _tul_i_.
+
+. For each use _u_ appearing in _tul_
+
+.. Look up the definition _d_ corresponding to _u_.
+
+.. Add the symbol corresponding to _d_ to the used symbol set _S_.
+
+. For each symbol _s_ in _S_
+
+.. Use the parent symbol map to get the qualified name of _s_.
+
+.. Write out a location specifier for the definition corresponding to _s_. 

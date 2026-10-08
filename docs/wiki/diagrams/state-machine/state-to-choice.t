@@ -1,0 +1,22 @@
+.PS
+S1: box width 2 height 1.5
+"S1" with .nw at S1.nw + (0.1,-0.1)
+S2: box width 0.75 height 0.5 with .sw at S1.sw + (0.1, 0.1)
+"S2" with .nw at S2.nw + (0.1, -0.1)
+S3: box width 0.75 height 0.5 with .ne at S1.ne + (-0.1, -0.1)
+"S3" with .nw at S3.nw + (0.1, -0.1)
+S4: box width 1.5 height 1 with .w at S1.e + (1,0)
+"S4" with .nw at S4.nw + (0.1, -0.1)
+C: box invis width 0.1 height 0.1 with .c at S4.c
+choice(C)
+"C" with .w at C.e + (0.1,0)
+arrow from S1.e to C.w "$A$" above
+
+line dashed down 0.25 from S2.s
+line dashed right 3.275 "$\fRconcat\fI(\fRexit\fI(\fRS2\fI), \fRexit\fI(\fRS1\fI), A, \fRentry\fI(\fRS4\fI))$" below
+arrow dashed up to C.s
+
+line dashed up 0.25 from S3.n
+line dashed right 2.225 "$\fRconcat\fI(\fRexit\fI(\fRS3\fI), \fRexit\fI(\fRS1\fI), A, \fRentry\fI(\fRS4\fI))$" above
+arrow dashed down to C.n
+.PE

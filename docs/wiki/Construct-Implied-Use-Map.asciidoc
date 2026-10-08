@@ -1,0 +1,55 @@
+This algorithm traverses the source model and constructs the implied use map.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis 
+data structure] _a_
+representing the results of analysis so far.
+
+== Output
+
+An updated analysis _a'_ with the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[implied use map]
+filled in.
+
+== Procedure
+
+Visit each translation unit in _tul_ with input _a_,
+yielding either _a'_ or an error.
+
+=== AST Visitor Methods
+
+Each method accepts an analysis data structure _a_ as input
+and yields either an updated analysis data structure _a'_ or an error as 
+output.
+
+==== Translation Units
+
+For each translation unit _tu_, visit each
+definition appearing in _tu_.
+
+==== Port Instance Specifiers
+
+For each special port instance
+specifier _p_, add the implied port uses of
+_p_ to the entry for _p_ in the implied use map.
+
+==== State Machine Definitions
+
+For each state machine definition _d_,
+add the implied use of the state enum for _d_
+to the entry for _d_ in the implied use map.
+
+==== Topology Definitions
+
+For each deployment topology definition _d_, if the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[dictionary
+generation flag] is set to true,
+then add the types and constants implicitly required for dictionary
+generation to the entry for _d_ in the implied use map.
+These types and constants are specified in the 
+https://fprime.jpl.nasa.gov/devel/docs/reference/fpp-json-dict/[F Prime JSON 
+dictionary specification].

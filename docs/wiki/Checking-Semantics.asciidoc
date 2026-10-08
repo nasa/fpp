@@ -1,0 +1,62 @@
+For implementation, see
+https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/analysis/CheckSemantics/CheckSemantics.scala[`CheckSemantics.scala`].
+
+== Input
+
+. An https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis
+data structure] _a_ and a list _tul_ of translation units, as produced by
+https://github.com/nasa/fpp/wiki/Resolving-Templates[resolving templates].
+
+== Output
+
+. If the semantic check passes, an https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis data structure] _a_ representing the results of the analysis.
+
+. Otherwise an error and no output.
+
+== Procedure
+
+. https://github.com/nasa/fpp/wiki/Construct-Implied-Use-Map[Construct the implied use map] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Check-Uses[Check uses] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Check-Use-Def-Cycles[Check use def cycles] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Check-Type-Uses[Check type uses] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Check-Expression-Types[Check expression types] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Check-Framework-Definitions[Check framework definitions] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Evaluate-Implied-Enum-Constants[Evaluate implied enum constants] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Evaluate-Constant-Expressions[Evaluate constant expressions] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Finalize-Type-Definitions[Finalize type definitions] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Finalize-Constant-Expressions[Finalize constant expressions] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Check-Framework-Constant-Values[Check framework constant values] for _a_.
+
+. https://github.com/nasa/fpp/wiki/Check-Port-Definitions[Check port definitions] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Check-Interface-Definitions[Check interface definitions] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Check-Component-Definitions[Check component definitions] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Check-Component-Instance-Definitions[Check component instance definitions] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Check-State-Machine-Definitions[Check state machine definitions] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Check-Topology-Instances[Check topology instances] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Check-Topology-Definitions[Check topology definitions] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Check-Template-Interface-Arguments[Check template interface arguments] for _a_.
+
+. https://github.com/nasa/fpp/wiki/Check-Location-Specifiers[Check location specifiers] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Check-Dictionary-Definitions[Check dictionary definitions] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Construct-Dictionary-Map[Construct the dictionary map] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Check-System-Definitions[Check system definitions] for _a_ and _tul_.

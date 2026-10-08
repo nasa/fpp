@@ -1,0 +1,45 @@
+This algorithm checks that the port interface instance argument bound to
+each port interface instance template parameter satisfies the interface
+declared for that parameter.
+It checks the parameters of a module template definition once for each
+expansion of that definition, and not at all if the definition is never
+expanded.
+
+== Input
+
+. An
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis
+data structure] _a_
+representing the results of analysis so far.
+
+. The
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[template
+expansion map], the component instance map, the interface map, and the
+topology map of _a_ must already be filled in.
+
+== Output
+
+Nothing, if the check passes; otherwise an error.
+
+== Procedure
+
+For each entry in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[template
+expansion map] of _a_, and for each port interface instance parameter
+symbol _b_ in the parameter map of that expansion, with parameter _q_
+and argument _p_:
+
+. Look up the
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[interface
+instance] _N_ that _p_ refers to.
+Check that _p_ refers to a component instance definition, a topology
+definition, or a bound port interface instance parameter.
+
+. Look up the
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[interface]
+_I_ that the qualified identifier in _q_ refers to.
+Check that it refers to an interface definition.
+
+. Check that the port interface of _I_ is a
+https://nasa.github.io/fpp/fpp-spec.html#Ports_Sub-Interfaces[sub-interface]
+of the port interface of _N_.

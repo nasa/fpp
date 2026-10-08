@@ -1,0 +1,166 @@
+This algorithm traverses the source model and computes
+the values of constant symbols and
+expressions.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis 
+data structure] _a_
+representing the results of analysis so far.
+https://github.com/nasa/fpp/wiki/Evaluate-Implied-Enum-Constants[Evaluate Implied Enum Constants]
+must have already been run.
+
+== Output
+
+. The analysis _a_ with an updated
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[value map],
+if the check passes; otherwise an error.
+
+== Procedure
+
+. Visit each translation unit in _tul_ with input _a_,
+yielding either a new analysis _a'_ or an error.
+
+=== AST Visitor Methods
+
+Each method accepts an analysis data structure _a_ as input
+and yields either a new analysis data structure _a'_ or
+an error as output.
+
+==== Translation Units
+
+For each translation unit _tu_, visit each
+definition appearing in _tu_.
+
+==== Definitions
+
+For each constant definition _d_:
+
+. If _d_ is not in the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[value map]
+of _a_, then
+
+.. Visit each expression appearing in _d_, threading
+the analysis through the visits.
+Let _a'_ be the resulting analysis.
+
+.. Use the value map of _a'_ to compute the value _v_ of _d_.
+
+.. Let _a''_ be the analysis data structure that results from
+adding the mapping from _d_ to _v_ to the value map of _a'_.
+
+.. Yield _a''_ as the result.
+
+. Otherwise we have already visited _d_; yield _a_ as the result.
+
+For each enum definition _d_, check that the enumerated constants
+of _d_ all have different values.
+
+For each template expansion specifier _n_:
+
+. For each
+https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[constant
+parameter symbol] of _n_, with parameter type name _t_ and argument _p_:
+
+.. Visit the expression _p_, so that it has a value _v_ in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[value map]
+of _a_.
+
+.. Run
+https://github.com/nasa/fpp/wiki/Finalize-Type-Definitions[Finalize
+Type Definitions] on _t_, and let _T_ be the resulting type of _t_ in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[type map] of
+_a_.
+
+.. Convert _v_ to _T_, yielding _v'_.
+If the conversion is not possible, then report a type mismatch error.
+
+.. Let _a'_ be the analysis data structure that results from adding the
+mapping from _p_ to _T_ in the type map of _a_ and the mapping from _p_
+to _v'_ in the value map of _a_.
+The type and the value of a bound parameter symbol are the ones recorded
+for its argument.
+
+.. Yield _a'_ as the result.
+
+. For each
+https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[type
+parameter symbol] of _n_ with argument _p_, visit the type name _p_.
+
+. Visit all the member nodes of _n_.
+
+==== Type Names and Expressions
+
+For each AST node _n_ that represents an expression, if
+_n_ is not already in the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[value map]
+of _a_:
+
+. Compute the value _v_ of _n_:
+
+.. If the value of _n_ is directly available (for example, the value
+of the integer literal `1` is 1), then use that as _v_.
+
+.. Otherwise if _n_ represents a use, then
+
+... Look in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[use-def map]
+of _n_ to get the symbol _s_ corresponding
+to _n_.
+Throw an internal error if it is not there.
+
+... If _s_ is a
+https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[constant
+parameter symbol] with argument _p_, then if _p_ is not already in the
+value map of _a_, apply the rules stated above for the constant
+parameters of a template expansion specifier.
+
+... Otherwise visit the definition corresponding to _s_.
+
+... Look in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[value map]
+of _a_ to get the value _v_ of _s_.
+Throw an internal error if it is not there.
+
+... Use _v_ as the value of _n_.
+
+.. Otherwise if _n_ is an expression `sizeof` _typename_, then
+
+... Visit the child expressions of _n_.
+
+... Let _t_ be the type assigned to _typename_ in the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[type map].
+
+... Finalize _t_:
+if _t_ has a definition _d_ and _d_ has not yet been visited by 
+https://github.com/nasa/fpp/wiki/Finalize-Type-Definitions[Finalize Type Definitions],
+then
+
+.... Visit _d_.
+
+.... Recursively finalize the member types of _d_.
+
+.... Run https://github.com/nasa/fpp/wiki/Finalize-Type-Definitions[Finalize 
+     Type Definitions] on _d_.
+
+... Let _t'_ be the finalized type of _typename_.
+    If _t_ has a definition _d_, then _t'_ is the type
+    assigned to _d_ in the 
+    https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[type map].
+    Otherwise _t'_ is _t_.
+
+... Compute the size _v_ of _t'_.
+
+.. Otherwise
+
+... Visit the child expressions of _n_.
+
+... If possible, use the child values to compute the value _v_ of _n_.
+If this is not possible (for example, because an array index is out of bounds), 
+then report an error.
+
+. Update the value map with the mapping of _n_ to _v_.
+

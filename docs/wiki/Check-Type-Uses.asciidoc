@@ -1,0 +1,133 @@
+This algorithm traverses a source model and computes
+the types of type definition symbols, enumerated constant symbols, 
+and type names,
+except that array size expressions and default value expressions
+are still unevaluated.
+As the algorithm computes types, it checks for typing errors.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis 
+data structure] _a_
+representing the results of analysis so far.
+The use-def map must already be computed.
+
+== Output
+
+. The analysis _a_ with an updated
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[type map],
+if the check passes; otherwise an error.
+
+== Procedure
+
+. Visit each translation unit in _tul_ with input _a_,
+yielding either a new analysis _a'_ or an error.
+
+=== AST Visitor Methods
+
+Each method accepts an analysis data structure _a_ as input
+and yields either a new analysis data structure _a'_ or
+an error as output.
+
+==== Translation Units
+
+For each translation unit _tu_, visit each
+definition appearing in _tu_.
+
+==== Definitions
+
+For each definition _d_ that defines a type:
+
+. If _d_ is not in the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[type map]
+of _a_, then
+
+.. Visit each type name appearing in _d_, threading
+the analysis through the visits.
+Let _a'_ be the resulting analysis.
+
+.. Check that _d_ obeys all of its typing rules.
+Throw an error if not.
+
+.. Use information in the type map of _a'_ to compute
+the type of _d_.
+
+.. Let _a''_ be the analysis data structure that results from
+adding the type of _d_ to _a'_.
+In the case of enum definitions, also map each enumerated
+constant in _d_ to the enum type of _d_.
+
+
+.. Yield _a''_ as the result.
+
+. Otherwise we have already visited _d_; yield _a_ as the result.
+
+For each module template definition _d_, visit the type name of each
+constant template parameter of _d_.
+The rest of _d_ is not visited.
+
+For each template expansion specifier _n_:
+
+. For each type parameter of _n_ bound to the type name argument _p_, if
+_p_ is not already in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[type map]
+of _a_, then visit _p_.
+
+. Visit all the member nodes of _n_.
+
+==== Type Names
+
+For each AST node _n_ that represents a type name:
+
+. Compute the type _T_ of _n_:
+
+.. If the type of _n_ is directly available (for example, the type
+of `U32` is `U32`), then use that as _T_.
+
+.. Otherwise
+
+... Look in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[use-def map]
+of _n_ to get the symbol _s_ corresponding
+to _n_.
+Throw an internal error if it is not there.
+
+... If _s_ is a
+https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[type
+parameter symbol] bound to the type name argument _p_, then visit _p_ if
+it is not already in the type map of _a_.
+The type of _s_ is the type of _p_.
+
+... Otherwise visit the definition corresponding to _s_.
+
+... Look in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[type map]
+of _a_ to get the type _T_ of _s_.
+If it is not there, then report an error: _s_ is not a type symbol.
+
+... Use _T_ as the type of _n_.
+
+. Update the type map with the mapping of _n_ to _T_.
+
+=== Type Definitions
+
+Because array size expressions and default value expressions are unevaluated,
+the following rules apply to the typing of array, struct, and enum definitions:
+
+. An array type may have `None` in its size field.
+
+.. When comparing two array types, `None` matches any size,
+including `None`.
+
+.. When computing the common type of two array types _T1_ and _T2_,
+if either _T1_ or _T2_ has `None` in its size field, then
+the common type does as well.
+
+. Array, struct, and enum types may have a default value of `None`.
+
+A 
+https://github.com/nasa/fpp/wiki/Finalize-Type-Definitions[later pass]
+will fill in the missing values.

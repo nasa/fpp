@@ -1,0 +1,52 @@
+This tool parses FPP source files and reports the locations of symbol
+definitions.
+It is useful when exporting symbols from a directory containing FPP source files.
+
+For example, you can run `find` _dir_ `-name '*.fpp'` to find
+all the FPP files in _dir_, and you can use the output as the input to
+`fpp-locate-defs`.
+The result will be a manifest of all the FPP symbols defined in _dir_.
+You can save this manifest in a file, say _dir_ `/exported.fpp`.
+When building a file that depends on _dir_, say `client.fpp`, you can
+do the following:
+
+* Run `fpp-depend` _dir_ `/exported.fpp` `client.fpp` to compute the
+file dependencies of `client.fpp` on specific files in _dir_.
+
+* Run  `fpp-locate-uses -i` _dir_ `/exported.fpp` `client.fpp`
+to compute the locations of symbols defined in _dir_ and
+used in `client.fpp`.
+
+*Options:*
+
+. `-d` _dir_: Specify the base directory for locating files.
+The default directory is the current directory.
+
+*Input:*  A list _fl_ of files specified on the command line.
+
+*Output:*
+
+. An FPP source file, written to stdout.
+The source file contains one location specifier for each
+symbol defined in _fl_.
+
+*Procedure*:
+
+. Parse each of the files in _fl_, generating a list _tul_ of translation units.
+When parsing, recursively resolve include specifiers.
+
+. https://github.com/nasa/fpp/wiki/Resolving-Templates[Resolve templates]
+for _tul_.
+If template resolution fails, then fall back to _tul_ with templates
+unexpanded.
+
+. For each definition _d_ appearing in _tul_ write out a location specifier
+for _d_ relative to the base directory.
+
+.. For a module template definition, write a `locate template`
+specifier for the definition itself, and do not descend into its body.
+
+.. For a template expansion specifier, write a location specifier for
+each definition that the expansion generates, in the scope enclosing the
+expansion.
+Do not add a scope name for the expansion.

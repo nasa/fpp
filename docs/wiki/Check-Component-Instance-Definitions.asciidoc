@@ -1,0 +1,55 @@
+This algorithm traverses the source model and checks component instance
+definitions.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis 
+data structure] _a_
+representing the results of analysis so far.
+
+== Output
+
+An updated analysis _a'_ with the component instance map filled in if the check
+passes; otherwise an error.
+
+== Procedure
+
+. Visit each translation unit in _tul_ with input _a_,
+yielding either _a_ or an error.
+
+. Check that there are no overlapping identifier
+ranges for any pairs of instances in the
+component instance map for _a_.
+
+=== AST Visitor Methods
+
+Each method accepts an analysis data structure _a_ as input
+and yields either _a_ or an error as output.
+
+==== Translation Units
+
+For each translation unit _tu_,
+visit each definition appearing in _tu_.
+
+==== Component Instance Definitions
+
+For each component instance definition _d_
+
+. Construct a component instance _i_ from _d_.
+
+. Check that _i_ conforms to the rules for
+component instances.
+
+. Visit each init specifier _s_ for _d_.
+
+.. Check that the phase of _s_ is not already represented
+in _i_.
+
+.. Map the phase of _s_ to _s_ in _i_.
+
+. Map _i_ to _d_ in the component instance map of _a_.
+
+.  Return _a_ as the result.

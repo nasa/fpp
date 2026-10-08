@@ -1,0 +1,59 @@
+This algorithm traverses a source model and checks that each use
+of a module template definition refers to a valid template definition.
+It also constructs the use-def map entries for template expansion
+specifiers.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis
+data structure] _a_
+representing the results of analysis so far.
+
+== Output
+
+. An analysis data structure _a_ with updated use-def map.
+
+== Procedure
+
+. *Translation unit lists:* Visit each translation unit _tu_ in _tul_ in order.
+
+. *Translation units:* Visit a translation unit _tu_ by visiting its members _tum_.
+
+. *Translation unit members:* Visit a translation unit member _tum_ as follows:
+
+.. *Module definitions:* If _tum_ is a module definition _d_ with name _n_, then
+
+... Look up the
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[module
+symbol] _sym_ associated with the unqualified name _n_ in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested
+scope] of _a_, in the value name group.
+
+... Look up the mapping from _sym_ to _s_ in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[symbol-scope
+map] of _a_.
+If no such mapping exists, then throw an internal error.
+
+... Push _s_ onto the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested
+scope] of _a_.
+
+... Visit each translation unit member of _d_.
+
+... Pop _s_ off the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested
+scope] of _a_.
+
+.. *Module template expansion:* If _tum_ is a template expansion specifier _te_, then
+
+... Visit the template name _t_ used in _te_ using the same rules as for
+https://github.com/nasa/fpp/wiki/Check-Uses[uses], resolving _t_ in the
+template name group.
+This adds a mapping from the use to its definition in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[use-def map]
+of _a_.
+
+.. Otherwise do nothing.

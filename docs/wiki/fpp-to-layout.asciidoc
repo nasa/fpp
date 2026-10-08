@@ -1,0 +1,47 @@
+This tool writes layout text files for connection graphs within F Prime topologies.
+
+*Options:*
+
+. `-d` _dir_: Set the output directory to _dir_.
+If this option is not present, then the output directory is
+the current directory.
+
+.  `-i` _files_: Import _files_.
+The definitions in these files are part of the FPP model, but they do not cause 
+any code to be generated.
+
+*Input:*
+
+. A list _fl_tr_ of files to translate: either the single file _stdin_ or a list of 
+files specified on the command line.
+
+. A list _fl_i_ of files to import, specified as arguments to the `-i` option.
+
+
+*Output:*
+
+. A set of `.txt` files, written to a topology layout directory (name format: <TopologyName>Layout) at the directory specified with the `-d` option (if present).
+
+
+*Procedure:*
+
+. Parse each of the files in _fl_tr_, generating a list _tul_tr_ of translation units.
+When parsing, recursively resolve include specifiers.
+
+. Do the same for _fl_i_, generating a list _tul_i_.
+
+. https://github.com/nasa/fpp/wiki/Resolving-Templates[Resolve templates] for the concatenation of _tul_fl_ and _tul_i_.
+In the steps below, _tul_fl_ and _tul_i_ denote the translation units
+with templates expanded.
+
+. Perform https://github.com/nasa/fpp/wiki/Checking-Semantics[semantic checking] on the concatenation of _tul_fl_ and _tul_i_.
+
+. Check that no two definitions in _tul_tr_ will generate a directory with the same name.
+If so, halt with an error message.
+
+. For each topology definition _T_ in _tul_tr_:
+.. Check to see if a directory already exists for the topology. If a directory already exists, delete the directory and re-create it.
+.. Generate the layout text output (according to https://github.com/fprime-community/fprime-layout/wiki/Topology-Input[FPL Input Format]) of each connection graph in the topology.
+.. Write layout text files to the topology directory.
+
+

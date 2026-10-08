@@ -1,0 +1,16 @@
+This tool parses older F Prime XML files and converts them to FPP files.
+
+*Input:*  
+
+. A list _fl_ of XML files to translate, specified as a list of 
+files on the command line.
+
+*Output:*
+
+. FPP source, written to standard output.
+
+*Procedure*:
+
+. Read each of the files in _fl_.
+
+. Generate the output for each F Prime model element in _fl_.
