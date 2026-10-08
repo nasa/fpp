@@ -23,7 +23,7 @@ object FPPtoJson {
       case list => list
     }
     for {
-      tul <- ToolUtils.parseFilesAndResolveIncludes(Analysis(), files).map(_._2)
+      tul <- ToolUtils.parseFiles(files)
       aTulOpt <- analyze (options) (tul)
       _ <- writeAst (options) (aTulOpt.map(_._2).getOrElse(tul))
       _ <- writeLocMap (options)
