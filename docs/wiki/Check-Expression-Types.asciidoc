@@ -1,0 +1,146 @@
+This algorithm traverses the source model and computes
+the types of constant symbols and
+expressions, except that array size expressions
+and default value expressions in type definitions are still unevaluated.
+As the algorithm computes types, it checks for typing errors.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis 
+data structure] _a_
+representing the results of analysis so far.
+https://github.com/nasa/fpp/wiki/Check-Type-Uses[Check Type Uses]
+must have already been run.
+
+== Output
+
+. The analysis _a_ with an updated
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[type map],
+if the check passes; otherwise an error.
+
+== Procedure
+
+. Visit each translation unit in _tul_ with input _a_,
+yielding either a new analysis _a'_ or an error.
+
+=== AST Visitor Methods
+
+Each method accepts an analysis data structure _a_ as input
+and yields either a new analysis data structure _a'_ or
+an error as output.
+
+==== Translation Units
+
+For each translation unit _tu_, visit each
+definition appearing in _tu_.
+
+==== Definitions
+
+For each constant definition _d_:
+
+. If _d_ is not in the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[type map]
+of _a_, then
+
+.. Visit each expression appearing in _d_, threading
+the analysis through the visits.
+Let _a'_ be the resulting analysis.
+
+.. Check that _d_ obeys all of its typing rules.
+Throw an error if not.
+
+.. Use information in the type map of _a'_ to compute
+the type of _d_.
+
+.. Let _a''_ be the analysis data structure that results from
+adding the type of _d_ to _a'_.
+
+. Otherwise we have already visited _d_; yield _a_ as the result.
+
+
+.. Yield _a''_ as the result.
+
+For each template expansion specifier node _n_:
+
+. For each
+https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[constant
+parameter symbol] of _n_, with parameter type name _t_ and argument _p_:
+
+.. Visit _p_, so that it has a type.
+
+.. Look up the type _T_ for the type name _t_ in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[type map]
+of _a_.
+Throw an internal error if it is not there.
+https://github.com/nasa/fpp/wiki/Check-Type-Uses[Check type uses]
+computes _T_ at the point of the template definition.
+
+.. Check that the type of _p_ is
+https://nasa.github.io/fpp/fpp-spec.html#Type-Checking_Type-Conversion[convertible
+to] _T_.
+If not, yield an error.
+
+.. Update the type map with the mapping of _p_ to _T_.
+
+. For each
+https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[type
+parameter symbol] of _n_ with argument _p_, visit the type name _p_.
+
+. Visit all the member nodes of _n_.
+
+==== Type Names
+
+For each string type name that has a size expression, check that 
+the size expression is a numeric type.
+
+==== Expressions
+
+For each AST node _n_ that represents an expression:
+
+. Compute the type _T_ of _n_:
+
+.. If the type of _n_ is directly available (for example, the type
+of an integer literal expression is _Integer_), then use that as _T_.
+
+.. Otherwise if _n_ represents a use, then
+
+... Look in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[use-def map]
+of _n_ to get the symbol _s_ corresponding
+to _n_.
+Throw an internal error if it is not there.
+
+... If _s_ is a
+https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[constant
+parameter symbol] with argument _p_, then if _p_ is not already in the
+type map of _a_, apply the rules stated above for the constant
+parameters of a template expansion specifier, so that _p_ has the
+declared type of the parameter.
+Otherwise if _s_ is not a constant, an enumerated constant, or a
+constant parameter symbol, then report an error.
+
+... Otherwise visit the definition corresponding to _s_.
+
+... Look in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[type map]
+of _a_ to get the type _T_ of _s_.
+Throw an internal error if it is not there.
+
+... Use _T_ as the type of _n_.
+
+.. Otherwise
+
+... Visit the child expressions of _n_.
+
+... Look in the type map to get the types of the children.
+
+... Check that _n_ obeys all of its typing rules.
+Throw an error if not.
+
+... Compute the type _T_ of _n_.
+
+. Update the type map with the mapping of _n_ to _T_.
+

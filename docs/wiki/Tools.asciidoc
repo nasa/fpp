@@ -1,0 +1,42 @@
+This page describes the tools for analyzing and translating FPP models.
+
+* https://github.com/nasa/fpp/wiki/fpp-check[fpp-check]
+
+* https://github.com/nasa/fpp/wiki/fpp-depend[fpp-depend]
+
+* https://github.com/nasa/fpp/wiki/fpp-filenames[fpp-filenames]
+
+* https://github.com/nasa/fpp/wiki/fpp-from-xml[fpp-from-xml]
+
+* https://github.com/nasa/fpp/wiki/fpp-locate-defs[fpp-locate-defs]
+
+* https://github.com/nasa/fpp/wiki/fpp-locate-uses[fpp-locate-uses]
+
+* https://github.com/nasa/fpp/wiki/fpp-syntax[fpp-syntax]
+
+* https://github.com/nasa/fpp/wiki/fpp-to-cpp[fpp-to-cpp]
+
+* https://github.com/nasa/fpp/wiki/fpp-to-dict[fpp-to-dict]
+
+* https://github.com/nasa/fpp/wiki/fpp-to-fpp[fpp-to-fpp]
+
+* https://github.com/nasa/fpp/wiki/fpp-to-json[fpp-to-json]
+
+* https://github.com/nasa/fpp/wiki/fpp-to-layout[fpp-to-layout]
+
+== General Notes
+
+* Arguments that take lists have their elements separated by commas. For example, `-i` _files_ means `-i file1,file2,...`.
+Empty lists are not allowed. For example, there must be at least one file in the list `file1,file2,...`.
+
+* You can run any tool with the `-h` option to get a help summary.
+
+* There must be no shell or OS delimiter characters in the path names of FPP files.
+In particular, you should replace spaces with dashes or underscores in (1) the 
+names of any FPP files and
+(2) the names of any directories that transitively contain FPP files.
+Similarly for `'`, `"`, `,`, `/`, `:`, etc.
+
+* You must use care when the paths of files presented to the FPP tools contain
+symbolic links or aliased hard links.
+See https://nasa.github.io/fpp/fpp-users-guide.html#Specifying-Models-as-Files_Path-Name-Aliases[_FPP User's Guide_, &sect; 16.8].

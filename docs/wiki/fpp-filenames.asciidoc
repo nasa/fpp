@@ -1,0 +1,34 @@
+This tool writes out the names of C++ files generated
+from FPP source files.
+
+*Options:*
+
+. `-a`: Enable unit test auto helpers.
+
+. `-t`: Write the names of implementation template files.
+
+. `-u`: Write the names of unit test files.
+
+*Input:*  A list _fl_ of files: either the single file _stdin_ or a list of 
+files specified on the command line.
+
+*Output:* A list of file names, written one per line to standard output,
+with no other punctuation.
+
+. By default, the elements of the list are the names of the C++ and JSON autocode files
+that would be generated
+by running `fpp-to-cpp` or `fpp-to-dict` with _fl_ as the input files.
+
+. If one or more of the options `-a`, `-t`, or `-t` are present, then the listed C++ files
+are the ones that would be generated
+by running `fpp-to-cpp` with the corresponding options.
+
+*Procedure*:
+
+. Parse each of the files in _fl_, generating a list _tul_ of translation units.
+When parsing, recursively resolve include specifiers.
+
+. Walk the AST and identify the definitions that cause C++ or JSON files to
+be generated.
+
+. Write out the names of the generated files.

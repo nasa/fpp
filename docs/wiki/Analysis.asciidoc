@@ -1,0 +1,375 @@
+This page describes the algorithms and data structures for performing analysis
+on FPP source models.
+
+== Data Structures
+
+* *Abstract syntax tree (AST):* The structure representing
+the abstract source syntax of an input model.
+The AST consists of nodes arranged in a tree with a parent-child
+relationship.
+
+* *Analysis data structure:* Defined
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[here].
+
+* *AST node:*
+An AST node represents an element of the source syntax.
+Each AST node has a unique integer identifier.
+
+* *Bound parameter symbol:* A
+https://nasa.github.io/fpp/fpp-spec.html#Specifiers_Template-Expansion-Specifiers_Semantics[bound
+parameter definition]: a template parameter paired with the argument to
+which it is bound at a
+https://github.com/nasa/fpp/wiki/Enter-Template-Symbols[template expansion].
+There is one kind for each kind of template parameter: constant, type, and instance.
+Its unqualified name is the name of the parameter, and its AST node is the
+node of the argument.
+It is in scope only inside the expansion that creates it.
+
+* *Command:* An FPP command specifier.
+
+* *Component:* An FPP component, consisting of the following:
+
+. A map from port names to port instances.
+
+. A map from special port kinds to special port instances.
+
+. A map from event identifiers to events.
+
+. A map from command opcodes to commands.
+
+. A map from parameter identifiers to parameters.
+
+. A map from telemetry channel identifiers to telemetry channels.
+
+. A map from container identifiers to containers.
+
+. A map from record identifiers to records.
+
+* *Component instance:* An FPP component instance.
+Contains a map from execution phases to init specifiers.
+
+* *Connection:* An FPP connection consisting
+of an output port instance, an optional output port number,
+an input port instance, and an optional input port number.
+
+* *Connection graph pattern:* An FPP connection
+graph pattern consisting of a pattern kind, a
+source instance, and a list of target instances.
+
+* *Container:* An FPP specifier for a data product container.
+
+* *Dictionary:* An FPP ground dictionary for a topology,
+consisting of the following:
+
+. The set of symbols used in the dictionary
+
+. A map from resolved opcodes to commands
+
+. A map from resolved identifiers to telemetry channels
+
+. A map from resolved identifiers to events
+
+. A map from resolved identifiers to parameters
+
+. A map from resolved identifiers to records
+
+. A map from resolved identifiers to containers
+
+. A map from telemetry packet set names to telemetry packet sets
+
+* *Dictionary definition:*
+A type or constant definition marked `dictionary` in the
+source syntax.
+These definitions are included in ground dictionaries generated
+from FPP.
+
+* *Event:* An FPP specifier for an event report.
+
+* *Expression:* A syntactic expression. Expressions with identical
+form (e.g., two instances of the literal value `3`) appearing at distinct
+nodes in the AST count as distinct expressions.
+
+* *File:* One of (a) an absolute path on the system where the analysis occurs;
+or (b) a special system file such as stdin or stdout.
+
+* *Framework definitions:*
+Certain definitions of constants, types, and ports are
+special to the F Prime framework, and they are subject
+to special rules.
+These framework definitions are called out in
+_The FPP Language Specification_.
+
+* *Implied use:* A use of a symbol that is implied by the semantics
+of FPP but is not explicit in the source model.
+An implied use consists of (a) a qualified name and (b) 
+an AST node identifier.
+Each implied use has a *kind*.
+Currently the kinds are Type and Constant.
+
+* *Init specifier:* An FPP init phase specifier.
+
+* *Interface:* An FPP Interface consisting of the following:
+
+. A map from port names to port instances.
+
+. A map from special port kinds to special port instances.
+
+* *Interface instance:* An FPP
+https://nasa.github.io/fpp/fpp-spec.html#Ports_Port-Interface-Instances[port
+interface instance]: a component instance, a topology, or a port
+interface instance parameter symbol.
+Each interface instance has an associated port interface, and each
+*represents* a component instance or topology: a component instance or
+topology represents itself, and a bound parameter represents whatever its
+argument represents.
+
+* *Internal port:* An internal port used in a component definition.
+
+* *Location map:* A map from AST nodes to their locations.
+
+* *Location:* A file and line number indicating the location of
+an AST node.
+
+* *Name-symbol map:* A local mapping of unqualified names to symbols. For any
+name-symbol map _s_ and name _n_, if the mapping _s[n]_ already exists, then
+it is an error to attempt to add a new mapping for _n_.
+
+* *Name:* A name, either qualified or unqualified.
+Names are not associated with nodes in the AST.
+For example, there is only one name `a.b.c`.
+
+* *Nested scope:* A stack of scopes that represents the nesting of scopes
+inside each other. Scopes are pushed on the stack (starting with the global
+scope) when moving inwards in the nesting, and popped off the stack when
+returning outwards. New mappings of names to symbols are added to the
+innermost scope. Lookup of names _n_ starts with the innermost scope _S_,
+moving to the next level up only if there is no entry for _n_ in _S_, and
+finally giving up with an error if there is no entry for _n_ at the outermost
+scope.
+
+* *Parameter:* An FPP ground parameter specifier.
+
+* *Port instance:* A instance of a port definition used in a component
+definition.
+A port instance can be (1) a general instance of a port definition or (2)
+a special port instance or (3) an instance of an internal port.
+
+* *Port:* An FPP port definition.
+
+* *Qualified identifier:* A qualified identifier appearing in the source
+syntax.
+A qualified identifier is either a
+*relative qualified identifier* or an
+*absolute qualified identifier*.
+A relative qualified identifier is an unqualified name (e.g., `a`) or a qualified
+identifier followed by an unqualified name (e.g., `a.b`).
+An absolute qualified identifier is a dot followed by a relative
+qualified identifier (e.g., `.a` or `.a.b`).
+A qualified identifier represents a qualified name.
+According to the rules of name resolution, the qualified identifier
+may be a suffix of the name (e.g., in scope `M`, the qualified
+identifier `a` may represent the name `a` or the name `M.a`,
+depending on what definitions are in scope).
+Qualified identifiers representing the same qualified name (e.g., the name
+`a.b.c`) and appearing
+at distinct nodes in the AST count as distinct qualified
+identifiers.
+
+* *Record:* An FPP specifier for a data product record.
+
+* *Scope:* A collection of name-symbol maps that represents a single flat scope
+(the global scope or a brace-delimited scope). Within each scope, there is
+one name-symbol map for each name group (values, types, etc.).
+
+* *Symbol:* A data structure that represents a definition. There is one kind of
+symbol for each kind of definition. A module symbol for a module _M_ stores the
+first AST
+node encountered that adds definitions to _M_.  A non-module symbol stores the
+unique AST node where the definition occurs.
+
+* *System:* A data structure that represents an embedded software
+system.
+It stores a topology and a dictionary.
+
+* *Telemetry channel:* An FPP telemetry channel specifier.
+
+* *Telemetry packet:* An FPP telemetry packet specifier.
+It contains a level and a list of telemetry channel identifiers.
+
+* *Telemetry packet set:* An FPP telemetry packet set specifier.
+It contains the following:
+
+. A map from telemetry packet identifiers to telemetry packets.
+
+. A set of omitted telemetry channel identifiers.
+
+* *Template expansion:* An expanded FPP module template specifier.
+It contains the following:
+
+. The module template definition being expanded.
+
+. The template expansion specifier that performs the expansion.
+
+. A map from parameter keys to
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[bound
+parameter symbols].
+A *parameter key* is a pair consisting of a name group and an unqualified
+parameter name.
+
+. The scope containing the bound parameter symbols.
+
+. The scope containing the symbols introduced by the expansion.
+
+. The *local scope map*: a map from the module symbols defined by the
+expansion, including nested ones, to their scopes.
+https://github.com/nasa/fpp/wiki/Check-Uses[Check uses] consults this map
+in preference to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[symbol-scope
+map].
+
+* *Topology:* An FPP topology, consisting of the following:
+
+. A Boolean flag indicating whether the topology is a deployment topology.
+
+. A set of topology symbols representing the directly imported topology
+definitions.
+
+. A set of topology symbols representing the transitively imported topology
+definitions.
+
+. A set of
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[port
+interface instance parameter symbols] representing the directly imported
+bound template parameters.
+
+. A set of
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[interface
+instances].
+Each instance may be either public or private for
+this topology.
+
+. A set of connection graph patterns.
+
+. A map from connection graph names to sets
+of connections.
+
+. A map from connection graph names to sets
+of locally defined (i.e., not imported) connections.
+
+. A map from ports to their output connections.
+
+. A map from ports to their input connections.
+
+. A map from connections to their from port numbers.
+
+. A map from connections to their to port numbers.
+
+. The set of unconnected port instances.
+
+* *Type name:* A syntactic type name. A type name is associated with a node
+in the AST, so two different type names can refer to
+the same type. For example, if the keyword `U32` appears at multiple nodes
+in the AST, then there are multiple type names that all refer to the same
+type `U32`.
+
+* *Type:* An FPP type. Types include internal types such as _Integer_. Types
+are not associated with nodes in the AST. For example, there is only one
+type `U32`. Multiple type names can refer to the same type. Array types have
+resolved constants for their size expressions. Types can also alias other types
+which create another Type Name referring to the same underlying type.
+
+* *Use-def matching:* A data structure that matches the use of a symbol
+with the symbol it uses.
+A use-def matching stores an AST node identifier (the use), a qualified name
+(the qualified
+name appearing in the use), and a symbol (the definition
+that the use refers to).
+
+* *Value:* An FPP value.
+
+[[state-machine-data-structures]]
+== State Machine Data Structures
+* *Guarded transition:*
+A pair consisting of an optional guard and a transition.
+
+* *Signal-transition map:*
+A map from signals to guarded transitions.
+For each signal in the map, the corresponding transition is
+the state transition on that signal.
+
+* *State machine analysis data structure:* Defined
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[here].
+
+* *State machine name-symbol map:* A local mapping of unqualified names to symbols
+inside a state machine definition.
+State machine name-symbol maps operate in the same way as name-symbol maps.
+
+* *State machine nested scope:* A stack of scopes that represents the nesting of scopes
+inside a state machine definition.
+State machine nested scopes operate in the same way as nested scopes.
+
+* *State machine scope:* A collection of state machine name-symbol maps
+that represents a single flat scope within a state machine definition.
+State machine scopes operate in the same way as scopes.
+
+* *State machine symbol:* A data structure that represents a definition
+of a state machine element inside a state machine definition.
+There is one kind of state machine symbol for each kind of definition.
+
+* *State machine:* An FPP state machine.
+It stores a state machine analysis data structure
+representing the results of analysis on the state machine.
+
+* *State or choice:* A data structure that represents either a
+state definition symbol or a choice definition symbol.
+
+* *State-transition map:*
+A map from states to guarded transitions.
+One of these maps exists for each signal in the state machine.
+
+* *Transition:*
+A data structure representing a transition in a state machine.
+It is either an *external transition* or an *internal transition*.
+An external transition stores a list of actions and a state or choice.
+The actions are performed when making the transition.
+The state or choice is the target of the transition.
+An internal transition stores a list of actions to perform
+without leaving the current state.
+
+* *Transition expression:*
+An expression that provides the target for an external transition,
+together with an optional list of actions to perform.
+Each transition expression appearing in the source syntax has a distinct
+identity.
+
+* *Transition graph arc:* An arc in the transition graph.
+It is one of the following three kinds of values:
+(1) an initial transition arc consisting of a start state,
+an initial transition specifier, and an end node; or (2)
+a state transition arc consisting of a start state,
+a state transition specifier, and and end node; or (3)
+a choice transition arc consisting of a choice
+definition, a transition expression, and an end node.
+
+* *Transition graph node:*
+A data structure that represents a node in the transition graph.
+It stores a state or choice.
+
+* *Transition graph:* A data structure that represents the
+possible transitions in the state machine.
+It stores (1) an initial transition graph node and (2)
+a map from transition graph nodes to sets of
+transition graph arcs.
+
+* *Typed element:* A typed element is an element of a state
+machine definition that is assigned an optional type.
+It is an initial transition specifier, a state entry specifier,
+a state transition specifier, a state exit specifier,
+or a choice definition.
+
+== Algorithms
+
+* https://github.com/nasa/fpp/wiki/Computing-Dependencies[Computing Dependencies]
+* https://github.com/nasa/fpp/wiki/Resolving-Templates[Resolving Templates]
+* https://github.com/nasa/fpp/wiki/Checking-Semantics[Checking Semantics]
+

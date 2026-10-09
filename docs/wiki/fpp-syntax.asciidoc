@@ -1,0 +1,32 @@
+This tool parses FPP source files into an abstract syntax tree (AST) and optionally writes out the AST. It is mainly useful during compiler development.
+
+*Options:*
+
+. `-a`: Print the AST.
+
+. `-i`: Resolve include specifiers.
+
+. `-t`: Expand module templates. This option also resolves include
+specifiers.
+
+*Input:*  A list _fl_ of files: either the single file _stdin_ or a list of files specified on the command line.
+
+*Output:*
+
+. By default, no output if the parsing succeeds; otherwise an error message.
+
+. If option `-a` is present, then a text representation of the AST.
+
+*Procedure*:
+
+. Parse each of the files in _fl_ to a translation unit _tu_, reporting any errors that occur.
+
+. If `-i` or `-t` is present, then recursively resolve include specifiers. Check for include cycles. Upon detecting an include cycle, halt with an error message.
+
+. If `-t` is present, then
+https://github.com/nasa/fpp/wiki/Resolving-Templates[resolve templates],
+yielding a list of translation units in which each template expansion
+specifier carries the members that it expands.
+Halt with an error message if template resolution fails.
+
+. If `-a` is present, then write out the AST as text.

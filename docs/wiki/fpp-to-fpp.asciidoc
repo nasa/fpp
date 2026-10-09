@@ -1,0 +1,50 @@
+This tool parses FPP source files into an abstract syntax tree (AST),
+optionally transforms the AST, and writes out the AST as formatted source code.
+
+The main purpose of this tool is to rewrite FPP constructs such
+as include specifiers and template expansions into a standard form.
+It also writes formatted output, and it can be used for that purpose.
+It is not a true formatter, in that (1) it requires syntactically valid
+FPP source as input and (2) it erases comments.
+However, it may be useful for some formatting tasks.
+
+To preserve comments on their own lines
+that precede annotatable elements, you can run this
+script:
+
+[source,bash]
+----
+#!/bin/sh
+sed 's/^\( *\)#/\1@ #/' | fpp-to-fpp $@ | sed 's/^\( *\)@ #/\1#/'
+----
+
+It converts comments to annotations, runs `fpp-to-fpp`, and converts
+the annotations back to comments.
+
+*Options:*
+
+. `-i`: Resolve include specifiers.
+
+. `-e`: Expand syntax.
+Resolve include specifiers as if `-i` were specified; also generate
+state machine enums and expand templates.
+
+*Input:*  A list _fl_ of files: either the single file _stdin_ or a list of
+files specified on the command line.
+
+*Output:* Formatted FPP source code, minus comments, written to standard
+output.
+
+*Procedure*:
+
+. Parse each of the files in _fl_ to a translation unit _tu_, reporting any 
+errors that occur.
+
+. If `-i` or `-e` is present, then recursively resolve include specifiers. Check for
+include cycles. Upon detecting an include cycle, halt with an error message.
+
+. If `-e` is present, then generate state machine enums and
+https://github.com/nasa/fpp/wiki/Resolving-Templates[resolve templates].
+Halt with an error message if template resolution fails.
+
+. Write out the formatted source code.

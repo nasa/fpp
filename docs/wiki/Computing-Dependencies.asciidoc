@@ -1,0 +1,172 @@
+This algorithm computes dependencies for a list of translation units.
+
+== Input
+
+. An https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis data structure]
+_a_. The
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[input file set]
+of _a_ must record the set of files presented for analysis.
+
+. A list _tul_ of FPP translation units.
+
+==  Output
+
+. An analysis data structure _a_ with updated
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[location specifier map],
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[dependency file set],
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[direct dependency file set],
+and
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[included file set].
+
+== Procedure
+
+Run the <<dependency-algorithm,dependency algorithm>> on _tul_.
+
+[[dependency-algorithm]]
+=== Dependency Algorithm
+
+To run the dependency algorithm on a translation unit list _tul_, do the 
+following:
+
+. *Resolve include specifiers:* Recursively resolve include specifiers in 
+_tul_.
+Add the path of each included file to the included file set in _a_.
+If the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[level of _a_]
+is zero, then add the path of each included file to the direct dependency
+file set in _a_.
+
+. *Build the location specifier map:* Traverse each translation unit _tu_ in
+_tul_, updating the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[scope name list]
+as modules are entered and exited.
+Traverse the body of each module template definition.
+For each location specifier _s_ encountered, do the following:
+
+.. Let _k_ be the symbol kind specified in _s_.
+For example, in the specifier `locate constant c at "c.fpp"`, the symbol kind is `constant`.
+
+.. Compute the qualified name _q_ associated with _s_.
+For example, if the location specifier `locate constant c at "c.fpp"` appears
+inside module _M_, then _q_ is _M.c_.
+
+.. Check the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[location
+specifier map]
+for a mapping from _(k, q)_ to some location specifier _s'_.
+
+.. If there is no such mapping, then add the mapping from _(k, q)_ to _s_.
+
+.. Otherwise
+
+... Compute the absolute path _p_ associated with _s_.
+For example, if the location specifier `locate constant c at "c.fpp"` appears
+in the file `/home/foo/bar/baz.fpp`, then _p_ is `/home/foo/bar/c.fpp`.
+
+... Compute the absolute path _p'_ associated with _s'_.
+
+... If _p_ does not equal _p'_, then throw an error.
+
+... Check that _s_ and _s'_ are either both dictionary specifiers or both not
+dictionary specifiers. If not, then throw an error.
+
+. *Construct the implied use map:*
+Run the algorithm for
+https://github.com/nasa/fpp/wiki/Construct-Implied-Use-Map[constructing the implied use map].
+
+. *Add dependencies:* Let _E_ be the set of unqualified names of the
+module templates expanded anywhere in _tul_, including inside the body of
+a module template definition.
+
+Traverse each translation unit _tu_ in _tul_, updating
+the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[scope name list]
+as modules are entered and exited.
+
+.. For each use of a symbol _u_ encountered in _tu_, including all the implied
+uses,
+do the following:
+
+... Resolve _u_ to a list _l_ of possible qualified names. For example, if
+_u_ is `c.d` and it appears inside module `B` which appears inside module `A`,
+then _l_ is `A.B.c.d`, `A.c.d`, `c.d`.
+Construct _l_ with the innermost name first. For example, `A.B.c.d`
+appears before `A.c.d`.
+
+... For each qualified name _q_ in _l_, in order starting with the head of
+_l_, check the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[location
+specifier map]
+of _a_ for a location specifier _s_ corresponding to _q_.
+
+... If _s_ exists, then <<adding-dependencies,add the dependencies>> for _s_.
+
+.. For each deployment topology definition _T_ encountered in _tu_, if
+this is the first deployment topology seen in dependency checking, then
+
+... For each location specifier _s_ in the location specifier map, if _s_ 
+specifies
+`dictionary`, then <<adding-dependencies,add the dependencies>> for _s_.
+
+... Mark in _a_ that we have seen a deployment topology.
+
+.. For each location specifier _s_ encountered in _tu_, if we
+have seen a deployment topology and _s_ specifies
+`dictionary`, then <<adding-dependencies,add the dependencies>> for _s_.
+
+.. For each module template definition _d_ with name _n_ encountered in
+_tu_, visit the type name of each constant parameter as a type use and the
+qualified identifier of each port interface instance parameter as an
+interface use.
+Visit the body of _d_ if the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[level of _a_]
+is greater than zero, or if _n_ is in _E_.
+
+.. For each template expansion specifier _s_ encountered in _tu_, visit
+the template name of _s_ as a use of kind `template`, and visit each
+argument of _s_: a constant argument as an expression, a type argument as
+a type name, and a port interface instance argument as a component
+instance use.
+
+. *Eliminate included files as dependencies:* For each file _f_ in the included
+file set, if _f_ appears in the dependency file set, then delete it
+from the set.
+The dependency is already recorded in the file that includes _f_.
+
+[[adding-dependencies]]
+=== Adding Dependencies for a Location Specifier
+
+To add a dependency for a location specifier _s_, do the following:
+
+. Compute the absolute path _p_ associated with _s_.
+
+. If _p_ is in the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[input file set]
+of _a_ or is already in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[dependency file set]
+of _a_, then do nothing.
+
+. Otherwise
+
+.. If the level of _a_ is zero, then add _p_ to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[direct dependency file set]
+of _a_.
+
+.. Add _p_ to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[dependency file set]
+of _a_.
+
+.. If the file _f_ at _p_ exists, then
+
+... Parse _f_, generating a translation unit _tu_.
+
+... Run the <<dependency-algorithm,dependency algorithm>> on the list _[ tu ]_ 
+with the value of _a_ computed so far,
+but with an empty scope name list.
+Restore the current level and scope name list and
+let the result be the new _a_.
+
+.. Otherwise add _p_ to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[missing
+dependency file set] of _a_.
+

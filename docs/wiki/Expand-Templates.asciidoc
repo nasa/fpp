@@ -1,0 +1,106 @@
+This algorithm traverses a source model and expands each template
+expansion specifier by copying the members of the module template
+definition that it refers to.
+It also checks that templates are not expanded or defined in
+disallowed positions.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis
+data structure] _a_
+representing the results of analysis so far.
+The https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[use-def
+map] of _a_ must contain an entry for the template name used in each
+template expansion specifier.
+https://github.com/nasa/fpp/wiki/Check-Template-Uses[Check template
+uses] establishes this condition.
+
+== Output
+
+. A list _tul'_ of translation units in which each template expansion
+specifier carries a copy of the members of the template it expands.
+
+Each template expansion specifier in _tul'_ has the same
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[identity]
+as the corresponding specifier in _tul_.
+
+== Copying
+
+To *copy* an AST node is to produce a new node with the same content but
+a fresh, distinct
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[identity],
+recursively copying its descendants.
+The
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[location] of
+each copied node records the template expansion specifier that produced
+it, called the *expansion point*.
+Recording the expansion point ensures that (a) two expansions of the
+same template yield distinct definitions and (b) diagnostics for the
+copied definitions can refer back to the point of expansion.
+
+Copying occurs if and only if the *current template* member of _a_ is
+present; elsewhere the traversal leaves each node, and so each node
+identity, unchanged.
+
+== Procedure
+
+. *Translation unit lists:* Visit each translation unit _tu_ in _tul_ in order.
+
+. *Translation units:* Visit a translation unit _tu_ by visiting its members _tum_.
+
+. *Translation unit members:* Visit a translation unit member _tum_ as follows:
+
+.. *Module definitions:* If _tum_ is a module definition _d_, then
+visit each member of _d_.
+
+.. *Template expansion specifiers:* If _tum_ is a template expansion
+specifier _te_, then
+
+... If the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[current
+template definition] member of _a_ is present, then report an error for
+a template expansion inside a template, citing the location of the
+enclosing template definition.
+
+... Otherwise
+
+.... Look up the module template definition _t_ that the template name
+of _te_ refers to using the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[use-def
+map] of _a_.
+Report an error if the name does not resolve to a template symbol.
+
+.... Set the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[current
+template] member of _a_ to _te_ and the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[current
+template definition] member of _a_ to _t_.
+
+.... Copy each member of _t_.
+
+.... Restore the current template and current template definition
+members of _a_.
+
+.... Replace _te_ with a specifier that has the same identity as _te_
+and that carries the copied members.
+
+.. *Module template definitions:* If _tum_ is a module template
+definition _t_, then
+
+... If the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[current
+template definition] member of _a_ is present, then _t_ is enclosed in
+another module template definition.
+Report an error for a nested template definition, citing the location
+of the enclosing definition.
+
+... Otherwise set the current template definition member of _a_ to _t_,
+visit the parameters and the members of _t_, and restore the current
+template definition member of _a_.
+
+
+.. *Other translation unit members:* For any other translation unit
+member _m_, visit _m_.

@@ -1,0 +1,662 @@
+This page explains how to add new features to FPP.
+
+In general, when adding a new feature to FPP, we use the following
+procedure:
+
+. <<revise-spec,Revise the specification>>
+
+. <<implement-test-syntax,Implement and test any new syntax>>
+
+. <<update-wiki,If necessary, update the Analysis and Tools sections on the wiki>>
+
+. <<implement-test-semantics,Implement and test any new semantics>>
+
+. <<implement-test-code-gen,Implement and test any new code generation>>
+
+. <<update-users-guide,Update the User's Guide>>
+
+. <<f-prime-integration,Integrate and test with F Prime>>
+
+. <<update-this-page,If necessary, update this page>>
+
+Not all steps are needed in all cases.
+For example, if there are no data structure, algorithm, or tool changes,
+then step 3 is not necessary; if there is new no code
+generation, then step 5 is not necessary; etc.
+
+In the subsections below, we provide more detail on each step.
+
+[[revise-spec]]
+== Revising the Specification
+
+The specification is written in
+https://asciidoc.org[AsciiDoc] and rendered to HTML.
+The AsciiDoc source lives in `docs/spec`.
+The rendered HTML lives at `docs/fpp-spec.html`.
+
+=== Regenerating and Viewing the HTML
+
+As you develop the FPP specification, you will need to regenerate
+the HTML from the AsciiDoc source.
+To do this you need some tools installed on your system.
+See https://github.com/nasa/fpp/tree/main/docs#readme[the README file in the 
+`docs` directory] for details.
+After the tools are installed, you can run `redo` in the `docs` directory.
+This action regenerates the HTML for the specification and User's Guide and
+copies the generated files into the `docs` directory, where they
+are checked in to the git repository.
+
+The version of `docs/fpp-spec.html` that exists
+in the branch `fpp/main` is displayed at
+https://nasa.github.io/fpp/fpp-spec.html.
+This is the version that is linked in the sidebar of this wiki.
+Thus, any changes you make to the spec won't be visible
+on the wiki until those changes are merged into `fpp/main`.
+However, as you are developing the document you can load
+the HTML file into your browser and view it.
+This is the recommended way to develop the specification.
+
+Because the HTML files are checked in to git, you may see conflicts
+when merging with other branches that revise the spec.
+To resolve any conflicts in the HTML files, just regenerate them
+and commit the new version.
+
+=== Adding Lexical Elements
+
+Here is how to add a new keyword (also called a reserved word) to
+the FPP specification:
+
+. Add the keyword to the
+https://github.com/nasa/fpp/blob/main/docs/spec/Lexical-Elements.adoc[Lexical Elements]
+section of the specification.
+
+. Add the keyword to the variable `FPP_KEYWORDS` in
+https://github.com/nasa/fpp/blob/d4de3c2583865f5d33fcc6e90c01d44e6e618e48/docs/code-prettify/run_prettify.js#L406[`docs/code-prettify/run_prettify.js`].
+This step will update the syntax highlighting in the specification
+and User's Guide.
+
+. Add the keyword to
+https://github.com/nasa/fpp/blob/main/editors/emacs/fpp-mode.el[`editors/emacs/fpp-mode.el`]
+and
+https://github.com/nasa/fpp/blob/main/editors/vim/fpp.vim[`editors/vim/fpp.vim`].
+This step will update the syntax highlighting for the Emacs and vim
+editors.
+
+To add or revise other lexical elements (e.g., to add a new kind of symbol),
+make the appropriate changes in the files listed above.
+
+=== Adding Syntax and Semantics
+
+To add a new element of syntax and semantics to the FPP
+specification, do the following:
+
+. Decide where in the document the new element should go.
+If an element is a new member of an existing class of elements,
+then it
+should probably go in a new subsection alongside those elements.
+For example, a new kind of definition should go in a subsection
+of the Definitions section.
+A completely new element may require one or more new sections
+at the top level.
+For example, when we added state machine definitions to FPP,
+we added a new top-level section to the specification called State Machine 
+Behavior Elements.
+
+. Add the element to the AsciiDoc source, following the style
+of the existing specification.
+If possible, find an existing element that is as close as possible
+to the element you are adding, and follow the style of the
+specification for that element.
+Whenever you refer to an element described elsewhere, add
+a hyperlink to that element for easy cross reference.
+
+. Review the rest of the spec, section by section, and identify
+all the places where the change you have made has an effect.
+For example:
+
+.. If you add a new kind of definition in a certain
+class of definitions, then any listing of the elements of that class
+must be updated.
+
+.. If the new element causes the behavior of other
+elements to change, then any specification that relies on the old behavior
+must be revised.
+For example, when we added the `unmatched` keyword for
+connection specifiers, we had to revise the description of the
+port matching algorithm to correctly handle unmatched ports.
+
+. Make all the changes required by step 3, so the entire
+specification is complete and self-consistent.
+
+[[implement-test-syntax]]
+== Implementing and Testing New Syntax
+
+[[syntax-implementation]]
+=== Implementation
+
+To add to or revise the syntax in the FPP implementation, do the following:
+
+. Revise the abstract syntax tree (AST), located at
+https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/ast/Ast.scala[`compiler/lib/src/main/scala/ast/Ast.scala`].
+Depending on how you change the AST, you may need to revise other
+parts of the code to get the code to compile.
+In this case, the error messages from the Scala compiler will show you what to do.
+Fix the errors one at a time, always working from the first error in the output.
+
+. If appropriate, update the AST visitor, located at
+https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/ast/AstVisitor.scala[`compiler/lib/src/main/scala/ast/AstVisitor.scala`].
+The AST visitor is a generic visitor for the AST elements.
+Several more specific visitors are derived from this one, but you usually don't 
+have to edit those;
+their features are automatically extended by updating the generic one.
+
+. Revise the lexer and parser, located at
+https://github.com/nasa/fpp/tree/main/compiler/lib/src/main/scala/syntax[`compiler/lib/src/main/scala/syntax`].
+
+. Update the syntax-specific code generators.
+
+.. Update the AST writer, located at https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/codegen/AstWriter.scala[`compiler/lib/src/main/scala/codegen/AstWriter.scala`].
+This utility dumps the AST to a tree of text, for diagnostic and testing purposes.
+
+.. Update the FPP writer, located at https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/codegen/FppWriter.scala[`compiler/lib/src/main/scala/codegen/FppWriter.scala`].
+This utility writes the AST back out as FPP source.
+
+[[syntax-tests]]
+=== Unit Tests
+
+To update the unit tests for new syntax, do the following:
+
+. If appropriate, update the ScalaTest syntax tests, located
+at
+https://github.com/nasa/fpp/tree/main/compiler/lib/src/test/scala/syntax[`compiler/lib/src/test/scala/syntax`].
+
+. Update the `fpp-syntax` tests, located at
+https://github.com/nasa/fpp/tree/main/compiler/tools/fpp-syntax/test[`compiler/tools/fpp-syntax/test`].
+
+.. Run `./update-ref` in that directory to regenerate the test output.
+Run `git diff .` to check the differences.
+If everything looks good, commit the new test output to the repository.
+
+.. Add new tests or modify existing tests as necessary to test the new features.
+Run `./run` to run all the tests.
+
+. Update the `fpp-to-fpp` tests, located at
+https://github.com/nasa/fpp/tree/main/compiler/tools/fpp-to-fpp/test[`compiler/tools/fpp-to-fpp/test`].
+Proceed as described above for `fpp-syntax`.
+
+In some cases, you may see that unit tests pass on your local machine but fail
+in CI when you make a pull request to `nasa/fpp`.
+There are three common causes of this behavior:
+
+. You forgot to check in a file, so the file is present on your local machine
+but is missing in the CI build.
+To check for this case, run `git status -u .` and look for untracked files.
+
+. You need to regenerate the trace files used to build the native image
+version of the tools.
+In this case CI will build native image tools, but it will fail when it
+runs the unit tests on those tools.
+To update the trace files, see 
+https://github.com/nasa/fpp/tree/main/compiler#building-native-binaries[here].
+
+. You need to do a clean rebuild by running `./clean` and then `./install`
+and then regenerate the test output for `fpp-to-json`.
+Occasionally the `fpp-to-json` output is not correctly updated by an
+incremental build.
+In this case, the `fpp-to-json` tests may pass on your local machine but
+fail in CI.
+
+[[update-wiki]]
+== Updating the Wiki
+
+To update the wiki, you can clone it to your local machine, commit changes,
+and push the changes back.
+To clone it locally, run the command `git clone https://github.com/nasa/fpp.wiki.git`.
+This operation should create a directory `fpp.wiki` containing the AsciiDoc source
+files for the wiki.
+Running `redo` in that directory will generate one HTML file for each of the
+source files; you can then load the HTML files into your browser and view
+them without pushing content back to the wiki.
+
+=== Analysis
+
+As necessary, update the
+https://github.com/nasa/fpp/wiki/Analysis[Analysis] page of the wiki.
+
+. Revise or add any necessary
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[data structures]
+or 
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[state 
+machine data structures].
+
+. Revise or add any necessary
+https://github.com/nasa/fpp/wiki/Analysis#algorithms[algorithms].
+Note that the algorithm pages are hierarchical:
+you have to click through links in the more general pages
+to see the more specific algorithms.
+When adding new algorithms, try to follow the existing structure.
+
+=== Tools
+
+As necessary, update the
+https://github.com/nasa/fpp/wiki/Tools[Tools] page of the wiki.
+
+. If you are revising a tool, then update the description
+of its behavior.
+
+. If you are adding a new tool, then add a description for it.
+Follow the style of the existing descriptions.
+Remember also to update the list of tools in the
+https://github.com/nasa/fpp/tree/main/compiler#installing[README file for `fpp/compiler`].
+
+[[implement-test-semantics]]
+== Implementing and Testing New Semantics
+
+=== Implementation
+
+The FPP semantics implementation resides in
+https://github.com/nasa/fpp/tree/main/compiler/lib/src/main/scala/analysis[`compiler/lib/src/main/scala/analysis`].
+To add to or revise the semantics implementation, do the following:
+
+. Ensure that the 
+https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/analysis/Analysis.scala[analysis
+data structure in the Scala implementation] conforms to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis data structure in the wiki].
+Do the same for the state machine analysis data structure
+https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/analysis/Semantics/StateMachine/StateMachineAnalysis.scala[in Scala] and
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[on the wiki].
+
+. As necessary, revise or update the semantics concepts defined in
+https://github.com/nasa/fpp/tree/main/compiler/lib/src/main/scala/analysis/Semantics[`compiler/lib/src/main/scala/analysis/Semantics`].
+Ensure that they correspond to the FPP specification.
+
+. Revise the
+https://github.com/nasa/fpp/tree/main/compiler/lib/src/main/scala/analysis/Analyzers[analyzers],
+or add new analyzers, as appropriate.
+The analyzers provide common patterns for visiting the AST and doing analysis.
+They are based on the AST visitor that you updated when
+<<syntax-implementation,revising the syntax>>.
+For example, if you have added new types or expressions to the syntax,
+then you will need to update the
+https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/analysis/Analyzers/TypeExpressionAnalyzer.scala[TypeExpressionAnalyzer].
+
+. As necessary, revise the algorithms for dependency checking located in
+https://github.com/nasa/fpp/tree/main/compiler/lib/src/main/scala/analysis/ComputeDependencies[`compiler/lib/src/main/scala/analysis/ComputeDepencencies`].
+Ensure that these correspond to the algorithm descriptions
+https://github.com/nasa/fpp/wiki/Computing-Dependencies[on the wiki].
+
+. As necessary, revise the algorithms for semantic checking located in
+https://github.com/nasa/fpp/tree/main/compiler/lib/src/main/scala/analysis/CheckSemantics[`compiler/lib/src/main/scala/analysis/CheckSemantics`].
+Ensure that these correspond to the algorithm descriptions
+https://github.com/nasa/fpp/wiki/Checking-Semantics[on the wiki].
+
+[[semantics-tests]]
+=== Unit Tests
+
+Each FPP tool has a directory in
+https://github.com/nasa/fpp/tree/main/compiler/tools[`compiler/tools`]
+that contains its top-level implementation.
+Each implementation handles command-line arguments, input, and
+output; then it calls into the library at `compiler/lib/src/main/scala` to do 
+the work.
+
+Each tool directory contains unit tests.
+When you make changes to the FPP semantics, you generally have
+to update the following sets of tests:
+
+* `fpp-depend`: These tests validate the dependency checking.
+Update these tests if you are adding new definitions or new
+uses that create new kinds of dependencies.
+
+* `fpp-check`: These tests validate the FPP semantics checking.
+You will need to add or revise tests to cover the new
+semantics features.
+
+* `fpp-locate-defs`: These tests validate the tool that finds
+definitions in the model and reports their locations.
+Update these tests if you are adding new kinds of definitions.
+
+* `fpp-locate-uses`: These tests validate the tool that
+reports the locations of definitions used in the model.
+Update these tests if you are adding new kinds of uses.
+
+* `fpp-to-json`: These tests validate the tool that generates
+a JSON version of the FPP model.
+When you modify the FPP semantics implementation, you may
+need to regenerate the test output for `fpp-to-json`.
+If you add semantics elements, you may need to extend the tests
+to cover them.
+
+The procedure for updating tests is like what we described
+for <<syntax-tests,updating syntax tests>>.
+When a test suite has multiple subdirectories with `./run`
+scripts, there is a `./test` script at the top level
+that you can use to run all the tests.
+For example, `fpp-check/test` has a `./test` script.
+There is also an `./update-ref` script at the top level
+that updates all the reference files in the subdirectories.
+
+If your tests pass locally but fail in the CI for `nasa/fpp`, see
+the section on <<syntax-tests,syntax tests>> for troubleshooting tips.
+
+
+[[implement-test-code-gen]]
+== Implementing and Testing New Code Generation
+
+The following are the main code generators used by the FPP implementation:
+
+|===
+|Name|Purpose|Location|Used by
+
+|`AstWriter`
+|Writing the AST for diagnostic and testing purposes
+|https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/codegen/AstWriter.scala[`compiler/lib/src/main/scala/codegen/AstWriter.scala`]
+|`fpp-syntax`
+
+|`FppWriter`
+|Writing FPP source
+|https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/codegen/FppWriter.scala[`compiler/lib/src/main/scala/codegen/FppWriter.scala`]
+|`fpp-locate-defs`, `fpp-locate-uses`, `fpp-to-fpp`
+
+|`CppWriter`
+|Writing {cpp} files
+|https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/codegen/CppWriter[`compiler/lib/src/main/scala/codegen/CppWriter`]
+|`fpp-to-cpp`
+
+|`DictionaryJsonWriter`
+|Writing FPP dictionaries as JSON files
+|https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/codegen/DictionaryJsonWriter[`compiler/lib/src/main/scala/codegen/DictionaryJsonWriter`]
+|`fpp-to-dict`
+
+|`JsonEncoder`
+|Writing Scala data structures as JSON objects
+|https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/codegen/JsonEncoder[`compiler/lib/src/main/scala/codegen/JsonEncoder`]
+|`fpp-to-json`
+
+|`LayoutWriter`
+|Writing layout input files from FPP topologies
+|https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/codegen/LayoutWriter[`compiler/lib/src/main/scala/codegen/LayoutWriter`]
+|`fpp-to-layout`
+
+|===
+
+Each code generator extends `AstStateVisitor`, which is an 
+<<syntax-implementation,`AstVisitor`>> with state.
+The JSON code generators use a library called 
+https://circe.github.io/circe/[`circe`] to
+perform the JSON encoding mostly automatically, with some help from
+manually written code.
+Each of the other code generators generates a list of lines.
+A line is a simple data structure representing a line with indentation.
+`CppWriter` generates its lines by first building an object from a
+class called `CppDoc`.
+The `CppDoc` object stores all the information needed to write out
+`.hpp` files and `.cpp` files as lines.
+Because generating `CppDoc` is easier than generating raw {cpp},
+this approach simplifies the code generator.
+
+=== Implementation
+
+To add or extend a code generator, follow the existing patterns:
+
+* If you are extending an existing code generator,
+look for something that it is already doing that is similar to
+what you need to do.
+Use that behavior as a guide for coding the new behavior.
+
+* If you are adding a new code generator, look for an existing
+code generator that is similar.
+Then structure your code generator in a similar way.
+
+[[code-gen-tests]]
+=== Unit Tests
+
+To update the unit tests for code generation, do the following:
+
+* If you are revising an existing code generator, then revise
+or add unit tests for that code generator.
+The procedure is similar to the one described for
+<<semantics-tests,semantics unit tests>>.
+
+* If you are testing a new code generator, look at the existing
+tests for a similar code generator.
+Write your tests and supporting scripts in a similar way.
+
+Some code generators, e.g., `fpp-to-cpp`, report information about
+what files are generated, so this information can be communicated
+to the F Prime build system.
+For these code generators, you may need to update the information
+that is reported.
+You also may need to add or update the tests for the `fpp-filenames`
+tool, which reports this information.
+
+As described in the section on <<syntax-tests,syntax tests>>,
+run `./update-ref` to update the reference output.
+If your tests pass locally but fail in the CI for `nasa/fpp`, see
+the section on <<syntax-tests,syntax tests>> for troubleshooting tips.
+
+=== Checking {cpp} Compilation
+
+The test directory for `fpp-to-cpp` contains a script called `check-cpp`.
+Running this script will verify that {cpp} compilation is working for the
+generated {cpp} code.
+Whenever you are submitting changes to `fpp-to-cpp`, you should
+run this script to make sure that {cpp} compilation works cleanly.
+If there are any compilation warnings or errors, you should fix them.
+
+To run `./check-cpp`, you must set the environment variable `FPRIME`
+in your shell to point to a working copy of the F Prime repository
+`nasa/fprime`, or a fork of `nasa/fprime`.
+The working copy must be set to a branch of `nasa/fprime` that is
+compatible with the version of `fpp` that exists in the directory
+`fpp/compiler/bin`.
+This is the directory that is updated when you run `fpp/compiler/install`.
+
+The {cpp} compilation uses the header files in the F Prime repository
+at `$FPRIME` as much as possible.
+However, to avoid dependencies on the F Prime CMake build system,
+it maintains its own copies of FPP model files from the F Prime framework,
+and it runs `fpp-to-cpp` on the FPP files to generate local copies
+of header files.
+The FPP files are located at `tools/fpp-to-cpp/test/fprime`
+If you have revised or extended the {cpp} code generator, then you
+may have to revise or update these model files to match.
+
+`check-cpp` at the top level is recursive: it runs `check-cpp`
+scripts in subdirectories.
+You can also run those scripts directly to check {cpp} compilation
+for particular parts of the code generation that you are working on.
+
+[[update-users-guide]]
+== Updating the User's Guide
+
+The procedure for updating the User's Guide is similar to the procedure
+for <<revise-spec,revising the spec>>:
+
+* The AsciiDoc source lives at `docs/users-guide`. Running `redo` in
+the `docs` directory generates `docs/fpp-users-guide.html`.
+The version of this document in `fpp/main` is displayed on the wiki.
+
+* When updating a section that already exists, follow the same style.
+
+* When adding a new section, look for similar elements in other
+sections, and do something similar.
+
+* Make sure you review the entire User's Guide for consistency.
+Make any changes elsewhere in the User's Guide that are implied
+by the change you want to make.
+
+[[f-prime-integration]]
+== Integration with F Prime
+
+=== Building F Prime with an Unreleased Version of FPP
+
+To integrate and test your FPP changes with F Prime, you will need to
+set up a working repository of F Prime that can build with your
+version of FPP.
+Here are the steps for doing this:
+
+. Run `./install` in the `fpp/compiler` directory.
+
+. Run `bin/fpp-check -h` to get the git version info, for example:
+
++
+[source,shell]
+----
+% bin/fpp-check -h
+fpp-check v2.3.0a1-41-g822410e1e
+Usage: fpp-check [options] [file ...]
+
+  -h, --help               print this message and exit
+  -u, --unconnected <file>
+                           write unconnected ports to file
+  file ...                 input files
+----
+
++
+In this case the version info is `v2.3.0a1-41-g822410e1e`.
+
+. Copy the contents of `fpp/compiler/bin` to the `bin` directory
+of the virtual environment for your F Prime installation.
+
+. In your F Prime installation, do the following:
+
+.. Update `requirements.txt` to
+record the version information from step 2 for all the FPP tools.
+
+.. Purge all CMake build caches, e.g, by running `find . -name 'build-fprime-*' | xargs rm -rf`.
+This step will prevent the build system
+from using files generated by a previous version of FPP.
+
+.. Generate and build in the normal way for F Prime. Note that the
+generate and build steps may take longer than when using a released
+version of FPP, because a released version is a native binary program,
+whereas an unreleased version is a Java Archive (JAR) file executed by the Java 
+Virtual Machine (JVM).
+
+[[testing-with-f-prime]]
+=== Testing with F Prime
+
+*Minimal tests:*
+Here is a minimal test to ensure that your development version of FPP
+works with F Prime:
+
+. Run `fprime-util generate --ut` and `fprime-util check --jobs 4` in `FppTest`.
+
+. Run `fprime-util generate` and `fprime-util build --jobs 4` at the top level.
+
+. Run `fprime-util generate --ut` and `fprime-util check --jobs 4` at the top level.
+
+. Run `fprime-util generate` and `fprime-util build --jobs 4` in `Ref`.
+
+Adjust the argument to the `--jobs` flag as appropriate for your system.
+If any of these tests fails, then identify and correct the problem.
+If updates to `nasa/fprime` are required, then
+typically you would make them on a branch of a fork of `nasa/fprime` that 
+corresponds
+to the branch of `nasa/fpp` (or a fork of `nasa/fpp`) on which your are
+developing your FPP changes.
+
+*Ref integration tests:*
+Another step that is good to take from time to time (and before making an 
+FPP pre-release as discussed below) is to run the `Ref` integration tests.
+In the `Ref` directory, do the following:
+
+. In a shell, run `fprime-util build`.
+
+. In another shell, run `fprime-gds` and wait until the GDS comes up.
+
+. In the first shell, run `fprime-pytest`.
+
+You should see green output, and the tests should pass.
+Otherwise, there is a problem to fix.
+
+=== Adding or Revising FPP Tests
+
+Many of the {cpp} code generation features of FPP are tested in the directory
+`FppTest`.
+If you are revising the {cpp} code generators, then you may need to
+add or revise tests in this directory.
+
+* To revise tests or add new tests to an existing test suite,
+  follow the existing structure.
+
+* To add a new test suite, look at the existing test suites for guidance.
+
+=== Making a Pull Request to F Prime
+
+The final steps of F Prime and FPP integration are (1) making a pre-release
+of FPP that includes the latest development and (2)
+making a pull request to update F Prime to point to the pre-release.
+This step generally occurs after completing a major feature development
+in FPP, or after completing several smaller feature developments,
+or when preparing an official FPP release.
+
+Here is the procedure:
+
+. Develop your new feature on a branch _B_.
+  _B_ is usually either `fpp/main` or a feature branch.
+  If you are developing a significant feature and/or you are
+  https://github.com/nasa/fpp/wiki/F-Prime-and-FPP-Tandem-Development[developing
+  F Prime and FPP in tandem], then _B_ should be a feature branch.
+
+. Make sure that all the FPP features you intend to integrate into F Prime
+  have been merged into _B_.
+  If this is not the case, then create, review, and merge appropriate pull
+  requests to _B_.
+
+. Make sure that the head of `fpp/main` is merged into _B_.
+  (If _B_ is `fpp/main`, then you can skip this step.)
+
+. Create a branch of a fork of `nasa/fprime` that is in sync with the head of
+  `nasa/fprime/devel`.
+  Hereafter we will call this branch the *F Prime branch*.
+  If the FPP version in _B_ requires any changes to `nasa/fprime/devel`,
+  then those changes should be present on the F Prime branch.
+
+. On the F Prime branch, make sure that the FPP version in the
+  head of _B_ works properly, as discussed <<testing-with-f-prime,here>>.
+
+. [Optional] Make a draft pull request to merge the F Prime branch
+  into `nasa/fprime/devel`. At this point F Prime CI may fail, but it may still
+  be useful to start the PR process by making a draft.
+
+. Create an alpha release of FPP against _B_.
+  See the `Releases` page in the FPP repo for examples.
+
+. On your local copy of the F Prime branch, update `requirements.txt` on the F 
+  Prime branch to point to the alpha release of FPP.
+  Spot check that F Prime works properly with the alpha release version.
+  E.g., run the top-level unit tests and the unit tests in `FppTest`.
+
+. If you created a draft pull request in step 4, then push the change to
+  `requirements.txt` identified in step 6 to the F Prime branch. This step will 
+  re-trigger CI.
+  Otherwise, create a new pull request to merge the F Prime branch
+  into `nasa/fprime/devel`.
+  This step will trigger CI for the first time.
+  In either case, CI should pass or mostly pass, because `requirements.txt`
+  points to a valid FPP version.
+
+. If there are any CI failures, fix them. For example, sometimes changes in FPP
+  require changes in other repositories, such as tutorial repositories.
+
+. Once the pull request to `nasa/fprime/devel` is approved and merged, if
+  _B_ is different from `fpp/main` then
+
+.. Make a pull request to merge _B_ into `fpp/main`.
+
+.. Once the pull request is approved and merged, delete _B_.
+
+[[update-this-page]]
+=== Updating This Page
+
+It is possible that, after adding a feature to FPP, you will need to update 
+this page to keep it consistent.
+For example, if you add a new kind of code generator, then you will need
+to update the table of code generators in the
+<<implement-test-code-gen,section on code generation>>.
+If this is the case, then remember to update this page so that it
+accurately describes the current state of FPP development.
+For information on how to make the updates,
+see the section on <<update-wiki,updating the wiki>>.

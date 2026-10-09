@@ -1,0 +1,99 @@
+This tool computes dependencies for FPP source files.
+
+*Options:*
+
+. `-a`: Enable unit test auto helpers.
+
+. `-d` _file_: Write direct dependencies to _file_.
+
+. `-f` _file_: Write F Prime framework dependencies to _file_.
+
+. `-g` _file_: Write the names of generated autocode files to _file_.
+
+. `-i` _file_: Write included dependencies to _file_.
+
+. `-m` _file_: Write missing dependencies to _file_.
+
+. `-u`: _file_: Write the names of generated unit test autocode files to _file_.
+
+*Input:*  A list _fl_ of files: either the single file _stdin_ or a list of 
+files specified on the command line.
+
+*Output:* 
+
+. Write a list of files (the dependencies) one per line to standard 
+output, as absolute paths with no other punctuation.
+The dependencies are transitive.
+For example, if `a.fpp` depends on `b.fpp` and `b.fpp` depends on
+`c.fpp`, then `a.fpp` depends on `b.cpp` and on `c.fpp`.
+Included files in the dependency graph are not counted as dependencies.
+For example, if a file `a.fpp` includes `b.fpp` and
+`a.fpp` depends on `c.fpp` after resolving the inclusion, then `a.fpp`
+depends on `c.fpp` but not `b.fpp`.
+
+. If option `-d` is present, then write direct dependencies to the specified
+file.
+For example, if `a.fpp` depends on `b.fpp` and `b.fpp` depends on `c.fpp`,
+then `a.fpp` directly depends on `b.fpp` but not on `c.fpp`.
+Included files in the dependency graph are counted as direct
+dependencies.
+
+. If option `-f` is present, then write F Prime framework dependencies
+to the specified file.
+
+. If option `-g` is present, then write the names of generated autocode files
+to the specified file.
+
+. If option `-i` is present, then write included files in the dependency graph
+to the specified file.
+
+. If option `-m` is present, then write missing dependencies to the specified file.
+
+. If option `-u` is present, then write the names of generated unit test files
+to the specified file.
+If option `-a` is present, then include the auto-generated test helper code
+in the list of files.
+
+*Procedure:*
+
+. Create a fresh 
+link:https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis 
+data structure] _a_.
+
+. Add the specified input files other than _stdin_, if any, to the input files in _a_.
+
+. Parse each of the files in _fl_, generating a list _tul_ of translation 
+units.
+When parsing, recursively resolve include specifiers and add the path of each
+included file to the included file set in _a_.
+
+. Let _a'_ be the result of 
+https://github.com/nasa/fpp/wiki/Computing-Dependencies[computing 
+dependencies] with inputs _a_ and _tul_.
+
+. Write out the dependency files in _a'_.
+
+. If option `-d` is present, then write the direct dependency file set of
+_a'_ to the specified file.
+
+. If option `-f` is present, then write F Prime framework dependencies
+to the specified file.
+The currently recognized dependencies are as follows:
+
+* `Fw_Comp` if _tul_ contains a passive component.
+* `Fw_CompQueued` if _tul_ contains a queued or active component.
+* `Os` if _tul_ contains a queued or active component or a guarded input port specifier.
+
+. If option `-g` is present, then write the names of the generated autocode and implementation
+template files to the specified files.
+Use the same procedure as for
+https://github.com/nasa/fpp/wiki/fpp-filenames[`fpp-filenames`].
+
+. If option `-i` is present, then write the included file set of _a'_ to the specified file.
+
+. If option `-m` is present, then write the missing dependency file set of _a'_ to the specified file.
+
+. If option `-u` is present, then write the names of the generated unit test and
+unit test implementation files to the specified files.
+Use the same procedure as for
+https://github.com/nasa/fpp/wiki/fpp-filenames[`fpp-filenames`].

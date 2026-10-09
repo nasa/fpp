@@ -1,0 +1,86 @@
+This algorithm traverses the a source model and checks that 
+there are no cycles in the use-def graph.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis 
+data structure] _a_
+representing the results of analysis so far.
+The use-def map must already be computed.
+The visited symbol set, use-def path set, and use-def path list must be 
+empty.
+
+== Output
+
+. The unmodified analysis _a_, if the check passes; 
+otherwise an error.
+
+== Procedure
+
+. Visit each translation unit in _tul_ with input _a_.
+Return _a_ or an error as the result.
+
+== AST Visitor Methods
+
+Each method accepts an analysis data structure _a_ as input
+and yields either a new analysis data structure _a'_ or
+an error as output.
+
+. *Translation units:* For each translation unit _tu_, visit each
+definition appearing in _tu_.
+
+. *Definitions:* For each definition _d_ that may be involved in a cycle:
+
+.. Let _s_ be the unique symbol representing _d_.
+A
+https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[bound
+parameter symbol] counts as such a definition.
+The uses appearing in it are the uses appearing in its argument: the
+expression of a constant argument, the type name of a type argument, or
+the component instance use of a port interface instance argument.
+
+.. Check whether _s_ appears in the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[use-def symbol set]
+of _a_.
+If it does, then the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[use-def matching list]
+of _a_ represents a cycle.
+Throw a semantic error.
+Use the use-def matching list to construct the cycle
+for the error message.
+
+.. Otherwise if _s_ is not in the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[visited symbol set]
+of _a_, then
+
+... Let _a'_ be the analysis data structure that results from
+adding _s_ to the use-def symbol set set of _a_.
+
+... Visit each use appearing in _d_ with input _a'_.
+
+... Let _a''_ be the analysis data structure that results from
+adding _s_ to the visited symbol set of _a_.
+
+... Yield _a''_ as the result.
+
+.. Otherwise we have already visited _s_; yield _a_ as the result.
+
+. *Uses:* For each AST node _n_ that represents a use:
+
+.. Look in the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[use-def map]
+of _n_ to get the symbol _s_ corresponding
+to _n_. Throw an internal error if it is not there.
+
+.. Use _n_ and _s_ to construct a use-def matching _m_.
+
+.. Let _a'_ be the analysis data structure that results from adding _m_ to the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[use-def matching list]
+of _a_.
+
+.. Visit the definition corresponding to _s_ with input _a'_.
+
+.. Return _a_ or an error.

@@ -1,0 +1,47 @@
+This tool parses an FPP model, performs semantic checking on it, and writes out 
+the model in JavaScript Object Notation (JSON) format.
+
+*Options:*
+
+. `-d` _dir_: Set the output directory to _dir_. If this option is not present, then the output directory is the current directory.
+. `-s`: Emit syntax only (location map and abstract syntax tree).
+. `-f`: Format the JSON output with whitespace
+
+*Input:*  
+
+. A list _fl_ of files to translate: either the single file _stdin_ or a list of 
+files specified on the command line.
+
+*Output:* 
+
+Fpp-to-json generates the following files:
+
+. A file `fpp-ast.json` containing a JSON representation of the 
+https://github.com/nasa/fpp/wiki/Analysis[abstract syntax tree (AST)].
+. A file `fpp-loc.json` containing a JSON representation of the 
+https://github.com/nasa/fpp/wiki/Analysis[location map].
+. If the flag `-s` is not present, then a file `fpp-analysis.json` containing a JSON representation of the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[Analysis Data Structure].
+
+*Procedure*:
+
+. Parse each of the files in _fl_, generating a list _tul_ of translation units.
+When parsing, recursively resolve include specifiers.
+
+. Convert the 
+https://github.com/nasa/fpp/wiki/Analysis[abstract syntax tree (AST)] and the
+https://github.com/nasa/fpp/wiki/Analysis[location map]
+to JSON objects.
+
+. If `-s` is not present, then
+
+.. https://github.com/nasa/fpp/wiki/Resolving-Templates[Resolve templates] for _tul_, yielding a new list _tul_ of translation units
+with templates expanded.
+
+.. Perform https://github.com/nasa/fpp/wiki/Checking-Semantics[semantic checking] on _tul_.
+
+.. Convert the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[Analysis Data Structure]
+to a JSON object.
+
+. Write the JSON objects to files.
