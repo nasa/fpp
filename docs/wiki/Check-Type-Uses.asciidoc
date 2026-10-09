@@ -96,7 +96,7 @@ to _n_.
 Throw an internal error if it is not there.
 
 ... If _s_ is a
-https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[type
+https://github.com/nasa/fpp/wiki/Enter-Template-Expansion-Symbols#bound-parameter-symbols[type
 parameter symbol] bound to the type name argument _p_, then visit _p_ if
 it is not already in the type map of _a_.
 The type of _s_ is the type of _p_.

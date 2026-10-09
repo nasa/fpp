@@ -197,7 +197,7 @@ https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[use-def map]
 
 .... If _sym'_ does not exist, or _sym'_ exists and is a constant symbol
 or a
-https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[constant
+https://github.com/nasa/fpp/wiki/Enter-Template-Expansion-Symbols#bound-parameter-symbols[constant
 parameter symbol], this dot expression selects
 a member of the constant and therefore does not introduce an additional use. Exit this visitor.
 
@@ -246,6 +246,6 @@ use map].
 
 Visit _iu_ like a constant expression, a type use, or a port use.
 Report an error if _iu_ resolves to a
-https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[bound
+https://github.com/nasa/fpp/wiki/Enter-Template-Expansion-Symbols#bound-parameter-symbols[bound
 parameter symbol], or if the qualified name of the symbol it resolves to
 is not the name of _iu_.

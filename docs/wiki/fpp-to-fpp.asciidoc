@@ -40,11 +40,11 @@ output.
 . Parse each of the files in _fl_ to a translation unit _tu_, reporting any 
 errors that occur.
 
-. If `-i` or `-e` is present, then recursively resolve include specifiers. Check for
+. If `-i` is present, then recursively resolve include specifiers. Check for
 include cycles. Upon detecting an include cycle, halt with an error message.
 
-. If `-e` is present, then generate state machine enums and
-https://github.com/nasa/fpp/wiki/Resolving-Templates[resolve templates].
-Halt with an error message if template resolution fails.
+. If `-e` is present, then 
+https://github.com/nasa/fpp/wiki/Expanding-Syntax-and-Entering-Symbols[expand 
+syntax and enter symbols].
 
 . Write out the formatted source code.

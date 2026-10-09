@@ -26,7 +26,10 @@ by running `fpp-to-cpp` with the corresponding options.
 *Procedure*:
 
 . Parse each of the files in _fl_, generating a list _tul_ of translation units.
-When parsing, recursively resolve include specifiers.
+
+. Run the first three steps of 
+https://github.com/nasa/fpp/wiki/Expanding-Syntax-and-Entering-Symbols[expanding 
+syntax and entering symbols] (up to template resolution) on _tul_.
 
 . Walk the AST and identify the definitions that cause C++ or JSON files to
 be generated.

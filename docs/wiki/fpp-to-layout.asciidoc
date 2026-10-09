@@ -20,28 +20,32 @@ files specified on the command line.
 
 *Output:*
 
-. A set of `.txt` files, written to a topology layout directory (name format: <TopologyName>Layout) at the directory specified with the `-d` option (if present).
+. A set of `.txt` files, written to a topology layout directory (name format: 
+  <TopologyName>Layout) at the directory specified with the `-d` option (if 
+present).
 
 
 *Procedure:*
 
-. Parse each of the files in _fl_tr_, generating a list _tul_tr_ of translation units.
-When parsing, recursively resolve include specifiers.
+. Parse each of the files in the concatenation of _fl_tr_ and _fl_i_, 
+  generating a list _tul_ of translation units.
 
-. Do the same for _fl_i_, generating a list _tul_i_.
+. Perform https://github.com/nasa/fpp/wiki/Checking-Semantics[semantic 
+  checking] on _tul_, generating a new list _tul'_.
 
-. https://github.com/nasa/fpp/wiki/Resolving-Templates[Resolve templates] for the concatenation of _tul_fl_ and _tul_i_.
-In the steps below, _tul_fl_ and _tul_i_ denote the translation units
-with templates expanded.
+. Let _tul_tr'_ be the set of translation units in _tul'_ corresponding
+to _fl_tr_.
 
-. Perform https://github.com/nasa/fpp/wiki/Checking-Semantics[semantic checking] on the concatenation of _tul_fl_ and _tul_i_.
-
-. Check that no two definitions in _tul_tr_ will generate a directory with the same name.
+. Check that no two definitions in _tul_tr'_ will generate a directory with the same name.
 If so, halt with an error message.
 
-. For each topology definition _T_ in _tul_tr_:
-.. Check to see if a directory already exists for the topology. If a directory already exists, delete the directory and re-create it.
-.. Generate the layout text output (according to https://github.com/fprime-community/fprime-layout/wiki/Topology-Input[FPL Input Format]) of each connection graph in the topology.
+. For each topology definition _T_ in _tul_tr'_:
+
+.. Check to see if a directory already exists for the topology. If a directory 
+   already exists, delete the directory and re-create it.
+
+.. Generate the layout text output (according to 
+   https://github.com/fprime-community/fprime-layout/wiki/Topology-Input[FPL 
+Input Format]) of each connection graph in the topology.
+
 .. Write layout text files to the topology directory.
-
-

@@ -39,4 +39,4 @@ Similarly for `'`, `"`, `,`, `/`, `:`, etc.
 
 * You must use care when the paths of files presented to the FPP tools contain
 symbolic links or aliased hard links.
-See https://nasa.github.io/fpp/fpp-users-guide.html#Specifying-Models-as-Files_Path-Name-Aliases[_FPP User's Guide_, &sect; 16.8].
+See https://nasa.github.io/fpp/fpp-users-guide.html#Specifying-Models-as-Files_Path-Name-Aliases[_FPP User's Guide_, &sect; 17.8].
