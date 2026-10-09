@@ -22,19 +22,6 @@ evalp()
   $@
 }
 
-# Get tool names from a directory
-get_tool_names()
-{
-  prefix="fpp-"
-  dir=$1
-  for file in $dir/$prefix*
-  do
-    base=`basename $file`
-    result="${base#$prefix}"
-    echo $result
-  done
-}
-
 # Print a phase of the process
 print_phase()
 {
@@ -107,8 +94,8 @@ then
     exit 1
 fi
 
-# Get the tool names from bin
-tool_names=`get_tool_names bin`
+# Get the tool names
+tool_names=`cat tools.txt`
 
 # Construct the scripts for running the tools
 for tool in $tool_names
