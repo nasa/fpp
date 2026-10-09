@@ -1,12 +1,9 @@
 For implementation, see
-https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/analysis/CheckSemantics/ResolveTemplates.scala[`ResolveTemplates.scala`].
+https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/analysis/CheckSemantics/ExpandSyntaxAndEnterSymbols.scala[`ExpandSyntaxAndEnterSymbols.scala`].
 
-This algorithm enters the symbols of a source model and expands its
-template expansion specifiers.
-Each tool runs it on the translation units produced by resolving include
-specifiers, and then runs
-https://github.com/nasa/fpp/wiki/Checking-Semantics[semantic checking] on
-the result.
+This algorithm enters the symbols of a source model and expands all
+syntax in the source model.
+In general, entering symbols requires expanding templates and vice versa.
 
 == Input
 
@@ -17,18 +14,22 @@ data structure] _a_.
 
 == Output
 
-. An updated analysis data structure _a_ with symbols entered, the
+. If the algorithm succeeds, then
+
+.. An updated analysis data structure _a_ with symbols entered, the
 https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[use-def map]
 filled in for template names, and the
 https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[template
 expansion map] filled in.
 
-. A list _tul'_ of translation units with state enums added and templates
-expanded.
+.. An updated list _tul_ of translation units with all syntax expanded.
 
 . Otherwise an error and no output.
 
 == Procedure
+
+. Recursively resolve include specifiers. Check for include cycles. Upon
+  detecting an include cycle, halt with an error message.
 
 . https://github.com/nasa/fpp/wiki/Add-State-Enums[Add state enums] for
 _tul_, yielding a new list of translation units _tul_ in which each state
@@ -42,4 +43,5 @@ machine definition that has a body has a state enum definition.
 yielding a new list of translation units _tul_ in which each template
 expansion specifier carries the members that it expands.
 
-. https://github.com/nasa/fpp/wiki/Enter-Template-Symbols[Enter template symbols] for _a_ and _tul_.
+. https://github.com/nasa/fpp/wiki/Enter-Template-Expansion-Symbols[Enter 
+  template expansion symbols] for _a_ and _tul_.

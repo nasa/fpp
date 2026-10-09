@@ -1,4 +1,5 @@
-This tool parses FPP source files into an abstract syntax tree (AST) and optionally writes out the AST. It is mainly useful during compiler development.
+This tool parses FPP source files into an abstract syntax tree (AST) and 
+optionally writes out the AST. It is mainly useful during compiler development.
 
 *Options:*
 
@@ -6,27 +7,35 @@ This tool parses FPP source files into an abstract syntax tree (AST) and optiona
 
 . `-i`: Resolve include specifiers.
 
-. `-t`: Expand module templates. This option also resolves include
-specifiers.
+. `-e`: Expand all syntax.
+Resolve include specifiers as if `-i` were specified; also generate
+state machine enums and expand templates.
 
-*Input:*  A list _fl_ of files: either the single file _stdin_ or a list of files specified on the command line.
+*Input:*  A list _fl_ of files: either the single file _stdin_ or a list of 
+files specified on the command line.
 
 *Output:*
 
 . By default, no output if the parsing succeeds; otherwise an error message.
 
 . If option `-a` is present, then a text representation of the AST.
+If the input contains multiple source files, then each source file
+is parsed into an AST, and the output is the AST formed by concatenating
+the individual ASTs.
 
 *Procedure*:
 
-. Parse each of the files in _fl_ to a translation unit _tu_, reporting any errors that occur.
+. Parse each of the files in _fl_ to a translation unit _tu_, reporting any 
+  errors that occur.
 
-. If `-i` or `-t` is present, then recursively resolve include specifiers. Check for include cycles. Upon detecting an include cycle, halt with an error message.
+. If `-i` or `-e` is present, then recursively resolve include specifiers. 
+  Check for include cycles. Upon detecting an include cycle, halt with an error 
+message.
 
-. If `-t` is present, then
-https://github.com/nasa/fpp/wiki/Resolving-Templates[resolve templates],
-yielding a list of translation units in which each template expansion
-specifier carries the members that it expands.
-Halt with an error message if template resolution fails.
+. If `-e` is present, then
+https://github.com/nasa/fpp/wiki/Expanding-Syntax-and-Entering-Symbols[expand 
+syntax and enter symbols],
+yielding a new list _tul'_ of translation units.
 
-. If `-a` is present, then write out the AST as text.
+. If `-a` is present, then form an AST by concatenating the elements of _tul'_ and
+write it out as text.

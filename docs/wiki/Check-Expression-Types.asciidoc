@@ -66,7 +66,7 @@ adding the type of _d_ to _a'_.
 For each template expansion specifier node _n_:
 
 . For each
-https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[constant
+https://github.com/nasa/fpp/wiki/Enter-Template-Expansion-Symbols#bound-parameter-symbols[constant
 parameter symbol] of _n_, with parameter type name _t_ and argument _p_:
 
 .. Visit _p_, so that it has a type.
@@ -86,7 +86,7 @@ If not, yield an error.
 .. Update the type map with the mapping of _p_ to _T_.
 
 . For each
-https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[type
+https://github.com/nasa/fpp/wiki/Enter-Template-Expansion-Symbols#bound-parameter-symbols[type
 parameter symbol] of _n_ with argument _p_, visit the type name _p_.
 
 . Visit all the member nodes of _n_.
@@ -114,7 +114,7 @@ to _n_.
 Throw an internal error if it is not there.
 
 ... If _s_ is a
-https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[constant
+https://github.com/nasa/fpp/wiki/Enter-Template-Expansion-Symbols#bound-parameter-symbols[constant
 parameter symbol] with argument _p_, then if _p_ is not already in the
 type map of _a_, apply the rules stated above for the constant
 parameters of a template expansion specifier, so that _p_ has the

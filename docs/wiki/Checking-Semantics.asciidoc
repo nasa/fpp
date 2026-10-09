@@ -5,15 +5,20 @@ https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/analysis/Check
 
 . An https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis
 data structure] _a_ and a list _tul_ of translation units, as produced by
-https://github.com/nasa/fpp/wiki/Resolving-Templates[resolving templates].
+https://github.com/nasa/fpp/wiki/Expanding-Syntax-and-Entering-Symbols[expanding syntax and entering symbols].
 
 == Output
 
-. If the semantic check passes, an https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis data structure] _a_ representing the results of the analysis.
+. If the semantic check passes, a pair _(a, tul)_, where
+_a_ represents the results of the analysis, and _tul_ represents
+the results of syntax expansion.
 
 . Otherwise an error and no output.
 
 == Procedure
+
+. https://github.com/nasa/fpp/wiki/Expanding-Syntax-and-Entering-Symbols[Expand syntax and enter symbols]
+for _a_ and _tul_.
 
 . https://github.com/nasa/fpp/wiki/Construct-Implied-Use-Map[Construct the implied use map] for _a_ and _tul_.
 
