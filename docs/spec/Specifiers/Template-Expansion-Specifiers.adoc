@@ -1,7 +1,7 @@
 === Template Expansion Specifiers
 
 A *template expansion specifier* names a 
-<<Definitions_Module-Template-Definitions,template>>
+<<Definitions_Module-Template-Definitions,module template definition>>
 and specifies arguments for the parameters of the template.
 During <<Expansion-of-Templates,template expansion>>, it generates the definitions specified 
 by the template and the arguments.
@@ -12,6 +12,9 @@ by the template and the arguments.
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 _[_
 `(` _template-arg-list_ `)`
+_]_
+_[_
+`{` _module-member-sequence_ `}`
 _]_
 
 _template-arg-list_ is an
@@ -27,6 +30,15 @@ Each template argument is one of the following:
 `instance` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 
 . A *type template argument* `type` <<Type-Names,_type-name_>>
+
+_module-member-sequence_ is the same as for a
+<<Definitions_Module-Definitions_Syntax,module definition>>.
+
+The optional module member list represents the result of
+<<Expansion-of-Templates,expanding the template>>.
+If a template expansion specifier has a module member
+list, then is called an *expanded template*.
+Otherwise it is called an *unexpanded template*.
 
 ==== Semantics
 
