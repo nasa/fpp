@@ -9272,7 +9272,7 @@ by the template and the arguments.</p>
 <code>(</code> <em>template-arg-list</em> <code>)</code>
 <em>]</em>
 <em>[</em>
-<code>{</code> <em>module-member-sequence</em> <code>}</code>
+<code>module</code> <code>{</code> <em>module-member-sequence</em> <code>}</code>
 <em>]</em></p>
 </div>
 <div class="paragraph">
@@ -12200,7 +12200,7 @@ It produces a new model according to the following rules:</p>
 template
 expansion specifier</a> <em>S</em> in the source model,
 transform <em>S</em> into an
-expanded template expansion specifier \$E = S { X }\$, where <em>X</em>
+expanded template expansion specifier <em>E</em> = <em>S</em> <code>module</code> <code>{</code> <em>X</em> <code>}</code>, where <em>X</em>
 is a copy of the module member list provided
 by the template definition to which <em>S</em> refers.
 The syntax <em>X</em> behaves as if it were literally included in
@@ -12209,8 +12209,8 @@ special rules for
 <a href="#Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template">resolving names</a> that appear inside <em>E</em>.</p>
 </li>
 <li>
-<p>For each expanded template expansion specifier \$E = S { X
-}\$ in the source model, leave <em>E</em> unchanged.</p>
+<p>For each expanded template expansion specifier <em>E</em> = <em>S</em> <code>module</code> <code>{</code> <em>X</em> <code>}</code>
+in the source model, leave <em>E</em> unchanged.</p>
 </li>
 </ol>
 </div>
@@ -12245,7 +12245,7 @@ following:</p>
 <p>Let <em>X</em> be a copy of the syntax specified in the body of <em>T</em>.</p>
 </li>
 <li>
-<p>Replace <em>S</em> with \$S { X }\$.</p>
+<p>Replace <em>S</em> with <em>S</em> <code>module</code> <code>{</code> <em>X</em> <code>}</code>.</p>
 </li>
 </ol>
 </div>
@@ -12300,7 +12300,7 @@ module N {
 
 module N {
 
-  expand M.T(constant 1) {
+  expand M.T(constant 1) module {
 
     constant c = a + b
 
@@ -14573,7 +14573,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-12 16:04:47 -0700
+Last updated 2026-10-12 16:21:36 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

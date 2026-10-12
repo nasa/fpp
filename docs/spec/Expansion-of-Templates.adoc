@@ -8,7 +8,7 @@ It produces a new model according to the following rules:
 template
 expansion specifier>> _S_ in the source model,
 transform _S_ into an
-expanded template expansion specifier stem:[E = S { X }], where _X_
+expanded template expansion specifier _E_ = _S_ `module` `{` _X_ `}`, where _X_
 is a copy of the module member list provided
 by the template definition to which _S_ refers.
 The syntax _X_ behaves as if it were literally included in
@@ -17,8 +17,8 @@ special rules for
 <<Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template,
 resolving names>> that appear inside _E_.
 
-. For each expanded template expansion specifier stem:[E = S { X 
-}] in the source model, leave _E_ unchanged.
+. For each expanded template expansion specifier _E_ = _S_ `module` `{` _X_ `}`
+in the source model, leave _E_ unchanged.
 
 Note in particular that applying template expansion twice
 (or, more generally, any number of times greater than one)
@@ -41,7 +41,7 @@ Construct the output model _M'_ as follows:
 
 .. Let _X_ be a copy of the syntax specified in the body of _T_.
 
-.. Replace _S_ with stem:[S { X }].
+.. Replace _S_ with _S_ `module` `{` _X_ `}`.
 
 === Examples
 
@@ -88,7 +88,7 @@ module M {
 
 module N {
 
-  expand M.T(constant 1) {
+  expand M.T(constant 1) module {
 
     constant c = a + b
 

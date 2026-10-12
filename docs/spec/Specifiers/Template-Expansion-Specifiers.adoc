@@ -14,7 +14,7 @@ _[_
 `(` _template-arg-list_ `)`
 _]_
 _[_
-`{` _module-member-sequence_ `}`
+`module` `{` _module-member-sequence_ `}`
 _]_
 
 _template-arg-list_ is an
