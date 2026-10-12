@@ -200,10 +200,10 @@ To update the trace files, see
 https://github.com/nasa/fpp/tree/main/compiler#building-native-binaries[here].
 
 . You need to do a clean rebuild by running `./clean` and then `./install`
-and then regenerate the test output for `fpp-to-json`.
-Occasionally the `fpp-to-json` output is not correctly updated by an
+and then regenerate the test output for the affected tool.
+Occasionally tool output is not correctly updated by an
 incremental build.
-In this case, the `fpp-to-json` tests may pass on your local machine but
+In this case, the tests may pass on your local machine but
 fail in CI.
 
 [[update-wiki]]
@@ -320,13 +320,6 @@ Update these tests if you are adding new kinds of definitions.
 reports the locations of definitions used in the model.
 Update these tests if you are adding new kinds of uses.
 
-* `fpp-to-json`: These tests validate the tool that generates
-a JSON version of the FPP model.
-When you modify the FPP semantics implementation, you may
-need to regenerate the test output for `fpp-to-json`.
-If you add semantics elements, you may need to extend the tests
-to cover them.
-
 The procedure for updating tests is like what we described
 for <<syntax-tests,updating syntax tests>>.
 When a test suite has multiple subdirectories with `./run`
@@ -367,11 +360,6 @@ The following are the main code generators used by the FPP implementation:
 |Writing FPP dictionaries as JSON files
 |https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/codegen/DictionaryJsonWriter[`compiler/lib/src/main/scala/codegen/DictionaryJsonWriter`]
 |`fpp-to-dict`
-
-|`JsonEncoder`
-|Writing Scala data structures as JSON objects
-|https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/codegen/JsonEncoder[`compiler/lib/src/main/scala/codegen/JsonEncoder`]
-|`fpp-to-json`
 
 |`LayoutWriter`
 |Writing layout input files from FPP topologies
