@@ -1,0 +1,857 @@
+This page provides a primer on how to program in 
+a pure functional style, for programmers who may be more used to an impure 
+and/or non-functional style.
+"Pure functional" is defined immediately below.
+We focus on Scala, because that is the implementation language for FPP.
+
+*Pure functional programming:* In this wiki page, we will say that code is 
+*pure* if it has no side effects.
+For example:
+
+* There are no side effects on memory.
+No variable or object is updated after it is created and initialized.
+
+* There are no side effects on the system.
+For example, there is no file input or output.
+
+* No exceptions are thrown or caught.
+
+If code does have side effects, then we say it is *impure*.
+We say that code is *functional* if it treats functions as values
+and supports associated techniques such as lambda expressions, currying, and 
+partial application (these concepts are explained below).
+If code is both pure and functional, then we say it is *pure functional*.
+
+*The FPP compiler:* The FPP compiler is written in Scala.
+We use functional programming throughout.
+In most places we use a pure functional style.
+We do use some impure code:
+
+* We use file read and write operations.
+
+* We represent internal errors (similar to assertion failures in F Prime)
+as exceptions; the result of such an error is always to immediately abort.
+
+* There is some impurity required by the Scala parser combinator library.
+
+* We use mutable global state to assign identifiers to AST nodes and
+to track the locations of AST nodes.
+
+Otherwise, the code is pure.
+In particular, we use pure code for
+accessing memory (we don't modify objects after we create them) and for 
+handling errors (we don't throw exceptions).
+Pure functional code provides known benefits over impure code: for example,
+there are no hidden memory updates or stray uncaught exceptions.
+Pure functional programming is particularly well suited to domains such
+as parsers, analyzers, and translators, and that is why we use it here.
+My belief is that for these applications, a pure style leads
+to cleaner and more robust code than an impure style.
+
+*Note on terminology:* Sometimes the terms "pure" and "functional" are used 
+interchangeably:
+for example, sometimes people say that code is "functional" if
+it avoids globally visible side effects.
+That is not how we use "functional" here.
+In the sense given here, the essence of functional programming
+is _programming with functions as values_, not purity or impurity.
+In particular:
+
+* It is possible to program in an impure functional style.
+For example, one can program in ML or Scala using higher-order
+functions (functions that take other functions as arguments) that pass around 
+references to mutable state, do file I/O, and throw and catch exceptions.
+
+* It is possible to write pure code
+"in the large" using only features of a procedural language like C.
+For example, one can construct an interface consisting of C functions
+that are pure in the sense that their effects are confined to effects on local 
+variables.
+However, without functional programming, it is not feasible to
+write pure code "in the small."
+For example, unless one can pass a function
+into a higher-order function like `fold` or `map` (discussed below),
+one quickly needs to write a loop, and loops are inherently impure.
+
+Note that it is _possible_ to construct a pure function interface in
+C. This is not to say that it is easy or practical in many cases.
+Languages like ML and Scala provide libraries of *immutable data structures*,
+e.g., a type `Set` in which adding an element _e_ to a set _s_ does not update 
+_s_ but
+creates a new set _s'_ consisting of _e_ added to _s_.
+C programmers in general don't have access to anything like this.
+So in practice, pure programming in C has to operate on simple values
+(scalar values and small immutable structure values).
+
+== Instead of Loops, Use Map, Fold, or Tail Recursion
+
+Loops communicate information from one iteration to the next by updating
+variables.
+Therefore, in pure functional code we don't write loops.
+Instead, we use `map`, `fold`, or tail recursion.
+
+=== Map
+
+The `map` operation lets you convert one data structure to another one
+element by element.
+For example, suppose you have an array `integers` of integers and you want to
+add one to each element.
+Here is an impure version that updates the array in place:
+
+[source,scala]
+----
+for (i <- 0 until integers.length) integers(i) += 1
+----
+
+Here is a pure version that creates a new array from the old one:
+
+[source.scala]
+----
+integers.map(_ + 1)
+----
+
+The code `_ + 1` is a *lambda expression*. It translates into English as "for 
+each integer argument `i`, compute and return `i + 1`."
+We could also write this example more verbosely as follows:
+
+[source.scala]
+----
+integers.map(i => i + 1)
+----
+
+Or even:
+[source.scala]
+----
+integers.map((i: Int) => i + 1)
+----
+
+Sometimes we have to use the third variant (or something like it)
+because Scala needs help figuring out the parameter types.
+Scala is very powerful, but it has a few deficiencies as a functional
+programming language. In particular it is not as good at inferring the types
+of lambda expressions as languages such as ML or Haskell that are more 
+optimized for pure functional programming.
+
+
+=== Fold
+
+The `fold` operation lets you range over the elements of a collection and 
+accumulate a result.
+For example, suppose you want to sum the elements of a collection of integers.
+An impure version might look like this:
+
+[source,scala]
+----
+var result = 0 // var says that result is mutable
+for (i <- integers) result += i
+----
+
+Here is a pure version that uses `fold`:
+
+[source,scala]
+----
+integers.fold(0)(_ + _)
+----
+
+In English, this expression translates as "Start with zero as the initial 
+result.
+For each element _i_ of `integers`, generate a new result by adding _i_ to the 
+previous result."
+
+There are actually three versions of `fold` in Scala: `fold`, `foldLeft`,
+and `foldRight`.
+If the accumulation has arguments and values of the same type (as `+`
+does in the example above), then it's usually best to use `fold`.
+Otherwise you have to use `foldLeft` or `foldRight` in order to specify
+the left- or right-associativity of the `fold` operation.
+
+As an example, this fold
+
+[source,scala]
+----
+List(1, 2, 3).foldLeft(0)(_ + _)
+----
+
+expands into this left-associative sum:
+
+[source,scala]
+----
+((0 + 1) + 2) + 3
+----
+
+whereas this fold
+
+[source,scala]
+----
+List(1, 2, 3).foldRight(0)(_ + _)
+----
+
+expands into this right-associative sum:
+
+[source,scala]
+----
+1 + (2 + (3 + 0))
+----
+
+Because the operation `+` is associative and commutative, `fold`, `foldLeft`, and
+`foldRight` all produce the same result this case (6).
+
+For operations that are not associative and commutative, the two folds
+produce different behaviors.
+For example, try the following:
+
+. On the command line, run the command `scala` to enter the Scala 
+read-eval-print loop (REPL).
+. At the REPL prompt, do the following:
+.. Enter `val list = List(1.0, 2.0, 3.0)`
+.. Enter `list.fold(10.0)(_ / _)`
+.. Enter `list.foldLeft(10.0)(_ / _)`
+.. Enter `list.foldRight(10.0)(_ / _)`
+
++
+The `/` symbol denotes floating-point division. What output do you see in each 
+case? Can you figure out why?
+
+. Try these examples too, and make sure you understand them:
+.. `pass:[list.foldLeft("")((s, i) => s ++ i.toString)]`
+.. `pass:[list.foldRight("")((i, s) => i.toString ++ s)]`
+
++
+The operation `++` in this case means string concatenation.
+
+=== Tail Recursion
+
+The `map` and `fold` operations can be implemented using explicit recursion.
+(It is a good exercise to write the implementations.)
+Where we can use `map` and `fold`, we prefer them to explicit recursion
+because they are simpler. However, sometimes we need explicit recursion.
+For example, suppose we want to compute the factorial of a natural number.
+Here we have nothing to fold or map over; we just have a number. So the
+most natural thing to do is to write an explicit recursion, like this:
+
+[source,scala]
+----
+def fact(n: Int): Int = if (n < 2) 1 else n * fact(n - 1)
+----
+
+This implementation is not ideal, however, because it is not *tail recursive*.
+A function is tail recursive if, on return from each recursive call
+in the function body, the function itself immediately returns.
+That is not true here: in the `else` branch of the `if` expression,
+after calling `fact(n - 1)`, the function multiplies the result by `n` 
+before
+returning. Therefore this code requires one stack frame for each recursive 
+call,
+and for large input values, it can cause stack overflow.
+
+When using explicit recursion, you should try to use tail recursion.
+The Scala compiler can optimize tail recursive functions so that
+they use the stack efficiently.
+In this case we can make the function tail recursive by accumulating
+the result in a variable that we pass to the function call, as follows:
+
+[source,scala]
+----
+def fact(n: Int) = {
+  def helper(n: Int, result: Int): Int =
+    if (n < 2) result else helper(n - 1, n * result)
+  helper(n, 1)
+}
+----
+
+Introducing an accumulation variable like this is often a good
+way to turn a non-tail-recursive function into a tail recursive one.
+
+*Exercise:* Implement `map` and `fold` using tail recursion.
+
+*Exercise:* Suppose instead of a number _n_, you are given a list
+_L_ containing the first _n_ numbers 1... _n_.
+Write a fold operation on _L_ that computes _n_ !.
+
+== Use Case Classes for Pattern Matching
+
+=== Case Classes
+
+Scala provides a powerful feature for pure functional programming called a 
+*case class*.
+Using case classes, you can specify a single data type
+that can have different forms or *cases*.
+(In other languages that support pure functional programming, case classes are 
+called *algebraic data types* or *sum types*,
+and the case classes are called *variants* of the type.)
+Case classes are similar to union types in C, but they are much more
+powerful.
+
+As an example, suppose you want to specify a type `Result` that
+can either carry the result of some computation or report an error.
+In Scala you can do this as follows:
+
+[source,scala]
+----
+sealed trait Result[T]
+case class Value[T](value: T) extends Result
+case class Error(message: String) extends Result
+----
+
+A *trait* is similar to an interface in Java; it provides an abstract
+supertype for both case classes.
+The qualifier `sealed` says that all types that extend `Result`
+are defined in the same file; in particular, no downstream user
+may add subtypes of `Result`. This constraint ensures that we
+know all the cases we need to check; in particular, the compiler
+can warn if we have missed any.
+The definition of `Result` is generic in a *type parameter* `T`; the parameter 
+says that we
+can have different result types that hold values of different types.
+
+The case class definitions provide constructors. For example,
+the expression `Value(0)` creates a new object of type `Value[Int]`
+whose `value` field is set to `0`. Similarly, `Error("syntax error at line 4")`
+creates a new object of type `Error`. Note that for case classes
+you don't need to say `new` to create a new object.
+
+=== match expressions and Pattern Matching
+
+Once you have defined a set of case classes that extend a common trait, you can 
+write a `match` expression to handle the cases.
+A `match` expression is like a `case` statement in C, but again it is
+much more powerful.
+In particular, you can use *pattern matching* to match both the type and the 
+structure of each case.
+By contrast, in a C case statement you can match only integer values.
+
+For example, suppose we have a variable `result` that holds
+a value of type `Result`. We know that `result` can hold a `Value`
+or an `Error`, but as yet we don't know which one.
+We can provide code to handle each case with a `match` expression
+as follows:
+
+[source,scala]
+----
+result match {
+  case Value(value) => // Do something with value
+  case Error(message) => // Do something with message
+}
+----
+
+Notice that pattern matching matches not just the type of a pattern, but
+also its structure. For example, if an expression `Value(value)`
+matches an object of type `Value`, then the variable `value` becomes
+bound to the `value` field of the object. This is true even
+if we use a different name for the variable:
+
+[source,scala]
+----
+result match {
+  case Value(v) => // v is bound to the value field of the Value object
+  case Error(msg) => // msg is bound to the message field of the Error object
+}
+----
+
+If we want to bind the object itself to a variable, we can do that with 
+a type ascription, as follows:
+
+[source,scala]
+----
+result match {
+  case value : Value => // field value.value is available here
+  case error : Error => // field error.message is available here
+}
+----
+
+=== Case Classes are Values
+
+In pure functional Scala, we don't use plain classes; we always use case classes.
+One reason is to use pattern matching, as described above.
+Another reason is that case class objects are treated as *values*.
+For example, when comparing two objects of case class type,
+the objects are treated as equal if their members are equal (value equality).
+By contrast, for a standard Scala class, the default behavior is
+that two objects are equal if they refer to the same memory (reference equality)
+and otherwise unequal, even if they have the same types and contain the same values.
+In a pure style, we want value equality, not reference equality.
+
+=== Case Objects
+
+In a pure functional style, we don't write case classes without members;
+instead we use *case objects*. For example, instead of `case class A() extends B`
+we write `case object A extends B`. A case object is a singleton instance of a
+case class.
+We can use case objects because objects carry no mutable data, so a single
+object instance can stand in for all uses of that type.
+
+=== Interaction Between Traits and Case Classes
+
+One neat aspect of Scala is the way that it blends Java-style interfaces 
+(traits)
+with ML-style algebraic data types (case classes). For example, in Scala
+you can write this:
+
+[source,scala]
+----
+sealed trait A { def identity: String }
+case class B(val b: Int) extends A { def identity = "B" }
+case class C(val c: String) extends A { def identity = "C" }
+----
+
+Trait `A` specifies an abstract `identity` method that case objects `B` and
+`C` implement by returning `"B"` and `"C"`. Now we have two ways to obtain
+the identity of an `A` object. There is the Java-like way, using dynamic
+dispatch:
+
+[source,scala]
+----
+def printIdentityJava(a: A): Unit = System.out.println(a.identity)
+----
+
+And there is the ML-like way, using pattern matching:
+
+[source,scala]
+----
+def printIdentityML(a: A): Unit = {
+  val identity = a match {
+    case _: B => "B"
+    case _: C => "C"
+  }
+  System.out.println(identity)
+}
+----
+
+Having both options provides a great deal of flexibility.
+
+Further, `B` and `C` are separate types in addition to being
+related as case classes. So you can write code like this,
+which is sometimes handy:
+
+[source,scala]
+----
+def handleB(b: B) ...
+def handleC(c: C) ...
+def handleA(a: A) = a match {
+  case b: B => handleB(b)
+  case c: C => handleC(c)
+}
+----
+
+In ML you can't write that, because `B` and `C` are variants
+of a type, but not themselves types.
+Java lets you write something like the second example using
+`instanceof`, but it does not support
+pattern matching on structure, only on the type.
+
+== Instead of Updating Arguments or Receivers, Return Values
+
+In an impure style, we often write functions or methods
+that update objects passed in by reference, either explicitly
+through an argument or implicitly as the receiver through `this`.
+For example, in a style influenced by C++ or Java, we
+might write part of a queue interface as follows:
+
+[source,scala]
+----
+class Queue[T] {
+
+  def enqueue(value: T): Status = ...
+
+  ...
+
+}
+----
+
+The intent is that evaluating an expression like `queue.enqueue(0)` does one of two things:
+
+. Update `queue` by enqueuing the value 0 and return status `OK`; or
+. Return an error status (for example, if the queue is full).
+
+In a pure functional style, we don't update the queue in place; instead, we 
+construct
+and return a new queue. Fortunately, the Scala type system makes it easy to write
+interfaces this way.
+For example, we can use the built-in `Either` type that provides cases `Left` 
+and `Right`.
+We can use `Left` to handle the error case and `Right` to handle the success 
+case.
+(Notice that `Either` is similar to the custom `Result` type that we defined 
+above
+in the section on case classes. Using the built-in `Either` type for errors has
+some advantages that we discuss below.)
+
+With this approach, the interface might look like this:
+
+[source,scala]
+----
+case class Queue[T] {
+
+  type Result = Either[Error,Queue[T]]
+
+  def enqueue(value: T): Result
+
+  ...
+
+}
+----
+
+If the enqueue operation succeeds, then it returns a `Right` value that wraps a new
+`Queue` value, the result of the operation.
+Otherwise it returns a `Left` value that wraps a suitably defined error value.
+
+== Instead of null, use Option
+
+Like Java, Scala has a concept of a null reference.
+However, in pure functional Scala we avoid using it.
+
+A null reference is like a bomb waiting to go off.
+It can lurk in a running program, being passed around until
+it reaches a point where a non-null value is expected, and then -- boom! --
+a null pointer exception occurs.
+There are at least two reasons why this is not good programming practice:
+
+. The diagnostic message is poor.
+"Null pointer exception occurred" does not provide enough information
+about the problem.
+Usually more useful information is available, such as "we looked in a map
+and the key was not there."
+
+. The exception may occur at a point far removed from the actual problem.
+For example, a map lookup may return null, and the null value may
+be silently passed to a different part of the program that expects
+it to be non-null, where the explosion occurs. A better approach is to check 
+that the lookup produced an actual value.
+
+In pure functional Scala, whenever a variable needs to hold a value that may
+not exist yet, or a function needs to return a value and there may be
+no value to return, you should use the type `Option[T]`. `Option[T]` is a pair of case
+classes `Some` representing a value of type `T` and `None` representing no value.
+`None` is similar to `null`, but the assumptions are reversed:
+
+. Any variable of object type may hold
+a `null` value. By contrast, no variable may hold an `Option` type unless
+it is declared to be an `Option`.
+
+. When using a value of object type, no explicit check for `null` is required;
+an illegal use causes a generic null pointer exception.
+By contrast, when using an `Option` value, you must use pattern matching to
+handle the `Some` and `None` cases. You can still convert the `None` case to
+an exception if you wish, but you have to do it purposefully, and you
+can provide a meaningful error message.
+
+Using `Option` instead of `null` makes it much easier both to head off
+problems and to diagnose them when they occur.
+
+== Instead of Exceptions, Use for...yield
+
+As mentioned above, in a pure functional style we avoid throwing exceptions.
+Here is an example.
+
+Suppose we have three operations A, B, and C, defined like this:
+
+[source,scala]
+----
+def opA(x: Int): String
+def opB(x: String): Float
+def opC(x: Float): Int
+----
+
+Suppose also the following:
+
+. Each operation can throw an exception.
+
+. We want to chain the functions
+together in such a way that if everything works, we produce a value
+at the end, but if any exception is thrown we halt and report the exception.
+
+This is a common pattern. For example, in the FPP compiler we often run
+several analyses on a program, any of which can return an error.
+
+Here is how the code might look:
+
+[source,scala]
+----
+def compute(x: Int): Unit = 
+  try {
+    val a = opA(x)
+    val b = opB(a)
+    val c = opC(b)
+    System.out.println(s"The answer is $c")
+  }
+  catch {
+    case _: Exception1 => System.err.println("Exception 1 occurred")
+    case _: Exception2 => System.err.println("Exception 2 occurred")
+    case _: Exception3 => System.err.println("Exception 3 occurred")
+  }
+}
+----
+
+Now consider how to write the code in a pure functional style.
+First, we revise the operations A, B, and C so that instead
+of returning a data type `T` they return an `Either` value
+(described above) that can be either a `Right[T]` or a `Left[Error]`.
+
+[source,scala]
+----
+type Result[T] = Either[Error,T]
+ 
+def opA(x: Int): Result[String]
+def opB(x: String): Result[Float]
+def opC(x: Float): Result[Int]
+----
+
+Next we use Scala's `pass:[for...yield]` expression to write the computation:
+
+[source,scala]
+----
+def compute(x: Int): Unit =
+  val result = for {
+    a <- opA(x)
+    b <- opB(a)
+    c <- opC(b)
+  } yield c
+  result match {
+    case Right(c) => System.out.println(s"The answer is $c")
+    case Left(_: Error1) => System.err.println("Error 1 occurred")
+    case Left(_: Error2) => System.err.println("Error 2 occurred")
+    case Left(_: Error3) => System.err.println("Error 3 occurred")
+  }
+}
+----
+
+The `pass:[for...yield]` expression consists of a sequence of bindings _x_ 
+`<-` _e_ followed by a `yield` expression _E_.
+The bindings are evaluated in sequence.
+At each binding, the following occurs:
+
+. Evaluate _e_ to a value of type `Either[Error,T]`.
+. If the result is `Right(t)`, then bind `t` to `x` and continue.
+. Otherwise stop and yield the result as the result of the entire `pass:[for...yield]` expression.
+
+If we make it through all the bindings then we do the following:
+
+. Evaluate _E_ to a value _v_.
+. Yield `Right(` _v_ `)` as the value of the entire `pass:[for...yield]` expression.
+
+The advantage of the `pass:[for...yield]` approach is that it is very clear where
+errors can occur and must be handled.
+In the version with exceptions, there was nothing in the type of `opA`, `opB`,
+and `opC` to indicate that they could throw exceptions.
+If the `compute` function does not handle all the exceptions, then an
+exception can leak out beyond the `compute` function, perhaps in a surprising
+way.
+In the `pass:[for...yield]` version, we know the following:
+
+. The type system says explicitly that `opA`, `opB`, and `opC` return a `Result`
+type, which means that they may return values or errors.
+. The type system forces us to handle the errors in a `pass:[for...yield]` or `match`
+context. If we try to apply `opA`, `opB`, or `opC` and use the result
+directly as a value, we will get a type error.
+. Assuming that `Error` is a sealed trait, the compiler will warn us if
+we missed any patterns in the error handling.
+
+Overall, programming with `pass:[for...yield]` is similar to programming with exceptions,
+but more structured.
+
+The `pass:[for...yield]` construct is not limited to use with the `Either` type.
+In fact, it is quite general:
+
+* You can use it with the `Option` type in a way similar to the example above.
+In this case `Some` behaves like `Right` and `None` behaves like left.
+
+* You can use it with container types, such as lists, where it functions more
+like an iterator over the container.
+
+More generally, you can use `pass:[for...yield]` with any type _T_ that 
+provides
+operations `map` and `flatMap`. These operations make _T_ into what is called a 
+*monad*
+in functional programming.
+Monads are a general and powerful way of structuring functional programs, one
+use of which is to perform error checking.
+If you wish, you can consult books on Scala programming and functional programming to find out more.
+This is a deep and interesting topic.
+However, you don't have to know much about monads to develop the FPP compiler.
+
+== Use Functional Programming Techniques
+
+Here are some useful functional programming techniques.
+
+=== Currying and Partial Application
+
+*Currying* means writing a function with two arguments as a function with
+one argument that returns another function with one argument.
+For example, consider the two-argument function `add` that adds two integers:
+
+[source,scala]
+----
+def add(a: Int, b: Int): Int = a + b
+----
+
+To apply the `add` function, you list the arguments in parentheses after
+the function name in the usual way. For example, `add(1, 2)` evaluates to `3`.
+
+The curried form of `add` is a function that takes `a` and returns
+a function that adds `b` to it:
+
+[source,scala]
+----
+def addCurry(a: Int): Int => Int = b => a + b
+----
+
+The advantage of currying is that you can use *partial application*.
+For example, the expression `addCurry(1)` evaluates to the function `pass:[(b: 
+Int) => 1 + b]`.
+By applying `addCurry` to the argument 1, we get a function that adds 1 to its 
+argument.
+Since functions are values in scala, we can store that function
+in a variable called `increment`:
+
+[source,scala]
+----
+val increment = addCurry(1)
+----
+
+For example, `increment(2)` evaluates to 3.
+
+Scala provides a shorthand for curried functions.
+In this format, you write each curried argument separately in parentheses,
+and you write the return type that results from applying all the arguments.
+For example:
+
+[source,scala]
+----
+def addCurryShorthand (a: Int) (b: Int): Int = a + b
+----
+
+Apart from the name, `addCurryShorthand` is basically equivalent to `addCurry`.
+There is one catch, though: when partially applying the shorthand form,
+you sometimes have to write an underscore `_` at the end, or Scala
+will complain. For example, you sometimes have to write `addCurryShorthand (1) _`
+instead of `addCurryShorthand (1)`.
+This is a bit of awkwardness that may go away in a future version of Scala.
+
+Partial application is often useful for specializing functions.
+For example, if you define a function _f_ that operates on a
+data structure type _D_, you can make _D_ a curried first argument.
+Then _f_ `(` _d_ `)` provides a function specialized to operations on
+_d_, where _d_ is an instance of _D_.
+
+On the other hand, if you don't have a curried function, and you need partial 
+application, you can use a lambda expression.
+For example, suppose we have defined `add` but not `addCurry` or 
+`addCurryShorthand`.
+To construct the function that adds 1 to its argument,
+we can write `pass:[(b: Int) => add(1, b)]` or `add(1, _)`.
+
+=== Lists and Pattern Matching
+
+In functional programming, lists are very useful for recursive
+pattern matching.
+As an example, here is an implementation of `map` that transforms
+a list into another list:
+
+[source,scala]
+----
+def map[A,B] (f: A => B) (list: List[A]): List[B] = {
+  def helper(in: List[A], out: List[B]): List[B] =
+    in match {
+      case Nil => out.reverse
+      case head :: tail => helper(tail, f(head) :: out)
+    }
+  helper(list, Nil)
+}
+----
+
+The pattern `Nil` matches the empty list.
+The pattern `head :: tail` matches a list consisting
+of one item `head` followed by a list `tail`.
+`tail` can be `Nil`, or it can be another list consisting
+of a head and a tail.
+
+As an example, you can try this in the REPL:
+
+[source,scala]
+----
+map((x: Int) => x + 1)(List(1, 2, 3))
+----
+
+Note the following:
+
+* We used the pattern discussed above of accumulating
+the output in a function argument.
+This lets us make the function tail recursive.
+
+* With lists, it's more efficient to add elements to the
+front than to the back.
+As a result, in the `helper` function, the output
+gets accumulated in the reverse order.
+So when returning the output at the end, we have
+to reverse the list.
+
+=== Infix Operators and Lifting
+
+In most languages, including Scala, a function is by default a *prefix 
+operator*: it appears before its arguments. For example, in the expression 
+`add(1, 2)`,
+`add` is a prefix operator.
+By contrast, an *infix operator* is an operator that appears between its 
+arguments.
+For example, in the expression `1 + 2`, `+` is an infix operator.
+
+Infix operators are useful because you can chain them from left to right.
+Left-to-right chaining is usually more natural to read than the tree-like
+chaining that results from prefix operators.
+For example, because `+` is left associative, you can write `1 + 2 + 3`,
+and it means `(1 + 2) + 3`. Either of these forms is more readable than `add(1, 
+add(2, 3))`.
+
+In Scala, the way you define an infix operator is to use a class or trait
+method.
+For example, suppose we want to define an infix operator `add`.
+We can define an `IntOps` class with an `add` method as follows:
+
+[source,scala]
+----
+case class IntOps(a: Int) {
+  def add(b: Int) = a + b
+}
+----
+
+Now we can write `IntOps(1).add(2)`.
+Scala also lets us write `IntOps(1) add 2`, so this looks like an infix
+operator in ML.
+There is still one catch, though: it's awkward to have to wrap the first
+argument explicitly in an `IntOps` object.
+To fix that, we can use a Scala technique called *lifting*.
+
+In Scala you can provide a function that converts or "lifts" a
+value from one type to another. For example, you can specify a lifting
+from `Int` to `IntOps`. Then you can write an expression such as `1.add(2)`
+that uses the integer 1 as if it were an instance of `IntOps`, and
+Scala will apply the lifting function automatically to do the conversion.
+
+Here is the formula for writing a lifting function:
+
+[source,scala]
+----
+import scala.language.implicitConversions
+
+implicit def lift(i: Int) = IntOps(i)
+----
+
+You need to include the import statement, or the Scala compiler will issue a warning.
+The `implicit def` construct tells Scala to treat `1.add(2)` or `1 add 2`
+as if it were `IntOps(1).add(2)` or `IntOps(1) add 2`.
+Now we can do real left-to-right chaining. For example, we can write
+`1.add(2).add(3)` or `1 add 2 add 3`.
+
+== Bibliography
+
+https://docs.scala-lang.org/tour/tour-of-scala.html
+
+https://en.wikipedia.org/wiki/Functional_programming
+
+pass:[R. Bocchino], _Monads, Categories, and Computation_.
+https://rob-bocchino.net/Professional/monads-categories.pdf
+
+pass:[P. Chiusano] and R. Bjarnason, _Functional Programming in Scala_. 1st ed. Manning Publications. 2014.
+
+pass:[M. Odersky], L. Spoon, and B. Venners, _Programming in Scala: A 
+Comprehensive Step-by-Step Guide_. 3rd ed. Artima Press. 2016.

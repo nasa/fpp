@@ -1,0 +1,306 @@
+This algorithm traverses a source model and enters symbols into their scopes.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis 
+data structure] _a_
+representing the results of analysis so far.
+
+== Output
+
+. An updated analysis data structure _a_ with symbols entered.
+
+== Procedure
+
+. *Translation unit lists:* Visit each translation unit _tu_ in _tul_ in order.
+
+. *Translation units:* Visit a translation unit _tu_ by visiting its members _tum_.
+
+. *Translation unit members:* Visit a translation unit member _tum_ as follows:
+
+.. *Module definitions:* If _tum_ is a module definition _d_ with name _n_, 
+then
+
+... Look up the symbol _sym_ with unqualified name _n_
+in the innermost 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested 
+scope] of _a_ in the value name group.
+
+... If _sym_ exists and is a module symbol, then let _s_  be the 
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[scope] 
+corresponding to _sym_ in the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[symbol-scope 
+map] of _a_.
+
+... Otherwise if _sym_ exists then report an error.
+
+... Otherwise
+
+.... Let _s_ be a fresh 
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[scope].
+
+.... Construct a module symbol _sym_.
+
+.... Add the mapping from _n_ to _sym_ in the innermost 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested 
+scope] of _a_ in every name group.
+
+.... Add _sym_ to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[parent symbol map]
+of _a_.
+
+... Add _n_ to the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[scope
+name list] of _a_.
+
+... Push _s_ onto the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested 
+scope] of _a_.
+
+... Visit each translation unit member of _d_, yielding a new analysis
+data structure _a_.
+
+.... Let _s'_ be the innermost nested scope of _a_.
+
+.... Add the mapping from _sym_ to _s'_ in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[symbol-scope 
+map] of _a_.
+
+... Pop _s'_ off the nested scope of _a_.
+
+... Remove _n_ from the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[scope
+name list] of _a_.
+
+.. *Constant definitions:* If _tum_ is a constant
+definition _d_ with name _n_, then
+
+... Construct the unique
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[symbol] 
+_s_ of the correct kind for _d_.
+
+... Add the mapping from _n_ to _s_ in the innermost 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested 
+scope] of _a_ in the value name group.
+
+... Add _s_ to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[parent symbol map]
+of _a_.
+
+.. *Type definitions:* If _tum_ is an abstract type, 
+array, or struct definition _d_ with name _n_, then
+
+... Construct the unique
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[symbol] 
+_s_ of the correct kind for _d_.
+
+... Add the mapping from _n_ to _s_ in the innermost 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested 
+scope] of _a_ in the type name group.
+
+... Add _s_ to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[parent symbol map]
+of _a_.
+
+.. *Enum definitions:* If _tum_ is an enum definition _d_
+with name _n_, then
+
+... Construct the unique
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[enum 
+definition symbol] _sym_ for _d_.
+
+... Add the mapping from _n_ to _sym_ in the innermost 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested 
+scope] of _a_ in the type and the value name groups.
+
+... Add _sym_ to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[parent symbol map]
+of _a_.
+
+... Create a fresh scope _s_.
+
+... Push _s_ onto the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested 
+scope] of _a_.
+
+... Add _n_ to the scope name list of _a_.
+
+... Visit each enumerated constant definition of _d_,
+yielding a new analysis data structure _a_.
+
+... Remove _n_ from the scope name list of _a_.
+
+... Let _s'_ be the innermost nested scope of _a_.
+
+... Add the mapping from _sym_ to _s'_ in the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[symbol-scope 
+map] of _a_.
+
+... Pop _s'_ off the nested scope of _a_.
+
+.. *Port definitions:* If _tum_ is a port definition _d_ with name _n_, then
+
+... Construct the unique
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[symbol] 
+_s_ of the correct kind for _d_.
+
+... Add the mapping from _n_ to _s_ in the innermost 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested 
+scope] of _a_ in the port name group.
+
+... Add _s_ to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[parent symbol map]
+of _a_.
+
+.. *Interface definitions*: 
+If _tum_ is an interface definition _d_ with name _n_, then
+
+... Construct the unique
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[interface definition symbol] 
+_s_ of the correct kind for _d_.
+
+... Add the mapping from _n_ to _s_ in the innermost 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested 
+scope] of _a_ in the interface name group.
+
+... Add _s_ to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[parent symbol map]
+of _a_.
+
+.. *Component definitions:* If _tum_ is a component definition _d_
+with name _n_, then
+
+... Construct the unique
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[component
+definition symbol] _sym_ for _d_.
+
+... Add the mapping from _n_ to _sym_ in the innermost 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested 
+scope] of _a_ in the component, type, and value name groups.
+
+... Add _sym_ to the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[parent symbol map]
+of _a_.
+
+... Create a fresh scope _s_.
+
+... Push _s_ onto the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested 
+scope] of _a_.
+
+... Add _n_ to the scope name list of _a_.
+
+... Visit each component member of _d_,
+yielding a new analysis data structure _a_.
+
+... Remove _n_ from the scope name list of _a_.
+
+... Let _s'_ be the innermost nested scope of _a_.
+
+... Add the mapping from _sym_ to _s'_ in the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[symbol-scope 
+map] of _a_.
+
+... Pop _s'_ off the nested scope of _a_.
+
+.. *Component instance definitions*: 
+If _tum_ is a component instance definition _d_ with name _n_, then
+
+... Construct the unique
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[symbol] 
+_s_ of the correct kind for _d_.
+
+... Add the mapping from _n_ to _s_ in the innermost 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested 
+scope] of _a_ in the component instance name group.
+
+... Add _s_ to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[parent symbol map]
+of _a_.
+
+.. *State machine definitions:* If _tum_ is a state machine definition with name _n_, then
+
+... Construct the unique
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[symbol] 
+_s_ of the correct kind for _d_.
+
+... Add the mapping from _n_ to _s_ in the innermost 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested 
+scope] of _a_ in the state machine name group.
+
+... Add _s_ to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[parent symbol map]
+of _a_.
+
+.. *Topology definitions:*
+If _tum_ is a topology definition _d_ with name _n_, then
+
+... Construct the unique
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[symbol] 
+_s_ of the correct kind for _d_.
+
+... Add the mapping from _n_ to _s_ in the innermost 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested 
+scope] of _a_ in the topology name group.
+
+... Add _s_ to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[parent symbol map]
+of _a_.
+
+.. *System definitions:* If _tum_ is a system definition _d_ with name _n_, then
+
+... Construct the unique
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[symbol] 
+_s_ of the correct kind for _d_.
+
+... Add the mapping from _n_ to _s_ in the innermost
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested
+scope] of _a_ in the symbol name group.
+
+... Add _s_ to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[parent symbol map]
+of _a_.
+
+.. *Module template definitions:* If _tum_ is a module template
+definition _d_ with name _n_, then
+
+... Construct the unique
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[symbol]
+_s_ of the correct kind for _d_.
+
+... Add the mapping from _n_ to _s_ in the innermost
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested
+scope] of _a_ in the template name group.
+
+... Add _s_ to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[parent symbol map]
+of _a_.
+
+.. *Template expansion specifiers:* If _tum_ is a template expansion
+specifier, then do nothing.
+
+. *Enumerated constant definitions:* Visit an enumerated constant definition
+_d_ with name _n_ as follows:
+
+.. Construct the unique
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[enumerated 
+constant definition symbol] _s_ for _d_.
+
+.. Add the mapping from _n_ to _s_ in the innermost 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[nested 
+scope] of _a_ in the value name group.
+
+... Add _s_ to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[parent symbol map]
+of _a_.
+
+. *Component members:* Visit a component member _cm_
+as follows:
+
+.. If _cm_ corresponds to a translation unit member _tum_, then visit
+_cm_ in the same way as _tum_.
+
+.. Otherwise do nothing.

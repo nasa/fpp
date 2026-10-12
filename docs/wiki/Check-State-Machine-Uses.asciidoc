@@ -1,0 +1,134 @@
+This algorithm traverses a state machine definition and checks that each use
+of a state machine symbol refers to a definition.
+It also constructs the use-def map in the state machine analysis.
+
+== Input
+
+. A state machine definition _smd_.
+
+. A
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[state 
+machine analysis data structure]
+_sma_ representing the results of analysis so far.
+
+== Output
+
+. A state machine analysis data structure _sma_ with updated use-def map.
+
+== Procedure
+
+Visit each of the state machine members _smm_ of _smd_ as specified below.
+
+=== Visiting State Machine Members
+
+Visit a state machine member _smm_ as follows:
+
+. *Initial transition specifiers:*
+If _smm_ is an initial transition specifier, then visit its transition expression.
+
+. *Choice definitions:*
+If _smm_ is a choice definition, then
+
+.. Visit the identifier following the keyword `if` in the guard name group.
+
+.. Visit each of the two transition expressions.
+
+. *State definitions:* If _smm_ is a state definition _d_ 
+with name _n_, then
+
+.. Construct the unique 
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[state
+symbol] _sym_ corresponding to _d_.
+
+.. Look up the mapping from _sym_ to _s_ in the
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[symbol-scope 
+map] of _sma_.
+If no such mapping exists, then throw an internal error.
+
+.. Push _s_ onto the 
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[nested 
+scope] of _sma_.
+
+.. Visit each member of _d_.
+
+.. Pop _s_ off the 
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[nested 
+scope] of _sma_.
+
+. *Other members:*
+For other state machine members, do nothing.
+
+=== Visiting State Definition Members
+
+Visit a state definition member _sdm_ as follows:
+
+. *Initial transition specifiers, choice definitions, and state definitions:*
+If _sdm_ is an initial transition specifier, choice definition, or
+state definition, then visit it as specified for the corresponding
+state machine member.
+
+. *State transition specifiers:*
+If _smm_ is a state transition specifier, then do the following:
+
+.. Let _n_ be the identifier following the keyword `on`.
+Visit _n_ in the signal name group.
+
+.. If an `if` clause is present, then visit its identifier
+in the guard name group.
+
+.. Visit each of the identifiers in the action list of _smm_ in the
+action name group.
+
+.. If a transition expression is present, then visit it.
+
+=== Visiting Transition Expressions
+
+Visit a transition expression _e_ as follows:
+
+. Visit the each identifier in the action list of _e_
+in the action name group.
+
+. Let _q_ be the qualified identifier appearing after the keyword
+`enter` in _e_.
+Visit _q_ in the state name group.
+
+=== Visiting Identifiers
+
+Visit an identifier _n_ in name group _G_ as follows:
+
+. Look up the mapping from _n_ to _sym_ in the innermost 
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[nested 
+scope] of _sma_ in name group _G_.
+If no such mapping exists, then throw a semantic error.
+
+. Record the mapping from _n_ to _sym_ in the
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[use-def map]
+of _sma_.
+
+=== Visiting Qualified Identifiers
+
+Visit a qualified identifier _q_ in name group _G_ as follows:
+
+. *Unqualified names:* If _q_ is an unqualified name _n_, then visit
+the identifier _n_ in name group _G_.
+
+. *Qualified names:* Otherwise if _q_ is a qualified name _q'.n_, then
+
+.. Visit _q'_.
+
+.. Look up the mapping from _q'_ to _sym'_ in the 
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[use-def map]
+of _sma_.
+If no such mapping exists, then throw an internal error.
+
+.. Look up the mapping from _sym'_ to _s_ in the 
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[symbol-scope 
+map] of _sma_.
+If no such mapping exists, then throw a semantic error.
+
+.. Look up the mapping from _n_ to _sym_ in _s_.
+If no such mapping exists, then throw a semantic error.
+
+.. Record the mapping from _q_ to _sym_ in the
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[use-def map]
+of _sma_.

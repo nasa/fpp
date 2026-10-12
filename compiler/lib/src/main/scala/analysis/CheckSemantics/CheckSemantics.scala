@@ -8,8 +8,9 @@ import fpp.compiler.transform._
 object CheckSemantics {
 
   def tuList(a: Analysis, tul: List[Ast.TransUnit]):
-    Result.Result[Analysis] = {
+    Result.Result[(Analysis,List[Ast.TransUnit])] =
     for {
+      (a, tul) <- ExpandSyntaxAndEnterSymbols.tuList(a, tul)
       _ <- CheckTemplateDefs.visitList(a, tul, CheckTemplateDefs.transUnit)
       a <- ConstructImpliedUseMap.visitList(a, tul, ConstructImpliedUseMap.transUnit)
       a <- CheckUses.visitList(a, tul, CheckUses.transUnit)
@@ -36,8 +37,6 @@ object CheckSemantics {
       a <- CheckDictionaryDefs.visitList(a, tul, CheckDictionaryDefs.transUnit)
       a <- ConstructDictionaryMap.visitList(a, tul, ConstructDictionaryMap.transUnit)
       a <- CheckSystemDefs.visitList(a, tul, CheckSystemDefs.transUnit)
-    }
-    yield a
-  }
+    } yield (a, tul)
 
 }

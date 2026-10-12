@@ -1,0 +1,46 @@
+This tool parses an FPP model, performs semantic checking on it, and writes out 
+the model in JavaScript Object Notation (JSON) format.
+
+*Options:*
+
+. `-d` _dir_: Set the output directory to _dir_. If this option is not present, then the output directory is the current directory.
+. `-s`: Emit syntax only (location map and abstract syntax tree).
+. `-f`: Format the JSON output with whitespace
+
+*Input:*  
+
+. A list _fl_ of files to translate: either the single file _stdin_ or a list of 
+files specified on the command line.
+
+*Output:* 
+
+Fpp-to-json generates the following files:
+
+. A file `fpp-ast.json` containing a JSON representation of the 
+https://github.com/nasa/fpp/wiki/Analysis[abstract syntax tree (AST)].
+. A file `fpp-loc.json` containing a JSON representation of the 
+https://github.com/nasa/fpp/wiki/Analysis[location map].
+. If the flag `-s` is not present, then a file `fpp-analysis.json` containing a JSON representation of the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[Analysis Data Structure].
+
+*Procedure*:
+
+. Parse each of the files in _fl_, generating a list _tul_ of translation units.
+
+. If `-s` is present, then generate _tul'_ by resolving include
+specifiers in _tul_.
+Otherwise perform 
+  https://github.com/nasa/fpp/wiki/Checking-Semantics[semantic checking] on 
+_tul_, yielding a new list _tul'_ with all syntax expanded.
+
+. Generate the following JSON objects:
+
+.. Convert _tul'_ and the https://github.com/nasa/fpp/wiki/Analysis[location map]
+to JSON objects.
+
+.. Unless `-s` is present, convert the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[Analysis Data 
+Structure]
+to a JSON object.
+
+. Write the JSON objects to files.

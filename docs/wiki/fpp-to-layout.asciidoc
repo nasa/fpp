@@ -1,0 +1,51 @@
+This tool writes layout text files for connection graphs within F Prime topologies.
+
+*Options:*
+
+. `-d` _dir_: Set the output directory to _dir_.
+If this option is not present, then the output directory is
+the current directory.
+
+.  `-i` _files_: Import _files_.
+The definitions in these files are part of the FPP model, but they do not cause 
+any code to be generated.
+
+*Input:*
+
+. A list _fl_tr_ of files to translate: either the single file _stdin_ or a list of 
+files specified on the command line.
+
+. A list _fl_i_ of files to import, specified as arguments to the `-i` option.
+
+
+*Output:*
+
+. A set of `.txt` files, written to a topology layout directory (name format: 
+  <TopologyName>Layout) at the directory specified with the `-d` option (if 
+present).
+
+
+*Procedure:*
+
+. Parse each of the files in the concatenation of _fl_tr_ and _fl_i_, 
+  generating a list _tul_ of translation units.
+
+. Perform https://github.com/nasa/fpp/wiki/Checking-Semantics[semantic 
+  checking] on _tul_, generating a new list _tul'_.
+
+. Let _tul_tr'_ be the set of translation units in _tul'_ corresponding
+to _fl_tr_.
+
+. Check that no two definitions in _tul_tr'_ will generate a directory with the same name.
+If so, halt with an error message.
+
+. For each topology definition _T_ in _tul_tr'_:
+
+.. Check to see if a directory already exists for the topology. If a directory 
+   already exists, delete the directory and re-create it.
+
+.. Generate the layout text output (according to 
+   https://github.com/fprime-community/fprime-layout/wiki/Topology-Input[FPL 
+Input Format]) of each connection graph in the topology.
+
+.. Write layout text files to the topology directory.
