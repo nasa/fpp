@@ -11,3 +11,9 @@ system:
 
 Once you have these tools installed, you can run `redo` in this directory
 to regenerate the HTML files from the AsciiDoc source files.
+
+The `wiki` directory contains the sources for the
+https://github.com/nasa/fpp/wiki[FPP wiki].
+To update the wiki, edit these files and submit a pull request.
+When the changes are merged to `main`, a CI job copies them to the wiki.
+To preview the wiki pages locally, run `redo` in the `wiki` directory.

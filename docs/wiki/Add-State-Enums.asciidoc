@@ -1,0 +1,36 @@
+This algorithm traverses a source model and adds to each state machine
+definition that has a body an enum definition named `State`, called the
+*state enum*.
+The constants of the state enum represent the leaf states of the state
+machine.
+
+== Input
+
+. A list _tul_ of translation units.
+
+== Output
+
+. A list _tul'_ of translation units in which each state machine
+definition that has a body has a state enum as its first member,
+if the transformation succeeds; otherwise an error.
+
+== Procedure
+
+For each state machine definition _d_ that has a body:
+
+. Collect the leaf states of _d_.
+A leaf state is a state with no substates.
+Its name is the names of its enclosing states followed by its own name,
+joined with underscore characters.
+Throw an error if there are too many leaf states.
+
+. Construct the enumerated constants of the state enum: first
+`__FPRIME_UNINITIALIZED`, then the leaf state names in increasing order,
+carrying the annotations of their state definitions.
+No constant has an explicit value.
+
+. Construct the state enum with these constants and with representation
+type `U8` if there are fewer than 256 constants, `U16` if fewer than
+65536, and `U32` otherwise.
+
+. Add the state enum as the first member of _d_.

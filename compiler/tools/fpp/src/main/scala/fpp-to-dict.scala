@@ -34,15 +34,9 @@ object FPPToDict {
             dictionarySpecVersion=options.dictionarySpecVersion
         )
         for {
-            aTulTul <- ToolUtils.parseFilesAndResolveAsts(a, files, options.imports)
-            a <- Right(aTulTul._1)
-            tulFiles <- Right(aTulTul._2)
-            tulImports <- Right(aTulTul._3)
-            aTul <- ResolveTemplates.tuList(a, tulFiles ++ tulImports)
-            a <- Right(aTul._1)
-            tul <- Right(aTul._2)
-            a <- CheckSemantics.tuList(a, tul)
-            tulFiles <- Right(tul.take(tulFiles.length))
+            tul <- ToolUtils.parseFiles(files ++ options.imports)
+            (a, tul) <- CheckSemantics.tuList(a, tul)
+            tulFiles = tul.take(files.length)
             state <- {
                 val dir = options.dir match {
                     case Some(dir1) => dir1

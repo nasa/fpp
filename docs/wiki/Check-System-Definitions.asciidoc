@@ -1,0 +1,50 @@
+This algorithm traverses the source model and checks system definitions.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis 
+data structure] _a_
+representing the results of analysis so far.
+
+== Output
+
+The analysis _a_ if the check passes; otherwise an error.
+
+== Procedure
+
+Visit each translation unit in _tul_ with input _a_,
+yielding either _a_ or an error.
+
+=== AST Visitor Methods
+
+Each method accepts an analysis data structure _a_ as input
+and yields either _a_ or an error as output.
+
+==== Translation Units
+
+For each translation unit _tu_, visit each
+definition appearing in _tu_.
+
+==== System Definitions
+
+For each system definition _d_
+
+. If the system map is not empty, then raise an
+error (duplicate system definition).
+
+. Otherwise
+
+.. Look up the interface instance definition _t_ referred to by _d_ in the use-def map.
+
+.. Check that _t_ is a deployment topology definition.
+
+.. Look up the dictionary _D_ for _t_ in the dictionary map.
+
+.. Use _d_, _t_, and _D_ to construct a system _s_.
+
+.. Construct the symbol for _d_ and map it to _s_ in the system map of _a_
+
+.. Return _a_ as the result.

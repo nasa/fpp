@@ -1,0 +1,107 @@
+This algorithm traverses the source model and finalizes the definitions
+of types.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis 
+data structure] _a_
+representing the results of analysis so far.
+https://github.com/nasa/fpp/wiki/Evaluate-Constant-Expressions[Evaluate Constant Expressions]
+must have already been run.
+
+== Output
+
+. The analysis _a_ with an updated
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[type map].
+
+== Procedure
+
+. Visit each translation unit in _tul_ with input _a_,
+yielding either a new analysis _a'_ or an error.
+
+=== AST Visitor Methods
+
+Each method accepts an analysis data structure _a_ as input
+and yields either a new analysis data structure _a'_ or
+an error as output.
+
+==== Translation Units
+
+For each translation unit _tu_, visit each
+definition appearing in _tu_.
+
+==== Type Alias Definition
+
+For each type alias definition _d_ that has not yet been visited,
+visit the type referenced in the alias and replace the update
+the reference in the definition.
+
+==== Enum Definitions
+
+For each enum definition _d_ that has not yet been visited, use the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[value map] to
+compute the default value of _d_.
+Put the default value into the type.
+
+==== Array Definitions
+
+For each array definition _d_ that has not yet been visited:
+
+. Use the type map to look up the array type _A_ associated with _d_.
+
+. Visit the anonymous array type _A'_ in the array type _A_ to update the members of _A'_.
+
+. Use the value map to fill in the size in _A'_.
+
+. Check that the size is greater than or equal to zero and less than or equal to
+the maximum allowed value.
+
+. If there is a default expression _e_
+
+.. Ensure that its type matches the updated array type _A_.
+
+.. Compute the value _v_ of _e_ at type _A_ and let _v_ be the default value.
+
+. Otherwise use the default value for _A'_ to construct the default value.
+
+. Update the default value in the array type _A_.
+
+. Update the format specifier in the array type _A_ and check
+the specifier for errors.
+
+==== Struct Definitions
+
+For each struct definition _d_ that has not yet been visited:
+
+. Use the type map to look up the struct type _S_ associated with _d_.
+
+. Visit the anonymous struct type _S'_ in _S_ to update the members of _S'_.
+
+. If there is a default expression _e_
+
+.. Ensure that its type matches the updated struct type _S_.
+
+.. Compute the value _v_ of _e_ at type _S_ and let _v_ be the default value.
+
+. Otherwise use the default value for _S'_ to construct the default value.
+
+. Update the default value in the struct type _S_.
+
+. Update the format specifiers in the struct type _S_ and check
+the specifiers for errors.
+
+==== Types
+
+For each type _t_:
+
+. If _t_ is a string type, then check that the size is greater than or equal to zero.
+
+. If _t_ refers to a struct, array, type alias, or enum definition _d_, then
+
+.. Visit _d_
+
+.. Use the updated type of _d_ to update the array sizes, default values, and
+format specifiers appearing in _t_.  

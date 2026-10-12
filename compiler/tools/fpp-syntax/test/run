@@ -141,7 +141,7 @@ syntax_stdin()
 
 template()
 {
-  run_test -ita template
+  run_test -iea template
 }
 
 topology_ports()

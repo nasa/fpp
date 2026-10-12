@@ -1,0 +1,56 @@
+This algorithm constructs a flattened transition to a state or choice.
+
+== Input
+
+. The current
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[state 
+machine analysis data structure] _sma_.
+
+. A
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[state 
+or choice]
+_soc_~1~ representing the source of the transition in the hierarchical state 
+machine.
+
+. A
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[transition] _t_.
+
+== Output
+
+. A
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[transition]
+that records all actions specified in the source model together with all
+entry and exit actions implied by the state machine hierarchy.
+
+== Procedure
+
+. If _t_ is an internal transition, then return _t_.
+
+. Otherwise
+
+.. Let _A_ be the actions of _t_, and let _soc_~2~ be the target of _t_.
+
+.. If _soc_~1~ is a state definition _sd_ or is a choice defined in a state
+definition _sd_, then let _L_~2~ be the list of state
+definitions in the state hierarchy in _sma_ from the top level to
+_sd_, including _sd_, highest first.
+Otherwise let _L_~1~ be the empty list.
+
+.. If _soc_~2~ is defined in a state definition _sd_, then let
+_L_~2~ be the list of state
+definitions in the state hierarchy in _sma_ from the top level to
+_sd_, including _sd_, highest first.
+Otherwise let _L_~2~ be the empty list.
+
+.. For each _i_ in _[1,2]_, let _L'~i~_ be _L~i~_ with the longest common
+prefix of _L_~1~ and _L_~2~ deleted.
+
+.. Let _L''_~1~ be the reverse of _L'_~1~.
+Let _A_~1~ be the concatenation of the exit action lists of the elements of _L''_~1~.
+
+.. Let _A_~2~ be the concatenation of the entry action lists of the elements of 
+_L'_~2~.
+
+.. Return the external transition whose actions are the concatenation
+of _A_~1~, _A_, and _A_~2~, and whose target is _soc_~2~.
+

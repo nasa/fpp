@@ -1,0 +1,109 @@
+This algorithm traverses the source model and checks component definitions.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis 
+data structure] _a_
+representing the results of analysis so far.
+
+== Output
+
+An updated analysis _a'_ with the component map filled in if the check 
+passes; otherwise an error.
+
+== Procedure
+
+Visit each translation unit in _tul_ with input _a_,
+yielding either _a'_ or an error.
+
+=== AST Visitor Methods
+
+Each method accepts an analysis data structure _a_ as input
+and yields either an updated analysis data structure _a'_ or an error as 
+output.
+
+==== Translation Units
+
+For each translation unit _tu_, visit each component
+definition appearing in _tu_.
+
+==== Component Definitions
+
+For each component definition _d_
+
+. Create a new component _c_.
+
+. Visit each member _m_ of _d_ with input _a_.
+
+.. If _m_ is a port instance specifier, then
+
+... Check that the specifier follows the rules.
+For example, `async` specifiers may not use ports with `ref` parameters;
+specifiers that are not `async` may not specify queue behavior.
+
+... Create a new port instance _pi_
+
+... Add _pi_ to the port instance map of _c_.
+If the name is already in the map, then throw an error.
+
+... If _m_ is a special port instance specifier, then
+
+.... Add _pi_ to the special port instance map of _c_.
+
+.... If the kind is already in the map, then throw an error.
+
+.. If _m_ is an interface import specifier, then
+
+... Look up the interface definition _i_ associated with _m_.
+If the interface does not exist, throw an error. Visit each port
+instance member _p_ of _i_.
+
+.... Apply the same rules to _p_ as are applied to component definition
+port instance specifiers.
+
+.. If _m_ is an internal port specifier, then create a new internal port 
+instance _pi_ and _pi_ to the port instance map of _c_.
+If the name is already in the map, then throw an error.
+
+.. If _m_ is a command specifier, then create a new command _cmd_ and
+add _cmd_ to the commands of _c_.
+Check for duplicate opcodes.
+
+.. If _m_ is a parameter specifier, then
+
+... Create a new parameter _p_ and add _p_ to the parameters of _c_.
+Check for duplicate identifiers.
+
+... Create the implied get and set commands for _p_.
+Add the commands to the commands of _c_.
+Check for duplicate opcodes.
+
+.. If _m_ is a telemetry channel specifier, then create a new telemetry
+channel _ch_ and add _ch_ to the telemetry channels of _c_.
+Check for duplicate identifiers.
+
+.. If _m_ is an event specifier, then create a new event _e_ and add
+_e_ to the events of _c_.
+Check for duplicate identifiers.
+
+. Check that there are no duplicate names in any of the dictionaries.
+
+. If the component is passive, check that there is no `async` `input` port 
+specifier, internal port specifier, or `async` command specifier.
+
+. If the component is active or queued, check that there is at least one
+`async` `input` port specifier, internal port specifier, or `async` command 
+specifier.
+
+. Check that the component has the ports required by the dictionary specifiers.
+For example, if there are any commands, then there must be a
+`command recv` port.
+
+. Construct the unique component symbol _s_ for _d_.
+
+. Map _s_ to _c_ in the component map of _a_.
+
+. Return _a_ as the result.
