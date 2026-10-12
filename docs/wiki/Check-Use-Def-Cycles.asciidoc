@@ -36,7 +36,7 @@ definition appearing in _tu_.
 
 .. Let _s_ be the unique symbol representing _d_.
 A
-https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[bound
+https://github.com/nasa/fpp/wiki/Enter-Template-Expansion-Symbols#bound-parameter-symbols[bound
 parameter symbol] counts as such a definition.
 The uses appearing in it are the uses appearing in its argument: the
 expression of a constant argument, the type name of a type argument, or

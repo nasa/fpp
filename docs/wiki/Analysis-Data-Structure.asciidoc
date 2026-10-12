@@ -126,7 +126,7 @@ template expansion specifier to the corresponding
 https://github.com/nasa/fpp/wiki/Analysis#data-structures[template
 expansion].
 Filled in by
-https://github.com/nasa/fpp/wiki/Enter-Template-Symbols[enter template
+https://github.com/nasa/fpp/wiki/Enter-Template-Expansion-Symbols[enter template
 symbols].
 
 * *Topology map:* A map from

@@ -23,8 +23,8 @@ object FPPFilenames {
       case list => list
     }
     for {
-      tul <- ToolUtils.parseFilesAndResolveAsts(Analysis(), files).map(_._2)
-      (a, tul) <- enterSymbols(tul)
+      tul <- ToolUtils.parseFiles(files)
+      (a, tul) <- expandSyntaxAndEnterSymbols(tul)
       files <-
         CppWriter.getMode(options.template, options.unitTest) match {
           case CppWriter.Autocode => ComputeGeneratedFiles.getAutocodeFiles(a, tul)
@@ -42,9 +42,10 @@ object FPPFilenames {
     yield files.sorted.map(System.out.println)
   }
 
-  def enterSymbols(tul: List[Ast.TransUnit]):
+  def expandSyntaxAndEnterSymbols(tul: List[Ast.TransUnit]):
     Result.Result[(Analysis, List[Ast.TransUnit])] =
       for {
+        (a, tul) <- ResolveSpecInclude.transUnitList(Analysis(), tul)
         tul <- AddStateEnums.transUnitList(tul)
         a <- EnterSymbols.visitList(Analysis(), tul, EnterSymbols.transUnit)
       }

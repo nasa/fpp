@@ -19,7 +19,7 @@ Each AST node has a unique integer identifier.
 https://nasa.github.io/fpp/fpp-spec.html#Specifiers_Template-Expansion-Specifiers_Semantics[bound
 parameter definition]: a template parameter paired with the argument to
 which it is bound at a
-https://github.com/nasa/fpp/wiki/Enter-Template-Symbols[template expansion].
+https://github.com/nasa/fpp/wiki/Enter-Template-Expansion-Symbols[template expansion].
 There is one kind for each kind of template parameter: constant, type, and instance.
 Its unqualified name is the name of the parameter, and its AST node is the
 node of the argument.
@@ -370,6 +370,5 @@ or a choice definition.
 == Algorithms
 
 * https://github.com/nasa/fpp/wiki/Computing-Dependencies[Computing Dependencies]
-* https://github.com/nasa/fpp/wiki/Resolving-Templates[Resolving Templates]
 * https://github.com/nasa/fpp/wiki/Checking-Semantics[Checking Semantics]
 

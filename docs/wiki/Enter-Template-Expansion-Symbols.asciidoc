@@ -1,5 +1,5 @@
 This algorithm traverses a source model in which templates have been
-expanded and enters into their scopes the symbols produced by each
+syntactically expanded and enters into their scopes the symbols produced by each
 template expansion.
 It also checks that the arguments of each expansion match the parameters
 of the template it expands, and it records each expansion in the
@@ -33,7 +33,7 @@ For each parameter _q_ of the expanded template and each corresponding
 argument _p_, this algorithm constructs a *bound parameter symbol*
 representing the
 https://nasa.github.io/fpp/fpp-spec.html#Specifiers_Template-Expansion-Specifiers_Semantics[bound
-parameter definition] stem:[(q, p)].
+parameter definition] _(q, p)_.
 A constant parameter yields a constant parameter symbol, which resides in
 the value name group; a type parameter yields a type parameter symbol, in
 the type name group; and an instance parameter yields a port interface

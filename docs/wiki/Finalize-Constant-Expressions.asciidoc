@@ -55,7 +55,7 @@ update the type map and the value map with the mappings of _d_ to the type
 and the value of _e_.
 
 For each template expansion specifier _n_, for each
-https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[constant
+https://github.com/nasa/fpp/wiki/Enter-Template-Expansion-Symbols#bound-parameter-symbols[constant
 parameter symbol] of _n_, apply the rule of
 https://github.com/nasa/fpp/wiki/Evaluate-Constant-Expressions[Evaluate
 Constant Expressions], except that the type of the parameter type name is

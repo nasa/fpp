@@ -62,7 +62,7 @@ of _d_ all have different values.
 For each template expansion specifier _n_:
 
 . For each
-https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[constant
+https://github.com/nasa/fpp/wiki/Enter-Template-Expansion-Symbols#bound-parameter-symbols[constant
 parameter symbol] of _n_, with parameter type name _t_ and argument _p_:
 
 .. Visit the expression _p_, so that it has a value _v_ in the
@@ -87,7 +87,7 @@ for its argument.
 .. Yield _a'_ as the result.
 
 . For each
-https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[type
+https://github.com/nasa/fpp/wiki/Enter-Template-Expansion-Symbols#bound-parameter-symbols[type
 parameter symbol] of _n_ with argument _p_, visit the type name _p_.
 
 . Visit all the member nodes of _n_.
@@ -113,7 +113,7 @@ to _n_.
 Throw an internal error if it is not there.
 
 ... If _s_ is a
-https://github.com/nasa/fpp/wiki/Enter-Template-Symbols#bound-parameter-symbols[constant
+https://github.com/nasa/fpp/wiki/Enter-Template-Expansion-Symbols#bound-parameter-symbols[constant
 parameter symbol] with argument _p_, then if _p_ is not already in the
 value map of _a_, apply the rules stated above for the constant
 parameters of a template expansion specifier.

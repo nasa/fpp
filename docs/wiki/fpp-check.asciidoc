@@ -19,9 +19,5 @@ a topology, and there is no connection at any of its port numbers.
 *Procedure*:
 
 . Parse each of the files in _fl_, generating a list _tul_ of translation units.
-When parsing, recursively resolve include specifiers.
-
-. https://github.com/nasa/fpp/wiki/Resolving-Templates[Resolve templates] for _tul_, yielding a new list _tul_ of translation units
-with templates expanded.
 
 . Perform https://github.com/nasa/fpp/wiki/Checking-Semantics[semantic checking] on _tul_.

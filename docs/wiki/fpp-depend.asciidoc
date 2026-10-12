@@ -64,12 +64,10 @@ data structure] _a_.
 
 . Parse each of the files in _fl_, generating a list _tul_ of translation 
 units.
-When parsing, recursively resolve include specifiers and add the path of each
-included file to the included file set in _a_.
 
 . Let _a'_ be the result of 
-https://github.com/nasa/fpp/wiki/Computing-Dependencies[computing 
-dependencies] with inputs _a_ and _tul_.
+https://github.com/nasa/fpp/wiki/Computing-Dependencies[computing dependencies] 
+with inputs _a_ and _tul_.
 
 . Write out the dependency files in _a'_.
 
