@@ -26,7 +26,7 @@ object FPPToLayout {
         for {
             tul <- ToolUtils.parseFiles(files ++ options.imports)
             (a, tul) <- CheckSemantics.tuList(a, tul)
-            tulFiles <- Right(tul.take(files.length))
+            tulFiles = tul.take(files.length)
             state <- {
                 val dir = options.dir match {
                     case Some(dir1) => dir1

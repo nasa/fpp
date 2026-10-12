@@ -4,8 +4,7 @@ https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/analysis/Check
 == Input
 
 . An https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis
-data structure] _a_ and a list _tul_ of translation units, as produced by
-https://github.com/nasa/fpp/wiki/Expanding-Syntax-and-Entering-Symbols[expanding syntax and entering symbols].
+data structure] _a_ and a list _tul_ of translation units.
 
 == Output
 
