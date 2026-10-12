@@ -242,15 +242,7 @@ class TemplatesSpec extends AnyWordSpec {
 
     def checkExpandUnique(tul: Ast.TransUnit): Unit = {
         val a = Analysis()
-        val tul1 = for {
-            a_tul <- ResolveSpecInclude.transformList(a, List(tul), ResolveSpecInclude.transUnit)
-            a <- Right(a_tul._1)
-            tul <- Right(a_tul._2)
-            aTul <- ExpandSyntaxAndEnterSymbols.tuList(a, tul)
-            a <- Right(aTul._1)
-            tul <- Right(aTul._2)
-        } yield tul
-
+        val tul1 = ExpandSyntaxAndEnterSymbols.tuList(a, List(tul)).map(_._2)
         tul1 match {
             case Right(tul) => checkAllNodesUnique(tul)
             case Left(l) => {
