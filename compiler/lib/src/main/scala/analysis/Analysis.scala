@@ -90,7 +90,7 @@ case class Analysis(
   impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map(),
   /** Node ID of the template expansion currently */
   template: Option[AstNode.Id] = None,
-  /** Maps template expansion AST nodes to their */
+  /** Maps template expansion AST nodes to their expansions */
   templateExpansionMap: Map[AstNode.Id, TemplateExpansion] = Map(),
   /** Tracks the current expansion we are analyzing inside of */
   templateExpansion: Option[TemplateExpansion] = None,

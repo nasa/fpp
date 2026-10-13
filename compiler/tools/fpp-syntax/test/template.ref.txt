@@ -42,3 +42,23 @@ def module
       spec interface instance
         qual ident inst
   @< Unexpanded expansion specifier
+def module
+  ident Expanded
+  @ Expanded expansion specifier
+  expand
+    qual ident Tmpl
+    constant template arg
+      literal int 10
+    type template arg
+      type name qual ident Type
+    instance template arg
+      qual ident .instance1
+    def array
+      ident Arr
+      size literal int 3
+      type name qual ident TypeParam
+    def topology
+      ident Top
+      spec interface instance
+        qual ident inst
+  @< Expanded expansion specifier

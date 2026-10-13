@@ -17,20 +17,23 @@ trait ModuleAnalyzer extends Analyzer {
     yield a2.copy(scopeNameList = a.scopeNameList)
   }
 
-  override def specTemplateExpandAnnotatedNode(
+  override def specTemplateExpandAnnotatedNodeExpanded(
     a: Analysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]],
+    members: List[Ast.ModuleMember]
   ) = {
     val (_, node, _) = aNode
-    // Check if this template has been expanded
-    node.data.members match {
-      case Some(members) => {
-        // Mark the analysis with the proper expansion
-        val a1 = a.copy(templateExpansion = Some(a.templateExpansionMap(node.id)))
+    a.templateExpansionMap.get(node.id) match {
+      case Some(expansion) =>
+        // This node has been expanded by analysis.
+        // Mark the analysis with the proper expansion.
+        val a1 = a.copy(templateExpansion = Some(expansion))
         for { a2 <- visitList(a1, members, matchModuleMember) }
         yield a2.copy(templateExpansion = a.templateExpansion)
-      }
-      case None => Right(a)
+      case None =>
+        // This node has not yet been expanded by analysis.
+        // The expansion is provided in an expand { ... } clause.
+        Right(a)
     }
   }
 

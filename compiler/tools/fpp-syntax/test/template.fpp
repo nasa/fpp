@@ -23,10 +23,10 @@ module Unexpanded {
 
 }
 
-#module Expanded {
-#
-#  @ Expanded expansion specifier
-#  expand Tmpl(constant 10, type Type, instance .instance1) { constant a = 0 }
-#  @< Expanded expansion specifier
-#
-#}
+module Expanded {
+
+  @ Expanded expansion specifier
+  expand Tmpl(constant 10, type Type, instance .instance1) { constant a = 0 }
+  @< Expanded expansion specifier
+
+}
