@@ -36,6 +36,7 @@ interfaces_topology_arg_ok
 interfaces_topology_arg_order_ok
 interfaces_valid_port_instance_name_aliased
 module_merge_ok
+nested_expand
 nested_scope_resolution
 nested_scope_resolution_ok
 nested_template_def
@@ -45,6 +46,9 @@ param_conflict_same_name_group
 param_same_name_different_groups_ok
 parameter_shadow_error
 parameter_shadow_ok
+source_expand_bad_args
+source_expand_ok
+source_expand_undefined_symbol
 struct_parameter_alias_default_ok
 struct_parameter_anon_array_promote
 struct_parameter_array_member_default_ok
@@ -55,6 +59,7 @@ struct_parameter_nested_default_bad_arg
 struct_parameter_nested_default_ok
 struct_parameter_ok
 struct_parameter_omitted_member_ok
+template_def_in_expand
 type_arg_string
 type_param_implied_use
 types
