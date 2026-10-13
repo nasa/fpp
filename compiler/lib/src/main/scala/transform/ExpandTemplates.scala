@@ -200,18 +200,16 @@ object ExpandTemplates extends AstTransformer
       (_, size) <- matchExprNode(a, data.size)
       (_, eltType) <- matchTypeName(a, data.eltType)
       default <- exprNodeOpt(a, data.default)
-    } yield (
-      (),
-      cloneAnnotatedNode(
-        a, aNode,
-        data.copy(
-          size = size,
-          eltType = eltType,
-          default = default,
-          format = cloneStringNodeOpt(a, data.format)
-        )
+    } yield {
+      val dataCopy =  data.copy(
+        size = size,
+        eltType = eltType,
+        default = default,
+        format = cloneStringNodeOpt(a, data.format)
       )
-    )
+      val node = cloneAnnotatedNode(a, aNode, dataCopy)
+      ((), node)
+    }
   }
 
   override def defComponentAnnotatedNode(
@@ -332,9 +330,9 @@ object ExpandTemplates extends AstTransformer
     aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]],
     members: List[Ast.StateMachineMember]
   ) =
-      val data = aNode._2.data
-      for (members <- transformFlatList(a, members, matchStateMachineMember))
-        yield ((), cloneAnnotatedNode(a, aNode, data.copy(members = Some(members))))
+    val data = aNode._2.data
+    for (members <- transformFlatList(a, members, matchStateMachineMember))
+      yield ((), cloneAnnotatedNode(a, aNode, data.copy(members = Some(members))))
 
   override def defStateMachineAnnotatedNode(
     a: In,
@@ -551,40 +549,34 @@ object ExpandTemplates extends AstTransformer
         fromIndex <- exprNodeOpt(a, connection.fromIndex)
         toPort <- portInstanceIdentifierNode(a, connection.toPort)
         toIndex <- exprNodeOpt(a, connection.toIndex)
-      } yield (
-        (),
-        connection.copy(
+      } yield {
+        val connectionCopy = connection.copy(
           fromPort = fromPort,
           fromIndex = fromIndex,
           toPort = toPort,
           toIndex = toIndex
         )
-      )
+        ((), connectionCopy)
+      }
     }
 
     data match {
       case data @ Ast.SpecConnectionGraph.Direct(_, connections) =>
         for (connections <- transformList(a, connections, connection))
-          yield (
-            (),
-            cloneAnnotatedNode(
-              a,
-              aNode,
-              data.copy(connections = connections)
-            )
-          )
+          yield {
+            val dataCopy = data.copy(connections = connections)
+            val node = cloneAnnotatedNode(a, aNode, dataCopy)
+            ((), node)
+          }
       case data @ Ast.SpecConnectionGraph.Pattern(_, source, targets) =>
         for {
           source <- qualIdentNode(a, source)
           targets <- transformList(a, targets, resultAdapter(qualIdentNode))
-        } yield (
-          (),
-          cloneAnnotatedNode(
-            a,
-            aNode,
-            data.copy(source = source, targets = targets)
-          )
-        )
+        } yield {
+          val dataCopy = data.copy(source = source, targets = targets)
+          val node = cloneAnnotatedNode(a, aNode, dataCopy)
+          ((), node)
+        }
     }
 
 
@@ -596,17 +588,11 @@ object ExpandTemplates extends AstTransformer
     for {
       id <- exprNodeOpt(a, data.id)
       defaultPriority <- exprNodeOpt(a, data.defaultPriority)
-    } yield (
-      (),
-      cloneAnnotatedNode(
-        a,
-        aNode,
-        data.copy(
-          id = id,
-          defaultPriority = defaultPriority
-        )
-      )
-    )
+    } yield {
+      val dataCopy = data.copy(id = id, defaultPriority = defaultPriority)
+      val node = cloneAnnotatedNode(a, aNode, dataCopy)
+      ((), node)
+    }
 
   override def specEventAnnotatedNode(
     a: In,
