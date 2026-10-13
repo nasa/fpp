@@ -1099,27 +1099,11 @@ object ExpandTemplates extends AstTransformer
   ): ResultAnnotatedNode[Ast.SpecTemplateExpand] = {
     val (_, node, _) = aNode
     val data = node.data
-    (a.templateExpansionId, a.templateDefId) match {
-      case (None, None) =>
-        // Not inside a template: expand if needed
-        data.members match {
-          // Members are already there; nothing to do
-          case Some(members) => Right((), aNode) 
-          // Members are not there; expand
-          case None => expandTemplate(a, aNode)
-        }
-      case (_, Some(templateDefId)) =>
-        // The expansion specifier is nested inside a template body
-        Left(
-          SemanticError.TemplateDefError(
-            Locations.get(node.id),
-            "template expansion specifiers cannot appear inside a module template",
-            Locations.get(templateDefId)
-          )
-        )
-      case (Some(_), None) => throw new InternalError(
-        "ExpandTemplates: expanding a template with no template definition"
-      )
+    data.members match {
+      // Members are already there; nothing to do
+      case Some(members) => Right((), aNode) 
+      // Members are not there; expand
+      case None => expandTemplate(a, aNode)
     }
   }
 
@@ -1133,10 +1117,8 @@ object ExpandTemplates extends AstTransformer
     for {
       // Look up the template def
       tmpl <- a.getTemplateSymbol(data.template.id)
-
-      // Clone the template body, recording the expansion node so that any
-      // nested expansion specifier is rejected and so that cloned nodes
-      // point back at the expansion site.
+      // Clone the template body, recording the expansion node so that 
+      // cloned nodes point back at the expansion site.
       // Record the template definition too for diagnostics.
       members <- transformList(
         a.copy(
