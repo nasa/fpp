@@ -186,11 +186,11 @@ Proceed as described above for `fpp-syntax`.
 
 In some cases, you may see that unit tests pass on your local machine but fail
 in CI when you make a pull request to `nasa/fpp`.
-There are three common causes of this behavior:
+There are two common causes of this behavior:
 
 . You forgot to check in a file, so the file is present on your local machine
 but is missing in the CI build.
-To check for this case, run `git status -u .` and look for untracked files.
+To check for this case, run `git status -u` and look for untracked files.
 
 . You need to regenerate the trace files used to build the native image
 version of the tools.
@@ -198,13 +198,6 @@ In this case CI will build native image tools, but it will fail when it
 runs the unit tests on those tools.
 To update the trace files, see 
 https://github.com/nasa/fpp/tree/main/compiler#building-native-binaries[here].
-
-. You need to do a clean rebuild by running `./clean` and then `./install`
-and then regenerate the test output for the affected tool.
-Occasionally tool output is not correctly updated by an
-incremental build.
-In this case, the tests may pass on your local machine but
-fail in CI.
 
 [[update-wiki]]
 == Updating the Wiki
