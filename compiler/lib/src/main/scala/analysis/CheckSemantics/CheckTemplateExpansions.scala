@@ -12,11 +12,43 @@ object CheckTemplateExpansions
   override def defModuleTemplateAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
-  ) = Right(a)
+  ) =
+    a.templateExpansionId match {
+      case Some(expandId) => Left(
+        SemanticError.TemplateExpandError(
+          Locations.get(aNode._2.id),
+          "module template definitions cannot appear inside a template expansion",
+          Locations.get(expandId)
+        )
+      )
+      case None => Right(a)
+    }
 
-  override def specTemplateExpandAnnotatedNode(
+  override def specTemplateExpandAnnotatedNodeExpanded(
     a: Analysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
-  ) = Right(a)
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]],
+    members: List[Ast.ModuleMember]
+  ) =
+    for {
+      a <- specTemplateExpandAnnotatedNodeUnexpanded(a, aNode)
+      a <- Right(a.copy(templateExpansionId = Some(aNode._2.id)))
+      a <- visitList(a, members, matchModuleMember)
+      a <- Right(a.copy(templateExpansionId = None))
+    } yield a
+
+  override def specTemplateExpandAnnotatedNodeUnexpanded(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]],
+  ) =
+    a.templateExpansionId match {
+      case Some(defId) => Left(
+        SemanticError.TemplateExpandError(
+          Locations.get(aNode._2.id),
+          "template expansions cannot be nested",
+          Locations.get(defId)
+        )
+      )
+      case None => Right(a)
+    }
 
 }
