@@ -15,7 +15,7 @@ object ExpandTemplates extends AstTransformer
   type Out = Unit
 
   def default(a: Analysis) =
-    throw new InternalError("ExpandTemplates: Transformer not implemented")
+    throw InternalError("ExpandTemplates: Transformer not implemented")
 
   /** Transform a list in sequence, threading state */
   def transformList[A, B](
@@ -78,7 +78,8 @@ object ExpandTemplates extends AstTransformer
     aNode: Ast.Annotated[AstNode[T]]
   ) = {
     a.templateExpansionId match {
-      // We are not currently in a template, leave the node alone
+      // We are not currently in a template expansion.
+      // Leave the node alone.
       case None => Right((), aNode)
       case Some(_) =>
         val (pre, node, post) = aNode
@@ -92,7 +93,7 @@ object ExpandTemplates extends AstTransformer
     node: AstNode[Ast.Expr],
     e: Ast.ExprArray
   ) =
-    for { result <- transformList(a, e.elts, matchExprNode) }
+    for (result <- transformList(a, e.elts, matchExprNode))
       yield ((), cloneNode(a, node, Ast.ExprArray(result)))
 
   override def exprArraySubscriptNode(
@@ -352,9 +353,7 @@ object ExpandTemplates extends AstTransformer
     val data = aNode._2.data
     for {
       typeName <- typeNameNodeOpt(a, data.typeName)
-    } yield {
-      ((), cloneAnnotatedNode(a, aNode, data.copy(typeName = typeName)))
-    }
+    } yield ((), cloneAnnotatedNode(a, aNode, data.copy(typeName = typeName)))
 
   override def defChoiceAnnotatedNode(
     a: In,
@@ -618,24 +617,19 @@ object ExpandTemplates extends AstTransformer
       params <- formalParamList(a, data.params)
       id <- exprNodeOpt(a, data.id)
       (_, format) <- defaultNode(a, data.format)
-      throttle <- {
-        data.throttle match {
-          case None => Right(None)
-          case Some(throttle) =>
-            for {
-              (_, count) <- matchExprNode(a, throttle.data.count)
-              every <- exprNodeOpt(a, throttle.data.every)
-            } yield Some(
-              cloneNode(
-                a,
-                throttle,
-                throttle.data.copy(
-                  every = every,
-                  count = count
-                )
-              )
+      throttle <- data.throttle match {
+        case None => Right(None)
+        case Some(throttle) =>
+          for {
+            (_, count) <- matchExprNode(a, throttle.data.count)
+            every <- exprNodeOpt(a, throttle.data.every)
+          } yield Some(
+            cloneNode(
+              a,
+              throttle,
+              throttle.data.copy(every = every, count = count)
             )
-        }
+          )
       }
     } yield (
       (),
@@ -681,10 +675,7 @@ object ExpandTemplates extends AstTransformer
       cloneAnnotatedNode(
         a,
         aNode,
-        data.copy(
-          params = params,
-          priority = priority,
-        )
+        data.copy(params = params, priority = priority)
       )
     )
 
@@ -1284,6 +1275,5 @@ object ExpandTemplates extends AstTransformer
         for ((_, tn) <- matchTypeName(a, tn))
           yield Some(tn)
     }
-
 
 }
