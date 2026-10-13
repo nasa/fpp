@@ -35,6 +35,19 @@ object CheckTemplateDefs
   override def specTemplateExpandAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
-  ) = Right(a)
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    a.templateDefId match {
+      case Some(defId) => Left(
+        SemanticError.TemplateDefError(
+          Locations.get(node.id),
+          "template expansion specifiers cannot appear inside a module template",
+          Locations.get(defId)
+        )
+      )
+      case None => Right(a)
+    }
+  }
 
 }
