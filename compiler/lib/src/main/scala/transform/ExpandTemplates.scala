@@ -1006,7 +1006,9 @@ object ExpandTemplates extends AstTransformer
       )
     } yield {
       // Paste the expanded template body into the expansion specifier
-      (pre, AstNode.create(data.copy(members = Some(members)), node.id), post)
+      val dataCopy = data.copy(members = Some(members))
+      val nodeCopy = AstNode.create(dataCopy, node.id)
+      (pre, nodeCopy, post)
     }
   }
 
