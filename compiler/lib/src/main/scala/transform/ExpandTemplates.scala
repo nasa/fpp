@@ -1066,18 +1066,10 @@ object ExpandTemplates extends AstTransformer
     }
 
     for {
-      // Validate no nested template
-      _ <- a.templateDefinitionId match {
-        case Some(parent) => Left(SemanticError.NestedTemplateDefinition(
-          Locations.get(aNode._2.id),
-          Locations.get(parent)
-        ))
-        case None => Right(())
-      }
-      a <- Right(a.copy(templateDefinitionId = Some(node.id)))
+      a <- Right(a.copy(templateDefId = Some(node.id)))
       params <- transformList(a, data.params, templateParam)
       members <- transformList(a, data.members, matchModuleMember)
-      a <- Right(a.copy(templateDefinitionId = None))
+      a <- Right(a.copy(templateDefId = None))
     }
     yield {
       val (_, params1) = params
@@ -1107,7 +1099,7 @@ object ExpandTemplates extends AstTransformer
   ): ResultAnnotatedNode[Ast.SpecTemplateExpand] = {
     val (_, node, _) = aNode
     val data = node.data
-    (a.templateExpansionId, a.templateDefinitionId) match {
+    (a.templateExpansionId, a.templateDefId) match {
       case (None, None) =>
         // Not inside a template: expand if needed
         data.members match {
@@ -1116,12 +1108,15 @@ object ExpandTemplates extends AstTransformer
           // Members are not there; expand
           case None => expandTemplate(a, aNode)
         }
-      case (_, Some(templateDefinitionId)) =>
+      case (_, Some(templateDefId)) =>
         // The expansion specifier is nested inside a template body
-        Left(SemanticError.TemplateExpansionInTemplate(
-          Locations.get(node.id),
-          Locations.get(templateDefinitionId)
-        ))
+        Left(
+          SemanticError.TemplateDefError(
+            Locations.get(node.id),
+            "template expansion specifiers cannot appear inside a module template",
+            Locations.get(templateDefId)
+          )
+        )
       case (Some(_), None) => throw new InternalError(
         "ExpandTemplates: expanding a template with no template definition"
       )
@@ -1146,7 +1141,7 @@ object ExpandTemplates extends AstTransformer
       members <- transformList(
         a.copy(
           templateExpansionId = Some(node.id),
-          templateDefinitionId = Some(tmpl.node._2.id)
+          templateDefId = Some(tmpl.node._2.id)
         ),
         tmpl.node._2.data.members,
         matchModuleMember
