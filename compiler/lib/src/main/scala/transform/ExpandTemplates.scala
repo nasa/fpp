@@ -60,15 +60,9 @@ object ExpandTemplates extends AstTransformer
     a: In,
     aNode: Ast.Annotated[AstNode[T]]
   ) = {
-    a.templateExpansionId match {
-      // We are not currently in a template expansion.
-      // Leave the node alone.
-      case None => Right((), aNode)
-      case Some(_) =>
-        val (pre, node, post) = aNode
-        for ((_, inter) <- defaultNode(a, node))
-          yield ((), (pre, inter, post))
-    }
+    val (pre, node, post) = aNode
+    val node1 = cloneNode(a, node, node.data)
+    Right((), (pre, node1, post))
   }
 
   override def exprArrayNode(
