@@ -19,7 +19,7 @@ object ExpandSyntaxAndEnterSymbols {
       a <- CheckTemplateDefs.visitList(a, tul, CheckTemplateDefs.transUnit)
       // TODO: CheckTemplateExpansions
       a <- CheckTemplateUses.visitList(a, tul, CheckTemplateUses.transUnit)
-      (_, tul) <- ExpandTemplates.transformList(a, tul, ExpandTemplates.transUnit)
+      tul <- ExpandTemplates.transformList(a, tul, ExpandTemplates.transUnit)
       a <- EnterTemplateExpansionSymbols.visitList(a, tul, EnterTemplateExpansionSymbols.transUnit)
     } yield (a, tul)
   }

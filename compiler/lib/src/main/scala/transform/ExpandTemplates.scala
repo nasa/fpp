@@ -22,18 +22,17 @@ object ExpandTemplates extends AstTransformer
     s: State,
     list: List[A],
     transform: (State, A) => Result[B]
-  ): Result[List[B]] = {
-    def helper(in: List[A], out: List[B]): Result[List[B]] = {
+  ): Result.Result[List[B]] = {
+    def helper(in: List[A], out: List[B]): Result.Result[List[B]] = {
       in match {
-        case Nil => Right(((), out))
+        case Nil => Right(out)
         case head :: tail => transform(s, head) match {
           case Left(e) => Left(e)
           case Right((_, list)) => helper(tail, list :: out)
         }
       }
     }
-    for { pair <- helper(list, Nil) }
-    yield ((), pair._2.reverse)
+    helper(list, Nil).map(_.reverse)
   }
 
   override def transUnit(
@@ -42,7 +41,7 @@ object ExpandTemplates extends AstTransformer
   ): Result[Ast.TransUnit] = {
     for {
       members <- transformList(a, tu.members, matchModuleMember)
-    } yield (members._1, Ast.TransUnit(members._2.flatten))
+    } yield ((), Ast.TransUnit(members.flatten))
   }
 
   // Duplicate every node inside a template definition
@@ -82,8 +81,7 @@ object ExpandTemplates extends AstTransformer
   override def exprArrayNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprArray): ResultNode[Ast.Expr] =
     for { result <- transformList(a, e.elts, matchExprNode) }
     yield {
-      val (_, elts1) = result
-      ((), cloneNode(a, node, Ast.ExprArray(elts1)))
+      ((), cloneNode(a, node, Ast.ExprArray(result)))
     }
 
   override def exprArraySubscriptNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprArraySubscript): ResultNode[Ast.Expr] =
@@ -122,35 +120,6 @@ object ExpandTemplates extends AstTransformer
       ((), cloneNode(a, node, Ast.ExprParen(value)))
     }
 
-  def structMember(
-    a: Analysis,
-    node: AstNode[Ast.StructMember]
-  ) = {
-    for (result <- matchExprNode(a, node.data.value))
-    yield {
-      val (_, value) = result
-      ((), cloneNode(a, node, Ast.StructMember(
-        node.data.name,
-        value
-      )))
-    }
-  }
-
-  def cloneQualIdentNode(
-    a: In,
-    node: AstNode[Ast.QualIdent]
-  ): AstNode[Ast.QualIdent] = {
-    node.data match {
-      case Ast.QualIdent.Qualified(qualifier, name) =>
-        cloneNode(a, node, Ast.QualIdent.Qualified(
-          cloneQualIdentNode(a, qualifier),
-          cloneNode(a, name, name.data)
-        ))
-      case Ast.QualIdent.Unqualified(name, isAbsolute) =>
-        cloneNode(a, node, Ast.QualIdent.Unqualified(name, isAbsolute))
-    }
-  }
-
   override def exprStructNode(
     a: Analysis,
     node: AstNode[Ast.Expr],
@@ -158,17 +127,16 @@ object ExpandTemplates extends AstTransformer
   ) =
     for { result <- transformList(a, e.members, structMember) }
     yield {
-      val (_, members1) = result
-      ((), cloneNode(a, node, Ast.ExprStruct(members1)))
+      ((), cloneNode(a, node, Ast.ExprStruct(result)))
     }
 
   override def exprUnopNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprUnop) =
-    for (ec <- matchExprNode(a, e.e))
-    yield (ec._1, cloneNode(a, node, Ast.ExprUnop(e.op, ec._2)))
+    for ((_, ec) <- matchExprNode(a, e.e))
+    yield ((), cloneNode(a, node, Ast.ExprUnop(e.op, ec)))
 
   override def exprSizeOfNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprSizeOf): ResultNode[Ast.Expr] =
-    for (result <- matchTypeName(a, e.typeName))
-    yield (result._1, cloneNode(a, node, Ast.ExprSizeOf(result._2)))
+    for ((_, result) <- matchTypeName(a, e.typeName))
+    yield ((), cloneNode(a, node, Ast.ExprSizeOf(result)))
 
   override def typeNameQualIdentNode(
     a: In,
@@ -210,15 +178,6 @@ object ExpandTemplates extends AstTransformer
       ))
     }
 
-  def cloneStringNodeOpt(
-    a: In,
-    node: Option[AstNode[String]]
-  ): Option[AstNode[String]] =
-    node match {
-      case None => None
-      case Some(value) => Some(cloneNode(a, value, value.data))
-    }
-
   override def defArrayAnnotatedNode(a: In, aNode: Ast.Annotated[AstNode[Ast.DefArray]]): ResultAnnotatedNode[Ast.DefArray] =
     val data = aNode._2.data
     for {
@@ -244,8 +203,7 @@ object ExpandTemplates extends AstTransformer
     val data = aNode._2.data
     for (result <- transformList(a, data.members, matchComponentMember))
     yield {
-      val (_, members1) = result
-      ((), cloneAnnotatedNode(a, aNode, data.copy(members = members1.flatten)))
+      ((), cloneAnnotatedNode(a, aNode, data.copy(members = result.flatten)))
     }
 
   override def defComponentInstanceAnnotatedNode(
@@ -260,7 +218,7 @@ object ExpandTemplates extends AstTransformer
       stackSize <- exprNodeOpt(a, data.stackSize)
       priority <- exprNodeOpt(a, data.priority)
       cpu <- exprNodeOpt(a, data.cpu)
-      (_, initSpecs) <- transformList(a, data.initSpecs, specInitAnnotatedNode)
+      initSpecs <- transformList(a, data.initSpecs, specInitAnnotatedNode)
     } yield {
       (
         (),
@@ -285,8 +243,7 @@ object ExpandTemplates extends AstTransformer
     val data = aNode._2.data
     for (result <- transformList(a, data.members, matchInterfaceMember))
     yield {
-      val (_, members1) = result
-      ((), cloneAnnotatedNode(a, aNode, data.copy(members=members1)))
+      ((), cloneAnnotatedNode(a, aNode, data.copy(members=result)))
     }
 
   override def defConstantAnnotatedNode(
@@ -294,22 +251,12 @@ object ExpandTemplates extends AstTransformer
     aNode: Ast.Annotated[AstNode[Ast.DefConstant]]
   ): ResultAnnotatedNode[Ast.DefConstant] =
     val data = aNode._2.data
-    for (value <- matchExprNode(a, data.value))
+    for ((_, value) <- matchExprNode(a, data.value))
     yield {
       ((),
        cloneAnnotatedNode(
         a, aNode,
-        data.copy(value = value._2)))
-    }
-
-  def defEnumConstantAnnotatedNode(
-    a: In,
-    aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]
-  ): ResultAnnotatedNode[Ast.DefEnumConstant] =
-    val data = aNode._2.data
-    for (value <- exprNodeOpt(a, data.value))
-    yield {
-      ((), cloneAnnotatedNode(a, aNode, data.copy(value = value)))
+        data.copy(value = value)))
     }
 
   override def defEnumAnnotatedNode(
@@ -319,7 +266,7 @@ object ExpandTemplates extends AstTransformer
     val data = aNode._2.data
     for {
       typeName <- typeNameNodeOpt(a, data.typeName)
-      (_, constants) <- transformList(a, data.constants, defEnumConstantAnnotatedNode)
+      constants <- transformList(a, data.constants, defEnumConstantAnnotatedNode)
       default <- exprNodeOpt(a, data.default)
     } yield ((), cloneAnnotatedNode(a, aNode, data.copy(
       typeName = typeName,
@@ -353,7 +300,7 @@ object ExpandTemplates extends AstTransformer
   ): ResultAnnotatedNode[Ast.DefStateMachine] =
       val data = aNode._2.data
       for (result <- transformList(a, members, matchStateMachineMember))
-      yield (result._1, cloneAnnotatedNode(a, aNode, data.copy(members = Some(result._2.flatten))))
+      yield ((), cloneAnnotatedNode(a, aNode, data.copy(members = Some(result.flatten))))
 
   override def defStateMachineAnnotatedNode(
     a: In,
@@ -421,7 +368,7 @@ object ExpandTemplates extends AstTransformer
   ): ResultAnnotatedNode[Ast.DefState] =
     val data = aNode._2.data
     for (members <- transformList(a, data.members, matchStateMember))
-    yield ((), cloneAnnotatedNode(a, aNode, data.copy(members = members._2.flatten)))
+    yield ((), cloneAnnotatedNode(a, aNode, data.copy(members = members.flatten)))
 
   override def specInitialTransitionAnnotatedNode(
     a: In,
@@ -442,7 +389,7 @@ object ExpandTemplates extends AstTransformer
     for {
       actions <- transformList(a, data.actions, defaultNode)
     } yield {
-      ((), cloneAnnotatedNode(a, aNode, data.copy(actions = actions._2)))
+      ((), cloneAnnotatedNode(a, aNode, data.copy(actions = actions)))
     }
 
   override def specStateExitAnnotatedNode(
@@ -451,7 +398,7 @@ object ExpandTemplates extends AstTransformer
   ): ResultAnnotatedNode[Ast.SpecStateExit] =
     val data = aNode._2.data
     for {
-      (_, actions) <- transformList(a, data.actions, defaultNode)
+      actions <- transformList(a, data.actions, defaultNode)
     } yield {
       ((), cloneAnnotatedNode(a, aNode, data.copy(actions = actions)))
     }
@@ -479,7 +426,7 @@ object ExpandTemplates extends AstTransformer
   ): ResultAnnotatedNode[Ast.DefStruct] =
     val data = aNode._2.data
     for {
-      (_, members) <- transformList(a, data.members, structTypeMemberAnnotatedNode)
+      members <- transformList(a, data.members, structTypeMemberAnnotatedNode)
       default <- exprNodeOpt(a, data.default)
     } yield {
       ((), cloneAnnotatedNode(a, aNode, data.copy(
@@ -494,8 +441,8 @@ object ExpandTemplates extends AstTransformer
   ): ResultAnnotatedNode[Ast.DefTopology] =
     val data = aNode._2.data
     for {
-      (_, members) <- transformList(a, data.members, matchTopologyMember)
-      (_, implements) <- transformList(a, data.implements, (a, q) => Right(((), cloneQualIdentNode(a, q))))
+      members <- transformList(a, data.members, matchTopologyMember)
+      implements <- transformList(a, data.implements, (a, q) => Right(((), cloneQualIdentNode(a, q))))
     } yield {
       ((), cloneAnnotatedNode(a, aNode, data.copy(
         members = members.flatten,
@@ -548,19 +495,6 @@ object ExpandTemplates extends AstTransformer
       )))
     }
 
-  def portInstanceIdentifierNode(
-    a: In,
-    pii: AstNode[Ast.PortInstanceIdentifier]
-  ): Result.Result[AstNode[Ast.PortInstanceIdentifier]] = {
-    for {
-      interfaceInstance <- qualIdentNode(a, pii.data.interfaceInstance)
-      (_, portName) <- defaultNode(a, pii.data.portName)
-    } yield cloneNode(a, pii, pii.data.copy(
-      interfaceInstance = interfaceInstance,
-      portName = portName
-    ))
-  }
-
   override def specConnectionGraphAnnotatedNode(
     a: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]
@@ -589,14 +523,14 @@ object ExpandTemplates extends AstTransformer
     data match {
       case data @ Ast.SpecConnectionGraph.Direct(_, connections) =>
         for {
-          (_, connections) <- transformList(a, connections, connection)
+          connections <- transformList(a, connections, connection)
         } yield ((), cloneAnnotatedNode(a, aNode, data.copy(
           connections = connections
         )))
       case data @ Ast.SpecConnectionGraph.Pattern(_, source, targets) =>
         for {
           source <- qualIdentNode(a, source)
-          (_, targets) <- transformList(a, targets, resultAdapter(qualIdentNode))
+          targets <- transformList(a, targets, resultAdapter(qualIdentNode))
         } yield ((), cloneAnnotatedNode(a, aNode, data.copy(
           source = source,
           targets = targets
@@ -807,8 +741,8 @@ object ExpandTemplates extends AstTransformer
     for {
       (_, typeName) <- matchTypeName(a, data.typeName)
       id <- exprNodeOpt(a, data.id)
-      (_, low) <- transformList(a, data.low, limit)
-      (_, high) <- transformList(a, data.high, limit)
+      low <- transformList(a, data.low, limit)
+      high <- transformList(a, data.high, limit)
     } yield (((), cloneAnnotatedNode(a, aNode, data.copy(
       typeName = typeName,
       id = id,
@@ -848,7 +782,7 @@ object ExpandTemplates extends AstTransformer
     for {
       id <- exprNodeOpt(a, data.id)
       (_, group) <- matchExprNode(a, data.group)
-      (_, members) <- transformList(a, data.members, tlmPacketMember)
+      members <- transformList(a, data.members, tlmPacketMember)
     } yield (((), cloneAnnotatedNode(a, aNode, data.copy(
       id = id,
       group = group,
@@ -885,8 +819,8 @@ object ExpandTemplates extends AstTransformer
         )))
 
     for {
-      (_, members) <- transformList(a, data.members, matchTlmPacketSetMember)
-      (_, omitted) <- transformList(a, data.omitted, tlmChannelIdentifier)
+      members <- transformList(a, data.members, matchTlmPacketSetMember)
+      omitted <- transformList(a, data.omitted, tlmChannelIdentifier)
     } yield ((), cloneAnnotatedNode(a, aNode, data.copy(
       members = members.flatten,
       omitted = omitted
@@ -934,11 +868,9 @@ object ExpandTemplates extends AstTransformer
       a <- Right(a.copy(templateDefId = None))
     }
     yield {
-      val (_, params1) = params
-      val (_, members1) = members
       ((), cloneAnnotatedNode(a, aNode, data.copy(
-        params = params1,
-        members = members1.flatten
+        params = params,
+        members = members.flatten
       )))
     }
 
@@ -950,8 +882,7 @@ object ExpandTemplates extends AstTransformer
     val data = node.data
     for { result <- transformList(a, data.members, matchModuleMember) }
     yield {
-      val (_, members1) = result
-      ((), cloneAnnotatedNode(a, aNode, data.copy(members = members1.flatten)))
+      ((), cloneAnnotatedNode(a, aNode, data.copy(members = result.flatten)))
     }
   }
 
@@ -998,6 +929,29 @@ object ExpandTemplates extends AstTransformer
     (pre, cloneNode(a, node, data), post)
   }
 
+  private def cloneQualIdentNode(
+    a: In,
+    node: AstNode[Ast.QualIdent]
+  ): AstNode[Ast.QualIdent] = {
+    node.data match {
+      case Ast.QualIdent.Qualified(qualifier, name) =>
+        cloneNode(a, node, Ast.QualIdent.Qualified(
+          cloneQualIdentNode(a, qualifier),
+          cloneNode(a, name, name.data)
+        ))
+      case Ast.QualIdent.Unqualified(name, isAbsolute) =>
+        cloneNode(a, node, Ast.QualIdent.Unqualified(name, isAbsolute))
+    }
+  }
+  private def cloneStringNodeOpt(
+    a: In,
+    node: Option[AstNode[String]]
+  ): Option[AstNode[String]] =
+    node match {
+      case None => None
+      case Some(value) => Some(cloneNode(a, value, value.data))
+    }
+
   private def defaultNodeOpt[T](
     a: Analysis,
     node: Option[AstNode[T]]
@@ -1007,6 +961,16 @@ object ExpandTemplates extends AstTransformer
       case Some(node) =>
         for ((_, node) <- defaultNode(a, node))
         yield Some(node)
+    }
+
+  private def defEnumConstantAnnotatedNode(
+    a: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]
+  ): ResultAnnotatedNode[Ast.DefEnumConstant] =
+    val data = aNode._2.data
+    for (value <- exprNodeOpt(a, data.value))
+    yield {
+      ((), cloneAnnotatedNode(a, aNode, data.copy(value = value)))
     }
 
   /** Expand a template */
@@ -1022,7 +986,7 @@ object ExpandTemplates extends AstTransformer
       // Clone the template body, recording the expansion node so that 
       // cloned nodes point back at the expansion site.
       // Record the template definition too for diagnostics.
-      (_, members) <- transformList(
+      members <- transformList(
         a.copy(
           templateExpansionId = Some(node.id),
           templateDefId = Some(tmpl.node._2.id)
@@ -1058,7 +1022,20 @@ object ExpandTemplates extends AstTransformer
   private def formalParamList(
     a: In,
     aNode: Ast.FormalParamList
-  ) = for ((_, node) <- transformList(a, aNode, formalAnnotatatedParam)) yield node
+  ) = for (node <- transformList(a, aNode, formalAnnotatatedParam)) yield node
+
+  private def portInstanceIdentifierNode(
+    a: In,
+    pii: AstNode[Ast.PortInstanceIdentifier]
+  ): Result.Result[AstNode[Ast.PortInstanceIdentifier]] = {
+    for {
+      interfaceInstance <- qualIdentNode(a, pii.data.interfaceInstance)
+      (_, portName) <- defaultNode(a, pii.data.portName)
+    } yield cloneNode(a, pii, pii.data.copy(
+      interfaceInstance = interfaceInstance,
+      portName = portName
+    ))
+  }
 
   private def qualIdentNode(
     a: In,
@@ -1082,6 +1059,20 @@ object ExpandTemplates extends AstTransformer
   private def resultAdapter[A,B](f: (A, B) => Result.Result[B]) =
     (a: A, b: B) => for (c <- f(a, b)) yield ((), c)
 
+  private def structMember(
+    a: Analysis,
+    node: AstNode[Ast.StructMember]
+  ) = {
+    for (result <- matchExprNode(a, node.data.value))
+    yield {
+      val (_, value) = result
+      ((), cloneNode(a, node, Ast.StructMember(
+        node.data.name,
+        value
+      )))
+    }
+  }
+
   private def structTypeMemberAnnotatedNode(
     a: In,
     aNode: Ast.Annotated[AstNode[Ast.StructTypeMember]]
@@ -1103,7 +1094,7 @@ object ExpandTemplates extends AstTransformer
     node: AstNode[Ast.TransitionExpr]
   ): Result.Result[AstNode[Ast.TransitionExpr]] =
     for {
-      (_, actions) <- transformList(a, node.data.actions, defaultNode)
+      actions <- transformList(a, node.data.actions, defaultNode)
       target <- qualIdentNode(a, node.data.target)
     } yield cloneNode(a, node, node.data.copy(
       actions = actions,
@@ -1119,7 +1110,7 @@ object ExpandTemplates extends AstTransformer
         for (result <- transitionExpr(a, transition))
         yield Ast.TransitionOrDo.Transition(result)
       case Ast.TransitionOrDo.Do(actions) =>
-        for ((_, result) <- transformList(a, actions, defaultNode))
+        for (result <- transformList(a, actions, defaultNode))
         yield Ast.TransitionOrDo.Do(result)
     
   private def typeNameNodeOpt(
