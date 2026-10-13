@@ -804,14 +804,11 @@ object ExpandTemplates extends AstTransformer
   ) =
     val data = aNode._2.data
     for (underlyingPort <- portInstanceIdentifierNode(a, data.underlyingPort))
-      yield (
-        (),
-        cloneAnnotatedNode(
-          a,
-          aNode,
-          data.copy(underlyingPort = underlyingPort)
-        )
-      )
+      yield {
+        val dataCopy = data.copy(underlyingPort = underlyingPort)
+        val node = cloneAnnotatedNode(a, aNode, dataCopy)
+        ((), node)
+      }
 
   override def specTlmPacketSetAnnotatedNode(
     a: In,
@@ -826,29 +823,23 @@ object ExpandTemplates extends AstTransformer
       for {
         componentInstance <- qualIdentNode(a, data.componentInstance)
         (_, channelName) <- defaultNode(a, data.channelName)
-      } yield (
-        (),
-        cloneNode(
-          a,
-          node,
-          data.copy(
-            componentInstance = componentInstance,
-            channelName = channelName
-          )
+      } yield {
+        val dataCopy = data.copy(
+          componentInstance = componentInstance,
+          channelName = channelName
         )
-      )
+        val nodeCopy = cloneNode(a, node, dataCopy)
+        ((), nodeCopy)
+      }
 
     for {
       members <- transformFlatList(a, data.members, matchTlmPacketSetMember)
       omitted <- transformList(a, data.omitted, tlmChannelIdentifier)
-    } yield (
-      (),
-      cloneAnnotatedNode(
-        a,
-        aNode,
-        data.copy(members = members, omitted = omitted)
-      )
-    )
+    } yield {
+      val dataCopy = data.copy(members = members, omitted = omitted)
+      val node = cloneAnnotatedNode(a, aNode, dataCopy)
+      ((), node)
+    }
 
   override def specInterfaceImportAnnotatedNode(
     a: In,
@@ -857,14 +848,11 @@ object ExpandTemplates extends AstTransformer
     val data = aNode._2.data
     for {
       sym <- qualIdentNode(a, data.sym)
-    } yield (
-      (),
-      cloneAnnotatedNode(
-        a,
-        aNode,
-        data.copy(sym = sym)
-      )
-    )
+    } yield {
+      val dataCopy = data.copy(sym = sym)
+      val node = cloneAnnotatedNode(a, aNode, dataCopy)
+      ((), node)
+    }
 
   override def defModuleTemplateAnnotatedNode(
     a: In,
@@ -897,14 +885,11 @@ object ExpandTemplates extends AstTransformer
       members <- transformFlatList(a, data.members, matchModuleMember)
       a <- Right(a.copy(templateDefId = None))
     }
-    yield (
-      (),
-      cloneAnnotatedNode(
-        a,
-        aNode,
-        data.copy(params = params, members = members)
-      )
-    )
+    yield {
+      val dataCopy = data.copy(params = params, members = members)
+      val node = cloneAnnotatedNode(a, aNode, dataCopy)
+      ((), node)
+    }
 
   override def defModuleAnnotatedNode(
     a: Analysis,
@@ -966,14 +951,11 @@ object ExpandTemplates extends AstTransformer
   ): AstNode[Ast.QualIdent] = {
     node.data match {
       case Ast.QualIdent.Qualified(qualifier, name) =>
-        cloneNode(
-          a,
-          node,
-          Ast.QualIdent.Qualified(
-            cloneQualIdentNode(a, qualifier),
-            cloneNode(a, name, name.data)
-          )
+        val qualIdent = Ast.QualIdent.Qualified(
+          cloneQualIdentNode(a, qualifier),
+          cloneNode(a, name, name.data)
         )
+        cloneNode(a, node, qualIdent)
       case Ast.QualIdent.Unqualified(name, isAbsolute) =>
         cloneNode(a, node, Ast.QualIdent.Unqualified(name, isAbsolute))
     }
