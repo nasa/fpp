@@ -7857,6 +7857,9 @@
           "name": "$tilde$lzy1"
         },
         {
+          "name": "0bitmap$1"
+        },
+        {
           "name": "Error$lzy1"
         },
         {
@@ -7867,6 +7870,18 @@
         },
         {
           "name": "Success$lzy1"
+        }
+      ]
+    },
+    {
+      "type": "fpp.compiler.tools.FPP",
+      "jniAccessible": true,
+      "methods": [
+        {
+          "name": "main",
+          "parameterTypes": [
+            "java.lang.String[]"
+          ]
         }
       ]
     },
@@ -7888,7 +7903,53 @@
       "type": "java.lang.ClassValue"
     },
     {
+      "type": "java.lang.String",
+      "jniAccessible": true,
+      "methods": [
+        {
+          "name": "lastIndexOf",
+          "parameterTypes": [
+            "int"
+          ]
+        },
+        {
+          "name": "substring",
+          "parameterTypes": [
+            "int"
+          ]
+        }
+      ]
+    },
+    {
       "type": "java.lang.String[]"
+    },
+    {
+      "type": "java.lang.System",
+      "jniAccessible": true,
+      "methods": [
+        {
+          "name": "getProperty",
+          "parameterTypes": [
+            "java.lang.String"
+          ]
+        },
+        {
+          "name": "setProperty",
+          "parameterTypes": [
+            "java.lang.String",
+            "java.lang.String"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "java.lang.invoke.VarHandle",
+      "methods": [
+        {
+          "name": "releaseFence",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "scala.Enumeration",
@@ -8033,11 +8094,7 @@
     },
     {
       "type": "sun.misc.Unsafe",
-      "fields": [
-        {
-          "name": "theUnsafe"
-        }
-      ]
+      "allDeclaredFields": true
     }
   ],
   "resources": [
