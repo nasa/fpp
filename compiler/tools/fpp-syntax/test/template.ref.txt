@@ -53,12 +53,7 @@ def module
       type name qual ident Type
     instance template arg
       qual ident .instance1
-    def array
-      ident Arr
-      size literal int 3
-      type name qual ident TypeParam
-    def topology
-      ident Top
-      spec interface instance
-        qual ident inst
+    def constant
+      ident a
+      literal int 0
   @< Expanded expansion specifier

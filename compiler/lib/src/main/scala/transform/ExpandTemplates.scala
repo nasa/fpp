@@ -50,7 +50,7 @@ object ExpandTemplates extends AstTransformer
     a: Analysis,
     node: AstNode[T]
   ) =
-    a.template match {
+    a.templateExpansionId match {
       case None => Right((), node)
       case Some(expansionNode) => {
         val out = AstNode.create(node.data)
@@ -80,7 +80,7 @@ object ExpandTemplates extends AstTransformer
     a: In,
     aNode: Ast.Annotated[AstNode[T]]
   ) = {
-    a.template match {
+    a.templateExpansionId match {
       // We are not currently in a template, leave the node alone
       case None => Right((), aNode)
       case Some(_) =>
@@ -95,7 +95,7 @@ object ExpandTemplates extends AstTransformer
     node: AstNode[T],
     data: T
   ) =
-    a.template match {
+    a.templateExpansionId match {
       case None => AstNode.create(data, node.id)
       case Some(expansionNode) => {
         val out = AstNode.create(data)
@@ -122,8 +122,8 @@ object ExpandTemplates extends AstTransformer
   override def exprArrayNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprArray): ResultNode[Ast.Expr] =
     for { result <- transformList(a, e.elts, matchExprNode) }
     yield {
-      val (a1, elts1) = result
-      (a1, cloneNode(a, node, Ast.ExprArray(elts1)))
+      val (_, elts1) = result
+      ((), cloneNode(a, node, Ast.ExprArray(elts1)))
     }
 
   override def exprArraySubscriptNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprArraySubscript): ResultNode[Ast.Expr] =
@@ -151,15 +151,15 @@ object ExpandTemplates extends AstTransformer
   override def exprDotNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprDot): ResultNode[Ast.Expr] =
     for (result <- matchExprNode(a, e.e))
     yield {
-      val (a1, left) = result
-      (a1, cloneNode(a, node, Ast.ExprDot(left, cloneNode(a, e.id, e.id.data))))
+      val (_, left) = result
+      ((), cloneNode(a, node, Ast.ExprDot(left, cloneNode(a, e.id, e.id.data))))
     }
 
   override def exprParenNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprParen): ResultNode[Ast.Expr] =
     for (result <- matchExprNode(a, e.e))
     yield {
-      val (a1, value) = result
-      (a1, cloneNode(a, node, Ast.ExprParen(value)))
+      val (_, value) = result
+      ((), cloneNode(a, node, Ast.ExprParen(value)))
     }
 
   def structMember(
@@ -168,8 +168,8 @@ object ExpandTemplates extends AstTransformer
   ) = {
     for (result <- matchExprNode(a, node.data.value))
     yield {
-      val (a1, value) = result
-      (a1, cloneNode(a, node, Ast.StructMember(
+      val (_, value) = result
+      ((), cloneNode(a, node, Ast.StructMember(
         node.data.name,
         value
       )))
@@ -204,8 +204,8 @@ object ExpandTemplates extends AstTransformer
   ) =
     for { result <- transformList(a, e.members, structMember) }
     yield {
-      val (a1, members1) = result
-      (a1, cloneNode(a, node, Ast.ExprStruct(members1)))
+      val (_, members1) = result
+      ((), cloneNode(a, node, Ast.ExprStruct(members1)))
     }
 
   override def exprUnopNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprUnop) =
@@ -235,8 +235,8 @@ object ExpandTemplates extends AstTransformer
       case Some(value) =>
         for (result <- matchExprNode(a, value))
         yield {
-          val (a1, v1) = result
-          (a1, Some(v1))
+          val (_, v1) = result
+          ((), Some(v1))
         }
     }
 
@@ -251,8 +251,8 @@ object ExpandTemplates extends AstTransformer
       case Some(size) =>
         for (result <- matchExprNode(a, size))
         yield {
-          val (a1, value) = result
-          (a1, cloneNode(a, node, Ast.TypeNameString(Some(value))))
+          val (_, value) = result
+          ((), cloneNode(a, node, Ast.TypeNameString(Some(value))))
         }
     }
   }
@@ -275,8 +275,8 @@ object ExpandTemplates extends AstTransformer
     val data = aNode._2.data
     for (result <- matchTypeName(a, data.typeName))
     yield {
-      val (a1, ty) = result
-      (a1, cloneAnnotatedNode(
+      val (_, ty) = result
+      ((), cloneAnnotatedNode(
         a, aNode, data.copy(typeName = ty)
       ))
     }
@@ -315,8 +315,8 @@ object ExpandTemplates extends AstTransformer
     val data = aNode._2.data
     for (result <- transformList(a, data.members, matchComponentMember))
     yield {
-      val (a1, members1) = result
-      (a1, cloneAnnotatedNode(a, aNode, data.copy(members = members1.flatten)))
+      val (_, members1) = result
+      ((), cloneAnnotatedNode(a, aNode, data.copy(members = members1.flatten)))
     }
 
   override def defComponentInstanceAnnotatedNode(
@@ -356,8 +356,8 @@ object ExpandTemplates extends AstTransformer
     val data = aNode._2.data
     for (result <- transformList(a, data.members, matchInterfaceMember))
     yield {
-      val (a1, members1) = result
-      (a1, cloneAnnotatedNode(a, aNode, data.copy(members=members1)))
+      val (_, members1) = result
+      ((), cloneAnnotatedNode(a, aNode, data.copy(members=members1)))
     }
 
   override def defConstantAnnotatedNode(
@@ -794,8 +794,8 @@ object ExpandTemplates extends AstTransformer
     val data = aNode._2.data
     for (result <- matchExprNode(a, data.phase))
     yield {
-      val (a1, phase1) = result
-      (a1, cloneAnnotatedNode(a, aNode, data.copy(phase=phase1)))
+      val (_, phase1) = result
+      ((), cloneAnnotatedNode(a, aNode, data.copy(phase=phase1)))
     }
 
   override def specInternalPortAnnotatedNode(
@@ -1067,17 +1067,17 @@ object ExpandTemplates extends AstTransformer
 
     for {
       // Validate no nested template
-      _ <- a.templateDefinition match {
+      _ <- a.templateDefinitionId match {
         case Some(parent) => Left(SemanticError.NestedTemplateDefinition(
           Locations.get(aNode._2.id),
           Locations.get(parent)
         ))
         case None => Right(())
       }
-      a <- Right(a.copy(templateDefinition = Some(node.id)))
+      a <- Right(a.copy(templateDefinitionId = Some(node.id)))
       params <- transformList(a, data.params, templateParam)
       members <- transformList(a, data.members, matchModuleMember)
-      a <- Right(a.copy(templateDefinition = None))
+      a <- Right(a.copy(templateDefinitionId = None))
     }
     yield {
       val (_, params1) = params
@@ -1096,8 +1096,8 @@ object ExpandTemplates extends AstTransformer
     val data = node.data
     for { result <- transformList(a, data.members, matchModuleMember) }
     yield {
-      val (a1, members1) = result
-      (a1, cloneAnnotatedNode(a, aNode, data.copy(members = members1.flatten)))
+      val (_, members1) = result
+      ((), cloneAnnotatedNode(a, aNode, data.copy(members = members1.flatten)))
     }
   }
 
@@ -1105,41 +1105,56 @@ object ExpandTemplates extends AstTransformer
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
   ): ResultAnnotatedNode[Ast.SpecTemplateExpand] = {
-    val (pre, node, post) = aNode
+    val (_, node, _) = aNode
     val data = node.data
-
-    (a.template, a.templateDefinition) match {
+    (a.templateExpansionId, a.templateDefinitionId) match {
       case (None, None) =>
-        // Not inside a template: expand it
-        for {
-          // Look up the template def
-          tmpl <- a.getTemplateSymbol(data.template.id)
-
-          // Clone the template body, recording the expansion node so that any
-          // nested expansion specifier is rejected and so that cloned nodes
-          // point back at the expansion site.
-          // Record the template definition too for diagnostics.
-          members <- transformList(
-            a.copy(
-              template = Some(node.id),
-              templateDefinition = Some(tmpl.node._2.id)
-            ),
-            tmpl.node._2.data.members,
-            matchModuleMember
-          )
-        } yield {
-          // Paste the expanded template body into the expansion specifier
-          ((), (pre, AstNode.create(data.copy(members = Some(members._2.flatten)), node.id), post))
+        // Not inside a template: expand if needed
+        data.members match {
+          // Members are already there; nothing to do
+          case Some(members) => Right((), aNode) 
+          // Members are not there; expand
+          case None => expandTemplate(a, aNode)
         }
-      case (_, Some(templateDefinition)) =>
+      case (_, Some(templateDefinitionId)) =>
         // The expansion specifier is nested inside a template body
         Left(SemanticError.TemplateExpansionInTemplate(
           Locations.get(node.id),
-          Locations.get(templateDefinition)
+          Locations.get(templateDefinitionId)
         ))
       case (Some(_), None) => throw new InternalError(
         "ExpandTemplates: expanding a template with no template definition"
       )
     }
   }
+
+  /** Expand a template */
+  private def expandTemplate(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+  ): ResultAnnotatedNode[Ast.SpecTemplateExpand] = {
+    val (pre, node, post) = aNode
+    val data = node.data
+    for {
+      // Look up the template def
+      tmpl <- a.getTemplateSymbol(data.template.id)
+
+      // Clone the template body, recording the expansion node so that any
+      // nested expansion specifier is rejected and so that cloned nodes
+      // point back at the expansion site.
+      // Record the template definition too for diagnostics.
+      members <- transformList(
+        a.copy(
+          templateExpansionId = Some(node.id),
+          templateDefinitionId = Some(tmpl.node._2.id)
+        ),
+        tmpl.node._2.data.members,
+        matchModuleMember
+      )
+    } yield {
+      // Paste the expanded template body into the expansion specifier
+      ((), (pre, AstNode.create(data.copy(members = Some(members._2.flatten)), node.id), post))
+    }
+  }
+
 }
