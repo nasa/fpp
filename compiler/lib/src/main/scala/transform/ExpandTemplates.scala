@@ -860,16 +860,27 @@ object ExpandTemplates extends AstTransformer
       param: Ast.Annotated[AstNode[Ast.TemplateParam]]
     ): ResultAnnotatedNode[Ast.TemplateParam] = {
       val (_, node, _) = param
-      node.data match {
-        case data @ Ast.TemplateParam.Constant(_, tn) =>
-          for ((_, tn) <- matchTypeName(a, tn))
-            yield ((), cloneAnnotatedNode(a, param, data.copy(typeName = tn)))
-        case data @ Ast.TemplateParam.Type(_) =>
-          Right(((), cloneAnnotatedNode(a, param, data)))
-        case data @ Ast.TemplateParam.Interface(_, interface) =>
-          for (interface <- qualIdentNode(a, interface))
-            yield ((), cloneAnnotatedNode(a, param, data.copy(interface = interface)))
-      }
+      for {
+        data <- node.data match {
+          case data @ Ast.TemplateParam.Constant(_, tn) =>
+            for ((_, tn) <- matchTypeName(a, tn))
+              yield data.copy(typeName = tn)
+          case data @ Ast.TemplateParam.Type(_) => Right(data)
+          case data @ Ast.TemplateParam.Interface(_, interface) =>
+            for (interface <- qualIdentNode(a, interface))
+              yield data.copy(interface = interface)
+        }
+      } yield ((), cloneAnnotatedNode(a, param, data))
+//      node.data match {
+//        case data @ Ast.TemplateParam.Constant(_, tn) =>
+//          for ((_, tn) <- matchTypeName(a, tn))
+//            yield ((), cloneAnnotatedNode(a, param, data.copy(typeName = tn)))
+//        case data @ Ast.TemplateParam.Type(_) =>
+//          Right(((), cloneAnnotatedNode(a, param, data)))
+//        case data @ Ast.TemplateParam.Interface(_, interface) =>
+//          for (interface <- qualIdentNode(a, interface))
+//            yield ((), cloneAnnotatedNode(a, param, data.copy(interface = interface)))
+//      }
     }
 
     for {
