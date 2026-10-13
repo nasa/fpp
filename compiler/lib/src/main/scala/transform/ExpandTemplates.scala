@@ -55,21 +55,6 @@ object ExpandTemplates extends AstTransformer
     a: Analysis,
     node: AstNode[T]
   ) = Right((), cloneNode(a, node, node.data))
-//    a.templateExpansionId match {
-//      case None => Right((), node)
-//      case Some(expansionNode) => {
-//        val out = AstNode.create(node.data)
-//        val inLoc = Locations.get(node.id)
-//        val outLoc = Location(
-//          inLoc.file,
-//          inLoc.pos,
-//          inLoc.includingLoc,
-//          Some(Locations.get(expansionNode))
-//        )
-//        Locations.put(out.id, outLoc)
-//        Right((), out)
-//      }
-//    }
 
   override def defaultAnnotatedNode[T](
     a: In,
@@ -283,18 +268,15 @@ object ExpandTemplates extends AstTransformer
         resultAdapter(defEnumConstantAnnotatedNode)
       )
       default <- exprNodeOpt(a, data.default)
-    } yield (
-      (),
-      cloneAnnotatedNode(
-        a,
-        aNode,
-        data.copy(
-          typeName = typeName,
-          constants = constants,
-          default = default
-        )
+    } yield {
+      val dataCopy = data.copy(
+        typeName = typeName,
+        constants = constants,
+        default = default
       )
-    )
+      val node = cloneAnnotatedNode(a, aNode, dataCopy)
+      ((), node)
+    }
 
   override def defPortAnnotatedNode(
     a: In,
@@ -304,14 +286,11 @@ object ExpandTemplates extends AstTransformer
     for {
       params <- formalParamList(a, data.params)
       returnType <- typeNameNodeOpt(a, data.returnType)
-    } yield (
-      (),
-      cloneAnnotatedNode(
-        a,
-        aNode,
-        data.copy(params = params, returnType = returnType)
-      )
-    )
+    } yield {
+      val dataCopy = data.copy(params = params, returnType = returnType)
+      val node = cloneAnnotatedNode(a, aNode, dataCopy)
+      ((), node)
+    }
 
   override def defStateMachineAnnotatedNodeExternal(
     in: In,
@@ -356,18 +335,15 @@ object ExpandTemplates extends AstTransformer
       (_, guard) <- defaultNode(a, data.guard)
       ifTransition <- transitionExpr(a, data.ifTransition)
       elseTransition <- transitionExpr(a, data.elseTransition)
-    } yield (
-      (),
-      cloneAnnotatedNode(
-        a,
-        aNode,
-        data.copy(
-          guard = guard,
-          ifTransition = ifTransition,
-          elseTransition = elseTransition
-        )
+    } yield {
+      val dataCopy = data.copy(
+        guard = guard,
+        ifTransition = ifTransition,
+        elseTransition = elseTransition
       )
-    )
+      val node = cloneAnnotatedNode(a, aNode, dataCopy)
+      ((), node)
+    }
 
   override def defGuardAnnotatedNode(
     a: In,
@@ -531,7 +507,7 @@ object ExpandTemplates extends AstTransformer
   override def specConnectionGraphAnnotatedNode(
     a: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]
-  ) =
+  ) = {
     val data = aNode._2.data
 
     def connection(
@@ -573,6 +549,7 @@ object ExpandTemplates extends AstTransformer
         }
     }
 
+  }
 
   override def specContainerAnnotatedNode(
     a: In,
