@@ -1097,7 +1097,7 @@ object Parser extends Parsers {
 
   def specTemplateExpand: Parser[Ast.SpecTemplateExpand] = {
     (expand ~>! node(qualIdent)) ~! templateArgList ~! opt(
-      module ~>! lbrace ~>! moduleMembers <~! rbrace
+      lbrace ~>! moduleMembers <~! rbrace
     ) ^^ {
       case id ~ args ~ membersOpt => Ast.SpecTemplateExpand(id, args, membersOpt)
     }
