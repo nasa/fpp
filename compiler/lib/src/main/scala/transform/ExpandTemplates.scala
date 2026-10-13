@@ -54,22 +54,22 @@ object ExpandTemplates extends AstTransformer
   override def defaultNode[T](
     a: Analysis,
     node: AstNode[T]
-  ) =
-    a.templateExpansionId match {
-      case None => Right((), node)
-      case Some(expansionNode) => {
-        val out = AstNode.create(node.data)
-        val inLoc = Locations.get(node.id)
-        val outLoc = Location(
-          inLoc.file,
-          inLoc.pos,
-          inLoc.includingLoc,
-          Some(Locations.get(expansionNode))
-        )
-        Locations.put(out.id, outLoc)
-        Right((), out)
-      }
-    }
+  ) = Right((), cloneNode(a, node, node.data))
+//    a.templateExpansionId match {
+//      case None => Right((), node)
+//      case Some(expansionNode) => {
+//        val out = AstNode.create(node.data)
+//        val inLoc = Locations.get(node.id)
+//        val outLoc = Location(
+//          inLoc.file,
+//          inLoc.pos,
+//          inLoc.includingLoc,
+//          Some(Locations.get(expansionNode))
+//        )
+//        Locations.put(out.id, outLoc)
+//        Right((), out)
+//      }
+//    }
 
   override def defaultAnnotatedNode[T](
     a: In,
@@ -1030,15 +1030,13 @@ object ExpandTemplates extends AstTransformer
       case Some(expansionNode) => {
         val out = AstNode.create(data)
         val inLoc = Locations.get(node.id)
-        Locations.put(
-          out.id,
-          Location(
-            inLoc.file,
-            inLoc.pos,
-            inLoc.includingLoc,
-            Some(Locations.get(expansionNode))
-          )
+        val outLoc = Location(
+          inLoc.file,
+          inLoc.pos,
+          inLoc.includingLoc,
+          Some(Locations.get(expansionNode))
         )
+        Locations.put(out.id, outLoc)
         out
       }
     }
