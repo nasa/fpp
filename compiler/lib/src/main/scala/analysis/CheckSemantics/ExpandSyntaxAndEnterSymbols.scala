@@ -16,6 +16,8 @@ object ExpandSyntaxAndEnterSymbols {
       (a, tul) <- ResolveSpecInclude.transUnitList(a, tul)
       tul <- AddStateEnums.transUnitList(tul)
       a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
+      // TODO: CheckTemplateDefinitions
+      // TODO: CheckTemplateExpansions
       a <- CheckTemplateUses.visitList(a, tul, CheckTemplateUses.transUnit)
       (_, tul) <- ExpandTemplates.transformList(a, tul, ExpandTemplates.transUnit)
       a <- EnterTemplateExpansionSymbols.visitList(a, tul, EnterTemplateExpansionSymbols.transUnit)

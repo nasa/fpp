@@ -32,7 +32,8 @@ trait ModuleAnalyzer extends Analyzer {
         yield a2.copy(templateExpansion = a.templateExpansion)
       case None =>
         // This node has not yet been expanded by analysis.
-        // The expansion is provided in an expand { ... } clause.
+        // The expansion is provided in the source model, in the form
+        // expand T { ... }.
         Right(a)
     }
   }

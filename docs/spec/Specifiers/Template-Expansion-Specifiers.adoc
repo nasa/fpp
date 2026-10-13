@@ -84,6 +84,10 @@ template argument.
 ... When _p_ is a type template parameter, _B_
     is called a *type parameter definition*.
 
+. If _module-member-sequence_ is present, then it must not
+transitively contain any <<Definitions_Module-Template-Definitions,module
+template definitions>> or template expansion specifiers.
+
 ==== Examples
 
 [source,fpp]
