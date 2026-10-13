@@ -874,10 +874,9 @@ object ExpandTemplates extends AstTransformer
     }
 
     for {
-      a <- Right(a.copy(templateDefId = Some(node.id)))
-      params <- transformList(a, data.params, templateParam)
-      members <- transformFlatList(a, data.members, matchModuleMember)
-      a <- Right(a.copy(templateDefId = None))
+      a1 <- Right(a.copy(templateDefId = Some(node.id)))
+      params <- transformList(a1, data.params, templateParam)
+      members <- transformFlatList(a1, data.members, matchModuleMember)
     }
     yield {
       val dataCopy = data.copy(params = params, members = members)

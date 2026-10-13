@@ -24,7 +24,7 @@ object CheckTemplateDefs
             Locations.get(defId)
           )
         )
-        case None => Right(a)
+        case None => Right(())
       }
       a <- Right(a.copy(templateDefId = Some(node.id)))
       a <- visitList(a, data.members, matchModuleMember)
