@@ -1,9 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/template/composition_invalid.fpp:10.5
-    expand T1(constant p)
-    ^
-error: template expansion specifiers cannot appear inside a module template
-enclosing template is defined here:
-[ local path prefix ]/compiler/tools/fpp-check/test/template/composition_invalid.fpp:7.1
-module template T2(
-^
