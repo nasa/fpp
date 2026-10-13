@@ -387,10 +387,18 @@ sealed trait Error {
         loc: Location,
         msg: String,
         defLoc: Location
-      ) => 
+      ) =>
         Error.print (Some(loc)) (msg)
         System.err.println("enclosing template is defined here:")
         System.err.println(defLoc)
+      case SemanticError.TemplateExpandError(
+        loc: Location,
+        msg: String,
+        expandLoc: Location
+      ) =>
+        Error.print (Some(loc)) (msg)
+        System.err.println("enclosing template expansion is here:")
+        System.err.println(expandLoc)
       case SemanticError.TooManyOutputPorts(loc, numPorts, arraySize, instanceLoc) =>
         Error.print (Some(loc)) (s"too many ports connected here (found $numPorts, max is $arraySize)")
         System.err.println("for this component instance:")
@@ -882,6 +890,12 @@ object SemanticError {
     loc: Location,
     msg: String,
     defLoc: Location
+  ) extends Error
+  /** Error in template expansion */
+  final case class TemplateExpandError(
+    loc: Location,
+    msg: String,
+    expandLoc: Location
   ) extends Error
   /** Template parameter conflicts with a definition in the template body */
   final case class TemplateParameterConflict(
