@@ -1042,14 +1042,13 @@ object ExpandTemplates extends AstTransformer
     for {
       interfaceInstance <- qualIdentNode(a, pii.data.interfaceInstance)
       (_, portName) <- defaultNode(a, pii.data.portName)
-    } yield cloneNode(
-      a,
-      pii,
-      pii.data.copy(
+    } yield  {
+      val dataCopy = pii.data.copy(
         interfaceInstance = interfaceInstance,
         portName = portName
       )
-    )
+      cloneNode(a, pii, dataCopy)
+    }
   }
 
   private def qualIdentNode(
@@ -1094,15 +1093,14 @@ object ExpandTemplates extends AstTransformer
     for {
       size <- exprNodeOpt(a, data.size)
       (_, typeName) <- matchTypeName(a, data.typeName)
-    } yield cloneAnnotatedNode(
-        a,
-        aNode,
-        data.copy(
-          size = size,
-          typeName = typeName,
-          format = cloneStringNodeOpt(a, data.format)
-        )
-    )
+    } yield {
+      val dataCopy = data.copy(
+        size = size,
+        typeName = typeName,
+        format = cloneStringNodeOpt(a, data.format)
+      )
+      cloneAnnotatedNode(a, aNode, dataCopy)
+    }
 
   private def transitionExpr(
     a: In,
@@ -1111,11 +1109,10 @@ object ExpandTemplates extends AstTransformer
     for {
       actions <- transformList(a, node.data.actions, defaultNode)
       target <- qualIdentNode(a, node.data.target)
-    } yield cloneNode(
-      a,
-      node,
-      node.data.copy(actions = actions, target = target)
-    )
+    } yield {
+      val dataCopy = node.data.copy(actions = actions, target = target)
+      cloneNode(a, node, dataCopy)
+    }
 
   private def transitionOrDo(
     a: In,
