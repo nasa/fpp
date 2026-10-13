@@ -60,15 +60,13 @@ object ExpandTemplates extends AstTransformer
       case Some(expansionNode) => {
         val out = AstNode.create(node.data)
         val inLoc = Locations.get(node.id)
-        Locations.put(
-          out.id,
-          Location(
-            inLoc.file,
-            inLoc.pos,
-            inLoc.includingLoc,
-            Some(Locations.get(expansionNode))
-          )
+        val outLoc = Location(
+          inLoc.file,
+          inLoc.pos,
+          inLoc.includingLoc,
+          Some(Locations.get(expansionNode))
         )
+        Locations.put(out.id, outLoc)
         Right((), out)
       }
     }
@@ -234,23 +232,21 @@ object ExpandTemplates extends AstTransformer
       priority <- exprNodeOpt(a, data.priority)
       cpu <- exprNodeOpt(a, data.cpu)
       initSpecs <- transformList(a, data.initSpecs, specInitAnnotatedNode)
-    } yield (
-      (),
-      cloneAnnotatedNode(
-        a, aNode,
-        data.copy(
-          component=component,
-          baseId=baseId,
-          implType=cloneStringNodeOpt(a, data.implType),
-          file=cloneStringNodeOpt(a, data.file),
-          queueSize=queueSize,
-          stackSize=stackSize,
-          priority=priority,
-          cpu=cpu,
-          initSpecs=initSpecs
-        )
+    } yield {
+      val dataCopy = data.copy(
+        component=component,
+        baseId=baseId,
+        implType=cloneStringNodeOpt(a, data.implType),
+        file=cloneStringNodeOpt(a, data.file),
+        queueSize=queueSize,
+        stackSize=stackSize,
+        priority=priority,
+        cpu=cpu,
+        initSpecs=initSpecs
       )
-    )
+      val node = cloneAnnotatedNode(a, aNode, dataCopy)
+      ((), node)
+    }
   }
 
   override def defInterfaceAnnotatedNode(
@@ -268,13 +264,11 @@ object ExpandTemplates extends AstTransformer
   ) =
     val data = aNode._2.data
     for ((_, value) <- matchExprNode(a, data.value))
-      yield (
-        (),
-        cloneAnnotatedNode(
-          a, aNode,
-          data.copy(value = value)
-        )
-      )
+      yield {
+        val dataCopy = data.copy(value = value)
+        val node = cloneAnnotatedNode(a, aNode, dataCopy)
+        ((), node)
+      }
 
   override def defEnumAnnotatedNode(
     a: In,
