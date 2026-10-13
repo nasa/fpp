@@ -476,14 +476,11 @@ object ExpandTemplates extends AstTransformer
     val data = aNode._2.data
     for {
       instance <- qualIdentNode(a, data.instance)
-    } yield (
-      (),
-      cloneAnnotatedNode(
-        a,
-        aNode,
-        data.copy(instance = instance)
-      )
-    )
+    } yield {
+      val dataCopy = data.copy(instance = instance)
+      val node = cloneAnnotatedNode(a, aNode, dataCopy)
+      ((), node)
+    }
 
   override def specConnectionGraphAnnotatedNode(
     a: In,
@@ -617,14 +614,11 @@ object ExpandTemplates extends AstTransformer
     for {
       symbol <- qualIdentNode(a, data.symbol)
       (_, file) <- defaultNode(a, data.file)
-    } yield (
-      (),
-      cloneAnnotatedNode(
-        a,
-        aNode,
-        data.copy(symbol = symbol, file = file)
-      )
-    )
+    } yield {
+      val dataCopy = data.copy(symbol = symbol, file = file)
+      val node = cloneAnnotatedNode(a, aNode, dataCopy)
+      ((), node)
+    }
 
   override def specParamAnnotatedNode(
     a: In,
@@ -637,20 +631,17 @@ object ExpandTemplates extends AstTransformer
       id <- exprNodeOpt(a, data.id)
       setOpcode <- exprNodeOpt(a, data.setOpcode)
       saveOpcode <- exprNodeOpt(a, data.saveOpcode)
-    } yield (
-      (),
-      cloneAnnotatedNode(
-        a,
-        aNode,
-        data.copy(
-          typeName = typeName,
-          default = default,
-          id = id,
-          setOpcode = setOpcode,
-          saveOpcode = saveOpcode
-        )
+    } yield {
+      val dataCopy = data.copy(
+        typeName = typeName,
+        default = default,
+        id = id,
+        setOpcode = setOpcode,
+        saveOpcode = saveOpcode
       )
-    )
+      val node = cloneAnnotatedNode(a, aNode, dataCopy)
+      ((), node)
+    }
 
   override def specPortInstanceAnnotatedNode(
     a: In,
@@ -658,41 +649,30 @@ object ExpandTemplates extends AstTransformer
   ) =
     val data = aNode._2.data
     data match {
-      case data @ Ast.SpecPortInstance.General(_, _, _, _, _, _) =>
+      case data : Ast.SpecPortInstance.General =>
         for {
           size <- exprNodeOpt(a, data.size)
           port <- qualIdentNodeOpt(a, data.port)
           priority <- exprNodeOpt(a, data.priority)
           queueFull <- defaultNodeOpt(a, data.queueFull)
-        } yield (
-          (),
-          cloneAnnotatedNode(
-            a,
-            aNode,
-            data.copy(
-              size = size,
-              port = port,
-              priority = priority,
-              queueFull = queueFull
-            )
+        } yield {
+          val dataCopy = data.copy(
+            size = size,
+            port = port,
+            priority = priority,
+            queueFull = queueFull
           )
-        )
-      case data @ Ast.SpecPortInstance.Special(_, _, _, _, _) =>
+          val node = cloneAnnotatedNode(a, aNode, dataCopy)
+          ((), node)
+        }
+      case data : Ast.SpecPortInstance.Special =>
         for {
           priority <- exprNodeOpt(a, data.priority)
           queueFull <- defaultNodeOpt(a, data.queueFull)
         } yield {
-          (
-            (),
-            cloneAnnotatedNode(
-              a,
-              aNode,
-              data.copy(
-                priority = priority,
-                queueFull = queueFull
-              )
-            )
-          )
+          val dataCopy = data.copy(priority = priority, queueFull = queueFull)
+          val node = cloneAnnotatedNode(a, aNode, dataCopy)
+          ((), node)
         }
     }
 
@@ -704,14 +684,11 @@ object ExpandTemplates extends AstTransformer
     for {
       (_, port1) <- defaultNode(a, data.port1)
       (_, port2) <- defaultNode(a, data.port2)
-    } yield (
-      (),
-      cloneAnnotatedNode(
-        a,
-        aNode,
-        data.copy(port1 = port1, port2 = port2)
-      )
-    )
+    } yield {
+      val dataCopy = data.copy(port1 = port1, port2 = port2)
+      val node = cloneAnnotatedNode(a, aNode, dataCopy)
+      ((), node)
+    }
 
   override def specRecordAnnotatedNode(
     a: In,
@@ -721,14 +698,11 @@ object ExpandTemplates extends AstTransformer
     for {
       (_, recordType) <- matchTypeName(a, data.recordType)
       id <- exprNodeOpt(a, data.id)
-    } yield (
-      (),
-      cloneAnnotatedNode(
-        a,
-        aNode,
-        data.copy(recordType = recordType, id = id)
-      )
-    )
+    } yield {
+      val dataCopy = data.copy(recordType = recordType, id = id)
+      val node = cloneAnnotatedNode(a, aNode, dataCopy)
+      ((), node)
+    }
 
   override def specStateMachineInstanceAnnotatedNode(
     a: In,
@@ -738,14 +712,11 @@ object ExpandTemplates extends AstTransformer
     for {
       stateMachine <- qualIdentNode(a, data.stateMachine)
       priority <- exprNodeOpt(a, data.priority)
-    } yield (
-      (),
-      cloneAnnotatedNode(
-        a,
-        aNode,
-        data.copy(stateMachine = stateMachine, priority = priority)
-      )
-    )
+    } yield {
+      val dataCopy = data.copy(stateMachine = stateMachine, priority = priority)
+      val node = cloneAnnotatedNode(a, aNode, dataCopy)
+      ((), node)
+    }
 
   override def specTlmChannelAnnotatedNode(
     a: In,
@@ -768,20 +739,17 @@ object ExpandTemplates extends AstTransformer
       id <- exprNodeOpt(a, data.id)
       low <- transformList(a, data.low, limit)
       high <- transformList(a, data.high, limit)
-    } yield (
-      (),
-      cloneAnnotatedNode(
-        a,
-        aNode,
-        data.copy(
-          typeName = typeName,
-          id = id,
-          format = cloneStringNodeOpt(a, data.format),
-          low = low,
-          high = high
-        )
+    } yield {
+      val dataCopy = data.copy(
+        typeName = typeName,
+        id = id,
+        format = cloneStringNodeOpt(a, data.format),
+        low = low,
+        high = high
       )
-    )
+      val node = cloneAnnotatedNode(a, aNode, dataCopy)
+      ((), node)
+    }
 
   override def specTlmPacketAnnotatedNode(
     a: In,
@@ -795,29 +763,24 @@ object ExpandTemplates extends AstTransformer
       member match {
         case Ast.TlmPacketMember.SpecInclude(node) =>
           for ((_, file) <- defaultNode(a, node.data.file))
-            yield (
-              (),
-              Ast.TlmPacketMember.SpecInclude(
-                cloneNode(a, node, node.data.copy(file = file))
-              )
-            )
+            yield {
+              val nodeCopy = cloneNode(a, node, node.data.copy(file = file))
+              val specIncludeCopy = Ast.TlmPacketMember.SpecInclude(nodeCopy)
+              ((), specIncludeCopy)
+            }
         case Ast.TlmPacketMember.TlmChannelIdentifier(node) =>
           for {
             componentInstance <- qualIdentNode(a, node.data.componentInstance)
             (_, channelName) <- defaultNode(a, node.data.channelName)
-          } yield (
-            (),
-            Ast.TlmPacketMember.TlmChannelIdentifier(
-              cloneNode(
-                a,
-                node,
-                node.data.copy(
-                  componentInstance = componentInstance,
-                  channelName = channelName
-                )
-              )
+          } yield {
+            val dataCopy = node.data.copy(
+              componentInstance = componentInstance,
+              channelName = channelName
             )
-          )
+            val nodeCopy = cloneNode(a, node, dataCopy)
+            val channelIdCopy = Ast.TlmPacketMember.TlmChannelIdentifier(nodeCopy)
+            ((), channelIdCopy)
+          }
       }
     }
 
@@ -825,18 +788,15 @@ object ExpandTemplates extends AstTransformer
       id <- exprNodeOpt(a, data.id)
       (_, group) <- matchExprNode(a, data.group)
       members <- transformList(a, data.members, tlmPacketMember)
-    } yield (
-      (),
-      cloneAnnotatedNode(
-        a,
-        aNode,
-        data.copy(
-          id = id,
-          group = group,
-          members = members
-        )
+    } yield {
+      val dataCopy = data.copy(
+        id = id,
+        group = group,
+        members = members
       )
-    )
+      val node = cloneAnnotatedNode(a, aNode, dataCopy)
+      ((), node)
+    }
 
   override def specTopPortAnnotatedNode(
     a: In,
