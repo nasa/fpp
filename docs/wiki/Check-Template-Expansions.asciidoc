@@ -1,0 +1,23 @@
+This algorithm traverses a source model and checks template
+expansions for correctness.
+This check covers only pre-expanded `expand` specifiers, i.e.,
+expand specifiers written in the form `expand T { ... }`.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis
+data structure] _a_
+representing the results of analysis so far.
+
+== Output
+
+. None if the check passes; otherwise an error.
+
+== Procedure
+
+. Check that no template expansion transitively contains a template definition.
+
+. Check that no template expansion transitively contains a template expansion.
