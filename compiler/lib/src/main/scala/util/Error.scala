@@ -322,6 +322,13 @@ sealed trait Error {
         Error.print (Some(topologyLoc)) ("deployment topologies cannot appear inside a module template")
         System.err.println("enclosing template defined here:")
         System.err.println(templateLoc)
+      case SemanticError.SystemInTemplate(
+        systemLoc: Location,
+        templateLoc: Location
+      ) =>
+        Error.print (Some(systemLoc)) ("system definitions cannot appear inside a module template")
+        System.err.println("enclosing template defined here:")
+        System.err.println(templateLoc)
       case SemanticError.MissingAsync(kind, loc) =>
         Error.print (Some(loc)) (s"$kind component must have async input")
       case SemanticError.MissingConnection(loc, matchingLoc) =>
@@ -810,6 +817,11 @@ object SemanticError {
   /** Deployment topology inside a template */
   final case class DeploymentTopologyInTemplate(
     topologyLoc: Location,
+    templateLoc: Location,
+  ) extends Error
+  /** System definition inside a template */
+  final case class SystemInTemplate(
+    systemLoc: Location,
     templateLoc: Location,
   ) extends Error
   /** Missing async input */

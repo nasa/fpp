@@ -27,7 +27,8 @@ https://github.com/nasa/fpp/wiki/Expand-Templates[template expansion] to
 reject a nested template definition and a template expansion inside a
 template, and during
 https://github.com/nasa/fpp/wiki/Check-Template-Definitions[template
-definition checking] to reject a deployment topology inside a template.
+definition checking] to reject a deployment topology or a system definition
+inside a template.
 
 * *Current template expansion:* The
 https://github.com/nasa/fpp/wiki/Analysis#data-structures[template

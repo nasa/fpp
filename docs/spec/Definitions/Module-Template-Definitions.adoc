@@ -40,7 +40,8 @@ never causes another template to be defined or another
 template expansion to occur.
 
 No module template definition may be the ancestor in the abstract syntax tree of a
-<<Definitions_Topology-Definitions,deployment topology definition>>. This rule ensures that
+<<Definitions_Topology-Definitions,deployment topology definition>> or of a
+<<Definitions_System-Definitions,system definition>>. This rule ensures that
 template expansion never creates a dictionary.
 
 Each module template definition _M_ that appears in a model

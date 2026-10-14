@@ -56,6 +56,7 @@ struct_parameter_nested_default_bad_arg
 struct_parameter_nested_default_ok
 struct_parameter_ok
 struct_parameter_omitted_member_ok
+system_in_template
 type_arg_string
 type_param_implied_use
 types

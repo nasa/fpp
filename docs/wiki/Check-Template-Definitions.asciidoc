@@ -2,7 +2,7 @@ For implementation, see
 https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/analysis/CheckSemantics/CheckTemplateDefs.scala[`CheckTemplateDefs.scala`].
 
 This algorithm traverses a source model and checks that no module template
-definition contains a deployment topology definition.
+definition contains a deployment topology definition or a system definition.
 
 == Input
 
@@ -38,6 +38,11 @@ and restore the current template definition member of _a_.
 Visit _t_ whether or not it is expanded.
 
 .. *Topology definitions:* If _tum_ is a deployment topology definition _d_
+and the current template definition member of _a_ is present, then
+report an error, citing the location of _d_ and the location of the
+enclosing template definition.
+
+.. *System definitions:* If _tum_ is a system definition _d_
 and the current template definition member of _a_ is present, then
 report an error, citing the location of _d_ and the location of the
 enclosing template definition.
