@@ -45,7 +45,8 @@ object FPPDepend {
     }
     val a = Analysis(inputFileSet = options.files.toSet, dictionaryGeneration = true)
     for {
-      (a, tul) <- parseFilesAndResolveIncludes(a, files)
+      tul <- ToolUtils.parseFiles(files)
+      (a, tul) <- ResolveSpecInclude.transUnitList(a, tul)
       a <- ComputeDependencies.tuList(a, tul)
       _ <- options.directFile match {
         case Some(file) => writeIterable(a.directDependencyFileSet, file)
@@ -108,33 +109,11 @@ object FPPDepend {
   def expandTemplates(a: Analysis, tul: List[Ast.TransUnit]):
     Result.Result[(Analysis, List[Ast.TransUnit])] =
       for {
-        defTul <- loadTemplateDefinitions(a, tul, Set())
+        defTul <- LoadTemplateDefinitions.get(a, tul)
         aTul <- ExpandSyntaxAndEnterSymbols.tuList(a, tul ++ defTul)
       }
       // The expanded input translation units come first
       yield (aTul._1, aTul._2.take(tul.length))
-
-  /** Load the files that define the templates expanded in a list of
-   *  translation units, and in the files that those files load */
-  private def loadTemplateDefinitions(
-    a: Analysis,
-    tul: List[Ast.TransUnit],
-    loadedFiles: Set[File]
-  ): Result.Result[List[Ast.TransUnit]] = {
-    val files = TemplateDefinitionFiles.get(a, tul) -- a.inputFileSet -- loadedFiles
-    if files.isEmpty then Right(Nil)
-    else for {
-      aTul <- parseFilesAndResolveIncludes(a, files.toList)
-      defTul <- loadTemplateDefinitions(a, aTul._2, loadedFiles ++ files)
-    } yield aTul._2 ++ defTul
-  }
-
-  def parseFilesAndResolveIncludes(a: Analysis, files: List[File]):
-    Result.Result[(Analysis, List[Ast.TransUnit])] =
-      for {
-        tul <- ToolUtils.parseFiles(files)
-        aTul <- ResolveSpecInclude.transUnitList(a, tul)
-      } yield aTul
 
   def writeIterable[T](
     its: Iterable[T],

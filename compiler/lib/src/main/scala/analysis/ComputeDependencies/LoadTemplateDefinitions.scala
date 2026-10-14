@@ -2,12 +2,33 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
+import fpp.compiler.syntax.Parser
+import fpp.compiler.transform.ResolveSpecInclude
 
-/** Compute the files that define the templates expanded in a list of
- *  translation units, using the location specifier map */
-object TemplateDefinitionFiles {
+/** Load template definition files required for expanding the model */
+object LoadTemplateDefinitions {
 
-  def get(a: Analysis, tul: List[Ast.TransUnit]): Set[File] = {
+  def get(
+    a: Analysis,
+    tul: List[Ast.TransUnit]
+  ): Result.Result[List[Ast.TransUnit]] =
+    getInner(a, tul, Set())
+
+  private def getInner(
+    a: Analysis,
+    tul: List[Ast.TransUnit],
+    loadedFiles: Set[File]
+  ): Result.Result[List[Ast.TransUnit]] = {
+    val files = LoadTemplateDefinitions.getFilenames(a, tul) -- a.inputFileSet -- loadedFiles
+    if files.isEmpty then Right(Nil)
+    else for {
+      tul <- Result.map(files.toList, Parser.parseFile (Parser.transUnit) (None))
+      aTul <- ResolveSpecInclude.transUnitList(a, tul)
+      defTul <- getInner(a, aTul._2, loadedFiles ++ files)
+    } yield aTul._2 ++ defTul
+  }
+
+  private def getFilenames(a: Analysis, tul: List[Ast.TransUnit]): Set[File] = {
     val visitor = Visitor(a.locationSpecifierMap)
     visitor.visitList(Visitor.State(), tul, visitor.transUnit) match {
       case Right(s) => s.files
