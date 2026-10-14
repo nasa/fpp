@@ -1,0 +1,45 @@
+For implementation, see
+https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/analysis/CheckSemantics/CheckTemplateDefs.scala[`CheckTemplateDefs.scala`].
+
+This algorithm traverses a source model and checks that no module template
+definition contains a deployment topology definition.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis
+data structure] _a_
+representing the results of analysis so far.
+
+== Output
+
+. If the check passes, then no output.
+
+. Otherwise an error.
+
+== Procedure
+
+. *Translation unit lists:* Visit each translation unit _tu_ in _tul_ in order.
+
+. *Translation units:* Visit a translation unit _tu_ by visiting its members _tum_.
+
+. *Translation unit members:* Visit a translation unit member _tum_ as follows:
+
+.. *Module definitions:* If _tum_ is a module definition _d_, then
+visit each member of _d_.
+
+.. *Module template definitions:* If _tum_ is a module template
+definition _t_, then set the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[current
+template definition] member of _a_ to _t_, visit the members of _t_,
+and restore the current template definition member of _a_.
+Visit _t_ whether or not it is expanded.
+
+.. *Topology definitions:* If _tum_ is a deployment topology definition _d_
+and the current template definition member of _a_ is present, then
+report an error, citing the location of _d_ and the location of the
+enclosing template definition.
+
+.. Otherwise do nothing.

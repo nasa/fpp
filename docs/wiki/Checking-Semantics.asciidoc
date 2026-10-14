@@ -19,6 +19,8 @@ the results of syntax expansion.
 . https://github.com/nasa/fpp/wiki/Expanding-Syntax-and-Entering-Symbols[Expand syntax and enter symbols]
 for _a_ and _tul_.
 
+. https://github.com/nasa/fpp/wiki/Check-Template-Definitions[Check template definitions] for _a_ and _tul_.
+
 . https://github.com/nasa/fpp/wiki/Construct-Implied-Use-Map[Construct the implied use map] for _a_ and _tul_.
 
 . https://github.com/nasa/fpp/wiki/Check-Uses[Check uses] for _a_ and _tul_.
