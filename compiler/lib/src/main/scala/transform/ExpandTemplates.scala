@@ -5,40 +5,13 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Expand any template expansion specifiers that have not yet been expanded */
-object ExpandTemplates extends AstTransformer
+object ExpandTemplates extends AstUnitTransformer
 {
 
   type In = Analysis
 
-  type Out = Unit
-
   def default(a: Analysis) =
     throw InternalError("ExpandTemplates: Transformer not implemented")
-
-  /** Transform a list in sequence */
-  def transformList[A, B](
-    a: Analysis,
-    list: List[A],
-    transform: (Analysis, A) => Result[B]
-  ): Result.Result[List[B]] = {
-    def helper(in: List[A], out: List[B]): Result.Result[List[B]] = {
-      in match {
-        case Nil => Right(out)
-        case head :: tail => transform(a, head) match {
-          case Left(e) => Left(e)
-          case Right((_, list)) => helper(tail, list :: out)
-        }
-      }
-    }
-    helper(list, Nil).map(_.reverse)
-  }
-
-  /** Transform a list and flatten the result */
-  def transformFlatList[A, B](
-    a: Analysis,
-    list: List[A],
-    transform: (Analysis, A) => Result[List[B]]
-  ): Result.Result[List[B]] = transformList(a, list, transform).map(_.flatten)
 
   override def transUnit(
     a: Analysis,
