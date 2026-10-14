@@ -46,7 +46,7 @@ object FPPDepend {
     val a = Analysis(inputFileSet = options.files.toSet, dictionaryGeneration = true)
     for {
       tul <- ToolUtils.parseFiles(files)
-      (a, tul) <- expandSyntaxAndEnterSymbols(a, tul)
+      (a, tul) <- ResolveSpecInclude.transUnitList(a, tul)
       a <- ComputeDependencies.tuList(a, tul)
       _ <- options.directFile match {
         case Some(file) => writeIterable(a.directDependencyFileSet, file)
@@ -69,9 +69,14 @@ object FPPDepend {
           }
         case None => Right(())
       }
+      (a, expandedTul) <- {
+        if options.generatedAutocodeFile.isDefined || options.unitTestFile.isDefined
+        then expandTemplates(a, tul)
+        else Right((a, tul))
+      }
       _ <- options.generatedAutocodeFile match {
         case Some(file) =>
-          for (files <- ComputeGeneratedFiles.getAutocodeFiles(a, tul))
+          for (files <- ComputeGeneratedFiles.getAutocodeFiles(a, expandedTul))
           yield writeIterable(files, file)
         case None => Right(())
       }
@@ -79,7 +84,7 @@ object FPPDepend {
         case Some(file) =>
           for {
             files <- ComputeGeneratedFiles.getTestFiles(
-              a, tul,
+              a, expandedTul,
               CppWriter.getTestHelperMode(options.autoTestHelpers)
             )
           }
@@ -97,19 +102,18 @@ object FPPDepend {
     } yield mapIterable(a.dependencyFileSet, System.out.println(_))
   }
 
-  def expandSyntaxAndEnterSymbols(a: Analysis, tul: List[Ast.TransUnit]):
+  /** Expand the templates in the input translation units.
+   *  Load the files that define the templates, then expand the templates
+   *  in the input together with those files. Return the expanded input
+   *  translation units. */
+  def expandTemplates(a: Analysis, tul: List[Ast.TransUnit]):
     Result.Result[(Analysis, List[Ast.TransUnit])] =
-      ExpandSyntaxAndEnterSymbols.tuList(a, tul) match {
-        case result @ Right(_) => result
-        case Left(_) =>
-          for {
-            tul <- AddStateEnums.transUnitList(tul)
-          }
-          yield (
-            EnterSymbols.visitList(a, tul, EnterSymbols.transUnit).getOrElse(a),
-            tul
-          )
+      for {
+        defTul <- LoadTemplateDefinitions.get(a, tul)
+        aTul <- ExpandSyntaxAndEnterSymbols.tuList(a, tul ++ defTul)
       }
+      // The expanded input translation units come first
+      yield (aTul._1, aTul._2.take(tul.length))
 
   def writeIterable[T](
     its: Iterable[T],

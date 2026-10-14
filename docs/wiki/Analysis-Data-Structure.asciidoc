@@ -25,7 +25,10 @@ one.
 Used during
 https://github.com/nasa/fpp/wiki/Expand-Templates[template expansion] to
 reject a nested template definition and a template expansion inside a
-template.
+template, and during
+https://github.com/nasa/fpp/wiki/Check-Template-Definitions[template
+definition checking] to reject a deployment topology or a system definition
+inside a template.
 
 * *Current template expansion:* The
 https://github.com/nasa/fpp/wiki/Analysis#data-structures[template
@@ -76,9 +79,6 @@ included when parsing input.
 * *Input file set:* The set of 
 https://github.com/nasa/fpp/wiki/Analysis#data-structures[files] 
 presented to the analyzer.
-
-* *Level:* A nonnegative integer representing the level of
-recursive analysis.
 
 * *Location specifier map:* A map from pairs (symbol kind, qualified name) to 
 location specifiers.

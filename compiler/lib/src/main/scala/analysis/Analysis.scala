@@ -9,8 +9,6 @@ import scala.annotation.tailrec
 case class Analysis(
   /** The set of files presented to the analyzer */
   inputFileSet: Set[File] = Set(),
-  /** The recursive level of the analysis */
-  level: Int = 0,
   /** The set of files on which the analysis transitively depends.
    *  Does not contain included files. */
   dependencyFileSet: Set[File] = Set(),
@@ -94,7 +92,7 @@ case class Analysis(
   templateExpansionMap: Map[AstNode.Id, TemplateExpansion] = Map(),
   /** Tracks the current expansion we are analyzing inside of */
   templateExpansion: Option[TemplateExpansion] = None,
-  /** Node ID of the template definition we are currently cloning inside of */
+  /** Node ID of the template definition we are currently inside of */
   templateDefinition: Option[AstNode.Id] = None,
   /** The set of symbols defined with a dictionary specifier */
   dictionarySymbolSet: Set[Symbol] = Set(),

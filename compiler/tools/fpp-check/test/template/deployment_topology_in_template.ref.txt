@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/deployment_topology_in_template.fpp:4.3
+  deployment topology D {}
+  ^
+error: deployment topologies cannot appear inside a module template
+enclosing template defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/template/deployment_topology_in_template.fpp:3.1
+module template T() {
+^

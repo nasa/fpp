@@ -19,6 +19,7 @@ constant_param_array_promote_bad_subscript
 constant_with_default
 definition_point_scoping
 definition_point_scoping_ok
+deployment_topology_in_template
 duplicate_def
 import_two_expansions_ok
 interfaces
@@ -55,6 +56,7 @@ struct_parameter_nested_default_bad_arg
 struct_parameter_nested_default_ok
 struct_parameter_ok
 struct_parameter_omitted_member_ok
+system_in_template
 type_arg_string
 type_param_implied_use
 types

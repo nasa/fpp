@@ -62,12 +62,24 @@ data structure] _a_.
 
 . Add the specified input files other than _stdin_, if any, to the input files in _a_.
 
+. Set the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[dictionary generation flag]
+of _a_.
+
 . Parse each of the files in _fl_, generating a list _tul_ of translation 
 units.
+
+. Recursively resolve include specifiers in _tul_.
+Add the path of each included file to the included file set in _a_.
 
 . Let _a'_ be the result of 
 https://github.com/nasa/fpp/wiki/Computing-Dependencies[computing dependencies] 
 with inputs _a_ and _tul_.
+The dependencies are computed on _tul_ before expanding templates.
+
+. <<expanding-templates,Expand templates>> in _tul_, generating a list _tul'_
+of translation units.
+If expanding templates fails, then halt with an error.
 
 . Write out the dependency files in _a'_.
 
@@ -84,7 +96,7 @@ The currently recognized dependencies are as follows:
 
 . If option `-g` is present, then write the names of the generated autocode and implementation
 template files to the specified files.
-Use the same procedure as for
+Use the definitions in _tul'_ and the same procedure as for
 https://github.com/nasa/fpp/wiki/fpp-filenames[`fpp-filenames`].
 
 . If option `-i` is present, then write the included file set of _a'_ to the specified file.
@@ -93,5 +105,45 @@ https://github.com/nasa/fpp/wiki/fpp-filenames[`fpp-filenames`].
 
 . If option `-u` is present, then write the names of the generated unit test and
 unit test implementation files to the specified files.
-Use the same procedure as for
+Use the definitions in _tul'_ and the same procedure as for
 https://github.com/nasa/fpp/wiki/fpp-filenames[`fpp-filenames`].
+
+[[expanding-templates]]
+*Expanding templates:* To expand templates in the input translation unit list _tul_,
+do the following:
+
+. Let _F_ be the set of loaded files, initially empty,
+and let _tul~d~_ be the list of loaded translation units, initially empty.
+
+. *Load the template definitions:* Starting with the list _tul_, do the
+following:
+
+.. Traverse each translation unit in the list, updating the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[scope name list]
+as modules are entered and exited.
+For each template expansion specifier _s_ encountered, resolve the
+template name of _s_ to a location specifier in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[location
+specifier map] of _a'_, using the same rules as for uses in
+https://github.com/nasa/fpp/wiki/Computing-Dependencies#dependency-algorithm[computing
+dependencies].
+Let _G_ be the set of files named by the location specifiers found,
+minus the input files and the files in _F_.
+
+.. If _G_ is empty, then stop.
+
+.. Otherwise parse each file in _G_ and recursively resolve its include
+specifiers, generating a list _tul~G~_ of translation units.
+Append _tul~G~_ to _tul~d~_, add the files in _G_ to _F_, and repeat
+these steps starting with the list _tul~G~_.
+This step loads the definitions of the templates that the loaded
+templates expand.
+
+. https://github.com/nasa/fpp/wiki/Expanding-Syntax-and-Entering-Symbols[Expand
+syntax and enter symbols] for _a'_ and the list _tul_ followed by
+_tul~d~_.
+If this step fails, then halt with an error.
+
+. Let _tul'_ be the prefix of the resulting translation unit list that
+corresponds to _tul_.
+_tul'_ contains the input definitions with all templates expanded.

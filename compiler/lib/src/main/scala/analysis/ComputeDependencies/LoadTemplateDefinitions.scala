@@ -1,0 +1,87 @@
+package fpp.compiler.analysis
+
+import fpp.compiler.ast._
+import fpp.compiler.util._
+import fpp.compiler.syntax.Parser
+import fpp.compiler.transform.ResolveSpecInclude
+
+/** Load template definition files required for expanding the model */
+object LoadTemplateDefinitions {
+
+  def get(
+    a: Analysis,
+    tul: List[Ast.TransUnit]
+  ): Result.Result[List[Ast.TransUnit]] =
+    getInner(a, tul, Set())
+
+  private def getInner(
+    a: Analysis,
+    tul: List[Ast.TransUnit],
+    loadedFiles: Set[File]
+  ): Result.Result[List[Ast.TransUnit]] = {
+    val files = LoadTemplateDefinitions.getFilenames(a, tul) -- a.inputFileSet -- loadedFiles
+    if files.isEmpty then Right(Nil)
+    else for {
+      tul <- Result.map(files.toList, Parser.parseFile (Parser.transUnit) (None))
+      aTul <- ResolveSpecInclude.transUnitList(a, tul)
+      defTul <- getInner(a, aTul._2, loadedFiles ++ files)
+    } yield aTul._2 ++ defTul
+  }
+
+  private def getFilenames(a: Analysis, tul: List[Ast.TransUnit]): Set[File] = {
+    val visitor = Visitor(a.locationSpecifierMap)
+    visitor.visitList(Visitor.State(), tul, visitor.transUnit) match {
+      case Right(s) => s.files
+      case Left(_) => Set()
+    }
+  }
+
+  private object Visitor {
+
+    /** scopeNameList lists the enclosing scope names, with the innermost
+     *  name at the head of the list */
+    final case class State(
+      scopeNameList: List[Name.Unqualified] = Nil,
+      files: Set[File] = Set()
+    )
+
+  }
+
+  private final case class Visitor(
+    map: Map[(Ast.SpecLoc.Kind, Name.Qualified), AstNode[Ast.SpecLoc]]
+  ) extends AstStateVisitor {
+
+    type State = Visitor.State
+
+    override def defModuleAnnotatedNode(
+      s: State,
+      aNode: Ast.Annotated[AstNode[Ast.DefModule]]
+    ) = {
+      val data = aNode._2.data
+      val s1 = s.copy(scopeNameList = data.name :: s.scopeNameList)
+      for (s2 <- visitList(s1, data.members, matchModuleMember))
+        yield s2.copy(scopeNameList = s.scopeNameList)
+    }
+
+    override def specTemplateExpandAnnotatedNode(
+      s: State,
+      aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+    ) = {
+      val template = aNode._2.data.template.data
+      val specLoc = LocatedUseAnalyzer.findLocation(
+        map,
+        s.scopeNameList,
+        Ast.SpecLoc.Template,
+        Name.Qualified.fromQualIdent(template),
+        template.isAbsolute
+      )
+      Right(specLoc.map(LocatedUseAnalyzer.getFile).
+        map(file => s.copy(files = s.files + file)).getOrElse(s))
+    }
+
+    override def transUnit(s: State, tu: Ast.TransUnit) =
+      visitList(s, tu.members, matchTuMember)
+
+  }
+
+}

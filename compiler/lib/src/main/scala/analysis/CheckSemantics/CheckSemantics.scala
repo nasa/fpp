@@ -11,6 +11,7 @@ object CheckSemantics {
     Result.Result[(Analysis,List[Ast.TransUnit])] =
     for {
       (a, tul) <- ExpandSyntaxAndEnterSymbols.tuList(a, tul)
+      _ <- CheckTemplateDefs.visitList(a, tul, CheckTemplateDefs.transUnit)
       a <- ConstructImpliedUseMap.visitList(a, tul, ConstructImpliedUseMap.transUnit)
       a <- CheckUses.visitList(a, tul, CheckUses.transUnit)
       _ <- CheckUseDefCycles.visitList(a, tul, CheckUseDefCycles.transUnit)
