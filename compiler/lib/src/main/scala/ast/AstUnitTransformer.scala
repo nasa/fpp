@@ -35,4 +35,8 @@ trait AstUnitTransformer extends AstTransformer
     transform: (In, A) => Result[List[B]]
   ): Result.Result[List[B]] = transformList(in, list, transform).map(_.flatten)
 
+  /** Adapt a simple result function to the form of the visitor functions */
+  def resultAdapter[A,B](f: (A, B) => Result.Result[B]) =
+    (a: A, b: B) => for (c <- f(a, b)) yield ((), c)
+
 }

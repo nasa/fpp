@@ -1041,10 +1041,6 @@ object ExpandTemplates extends AstUnitTransformer
     }
   }
 
-  /** Adapt a simple result function to the form required by the visitor */
-  private def resultAdapter[A,B](f: (A, B) => Result.Result[B]) =
-    (a: A, b: B) => for (c <- f(a, b)) yield ((), c)
-
   private def structMember(
     a: Analysis,
     node: AstNode[Ast.StructMember]
