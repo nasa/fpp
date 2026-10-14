@@ -4,7 +4,7 @@ import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** Transform an AST, producing no value */
+/** Transform an AST, producing a unit Out value */
 trait AstUnitTransformer extends AstTransformer
 {
 
