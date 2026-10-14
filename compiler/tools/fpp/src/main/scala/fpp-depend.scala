@@ -47,11 +47,6 @@ object FPPDepend {
     for {
       (a, tul) <- parseFilesAndResolveIncludes(a, files)
       a <- ComputeDependencies.tuList(a, tul)
-      (a, expandedTul) <- {
-        if options.generatedAutocodeFile.isDefined || options.unitTestFile.isDefined
-        then expandTemplates(a, tul)
-        else Right((a, tul))
-      }
       _ <- options.directFile match {
         case Some(file) => writeIterable(a.directDependencyFileSet, file)
         case None => Right(())
@@ -72,6 +67,11 @@ object FPPDepend {
             writeIterable(ds1, file, Sorting.No)
           }
         case None => Right(())
+      }
+      (a, expandedTul) <- {
+        if options.generatedAutocodeFile.isDefined || options.unitTestFile.isDefined
+        then expandTemplates(a, tul)
+        else Right((a, tul))
       }
       _ <- options.generatedAutocodeFile match {
         case Some(file) =>
