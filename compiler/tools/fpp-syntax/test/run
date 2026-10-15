@@ -73,6 +73,16 @@ include_module()
   run_test -ia include-module
 }
 
+include_module_template()
+{
+  run_test -ia include-module-template
+}
+
+include_module_template_expand()
+{
+  run_test -ia include-module-template-expand
+}
+
 include_parse_error()
 {
   run_test -i include-parse-error
@@ -177,6 +187,8 @@ include_cycle_1
 include_cycle_2
 include_missing_file
 include_module
+include_module_template
+include_module_template_expand
 include_parent_dir
 include_parse_error
 include_state_machine

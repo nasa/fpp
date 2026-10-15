@@ -43,6 +43,8 @@ update -i include-parse-error
 update -ia include-component
 update -ia include-constant-1 include-constant-1
 update -ia include-module
+update -ia include-module-template
+update -ia include-module-template-expand
 update -ia include-state-machine
 update -ia include-state-machine
 update -ia include-subdir
