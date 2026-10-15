@@ -63,6 +63,12 @@ module_template_expand()
 
 }
 
+module_template_import()
+{
+  run_test '-e -i module_template_def.fpp' module_template_import && \
+    $fpp_syntax module_template_import.out.txt
+}
+
 module_template_include()
 {
   run_test '-e' module_template_include && \

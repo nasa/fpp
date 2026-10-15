@@ -60,6 +60,11 @@ module_template_expand()
   update '-e' module_template_expand
 }
 
+module_template_import()
+{
+  update '-e -i module_template_def.fpp' module_template_import
+}
+
 module_template_include()
 {
   update '-e' module_template_include

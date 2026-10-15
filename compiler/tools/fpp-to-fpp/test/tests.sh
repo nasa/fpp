@@ -8,6 +8,7 @@ interface
 kwd_names
 module_template
 module_template_expand
+module_template_import
 module_template_include
 no_include
 state_machine
