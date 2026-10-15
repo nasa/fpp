@@ -38,6 +38,12 @@ $t()
 done > default-tests.sh
 . ./default-tests.sh
 
+dictionary_specifier()
+{
+  run_test '' ../../fpp-syntax/test/dictionary-specifier dictionary_specifier && \
+    $fpp_syntax dictionary_specifier.out.txt
+}
+
 include()
 {
   run_test '-e' ../../fpp-syntax/test/syntax include && \
@@ -50,6 +56,19 @@ kwd_names()
     $fpp_syntax kwd_names.out.txt
 }
 
+module_template_expand()
+{
+  run_test '-e' module_template_expand && \
+    $fpp_syntax module_template_expand.out.txt
+
+}
+
+module_template_include()
+{
+  run_test '-e' module_template_include && \
+    $fpp_syntax module_template_include.out.txt
+}
+
 no_include()
 {
   run_test '' ../../fpp-syntax/test/syntax no_include && \
@@ -60,25 +79,6 @@ state_machine()
 {
   run_test '' ../../fpp-syntax/test/state-machine state_machine && \
     $fpp_syntax state_machine.out.txt
-}
-
-
-dictionary_specifier()
-{
-  run_test '' ../../fpp-syntax/test/dictionary-specifier dictionary_specifier && \
-    $fpp_syntax dictionary_specifier.out.txt
-}
-
-template_expand()
-{
-  run_test '-e' template_expand && \
-    $fpp_syntax template_expand.out.txt
-}
-
-template_include()
-{
-  run_test '-e' template_include && \
-    $fpp_syntax template_include.out.txt
 }
 
 run_suite $tests
