@@ -9306,7 +9306,7 @@ the terminating punctuation is a comma.</p>
 <p>The optional module member list represents the result of
 <a href="#Expansion-of-Templates">expanding the template</a>.
 If a template expansion specifier has a module member
-list, then is called an <strong>expanded template</strong>.
+list, then it is called an <strong>expanded template</strong>.
 Otherwise it is called an <strong>unexpanded template</strong>.</p>
 </div>
 </div>
@@ -9375,9 +9375,27 @@ is called a <strong>type parameter definition</strong>.</p>
 </div>
 </li>
 <li>
-<p>If <em>module-member-sequence</em> is present, then it must not
-transitively contain any <a href="#Definitions_Module-Template-Definitions">module
-template definitions</a> or template expansion specifiers.</p>
+<p>If <em>module-member-sequence</em> is present, then</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>module-member-sequence</em> must not transitively contain any
+<a href="#Definitions_Module-Template-Definitions">module
+template definitions</a> or template expansion specifiers.
+This rule ensures that the syntax of <em>module-member-sequence</em> could
+be produced by expanding some template.</p>
+</li>
+<li>
+<p><em>module-member-sequence</em> is not required to conform to the syntax produced
+by expanding the template referred to in the specifier.</p>
+</li>
+<li>
+<p>All the definitions and uses inside <em>module-member-sequence</em> are
+semantically analyzed in the same way as if <em>module-member-sequence</em> had been
+produced by <a href="#Expansion-of-Templates">template expansion</a>.</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
@@ -14578,7 +14596,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-12 20:17:14 -0700
+Last updated 2026-10-15 09:58:34 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

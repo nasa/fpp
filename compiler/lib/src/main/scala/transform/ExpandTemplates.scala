@@ -845,9 +845,8 @@ object ExpandTemplates extends AstUnitTransformer
     }
 
     for {
-      a1 <- Right(a.copy(templateDefId = Some(node.id)))
-      params <- transformList(a1, data.params, templateParam)
-      members <- transformFlatList(a1, data.members, matchModuleMember)
+      params <- transformList(a, data.params, templateParam)
+      members <- transformFlatList(a, data.members, matchModuleMember)
     }
     yield {
       val dataCopy = data.copy(params = params, members = members)
@@ -965,12 +964,8 @@ object ExpandTemplates extends AstUnitTransformer
       tmpl <- a.getTemplateSymbol(data.template.id)
       // Clone the template body, recording the expansion node so that
       // cloned nodes point back at the expansion site.
-      // Record the template definition too for diagnostics.
       members <- transformFlatList(
-        a.copy(
-          templateExpansionId = Some(node.id),
-          templateDefId = Some(tmpl.node._2.id)
-        ),
+        a.copy(templateExpansionId = Some(node.id)),
         tmpl.node._2.data.members,
         matchModuleMember
       )

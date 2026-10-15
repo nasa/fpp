@@ -90,10 +90,10 @@ case class Analysis(
   impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map(),
   /** Node ID of the current template definition */
   templateDefId: Option[AstNode.Id] = None,
-  /** Node ID of the current template expansion */
-  templateExpansionId: Option[AstNode.Id] = None,
   /** The current template expansion */
   templateExpansion: Option[TemplateExpansion] = None,
+  /** Node ID of the current template expansion */
+  templateExpansionId: Option[AstNode.Id] = None,
   /** Mapping from template expansion nodes to their expansions */
   templateExpansionMap: Map[AstNode.Id, TemplateExpansion] = Map(),
   /** The set of symbols defined with a dictionary specifier */
