@@ -57,6 +57,7 @@ namespace M {
     {
       using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
+      using namespace M;
 
       M::active2.initSpecial();
     }
@@ -70,11 +71,14 @@ namespace M {
     {
       using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
+      using namespace M;
 
       // Test that ConfigConstants::M_active2::X is in scope here
       (void) X;
       // Test that ConfigObjects::M_active2::x is in scope here
       (void) x;
+      // Test that M::active2 is in scope as active2 here
+      (void) active2;
       M::active2.config();
     }
   }
@@ -123,6 +127,7 @@ namespace M {
     {
       using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
+      using namespace M;
 
       M::active2.startSpecial();
     }
@@ -144,6 +149,7 @@ namespace M {
     {
       using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
+      using namespace M;
 
       M::active2.stopSpecial();
     }
@@ -155,6 +161,7 @@ namespace M {
     {
       using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
+      using namespace M;
 
       M::active2.freeSpecial();
     }
@@ -166,6 +173,7 @@ namespace M {
     {
       using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
+      using namespace M;
 
       M::active2.tearDown();
     }
@@ -175,6 +183,7 @@ namespace M {
     {
       using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
+      using namespace M;
 
       M::active2.deinitSpecial();
     }

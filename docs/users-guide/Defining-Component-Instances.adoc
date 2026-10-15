@@ -724,6 +724,7 @@ does so like this:
 {
   using namespace ConfigConstants::SystemReference_cmdSeq;
   using namespace ConfigObjects::SystemReference_cmdSeq;
+  using namespace SystemReference;
 
   [code from the init specifier]
 }

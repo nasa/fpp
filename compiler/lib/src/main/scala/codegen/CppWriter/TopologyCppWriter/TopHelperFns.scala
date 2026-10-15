@@ -13,19 +13,24 @@ case class TopHelperFns(
   private val configConstants = TopConstants(s, aNode)
   private val configObjects = TopConfigObjects(s, aNode)
 
-  /** Keep an instance's configuration names local to its init snippet. */
+  /** Keep an instance's configuration and enclosing names local to its init snippet. */
   override def getCodeLinesForPhase (phase: Int) (ci: ComponentInstance):
     Option[List[Line]] = super.getCodeLinesForPhase(phase)(ci).map { code =>
       val name = CppWriter.identFromQualifiedName(ci.qualifiedName)
       val configNamespaces = List.concat(
-        configConstants.getInstanceConfigConstantLines(ci).map(_ => "ConfigConstants"),
-        configObjects.getInstanceConfigObjectLines(ci).map(_ => "ConfigObjects")
+        configConstants.getInstanceConfigConstantLines(ci).map(_ => s"ConfigConstants::$name"),
+        configObjects.getInstanceConfigObjectLines(ci).map(_ => s"ConfigObjects::$name")
       )
-      if configNamespaces.nonEmpty &&
+      val instanceNamespace = ci.qualifiedName.qualifier match {
+        case Nil => None
+        case q => Some(q.mkString("::"))
+      }
+      val namespaces = configNamespaces ++ instanceNamespace
+      if namespaces.nonEmpty &&
           getCodeForPhase(phase)(ci).exists(_.trim.nonEmpty)
       then
-        val usingLines = configNamespaces.flatMap(
-          namespace => lines(s"using namespace $namespace::$name;")
+        val usingLines = namespaces.flatMap(
+          namespace => lines(s"using namespace $namespace;")
         )
         wrapInBlock(usingLines ::: Line.blank :: code)
       else code
