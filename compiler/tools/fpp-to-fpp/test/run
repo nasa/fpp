@@ -40,7 +40,7 @@ done > default-tests.sh
 
 include()
 {
-  run_test '-i' ../../fpp-syntax/test/syntax include && \
+  run_test '-e' ../../fpp-syntax/test/syntax include && \
     $fpp_syntax include.out.txt
 }
 
