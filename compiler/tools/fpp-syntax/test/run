@@ -23,6 +23,11 @@ comments()
   run_test "" comments
 }
 
+dictionary_specifier()
+{
+  run_test -a dictionary-specifier
+}
+
 embedded_tab()
 {
   run_test "" embedded-tab
@@ -83,14 +88,19 @@ include_module_template_expand()
   run_test -ia include-module-template-expand
 }
 
+include_parent_dir()
+{
+  run_test -ia subdir/include-parent-dir
+}
+
 include_parse_error()
 {
   run_test -i include-parse-error
 }
 
-include_parent_dir()
+include_state_machine()
 {
-  run_test -ia subdir/include-parent-dir
+  run_test -ia include-state-machine
 }
 
 include_state_machine()
@@ -103,14 +113,19 @@ include_subdir()
   run_test -ia include-subdir
 }
 
-include_state_machine()
-{
-  run_test -ia include-state-machine
-}
-
 include_topology()
 {
   run_test -ia include-topology
+}
+
+module_template()
+{
+  run_test -iea module-template
+}
+
+numeric_shift()
+{
+  run_test "" numeric-shift
 }
 
 parse_error()
@@ -128,11 +143,6 @@ syntax()
   run_test "" syntax
 }
 
-syntax_kwd_names()
-{
-  run_test "" syntax-kwd-names
-}
-
 syntax_ast()
 {
   run_test -a syntax syntax-ast
@@ -143,15 +153,15 @@ syntax_include_ast()
   run_test -ia syntax syntax-include-ast
 }
 
+syntax_kwd_names()
+{
+  run_test "" syntax-kwd-names
+}
+
 syntax_stdin()
 {
   cat syntax.fpp | $fpp_syntax -ia > syntax-stdin.out.txt
   diff -u syntax-stdin.ref.txt syntax-stdin.out.txt > syntax-stdin.diff.txt 2>&1
-}
-
-template()
-{
-  run_test -iea template
 }
 
 topology_ports()
@@ -165,18 +175,9 @@ two_input_files()
   diff -u two-input-files.ref.txt two-input-files.out.txt > two-input-files.diff.txt 2>&1
 }
 
-dictionary_specifier()
-{
-  run_test -a dictionary-specifier
-}
-
-numeric_shift()
-{
-  run_test "" numeric-shift
-}
-
 tests="
 comments
+dictionary_specifier
 embedded_tab
 empty
 escaped_strings
@@ -194,6 +195,8 @@ include_parse_error
 include_state_machine
 include_subdir
 include_topology
+module_template
+numeric_shift
 parse_error
 state_machine
 syntax
@@ -201,11 +204,8 @@ syntax_ast
 syntax_include_ast
 syntax_kwd_names
 syntax_stdin
-template
 topology_ports
 two_input_files
-dictionary_specifier
-numeric_shift
 "
 
 run_suite $tests
