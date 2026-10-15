@@ -4,7 +4,7 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Check template definitions */
-object CheckTemplateDefinitions
+object CheckTemplateDefs
   extends Analyzer
   with ModuleAnalyzer
 {
