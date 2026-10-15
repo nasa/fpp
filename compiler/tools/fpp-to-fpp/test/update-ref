@@ -47,7 +47,7 @@ no_include()
 
 include()
 {
-  update '-i' ../../fpp-syntax/test/syntax include
+  update '-e' ../../fpp-syntax/test/syntax include
 }
 
 kwd_names()
