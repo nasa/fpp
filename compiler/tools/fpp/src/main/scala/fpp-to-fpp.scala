@@ -11,7 +11,6 @@ import scopt.OParser
 object FPPToFPP {
 
   case class Options(
-    include: Boolean = false,
     expand: Boolean = false,
     files: List[File] = List()
   )
@@ -25,7 +24,6 @@ object FPPToFPP {
     Result.seq(
       ToolUtils.parseFiles(files),
       List(
-        resolveIncludes (options),
         expandTemplates (options),
         writeFpp (options)
       )
@@ -34,16 +32,6 @@ object FPPToFPP {
 
   def toolMain(args: Array[String]) =
     Tool(name).mainMethod(args, oparser, Options(), command)
-
-  def resolveIncludes(options: Options)(tul: List[Ast.TransUnit]):
-    Result.Result[List[Ast.TransUnit]] =
-  {
-    options.include match {
-      case true =>
-        ResolveSpecInclude.transUnitList(Analysis(), tul).map(_._2)
-      case false => Right(tul)
-    }
-  }
 
   def expandTemplates(options: Options)(tul: List[Ast.TransUnit]):
     Result.Result[List[Ast.TransUnit]] =
@@ -72,12 +60,9 @@ object FPPToFPP {
     OParser.sequence(
       programName(name),
       head(name, Version.v),
-      opt[Unit]('i', "include")
-        .action((_, c) => c.copy(include = true))
-        .text("resolve include specifiers"),
       opt[Unit]('e', "expand")
         .action((_, c) => c.copy(expand = true))
-        .text("expand all syntax"),
+        .text("expand syntax"),
       help('h', "help").text("print this message and exit"),
       arg[String]("file ...")
         .unbounded()
