@@ -37,7 +37,7 @@ _module-member-sequence_ is the same as for a
 The optional module member list represents the result of
 <<Expansion-of-Templates,expanding the template>>.
 If a template expansion specifier has a module member
-list, then is called an *expanded template*.
+list, then it is called an *expanded template*.
 Otherwise it is called an *unexpanded template*.
 
 ==== Semantics
@@ -84,9 +84,20 @@ template argument.
 ... When _p_ is a type template parameter, _B_
     is called a *type parameter definition*.
 
-. If _module-member-sequence_ is present, then it must not
-transitively contain any <<Definitions_Module-Template-Definitions,module
+. If _module-member-sequence_ is present, then
+
+.. _module-member-sequence_ must not transitively contain any 
+<<Definitions_Module-Template-Definitions,module
 template definitions>> or template expansion specifiers.
+This rule ensures that the syntax of _module-member-sequence_ could
+be produced by expanding some template.
+
+.. _module-member-sequence_ is not required to conform to the syntax produced 
+by expanding the template referred to in the specifier.
+
+.. All the definitions and uses inside _module-member-sequence_ are
+semantically analyzed in the same way as if _module-member-sequence_ had been
+produced by <<Expansion-of-Templates,template expansion>>.
 
 ==== Examples
 
