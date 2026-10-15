@@ -12,7 +12,8 @@ object FPPToFPP {
 
   case class Options(
     expand: Boolean = false,
-    files: List[File] = List()
+    files: List[File] = List(),
+    imports: List[File] = Nil,
   )
 
   def command(options: Options) = {
@@ -21,32 +22,31 @@ object FPPToFPP {
       case Nil => List(File.StdIn)
       case list => list
     }
-    Result.seq(
-      ToolUtils.parseFiles(files),
-      List(
-        expandTemplates (options),
-        writeFpp (options)
-      )
-    )
+    for {
+      tul <- ToolUtils.parseFiles(files ++ options.imports)
+      (a, tul) <- expandTemplates (options) (Analysis(), tul)
+      tulFiles = tul.take(files.length)
+      _ <- writeFpp (options) (tulFiles)
+    }
+    yield ()
   }
 
   def toolMain(args: Array[String]) =
     Tool(name).mainMethod(args, oparser, Options(), command)
 
-  def expandTemplates(options: Options)(tul: List[Ast.TransUnit]):
-    Result.Result[List[Ast.TransUnit]] =
+  def expandTemplates(options: Options)(a: Analysis, tul: List[Ast.TransUnit]):
+    Result.Result[(Analysis, List[Ast.TransUnit])] =
   {
     options.expand match {
-      case true =>
-        ExpandSyntaxAndEnterSymbols.tuList(Analysis(), tul).map(_._2)
-      case false => Right(tul)
+      case true => ExpandSyntaxAndEnterSymbols.tuList(a, tul)
+      case false => Right(a, tul)
     }
   }
 
   def writeFpp(options: Options)(tul: List[Ast.TransUnit]):
     Result.Result[List[Ast.TransUnit]] =
   {
-    val lines = tul.map(FppWriter.transUnit).flatten
+    val lines = tul.flatMap(FppWriter.transUnit)
     lines.map(Line.write(Line.stdout))
     Right(tul)
   }
@@ -64,6 +64,10 @@ object FPPToFPP {
         .action((_, c) => c.copy(expand = true))
         .text("expand syntax"),
       help('h', "help").text("print this message and exit"),
+      opt[Seq[String]]('i', "imports")
+        .valueName("<file1>,<file2>...")
+        .action((i, c) => c.copy(imports = i.toList.map(File.fromString(_))))
+        .text("files to import"),
       arg[String]("file ...")
         .unbounded()
         .optional()
