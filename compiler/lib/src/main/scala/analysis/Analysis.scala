@@ -88,14 +88,14 @@ case class Analysis(
   tlmPacketSet: Option[TlmPacketSet] = None,
   /** The mapping from nodes to implied uses */
   impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map(),
-  /** Node ID of the template expansion currently */
-  template: Option[AstNode.Id] = None,
-  /** Maps template expansion AST nodes to their */
-  templateExpansionMap: Map[AstNode.Id, TemplateExpansion] = Map(),
-  /** Tracks the current expansion we are analyzing inside of */
+  /** Node ID of the current template definition */
+  templateDefId: Option[AstNode.Id] = None,
+  /** The current template expansion */
   templateExpansion: Option[TemplateExpansion] = None,
-  /** Node ID of the template definition we are currently cloning inside of */
-  templateDefinition: Option[AstNode.Id] = None,
+  /** Node ID of the current template expansion */
+  templateExpansionId: Option[AstNode.Id] = None,
+  /** Mapping from template expansion nodes to their expansions */
+  templateExpansionMap: Map[AstNode.Id, TemplateExpansion] = Map(),
   /** The set of symbols defined with a dictionary specifier */
   dictionarySymbolSet: Set[Symbol] = Set(),
   /** The mapping from system symbols to systems */

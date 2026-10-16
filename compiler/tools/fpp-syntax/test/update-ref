@@ -26,14 +26,14 @@ done
 update "" comments
 update "" embedded-tab
 update "" illegal-character
+update "" numeric-shift
 update "" parse-error
 update "" syntax
 update "" syntax-kwd-names
-update -a state-machine
-update -ia topology-ports
 update -a dictionary-specifier
 update -a empty
 update -a escaped-strings
+update -a state-machine
 update -a state-machine
 update -a syntax syntax-ast
 update -i cycle-1 include-cycle-1
@@ -43,15 +43,17 @@ update -i include-parse-error
 update -ia include-component
 update -ia include-constant-1 include-constant-1
 update -ia include-module
+update -ia include-module-template
+update -ia include-module-template-expand
 update -ia include-state-machine
 update -ia include-state-machine
 update -ia include-subdir
 update -ia include-topology
-update -ia topology-ports
-update -ita template
 update -ia subdir/include-parent-dir
 update -ia syntax syntax-include-ast
-update "" numeric-shift
+update -ia topology-ports
+update -ia topology-ports
+update -iea module-template
 
 cat syntax.fpp | $fpp_syntax -ia 2>&1 > syntax-stdin.ref.txt
 
