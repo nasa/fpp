@@ -542,13 +542,21 @@ class ParserSpec extends AnyWordSpec {
       Parser.specTemplateExpand,
       List(
         "expand T",
+        "expand T { constant a = 0 }",
         "expand M.T()",
+        "expand M.T() { constant a = 0 }",
         "expand M.T(constant 1)",
+        "expand M.T(constant 1) { constant a = 0 }",
         "expand M.T(constant 1, constant 2)",
+        "expand M.T(constant 1, constant 2) { constant a = 0 }",
         "expand M.T(constant 1, constant 2, instance mod.$instance)",
+        "expand M.T(constant 1, constant 2, instance mod.$instance) { constant a = 0 }",
         "expand M.T(constant 1, constant 2, instance .mod.$instance, type Type.Name)",
+        "expand M.T(constant 1, constant 2, instance .mod.$instance, type Type.Name) { constant a = 0 }",
         "expand M.T(constant 1, instance .inst1, type U32)",
+        "expand M.T(constant 1, instance .inst1, type U32) { constant a = 0 }",
         "expand M.T(constant 1, constant 2, constant {member=1}, constant [1, 2])",
+        "expand M.T(constant 1, constant 2, constant {member=1}, constant [1, 2]) { constant a = 0 }",
       )
     )
   }
