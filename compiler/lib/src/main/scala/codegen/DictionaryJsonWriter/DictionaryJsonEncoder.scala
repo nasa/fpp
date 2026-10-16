@@ -568,10 +568,12 @@ case class DictionaryJsonEncoder(
     /** JSON Encoding for Telemetry Packet Sets */
     private implicit def tlmPacketSetEncoder: Encoder[(Name.Unqualified, TlmPacketSet)] = new Encoder[(Name.Unqualified, TlmPacketSet)] {
         override def apply(entry: (Name.Unqualified, TlmPacketSet)): Json = {
-            Json.obj(
+            val (setPreA, _, setPostA) = entry._2.aNode
+            val json = Json.obj(
                 "name" -> entry._1.toString.asJson,
                 "members" -> entry._2.packetMap.map((id, packet) => {
-                    Json.obj(
+                    val (preA, _, postA) = packet.aNode
+                    val packetJson = Json.obj(
                         "name" -> packet.getName.asJson,
                         "id" -> id.asJson,
                         "group" -> packet.group.asJson,
@@ -580,12 +582,14 @@ case class DictionaryJsonEncoder(
                             s"${e.instance.toString}.${e.tlmChannel.getName}"
                         }).asJson
                     )
+                    jsonWithOptionalValues(packetJson, Map("annotation" -> concatAnnotations(preA, postA)))
                 }).asJson,
                 "omitted" -> entry._2.omittedIdSet.map(tlmId => {
                     val e = dictionary.tlmChannelEntryMap(tlmId)
                     s"${e.instance.toString}.${e.tlmChannel.getName}"
                 }).toList.sorted.asJson
             )
+            jsonWithOptionalValues(json, Map("annotation" -> concatAnnotations(setPreA, setPostA)))
         }
     }
 
