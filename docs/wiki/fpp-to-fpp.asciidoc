@@ -23,28 +23,34 @@ the annotations back to comments.
 
 *Options:*
 
-. `-i`: Resolve include specifiers.
+. `-i` _files_: Import _files_.
+The definitions in these files are part of the FPP model, but they do not cause 
+any code to be generated.
 
 . `-e`: Expand syntax.
-Resolve include specifiers as if `-i` were specified; also generate
-state machine enums and expand templates.
+Resolve include specifiers, generate state machine enums, and expand templates.
 
-*Input:*  A list _fl_ of files: either the single file _stdin_ or a list of
+*Input:*
+
+. A list _fl_tr_ of files to translate: either the single file _stdin_ or a list of 
 files specified on the command line.
+
+. A list _fl_i_ of files to import, specified as arguments to the `-i` option.
 
 *Output:* Formatted FPP source code, minus comments, written to standard
 output.
 
 *Procedure*:
 
-. Parse each of the files in _fl_ to a translation unit _tu_, reporting any 
-errors that occur.
-
-. If `-i` is present, then recursively resolve include specifiers. Check for
-include cycles. Upon detecting an include cycle, halt with an error message.
+. Parse each of the files in the concatenation of _fl_tr_ and _fl_i_, generating
+a translation unit list _tul_.
 
 . If `-e` is present, then 
 https://github.com/nasa/fpp/wiki/Expand-Syntax-and-Enter-Symbols[expand 
-syntax and enter symbols].
+syntax and enter symbols], generating a new translation unit list _tul'_.
+Otherwise let _tul'_ be _tul_.
 
-. Write out the formatted source code.
+. Let _tul_tr'_ be the set of translation units in _tul'_ corresponding
+to _fl_tr_.
+
+. Write out the formatted source code for _tul_tr'_.

@@ -13,7 +13,6 @@ object FPPSyntax {
   case class Options(
     ast: Boolean = false,
     expand: Boolean = false,
-    include: Boolean = false,
     files: List[File] = List()
   )
 
@@ -27,7 +26,6 @@ object FPPSyntax {
       ToolUtils.parseFiles(files),
       List(
         expandSyntax (options),
-        resolveIncludes (options),
         printAst (options)
       )
     )
@@ -47,16 +45,6 @@ object FPPSyntax {
       case false => ()
     }
     Right(tul)
-  }
-
-  def resolveIncludes(options: Options)(tul: List[Ast.TransUnit]):
-    Result.Result[List[Ast.TransUnit]] =
-  {
-    (options.include) match {
-      case true => 
-        ResolveSpecInclude.transUnitList(Analysis(), tul).map(_._2)
-      case false => Right(tul)
-    }
   }
 
   def expandSyntax(options: Options)(tul: List[Ast.TransUnit]):
@@ -81,12 +69,9 @@ object FPPSyntax {
       opt[Unit]('a', "ast")
         .action((_, c) => c.copy(ast = true))
         .text("print the abstract syntax tree (ast)"),
-      opt[Unit]('i', "include")
-        .action((_, c) => c.copy(include = true))
-        .text("resolve include specifiers"),
       opt[Unit]('e', "expand")
         .action((_, c) => c.copy(expand = true))
-        .text("expand all syntax"),
+        .text("expand syntax"),
       help('h', "help").text("print this message and exit"),
       arg[String]("file ...")
         .unbounded()

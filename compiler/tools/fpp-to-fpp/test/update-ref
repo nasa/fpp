@@ -35,19 +35,19 @@ $t()
 done > default-update-ref.sh
 . ./default-update-ref.sh
 
+dictionary_specifier()
+{
+  update '' ../../fpp-syntax/test/dictionary-specifier dictionary_specifier
+}
+
 escaped_strings()
 {
   update '' escaped_strings
 }
 
-no_include()
-{
-  update '' ../../fpp-syntax/test/syntax no_include
-}
-
 include()
 {
-  update '-i' ../../fpp-syntax/test/syntax include
+  update '-e' ../../fpp-syntax/test/syntax include
 }
 
 kwd_names()
@@ -55,24 +55,29 @@ kwd_names()
   update '' kwd_names
 }
 
+module_template_expand()
+{
+  update '-e' module_template_expand
+}
+
+module_template_import()
+{
+  update '-e -i module_template_def.fpp' module_template_import
+}
+
+module_template_include()
+{
+  update '-e' module_template_include
+}
+
+no_include()
+{
+  update '' ../../fpp-syntax/test/syntax no_include
+}
+
 state_machine()
 {
   update '' ../../fpp-syntax/test/state-machine state_machine
-}
-
-dictionary_specifier()
-{
-  update '' ../../fpp-syntax/test/dictionary-specifier dictionary_specifier
-}
-
-template_expand()
-{
-  update '-e' template_expand
-}
-
-template_include()
-{
-  update '-e' template_include
 }
 
 for t in $tests
