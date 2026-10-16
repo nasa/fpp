@@ -22,10 +22,10 @@ case class TopHelperFns(
         configObjects.getInstanceConfigObjectLines(ci).map(_ => s"ConfigObjects::$name")
       )
       val instanceNamespace = ci.qualifiedName.qualifier match {
-        case Nil => None
-        case q => Some(q.mkString("::"))
+        case Nil => Nil
+        case q => List(q.mkString("::"))
       }
-      val namespaces = configNamespaces ++ instanceNamespace
+      val namespaces = instanceNamespace ++ configNamespaces
       if namespaces.nonEmpty &&
           getCodeForPhase(phase)(ci).exists(_.trim.nonEmpty)
       then
