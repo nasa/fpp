@@ -525,9 +525,9 @@ uses the name `A_B_CComponentAc_HPP` in its include guard.
 The generated code for an <<Defining-Types_Alias-Type-Definitions,alias type
 definition>> is either a C-style `typedef` (in a `.h` file) or a {cpp}11-style
 `using` alias (in a `.hpp` file).  The generated code for an alias to an FPP
-`string` type is always an alias to the F Prime type `Fw::String`; the size in 
+`string` type is always an alias to the F Prime type `Fw::String`; the size in
 the `string` type is ignored when generating the alias.
-For example, the following alias type definitions 
+For example, the following alias type definitions
 all generate aliases to `Fw::String`, either directly or indirectly:
 
 [source,fpp]
@@ -637,7 +637,7 @@ build system does it for you.
 
 ==== Topology Definitions
 
-`fpp-to-cpp` also extracts the definitions of <<Defining-Topologies,deployment 
+`fpp-to-cpp` also extracts the definitions of <<Defining-Topologies,deployment
 topologies>> from the source files.
 For each deployment topology _T_ defined in the source files, `fpp-to-cpp`
 writes files _T_ `TopologyAc.hpp` and _T_ `TopologyAc.cpp`.
@@ -738,7 +738,7 @@ element is on its own line.
 
 This capability is useful for testing and debugging, and the FPP
 tool suite uses it internally for this purpose.
-As a general formatting tool, though, `fpp-to-fpp` has one big limitation: it 
+As a general formatting tool, though, `fpp-to-fpp` has one big limitation: it
 goes through
 the FPP parser, so it deletes all
 <<Writing-Comments-and-Annotations_Comments,comments>>
@@ -773,7 +773,7 @@ include specifiers, generating state machine enums,
 and expanding templates.
 
 *Resolving include specifiers:*
-By default, `fpp-to-fpp` does not resolve 
+By default, `fpp-to-fpp` does not resolve
 <<Specifying-Models-as-Files_Include-Specifiers,include specifiers>>.
 For example:
 
@@ -831,11 +831,11 @@ state machine M {
 }
 ----
 
-Notice how, with the `-e` option, the tool generates the state machine enum and 
+Notice how, with the `-e` option, the tool generates the state machine enum and
 inserts it into the state machine definition.
 
 *Template expansion:*
-The `-e` option causes `fpp-to-fpp` to 
+The `-e` option causes `fpp-to-fpp` to
 <<Defining-and-Using-Module-Templates,expand templates>>.
 Here is an example:
 
@@ -869,16 +869,68 @@ If you try to expand a template for which the definition is not available
 in input model, you will get an error:
 
 ----
-% fpp-format -e
+% fpp-to-fpp -e
 expand T
 ^D
-fpp-format
+fpp-to-fpp
 stdin:1.8
 expand T
        ^
 error: symbol T is not defined
 note: looking for a template here
 ----
+
+==== Importing Model Files
+
+When expanding syntax, you may wish to translate one or more files that
+depend on other files, without translating those other files.
+To do this, you can use the `-i` (import) option, which works similarly
+to the
+<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus, import option for
+`fpp-to-cpp`>>.
+For example, suppose you have the following files:
+
+----
+% cat template.fpp
+module template T {
+
+  constant a = 0
+
+}
+% cat expand.fpp
+expand T
+----
+
+As described in the previous section, if you run `fpp-to-fpp -e` on
+the file `expand.fpp`, you will get an error, because the symbol `T`
+is used but not defined in that file.
+If you run `fpp-to-fpp -e` on both files, you will get output,
+but it will be all the output corresponding to both files.
+If you want just the output for `expand.fpp`, you can use the `-i` option,
+like this:
+
+----
+% fpp-to-fpp -e -i template.fpp expand.fpp
+----
+
+This command says to read `template.fpp` for its symbols and to
+use those symbols when generating code for `expand.fpp`.
+
+In general, you can use the following procedure:
+
+. Identify one or more files _F_ containing topology definitions
+for which you wish to expand syntax.
+
+. <<Specifying-Models-as-Files_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
+
+. If _D_ is empty, then run `fpp-to-fpp -e` _F_.
+
+. Otherwise run `fpp-to-fpp -e -i` _D~1~_ `,` ... `,` _D~n~_ _F_, where _D~i~_ are the
+  names of the dependencies.
+
+Except for the tool name and the `-e` option, this procedure is identical to
+the one given for
+<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus,generating {cpp}>>.
 
 === Visualizing Topologies
 
@@ -1008,7 +1060,7 @@ https://fprime.jpl.nasa.gov/devel/docs/reference/fpp-json-dict/[F Prime design
 documentation].
 
 For each <<Defining-Topologies,deployment topology>> _T_
-defined in the input files, `fpp-to-dict` 
+defined in the input files, `fpp-to-dict`
 also writes a file _T_ `TopologyDictionary.json`.
 Here _T_ is the simple name of the topology, without qualifiers.
 This behavior is for backwards compatibility with the F Prime tools.
@@ -1037,12 +1089,12 @@ and
 specified in the
 https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/[F Prime
 dictionary specification].
-These types and constants are required by the F Prime GDS, so they are included 
+These types and constants are required by the F Prime GDS, so they are included
 in the dictionary.
-Typically you specify these types and constants as part of F Prime 
+Typically you specify these types and constants as part of F Prime
 configuration, in files named `FpConfig.fpp` and `FpConstants.fpp`.
 See the
-https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/[F 
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/[F
 Prime documentation] for details.
 
 *Options:*
@@ -1064,8 +1116,8 @@ See the https://github.com/nasa/fpp/wiki/fpp-to-dict[FPP wiki] for details.
 
 === Identifying Generated Files
 
-As discussed in the 
-<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus,section on generating 
+As discussed in the
+<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus,section on generating
 {cpp}>>,
 the `-n` option
 of `fpp-to-cpp` lets you collect the names of
