@@ -32,6 +32,8 @@ module M {
     (void) X;
     // Test that ConfigObjects::M_active2::x is in scope here
     (void) x;
+    // Test that M::active2 is in scope as active2 here
+    (void) active2;
     M::active2.config();
     """
 
