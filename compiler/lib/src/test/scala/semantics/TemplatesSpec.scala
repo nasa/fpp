@@ -15,6 +15,30 @@ import org.scalatest.wordspec.AnyWordSpec
 
 class TemplatesSpec extends AnyWordSpec {
 
+    "state enum insertion" should {
+        "be idempotent after template expansion" in {
+            val Right(tu) = Parser.parseString(Parser.transUnit)("""
+                state machine SM {
+                    state S
+                }
+            """).runtimeChecked
+
+            val Right(tul1) = AddStateEnums.transUnitList(List(tu))
+            val Right(tul2) = AddStateEnums.transUnitList(tul1)
+            val stateMachine = tul2.head.members.collectFirst {
+                case Ast.ModuleMember((_, Ast.ModuleMember.DefStateMachine(node), _)) =>
+                    node.data
+            }.get
+            val stateEnums = stateMachine.members.getOrElse(Nil).count {
+                case Ast.StateMachineMember((_, Ast.StateMachineMember.DefEnum(node), _)) =>
+                    node.data.name == "State"
+                case _ => false
+            }
+
+            assert(stateEnums == 1)
+        }
+    }
+
     "simple" should {
         expandUniqueString("""
         module template T(constant c: string) {

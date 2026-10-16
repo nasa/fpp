@@ -25,18 +25,28 @@ object AddStateEnums extends AstStateTransformer
     aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]],
     members: List[Ast.StateMachineMember]
   ) = {
-    val (pre, node, post) = aNode
-    val name = node.data.name
-    val loc = Locations.get(node.id)
-    for (stateEnum <- getStateEnum(Symbol.StateMachine(aNode)))
-    yield {
-      val enumNode = AstNode.create(stateEnum)
-      Locations.put(enumNode.id, loc)
-      val enumMemberNode = Ast.StateMachineMember.DefEnum(enumNode)
-      val member = Ast.StateMachineMember(Nil, enumMemberNode, Nil)
-      val defStateMachine = Ast.DefStateMachine(name, Some(member :: members))
-      val node1 = AstNode.create(defStateMachine, node.id)
-      (in, (pre, node1, post))
+    if members.exists {
+      case Ast.StateMachineMember((_, node, _)) =>
+        node match {
+          case Ast.StateMachineMember.DefEnum(enumNode) =>
+            enumNode.data.name == "State"
+          case _ => false
+        }
+    } then Right((in, aNode))
+    else {
+      val (pre, node, post) = aNode
+      val name = node.data.name
+      val loc = Locations.get(node.id)
+      for (stateEnum <- getStateEnum(Symbol.StateMachine(aNode)))
+      yield {
+        val enumNode = AstNode.create(stateEnum)
+        Locations.put(enumNode.id, loc)
+        val enumMemberNode = Ast.StateMachineMember.DefEnum(enumNode)
+        val member = Ast.StateMachineMember(Nil, enumMemberNode, Nil)
+        val defStateMachine = Ast.DefStateMachine(name, Some(member :: members))
+        val node1 = AstNode.create(defStateMachine, node.id)
+        (in, (pre, node1, post))
+      }
     }
   }
 
