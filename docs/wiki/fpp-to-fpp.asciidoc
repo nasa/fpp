@@ -28,7 +28,7 @@ The definitions in these files are part of the FPP model, but they do not cause
 any code to be generated.
 
 . `-e`: Expand syntax.
-Resolve include specifiers, generate state machine enums, and expand templates.
+Resolve include specifiers and expand templates.
 
 *Input:*
 
