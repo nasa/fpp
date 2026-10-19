@@ -270,18 +270,18 @@ sealed trait Error {
         System.err.println("conflicting port number is here:")
         System.err.println(p2Loc)
         printMatchingLoc(matchingLoc)
-      case SemanticError.WrongNumberOfTemplateArguments(
-        expandLoc: Location,
-        defLoc: Location,
-        expandLength: Number,
-        defLength: Number,
+      case SemanticError.InterfaceImplements(
+        loc,
+        err
       ) =>
-        val parameters = if defLength == 1 then "argument" else "arguments"
-        Error.print (Some(expandLoc)) (
-          s"expected $defLength template $parameters, got $expandLength"
-        )
-        System.err.println("template defined here:")
-        System.err.println(defLoc)
+        Error.print (Some(loc)) ("port interface not implemented")
+        err.print
+      case SemanticError.InterfaceImport(
+        importLoc,
+        err
+      ) =>
+        Error.print (Some(importLoc)) (s"failed to import interface")
+        err.print
       case SemanticError.InvalidTemplateArg(
         paramName: String,
         argLoc: Location,
@@ -291,30 +291,6 @@ sealed trait Error {
         Error.print (Some(argLoc)) (s"invalid argument for template parameter $paramName: $msg")
         System.err.println("template parameter is defined here:")
         System.err.println(paramLoc)
-      case SemanticError.TemplateParameterConflict(
-        paramName: String,
-        paramLoc: Location,
-        defLoc: Location,
-      ) =>
-        Error.print (Some(paramLoc)) (
-          s"template parameter $paramName conflicts with a definition in the template body"
-        )
-        System.err.println("conflicting definition is here:")
-        System.err.println(defLoc)
-      case SemanticError.NestedTemplateDefinition(
-        nestedLoc: Location,
-        parentLoc: Location
-      ) =>
-        Error.print (Some(nestedLoc)) ("module template definitions cannot be nested")
-        System.err.println("parent template defined here:")
-        System.err.println(parentLoc)
-      case SemanticError.TemplateExpansionInTemplate(
-        expandLoc: Location,
-        templateLoc: Location
-      ) =>
-        Error.print (Some(expandLoc)) ("template expansion specifiers cannot appear inside a module template")
-        System.err.println("enclosing template defined here:")
-        System.err.println(templateLoc)
       case SemanticError.MissingAsync(kind, loc) =>
         Error.print (Some(loc)) (s"$kind component must have async input")
       case SemanticError.MissingConnection(loc, matchingLoc) =>
@@ -349,6 +325,16 @@ sealed trait Error {
         }
       case SemanticError.PassiveStateMachine(loc) =>
         Error.print (Some(loc)) ("passive component may not have a state machine instance")
+      case SemanticError.PortInterfaceMissingPort(
+        loc
+      ) =>
+        Error.print (Some(loc)) ("port instance missing")
+      case SemanticError.PortInterfaceInvalidPort(
+        loc,
+        defLoc
+      ) =>
+        Error.print (Some(loc)) ("port instance does not match definition in interface:")
+        System.err.println(defLoc)
       case SemanticError.RedefinedSymbol(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
         System.err.println("previous definition is here:")
@@ -387,6 +373,32 @@ sealed trait Error {
         Error.print (Some(loc)) (s"state machine has too many leaf states")
       case SemanticError.StateMachine.UnreachableNode(name, loc) =>
         Error.print (Some(loc)) (s"$name is unreachable")
+      case SemanticError.TemplateParameterConflict(
+        paramName: String,
+        paramLoc: Location,
+        defLoc: Location,
+      ) =>
+        Error.print (Some(paramLoc)) (
+          s"template parameter $paramName conflicts with a definition in the template body"
+        )
+        System.err.println("conflicting definition is here:")
+        System.err.println(defLoc)
+      case SemanticError.TemplateDefError(
+        loc: Location,
+        msg: String,
+        defLoc: Location
+      ) =>
+        Error.print (Some(loc)) (msg)
+        System.err.println("enclosing template is defined here:")
+        System.err.println(defLoc)
+      case SemanticError.TemplateExpandError(
+        loc: Location,
+        msg: String,
+        expandLoc: Location
+      ) =>
+        Error.print (Some(loc)) (msg)
+        System.err.println("enclosing template expansion is here:")
+        System.err.println(expandLoc)
       case SemanticError.TooManyOutputPorts(loc, numPorts, arraySize, instanceLoc) =>
         Error.print (Some(loc)) (s"too many ports connected here (found $numPorts, max is $arraySize)")
         System.err.println("for this component instance:")
@@ -395,29 +407,19 @@ sealed trait Error {
       case SemanticError.UndefinedSymbol(name, symbolKind, loc) =>
         Error.print (Some(loc)) (s"symbol ${name} is not defined")
         printNote(s"looking for a $symbolKind here")
-      case SemanticError.InterfaceImport(
-        importLoc,
-        err
-      ) =>
-        Error.print (Some(importLoc)) (s"failed to import interface")
-        err.print
-      case SemanticError.PortInterfaceMissingPort(
-        loc
-      ) =>
-        Error.print (Some(loc)) ("port instance missing")
-      case SemanticError.PortInterfaceInvalidPort(
-        loc,
-        defLoc
-      ) =>
-        Error.print (Some(loc)) ("port instance does not match definition in interface:")
-        System.err.println(defLoc)
-      case SemanticError.InterfaceImplements(
-        loc,
-        err
-      ) =>
-        Error.print (Some(loc)) ("port interface not implemented")
-        err.print
       case SemanticError.UseDefCycle(loc, msg) => Error.print (Some(loc)) (msg)
+      case SemanticError.WrongNumberOfTemplateArguments(
+        expandLoc: Location,
+        defLoc: Location,
+        expandLength: Number,
+        defLength: Number,
+      ) =>
+        val parameters = if defLength == 1 then "argument" else "arguments"
+        Error.print (Some(expandLoc)) (
+          s"expected $defLength template $parameters, got $expandLength"
+        )
+        System.err.println("template defined here:")
+        System.err.println(defLoc)
       case XmlError.ParseError(file, msg) => Error.printXml (file) (msg)
       case XmlError.SemanticError(file, msg) => Error.printXml (file) (msg)
       case AnnotatedError(error, notes) =>
@@ -627,6 +629,16 @@ object SemanticError {
     specifiedPath: String,
     actualLoc: Location
   ) extends Error
+  /** Error while importing an interface */
+  final case class InterfaceImport(
+    importLoc: Location,
+    err: Error
+  ) extends Error
+  /** Error while checking if instance implements interface */
+  final case class InterfaceImplements(
+    loc: Location,
+    err: Error
+  ) extends Error
   /** No member in anonymous struct type */
   final case class InvalidAnonStructMember(
     memberName: String,
@@ -748,6 +760,13 @@ object SemanticError {
     msg: String,
     defLoc: Location
   ) extends Error
+  /** Template argument of the wrong kind */
+  final case class InvalidTemplateArg(
+    paramName: String,
+    argLoc: Location,
+    paramLoc: Location,
+    msg: String,
+  ) extends Error
   /** Invalid telemetry channel identifier name */
   final case class InvalidTlmChannelName(
     loc: Location,
@@ -769,36 +788,6 @@ object SemanticError {
     p2Loc: Location,
     p2Number: Int,
     matchingLoc: Location
-  ) extends Error
-  /** Wrong number of template arguments */
-  final case class WrongNumberOfTemplateArguments(
-    expandLoc: Location,
-    defLoc: Location,
-    expandLength: Number,
-    defLength: Number,
-  ) extends Error
-  /** Template argument of the wrong kind */
-  final case class InvalidTemplateArg(
-    paramName: String,
-    argLoc: Location,
-    paramLoc: Location,
-    msg: String,
-  ) extends Error
-  /** Template parameter conflicts with a definition in the template body */
-  final case class TemplateParameterConflict(
-    paramName: String,
-    paramLoc: Location,
-    defLoc: Location,
-  ) extends Error
-  /** Nested template definition */
-  final case class NestedTemplateDefinition(
-    nestedLoc: Location,
-    parentLoc: Location,
-  ) extends Error
-  /** Template expansion specifier nested inside a template */
-  final case class TemplateExpansionInTemplate(
-    expandLoc: Location,
-    templateLoc: Location,
   ) extends Error
   /** Missing async input */
   final case class MissingAsync(kind: String, loc: Location) extends Error
@@ -832,11 +821,9 @@ object SemanticError {
     name2: String,
     loc2: Location
   ) extends Error
-  /** Error while importing an interface */
-  final case class InterfaceImport(
-    importLoc: Location,
-    err: Error
-  ) extends Error
+  /** Passive async input */
+  final case class PassiveAsync(loc: Location, importLocs: List[Location]) extends Error
+  final case class PassiveStateMachine(loc: Location) extends Error
   /** A port is missing from a port interface */
   final case class PortInterfaceMissingPort(
     loc: Location
@@ -846,14 +833,6 @@ object SemanticError {
     loc: Location,
     defLoc: Location
   ) extends Error
-  /** Error while checking if instance implements interface */
-  final case class InterfaceImplements(
-    loc: Location,
-    err: Error
-  ) extends Error
-  /** Passive async input */
-  final case class PassiveAsync(loc: Location, importLocs: List[Location]) extends Error
-  final case class PassiveStateMachine(loc: Location) extends Error
   /** Redefined symbol */
   final case class RedefinedSymbol(
     name: String,
@@ -906,6 +885,24 @@ object SemanticError {
       loc: Location
     ) extends Error
   }
+  /** Error in template definition */
+  final case class TemplateDefError(
+    loc: Location,
+    msg: String,
+    defLoc: Location
+  ) extends Error
+  /** Error in template expansion */
+  final case class TemplateExpandError(
+    loc: Location,
+    msg: String,
+    expandLoc: Location
+  ) extends Error
+  /** Template parameter conflicts with a definition in the template body */
+  final case class TemplateParameterConflict(
+    paramName: String,
+    paramLoc: Location,
+    defLoc: Location,
+  ) extends Error
   /** Too many output ports */
   final case class TooManyOutputPorts(
     loc: Location,
@@ -919,6 +916,13 @@ object SemanticError {
   final case class UndefinedSymbol(name: String, symbolKind: String, loc: Location) extends Error
   /** Use-def cycle */
   final case class UseDefCycle(loc: Location, msg: String) extends Error
+  /** Wrong number of template arguments */
+  final case class WrongNumberOfTemplateArguments(
+    expandLoc: Location,
+    defLoc: Location,
+    expandLength: Number,
+    defLength: Number,
+  ) extends Error
 }
 
 /** An F Prime XML error */

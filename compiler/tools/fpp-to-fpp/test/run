@@ -69,16 +69,16 @@ dictionary_specifier()
     $fpp_syntax dictionary_specifier.out.txt
 }
 
-# Note: the expanded output uses the `expand ... { ... }` form, which is not
-# (yet) valid FPP surface syntax, so we do not round-trip it through fpp-syntax.
 template_expand()
 {
-  run_test '-e' template_expand
+  run_test '-e' template_expand && \
+    $fpp_syntax template_expand.out.txt
 }
 
 template_include()
 {
-  run_test '-e' template_include
+  run_test '-e' template_include && \
+    $fpp_syntax template_include.out.txt
 }
 
 run_suite $tests

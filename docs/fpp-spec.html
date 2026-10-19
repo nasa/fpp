@@ -1003,7 +1003,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Expansion-of-Templates">18. Expansion of Templates</a>
 <ul class="sectlevel2">
 <li><a href="#Expansion-of-Templates_Algorithm">18.1. Algorithm</a></li>
-<li><a href="#Expansion-of-Templates_Example">18.2. Example</a></li>
+<li><a href="#Expansion-of-Templates_Examples">18.2. Examples</a>
+<ul class="sectlevel3">
+<li><a href="#Expansion-of-Templates_Examples_Example-1">18.2.1. Example 1</a></li>
+<li><a href="#Expansion-of-Templates_Examples_Example-2">18.2.2. Example 2</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#Types">19. Types</a>
@@ -9253,7 +9258,7 @@ packet ADCS group 2 {
 <h3 id="Specifiers_Template-Expansion-Specifiers">7.19. Template Expansion Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>template expansion specifier</strong> names a
-<a href="#Definitions_Module-Template-Definitions">template</a>
+<a href="#Definitions_Module-Template-Definitions">module template definition</a>
 and specifies arguments for the parameters of the template.
 During <a href="#Expansion-of-Templates">template expansion</a>, it generates the definitions specified
 by the template and the arguments.</p>
@@ -9265,6 +9270,9 @@ by the template and the arguments.</p>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
 <em>[</em>
 <code>(</code> <em>template-arg-list</em> <code>)</code>
+<em>]</em>
+<em>[</em>
+<code>{</code> <em>module-member-sequence</em> <code>}</code>
 <em>]</em></p>
 </div>
 <div class="paragraph">
@@ -9289,6 +9297,17 @@ the terminating punctuation is a comma.</p>
 <p>A <strong>type template argument</strong> <code>type</code> <a href="#Type-Names"><em>type-name</em></a></p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p><em>module-member-sequence</em> is the same as for a
+<a href="#Definitions_Module-Definitions_Syntax">module definition</a>.</p>
+</div>
+<div class="paragraph">
+<p>The optional module member list represents the result of
+<a href="#Expansion-of-Templates">expanding the template</a>.
+If a template expansion specifier has a module member
+list, then it is called an <strong>expanded template</strong>.
+Otherwise it is called an <strong>unexpanded template</strong>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -9351,6 +9370,29 @@ is called a <strong>type parameter definition</strong>.</p>
 </li>
 </ol>
 </div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>If <em>module-member-sequence</em> is present, then</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>module-member-sequence</em> must not transitively contain any
+<a href="#Definitions_Module-Template-Definitions">module
+template definitions</a> or template expansion specifiers.
+This rule ensures that the syntax of <em>module-member-sequence</em> could
+be produced by expanding some template.</p>
+</li>
+<li>
+<p><em>module-member-sequence</em> is not required to conform to the syntax produced
+by expanding the template referred to in the specifier.</p>
+</li>
+<li>
+<p>All the definitions and uses inside <em>module-member-sequence</em> are
+semantically analyzed in the same way as if <em>module-member-sequence</em> had been
+produced by <a href="#Expansion-of-Templates">template expansion</a>.</p>
 </li>
 </ol>
 </div>
@@ -12172,19 +12214,33 @@ to mean both qualification and member selection.</p>
 <div class="paragraph">
 <p>Expansion of templates performs partial analysis
 and syntactic expansion.
-It produces a new model in which each
-<a href="#Specifiers_Template-Expansion-Specifiers">template
-expansion specifier</a> <em>S</em> is transformed into an
-<strong>expanded template</strong> \$E = S { X }\$, where <em>X</em>
-is a copy of the syntax provided
+It produces a new model according to the following rules:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For each <a href="#Specifiers_Template-Expansion-Specifiers_Syntax">unexpanded
+template
+expansion specifier</a> <em>S</em> in the source model,
+transform <em>S</em> into an
+expanded template expansion specifier <em>E</em> = <em>S</em> <code>{</code> <em>X</em> <code>}</code>, where <em>X</em>
+is a copy of the module member list provided
 by the template definition to which <em>S</em> refers.
-The expanded template <em>E</em> is not expressible in the syntax
-of the source language, but it is expressible in the internal
-representation of the model.
 The syntax <em>X</em> behaves as if it were literally included in
 the model at the point of <em>E</em>, except that there are
-special rules for resolving
+special rules for
 <a href="#Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template">resolving names</a> that appear inside <em>E</em>.</p>
+</li>
+<li>
+<p>For each expanded template expansion specifier <em>E</em> = <em>S</em> <code>{</code> <em>X</em> <code>}</code>
+in the source model, leave <em>E</em> unchanged.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Note in particular that applying template expansion twice
+(or, more generally, any number of times greater than one)
+is equivalent to applying template expansion once.</p>
 </div>
 <div class="sect2">
 <h3 id="Expansion-of-Templates_Algorithm">18.1. Algorithm</h3>
@@ -12201,8 +12257,8 @@ Construct the output model <em>M'</em> as follows:</p>
 match all template expansion specifiers with the template definitions to which they refer.</p>
 </li>
 <li>
-<p>For each template expansion specifier <em>S</em> in <em>M</em>,
-do the following:</p>
+<p>For each unexpanded template expansion specifier <em>S</em> in <em>M</em>, do the
+following:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -12212,7 +12268,7 @@ do the following:</p>
 <p>Let <em>X</em> be a copy of the syntax specified in the body of <em>T</em>.</p>
 </li>
 <li>
-<p>Replace <em>S</em> with \$S { X }\$.</p>
+<p>Replace <em>S</em> with <em>S</em> <code>{</code> <em>X</em> <code>}</code>.</p>
 </li>
 </ol>
 </div>
@@ -12221,7 +12277,9 @@ do the following:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expansion-of-Templates_Example">18.2. Example</h3>
+<h3 id="Expansion-of-Templates_Examples">18.2. Examples</h3>
+<div class="sect3">
+<h4 id="Expansion-of-Templates_Examples_Example-1">18.2.1. Example 1</h4>
 <div class="paragraph">
 <p><strong>Model <em>M</em>:</strong></p>
 </div>
@@ -12265,10 +12323,22 @@ module N {
 
 module N {
 
-  # The expanded template is expand M.T(constant 1) { constant c = a + b }
-  expand M.T(constant 1)
+  expand M.T(constant 1) {
+
+    constant c = a + b
+
+  }
 
 }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expansion-of-Templates_Examples_Example-2">18.2.2. Example 2</h4>
+<div class="paragraph">
+<p>Let model <em>M</em> be the same as model <em>M'</em> from the previous section.
+Then the template expansion specifier is expanded, so template
+expansion leaves the model unchanged (\$M' = M\$).</p>
 </div>
 </div>
 </div>
@@ -14526,7 +14596,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-07 08:46:13 -0700
+Last updated 2026-10-15 09:58:34 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
