@@ -768,9 +768,8 @@ Syntax expansion means replacing one piece of syntax (which is generally
 shorter) with another one (which is generally longer).
 By default, when you run `fpp-to-fpp`, syntax expansion does not occur;
 to enable it, you use the `-e` option.
-There are currently three kinds of syntax expansion: resolving
-include specifiers, generating state machine enums,
-and expanding templates.
+There are currently two kinds of syntax expansion: resolving
+include specifiers and expanding templates.
 
 *Resolving include specifiers:*
 By default, `fpp-to-fpp` does not resolve
@@ -795,44 +794,6 @@ include "a.fppi"
 ^D
 constant a = 0
 ----
-
-You can also use the option `-i` if you wish to resolve include
-specifiers without expanding any other syntax.
-
-*State machine enums:*
-The `-e` option causes the analyzer to generate the
-<<Defining-State-Machines_The-State-Enum,state enums>>
-associated with state machine definitions.
-Here is an example:
-
-----
-% cat state_machine.fpp
-state machine M {
-
-  state S
-
-  initial enter S
-
-}
-% fpp-to-fpp -e state_machine.fpp
-
-state machine M {
-
-  enum State: U8 {
-    @ The uninitialized state
-    __FPRIME_UNINITIALIZED
-    S
-  }
-
-  state S
-
-  initial enter S
-
-}
-----
-
-Notice how, with the `-e` option, the tool generates the state machine enum and
-inserts it into the state machine definition.
 
 *Template expansion:*
 The `-e` option causes `fpp-to-fpp` to
