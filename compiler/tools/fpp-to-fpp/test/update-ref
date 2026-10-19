@@ -80,6 +80,11 @@ state_machine()
   update '' ../../fpp-syntax/test/state-machine state_machine
 }
 
+state_machine_expand()
+{
+  update '-e' ../../fpp-syntax/test/state-machine state_machine_expand
+}
+
 for t in $tests
 do
   echo "updating ref output for $t"

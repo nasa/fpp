@@ -12,5 +12,6 @@ module_template_import
 module_template_include
 no_include
 state_machine
+state_machine_expand
 topology
 "
