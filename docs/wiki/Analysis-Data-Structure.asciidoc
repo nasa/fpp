@@ -87,8 +87,8 @@ https://github.com/nasa/fpp/wiki/Analysis#data-structures[state machine symbols]
 to the corresponding
 https://github.com/nasa/fpp/wiki/Analysis#data-structures[state machines].
 
-* *State enum set:*
-The set of state enums
+* *State enum id set:*
+The set of AST node identifiers of state enums
 https://github.com/nasa/fpp/wiki/Add-State-Enums[added to state machines]
 during analysis.
 

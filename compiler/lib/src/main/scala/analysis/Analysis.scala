@@ -23,8 +23,8 @@ case class Analysis(
   includedFileSet: Set[File] = Set(),
   /** A map from pairs (spec loc kind, qualified name) to spec locs. */
   locationSpecifierMap: Map[(Ast.SpecLoc.Kind, Name.Qualified), AstNode[Ast.SpecLoc]] = Map(),
-  /** The set of state enums added during analysis */
-  stateEnumSet: Set[Symbol.Enum] = Set(),
+  /** The set of AstIds of state enums added during analysis */
+  stateEnumIdSet: Set[AstNode.Id] = Set(),
   /** A list of unqualified names representing the enclosing scope names,
    *  with the innermost name at the head of the list. For exapmle, inside
    *  module B where B is inside A and A is at the top level, the module name

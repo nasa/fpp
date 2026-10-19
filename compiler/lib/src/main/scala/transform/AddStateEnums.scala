@@ -17,7 +17,7 @@ object AddStateEnums extends AstStateTransformer
   def default(in: State) = in
 
   override def defStateMachineAnnotatedNodeInternal(
-    in: State,
+    a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]],
     members: List[Ast.StateMachineMember]
   ) = {
@@ -32,7 +32,8 @@ object AddStateEnums extends AstStateTransformer
       val member = Ast.StateMachineMember(Nil, enumMemberNode, Nil)
       val defStateMachine = Ast.DefStateMachine(name, Some(member :: members))
       val node1 = AstNode.create(defStateMachine, node.id)
-      (in, (pre, node1, post))
+      val a1 = a.copy(stateEnumIdSet = a.stateEnumIdSet + enumNode.id)
+      (a1, (pre, node1, post))
     }
   }
 
