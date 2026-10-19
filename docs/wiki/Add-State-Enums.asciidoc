@@ -34,3 +34,6 @@ type `U8` if there are fewer than 256 constants, `U16` if fewer than
 65536, and `U32` otherwise.
 
 . Add the state enum as the first member of _d_.
+
+. Add the state enum to the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[state enum set].
