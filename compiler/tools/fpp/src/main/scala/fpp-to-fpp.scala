@@ -26,7 +26,7 @@ object FPPToFPP {
       tul <- ToolUtils.parseFiles(files ++ options.imports)
       (a, tul) <- expandSyntax (options) (Analysis(), tul)
       tulFiles = tul.take(files.length)
-      _ <- writeFpp (options) (tulFiles)
+      _ <- writeFpp (a, options) (tulFiles)
     }
     yield ()
   }
@@ -43,10 +43,11 @@ object FPPToFPP {
     }
   }
 
-  def writeFpp(options: Options)(tul: List[Ast.TransUnit]):
+  def writeFpp(a: Analysis, options: Options)(tul: List[Ast.TransUnit]):
     Result.Result[List[Ast.TransUnit]] =
   {
-    val lines = tul.flatMap(FppWriter.transUnit)
+    val fppWriter = FppWriter(a)
+    val lines = tul.flatMap(fppWriter.transUnit)
     lines.map(Line.write(Line.stdout))
     Right(tul)
   }

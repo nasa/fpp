@@ -1,12 +1,13 @@
 package fpp.compiler.codegen
 
+import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.syntax._
 import fpp.compiler.util._
 import scala.language.implicitConversions
 
 /** Write out FPP source */
-object FppWriter extends AstVisitor with LineUtils {
+class FppWriter(a: Analysis = Analysis()) extends AstVisitor with LineUtils {
 
   type In = Unit
 
