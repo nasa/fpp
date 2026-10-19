@@ -4,6 +4,7 @@
 
 fpp_to_fpp=../../../bin/fpp-to-fpp
 fpp_syntax=../../../bin/fpp-syntax
+fpp_check=../../../bin/fpp-check
 
 compare()
 {
@@ -90,7 +91,9 @@ state_machine()
 state_machine_expand()
 {
   run_test '-e' ../../fpp-syntax/test/state-machine state_machine_expand && \
-    $fpp_syntax state_machine_expand.out.txt
+    $fpp_syntax state_machine_expand.out.txt && \
+    # Check that syntax expansion does not introduce a semantic error
+    $fpp_check state_machine_expand.out.txt
 }
 
 run_suite $tests
