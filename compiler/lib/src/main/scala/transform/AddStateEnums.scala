@@ -12,13 +12,9 @@ object AddStateEnums extends AstStateTransformer
   with ModuleTemplateStateTransformer
 {
 
-  type State = Unit
+  type State = Analysis
 
   def default(in: State) = in
-
-  def transUnitList(tul: List[Ast.TransUnit]) =
-    for (sTul <- transformList((), tul, transUnit))
-      yield sTul._2
 
   override def defStateMachineAnnotatedNodeInternal(
     in: State,

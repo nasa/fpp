@@ -24,7 +24,7 @@ object FPPToFPP {
     }
     for {
       tul <- ToolUtils.parseFiles(files ++ options.imports)
-      (a, tul) <- expandTemplates (options) (Analysis(), tul)
+      (a, tul) <- expandSyntax (options) (Analysis(), tul)
       tulFiles = tul.take(files.length)
       _ <- writeFpp (options) (tulFiles)
     }
@@ -34,7 +34,7 @@ object FPPToFPP {
   def toolMain(args: Array[String]) =
     Tool(name).mainMethod(args, oparser, Options(), command)
 
-  def expandTemplates(options: Options)(a: Analysis, tul: List[Ast.TransUnit]):
+  def expandSyntax(options: Options)(a: Analysis, tul: List[Ast.TransUnit]):
     Result.Result[(Analysis, List[Ast.TransUnit])] =
   {
     options.expand match {

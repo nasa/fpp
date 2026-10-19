@@ -46,7 +46,7 @@ object FPPFilenames {
     Result.Result[(Analysis, List[Ast.TransUnit])] =
       for {
         (a, tul) <- ResolveSpecInclude.transUnitList(Analysis(), tul)
-        tul <- AddStateEnums.transUnitList(tul)
+        (a, tul) <- AddStateEnums.transformList(a, tul, AddStateEnums.transUnit)
         a <- EnterSymbols.visitList(Analysis(), tul, EnterSymbols.transUnit)
       }
       yield (a, tul)

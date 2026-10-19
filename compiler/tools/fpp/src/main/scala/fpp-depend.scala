@@ -102,9 +102,7 @@ object FPPDepend {
       ExpandSyntaxAndEnterSymbols.tuList(a, tul) match {
         case result @ Right(_) => result
         case Left(_) =>
-          for {
-            tul <- AddStateEnums.transUnitList(tul)
-          }
+          for ((a, tul) <- AddStateEnums.transformList(a, tul, AddStateEnums.transUnit))
           yield (
             EnterSymbols.visitList(a, tul, EnterSymbols.transUnit).getOrElse(a),
             tul
