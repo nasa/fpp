@@ -796,9 +796,6 @@ include "a.fppi"
 constant a = 0
 ----
 
-You can also use the option `-i` if you wish to resolve include
-specifiers without expanding any other syntax.
-
 *State machine enums:*
 The `-e` option causes the analyzer to generate the
 <<Defining-State-Machines_The-State-Enum,state enums>>
