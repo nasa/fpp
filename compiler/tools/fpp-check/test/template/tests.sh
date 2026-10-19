@@ -49,6 +49,7 @@ parameter_shadow_ok
 source_expand_bad_args
 source_expand_ok
 source_expand_undefined_symbol
+state_machine_enum
 struct_parameter_alias_default_ok
 struct_parameter_anon_array_promote
 struct_parameter_array_member_default_ok
