@@ -42,11 +42,6 @@ direct() {
   remove_path_prefix < tmp.out.txt > direct_output.ref.txt
 }
 
-direct_transitive_first() {
-  update '-d tmp.out.txt' direct_transitive_first
-  remove_path_prefix < tmp.out.txt > direct_transitive_first_output.ref.txt
-}
-
 filenames() {
   update '-g filenames_generated_output.ref.txt -u filenames_ut_output.ref.txt' \
     ../../fpp-filenames/test/ok filenames

@@ -47,15 +47,6 @@ direct()
   test $run_test_status -eq 0
 }
 
-direct_transitive_first()
-{
-  run_test '-d tmp.out.txt' direct_transitive_first
-  run_test_status=$?
-  remove_path_prefix < tmp.out.txt > direct_transitive_first_output.out.txt
-  compare direct_transitive_first_output && \
-  test $run_test_status -eq 0
-}
-
 filenames()
 {
   run_test '-g filenames_generated_output.out.txt -u filenames_ut_output.out.txt' \

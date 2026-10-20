@@ -68,14 +68,14 @@ object LoadTemplateDefinitions {
       aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
     ) = {
       val template = aNode._2.data.template.data
-      val specLoc = LocatedUseAnalyzer.findLocation(
+      val specLoc = AddDependencies.findLocation(
         map,
         s.scopeNameList,
         Ast.SpecLoc.Template,
         Name.Qualified.fromQualIdent(template),
         template.isAbsolute
       )
-      Right(specLoc.map(LocatedUseAnalyzer.getFile).
+      Right(specLoc.map(AddDependencies.getFile).
         map(file => s.copy(files = s.files + file)).getOrElse(s))
     }
 

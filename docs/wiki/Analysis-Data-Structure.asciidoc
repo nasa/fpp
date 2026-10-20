@@ -55,6 +55,9 @@ included when parsing input.
 https://github.com/nasa/fpp/wiki/Analysis#data-structures[files] 
 presented to the analyzer.
 
+* *Level:* A nonnegative integer representing the level of
+recursive analysis.
+
 * *Location specifier map:* A map from pairs (symbol kind, qualified name) to 
 location specifiers.
 Each entry in the map represents the specified location of a 

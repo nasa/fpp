@@ -5,14 +5,10 @@ import fpp.compiler.syntax._
 import fpp.compiler.transform._
 import fpp.compiler.util._
 
-/** Add the transitive dependencies */
-object AddDependencies extends LocatedUseAnalyzer {
-
-  def tuList(a: Analysis, tul: List[Ast.TransUnit]): Result =
-    visitList(a, tul, transUnit)
-
-  override def locatedUse(a: Analysis, specLoc: Ast.SpecLoc) =
-    addDependencies (a) (specLoc)
+/** Add dependencies */
+object AddDependencies
+  extends BasicUseAnalyzer
+  with ModuleTemplateDefAnalyzer {
 
   override def specLocAnnotatedNode(
     a: Analysis,
@@ -56,12 +52,110 @@ object AddDependencies extends LocatedUseAnalyzer {
     } yield a
   }
 
+  override def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+    analyzeUse(a, Ast.SpecLoc.StateMachine, use, node.data.isAbsolute)
+
+  override def componentUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+    analyzeUse(a, Ast.SpecLoc.Component, use, node.data.isAbsolute)
+
+  override def templateUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+    analyzeUse(a, Ast.SpecLoc.Template, use, node.data.isAbsolute)
+
+  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = {
+    val isAbsolute = node.data.getIsAbsoluteOpt.get
+    for {
+      // Analyze as a constant
+      a <- analyzeUse(a, Ast.SpecLoc.Constant, use, isAbsolute)
+      // If in the form A.B, also analyze as an enumerated constant
+      a <- use.qualifier match {
+        case Nil => Right(a)
+        case q => {
+          val enumUse = Name.Qualified.fromIdentList(q)
+          analyzeUse(a, Ast.SpecLoc.Type, enumUse, isAbsolute)
+        }
+      }
+    } yield a
+  }
+
+  override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+    analyzeUse(a, Ast.SpecLoc.Port, use, node.data.isAbsolute)
+
+  override def interfaceInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+    analyzeUse(a, Ast.SpecLoc.Instance, use, node.data.isAbsolute)
+
+  override def interfaceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+    analyzeUse(a, Ast.SpecLoc.Interface, use, node.data.isAbsolute)
+
+  override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) =
+    analyzeUse(a, Ast.SpecLoc.Type, use, node.data.getIsAbsoluteOpt.get)
+
+  override def templateArgNode(a: Analysis, node: AstNode[Ast.TemplateArg]) =
+    node.data match {
+      case Ast.TemplateArg.Interface(instance) =>
+        qualIdentNode (interfaceInstanceUse) (a, instance)
+      case _ => super.templateArgNode(a, node)
+    }
+
+  /** Find the location specifier for a use in a scope.
+   *  scopeNameList lists the enclosing scope names, with the innermost
+   *  name at the head of the list. An absolute use is not resolved
+   *  in the enclosing scopes. */
+  def findLocation(
+    map: Map[(Ast.SpecLoc.Kind, Name.Qualified), AstNode[Ast.SpecLoc]],
+    scopeNameList: List[Name.Unqualified],
+    kind: Ast.SpecLoc.Kind,
+    use: Name.Qualified,
+    isAbsolute: Boolean
+  ): Option[Ast.SpecLoc] = {
+    def computeNameList: List[Name.Qualified] = {
+      def helper(prefix: List[Name.Unqualified], result: List[Name.Qualified]): List[Name.Qualified] = {
+        prefix match {
+          case Nil => (use :: result).reverse
+          case head :: tail => {
+            val name = Name.Qualified.fromIdentList(prefix.reverse ++ use.toIdentList)
+            helper(tail, name :: result)
+          }
+        }
+      }
+      if isAbsolute then List(use) else helper(scopeNameList, Nil)
+    }
+    computeNameList.view.flatMap(name => map.get((kind, name)).map(_.data)).headOption
+  }
+
+  /** Get the file named in a location specifier */
+  def getFile(specLoc: Ast.SpecLoc): File = {
+    val loc = Locations.get(specLoc.file.id)
+    File.Path(loc.getRelativePath(specLoc.file.data))
+  }
+
+  private def analyzeUse(
+    a: Analysis,
+    kind: Ast.SpecLoc.Kind,
+    use: Name.Qualified,
+    isAbsolute: Boolean
+  ): Result =
+    findLocation(
+      a.locationSpecifierMap,
+      a.scopeNameList,
+      kind,
+      use,
+      isAbsolute
+    ).map(addDependencies (a)).getOrElse(Right(a))
+
   private def addDependenciesHelper(a: Analysis, specLoc: Ast.SpecLoc, file: File): Result = {
-    val a1 = a.copy(dependencyFileSet = a.dependencyFileSet + file)
+    val dependencyFileSet = a.dependencyFileSet + file
+    val directDependencyFileSet = a.level match {
+      case 1 => a.directDependencyFileSet + file
+      case _ => a.directDependencyFileSet
+    }
+    val a1 = a.copy(
+      dependencyFileSet = dependencyFileSet,
+      directDependencyFileSet = directDependencyFileSet
+    )
     val result = for {
       tu <- Parser.parseFile (Parser.transUnit) (None) (file)
       pair <- ResolveSpecInclude.transUnit(a1, tu)
-      a2 <- ComputeDependencies.dependencyTuList(
+      a2 <- ComputeDependencies.tuList(
         pair._1.copy(scopeNameList = Nil),
         List(pair._2)
       )

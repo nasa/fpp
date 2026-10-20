@@ -1,1 +1,0 @@
-constant b = 0

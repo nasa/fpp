@@ -20,9 +20,7 @@ https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[included file set].
 
 == Procedure
 
-. Run the <<dependency-algorithm,dependency algorithm>> on _tul_.
-
-. Run the <<direct-dependency-algorithm,direct dependency algorithm>> on _tul_.
+Run the <<dependency-algorithm,dependency algorithm>> on _tul_.
 
 [[dependency-algorithm]]
 === Dependency Algorithm
@@ -33,8 +31,10 @@ following:
 . *Resolve include specifiers:* Recursively resolve include specifiers in
 _tul_.
 Add the path of each included file to the included file set in _a_.
-If _tul_ is the input to the procedure, then add the path of each included
-file to the direct dependency file set in _a_.
+If the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[level of _a_]
+is zero, then add the path of each included file to the direct dependency
+file set in _a_.
 
 . *Build the location specifier map:* Traverse each translation unit _tu_ in
 _tul_, updating the
@@ -117,8 +117,8 @@ have seen a deployment topology and _s_ specifies
 .. For each module template definition _d_ encountered in _tu_, visit the
 type name of each constant parameter as a type use and the qualified
 identifier of each port interface instance parameter as an interface use.
-The uses in the body of _d_ are uses of the file that defines _d_,
-whether or not _d_ is expanded.
+Visit the body of _d_, whether or not _d_ is expanded.
+The uses in the body of _d_ are uses of the file that defines _d_.
 
 .. For each template expansion specifier _s_ encountered in _tu_, visit
 the template name of _s_ as a use of kind `template`, and visit each
@@ -146,6 +146,10 @@ of _a_, then do nothing.
 
 . Otherwise
 
+.. If the level of _a_ is zero, then add _p_ to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[direct dependency file set]
+of _a_.
+
 .. Add _p_ to the
 https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[dependency file set]
 of _a_.
@@ -157,28 +161,9 @@ of _a_.
 ... Run the <<dependency-algorithm,dependency algorithm>> on the list _[ tu ]_
 with the value of _a_ computed so far,
 but with an empty scope name list.
-Restore the scope name list and
+Restore the current level and scope name list and
 let the result be the new _a_.
 
 .. Otherwise add _p_ to the
 https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[missing
 dependency file set] of _a_.
-
-[[direct-dependency-algorithm]]
-=== Direct Dependency Algorithm
-
-To run the direct dependency algorithm on a translation unit list _tul_,
-do the following:
-
-. Traverse _tul_ as in the *add dependencies* step of the
-<<dependency-algorithm,dependency algorithm>>, using the
-location specifier map computed by that algorithm.
-For each use that resolves to a location specifier _s_, compute the
-absolute path _p_ associated with _s_.
-If _p_ is not in the input file set of _a_, then add _p_ to the
-direct dependency file set of _a_.
-
-. If the dependency algorithm saw a deployment topology, then
-for each location specifier _s_ in the location specifier map, if _s_
-specifies `dictionary`, then add the path associated with _s_ to the
-direct dependency file set of _a_ in the same way.
