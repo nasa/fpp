@@ -16,7 +16,7 @@ the results of syntax expansion.
 
 == Procedure
 
-. https://github.com/nasa/fpp/wiki/Expanding-Syntax-and-Entering-Symbols[Expand syntax and enter symbols]
+. https://github.com/nasa/fpp/wiki/Expand-Syntax-and-Enter-Symbols[Expand syntax and enter symbols]
 for _a_ and _tul_.
 
 . https://github.com/nasa/fpp/wiki/Check-Template-Definitions[Check template definitions] for _a_ and _tul_.

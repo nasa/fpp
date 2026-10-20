@@ -33,7 +33,7 @@ the individual ASTs.
 message.
 
 . If `-e` is present, then
-https://github.com/nasa/fpp/wiki/Expanding-Syntax-and-Entering-Symbols[expand 
+https://github.com/nasa/fpp/wiki/Expand-Syntax-and-Enter-Symbols[expand 
 syntax and enter symbols],
 yielding a new list _tul'_ of translation units.
 

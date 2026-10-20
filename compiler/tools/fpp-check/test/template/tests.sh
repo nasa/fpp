@@ -13,7 +13,6 @@ basic_constant
 bound_param_capture
 bound_param_capture_ok
 chained_constants
-composition_invalid
 constant_param_array_promote
 constant_param_array_promote_bad_subscript
 constant_with_default
@@ -21,6 +20,7 @@ definition_point_scoping
 definition_point_scoping_ok
 deployment_topology_in_template
 duplicate_def
+expand_in_template_def
 import_two_expansions_ok
 interfaces
 interfaces_arg_bad_signature
@@ -36,16 +36,20 @@ interfaces_topology_arg_deployment
 interfaces_topology_arg_ok
 interfaces_topology_arg_order_ok
 interfaces_valid_port_instance_name_aliased
-invalid_nested
 module_merge_ok
+nested_expand
 nested_scope_resolution
 nested_scope_resolution_ok
+nested_template_def
 param_body_def_different_group_ok
 param_conflict_body_def
 param_conflict_same_name_group
 param_same_name_different_groups_ok
 parameter_shadow_error
 parameter_shadow_ok
+source_expand_bad_args
+source_expand_ok
+source_expand_undefined_symbol
 struct_parameter_alias_default_ok
 struct_parameter_anon_array_promote
 struct_parameter_array_member_default_ok
@@ -57,6 +61,7 @@ struct_parameter_nested_default_ok
 struct_parameter_ok
 struct_parameter_omitted_member_ok
 system_in_template
+template_def_in_expand
 type_arg_string
 type_param_implied_use
 types

@@ -37,6 +37,12 @@ machine definition that has a body has a state enum definition.
 
 . https://github.com/nasa/fpp/wiki/Enter-Symbols[Enter symbols] for _a_ and _tul_.
 
+. https://github.com/nasa/fpp/wiki/Check-Template-Definitions[Check template 
+  definitions] for _a_ and _tul_.
+
+. https://github.com/nasa/fpp/wiki/Check-Template-Expansions[Check template 
+  expansions] for _a_ and _tul_.
+
 . https://github.com/nasa/fpp/wiki/Check-Template-Uses[Check template uses] for _a_ and _tul_.
 
 . https://github.com/nasa/fpp/wiki/Expand-Templates[Expand templates] for _a_ and _tul_,

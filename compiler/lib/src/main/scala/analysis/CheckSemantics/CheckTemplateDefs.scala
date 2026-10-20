@@ -1,7 +1,7 @@
 package fpp.compiler.analysis
 
-import fpp.compiler.ast.*
-import fpp.compiler.util.*
+import fpp.compiler.ast._
+import fpp.compiler.util._
 
 /** Check module template definitions */
 object CheckTemplateDefs
@@ -13,22 +13,36 @@ object CheckTemplateDefs
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
   ) = {
-    val node = aNode._2
-    val a1 = a.copy(templateDefinition = Some(node.id))
-    for (a1 <- visitList(a1, node.data.members, matchModuleMember))
-      yield a1.copy(templateDefinition = a.templateDefinition)
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      _ <- a.templateDefId match {
+        case Some(defId) => Left(
+          SemanticError.TemplateDefError(
+            Locations.get(node.id),
+            "module template definitions cannot be nested",
+            Locations.get(defId)
+          )
+        )
+        case None => Right(())
+      }
+      a <- Right(a.copy(templateDefId = Some(node.id)))
+      a <- visitList(a, data.members, matchModuleMember)
+      a <- Right(a.copy(templateDefId = None))
+    } yield a
   }
+
 
   override def defSystemAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefSystem]]
   ) = {
     val node = aNode._2
-    a.templateDefinition match {
-      case Some(templateDefinition) =>
+    a.templateDefId match {
+      case Some(defId) =>
         Left(SemanticError.SystemInTemplate(
           Locations.get(node.id),
-          Locations.get(templateDefinition)
+          Locations.get(defId)
         ))
       case None => Right(a)
     }
@@ -39,11 +53,11 @@ object CheckTemplateDefs
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
   ) = {
     val node = aNode._2
-    (a.templateDefinition, node.data.isDeployment) match {
-      case (Some(templateDefinition), true) =>
+    (a.templateDefId, node.data.isDeployment) match {
+      case (Some(defId), true) =>
         Left(SemanticError.DeploymentTopologyInTemplate(
           Locations.get(node.id),
-          Locations.get(templateDefinition)
+          Locations.get(defId)
         ))
       case _ => Right(a)
     }

@@ -12,31 +12,6 @@ https://github.com/nasa/fpp/wiki/Analysis#data-structures[component instance sym
 to the corresponding
 https://github.com/nasa/fpp/wiki/Analysis#data-structures[component instances].
 
-* *Current template:* The AST node identifier of the template expansion
-specifier whose body is currently being copied, if there is one.
-Used during
-https://github.com/nasa/fpp/wiki/Expand-Templates[template expansion]:
-when it is present, each node visited is copied, and the copy records
-this node as its expansion point.
-
-* *Current template definition:* The AST node identifier of the module
-template definition whose body is currently being traversed, if there is
-one.
-Used during
-https://github.com/nasa/fpp/wiki/Expand-Templates[template expansion] to
-reject a nested template definition and a template expansion inside a
-template, and during
-https://github.com/nasa/fpp/wiki/Check-Template-Definitions[template
-definition checking] to reject a deployment topology or a system definition
-inside a template.
-
-* *Current template expansion:* The
-https://github.com/nasa/fpp/wiki/Analysis#data-structures[template
-expansion] whose members are currently being analyzed, if there is one.
-Used during
-https://github.com/nasa/fpp/wiki/Check-Uses[check uses] to resolve names
-against the local scope map of the expansion.
-
 * *Dependency file set:* The set of
 https://github.com/nasa/fpp/wiki/Analysis#data-structures[files] 
 on which the analysis transitively depends.
@@ -120,6 +95,28 @@ to the corresponding
 https://github.com/nasa/fpp/wiki/Analysis#data-structures[systems].
 The map has either zero elements (if the model is not a system model)
 or one element (if the model is a system model).
+
+* *Template def id:* The AST node identifier of the module
+template definition whose body is currently being traversed, if there is
+one.
+Used during
+https://github.com/nasa/fpp/wiki/Expand-Templates[template expansion] to
+reject a nested template definition and a template expansion inside a
+template.
+
+* *Template expansion:* The
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[template
+expansion] whose members are currently being analyzed, if there is one.
+Used during
+https://github.com/nasa/fpp/wiki/Check-Uses[check uses] to resolve names
+against the local scope map of the expansion.
+
+* *Template expansion id:* The AST node identifier of the template expansion
+specifier whose body is currently being copied, if there is one.
+Used during
+https://github.com/nasa/fpp/wiki/Expand-Templates[template expansion]:
+when it is present, each node visited is copied, and the copy records
+this node as its expansion point.
 
 * *Template expansion map*: A map from the AST node identifier of each
 template expansion specifier to the corresponding

@@ -1,8 +1,5 @@
-For implementation, see
-https://github.com/nasa/fpp/blob/main/compiler/lib/src/main/scala/analysis/CheckSemantics/CheckTemplateDefs.scala[`CheckTemplateDefs.scala`].
-
-This algorithm traverses a source model and checks that no module template
-definition contains a deployment topology definition or a system definition.
+This algorithm traverses a source model and checks template
+definitions for correctness.
 
 == Input
 
@@ -15,36 +12,20 @@ representing the results of analysis so far.
 
 == Output
 
-. If the check passes, then no output.
-
-. Otherwise an error.
+. None if the check passes; otherwise an error.
 
 == Procedure
 
-. *Translation unit lists:* Visit each translation unit _tu_ in _tul_ in order.
+Currently this analysis does the following:
 
-. *Translation units:* Visit a translation unit _tu_ by visiting its members _tum_.
+. Check that no template definition transitively contains a template definition.
 
-. *Translation unit members:* Visit a translation unit member _tum_ as follows:
+. Check that no template definition transitively contains a template expansion.
 
-.. *Module definitions:* If _tum_ is a module definition _d_, then
-visit each member of _d_.
+. Check that no template definition transitively contains a system definition
 
-.. *Module template definitions:* If _tum_ is a module template
-definition _t_, then set the
-https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[current
-template definition] member of _a_ to _t_, visit the members of _t_,
-and restore the current template definition member of _a_.
-Visit _t_ whether or not it is expanded.
+. Check that no template definition transitively contains a system definition
 
-.. *Topology definitions:* If _tum_ is a deployment topology definition _d_
-and the current template definition member of _a_ is present, then
-report an error, citing the location of _d_ and the location of the
-enclosing template definition.
-
-.. *System definitions:* If _tum_ is a system definition _d_
-and the current template definition member of _a_ is present, then
-report an error, citing the location of _d_ and the location of the
-enclosing template definition.
-
-.. Otherwise do nothing.
+Eventually we will implement all of the checking described in the
+https://nasa.github.io/fpp/fpp-spec.html#Definitions_Module-Template-Definitions_Semantics[FPP 
+specification].

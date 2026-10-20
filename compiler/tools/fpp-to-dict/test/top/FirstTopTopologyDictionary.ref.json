@@ -1252,7 +1252,8 @@
           "members" : [
             "Module1.myFirstC1.TlmChannel1",
             "Module1.myFirstC1.TlmChannel2"
-          ]
+          ],
+          "annotation" : "Pre annotation for MyTlmPacket1"
         },
         {
           "name" : "MyTlmPacket2",
@@ -1260,14 +1261,16 @@
           "group" : 1,
           "members" : [
             "Module1.myFirstC2.TlmChannel1"
-          ]
+          ],
+          "annotation" : "Pre annotation for MyTlmPacket2"
         }
       ],
       "omitted" : [
         "Module1.myFirstC1.TlmChannel3",
         "Module1.myFirstC2.TlmChannel2",
         "Module1.myFirstC2.TlmChannel3"
-      ]
+      ],
+      "annotation" : "Pre annotation for Packets"
     }
   ]
 }
