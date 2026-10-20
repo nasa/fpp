@@ -1086,7 +1086,7 @@ class ParserSpec extends AnyWordSpec {
    *  the two ASTs are the same */
   def roundTripOK(s: String): Unit = {
     val tu = parseTransUnit(s)
-    val formatted = FppWriter.transUnit(tu).map(_.toString).mkString("\n")
+    val formatted = FppWriter().transUnit(tu).map(_.toString).mkString("\n")
     val tu1 = Parser.parseString(Parser.transUnit)(formatted) match {
       case Right(tu1) => tu1
       case Left(l) => {
