@@ -77,9 +77,12 @@ https://github.com/nasa/fpp/wiki/Computing-Dependencies[computing dependencies]
 with inputs _a_ and _tul_.
 The dependencies are computed on _tul_ before expanding templates.
 
-. <<expanding-templates,Expand templates>> in _tul_, generating a list _tul'_
+. If option `-g` or option `-u` is present, then
+<<expanding-templates,expand templates>> in _tul_, generating a list _tul'_
 of translation units.
 If expanding templates fails, then halt with an error.
+If neither option is present, then templates are not expanded, and
+an error in expanding them is not reported.
 
 . Write out the dependency files in _a'_.
 
