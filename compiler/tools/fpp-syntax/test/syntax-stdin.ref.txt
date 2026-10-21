@@ -311,6 +311,50 @@ def module
       ident x
       literal int 0
     @< Included constant
+  @ Module template definition
+  def module template
+    ident MT
+    @ Constant template parameter
+    constant template param
+      ident c
+      type name U32
+    @< Constant template parameter
+    @ Type template parameter
+    type template param
+      ident Ty
+    @< Type template parameter
+    @ Interface instance template parameter
+    instance template param
+      ident i
+      qual ident I
+    @< Interface instance template parameter
+    def constant
+      ident x
+      ident c
+  @< Module template definition
+  @ Unexpanded template expansion specifier
+  expand
+    qual ident MT
+    constant template arg
+      literal int 0
+    type template arg
+      type name U32
+    instance template arg
+      qual ident i1
+  @< Unexpanded template expansion specifier
+  @ Expanded template expansion specifier
+  expand
+    qual ident MT
+    constant template arg
+      literal int 0
+    type template arg
+      type name U32
+    instance template arg
+      qual ident i1
+    def constant
+      ident x
+      literal int 0
+  @< Expanded template expansion specifier
   @ Port definition
   def port
     ident P
@@ -469,6 +513,12 @@ def module
     symbol qual ident S
     file system.fpp
   @< System location specifier
+  @ Template location specifier
+  spec loc
+    kind template
+    symbol qual ident MT
+    file template.fpp
+  @< Template location specifier
 @< Definitions and specifiers
 @ Type names
 def module
