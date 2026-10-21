@@ -16,13 +16,13 @@ There are two kinds of primitive
 integer types: unsigned integer types and signed integer types.
 
 * The names of the unsigned integer types are `U8`, `U16`, `U32`, and `U64`.
-The `U` stands for "`unsigned.`" The number after the U is the width of the
+The `U` stands for "`unsigned.`" The number after the `U` is the width of the
 representation in bits, using the standard binary representation of an
 unsigned integer.
 
 * The names of the signed integer types are `I8`, `I16`, `I32`, and `I64`. The
-`I` stands for "`[signed] integer.`" The number after the I is the width of
-the representation in bits, using the standard binary two's complement
+`I` stands for "`[signed] integer.`" The number after the `I` is the width of 
+the representation in bits, using the standard binary two's complement 
 representation of a signed integer.
 
 === Floating-Point Type Names
