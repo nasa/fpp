@@ -22,7 +22,10 @@ Currently this analysis does the following:
 
 . Check that no template definition transitively contains a template expansion.
 
-. Check that no template definition transitively contains a system definition
+. Check that no template definition transitively contains a deployment topology
+definition.
+
+. Check that no template definition transitively contains a system definition.
 
 Eventually we will implement all of the checking described in the
 https://nasa.github.io/fpp/fpp-spec.html#Definitions_Module-Template-Definitions_Semantics[FPP 

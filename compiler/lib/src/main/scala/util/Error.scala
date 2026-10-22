@@ -55,13 +55,6 @@ sealed trait Error {
         errors.foreach(_.print)
       case SemanticError.ChannelNotInDictionary(loc, channelName, topologyName) =>
         Error.print (Some(loc)) (s"channel $channelName is not in the dictionary for topology $topologyName")
-      case SemanticError.DeploymentTopologyInTemplate(
-        topologyLoc: Location,
-        templateLoc: Location
-      ) =>
-        Error.print (Some(topologyLoc)) ("deployment topologies cannot appear inside a module template")
-        System.err.println("enclosing template defined here:")
-        System.err.println(templateLoc)
       case SemanticError.DivisionByZero(loc) =>
         Error.print (Some(loc)) ("division by zero")
       case SemanticError.DuplicateConnectionAtMatchedPort(loc, port, portNum, prevLoc, matchingLoc) =>
@@ -380,13 +373,6 @@ sealed trait Error {
         Error.print (Some(loc)) (s"state machine has too many leaf states")
       case SemanticError.StateMachine.UnreachableNode(name, loc) =>
         Error.print (Some(loc)) (s"$name is unreachable")
-      case SemanticError.SystemInTemplate(
-        systemLoc: Location,
-        templateLoc: Location
-      ) =>
-        Error.print (Some(systemLoc)) ("system definitions cannot appear inside a module template")
-        System.err.println("enclosing template defined here:")
-        System.err.println(templateLoc)
       case SemanticError.TemplateParameterConflict(
         paramName: String,
         paramLoc: Location,
@@ -497,11 +483,6 @@ object SemanticError {
     loc: Location,
     channelName: String,
     topologyName: String
-  ) extends Error
-  /** Deployment topology inside a template */
-  final case class DeploymentTopologyInTemplate(
-    topologyLoc: Location,
-    templateLoc: Location,
   ) extends Error
   /** Division by zero */
   final case class DivisionByZero(loc: Location) extends Error
@@ -904,11 +885,6 @@ object SemanticError {
       loc: Location
     ) extends Error
   }
-  /** System definition inside a template */
-  final case class SystemInTemplate(
-    systemLoc: Location,
-    templateLoc: Location,
-  ) extends Error
   /** Error in template definition */
   final case class TemplateDefError(
     loc: Location,

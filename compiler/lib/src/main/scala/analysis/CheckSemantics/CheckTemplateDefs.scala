@@ -56,8 +56,9 @@ object CheckTemplateDefs
     val node = aNode._2
     a.templateDefId match {
       case Some(defId) =>
-        Left(SemanticError.SystemInTemplate(
+        Left(SemanticError.TemplateDefError(
           Locations.get(node.id),
+          "system definitions cannot appear inside a module template",
           Locations.get(defId)
         ))
       case None => Right(a)
@@ -71,8 +72,9 @@ object CheckTemplateDefs
     val node = aNode._2
     (a.templateDefId, node.data.isDeployment) match {
       case (Some(defId), true) =>
-        Left(SemanticError.DeploymentTopologyInTemplate(
+        Left(SemanticError.TemplateDefError(
           Locations.get(node.id),
+          "deployment topology cannot appear inside a module template",
           Locations.get(defId)
         ))
       case _ => Right(a)
