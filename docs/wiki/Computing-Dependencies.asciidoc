@@ -15,6 +15,8 @@ of _a_ must record the set of files presented for analysis.
 https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[location specifier map],
 https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[dependency file set],
 https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[direct dependency file set],
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[missing dependency file set],
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[dependency translation unit map],
 and
 https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[included file set].
 
@@ -157,6 +159,13 @@ of _a_.
 .. If the file _f_ at _p_ exists, then
 
 ... Parse _f_, generating a translation unit _tu_.
+
+... Recursively resolve include specifiers in _tu_.
+Add the path of each included file to the included file set in _a_.
+
+... Add the mapping from _p_ to _tu_ to the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[dependency
+translation unit map] of _a_.
 
 ... Run the <<dependency-algorithm,dependency algorithm>> on the list _[ tu ]_
 with the value of _a_ computed so far,

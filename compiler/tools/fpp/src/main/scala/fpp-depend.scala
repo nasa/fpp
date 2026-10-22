@@ -103,14 +103,14 @@ object FPPDepend {
   }
 
   /** Expand the templates in the input translation units.
-   *  Load the files that define the templates, then expand the templates
-   *  in the input together with those files. Return the expanded input
+   *  Expand the templates in the input together with the dependency
+   *  files parsed during dependency analysis. Return the expanded input
    *  translation units. */
   def expandTemplates(a: Analysis, tul: List[Ast.TransUnit]):
     Result.Result[(Analysis, List[Ast.TransUnit])] =
+      val depTul = a.dependencyTuMap.toList.sortBy(_._1.toString).map(_._2)
       for {
-        defTul <- LoadTemplateDefinitions.get(a, tul)
-        aTul <- ExpandSyntaxAndEnterSymbols.tuList(a, tul ++ defTul)
+        aTul <- ExpandSyntaxAndEnterSymbols.tuList(a, tul ++ depTul)
       }
       // The expanded input translation units come first
       yield (aTul._1, aTul._2.take(tul.length))

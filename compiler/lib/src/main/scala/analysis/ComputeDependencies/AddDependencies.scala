@@ -156,7 +156,10 @@ object AddDependencies
       tu <- Parser.parseFile (Parser.transUnit) (None) (file)
       pair <- ResolveSpecInclude.transUnit(a1, tu)
       a2 <- ComputeDependencies.tuList(
-        pair._1.copy(scopeNameList = Nil),
+        pair._1.copy(
+          scopeNameList = Nil,
+          dependencyTuMap = pair._1.dependencyTuMap + (file -> pair._2)
+        ),
         List(pair._2)
       )
     } yield a2.copy(scopeNameList = a1.scopeNameList)
