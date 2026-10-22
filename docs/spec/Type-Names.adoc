@@ -224,7 +224,8 @@ The type _T'_ is called the *base type* of the range type _T_.
 . Otherwise _T_ represents the same range of values as the type name
   produced by replacing _T'_ with its base type.
 
-. In either case, the range of values must contain at least one valid value.
+. The range of values represented by the range type must contain at least one 
+  valid value.
 
 ==== Examples
 
