@@ -201,7 +201,8 @@ The type _T'_ is called the *base type* of the range type _T_.
   to a value that <<Evaluation_Strict-Type-Conversion,may be strictly converted 
   to a value of type _T'_>>.
 
-. The range type _T_ represents a range of values as follows:
+. If the base type _T'_ is a primitive numeric type, then the range type _T_ 
+  represents a range of values as follows:
 
 .. Each value of _T_ is a value of _T'_.
 
@@ -220,7 +221,10 @@ The type _T'_ is called the *base type* of the range type _T_.
     to a value _v'_. In this case, if _range-end_ is `)`, then _v_ must 
     be less than _v'_. Otherwise _v_ must be less than or equal to _v'_.
 
-. The range type must have at least one valid value.
+. Otherwise _T_ represents the same range of values as the type name
+  produced by replacing _T'_ with its base type.
+
+. In either case, the range of values must contain at least one valid value.
 
 ==== Examples
 
