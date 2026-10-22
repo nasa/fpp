@@ -451,6 +451,7 @@ var IN_GLOBAL_SCOPE = false;
           "if," +
           "implements," +
           "import," +
+          "in," +
           "include," +
           "initial," +
           "input," +

@@ -169,3 +169,74 @@ module P {
   expand M.Tmpl(type U32)
 }
 ----
+
+=== Range Type Names
+
+A *range type name* represents a range of numeric values.
+
+==== Syntax
+
+<<Type-Names,_type-name_>> `in` _range_
+
+* _range_ is _range-begin_ _range-bound_ `,` _range-bound_ _range-end_
+
+* _range-begin_ is `(` or `[`
+
+* _range-bound_ is an <<Expressions,expression>> or `--`
+
+* _range-end_ is `)` or `]`
+
+==== Semantics
+
+A range type name _N_ names a <<Types_Range-Types,range type>> _T_
+according to the following rules.
+
+. _type-name_ must name a <<Types,type>> whose
+  <<Types_Underlying-Types,underlying type>> _T'_ is a
+<<Types_Primitive-Numeric-Types,primitive numeric type>> or a
+<<Types_Range-Types,range type>>.
+The type _T'_ is called the *base type* of the range type _T_.
+
+. For each range bound _B_, if _B_ is an expression _e_, then _e_ must evaluate
+  to a value that <<Evaluation_Strict-Type-Conversion,may be strictly converted 
+  to a value of type _T'_>>.
+
+. The range type _T_ represents a range of values as follows:
+
+.. Each value of _T_ is a value of _T'_.
+
+.. For each value _v_ of _T'_, _v_ is a value of _T_ if and only if it
+   satisfies the following constraints:
+
+... If the left-hand _range-bound_ is `--`, then there is no lower constraint.
+
+... Otherwise the left-hand _range-bound_ is an expression that evaluates
+    to a value _v'_. In this case, if _range-begin_ is `(`, then _v_ must 
+    be greater than _v'_. Otherwise _v_ must be greater than or equal to _v'_.
+
+... If the right-hand _range-bound_ is `--`, then there is no upper constraint.
+
+... Otherwise the left-hand _range-bound_ is an expression that evaluates
+    to a value _v'_. In this case, if _range-end_ is `)`, then _v_ must 
+    be less than _v'_. Otherwise _v_ must be less than or equal to _v'_.
+
+. The range type must have at least one valid value.
+
+==== Examples
+
+[source,fpp]
+----
+type T1 = U8 in [0, 10] # T1 represents U8 values v in the range 0 <= v <= 10
+type T2 = U8 in (0, 10) # T2 represents U8 values v in the range 0 < v < 10
+type T3 = U8 in [0, 10) # T3 represents U8 values v in the range 0 <= v < 10
+type T4 = I16 in (--, 10) # T4 represents I16 values v in the range -32768 <= v < 10
+type T5 = I16 in [--, 10) # T5 represents I16 values v in the range -32768 <= v < 10
+type T6 = U16 in [0, --) # T6 represents U16 values v in the range 0 <= v <= 65535
+type T7 = U16 in [0, --] # T7 represents U16 values v in the range 0 <= v <= 65535
+type T8 = U16 in [--, --] # T8 represents all U16 values
+type T9 = U8 in [0, 256] # T9 is invalid: 256 may not be strictly converted to U8
+type T10 = U8 in [1, 0] # T10 is invalid: The specified range has no values
+type T11 = F32 in [--, 10] # T11 represents all F32 values less than or equal to 10
+type T12 = T11 in [0, --] # T12 represents all F32 values v in the range 0 <= v <= 10
+type T13 = T12 in [0, 11] # T13 is invalid: 11 may not be strictly converted to T12
+----

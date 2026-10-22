@@ -851,6 +851,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Type-Names_The-Boolean-Type-Name">9.3. The Boolean Type Name</a></li>
 <li><a href="#Type-Names_String-Type-Names">9.4. String Type Names</a></li>
 <li><a href="#Type-Names_Qualified-Identifier-Type-Names">9.5. Qualified Identifier Type Names</a></li>
+<li><a href="#Type-Names_Range-Type-Names">9.6. Range Type Names</a>
+<ul class="sectlevel3">
+<li><a href="#Type-Names_Range-Type-Names_Syntax">9.6.1. Syntax</a></li>
+<li><a href="#Type-Names_Range-Type-Names_Semantics">9.6.2. Semantics</a></li>
+<li><a href="#Type-Names_Range-Type-Names_Examples">9.6.3. Examples</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#Expressions">10. Expressions</a>
@@ -1024,22 +1031,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Types_Struct-Types">19.9. Struct Types</a></li>
 <li><a href="#Types_Abstract-Types">19.10. Abstract Types</a></li>
 <li><a href="#Types_Alias-Types">19.11. Alias Types</a></li>
-<li><a href="#Types_Internal-Types">19.12. Internal Types</a>
+<li><a href="#Types_Range-Types">19.12. Range Types</a></li>
+<li><a href="#Types_Internal-Types">19.13. Internal Types</a>
 <ul class="sectlevel3">
-<li><a href="#Types_Internal-Types_Integer">19.12.1. Integer</a></li>
-<li><a href="#Types_Internal-Types_Integer-Types">19.12.2. Integer Types</a></li>
-<li><a href="#Types_Internal-Types_Numeric-Types">19.12.3. Numeric Types</a></li>
-<li><a href="#Types_Internal-Types_Anonymous-Array-Types">19.12.4. Anonymous Array Types</a></li>
-<li><a href="#Types_Internal-Types_Anonymous-Struct-Types">19.12.5. Anonymous Struct Types</a></li>
+<li><a href="#Types_Internal-Types_Integer">19.13.1. Integer</a></li>
+<li><a href="#Types_Internal-Types_Integer-Types">19.13.2. Integer Types</a></li>
+<li><a href="#Types_Internal-Types_Numeric-Types">19.13.3. Numeric Types</a></li>
+<li><a href="#Types_Internal-Types_Anonymous-Array-Types">19.13.4. Anonymous Array Types</a></li>
+<li><a href="#Types_Internal-Types_Anonymous-Struct-Types">19.13.5. Anonymous Struct Types</a></li>
 </ul>
 </li>
-<li><a href="#Types_Canonical-Types">19.13. Canonical Types</a></li>
-<li><a href="#Types_Underlying-Types">19.14. Underlying Types</a></li>
-<li><a href="#Types_Displayable-Types">19.15. Displayable Types</a></li>
-<li><a href="#Types_Types-with-Numeric-Members">19.16. Types with Numeric Members</a></li>
-<li><a href="#Types_Alias-Lists">19.17. Alias Lists</a></li>
-<li><a href="#Types_Default-Values">19.18. Default Values</a></li>
-<li><a href="#Types_Serialized-Sizes">19.19. Serialized Sizes</a></li>
+<li><a href="#Types_Canonical-Types">19.14. Canonical Types</a></li>
+<li><a href="#Types_Underlying-Types">19.15. Underlying Types</a></li>
+<li><a href="#Types_Displayable-Types">19.16. Displayable Types</a></li>
+<li><a href="#Types_Types-with-Numeric-Members">19.17. Types with Numeric Members</a></li>
+<li><a href="#Types_Alias-Lists">19.18. Alias Lists</a></li>
+<li><a href="#Types_Default-Values">19.19. Default Values</a></li>
+<li><a href="#Types_Serialized-Sizes">19.20. Serialized Sizes</a></li>
 </ul>
 </li>
 <li><a href="#Type-Checking">20. Type Checking</a>
@@ -1114,6 +1122,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Evaluation_Type-Conversion_Structure-Values">23.2.8. Structure Values</a></li>
 </ul>
 </li>
+<li><a href="#Evaluation_Strict-Type-Conversion">23.3. Strict Type Conversion</a></li>
 </ul>
 </li>
 <li><a href="#Ports">24. Ports</a>
@@ -1310,6 +1319,7 @@ hook
 id
 if
 import
+in
 include
 initial
 input
@@ -9886,6 +9896,114 @@ module P {
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Type-Names_Range-Type-Names">9.6. Range Type Names</h3>
+<div class="paragraph">
+<p>A <strong>range type name</strong> represents a range of numeric values.</p>
+</div>
+<div class="sect3">
+<h4 id="Type-Names_Range-Type-Names_Syntax">9.6.1. Syntax</h4>
+<div class="paragraph">
+<p><a href="#Type-Names"><em>type-name</em></a> <code>in</code> <em>range</em></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>range</em> is <em>range-begin</em> <em>range-bound</em> <code>,</code> <em>range-bound</em> <em>range-end</em></p>
+</li>
+<li>
+<p><em>range-begin</em> is <code>(</code> or <code>[</code></p>
+</li>
+<li>
+<p><em>range-bound</em> is an <a href="#Expressions">expression</a> or <code>--</code></p>
+</li>
+<li>
+<p><em>range-end</em> is <code>)</code> or <code>]</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Type-Names_Range-Type-Names_Semantics">9.6.2. Semantics</h4>
+<div class="paragraph">
+<p>A range type name <em>N</em> names a <a href="#Types_Range-Types">range type</a> <em>T</em>
+according to the following rules.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><em>type-name</em> must name a <a href="#Types">type</a> whose
+  <a href="#Types_Underlying-Types">underlying type</a> <em>T'</em> is a
+<a href="#Types_Primitive-Numeric-Types">primitive numeric type</a> or a
+<a href="#Types_Range-Types">range type</a>.
+The type <em>T'</em> is called the <strong>base type</strong> of the range type <em>T</em>.</p>
+</li>
+<li>
+<p>For each range bound <em>B</em>, if <em>B</em> is an expression <em>e</em>, then <em>e</em> must evaluate
+to a value that <a href="#Evaluation_Strict-Type-Conversion">may be strictly converted
+to a value of type <em>T'</em></a>.</p>
+</li>
+<li>
+<p>The range type <em>T</em> represents a range of values as follows:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Each value of <em>T</em> is a value of <em>T'</em>.</p>
+</li>
+<li>
+<p>For each value <em>v</em> of <em>T'</em>, <em>v</em> is a value of <em>T</em> if and only if it
+satisfies the following constraints:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>If the left-hand <em>range-bound</em> is <code>--</code>, then there is no lower constraint.</p>
+</li>
+<li>
+<p>Otherwise the left-hand <em>range-bound</em> is an expression that evaluates
+to a value <em>v'</em>. In this case, if <em>range-begin</em> is <code>(</code>, then <em>v</em> must
+be greater than <em>v'</em>. Otherwise <em>v</em> must be greater than or equal to <em>v'</em>.</p>
+</li>
+<li>
+<p>If the right-hand <em>range-bound</em> is <code>--</code>, then there is no upper constraint.</p>
+</li>
+<li>
+<p>Otherwise the left-hand <em>range-bound</em> is an expression that evaluates
+to a value <em>v'</em>. In this case, if <em>range-end</em> is <code>)</code>, then <em>v</em> must
+be less than <em>v'</em>. Otherwise <em>v</em> must be less than or equal to <em>v'</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>The range type must have at least one valid value.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Type-Names_Range-Type-Names_Examples">9.6.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">type T1 = U8 in [0, 10] # T1 represents U8 values v in the range 0 &lt;= v &lt;= 10
+type T2 = U8 in (0, 10) # T2 represents U8 values v in the range 0 &lt; v &lt; 10
+type T3 = U8 in [0, 10) # T3 represents U8 values v in the range 0 &lt;= v &lt; 10
+type T4 = I16 in (--, 10) # T4 represents I16 values v in the range -32768 &lt;= v &lt; 10
+type T5 = I16 in [--, 10) # T5 represents I16 values v in the range -32768 &lt;= v &lt; 10
+type T6 = U16 in [0, --) # T6 represents U16 values v in the range 0 &lt;= v &lt;= 65535
+type T7 = U16 in [0, --] # T7 represents U16 values v in the range 0 &lt;= v &lt;= 65535
+type T8 = U16 in [--, --] # T8 represents all U16 values
+type T9 = U8 in [0, 256] # T9 is invalid: 256 may not be strictly converted to U8
+type T10 = U8 in [1, 0] # T10 is invalid: The specified range has no values
+type T11 = F32 in [--, 10] # T11 represents all F32 values less than or equal to 10
+type T12 = T11 in [0, --] # T12 represents all F32 values v in the range 0 &lt;= v &lt;= 10
+type T13 = T12 in [0, 11] # T13 is invalid: 11 may not be strictly converted to T12</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -12484,20 +12602,56 @@ name</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Internal-Types">19.12. Internal Types</h3>
+<h3 id="Types_Range-Types">19.12. Range Types</h3>
+<div class="paragraph">
+<p>A <strong>range type</strong> represents a range of values of a base type.
+The base type must be a <a href="#Types_Primitive-Numeric-Types">primitive numeric
+type</a> or a range type.
+We write a range type as a base type <em>T</em> followed by <code>in</code> followed
+by a range.
+A range is a left parenthesis or bracket, a value \$v_1\$ of type <em>T</em> or <code>--</code>,
+a comma, a value \$v_2\$ of type <em>T</em> or <code>--</code>, and a right
+parenthesis or bracket.
+The range represents a range of values as described in the section
+on <a href="#Type-Names_Range-Type-Names">range type names</a>.
+For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>U32 in [0: U32, 10: U32]</code> represents values of type <code>U32</code> in the range
+\$[0,10\$].</p>
+</li>
+<li>
+<p><code>U32 in (0: U32, 10: U32)</code> represents values of type <code>U32</code> in the range
+\$(0,10)\$.</p>
+</li>
+<li>
+<p><code>U32 in (1: U32, --)</code> represents all <code>U32</code> values greater than <code>1: U32</code>.</p>
+</li>
+<li>
+<p><code>U32 in [0: U32, 10: U32] in [1: U32 in [0: U32, 10: U32], 3: U32 in [0: U32,
+10: U32]]</code>
+represents values of type <code>U32 in [0: U32, 10: U32]</code> in the range \$[1,3\$].</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Types_Internal-Types">19.13. Internal Types</h3>
 <div class="paragraph">
 <p><strong>Internal types</strong> do not have syntactic names in FPP source models.
 The compiler assigns these types to expressions during type checking.</p>
 </div>
 <div class="sect3">
-<h4 id="Types_Internal-Types_Integer">19.12.1. Integer</h4>
+<h4 id="Types_Internal-Types_Integer">19.13.1. Integer</h4>
 <div class="paragraph">
 <p>The type <em>Integer</em> represents all integer values, without regard
 to bit width.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Types_Internal-Types_Integer-Types">19.12.2. Integer Types</h4>
+<h4 id="Types_Internal-Types_Integer-Types">19.13.2. Integer Types</h4>
 <div class="paragraph">
 <p><a href="#Types_Internal-Types_Integer"><em>Integer</em></a> together with the
 <a href="#Types_Primitive-Integer-Types">primitive integer types</a> are called
@@ -12505,7 +12659,7 @@ the <strong>integer types</strong>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Types_Internal-Types_Numeric-Types">19.12.3. Numeric Types</h4>
+<h4 id="Types_Internal-Types_Numeric-Types">19.13.3. Numeric Types</h4>
 <div class="paragraph">
 <p><a href="#Types_Internal-Types_Integer"><em>Integer</em></a> together with the
 <a href="#Types_Primitive-Numeric-Types">primitive numeric types</a> are called
@@ -12513,7 +12667,7 @@ the <strong>numeric types</strong>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Types_Internal-Types_Anonymous-Array-Types">19.12.4. Anonymous Array Types</h4>
+<h4 id="Types_Internal-Types_Anonymous-Array-Types">19.13.4. Anonymous Array Types</h4>
 <div class="paragraph">
 <p>The type <em>[</em> <em>n</em> <em>]</em> <em>T</em>, where <em>n</em>
 is an integer and <em>T</em> is a type, represents an array of <em>n</em> elements,
@@ -12524,7 +12678,7 @@ The integer <em>n</em> is called the <strong>size</strong> of the anonymous arra
 </div>
 </div>
 <div class="sect3">
-<h4 id="Types_Internal-Types_Anonymous-Struct-Types">19.12.5. Anonymous Struct Types</h4>
+<h4 id="Types_Internal-Types_Anonymous-Struct-Types">19.13.5. Anonymous Struct Types</h4>
 <div class="paragraph">
 <p>The type <em>{</em> \$m_1\$ <em>:</em> \$T_1, ...,\$ \$m_n\$ <em>:</em> \$T_n\$ <em>}</em>,
 where each \$m_i\$ is an identifier and each \$T_i\$ is a type,
@@ -12538,13 +12692,13 @@ type as <code>{ b : F32, a: U32 }</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Canonical-Types">19.13. Canonical Types</h3>
+<h3 id="Types_Canonical-Types">19.14. Canonical Types</h3>
 <div class="paragraph">
 <p>A type is a <strong>canonical type</strong> if it is not an <a href="#Types_Alias-Types">alias type</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Underlying-Types">19.14. Underlying Types</h3>
+<h3 id="Types_Underlying-Types">19.15. Underlying Types</h3>
 <div class="paragraph">
 <p>The <strong>underlying type</strong> of a type <em>T</em> is the <a href="#Types_Canonical-Types">canonical type</a>
 associated with <em>T</em>.</p>
@@ -12563,7 +12717,7 @@ associated with <em>T</em> in the definition of <em>T</em>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Displayable-Types">19.15. Displayable Types</h3>
+<h3 id="Types_Displayable-Types">19.16. Displayable Types</h3>
 <div class="paragraph">
 <p>A <strong>displayable type</strong> is a type that the F Prime ground data system can display.
 It is one of the following:</p>
@@ -12596,7 +12750,7 @@ type</a> is a displayable type.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Types-with-Numeric-Members">19.16. Types with Numeric Members</h3>
+<h3 id="Types_Types-with-Numeric-Members">19.17. Types with Numeric Members</h3>
 <div class="paragraph">
 <p>A type <strong>has numeric members</strong> if its <a href="#Types_Underlying-Types">underlying type</a>
 is one of the following:</p>
@@ -12620,7 +12774,7 @@ member types all have numeric members.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Alias-Lists">19.17. Alias Lists</h3>
+<h3 id="Types_Alias-Lists">19.18. Alias Lists</h3>
 <div class="paragraph">
 <p>The <strong>alias list</strong> of a type \$T\$ is a list \$L\$ defined as follows:</p>
 </div>
@@ -12641,7 +12795,7 @@ tail of \$L\$ is the empty list.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Default-Values">19.18. Default Values</h3>
+<h3 id="Types_Default-Values">19.19. Default Values</h3>
 <div class="paragraph">
 <p>Every type <em>T</em> with a syntactic name in FPP has an associated <strong>default
 value</strong>.
@@ -12707,7 +12861,7 @@ of <em>T</em> must provide a concrete value.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Serialized-Sizes">19.19. Serialized Sizes</h3>
+<h3 id="Types_Serialized-Sizes">19.20. Serialized Sizes</h3>
 <div class="paragraph">
 <p>Every <a href="#Types_Displayable-Types">displayable type</a>
 has a <strong>serialized size</strong>.  This is the maximum number of bytes required to
@@ -14238,6 +14392,17 @@ where \$v'_m\$ is the <a href="#Types_Default-Values">default value</a> at type 
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Evaluation_Strict-Type-Conversion">23.3. Strict Type Conversion</h3>
+<div class="paragraph">
+<p>If the conversion of value \$v_1\$ of canonical type
+\$T_1\$
+to a value \$v_2\$ of canonical type \$T_2\$ is specified
+to be strict, then apply the rules for <a href="#Evaluation_Type-Conversion">type conversion</a>,
+except that if any conversion of an integer value would cause bits
+to be lost by truncation, then an error results.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -14596,7 +14761,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-20 16:18:33 -0700
+Last updated 2026-10-21 18:02:24 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

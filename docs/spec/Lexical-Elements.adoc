@@ -87,6 +87,7 @@ hook
 id
 if
 import
+in
 include
 initial
 input

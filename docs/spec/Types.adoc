@@ -107,6 +107,32 @@ An alias type is written using its
 <<Scoping-of-Names_Names-of-Definitions,unique qualified
 name>>.
 
+=== Range Types
+
+A *range type* represents a range of values of a base type.
+The base type must be a <<Types_Primitive-Numeric-Types,primitive numeric 
+type>> or a range type.
+We write a range type as a base type _T_ followed by `in` followed
+by a range.
+A range is a left parenthesis or bracket, a value stem:[v_1] of type _T_ or `--`,
+a comma, a value stem:[v_2] of type _T_ or `--`, and a right
+parenthesis or bracket.
+The range represents a range of values as described in the section 
+on <<Type-Names_Range-Type-Names,range type names>>.
+For example:
+
+* `U32 in [0: U32, 10: U32]` represents values of type `U32` in the range 
+  stem:[[0,10]].
+
+* `U32 in (0: U32, 10: U32)` represents values of type `U32` in the range 
+  stem:[(0,10)].
+
+* `U32 in (1: U32, --)` represents all `U32` values greater than `1: U32`.
+
+* `U32 in [0: U32, 10: U32] in [1: U32 in [0: U32, 10: U32], 3: U32 in [0: U32, 
+10: U32]]`
+represents values of type `U32 in [0: U32, 10: U32]` in the range stem:[[1,3]].
+
 === Internal Types
 
 *Internal types* do not have syntactic names in FPP source models.

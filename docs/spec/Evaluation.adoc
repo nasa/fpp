@@ -144,3 +144,12 @@ stem:[m] `:` stem:[v_m] in stem:[v_1], add the member stem:[m] `:` stem:[v'_m],
 where stem:[v'_m] is the <<Types_Default-Values,default value>> at type stem:[T_m].
 
 Otherwise the conversion is invalid.
+
+=== Strict Type Conversion
+
+If the conversion of value stem:[v_1] of canonical type
+stem:[T_1]
+to a value stem:[v_2] of canonical type stem:[T_2] is specified
+to be strict, then apply the rules for <<Evaluation_Type-Conversion,type conversion>>,
+except that if any conversion of an integer value would cause bits
+to be lost by truncation, then an error results.
