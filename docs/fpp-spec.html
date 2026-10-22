@@ -10004,9 +10004,10 @@ type T7 = U16 in [0, --] # T7 represents U16 values v in the range 0 &lt;= v &lt
 type T8 = U16 in [--, --] # T8 represents all U16 values
 type T9 = U8 in [0, 256] # T9 is invalid: 256 may not be strictly converted to U8
 type T10 = U8 in [1, 0] # T10 is invalid: The specified range has no values
-type T11 = F32 in [--, 10] # T11 represents all F32 values less than or equal to 10
-type T12 = T11 in [0, --] # T12 represents all F32 values v in the range 0 &lt;= v &lt;= 10
-type T13 = T12 in [0, 11] # T13 is invalid: 11 may not be strictly converted to T12</code></pre>
+type T11 = F32 in [--, 10.5] # T11 represents all F32 values less than or equal to 10.5
+type T12 = F32 in [--, 10.5) # T12 represents all F32 values less than 10.5
+type T13 = T12 in [0, --] # T13 represents all F32 values v in the range 0 &lt;= v &lt; 10.5
+type T14 = T13 in [0, 11] # T14 is invalid: 11 may not be strictly converted to T12</code></pre>
 </div>
 </div>
 </div>
@@ -14831,7 +14832,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-21 20:51:42 -0700
+Last updated 2026-10-21 20:54:37 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
