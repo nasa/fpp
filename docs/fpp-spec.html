@@ -1117,9 +1117,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">23.2.3. Primitive Integer Values of Mixed Sign</a></li>
 <li><a href="#Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">23.2.4. Primitive and Non-Primitive Integer Values</a></li>
 <li><a href="#Evaluation_Type-Conversion_Floating-Point-Values">23.2.5. Floating-Point Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_String-Values">23.2.6. String Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Array-Values">23.2.7. Array Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Structure-Values">23.2.8. Structure Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Range-Values">23.2.6. Range Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_String-Values">23.2.7. String Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Array-Values">23.2.8. Array Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Structure-Values">23.2.9. Structure Values</a></li>
 </ul>
 </li>
 <li><a href="#Evaluation_Strict-Type-Conversion">23.3. Strict Type Conversion</a></li>
@@ -14298,7 +14299,75 @@ floating-point values to and from each other.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_String-Values">23.2.6. String Values</h4>
+<h4 id="Evaluation_Type-Conversion_Range-Values">23.2.6. Range Values</h4>
+<div class="paragraph">
+<p>If either of \$T_1\$ and \$T_2\$ is a range type, then do the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If \$T_2\$ is a range type and \$T_1\$ is a
+primitive numeric type, then</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Construct \$v'_2\$ by converting \$v_1\$ to the base type of
+\$T_2\$.</p>
+</li>
+<li>
+<p>Check that the numeric value of \$v'_2\$ is in range for
+\$T_2\$.</p>
+</li>
+<li>
+<p>Give \$v_2\$ the numeric value of \$v'_2\$ and the type \$T_2\$.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Otherwise if \$T_2\$ is a range type and \$T_1\$ is
+a range type, then</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Let \$T\$ be the base type of \$T_1\$.</p>
+</li>
+<li>
+<p>Let \$v'_1\$ be the value at type \$T\$ with the numeric value of
+\$v_1\$.</p>
+</li>
+<li>
+<p>Convert \$v_1\$ to \$T_2\$ according to the previous item,
+and let this be the result.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Otherwise \$T_2\$ is a primitive numeric type and
+\$T_1\$ is a range type.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Let \$T\$ be the primitive numeric
+type that is the base type of \$T_2\$.</p>
+</li>
+<li>
+<p>Construct the value \$v'_1\$ that has type \$T\$ and the
+same numeric value as \$v_1\$.</p>
+</li>
+<li>
+<p>Construct \$v_2\$ by <a href="#Evaluation_Strict-Type-Conversion">strictly
+converting</a> \$v'_1\$ to \$T_2\$.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Evaluation_Type-Conversion_String-Values">23.2.7. String Values</h4>
 <div class="paragraph">
 <p>If \$T_1\$ is a string type and \$T_2\$ is a string type,
 then let \$v_2 = v_1\$.</p>
@@ -14312,7 +14381,7 @@ The FPP type system does not perform any truncation.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Array-Values">23.2.7. Array Values</h4>
+<h4 id="Evaluation_Type-Conversion_Array-Values">23.2.8. Array Values</h4>
 <div class="paragraph">
 <p>If \$T_2\$ is an array type and \$T_1 = T_2\$, then
 let \$v_2 = v_1\$.</p>
@@ -14361,7 +14430,7 @@ with value \$w_i\$ at each element \$i\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Structure-Values">23.2.8. Structure Values</h4>
+<h4 id="Evaluation_Type-Conversion_Structure-Values">23.2.9. Structure Values</h4>
 <div class="paragraph">
 <p>If \$T_2\$ is a struct type and \$T_1 = T_2\$, then
 let \$v_2 = v_1\$.</p>
@@ -14761,7 +14830,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-21 20:16:07 -0700
+Last updated 2026-10-21 20:49:06 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -83,6 +83,44 @@ We use the standard rules for IEEE floating-point values to convert
 among integer values to and from floating-point values and
 floating-point values to and from each other.
 
+==== Range Values
+
+If either of stem:[T_1] and stem:[T_2] is a range type, then do the following:
+
+. If stem:[T_2] is a range type and stem:[T_1] is a 
+primitive numeric type, then
+
+.. Construct stem:[v'_2] by converting stem:[v_1] to the base type of 
+   stem:[T_2].
+
+..  Check that the numeric value of stem:[v'_2] is in range for
+stem:[T_2].
+
+..  Give stem:[v_2] the numeric value of stem:[v'_2] and the type stem:[T_2].
+
+. Otherwise if stem:[T_2] is a range type and stem:[T_1] is
+a range type, then
+
+.. Let stem:[T] be the base type of stem:[T_1].
+
+.. Let stem:[v'_1] be the value at type stem:[T] with the numeric value of 
+   stem:[v_1].
+
+.. Convert stem:[v_1] to stem:[T_2] according to the previous item,
+and let this be the result.
+
+. Otherwise stem:[T_2] is a primitive numeric type and
+stem:[T_1] is a range type.
+
+.. Let stem:[T] be the primitive numeric
+type that is the base type of stem:[T_2].
+
+.. Construct the value stem:[v'_1] that has type stem:[T] and the
+same numeric value as stem:[v_1].
+
+.. Construct stem:[v_2] by <<Evaluation_Strict-Type-Conversion,strictly 
+   converting>> stem:[v'_1] to stem:[T_2].
+
 ==== String Values
 
 If stem:[T_1] is a string type and stem:[T_2] is a string type,
