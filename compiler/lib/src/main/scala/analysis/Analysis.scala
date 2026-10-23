@@ -19,6 +19,9 @@ case class Analysis(
   directDependencyFileSet: Set[File] = Set(),
   /** The set of dependency files that could not be opened */
   missingDependencyFileSet: Set[File] = Set(),
+  /** The mapping from dependency files to the translation units
+   *  parsed from them, with include specifiers resolved */
+  dependencyTuMap: Map[File, Ast.TransUnit] = Map(),
   /** The set of files included when parsing input */
   includedFileSet: Set[File] = Set(),
   /** A map from pairs (spec loc kind, qualified name) to spec locs. */

@@ -846,7 +846,11 @@ object ExpandTemplates extends AstUnitTransformer
 
     for {
       params <- transformList(a, data.params, templateParam)
-      members <- transformFlatList(a, data.members, matchModuleMember)
+      members <- transformFlatList(
+        a.copy(templateDefId = Some(node.id)),
+        data.members,
+        matchModuleMember
+      )
     }
     yield {
       val dataCopy = data.copy(params = params, members = members)
@@ -871,10 +875,55 @@ object ExpandTemplates extends AstUnitTransformer
     val (_, node, _) = aNode
     val data = node.data
     data.members match {
+      // Inside a template definition or an expansion; duplicate the
+      // specifier without expanding it
+      case _ if a.templateDefId.isDefined || a.templateExpansionId.isDefined =>
+        cloneTemplateExpand(a, aNode)
       // Members are already there; nothing to do
       case Some(members) => Right((), aNode)
       // Members are not there; expand
       case None => (resultAdapter(expandTemplate))(a, aNode)
+    }
+  }
+
+  /** Duplicate a template expansion specifier without expanding it */
+  private def cloneTemplateExpand(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+  ): ResultAnnotatedNode[Ast.SpecTemplateExpand] = {
+    val data = aNode._2.data
+
+    def templateArg(
+      a: Analysis,
+      node: AstNode[Ast.TemplateArg]
+    ): Result.Result[AstNode[Ast.TemplateArg]] =
+      for {
+        data <- node.data match {
+          case Ast.TemplateArg.Constant(e) =>
+            for ((_, e) <- matchExprNode(a, e))
+              yield Ast.TemplateArg.Constant(e)
+          case Ast.TemplateArg.Type(tn) =>
+            for ((_, tn) <- matchTypeName(a, tn))
+              yield Ast.TemplateArg.Type(tn)
+          case Ast.TemplateArg.Interface(instance) =>
+            for (instance <- qualIdentNode(a, instance))
+              yield Ast.TemplateArg.Interface(instance)
+        }
+      } yield cloneNode(a, node, data)
+
+    for {
+      template <- qualIdentNode(a, data.template)
+      args <- transformList(a, data.args, resultAdapter(templateArg))
+      members <- data.members match {
+        case None => Right(None)
+        case Some(members) =>
+          for (members <- transformFlatList(a, members, matchModuleMember))
+            yield Some(members)
+      }
+    }
+    yield {
+      val dataCopy = data.copy(template = template, args = args, members = members)
+      ((), cloneAnnotatedNode(a, aNode, dataCopy))
     }
   }
 
