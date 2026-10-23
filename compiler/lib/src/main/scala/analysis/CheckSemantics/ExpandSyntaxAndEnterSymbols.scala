@@ -14,7 +14,7 @@ object ExpandSyntaxAndEnterSymbols {
   ): Result.Result[(Analysis, List[Ast.TransUnit])] = {
     for {
       (a, tul) <- ResolveSpecInclude.transUnitList(a, tul)
-      tul <- AddStateEnums.transUnitList(tul)
+      (a, tul) <- AddStateEnums.transformList(a, tul, AddStateEnums.transUnit)
       a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
       a <- CheckTemplateDefs.visitList(a, tul, CheckTemplateDefs.transUnit)
       a <- CheckTemplateExpansions.visitList(a, tul, CheckTemplateExpansions.transUnit)

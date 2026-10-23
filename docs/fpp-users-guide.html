@@ -16691,9 +16691,8 @@ Syntax expansion means replacing one piece of syntax (which is generally
 shorter) with another one (which is generally longer).
 By default, when you run <code>fpp-to-fpp</code>, syntax expansion does not occur;
 to enable it, you use the <code>-e</code> option.
-There are currently three kinds of syntax expansion: resolving
-include specifiers, generating state machine enums,
-and expanding templates.</p>
+There are currently two kinds of syntax expansion: resolving
+include specifiers and expanding templates.</p>
 </div>
 <div class="paragraph">
 <p><strong>Resolving include specifiers:</strong>
@@ -16722,44 +16721,6 @@ include "a.fppi"
 ^D
 constant a = 0</pre>
 </div>
-</div>
-<div class="paragraph">
-<p><strong>State machine enums:</strong>
-The <code>-e</code> option causes the analyzer to generate the
-<a href="#Defining-State-Machines_The-State-Enum">state enums</a>
-associated with state machine definitions.
-Here is an example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% cat state_machine.fpp
-state machine M {
-
-  state S
-
-  initial enter S
-
-}
-% fpp-to-fpp -e state_machine.fpp
-
-state machine M {
-
-  enum State: U8 {
-    @ The uninitialized state
-    __FPRIME_UNINITIALIZED
-    S
-  }
-
-  state S
-
-  initial enter S
-
-}</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Notice how, with the <code>-e</code> option, the tool generates the state machine enum and
-inserts it into the state machine definition.</p>
 </div>
 <div class="paragraph">
 <p><strong>Template expansion:</strong>
@@ -18647,7 +18608,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-23 09:16:00 -0700
+Last updated 2026-10-23 09:57:19 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

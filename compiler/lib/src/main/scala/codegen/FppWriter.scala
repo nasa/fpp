@@ -1,12 +1,13 @@
 package fpp.compiler.codegen
 
+import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.syntax._
 import fpp.compiler.util._
 import scala.language.implicitConversions
 
 /** Write out FPP source */
-object FppWriter extends AstVisitor with LineUtils {
+class FppWriter(a: Analysis = Analysis()) extends AstVisitor with LineUtils {
 
   type In = Unit
 
@@ -338,9 +339,18 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     data.members match {
-        case Some(members) if members.nonEmpty =>
+        case Some(members) =>
+            // Filter out state enum members added during syntax expansion
+            val members1 = members.filter {
+              _.node._2 match {
+                case Ast.StateMachineMember.DefEnum(node) =>
+                  !a.stateEnumIdSet.contains(node.id)
+                case _ => true
+              }
+            }
+            // Write out the members
             List(line(s"state machine ${ident(data.name)} {"), Line.blank) ++
-            (Line.blankSeparated(stateMachineMember)(members)).map(indentIn) ++
+            (Line.blankSeparated(stateMachineMember)(members1)).map(indentIn) ++
             List(Line.blank, line("}"))
         case _ =>
             List(line(s"state machine ${ident(data.name)}"))
