@@ -6,6 +6,7 @@ This algorithm computes dependencies for a list of translation units.
 _a_. The
 https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[input file set]
 of _a_ must record the set of files presented for analysis.
+The level must be zero, and the scope name list must be empty.
 
 . A list _tul_ of FPP translation units.
 
@@ -30,12 +31,14 @@ Run the <<dependency-algorithm,dependency algorithm>> on _tul_.
 To run the dependency algorithm on a translation unit list _tul_, do the
 following:
 
+. *Increment the level:* Increment the level in _a_.
+
 . *Resolve include specifiers:* Recursively resolve include specifiers in
 _tul_.
 Add the path of each included file to the included file set in _a_.
 If the
 https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[level of _a_]
-is zero, then add the path of each included file to the direct dependency
+is one, then add the path of each included file to the direct dependency
 file set in _a_.
 
 . *Build the location specifier map:* Traverse each translation unit _tu_ in
@@ -133,6 +136,8 @@ file set, if _f_ appears in the dependency file set, then delete it
 from the set.
 The dependency is already recorded in the file that includes _f_.
 
+. *Decrement the level:* Decrement the level in _a_.
+
 [[adding-dependencies]]
 === Adding Dependencies for a Location Specifier
 
@@ -142,13 +147,15 @@ To add a dependency for a location specifier _s_, do the following:
 
 . If _p_ is in the
 https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[input file set]
-of _a_ or is already in the
+of _a_, then do nothing.
+
+. Otherwise if the level of _a_ is not one, and _p_ is already in the
 https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[dependency file set]
 of _a_, then do nothing.
 
 . Otherwise
 
-.. If the level of _a_ is zero, then add _p_ to the
+.. If the level of _a_ is one, then add _p_ to the
 https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[direct dependency file set]
 of _a_.
 
@@ -170,8 +177,7 @@ translation unit map] of _a_.
 ... Run the <<dependency-algorithm,dependency algorithm>> on the list _[ tu ]_
 with the value of _a_ computed so far,
 but with an empty scope name list.
-Restore the current level and scope name list and
-let the result be the new _a_.
+Restore the current scope name list and let the result be the new _a_.
 
 .. Otherwise add _p_ to the
 https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[missing

@@ -174,7 +174,7 @@ object AddDependencies
 
   private def addDependencies (a: Analysis) (specLoc: Ast.SpecLoc): Result = {
     val file = getFile(specLoc)
-    if !a.inputFileSet.contains(file) && !a.dependencyFileSet.contains(file)
+    if !a.inputFileSet.contains(file) && ((a.level == 1) || !a.dependencyFileSet.contains(file))
     then addDependenciesHelper(a, specLoc, file)
     else Right(a)
   }
