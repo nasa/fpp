@@ -4,6 +4,7 @@
 
 fpp_to_fpp=../../../bin/fpp-to-fpp
 fpp_syntax=../../../bin/fpp-syntax
+fpp_check=../../../bin/fpp-check
 
 compare()
 {
@@ -38,9 +39,15 @@ $t()
 done > default-tests.sh
 . ./default-tests.sh
 
+dictionary_specifier()
+{
+  run_test '' ../../fpp-syntax/test/dictionary-specifier dictionary_specifier && \
+    $fpp_syntax dictionary_specifier.out.txt
+}
+
 include()
 {
-  run_test '-i' ../../fpp-syntax/test/syntax include && \
+  run_test '-e' ../../fpp-syntax/test/syntax include && \
     $fpp_syntax include.out.txt
 }
 
@@ -48,6 +55,25 @@ kwd_names()
 {
   run_test '' kwd_names && \
     $fpp_syntax kwd_names.out.txt
+}
+
+module_template_expand()
+{
+  run_test '-e' module_template_expand && \
+    $fpp_syntax module_template_expand.out.txt
+
+}
+
+module_template_import()
+{
+  run_test '-e -i module_template_def.fpp' module_template_import && \
+    $fpp_syntax module_template_import.out.txt
+}
+
+module_template_include()
+{
+  run_test '-e' module_template_include && \
+    $fpp_syntax module_template_include.out.txt
 }
 
 no_include()
@@ -62,23 +88,12 @@ state_machine()
     $fpp_syntax state_machine.out.txt
 }
 
-
-dictionary_specifier()
+state_machine_expand()
 {
-  run_test '' ../../fpp-syntax/test/dictionary-specifier dictionary_specifier && \
-    $fpp_syntax dictionary_specifier.out.txt
-}
-
-template_expand()
-{
-  run_test '-e' template_expand && \
-    $fpp_syntax template_expand.out.txt
-}
-
-template_include()
-{
-  run_test '-e' template_include && \
-    $fpp_syntax template_include.out.txt
+  run_test '-e' ../../fpp-syntax/test/state-machine state_machine_expand && \
+    $fpp_syntax state_machine_expand.out.txt && \
+    # Check that syntax expansion does not introduce a semantic error
+    $fpp_check state_machine_expand.out.txt
 }
 
 run_suite $tests

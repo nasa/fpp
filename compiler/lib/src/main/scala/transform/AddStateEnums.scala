@@ -12,16 +12,12 @@ object AddStateEnums extends AstStateTransformer
   with ModuleTemplateStateTransformer
 {
 
-  type State = Unit
+  type State = Analysis
 
   def default(in: State) = in
 
-  def transUnitList(tul: List[Ast.TransUnit]) =
-    for (sTul <- transformList((), tul, transUnit))
-      yield sTul._2
-
   override def defStateMachineAnnotatedNodeInternal(
-    in: State,
+    a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]],
     members: List[Ast.StateMachineMember]
   ) = {
@@ -36,7 +32,8 @@ object AddStateEnums extends AstStateTransformer
       val member = Ast.StateMachineMember(Nil, enumMemberNode, Nil)
       val defStateMachine = Ast.DefStateMachine(name, Some(member :: members))
       val node1 = AstNode.create(defStateMachine, node.id)
-      (in, (pre, node1, post))
+      val a1 = a.copy(stateEnumIdSet = a.stateEnumIdSet + enumNode.id)
+      (a1, (pre, node1, post))
     }
   }
 

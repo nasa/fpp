@@ -14,14 +14,31 @@ def module template
     ident inst
     qual ident InterfaceDef
   @< Instance parameter
+  @ Array
   def array
     ident Arr
     size literal int 3
     type name qual ident TypeParam
+  @ Topology
   def topology
     ident Top
     spec interface instance
       qual ident inst
+  @ State machine
+  def state machine
+    ident M
+    def enum
+      ident State
+      type name U8
+      @ The uninitialized state
+      def enum constant
+        ident __FPRIME_UNINITIALIZED
+      def enum constant
+        ident S
+    def state
+      ident S
+    spec initial
+      target qual ident S
 def module
   ident Unexpanded
   @ Unexpanded expansion specifier
@@ -33,14 +50,31 @@ def module
       type name qual ident Type
     instance template arg
       qual ident .instance1
+    @ Array
     def array
       ident Arr
       size literal int 3
       type name qual ident TypeParam
+    @ Topology
     def topology
       ident Top
       spec interface instance
         qual ident inst
+    @ State machine
+    def state machine
+      ident M
+      def enum
+        ident State
+        type name U8
+        @ The uninitialized state
+        def enum constant
+          ident __FPRIME_UNINITIALIZED
+        def enum constant
+          ident S
+      def state
+        ident S
+      spec initial
+        target qual ident S
   @< Unexpanded expansion specifier
 def module
   ident Expanded

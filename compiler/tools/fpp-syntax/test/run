@@ -50,77 +50,72 @@ illegal_character()
 
 include_component()
 {
-  run_test -ia include-component
+  run_test -ea include-component
 }
 
 include_constant_1()
 {
-  run_test -ia include-constant-1
+  run_test -ea include-constant-1
 }
 
 include_cycle_1()
 {
-  run_test -i cycle-1 include-cycle-1
+  run_test -e cycle-1 include-cycle-1
 }
 
 include_cycle_2()
 {
-  run_test -i cycle-2 include-cycle-2
+  run_test -e cycle-2 include-cycle-2
 }
 
 include_missing_file()
 {
-  run_test -i include-missing-file
+  run_test -e include-missing-file
 }
 
 include_module()
 {
-  run_test -ia include-module
+  run_test -ea include-module
 }
 
 include_module_template()
 {
-  run_test -ia include-module-template
+  run_test -ea include-module-template
 }
 
 include_module_template_expand()
 {
-  run_test -ia include-module-template-expand
+  run_test -ea include-module-template-expand
 }
 
 include_parent_dir()
 {
-  run_test -ia subdir/include-parent-dir
+  run_test -ea subdir/include-parent-dir
 }
 
 include_parse_error()
 {
-  run_test -i include-parse-error
+  run_test -e include-parse-error
 }
 
 include_state_machine()
 {
-  run_test -ia include-state-machine
-}
-
-include_state_machine()
-{
-  run_test -ia include-state-machine
+  run_test -ea include-state-machine
 }
 
 include_subdir()
 {
-  run_test -ia include-subdir
+  run_test -ea include-subdir
 }
 
 include_topology()
 {
-  run_test -ia include-topology
+  run_test -ea include-topology
 }
 
 module_template()
 {
-  run_test -iea module-template
+  run_test -ea module-template
 }
 
 numeric_shift()
@@ -150,7 +145,7 @@ syntax_ast()
 
 syntax_include_ast()
 {
-  run_test -ia syntax syntax-include-ast
+  run_test -ea syntax syntax-include-ast
 }
 
 syntax_kwd_names()
@@ -160,18 +155,18 @@ syntax_kwd_names()
 
 syntax_stdin()
 {
-  cat syntax.fpp | $fpp_syntax -ia > syntax-stdin.out.txt
+  cat syntax.fpp | $fpp_syntax -ea > syntax-stdin.out.txt
   diff -u syntax-stdin.ref.txt syntax-stdin.out.txt > syntax-stdin.diff.txt 2>&1
 }
 
 topology_ports()
 {
-  run_test -ia topology-ports
+  run_test -ea topology-ports
 }
 
 two_input_files()
 {
-  $fpp_syntax -ia include-module.fpp include-component.fpp 2>&1 > two-input-files.out.txt
+  $fpp_syntax -ea include-module.fpp include-component.fpp 2>&1 > two-input-files.out.txt
   diff -u two-input-files.ref.txt two-input-files.out.txt > two-input-files.diff.txt 2>&1
 }
 
