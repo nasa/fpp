@@ -51,4 +51,36 @@ object CheckTemplateExpansions
       case None => Right(a)
     }
 
+  override def defSystemAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefSystem]]
+  ) = {
+    val node = aNode._2
+    a.templateExpansionId match {
+      case Some(expId) =>
+        Left(SemanticError.TemplateExpandError(
+          Locations.get(node.id),
+          "system definitions cannot appear inside a module template expansion",
+          Locations.get(expId)
+        ))
+      case None => Right(a)
+    }
+  }
+
+  override def defTopologyAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
+  ) = {
+    val node = aNode._2
+    (a.templateExpansionId, node.data.isDeployment) match {
+      case (Some(expId), true) =>
+        Left(SemanticError.TemplateExpandError(
+          Locations.get(node.id),
+          "deployment topology cannot appear inside a module template expansion",
+          Locations.get(expId)
+        ))
+      case _ => Right(a)
+    }
+  }
+
 }
