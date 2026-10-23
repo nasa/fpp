@@ -1,18 +1,26 @@
 module template Tmpl(
     @ Constant template parameter
     constant c: SomeType @< Constant parameter
-
     @ Type template parameter
     type TypeParam @< Type parameter
-
     @ Interface instance template parameter
     instance inst: InterfaceDef @< Instance parameter
 ) {
+
+    @ Array
     array Arr = [3] TypeParam
 
+    @ Topology
     topology Top {
         instance inst
     }
+
+    @ State machine
+    state machine M {
+      state S
+      initial enter S
+    }
+
 }
 
 module Unexpanded {
