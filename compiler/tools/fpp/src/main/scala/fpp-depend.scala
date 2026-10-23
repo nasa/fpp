@@ -71,7 +71,7 @@ object FPPDepend {
       }
       (a, expandedTul) <- {
         if options.generatedAutocodeFile.isDefined || options.unitTestFile.isDefined
-        then expandTemplates(a, tul)
+        then expandSyntax(a, tul)
         else Right((a, tul))
       }
       _ <- options.generatedAutocodeFile match {
@@ -102,16 +102,16 @@ object FPPDepend {
     } yield mapIterable(a.dependencyFileSet, System.out.println(_))
   }
 
-  /** Expand the templates in the input translation units.
-   *  Expand the templates in the input together with the dependency
+  /** Expand syntax in the input translation units.
+   *  Expand the syntax in the input together with the dependency
    *  files parsed during dependency analysis. Return the expanded input
    *  translation units. */
-  def expandTemplates(a: Analysis, tul: List[Ast.TransUnit]):
+  def expandSyntax(a: Analysis, tul: List[Ast.TransUnit]):
     Result.Result[(Analysis, List[Ast.TransUnit])] =
       val depTul = a.dependencyTuMap.toList.sortBy(_._1.toString).map(_._2)
-      for (aTul <- ExpandSyntaxAndEnterSymbols.tuList(a, tul ++ depTul))
+      for ((a, tul1) <- ExpandSyntaxAndEnterSymbols.tuList(a, tul ++ depTul))
         // The expanded input translation units come first
-        yield (aTul._1, aTul._2.take(tul.length))
+        yield (a, tul1.take(tul.length))
 
   def writeIterable[T](
     its: Iterable[T],
