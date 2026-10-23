@@ -748,7 +748,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Transitive-Dependencies">17.6.2. Transitive Dependencies</a></li>
 <li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Missing-Dependencies">17.6.3. Missing Dependencies</a></li>
 <li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Included-Files">17.6.4. Included Files</a></li>
-<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Module-Template-Expansions">17.6.5. Module Template Expansions</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Module-Template-Definitions-and-Expansions">17.6.5. Module Template Definitions and Expansions</a></li>
 <li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Dependencies-Between-Build-Modules">17.6.6. Dependencies Between Build Modules</a></li>
 <li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Framework-Dependencies">17.6.7. Framework Dependencies</a></li>
 </ul>
@@ -14107,6 +14107,13 @@ system S1: T
 system S2: T # Error: only one system allowed</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Because only one system is allowed, you may not put a system
+inside a <a href="#Defining-and-Using-Module-Templates">module template</a>.
+And because of the one-to-one correspondence between systems and
+deployment topologies in the current version of FPP, you may
+not put a deployment topology inside a module template.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -15267,12 +15274,12 @@ to the output plus the contents of <em>file</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Module-Template-Expansions">17.6.5. Module Template Expansions</h4>
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Module-Template-Definitions-and-Expansions">17.6.5. Module Template Definitions and Expansions</h4>
 <div class="paragraph">
 <p>Expanding a
 <a href="#Defining-and-Using-Module-Templates">module template</a>
-can introduce uses of symbols, which can cause new dependencies to
-appear.
+can introduce uses of symbols.
+However, these uses are already recorded in the template definition.
 For example, suppose the file <code>a.fpp</code> looks like this</p>
 </div>
 <div class="listingblock">
@@ -15328,12 +15335,9 @@ use of <code>T</code> in <code>expand.fpp</code> and the location specifier</p>
 </div>
 </li>
 <li>
-<p>Expand the definition of <code>T</code> in <code>template.fpp</code>.</p>
-</li>
-<li>
 <p>Add <code>a.fpp</code> to the set of dependency files, based
-on the use of <code>a</code> in the expanded template and the
-location</p>
+on the use of <code>a</code> in the template definition the
+location specifier</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">locate constant a at "a.fpp"</code></pre>
@@ -15346,10 +15350,17 @@ location</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>In general, the analyzer runs dependency analysis,
-then expands templates, then runs dependency analysis again.
-Because <a href="#Defining-and-Using-Module-Templates_Nesting-of-Module-Templates">nested templates are not allowed</a>, it suffices to expand
-templates and rerun dependency analysis once.</p>
+<p>Note that there is also a use of <code>a</code> in <code>expand.fpp</code>, at the
+point of expansion.
+This dependency is already recorded in the analysis of the template definition.
+Because <a href="#Defining-Systems">systems and deployment topologies</a> may not appear
+in module template definitions, no template expansion is required
+to perform dependency analysis.
+(If a system or deployment topology were allowed in template definitions,
+then we would have to expand the template to discover the
+<a href="#Dictionary-Definitions">dictionary
+definitions</a> on which the of the expanded system or deployment topology
+depends.)</p>
 </div>
 </div>
 <div class="sect3">
@@ -18571,7 +18582,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-15 09:56:36 -0700
+Last updated 2026-10-22 09:58:08 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

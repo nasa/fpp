@@ -242,7 +242,16 @@ class TemplatesSpec extends AnyWordSpec {
 
     def checkExpandUnique(tul: Ast.TransUnit): Unit = {
         val a = Analysis()
-        val tul1 = ExpandSyntaxAndEnterSymbols.tuList(a, List(tul)).map(_._2)
+        // Perform PURELY syntactic expansion, do not check template defs/expansions
+        // This expansion is purely for validating that the AST node duplication is strictly "deep"
+        val tul1 = for {
+            (a, tul) <- ResolveSpecInclude.transUnitList(a, List(tul))
+            tul <- AddStateEnums.transUnitList(tul)
+            a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
+            a <- CheckTemplateUses.visitList(a, tul, CheckTemplateUses.transUnit)
+            tul <- ExpandTemplates.transformList(a, tul, ExpandTemplates.transUnit)
+        } yield tul
+
         tul1 match {
             case Right(tul) => checkAllNodesUnique(tul)
             case Left(l) => {
