@@ -18,6 +18,12 @@ on which the analysis transitively depends.
 Used to calculate the inputs to FPP analysis tools.
 Included files do not appear in this set.
 
+* *Dependency translation unit map:* A map from each
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[file]
+in the dependency file set that could be opened
+to the translation unit parsed from that file,
+with include specifiers resolved.
+
 * *Dictionary map:* A map from
 https://github.com/nasa/fpp/wiki/Analysis#data-structures[topology symbols]
 to the corresponding

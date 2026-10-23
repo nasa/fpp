@@ -21,3 +21,8 @@ representing the results of analysis so far.
 . Check that no template expansion transitively contains a template definition.
 
 . Check that no template expansion transitively contains a template expansion.
+
+. Check that no template expansion transitively contains a deployment topology
+definition.
+
+. Check that no template expansion transitively contains a system definition.

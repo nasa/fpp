@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/system_in_expansion.fpp:7.3
+  system S: D
+  ^
+error: system definitions cannot appear inside a module template expansion
+enclosing template expansion is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/template/system_in_expansion.fpp:6.1
+expand T() {
+^
