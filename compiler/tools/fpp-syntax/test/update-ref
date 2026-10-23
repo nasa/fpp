@@ -36,25 +36,25 @@ update -a escaped-strings
 update -a state-machine
 update -a state-machine
 update -a syntax syntax-ast
-update -i cycle-1 include-cycle-1
-update -i cycle-2 include-cycle-2
-update -i include-missing-file
-update -i include-parse-error
-update -ia include-component
-update -ia include-constant-1 include-constant-1
-update -ia include-module
-update -ia include-module-template
-update -ia include-module-template-expand
-update -ia include-state-machine
-update -ia include-state-machine
-update -ia include-subdir
-update -ia include-topology
-update -ia subdir/include-parent-dir
-update -ia syntax syntax-include-ast
-update -ia topology-ports
-update -ia topology-ports
-update -iea module-template
+update -e cycle-1 include-cycle-1
+update -e cycle-2 include-cycle-2
+update -e include-missing-file
+update -e include-parse-error
+update -ea include-component
+update -ea include-constant-1 include-constant-1
+update -ea include-module
+update -ea include-module-template
+update -ea include-module-template-expand
+update -ea include-state-machine
+update -ea include-state-machine
+update -ea include-subdir
+update -ea include-topology
+update -ea module-template
+update -ea subdir/include-parent-dir
+update -ea syntax syntax-include-ast
+update -ea topology-ports
+update -ea topology-ports
 
-cat syntax.fpp | $fpp_syntax -ia 2>&1 > syntax-stdin.ref.txt
+cat syntax.fpp | $fpp_syntax -ea 2>&1 > syntax-stdin.ref.txt
 
-$fpp_syntax -ia include-module.fpp include-component.fpp 2>&1 > two-input-files.ref.txt
+$fpp_syntax -ea include-module.fpp include-component.fpp 2>&1 > two-input-files.ref.txt

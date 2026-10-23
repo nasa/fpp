@@ -778,6 +778,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source_Basic-Use">18.3.1. Basic Use</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source_Syntax-Expansion">18.3.2. Syntax Expansion</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Rewriting-FPP-Source_Importing-Model-Files">18.3.3. Importing Model Files</a></li>
 </ul>
 </li>
 <li><a href="#Analyzing-and-Translating-Models_Visualizing-Topologies">18.4. Visualizing Topologies</a></li>
@@ -16723,10 +16724,6 @@ constant a = 0</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>You can also use the option <code>-i</code> if you wish to resolve include
-specifiers without expanding any other syntax.</p>
-</div>
-<div class="paragraph">
 <p><strong>State machine enums:</strong>
 The <code>-e</code> option causes the analyzer to generate the
 <a href="#Defining-State-Machines_The-State-Enum">state enums</a>
@@ -16804,16 +16801,84 @@ in input model, you will get an error:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% fpp-format -e
+<pre>% fpp-to-fpp -e
 expand T
 ^D
-fpp-format
+fpp-to-fpp
 stdin:1.8
 expand T
        ^
 error: symbol T is not defined
 note: looking for a template here</pre>
 </div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Analyzing-and-Translating-Models_Rewriting-FPP-Source_Importing-Model-Files">18.3.3. Importing Model Files</h4>
+<div class="paragraph">
+<p>When expanding syntax, you may wish to translate one or more files that
+depend on other files, without translating those other files.
+To do this, you can use the <code>-i</code> (import) option, which works similarly
+to the
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">import option for
+<code>fpp-to-cpp</code></a>.
+For example, suppose you have the following files:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% cat template.fpp
+module template T {
+
+  constant a = 0
+
+}
+% cat expand.fpp
+expand T</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As described in the previous section, if you run <code>fpp-to-fpp -e</code> on
+the file <code>expand.fpp</code>, you will get an error, because the symbol <code>T</code>
+is used but not defined in that file.
+If you run <code>fpp-to-fpp -e</code> on both files, you will get output,
+but it will be all the output corresponding to both files.
+If you want just the output for <code>expand.fpp</code>, you can use the <code>-i</code> option,
+like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-to-fpp -e -i template.fpp expand.fpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command says to read <code>template.fpp</code> for its symbols and to
+use those symbols when generating code for <code>expand.fpp</code>.</p>
+</div>
+<div class="paragraph">
+<p>In general, you can use the following procedure:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Identify one or more files <em>F</em> containing topology definitions
+for which you wish to expand syntax.</p>
+</li>
+<li>
+<p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
+</li>
+<li>
+<p>If <em>D</em> is empty, then run <code>fpp-to-fpp -e</code> <em>F</em>.</p>
+</li>
+<li>
+<p>Otherwise run <code>fpp-to-fpp -e -i</code> <em>D<sub>1</sub></em> <code>,</code> &#8230;&#8203; <code>,</code> <em>D<sub>n</sub></em> <em>F</em>, where <em>D<sub>i</sub></em> are the
+names of the dependencies.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Except for the tool name and the <code>-e</code> option, this procedure is identical to
+the one given for
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">generating C&#43;&#43;</a>.</p>
 </div>
 </div>
 </div>
@@ -18582,7 +18647,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-22 09:58:08 -0700
+Last updated 2026-10-23 09:16:00 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

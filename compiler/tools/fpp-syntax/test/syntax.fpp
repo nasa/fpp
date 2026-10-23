@@ -175,7 +175,7 @@ module DefinitionsAndSpecifiers {
     @< Interface instance template parameter
   ) {
 
-    constant x = c
+    constant a = c
 
   }
   @< Module template definition
@@ -187,7 +187,7 @@ module DefinitionsAndSpecifiers {
   @ Expanded template expansion specifier
   expand MT(constant 0, type U32, instance i1) {
 
-    constant x = 0
+    constant b = 0
 
   }
   @< Expanded template expansion specifier
