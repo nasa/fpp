@@ -142,16 +142,9 @@ object AddDependencies
       isAbsolute
     ).map(addDependencies (a)).getOrElse(Right(a))
 
-  private def addDependenciesHelper(a: Analysis, specLoc: Ast.SpecLoc, file: File): Result = {
+  private def updateDependencyFileSet(a: Analysis, file: File): Result = {
     val dependencyFileSet = a.dependencyFileSet + file
-    val directDependencyFileSet = a.level match {
-      case 1 => a.directDependencyFileSet + file
-      case _ => a.directDependencyFileSet
-    }
-    val a1 = a.copy(
-      dependencyFileSet = dependencyFileSet,
-      directDependencyFileSet = directDependencyFileSet
-    )
+    val a1 = a.copy(dependencyFileSet = dependencyFileSet)
     val result = for {
       tu <- Parser.parseFile (Parser.transUnit) (None) (file)
       pair <- ResolveSpecInclude.transUnit(a1, tu)
@@ -172,10 +165,21 @@ object AddDependencies
     }
   }
 
+  private def updateDirectDependencyFileSet(a: Analysis, file: File) =
+    a.level match {
+      case 1 => a.copy(directDependencyFileSet = a.directDependencyFileSet + file)
+      case _ => a
+    }
+
   private def addDependencies (a: Analysis) (specLoc: Ast.SpecLoc): Result = {
     val file = getFile(specLoc)
-    if !a.inputFileSet.contains(file) && ((a.level == 1) || !a.dependencyFileSet.contains(file))
-    then addDependenciesHelper(a, specLoc, file)
+    if !a.inputFileSet.contains(file)
+    then
+      for {
+        a <- Right(updateDirectDependencyFileSet(a, file))
+        a <- if !a.dependencyFileSet.contains(file) then updateDependencyFileSet(a, file) else Right(a)
+      }
+      yield a
     else Right(a)
   }
 
