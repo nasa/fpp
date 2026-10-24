@@ -142,32 +142,35 @@ object AddDependencies
       isAbsolute
     ).map(addDependencies (a)).getOrElse(Right(a))
 
-  private def updateDependencyFileSet(a: Analysis, file: File): Result = {
-    val dependencyFileSet = a.dependencyFileSet + file
-    val a1 = a.copy(dependencyFileSet = dependencyFileSet)
-    val result = for {
-      tu <- Parser.parseFile (Parser.transUnit) (None) (file)
-      pair <- ResolveSpecInclude.transUnit(a1, tu)
-      a2 <- ComputeDependencies.tuList(
-        pair._1.copy(
-          scopeNameList = Nil,
-          dependencyTuMap = pair._1.dependencyTuMap + (file -> pair._2)
-        ),
-        List(pair._2)
-      )
-    } yield a2.copy(scopeNameList = a1.scopeNameList)
-    result match {
-      case Left(FileError.CannotOpen(_, _)) => {
-        val a = a1.copy(missingDependencyFileSet = a1.missingDependencyFileSet + file)
-        Right(a)
+  private def updateDependencyFileSet(a: Analysis, file: File): Result =
+    if !a.dependencyFileSet.contains(file) then
+      val dependencyFileSet = a.dependencyFileSet + file
+      val a1 = a.copy(dependencyFileSet = dependencyFileSet)
+      val result = for {
+        tu <- Parser.parseFile (Parser.transUnit) (None) (file)
+        (a2, tu) <- ResolveSpecInclude.transUnit(a1, tu)
+        a3 <- ComputeDependencies.tuList(
+          a2.copy(
+            scopeNameList = Nil,
+            dependencyTuMap = a2.dependencyTuMap + (file -> tu)
+          ),
+          List(tu)
+        )
+      } yield a3.copy(scopeNameList = a1.scopeNameList)
+      result match {
+        case Left(FileError.CannotOpen(_, _)) => {
+          val missingDependencyFileSet = a1.missingDependencyFileSet + file
+          Right(a1.copy(missingDependencyFileSet = missingDependencyFileSet))
+        }
+        case _ => result
       }
-      case _ => result
-    }
-  }
+    else Right(a)
 
   private def updateDirectDependencyFileSet(a: Analysis, file: File) =
     a.level match {
-      case 1 => a.copy(directDependencyFileSet = a.directDependencyFileSet + file)
+      case 1 =>
+        val directDependencyFileSet = a.directDependencyFileSet + file
+        a.copy(directDependencyFileSet = directDependencyFileSet)
       case _ => a
     }
 
@@ -177,7 +180,7 @@ object AddDependencies
     then
       for {
         a <- Right(updateDirectDependencyFileSet(a, file))
-        a <- if !a.dependencyFileSet.contains(file) then updateDependencyFileSet(a, file) else Right(a)
+        a <- updateDependencyFileSet(a, file)
       }
       yield a
     else Right(a)
