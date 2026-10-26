@@ -31,6 +31,12 @@ output.
 For each translation unit _tu_, visit each
 definition appearing in _tu_.
 
+==== Module Template Definitions
+
+For each module template definition _d_, visit the type name of each
+constant parameter of _d_, and visit each member of _d_, whether or not
+_d_ is expanded.
+
 ==== Port Instance Specifiers
 
 For each special port instance

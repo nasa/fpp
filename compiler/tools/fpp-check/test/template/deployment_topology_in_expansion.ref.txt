@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/deployment_topology_in_expansion.fpp:5.3
+  deployment topology D {}
+  ^
+error: deployment topology cannot appear inside a module template expansion
+enclosing template expansion is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/template/deployment_topology_in_expansion.fpp:4.1
+expand T() {
+^

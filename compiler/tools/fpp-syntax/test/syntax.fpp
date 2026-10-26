@@ -162,6 +162,36 @@ module DefinitionsAndSpecifiers {
     @< Include specifier
   }
 
+  @ Module template definition
+  module template MT(
+    @ Constant template parameter
+    constant c: U32
+    @< Constant template parameter
+    @ Type template parameter
+    type Ty
+    @< Type template parameter
+    @ Interface instance template parameter
+    instance i: I
+    @< Interface instance template parameter
+  ) {
+
+    constant a = c
+
+  }
+  @< Module template definition
+
+  @ Unexpanded template expansion specifier
+  expand MT(constant 0, type U32, instance i1)
+  @< Unexpanded template expansion specifier
+
+  @ Expanded template expansion specifier
+  expand MT(constant 0, type U32, instance i1) {
+
+    constant b = 0
+
+  }
+  @< Expanded template expansion specifier
+
   @ Port definition
   port P(a: U32, b: F32) -> U32
   @< Port definition
@@ -267,6 +297,10 @@ module DefinitionsAndSpecifiers {
   @ System location specifier
   locate system S at "system.fpp"
   @< System location specifier
+
+  @ Template location specifier
+  locate template MT at "template.fpp"
+  @< Template location specifier
 
 }
 @< Definitions and specifiers

@@ -92,6 +92,10 @@ template definitions>> or template expansion specifiers.
 This rule ensures that the syntax of _module-member-sequence_ could
 be produced by expanding some template.
 
+.. _module-member-sequence_ must not transitively contain any
+<<Definitions_Topology-Definitions,deployment topology definitions>> or
+<<Definitions_System-Definitions,system definitions>>.
+
 .. _module-member-sequence_ is not required to conform to the syntax produced 
 by expanding the template referred to in the specifier.
 
