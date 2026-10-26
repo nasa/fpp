@@ -114,11 +114,32 @@ The base type must be a <<Types_Primitive-Numeric-Types,primitive numeric
 type>>.
 We write a range type as a base type _T_ followed by `in` followed
 by a range.
-A range is a left parenthesis or bracket, a value stem:[v_1] of type _T_ or `--`,
-a comma, a value stem:[v_2] of type _T_ or `--`, and a right
-parenthesis or bracket.
-The range represents a range of values as described in the section 
-on <<Type-Names_Range-Type-Names,range type names>>.
+A range is a left parenthesis or bracket, a range bound, a comma,
+a range bound, and a right parenthesis or bracket.
+A range bound is either (1) a value _n_ `:` _T_ of type _T_ or (2) the symbol 
+`--`.
+
+A range type _T_ = _T'_ `in` _range_ has the following meaning:
+
+. For each value _v_ = _n_ `:` _T'_ of type _T'_, _v_ is also a value of type 
+  _T_ if and only if _n_ satisfies the following constraints:
+
+... If the left-hand range bound is `--`, then there is no lower constraint.
+
+... Otherwise the left-hand range bound is a value _n'_ `:` _T'_. In this 
+    case, if _range_ starts with `(`, then _n_ must be greater than _n'_. 
+    Otherwise _n_ must be greater than or equal to _n'_.
+
+... If the right-hand range bound is `--`, then there is no upper constraint.
+
+... Otherwise the right-hand range bound is a value _n'_ `:` _T'_.
+    In this case, if _range_ ends with `)`, then _n_ must be less than _n'_.  
+    Otherwise _n_ must be less than or equal to _n'_.
+
+. There are no other values of _T_.
+
+A range type _T_ must contain at least one value value.
+
 For example:
 
 * `U32 in [0: U32, 10: U32]` represents values of type `U32` in the range 
@@ -128,6 +149,8 @@ For example:
   stem:[(0,10)].
 
 * `U32 in (1: U32, --)` represents all `U32` values greater than `1: U32`.
+
+* `F32 in (1.0: F32, --)` represents all `F32` values greater than `1.0: F32`.
 
 === Internal Types
 

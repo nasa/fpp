@@ -193,39 +193,25 @@ according to the following rules.
 
 . _type-name_ must name a <<Types,type>> whose
   <<Types_Underlying-Types,underlying type>> _T'_ is a
-<<Types_Primitive-Numeric-Types,primitive numeric type>> or a
-<<Types_Range-Types,range type>>.
-The type _T'_ is called the *base type* of the range type _T_.
+  <<Types_Primitive-Numeric-Types,primitive numeric type>> or a
+  <<Types_Range-Types,range type>>.
+
+. Let _T''_ be the primitive numeric type defined as follows:
+
+.. If _T'_ is a primitive numeric type, then let _T''_ be _T_.
+
+.. Otherwise _T'_ is a range type _T'''_ `in` _range_, where
+   _T'''_ is a primitive numeric type. In this case, let _T''_ be _T'''_.
 
 . For each range bound _B_, if _B_ is an expression _e_, then _e_ must evaluate
   to a value that <<Evaluation_Strict-Type-Conversion,may be strictly converted 
-  to a value of type _T'_>>.
+  to a value of type _T''_>>.
 
-. If the base type _T'_ is a primitive numeric type, then the range type _T_ 
-  represents a range of values as follows:
-
-.. Each value of _T_ is a value of _T'_.
-
-.. For each value _v_ of _T'_, _v_ is a value of _T_ if and only if it
-   satisfies the following constraints:
-
-... If the left-hand _range-bound_ is `--`, then there is no lower constraint.
-
-... Otherwise the left-hand _range-bound_ is an expression that evaluates
-    to a value _v'_. In this case, if _range-begin_ is `(`, then _v_ must 
-    be greater than _v'_. Otherwise _v_ must be greater than or equal to _v'_.
-
-... If the right-hand _range-bound_ is `--`, then there is no upper constraint.
-
-... Otherwise the left-hand _range-bound_ is an expression that evaluates
-    to a value _v'_. In this case, if _range-end_ is `)`, then _v_ must 
-    be less than _v'_. Otherwise _v_ must be less than or equal to _v'_.
-
-. Otherwise _T_ represents the same range of values as the type name
-  produced by replacing _T'_ with its base type.
-
-. The range of values represented by the range type must contain at least one 
-  valid value.
+. Let _T'''_ be the <<Types_Range-Types,range type>> _T''_ `in` _range_,
+  where _range_ is constructed from the range in the type name by substituting
+  each range bound _B_ that is an expression _e_ with the value
+  produced by evaluating _e_ and converting the result to _T''_.  _T'''_ is the 
+  type named by the range type name.  It must be a valid range type.
 
 ==== Examples
 

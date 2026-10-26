@@ -9945,58 +9945,35 @@ according to the following rules.</p>
 <ol class="arabic">
 <li>
 <p><em>type-name</em> must name a <a href="#Types">type</a> whose
-  <a href="#Types_Underlying-Types">underlying type</a> <em>T'</em> is a
+<a href="#Types_Underlying-Types">underlying type</a> <em>T'</em> is a
 <a href="#Types_Primitive-Numeric-Types">primitive numeric type</a> or a
-<a href="#Types_Range-Types">range type</a>.
-The type <em>T'</em> is called the <strong>base type</strong> of the range type <em>T</em>.</p>
+<a href="#Types_Range-Types">range type</a>.</p>
+</li>
+<li>
+<p>Let <em>T''</em> be the primitive numeric type defined as follows:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If <em>T'</em> is a primitive numeric type, then let <em>T''</em> be <em>T</em>.</p>
+</li>
+<li>
+<p>Otherwise <em>T'</em> is a range type <em>T'''</em> <code>in</code> <em>range</em>, where
+<em>T'''</em> is a primitive numeric type. In this case, let <em>T''</em> be <em>T'''</em>.</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
 <p>For each range bound <em>B</em>, if <em>B</em> is an expression <em>e</em>, then <em>e</em> must evaluate
 to a value that <a href="#Evaluation_Strict-Type-Conversion">may be strictly converted
-to a value of type <em>T'</em></a>.</p>
+to a value of type <em>T''</em></a>.</p>
 </li>
 <li>
-<p>If the base type <em>T'</em> is a primitive numeric type, then the range type <em>T</em>
-represents a range of values as follows:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Each value of <em>T</em> is a value of <em>T'</em>.</p>
-</li>
-<li>
-<p>For each value <em>v</em> of <em>T'</em>, <em>v</em> is a value of <em>T</em> if and only if it
-satisfies the following constraints:</p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
-<li>
-<p>If the left-hand <em>range-bound</em> is <code>--</code>, then there is no lower constraint.</p>
-</li>
-<li>
-<p>Otherwise the left-hand <em>range-bound</em> is an expression that evaluates
-to a value <em>v'</em>. In this case, if <em>range-begin</em> is <code>(</code>, then <em>v</em> must
-be greater than <em>v'</em>. Otherwise <em>v</em> must be greater than or equal to <em>v'</em>.</p>
-</li>
-<li>
-<p>If the right-hand <em>range-bound</em> is <code>--</code>, then there is no upper constraint.</p>
-</li>
-<li>
-<p>Otherwise the left-hand <em>range-bound</em> is an expression that evaluates
-to a value <em>v'</em>. In this case, if <em>range-end</em> is <code>)</code>, then <em>v</em> must
-be less than <em>v'</em>. Otherwise <em>v</em> must be less than or equal to <em>v'</em>.</p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Otherwise <em>T</em> represents the same range of values as the type name
-produced by replacing <em>T'</em> with its base type.</p>
-</li>
-<li>
-<p>The range of values represented by the range type must contain at least one
-valid value.</p>
+<p>Let <em>T'''</em> be the <a href="#Types_Range-Types">range type</a> <em>T''</em> <code>in</code> <em>range</em>,
+where <em>range</em> is constructed from the range in the type name by substituting
+each range bound <em>B</em> that is an expression <em>e</em> with the value
+produced by evaluating <em>e</em> and converting the result to <em>T''</em>.  <em>T'''</em> is the
+type named by the range type name.  It must be a valid range type.</p>
 </li>
 </ol>
 </div>
@@ -12628,12 +12605,50 @@ The base type must be a <a href="#Types_Primitive-Numeric-Types">primitive numer
 type</a>.
 We write a range type as a base type <em>T</em> followed by <code>in</code> followed
 by a range.
-A range is a left parenthesis or bracket, a value \$v_1\$ of type <em>T</em> or <code>--</code>,
-a comma, a value \$v_2\$ of type <em>T</em> or <code>--</code>, and a right
-parenthesis or bracket.
-The range represents a range of values as described in the section
-on <a href="#Type-Names_Range-Type-Names">range type names</a>.
-For example:</p>
+A range is a left parenthesis or bracket, a range bound, a comma,
+a range bound, and a right parenthesis or bracket.
+A range bound is either (1) a value <em>n</em> <code>:</code> <em>T</em> of type <em>T</em> or (2) the symbol
+<code>--</code>.</p>
+</div>
+<div class="paragraph">
+<p>A range type <em>T</em> = <em>T'</em> <code>in</code> <em>range</em> has the following meaning:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For each value <em>v</em> = <em>n</em> <code>:</code> <em>T'</em> of type <em>T'</em>, <em>v</em> is also a value of type
+<em>T</em> if and only if <em>n</em> satisfies the following constraints:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>If the left-hand range bound is <code>--</code>, then there is no lower constraint.</p>
+</li>
+<li>
+<p>Otherwise the left-hand range bound is a value <em>n'</em> <code>:</code> <em>T'</em>. In this
+case, if <em>range</em> starts with <code>(</code>, then <em>n</em> must be greater than <em>n'</em>.
+Otherwise <em>n</em> must be greater than or equal to <em>n'</em>.</p>
+</li>
+<li>
+<p>If the right-hand range bound is <code>--</code>, then there is no upper constraint.</p>
+</li>
+<li>
+<p>Otherwise the right-hand range bound is a value <em>n'</em> <code>:</code> <em>T'</em>.
+In this case, if <em>range</em> ends with <code>)</code>, then <em>n</em> must be less than <em>n'</em>.
+Otherwise <em>n</em> must be less than or equal to <em>n'</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>There are no other values of <em>T</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>A range type <em>T</em> must contain at least one value value.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -12647,6 +12662,9 @@ For example:</p>
 </li>
 <li>
 <p><code>U32 in (1: U32, --)</code> represents all <code>U32</code> values greater than <code>1: U32</code>.</p>
+</li>
+<li>
+<p><code>F32 in (1.0: F32, --)</code> represents all <code>F32</code> values greater than <code>1.0: F32</code>.</p>
 </li>
 </ul>
 </div>
@@ -13889,8 +13907,19 @@ of \$O'_(i-1)\$ and \$O_i\$.</p>
 </div>
 <div class="paragraph">
 <p>Every value <em>v</em> belongs to exactly one <a href="#Types_Canonical-Types">canonical type</a>
-<em>T</em>, except that
-every string value belongs to every string type.</p>
+<em>T</em>, except that</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Every string value belongs to every string type.</p>
+</li>
+<li>
+<p>Every value <em>v</em> of type <em>T</em>, where <em>T</em> is a primitive integer type or
+floating-point type, belongs to every <a href="#Types_Range-Types">range type</a> with
+base type <em>T</em> such that <em>v</em> is in range for the range type.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Every value that belongs to type <em>T</em> also belongs to every
@@ -14843,7 +14872,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-26 11:08:30 -0700
+Last updated 2026-10-26 13:34:09 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
