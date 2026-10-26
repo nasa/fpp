@@ -12605,8 +12605,8 @@ The base type must be a <a href="#Types_Primitive-Numeric-Types">primitive numer
 type</a>.
 We write a range type as a base type <em>T</em> followed by <code>in</code> followed
 by a range.
-A range is a left parenthesis or bracket, a range bound, a comma,
-a range bound, and a right parenthesis or bracket.
+A range is a left parenthesis or bracket, a lower range bound, a comma,
+an upper range bound, and a right parenthesis or bracket.
 A range bound is either (1) a value <em>n</em> <code>:</code> <em>T</em> of type <em>T</em> or (2) the symbol
 <code>--</code>.</p>
 </div>
@@ -12621,18 +12621,18 @@ A range bound is either (1) a value <em>n</em> <code>:</code> <em>T</em> of type
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
-<p>If the left-hand range bound is <code>--</code>, then there is no lower constraint.</p>
+<p>If the lower hand range bound is <code>--</code>, then there is no lower constraint.</p>
 </li>
 <li>
-<p>Otherwise the left-hand range bound is a value <em>n'</em> <code>:</code> <em>T'</em>. In this
+<p>Otherwise the lower range bound is a value <em>n'</em> <code>:</code> <em>T'</em>. In this
 case, if <em>range</em> starts with <code>(</code>, then <em>n</em> must be greater than <em>n'</em>.
 Otherwise <em>n</em> must be greater than or equal to <em>n'</em>.</p>
 </li>
 <li>
-<p>If the right-hand range bound is <code>--</code>, then there is no upper constraint.</p>
+<p>If the upper range bound is <code>--</code>, then there is no upper constraint.</p>
 </li>
 <li>
-<p>Otherwise the right-hand range bound is a value <em>n'</em> <code>:</code> <em>T'</em>.
+<p>Otherwise the upper range bound is a value <em>n'</em> <code>:</code> <em>T'</em>.
 In this case, if <em>range</em> ends with <code>)</code>, then <em>n</em> must be less than <em>n'</em>.
 Otherwise <em>n</em> must be less than or equal to <em>n'</em>.</p>
 </li>
@@ -12645,7 +12645,13 @@ Otherwise <em>n</em> must be less than or equal to <em>n'</em>.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>A range type <em>T</em> must contain at least one value value.</p>
+<p>A range type <em>T</em> must contain at least one value.</p>
+</div>
+<div class="paragraph">
+<p>Note that the values contained in a range type are values of the base
+type, which is a primitive numeric type.
+There are no values that are themselves assigned a range type.
+For more information on the kinds of values, see the <a href="#Values">Values section</a>.</p>
 </div>
 <div class="paragraph">
 <p>For example:</p>
@@ -12665,6 +12671,9 @@ Otherwise <em>n</em> must be less than or equal to <em>n'</em>.</p>
 </li>
 <li>
 <p><code>F32 in (1.0: F32, --)</code> represents all <code>F32</code> values greater than <code>1.0: F32</code>.</p>
+</li>
+<li>
+<p><code>U32 in [2, 1]</code> represents no values, so it is not a valid range type.</p>
 </li>
 </ul>
 </div>
@@ -13441,7 +13450,7 @@ and both types refer to the same definition.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>Note that string types are never identical.</p>
+<p>Note that string types and range types are never identical.</p>
 </div>
 </div>
 <div class="sect2">
@@ -13537,6 +13546,11 @@ may be converted to an
 <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a> \$T'\$ if
 for each member \$m_i\$ <code>:</code> \$T_i\$ of \$T'\$,
 \$T\$ may be converted to \$T_i\$.</p>
+</li>
+<li>
+<p>If \$T_1\$ or \$T_2\$ or both are <a href="#Types_Range-Types">range types</a>,
+then \$T_1\$ may be converted to \$T_2\$ if the conversion is allowed
+after replacing each range type with its base type.</p>
 </li>
 <li>
 <p>Type convertibility is transitive: if \$T_1\$ may be converted to
@@ -13671,6 +13685,11 @@ Let \$T\$ be the struct type whose member names are the member names of
 whose member types are the corresponding common types.</p>
 </li>
 <li>
+<p>Otherwise if \$T_1\$ or \$T_2\$ or both are range types, then
+replace the range type or types with their base types and reapply
+these rules.</p>
+</li>
+<li>
 <p>Otherwise the attempted resolution is invalid. Throw an error.</p>
 </li>
 </ol>
@@ -13768,6 +13787,18 @@ and \$T_2\$ is at least as wide as \$T_1\$.</p>
 <li>
 <p>\$T_1\$ and \$T_2\$ are both <a href="#Types_String-Types">string types</a>.</p>
 </li>
+<li>
+<p>\$T_1\$ is a <a href="#Types_Range-Types">range type</a>, \$T_2\$ is a
+<a href="#Types_Primitive-Numeric-Types">primitive numeric type</a>, and <em>Some</em>
+\$T'_1\$ may be converted to <em>Some</em> \$T_2\$, where \$T'_1\$ is the
+base type of \$T_1\$.</p>
+</li>
+<li>
+<p>\$T_1\$ and \$T_2\$ are <a href="#Types_Range-Types">range types</a>,
+\$T'_1\$ is the base type of \$T_1\$, \$T'_2\$ is the base type of
+\$T_2\$, <em>Some</em> \$T'_1\$ may be converted to <em>Some</em> \$T'_2\$, and
+the range of \$T_1\$ is contained in the range of \$T_2\$.</p>
+</li>
 </ol>
 </div>
 </li>
@@ -13823,6 +13854,24 @@ then let \$T\$ be the wider of the two types.</p>
 <p>Otherwise if \$T_1\$ and \$T_2\$ are both
 <a href="#Types_String-Types">string types</a>, then
 then let \$T\$ be <code>string</code>.</p>
+</li>
+<li>
+<p>Otherwise if one of \$T_1\$ and \$T_2\$ is a <a href="#Types_Range-Types">range
+type</a> with base type
+\$T'\$ and the other one is a <a href="#Types_Primitive-Numeric-Types">primitive
+numeric type</a> \$T''\$
+and there is a common type option <em>Some</em> \$T'''\$ for <em>Some</em> \$T'\$
+and <em>Some</em> \$T''\$, then let \$T\$ be \$T'''\$</p>
+</li>
+<li>
+<p>Otherwise if both \$T_1\$ and \$T_2\$ are <a href="#Types_Range-Types">range
+types</a>,
+then let \$T'_1\$ and \$T'_2\$ be the base types, check that
+<em>Some</em> \$T'_1\$ and <em>Some</em> \$T'_2\$ have a common type option <em>Some</em>
+\$T'\$, and construct the range type \$T\$ with \$T'\$ as its base type,
+with the higher of the two lower bounds as its lower bound, and with the
+lower of the two upper bounds as its upper bound.
+Check that \$T\$ contains at least one value.</p>
 </li>
 <li>
 <p>Otherwise the attempted resolution is invalid.
@@ -13915,9 +13964,9 @@ of \$O'_(i-1)\$ and \$O_i\$.</p>
 <p>Every string value belongs to every string type.</p>
 </li>
 <li>
-<p>Every value <em>v</em> of type <em>T</em>, where <em>T</em> is a primitive integer type or
-floating-point type, belongs to every <a href="#Types_Range-Types">range type</a> with
-base type <em>T</em> such that <em>v</em> is in range for the range type.</p>
+<p>For every primitive integer type or floating-point type <em>T</em>, every value <em>v</em>
+of type <em>T</em> belongs to every <a href="#Types_Range-Types">range type</a> with base type
+<em>T</em> such that <em>v</em> is in range for the range type.</p>
 </li>
 </ul>
 </div>
@@ -14348,62 +14397,30 @@ floating-point values to and from each other.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If \$T_2\$ is a range type and \$T_1\$ is a
-primitive numeric type, then</p>
+<p>If \$T_1\$ is a range type and \$T_2\$ is a primitive numeric type,
+then let \$v_2\$ be the result of
+<a href="#Evaluation_Strict-Type-Conversion">strictly converting</a> the primitive integer
+or floating-point value \$v_1\$ to \$T_2\$.</p>
+</li>
+<li>
+<p>Otherwise if \$T_1\$ is a primitive integer type or a range type
+and \$T_2\$ is a range type, then</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Construct \$v'_2\$ by converting \$v_1\$ to the base type of
+<p>Let \$v_2\$ be the result of
+<a href="#Evaluation_Strict-Type-Conversion">strictly converting</a> the primitive integer
+or floating-point value \$v_1\$ to \$T_2\$.</p>
+</li>
+<li>
+<p>Check that the numeric value of \$v_2\$ is in range for
 \$T_2\$.</p>
 </li>
-<li>
-<p>Check that the numeric value of \$v'_2\$ is in range for
-\$T_2\$.</p>
-</li>
-<li>
-<p>Give \$v_2\$ the numeric value of \$v'_2\$ and the type \$T_2\$.</p>
-</li>
 </ol>
 </div>
 </li>
 <li>
-<p>Otherwise if \$T_2\$ is a range type and \$T_1\$ is
-a range type, then</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Let \$T\$ be the base type of \$T_1\$.</p>
-</li>
-<li>
-<p>Let \$v'_1\$ be the value at type \$T\$ with the numeric value of
-\$v_1\$.</p>
-</li>
-<li>
-<p>Convert \$v_1\$ to \$T_2\$ according to the previous item,
-and let this be the result.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Otherwise \$T_2\$ is a primitive numeric type and
-\$T_1\$ is a range type.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Let \$T\$ be the primitive numeric
-type that is the base type of \$T_2\$.</p>
-</li>
-<li>
-<p>Construct the value \$v'_1\$ that has type \$T\$ and the
-same numeric value as \$v_1\$.</p>
-</li>
-<li>
-<p>Construct \$v_2\$ by <a href="#Evaluation_Strict-Type-Conversion">strictly
-converting</a> \$v'_1\$ to \$T_2\$.</p>
-</li>
-</ol>
-</div>
+<p>Otherwise the conversion is invalid.</p>
 </li>
 </ol>
 </div>
@@ -14872,7 +14889,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-26 13:34:09 -0700
+Last updated 2026-10-26 16:37:26 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -330,7 +330,7 @@ is an
 <<Types_Struct-Types,struct type>>,
 and both types refer to the same definition.
 
-Note that string types are never identical.
+Note that string types and range types are never identical.
 
 === Type Conversion
 
@@ -404,6 +404,10 @@ may be converted to an
 <<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct type>> stem:[T'] if
 for each member stem:[m_i] `:` stem:[T_i] of stem:[T'],
 stem:[T] may be converted to stem:[T_i].
+
+. If stem:[T_1] or stem:[T_2] or both are <<Types_Range-Types, range types>>,
+then stem:[T_1] may be converted to stem:[T_2] if the conversion is allowed
+after replacing each range type with its base type.
 
 . Type convertibility is transitive: if stem:[T_1] may be converted to
 stem:[T_2]
@@ -498,6 +502,10 @@ stem:[T'] and each of the struct member types to a common type.
 Let stem:[T] be the struct type whose member names are the member names of
 stem:[S] and
 whose member types are the corresponding common types.
+
+. Otherwise if stem:[T_1] or stem:[T_2] or both are range types, then
+replace the range type or types with their base types and reapply
+these rules.
 
 . Otherwise the attempted resolution is invalid. Throw an error.
 
