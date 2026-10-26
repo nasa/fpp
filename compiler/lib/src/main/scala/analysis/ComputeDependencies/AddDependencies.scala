@@ -143,17 +143,18 @@ object AddDependencies
     ).map(addDependencies (a)).getOrElse(Right(a))
 
   private def addDependenciesForFile(a: Analysis, file: File): Result =
+    val scopeNameList = a.scopeNameList
     val result = for {
       tu <- Parser.parseFile (Parser.transUnit) (None) (file)
-      (a2, tu) <- ResolveSpecInclude.transUnit(a, tu)
-      a3 <- ComputeDependencies.tuList(
-        a2.copy(
+      (a, tu) <- ResolveSpecInclude.transUnit(a, tu)
+      a <- ComputeDependencies.tuList(
+        a.copy(
           scopeNameList = Nil,
-          dependencyTuMap = a2.dependencyTuMap + (file -> tu)
+          dependencyTuMap = a.dependencyTuMap + (file -> tu)
         ),
         List(tu)
       )
-    } yield a3.copy(scopeNameList = a.scopeNameList)
+    } yield a.copy(scopeNameList = scopeNameList)
     result match {
       case Left(FileError.CannotOpen(_, _)) => {
         val missingDependencyFileSet = a.missingDependencyFileSet + file
