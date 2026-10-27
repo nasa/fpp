@@ -37,10 +37,11 @@ but it is not an
 
 . The optional expression _e_ following `id` specifies the numeric
 identifier for the packet.
-If _e_ is present, then the type of _e_ must be
-<<Type-Checking_Type-Conversion,convertible to>>
-<<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
-to a nonnegative integer.
+If _e_ is present, then _e_ must <<Evaluation,evaluate to>>
+a value that is
+<<Evaluation_Type-Conversion,convertible to>>
+<<Types_Internal-Types_Integer,_Integer_>>.
+After conversion, the value _n_ must be nonnegative.
 If _e_ is not present, then the default identifier is either zero (for the
 first
 packet appearing in a packet group) or the previous packet identifier plus one.
@@ -50,10 +51,10 @@ packet appearing in a packet group) or the previous packet identifier plus one.
 The group is a number that governs the sending of the packet.
 In the F Prime flight software, sending of packets can be filtered
 by group, so that only packets in certain groups are sent.
-The type of _e_ must be
-<<Type-Checking_Type-Conversion,convertible to>>
-<<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
-to a nonnegative integer.
+_e_ must <<Evaluation,evaluate to>> a value that is
+<<Evaluation_Type-Conversion,convertible to>>
+<<Types_Internal-Types_Integer,_Integer_>>.
+After conversion, the value _n_ must be nonnegative.
 
 .  FPP recursively resolves any include specifiers in
 _telemetry-packet-member-sequence_.

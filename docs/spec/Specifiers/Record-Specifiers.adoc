@@ -32,10 +32,10 @@ consisting of _s_ elements of type _T_.
 
 . The optional expression _e_ after the keyword `id` specifies the
 numeric identifier for the record.
-If _e_ is present, then the type of _e_ must be
-<<Type-Checking_Type-Conversion,convertible to>>
-<<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
-to a nonnegative integer.
+If _e_ is present, then _e_ must <<Evaluation,evaluate to>>
+a value that is <<Evaluation_Type-Conversion,convertible to>>
+<<Types_Internal-Types_Integer,_Integer_>>.
+After conversion, the value _n_ must be nonnegative.
 If _e_ is not present, then the
 default identifier is either zero (for the first record appearing in a
 component) or the previous record identifier plus one.

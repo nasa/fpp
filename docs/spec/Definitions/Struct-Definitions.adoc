@@ -57,8 +57,8 @@ translator applies the format to each element.
 The expression following the keyword `default` is optional.
 If present, it specifies the <<Types_Default-Values,default value>>
 associated with the type.
-The type of the expression must be
-<<Type-Checking_Type-Conversion,convertible to>> _T_.
+The expression must <<Evaluation,evaluate>> to a value that is
+<<Evaluation_Type-Conversion,convertible to>> _T_.
 If the expression specifies a value for a member with size
 greater than one, then the value is applied to each element.
 

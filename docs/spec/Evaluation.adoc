@@ -21,11 +21,17 @@ The following rules govern the conversion of a value stem:[v_1] of canonical typ
 stem:[T_1]
 to a value stem:[v_2] of canonical type stem:[T_2].
 
+. The type stem:[T_1] must be <<Type-Checking_Type-Conversion,convertible to>>
+  stem:[T_2].
+
+. The value stem:[v_1] must be convertible to a value of type stem:[v_2] as
+described below.
+
 ==== Primitive and Non-Primitive Integer Values
 
 If stem:[T_1] is _Integer_ and stem:[T_2] is a primitive integer type, then
 then check whether the numeric value of
-stem:[v_1] is representable at type stem:[T_2].
+stem:[v_1] is contained in type stem:[T_2].
 If it is, then let stem:[v_2] be the element of stem:[T_2] with that
 numeric value.
 Otherwise an error results.
@@ -82,9 +88,11 @@ or floating-point value stem:[v_1] to stem:[T_2].
 . Otherwise if stem:[T_1] is a primitive integer type or a range type
 and stem:[T_2] is a range type, then
 
+.. Let stem:[T'_2] be the base type of stem:[T_2].
+
 .. Let stem:[v_2] be the result of 
 <<Evaluation_Type-Conversion,converting>> the primitive integer 
-or floating-point value stem:[v_1] to stem:[T_2].
+or floating-point value stem:[v_1] to stem:[T'_2].
 
 .. Check that the numeric value of stem:[v_2] is in range for
 stem:[T_2].

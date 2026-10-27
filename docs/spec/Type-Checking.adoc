@@ -334,11 +334,14 @@ Note that string types and range types are never identical.
 
 === Type Conversion
 
-We say that a type stem:[T_1] *may be converted to* another type stem:[T_2] if
-every <<Values,value>> represented by type stem:[T_1] can be
-<<Evaluation_Type-Conversion,converted>> into a value of type stem:[T_2].
-
-Here are the rules for type conversion:
+We say that a type stem:[T_1] *may be converted to* or *is convertible to*
+another type stem:[T_2] according to the following rules.
+In general, stem:[T_1] is convertible to stem:[T_2] if values of
+type stem:[T_1] may be <<Evaluation_Type-Conversion,converted to>>
+values of type stem:[T_2]. However, in some cases this rule
+does not hold; in these cases, we catch the error during value conversion.
+This happens, for example, when attempting to convert the value 256 at `U16` to 
+`U8`.
 
 . stem:[T_1] may be converted to stem:[T_2] if stem:[T_1] and stem:[T_2]
 are <<Type-Checking_Identical-Types,identical types>>.

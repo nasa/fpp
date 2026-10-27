@@ -16,13 +16,13 @@ is a comma.
 
 . The sequence must have at least one element.
 
-. The types of the expressions in the sequence must be
+. The types of the expressions in the sequence must have a
 <<Type-Checking_Computing-a-Common-Type_Lists-of-Types,
-convertible to a common type>>.
+common type>>.
 
-. The value of the expression is formed by computing
-the value of each element and then converting all the
-elements to the common type.
+. The value of the expression is formed by <<Evaluation,evaluating>>
+each element to a value and then <<Evaluation_Type-Conversion,converting>>
+each value to the common type.
 
 ==== Example
 

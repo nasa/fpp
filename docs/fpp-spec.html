@@ -1962,8 +1962,8 @@ The type <em>T</em> is called the <strong>element type</strong> of the array typ
 <p>The expression following the keyword <code>default</code> is optional.
 If present, it specifies the <a href="#Types_Default-Values">default value</a> associated
 with the type.
-The type of the expression must be
-<a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T'</em>.</p>
+The expression must <a href="#Evaluation">evaluate</a> to a value that is
+<a href="#Evaluation_Type-Conversion">convertible to</a> <em>T'</em>.</p>
 </div>
 <div class="paragraph">
 <p>The optional format specifier specifies a <a href="#Format-Strings">format string</a>.
@@ -2801,8 +2801,8 @@ a primitive integer type, called the
 <p>There must be at least one enumerated constant.
 No two enumerated constants may have the same identifier.
 Each enumerated constant must <a href="#Evaluation">evaluate</a> to
-a compile-time constant whose type is
-<a href="#Type-Checking_Type-Conversion">convertible to</a> the
+a compile-time constant value that is
+<a href="#Evaluation_Type-Conversion">convertible to</a> the
 representation type.
 No two enumerated constants may have the same value after the conversion.</p>
 </div>
@@ -4056,8 +4056,8 @@ translator applies the format to each element.</p>
 <p>The expression following the keyword <code>default</code> is optional.
 If present, it specifies the <a href="#Types_Default-Values">default value</a>
 associated with the type.
-The type of the expression must be
-<a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T</em>.
+The expression must <a href="#Evaluation">evaluate</a> to a value that is
+<a href="#Evaluation_Type-Conversion">convertible to</a> <em>T</em>.
 If the expression specifies a value for a member with size
 greater than one, then the value is applied to each element.</p>
 </div>
@@ -6756,9 +6756,10 @@ If there are no parameters, the list may be omitted.
 <li>
 <p>The optional expression <em>e</em> following <code>opcode</code> specifies the numeric
 opcode for the command.
-If <em>e</em> is present, its type must be convertible to
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
-to a nonnegative integer.
+If <em>e</em> is present, it must <a href="#Evaluation">evaluate</a> to a value that is
+<a href="#Evaluation_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+After conversion, the value <em>n</em> must be nonnegative.
 If <em>e</em> is not present, then the default opcode is either zero (for the first
 opcode appearing in a component) or the previous opcode plus one.</p>
 </li>
@@ -7209,10 +7210,11 @@ They hold <a href="#Specifiers_Record-Specifiers">data product records</a>.</p>
 <li>
 <p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the
 numeric identifier for the container.
-If <em>e</em> is present, then the type of <em>e</em> must be
-<a href="#Type-Checking_Type-Conversion">convertible to</a>
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
-to a nonnegative integer.
+If <em>e</em> is present, then <em>e</em> must <a href="#Evaluation">evaluate</a> to
+a value that is
+<a href="#Evaluation_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+After conversion, the value <em>n</em> must be nonnegative.
 If <em>e</em> is not present, then the
 default identifier is either zero (for the first container appearing in a
 component) or the previous container identifier plus one.</p>
@@ -7221,10 +7223,11 @@ component) or the previous container identifier plus one.</p>
 <p>The optional expression <em>e</em> after the keywords <code>default</code> <code>priority</code>
 specifies a downlink priority for the container.
 This priority can be overridden by the command that downlinks the data.
-If <em>e</em> is present, then the type of <em>e</em> must be
-<a href="#Type-Checking_Type-Conversion">convertible to</a>
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
-to a nonnegative integer.</p>
+If <em>e</em> is present, then <em>e</em> must <a href="#Evaluation">evaluate</a>
+to a value that is
+<a href="#Evaluation_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+After conversion, the value <em>n</em> must be nonnegative.</p>
 </li>
 </ol>
 </div>
@@ -7330,9 +7333,10 @@ If there are no parameters, the list may be omitted.
 <li>
 <p>The optional expression <em>e</em> following <code>id</code> specifies the numeric
 identifier for instances of the event.
-If <em>e</em> is present, then the type of <em>e</em> must be convertible to
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
-to a nonnegative integer.
+If <em>e</em> is present, then <em>e</em> must <a href="#Evaluation">evaluate</a>
+to a value that is <a href="#Evaluation_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+After conversion, the value <em>n</em> must be nonnegative.
 If <em>e</em> is not present, then the default identifier is either zero (for the
 first
 event appearing in a component) or the previous event identifier plus one.</p>
@@ -7351,9 +7355,10 @@ argument whose type is a <a href="#Types_Internal-Types_Numeric-Types">numeric t
 <li>
 <p>The expression <em>e</em> following <code>throttle</code> specifies the <strong>maximum throttle
 count</strong> for instances of <em>E</em>.
-The type of <em>e</em> must be convertible to
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a> and must evaluate to an integer
-in the range \$[1, 2^31)\$.
+<em>e</em> must <a href="#Evaluation">evaluate to</a> a value that is
+<a href="#Evaluation_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+After conversion, the value <em>n</em> must be in the range \$[1, 2^31)\$.
 When throttling is specified for an event <em>E</em>,
 the framework maintains a <strong>throttle count</strong> for <em>E</em>.
 The throttle count
@@ -7369,17 +7374,9 @@ period</strong>.
 <div class="ulist">
 <ul>
 <li>
-<p>The type of <em>e</em> must be convertible to the
-<a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a> <em>T =</em> <code>{ seconds: U32, useconds: U32 }</code>.</p>
-</li>
-<li>
-<p>After conversion to <em>T</em>, <em>e</em> must evaluate to an
-<a href="#Values_Anonymous-Struct-Values">anonymous struct value</a>
-<code>{ seconds =</code> <em>s</em> <code>: U32, useconds =</code> <em>u</em> <code>: U32 }</code>.</p>
-</li>
-<li>
-<p><em>s</em> must be in the range \$[0, 2^32)\$ and <em>u</em> must be in the range
-\$[0,10^6)\$.</p>
+<p><em>e</em> must <a href="#Evaluation">evaluate</a> to a value that is
+<a href="#Evaluation_Type-Conversion">convertible to</a> the
+<a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a> <em>T =</em> <code>{ seconds: U32, useconds: U32 in [0, 1000000) }</code>.</p>
 </li>
 </ul>
 </div>
@@ -8082,8 +8079,8 @@ access parameter values in an efficient way.</p>
 <li>
 <p>The optional expression <em>e</em> following the keyword <code>default</code>
 specifies a default value for the parameter.
-If <em>e</em> is present, then the type of <em>e</em> must be
-<a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T</em>.
+If <em>e</em> is present, then the <em>e</em> must <a href="#Evaluation">evaluate to</a>
+a value that is <a href="#Evaluation_Type-Conversion">convertible to</a> <em>T</em>.
 If <em>e</em> is not present, then there is no default value for
 the parameter:
 When the parameter is used, then either (1) a value is
@@ -8093,10 +8090,11 @@ invalid.</p>
 <li>
 <p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the
 numeric identifier for the parameter.
-If <em>e</em> is present, then the type of <em>e</em> must be
-<a href="#Type-Checking_Type-Conversion">convertible to</a>
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
-to a nonnegative integer.
+If <em>e</em> is present, then of <em>e</em> must <a href="#Evaluation">evaluate to</a>
+a value that is
+<a href="#Evaluation_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+After conversion, the value <em>n</em> must be nonnegative.
 If <em>e</em> is not present, then the
 default identifier is either zero (for the first parameter appearing in a
 component) or the previous parameter identifier plus one.</p>
@@ -8104,8 +8102,9 @@ component) or the previous parameter identifier plus one.</p>
 <li>
 <p>The optional expression <em>e</em> after the keywords <code>set</code> <code>opcode</code> specifies the
 opcode of the command for setting the parameter.
-If <em>e</em> is present, then the type of <em>e</em> must be
-<a href="#Type-Checking_Type-Conversion">convertible to</a>
+If <em>e</em> is present, <em>e</em> must <a href="#Evaluation">evaluate to</a>
+a value that is
+<a href="#Evaluation_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 If <em>e</em> is not present, then the default value is either zero (for
 the first command appearing in a component) or the previous opcode
@@ -8114,8 +8113,8 @@ plus one.</p>
 <li>
 <p>The optional expression <em>e</em> after the keywords <code>save</code> <code>opcode</code> specifies
 the opcode of the command for saving the parameter.
-If <em>e</em> is present, then the type of <em>e</em> must be
-<a href="#Type-Checking_Type-Conversion">convertible to</a>
+If <em>e</em> is present, then the <em>e</em> must <a href="#Evaluation">evaluate to</a>
+a value that is <a href="#Evaluation_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 If <em>e</em> is not present, then the default value is either zero (for
 the first command appearing in a component) or the previous opcode
@@ -8339,12 +8338,10 @@ The second kind is called a <strong>special port instance specifier</strong>.</p
 <p>The optional expression <em>e</em> enclosed in brackets specifies the
 number of port instances in the port instance array.
 If no such expression appears, the default value is 1.
-The type of <em>e</em> must be <a href="#Type-Checking_Type-Conversion">convertible to</a>
+The expression <em>e</em> must <a href="#Evaluation">evaluate</a> to
+a value that is <a href="#Evaluation_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
-<em>e</em> must
-<a href="#Evaluation">evaluate</a> to a value <em>n</em> after
-<a href="#Evaluation_Type-Conversion">conversion</a> to <em>Integer</em>.
-<em>n</em> must be greater than zero.</p>
+After conversion, the value <em>n</em> must be greater than zero.</p>
 </li>
 <li>
 <p><em>port-instance-type</em> specifies the type of the port instance.</p>
@@ -8372,7 +8369,8 @@ from a specific type at the other end of the connection.</p>
 <li>
 <p>The optional expression <em>e</em> appearing after the keyword
 <code>priority</code> specifies a priority for the port instance.
-The type of <em>e</em> must be <a href="#Type-Checking_Type-Conversion">convertible to</a>
+The expression <em>e</em> must <a href="#Evaluation">evaluate</a> to a value
+that is <a href="#Evaluation_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 The priority applies to the component&#8217;s message queue and may appear only for
 <code>async input</code> ports.
@@ -8758,10 +8756,10 @@ consisting of <em>s</em> elements of type <em>T</em>.</p>
 <li>
 <p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the
 numeric identifier for the record.
-If <em>e</em> is present, then the type of <em>e</em> must be
-<a href="#Type-Checking_Type-Conversion">convertible to</a>
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
-to a nonnegative integer.
+If <em>e</em> is present, then <em>e</em> must <a href="#Evaluation">evaluate to</a>
+a value that is <a href="#Evaluation_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+After conversion, the value <em>n</em> must be nonnegative.
 If <em>e</em> is not present, then the
 default identifier is either zero (for the first record appearing in a
 component) or the previous record identifier plus one.</p>
@@ -8963,10 +8961,11 @@ A telemetry limit is one of the following:</p>
 <li>
 <p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the
 numeric identifier for the channel.
-If <em>e</em> is present, then the type of <em>e</em> must be
-<a href="#Type-Checking_Type-Conversion">convertible to</a>
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
-to a nonnegative integer.
+If <em>e</em> is present, then <em>e</em> must <a href="#Evaluation">evaluate</a>
+to a value that is
+<a href="#Evaluation_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+After conversion, the value <em>n</em> must be nonnegative.
 If <em>e</em> is not present, then the
 default identifier is either zero (for the first channel appearing in a
 component) or the previous channel identifier plus one.</p>
@@ -8992,8 +8991,9 @@ in each specifier.</p>
 </li>
 <li>
 <p>The type of the expression in each limit must be a
-<a href="#Types_Internal-Types_Numeric-Types">numeric type</a> and must be
-<a href="#Type-Checking_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
+Each limit must <a href="#Evaluation">evaluate</a> to a value that is
+<a href="#Evaluation_Type-Conversion">convertible to</a>
 the type of the channel.</p>
 </li>
 <li>
@@ -9214,10 +9214,11 @@ but it is not an
 <li>
 <p>The optional expression <em>e</em> following <code>id</code> specifies the numeric
 identifier for the packet.
-If <em>e</em> is present, then the type of <em>e</em> must be
-<a href="#Type-Checking_Type-Conversion">convertible to</a>
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
-to a nonnegative integer.
+If <em>e</em> is present, then <em>e</em> must <a href="#Evaluation">evaluate to</a>
+a value that is
+<a href="#Evaluation_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+After conversion, the value <em>n</em> must be nonnegative.
 If <em>e</em> is not present, then the default identifier is either zero (for the
 first
 packet appearing in a packet group) or the previous packet identifier plus one.</p>
@@ -9228,10 +9229,10 @@ packet appearing in a packet group) or the previous packet identifier plus one.<
 The group is a number that governs the sending of the packet.
 In the F Prime flight software, sending of packets can be filtered
 by group, so that only packets in certain groups are sent.
-The type of <em>e</em> must be
-<a href="#Type-Checking_Type-Conversion">convertible to</a>
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
-to a nonnegative integer.</p>
+<em>e</em> must <a href="#Evaluation">evaluate to</a> a value that is
+<a href="#Evaluation_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+After conversion, the value <em>n</em> must be nonnegative.</p>
 </li>
 <li>
 <p>FPP recursively resolves any include specifiers in
@@ -9345,8 +9346,9 @@ If there are no parameters, then the argument list may be omitted.</p>
 <ol class="loweralpha" type="a">
 <li>
 <p>If <em>p</em> is a constant template parameter, then <em>A</em> must be a constant
-template argument. The type of the expression in <em>A</em> must be
-<a href="#Type-Checking_Type-Conversion">convertible to</a> the type specified in <em>p</em>.</p>
+template argument. The expression in <em>A</em> must <a href="#Evaluation">evaluate</a>
+to a value that is <a href="#Evaluation_Type-Conversion">convertible to</a> the type
+specified in <em>p</em>.</p>
 </li>
 <li>
 <p>If <em>p</em> is a port interface instance template parameter, then <em>A</em>
@@ -10028,13 +10030,13 @@ is a comma.</p>
 <p>The sequence must have at least one element.</p>
 </li>
 <li>
-<p>The types of the expressions in the sequence must be
-<a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">convertible to a common type</a>.</p>
+<p>The types of the expressions in the sequence must have a
+<a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">common type</a>.</p>
 </li>
 <li>
-<p>The value of the expression is formed by computing
-the value of each element and then converting all the
-elements to the common type.</p>
+<p>The value of the expression is formed by <a href="#Evaluation">evaluating</a>
+each element to a value and then <a href="#Evaluation_Type-Conversion">converting</a>
+each value to the common type.</p>
 </li>
 </ol>
 </div>
@@ -13453,12 +13455,14 @@ and both types refer to the same definition.</p>
 <div class="sect2">
 <h3 id="Type-Checking_Type-Conversion">20.15. Type Conversion</h3>
 <div class="paragraph">
-<p>We say that a type \$T_1\$ <strong>may be converted to</strong> another type \$T_2\$ if
-every <a href="#Values">value</a> represented by type \$T_1\$ can be
-<a href="#Evaluation_Type-Conversion">converted</a> into a value of type \$T_2\$.</p>
-</div>
-<div class="paragraph">
-<p>Here are the rules for type conversion:</p>
+<p>We say that a type \$T_1\$ <strong>may be converted to</strong> or <strong>is convertible to</strong>
+another type \$T_2\$ according to the following rules.
+In general, \$T_1\$ is convertible to \$T_2\$ if values of
+type \$T_1\$ may be <a href="#Evaluation_Type-Conversion">converted to</a>
+values of type \$T_2\$. However, in some cases this rule
+does not hold; in these cases, we catch the error during value conversion.
+This happens, for example, when attempting to convert the value 256 at <code>U16</code> to
+<code>U8</code>.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -14296,12 +14300,24 @@ arithmetic.</p>
 \$T_1\$
 to a value \$v_2\$ of canonical type \$T_2\$.</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The type \$T_1\$ must be <a href="#Type-Checking_Type-Conversion">convertible to</a>
+\$T_2\$.</p>
+</li>
+<li>
+<p>The value \$v_1\$ must be convertible to a value of type \$v_2\$ as
+described below.</p>
+</li>
+</ol>
+</div>
 <div class="sect3">
 <h4 id="Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">23.2.1. Primitive and Non-Primitive Integer Values</h4>
 <div class="paragraph">
 <p>If \$T_1\$ is <em>Integer</em> and \$T_2\$ is a primitive integer type, then
 then check whether the numeric value of
-\$v_1\$ is representable at type \$T_2\$.
+\$v_1\$ is contained in type \$T_2\$.
 If it is, then let \$v_2\$ be the element of \$T_2\$ with that
 numeric value.
 Otherwise an error results.
@@ -14390,9 +14406,12 @@ and \$T_2\$ is a range type, then</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
+<p>Let \$T'_2\$ be the base type of \$T_2\$.</p>
+</li>
+<li>
 <p>Let \$v_2\$ be the result of
 <a href="#Evaluation_Type-Conversion">converting</a> the primitive integer
-or floating-point value \$v_1\$ to \$T_2\$.</p>
+or floating-point value \$v_1\$ to \$T'_2\$.</p>
 </li>
 <li>
 <p>Check that the numeric value of \$v_2\$ is in range for
@@ -14860,7 +14879,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-26 18:01:15 -0700
+Last updated 2026-10-26 18:48:49 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
