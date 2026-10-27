@@ -21,61 +21,48 @@ The following rules govern the conversion of a value stem:[v_1] of canonical typ
 stem:[T_1]
 to a value stem:[v_2] of canonical type stem:[T_2].
 
-==== Unsigned Primitive Integer Values
-
-. If stem:[T_1] and stem:[T_2] are both unsigned primitive integer types and
-stem:[T_2] is
-narrower than stem:[T_1], then construct stem:[v_2] by truncating the
-unsigned
-binary representation of stem:[v_1] to the width of stem:[v_2]. For
-example, converting `0x1234: U16` to `U8` yields `0x34: U8`.
-
-. Otherwise if stem:[T_1] and stem:[T_2] are both unsigned primitive integer
-types, then
-stem:[v_2] is the integer value of stem:[v_1] at the type of
-stem:[v_2]. For example,
-converting `0x12: U8` to `U16` yields `0x12: U16`.
-
-==== Signed Primitive Integer Values
-
-. If stem:[T_1] and stem:[T_2] are both signed primitive integer types and
-stem:[T_2] is narrower than stem:[T_1], then construct stem:[v_2] by truncating
-the two's complement binary representation of stem:[v_1] to the width of
-stem:[v_2]. For example, converting `-0x1234: I16` to `I8` yields `-0x34:
-I8`.
-
-. Otherwise if stem:[T_1] and stem:[T_2] are both signed primitive integer
-types, then stem:[v_2]
-is the integer value of stem:[v_1] at the type of stem:[v_2]. For
-example, converting `-0x12: I8` to `I16` yields `-0x12: I16`.
-
-==== Primitive Integer Values of Mixed Sign
-
-If stem:[T_1] and stem:[T_2] are primitive integer types with one signed and
-one unsigned,
-then do the following:
-
-. Construct the value stem:[v] by converting stem:[v_1] to the type
-stem:[T], where
-stem:[T] is signed if stem:[T_1] is signed and unsigned if
-stem:[T_1] is unsigned, and
-stem:[T] has the same width as stem:[T_2].
-
-. Construct stem:[v_2] by converting stem:[v] to stem:[T_2].
-
-For example converting `-1: I8` to `U16` yields `0xFFFF: U16`
-
 ==== Primitive and Non-Primitive Integer Values
 
 If stem:[T_1] is _Integer_ and stem:[T_2] is a primitive integer type, then
-proceed as if stem:[T_1] were a signed primitive integer
-type of the narrowest bit width that will hold stem:[v_1].
-For example, converting `-0x1234` to `I8` yields `-0x34: I8`.
+then check whether the numeric value of
+stem:[v_1] is representable at type stem:[T_2].
+If it is, then let stem:[v_2] be the element of stem:[T_2] with that
+numeric value.
+Otherwise an error results.
+For example:
+
+* Converting `0x12: Integer` to `U8` yields `0x12: U8`.
+
+* Converting `0x1234: Integer` to `U8` causes an error.
+
+* Converting `-0x12: Integer` to `I8` yields `-0x12: I8`.
+
+* Converting `-0x1234: Integer` to `I8` causes an error.
+
+* Converting `-1: Integer` to `U16` causes an error.
 
 If stem:[T_1] is a primitive integer type and stem:[T_2] is
 _Integer_, then stem:[v_2] is the integer value of stem:[v_1]
 at type _Integer_. For example, converting
 `0xFFFF: U32` to _Integer_ yields `0xFFFF:` _Integer_.
+
+==== Primitive Integer Values
+
+If stem:[T_1] and stem:[T_2] are both primitive integer types,
+then proceed as if stem:[T_1] were _Integer_.
+For example:
+
+* Converting `0x12: U16` to `U8` yields `0x12: U8`.
+
+* Converting `0x12: U8` to `U16` yields `0x12: U16`.
+
+* Converting `0x1234: U16` to `U8` causes an error.
+
+* Converting `-0x12: I16` to `I8` yields `-0x12: I8`.
+
+* Converting `-0x1234: I16` to `I8` causes an error.
+
+* Converting `-1: I8` to `U16` causes an error.
 
 ==== Floating-Point Values
 
@@ -89,14 +76,14 @@ If either of stem:[T_1] and stem:[T_2] is a range type, then do the following:
 
 . If stem:[T_1] is a range type and stem:[T_2] is a primitive numeric type, 
 then let stem:[v_2] be the result of 
-<<Evaluation_Strict-Type-Conversion,strictly converting>> the primitive integer 
+<<Evaluation_Type-Conversion,converting>> the primitive integer 
 or floating-point value stem:[v_1] to stem:[T_2].
 
 . Otherwise if stem:[T_1] is a primitive integer type or a range type
 and stem:[T_2] is a range type, then
 
 .. Let stem:[v_2] be the result of 
-<<Evaluation_Strict-Type-Conversion,strictly converting>> the primitive integer 
+<<Evaluation_Type-Conversion,converting>> the primitive integer 
 or floating-point value stem:[v_1] to stem:[T_2].
 
 .. Check that the numeric value of stem:[v_2] is in range for
@@ -165,12 +152,3 @@ stem:[m] `:` stem:[v_m] in stem:[v_1], add the member stem:[m] `:` stem:[v'_m],
 where stem:[v'_m] is the <<Types_Default-Values,default value>> at type stem:[T_m].
 
 Otherwise the conversion is invalid.
-
-=== Strict Type Conversion
-
-If the conversion of value stem:[v_1] of canonical type
-stem:[T_1]
-to a value stem:[v_2] of canonical type stem:[T_2] is specified
-to be strict, then apply the rules for <<Evaluation_Type-Conversion,type conversion>>,
-except that if any conversion of an integer value would cause bits
-to be lost by truncation, then an error results.

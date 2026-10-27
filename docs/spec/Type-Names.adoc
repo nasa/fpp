@@ -204,7 +204,7 @@ according to the following rules.
    _T'''_ is a primitive numeric type. In this case, let _T''_ be _T'''_.
 
 . For each range bound _B_, if _B_ is an expression _e_, then _e_ must evaluate
-  to a value that <<Evaluation_Strict-Type-Conversion,may be strictly converted 
+  to a value that <<Evaluation_Type-Conversion,may be converted 
   to a value of type _T''_>>.
 
 . Let _T'''_ be the <<Types_Range-Types,range type>> _T''_ `in` _range_,

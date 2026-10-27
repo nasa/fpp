@@ -1112,18 +1112,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Evaluation_Evaluating-Expressions">23.1. Evaluating Expressions</a></li>
 <li><a href="#Evaluation_Type-Conversion">23.2. Type Conversion</a>
 <ul class="sectlevel3">
-<li><a href="#Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">23.2.1. Unsigned Primitive Integer Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Signed-Primitive-Integer-Values">23.2.2. Signed Primitive Integer Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">23.2.3. Primitive Integer Values of Mixed Sign</a></li>
-<li><a href="#Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">23.2.4. Primitive and Non-Primitive Integer Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Floating-Point-Values">23.2.5. Floating-Point Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Range-Values">23.2.6. Range Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_String-Values">23.2.7. String Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Array-Values">23.2.8. Array Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Structure-Values">23.2.9. Structure Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">23.2.1. Primitive and Non-Primitive Integer Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Primitive-Integer-Values">23.2.2. Primitive Integer Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Floating-Point-Values">23.2.3. Floating-Point Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Range-Values">23.2.4. Range Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_String-Values">23.2.5. String Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Array-Values">23.2.6. Array Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Structure-Values">23.2.7. Structure Values</a></li>
 </ul>
 </li>
-<li><a href="#Evaluation_Strict-Type-Conversion">23.3. Strict Type Conversion</a></li>
 </ul>
 </li>
 <li><a href="#Ports">24. Ports</a>
@@ -9965,7 +9962,7 @@ according to the following rules.</p>
 </li>
 <li>
 <p>For each range bound <em>B</em>, if <em>B</em> is an expression <em>e</em>, then <em>e</em> must evaluate
-to a value that <a href="#Evaluation_Strict-Type-Conversion">may be strictly converted
+to a value that <a href="#Evaluation_Type-Conversion">may be converted
 to a value of type <em>T''</em></a>.</p>
 </li>
 <li>
@@ -14300,79 +14297,34 @@ arithmetic.</p>
 to a value \$v_2\$ of canonical type \$T_2\$.</p>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">23.2.1. Unsigned Primitive Integer Values</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If \$T_1\$ and \$T_2\$ are both unsigned primitive integer types and
-\$T_2\$ is
-narrower than \$T_1\$, then construct \$v_2\$ by truncating the
-unsigned
-binary representation of \$v_1\$ to the width of \$v_2\$. For
-example, converting <code>0x1234: U16</code> to <code>U8</code> yields <code>0x34: U8</code>.</p>
-</li>
-<li>
-<p>Otherwise if \$T_1\$ and \$T_2\$ are both unsigned primitive integer
-types, then
-\$v_2\$ is the integer value of \$v_1\$ at the type of
-\$v_2\$. For example,
-converting <code>0x12: U8</code> to <code>U16</code> yields <code>0x12: U16</code>.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Signed-Primitive-Integer-Values">23.2.2. Signed Primitive Integer Values</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If \$T_1\$ and \$T_2\$ are both signed primitive integer types and
-\$T_2\$ is narrower than \$T_1\$, then construct \$v_2\$ by truncating
-the two&#8217;s complement binary representation of \$v_1\$ to the width of
-\$v_2\$. For example, converting <code>-0x1234: I16</code> to <code>I8</code> yields <code>-0x34:
-I8</code>.</p>
-</li>
-<li>
-<p>Otherwise if \$T_1\$ and \$T_2\$ are both signed primitive integer
-types, then \$v_2\$
-is the integer value of \$v_1\$ at the type of \$v_2\$. For
-example, converting <code>-0x12: I8</code> to <code>I16</code> yields <code>-0x12: I16</code>.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">23.2.3. Primitive Integer Values of Mixed Sign</h4>
-<div class="paragraph">
-<p>If \$T_1\$ and \$T_2\$ are primitive integer types with one signed and
-one unsigned,
-then do the following:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Construct the value \$v\$ by converting \$v_1\$ to the type
-\$T\$, where
-\$T\$ is signed if \$T_1\$ is signed and unsigned if
-\$T_1\$ is unsigned, and
-\$T\$ has the same width as \$T_2\$.</p>
-</li>
-<li>
-<p>Construct \$v_2\$ by converting \$v\$ to \$T_2\$.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>For example converting <code>-1: I8</code> to <code>U16</code> yields <code>0xFFFF: U16</code></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">23.2.4. Primitive and Non-Primitive Integer Values</h4>
+<h4 id="Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">23.2.1. Primitive and Non-Primitive Integer Values</h4>
 <div class="paragraph">
 <p>If \$T_1\$ is <em>Integer</em> and \$T_2\$ is a primitive integer type, then
-proceed as if \$T_1\$ were a signed primitive integer
-type of the narrowest bit width that will hold \$v_1\$.
-For example, converting <code>-0x1234</code> to <code>I8</code> yields <code>-0x34: I8</code>.</p>
+then check whether the numeric value of
+\$v_1\$ is representable at type \$T_2\$.
+If it is, then let \$v_2\$ be the element of \$T_2\$ with that
+numeric value.
+Otherwise an error results.
+For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Converting <code>0x12: Integer</code> to <code>U8</code> yields <code>0x12: U8</code>.</p>
+</li>
+<li>
+<p>Converting <code>0x1234: Integer</code> to <code>U8</code> causes an error.</p>
+</li>
+<li>
+<p>Converting <code>-0x12: Integer</code> to <code>I8</code> yields <code>-0x12: I8</code>.</p>
+</li>
+<li>
+<p>Converting <code>-0x1234: Integer</code> to <code>I8</code> causes an error.</p>
+</li>
+<li>
+<p>Converting <code>-1: Integer</code> to <code>U16</code> causes an error.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>If \$T_1\$ is a primitive integer type and \$T_2\$ is
@@ -14382,7 +14334,37 @@ at type <em>Integer</em>. For example, converting
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Floating-Point-Values">23.2.5. Floating-Point Values</h4>
+<h4 id="Evaluation_Type-Conversion_Primitive-Integer-Values">23.2.2. Primitive Integer Values</h4>
+<div class="paragraph">
+<p>If \$T_1\$ and \$T_2\$ are both primitive integer types,
+then proceed as if \$T_1\$ were <em>Integer</em>.
+For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Converting <code>0x12: U16</code> to <code>U8</code> yields <code>0x12: U8</code>.</p>
+</li>
+<li>
+<p>Converting <code>0x12: U8</code> to <code>U16</code> yields <code>0x12: U16</code>.</p>
+</li>
+<li>
+<p>Converting <code>0x1234: U16</code> to <code>U8</code> causes an error.</p>
+</li>
+<li>
+<p>Converting <code>-0x12: I16</code> to <code>I8</code> yields <code>-0x12: I8</code>.</p>
+</li>
+<li>
+<p>Converting <code>-0x1234: I16</code> to <code>I8</code> causes an error.</p>
+</li>
+<li>
+<p>Converting <code>-1: I8</code> to <code>U16</code> causes an error.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Evaluation_Type-Conversion_Floating-Point-Values">23.2.3. Floating-Point Values</h4>
 <div class="paragraph">
 <p>We use the standard rules for IEEE floating-point values to convert
 among integer values to and from floating-point values and
@@ -14390,7 +14372,7 @@ floating-point values to and from each other.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Range-Values">23.2.6. Range Values</h4>
+<h4 id="Evaluation_Type-Conversion_Range-Values">23.2.4. Range Values</h4>
 <div class="paragraph">
 <p>If either of \$T_1\$ and \$T_2\$ is a range type, then do the following:</p>
 </div>
@@ -14399,7 +14381,7 @@ floating-point values to and from each other.</p>
 <li>
 <p>If \$T_1\$ is a range type and \$T_2\$ is a primitive numeric type,
 then let \$v_2\$ be the result of
-<a href="#Evaluation_Strict-Type-Conversion">strictly converting</a> the primitive integer
+<a href="#Evaluation_Type-Conversion">converting</a> the primitive integer
 or floating-point value \$v_1\$ to \$T_2\$.</p>
 </li>
 <li>
@@ -14409,7 +14391,7 @@ and \$T_2\$ is a range type, then</p>
 <ol class="loweralpha" type="a">
 <li>
 <p>Let \$v_2\$ be the result of
-<a href="#Evaluation_Strict-Type-Conversion">strictly converting</a> the primitive integer
+<a href="#Evaluation_Type-Conversion">converting</a> the primitive integer
 or floating-point value \$v_1\$ to \$T_2\$.</p>
 </li>
 <li>
@@ -14426,7 +14408,7 @@ or floating-point value \$v_1\$ to \$T_2\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_String-Values">23.2.7. String Values</h4>
+<h4 id="Evaluation_Type-Conversion_String-Values">23.2.5. String Values</h4>
 <div class="paragraph">
 <p>If \$T_1\$ is a string type and \$T_2\$ is a string type,
 then let \$v_2 = v_1\$.</p>
@@ -14440,7 +14422,7 @@ The FPP type system does not perform any truncation.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Array-Values">23.2.8. Array Values</h4>
+<h4 id="Evaluation_Type-Conversion_Array-Values">23.2.6. Array Values</h4>
 <div class="paragraph">
 <p>If \$T_2\$ is an array type and \$T_1 = T_2\$, then
 let \$v_2 = v_1\$.</p>
@@ -14489,7 +14471,7 @@ with value \$w_i\$ at each element \$i\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Structure-Values">23.2.9. Structure Values</h4>
+<h4 id="Evaluation_Type-Conversion_Structure-Values">23.2.7. Structure Values</h4>
 <div class="paragraph">
 <p>If \$T_2\$ is a struct type and \$T_1 = T_2\$, then
 let \$v_2 = v_1\$.</p>
@@ -14518,17 +14500,6 @@ where \$v'_m\$ is the <a href="#Types_Default-Values">default value</a> at type 
 <div class="paragraph">
 <p>Otherwise the conversion is invalid.</p>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Evaluation_Strict-Type-Conversion">23.3. Strict Type Conversion</h3>
-<div class="paragraph">
-<p>If the conversion of value \$v_1\$ of canonical type
-\$T_1\$
-to a value \$v_2\$ of canonical type \$T_2\$ is specified
-to be strict, then apply the rules for <a href="#Evaluation_Type-Conversion">type conversion</a>,
-except that if any conversion of an integer value would cause bits
-to be lost by truncation, then an error results.</p>
 </div>
 </div>
 </div>
@@ -14889,7 +14860,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-26 16:37:26 -0700
+Last updated 2026-10-26 18:01:15 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
