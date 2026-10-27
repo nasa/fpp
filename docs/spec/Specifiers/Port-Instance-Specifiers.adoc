@@ -118,7 +118,7 @@ The others are *output port instance specifiers*.
 . The optional expression _e_ enclosed in brackets specifies the
 number of port instances in the port instance array.
 If no such expression appears, the default value is 1.
-The expression _e_ must <<Evaluation,evaluate>> to
+The expression _e_ must <<Evaluation_Evaluating-Expressions,evaluate to>>
 a value that is <<Evaluation_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
 After conversion, the value _n_ must be greater than zero.
@@ -141,7 +141,8 @@ from a specific type at the other end of the connection.
 
 . The optional expression _e_ appearing after the keyword
 `priority` specifies a priority for the port instance.
-The expression _e_ must <<Evaluation,evaluate>> to a value
+The expression _e_ must <<Evaluation_Evaluating-Expressions,evaluate to>> a 
+value
 that is <<Evaluation_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
 The priority applies to the component's message queue and may appear only for

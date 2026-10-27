@@ -32,8 +32,8 @@ The type _T_ is called the *element type* of the array type _T'_.
 The expression following the keyword `default` is optional.
 If present, it specifies the <<Types_Default-Values,default value>> associated
 with the type.
-The expression must <<Evaluation,evaluate>> to a value that is
-<<Evaluation_Type-Conversion,convertible to>> _T'_.
+The expression must <<Evaluation_Evaluating-Expressions,evaluate to>> a value 
+that is <<Evaluation_Type-Conversion,convertible to>> _T'_.
 
 The optional format specifier specifies a <<Format-Strings,format string>>.
 When displaying the array, the format is applied to each element of the array.

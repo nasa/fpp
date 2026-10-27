@@ -21,9 +21,8 @@ _]_
 
 . The optional expression _e_ after the keyword `id` specifies the
 numeric identifier for the container.
-If _e_ is present, then _e_ must <<Evaluation,evaluate>> to
-a value that is
-<<Evaluation_Type-Conversion,convertible to>>
+If _e_ is present, then _e_ must <<Evaluation_Evaluating-Expressions,evaluate 
+to>> a value that is <<Evaluation_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
 After conversion, the value _n_ must be nonnegative.
 If _e_ is not present, then the
@@ -33,9 +32,8 @@ component) or the previous container identifier plus one.
 . The optional expression _e_ after the keywords `default` `priority`
 specifies a downlink priority for the container.
 This priority can be overridden by the command that downlinks the data.
-If _e_ is present, then _e_ must <<Evaluation,evaluate>>
-to a value that is
-<<Evaluation_Type-Conversion,convertible to>>
+If _e_ is present, then _e_ must <<Evaluation_Evaluating-Expressions,evaluate 
+to>> a value that is <<Evaluation_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
 After conversion, the value _n_ must be nonnegative.
 

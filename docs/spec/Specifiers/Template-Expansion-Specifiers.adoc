@@ -54,8 +54,9 @@ If there are no parameters, then the argument list may be omitted.
 . For each template parameter _p_, let _A_ be the corresponding argument.
 
 .. If _p_ is a constant template parameter, then _A_ must be a constant
-template argument. The expression in _A_ must <<Evaluation,evaluate>>
-to a value that is <<Evaluation_Type-Conversion,convertible to>> the type 
+template argument. The expression in _A_ must 
+<<Evaluation_Evaluating-Expressions,evaluate to>>
+a value that is <<Evaluation_Type-Conversion,convertible to>> the type 
 specified in _p_.
 
 .. If _p_ is a port interface instance template parameter, then _A_

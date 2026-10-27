@@ -37,7 +37,8 @@ but it is not an
 
 . The optional expression _e_ following `id` specifies the numeric
 identifier for the packet.
-If _e_ is present, then _e_ must <<Evaluation,evaluate to>>
+If _e_ is present, then _e_ must <<Evaluation_Evaluating-Expressions,evaluate 
+to>>
 a value that is
 <<Evaluation_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
@@ -51,7 +52,7 @@ packet appearing in a packet group) or the previous packet identifier plus one.
 The group is a number that governs the sending of the packet.
 In the F Prime flight software, sending of packets can be filtered
 by group, so that only packets in certain groups are sent.
-_e_ must <<Evaluation,evaluate to>> a value that is
+_e_ must <<Evaluation_Evaluating-Expressions,evaluate to>> a value that is
 <<Evaluation_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
 After conversion, the value _n_ must be nonnegative.

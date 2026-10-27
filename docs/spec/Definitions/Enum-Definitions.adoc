@@ -41,9 +41,8 @@ a primitive integer type, called the
 
 There must be at least one enumerated constant.
 No two enumerated constants may have the same identifier.
-Each enumerated constant must <<Evaluation,evaluate>> to
-a compile-time constant value that is
-<<Evaluation_Type-Conversion,convertible to>> the
+Each enumerated constant must <<Evaluation_Evaluating-Expressions,evaluate to>>
+a value that is <<Evaluation_Type-Conversion,convertible to>> the
 representation type.
 No two enumerated constants may have the same value after the conversion.
 

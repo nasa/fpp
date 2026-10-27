@@ -50,9 +50,8 @@ _T_ must be a <<Types_Displayable-Types,displayable type>>.
 
 . The optional expression _e_ after the keyword `id` specifies the
 numeric identifier for the channel.
-If _e_ is present, then _e_ must <<Evaluation,evaluate>>
-to a value that is
-<<Evaluation_Type-Conversion,convertible to>>
+If _e_ is present, then _e_ must <<Evaluation_Evaluating-Expressions,evaluate 
+to>> a value that is <<Evaluation_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
 After conversion, the value _n_ must be nonnegative.
 If _e_ is not present, then the
@@ -75,8 +74,8 @@ in each specifier.
 
 .. The type of the expression in each limit must be a
 <<Types_Internal-Types_Numeric-Types,numeric type>>.
-Each limit must <<Evaluation,evaluate>> to a value that is
-<<Evaluation_Type-Conversion,convertible to>>
+Each limit must <<Evaluation_Evaluating-Expressions,evaluate to>> a value that 
+is <<Evaluation_Type-Conversion,convertible to>>
 the type of the channel.
 
 .. The limit is applied to each telemetry channel with type _T_ and value _v_

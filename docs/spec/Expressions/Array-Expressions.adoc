@@ -20,7 +20,8 @@ is a comma.
 <<Type-Checking_Computing-a-Common-Type_Lists-of-Types,
 common type>>.
 
-. The value of the expression is formed by <<Evaluation,evaluating>>
+. The value of the expression is formed by 
+<<Evaluation_Evaluating-Expressions,evaluating>>
 each element to a value and then <<Evaluation_Type-Conversion,converting>>
 each value to the common type.
 

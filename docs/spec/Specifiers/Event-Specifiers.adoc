@@ -52,8 +52,8 @@ If there are no parameters, the list may be omitted.
 
 * The optional expression _e_ following `id` specifies the numeric
 identifier for instances of the event.
-If _e_ is present, then _e_ must <<Evaluation,evaluate>>
-to a value that is <<Evaluation_Type-Conversion,convertible to>>
+If _e_ is present, then _e_ must <<Evaluation_Evaluating-Expressions,evaluate 
+to>> a value that is <<Evaluation_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
 After conversion, the value _n_ must be nonnegative.
 If _e_ is not present, then the default identifier is either zero (for the
@@ -70,7 +70,7 @@ argument whose type is a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 
 ** The expression _e_ following `throttle` specifies the *maximum throttle
 count* for instances of _E_.
-_e_ must <<Evaluation,evaluate to>> a value that is 
+_e_ must <<Evaluation_Evaluating-Expressions,evaluate to>> a value that is 
 <<Evaluation_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
 After conversion, the value _n_ must be in the range stem:[[1, 2^31)].
@@ -86,10 +86,11 @@ count for identifier _E_ is reset.
 period*.
 _e_ must satisfy the following rules:
 
-*** _e_ must <<Evaluation,evaluate>> to a value that is
+*** _e_ must <<Evaluation_Evaluating-Expressions,evaluate to >> a value that is
 <<Evaluation_Type-Conversion,convertible to>> the
 <<Types_Internal-Types_Anonymous-Struct-Types,
-anonymous struct type>> _T =_ `{ seconds: U32, useconds: U32 in [0, 1000000) }`.
+anonymous struct type>> _T =_ `{ seconds: U32, useconds: U32 in [0, 1000000) 
+}`.
 
 +
 +

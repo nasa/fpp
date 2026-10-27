@@ -1962,8 +1962,8 @@ The type <em>T</em> is called the <strong>element type</strong> of the array typ
 <p>The expression following the keyword <code>default</code> is optional.
 If present, it specifies the <a href="#Types_Default-Values">default value</a> associated
 with the type.
-The expression must <a href="#Evaluation">evaluate</a> to a value that is
-<a href="#Evaluation_Type-Conversion">convertible to</a> <em>T'</em>.</p>
+The expression must <a href="#Evaluation_Evaluating-Expressions">evaluate to</a> a value
+that is <a href="#Evaluation_Type-Conversion">convertible to</a> <em>T'</em>.</p>
 </div>
 <div class="paragraph">
 <p>The optional format specifier specifies a <a href="#Format-Strings">format string</a>.
@@ -2721,8 +2721,8 @@ model.</p>
 <h4 id="Definitions_Constant-Definitions_Semantics">5.6.2. Semantics</h4>
 <div class="paragraph">
 <p><em>expression</em> must
-<a href="#Evaluation">evaluate</a>
-to a compile-time constant value <em>v</em>. At any model point where the
+<a href="#Evaluation_Evaluating-Expressions">evaluate to</a>
+a compile-time constant value <em>v</em>. At any model point where the
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a> <em>Q</em> refers to
 the constant definition according to the
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">scoping
@@ -2800,9 +2800,8 @@ a primitive integer type, called the
 <div class="paragraph">
 <p>There must be at least one enumerated constant.
 No two enumerated constants may have the same identifier.
-Each enumerated constant must <a href="#Evaluation">evaluate</a> to
-a compile-time constant value that is
-<a href="#Evaluation_Type-Conversion">convertible to</a> the
+Each enumerated constant must <a href="#Evaluation_Evaluating-Expressions">evaluate to</a>
+a value that is <a href="#Evaluation_Type-Conversion">convertible to</a> the
 representation type.
 No two enumerated constants may have the same value after the conversion.</p>
 </div>
@@ -2905,8 +2904,8 @@ in the enum definition.</p>
 <h4 id="Definitions_Enumerated-Constant-Definitions_Semantics">5.8.2. Semantics</h4>
 <div class="paragraph">
 <p>If present, <em>expression</em> must
-<a href="#Evaluation">evaluate</a>
-to a compile-time constant value <em>v</em>. At any model point where the
+<a href="#Evaluation_Evaluating-Expressions">evaluate to</a> a value <em>v</em>. At any model
+point where the
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a> <em>Q</em> refers to
 the enumerated constant definition according to the
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">scoping
@@ -4056,8 +4055,8 @@ translator applies the format to each element.</p>
 <p>The expression following the keyword <code>default</code> is optional.
 If present, it specifies the <a href="#Types_Default-Values">default value</a>
 associated with the type.
-The expression must <a href="#Evaluation">evaluate</a> to a value that is
-<a href="#Evaluation_Type-Conversion">convertible to</a> <em>T</em>.
+The expression must <a href="#Evaluation_Evaluating-Expressions">evaluate to</a> a value
+that is <a href="#Evaluation_Type-Conversion">convertible to</a> <em>T</em>.
 If the expression specifies a value for a member with size
 greater than one, then the value is applied to each element.</p>
 </div>
@@ -4264,7 +4263,7 @@ it is specified in the model source.</p>
 appearing in a
 <a href="#Specifiers_Connection-Graph-Specifiers">direct connection graph</a> of <em>D</em>,
 if <em>E</em> has a port number  expression <em>e</em> in the FPP source, then
-<a href="#Evaluation">evaluate</a> <em>e</em>,
+<a href="#Evaluation_Evaluating-Expressions">evaluate</a> <em>e</em>,
 <a href="#Type-Checking_Type-Conversion">convert</a> the result to a value <em>n</em> of type
 <em>Integer</em>, and assign the port number <em>n</em> at endpoint <em>E</em> of connection <em>C</em>.
 Check that <em>n</em> is in bounds for the port instance being numbered.</p>
@@ -6756,7 +6755,8 @@ If there are no parameters, the list may be omitted.
 <li>
 <p>The optional expression <em>e</em> following <code>opcode</code> specifies the numeric
 opcode for the command.
-If <em>e</em> is present, it must <a href="#Evaluation">evaluate</a> to a value that is
+If <em>e</em> is present, it must <a href="#Evaluation_Evaluating-Expressions">evaluate to</a> a
+value that is
 <a href="#Evaluation_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 After conversion, the value <em>n</em> must be nonnegative.
@@ -6971,7 +6971,7 @@ array of port instances.
 The type of <em>e</em> must be a
 <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, and
 <em>e</em> must
-<a href="#Evaluation">evaluate</a> to a compile-time constant
+<a href="#Evaluation_Evaluating-Expressions">evaluate to</a>  a compile-time constant
 that becomes a non-negative integer <em>n</em> when
 <a href="#Evaluation_Type-Conversion">converted to</a> type <em>Integer</em>.
 <em>n</em> must lie in the range [0,2<sup>31</sup>) and must be in bounds for the
@@ -7210,9 +7210,8 @@ They hold <a href="#Specifiers_Record-Specifiers">data product records</a>.</p>
 <li>
 <p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the
 numeric identifier for the container.
-If <em>e</em> is present, then <em>e</em> must <a href="#Evaluation">evaluate</a> to
-a value that is
-<a href="#Evaluation_Type-Conversion">convertible to</a>
+If <em>e</em> is present, then <em>e</em> must <a href="#Evaluation_Evaluating-Expressions">evaluate
+to</a> a value that is <a href="#Evaluation_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 After conversion, the value <em>n</em> must be nonnegative.
 If <em>e</em> is not present, then the
@@ -7223,9 +7222,8 @@ component) or the previous container identifier plus one.</p>
 <p>The optional expression <em>e</em> after the keywords <code>default</code> <code>priority</code>
 specifies a downlink priority for the container.
 This priority can be overridden by the command that downlinks the data.
-If <em>e</em> is present, then <em>e</em> must <a href="#Evaluation">evaluate</a>
-to a value that is
-<a href="#Evaluation_Type-Conversion">convertible to</a>
+If <em>e</em> is present, then <em>e</em> must <a href="#Evaluation_Evaluating-Expressions">evaluate
+to</a> a value that is <a href="#Evaluation_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 After conversion, the value <em>n</em> must be nonnegative.</p>
 </li>
@@ -7333,8 +7331,8 @@ If there are no parameters, the list may be omitted.
 <li>
 <p>The optional expression <em>e</em> following <code>id</code> specifies the numeric
 identifier for instances of the event.
-If <em>e</em> is present, then <em>e</em> must <a href="#Evaluation">evaluate</a>
-to a value that is <a href="#Evaluation_Type-Conversion">convertible to</a>
+If <em>e</em> is present, then <em>e</em> must <a href="#Evaluation_Evaluating-Expressions">evaluate
+to</a> a value that is <a href="#Evaluation_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 After conversion, the value <em>n</em> must be nonnegative.
 If <em>e</em> is not present, then the default identifier is either zero (for the
@@ -7355,7 +7353,7 @@ argument whose type is a <a href="#Types_Internal-Types_Numeric-Types">numeric t
 <li>
 <p>The expression <em>e</em> following <code>throttle</code> specifies the <strong>maximum throttle
 count</strong> for instances of <em>E</em>.
-<em>e</em> must <a href="#Evaluation">evaluate to</a> a value that is
+<em>e</em> must <a href="#Evaluation_Evaluating-Expressions">evaluate to</a> a value that is
 <a href="#Evaluation_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 After conversion, the value <em>n</em> must be in the range \$[1, 2^31)\$.
@@ -7374,9 +7372,10 @@ period</strong>.
 <div class="ulist">
 <ul>
 <li>
-<p><em>e</em> must <a href="#Evaluation">evaluate</a> to a value that is
+<p><em>e</em> must <a href="#Evaluation_Evaluating-Expressions">evaluate to </a> a value that is
 <a href="#Evaluation_Type-Conversion">convertible to</a> the
-<a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a> <em>T =</em> <code>{ seconds: U32, useconds: U32 in [0, 1000000) }</code>.</p>
+<a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a> <em>T =</em> <code>{ seconds: U32, useconds: U32 in [0, 1000000)
+}</code>.</p>
 </li>
 </ul>
 </div>
@@ -8079,7 +8078,8 @@ access parameter values in an efficient way.</p>
 <li>
 <p>The optional expression <em>e</em> following the keyword <code>default</code>
 specifies a default value for the parameter.
-If <em>e</em> is present, then the <em>e</em> must <a href="#Evaluation">evaluate to</a>
+If <em>e</em> is present, then the <em>e</em> must
+<a href="#Evaluation_Evaluating-Expressions">evaluate to</a>
 a value that is <a href="#Evaluation_Type-Conversion">convertible to</a> <em>T</em>.
 If <em>e</em> is not present, then there is no default value for
 the parameter:
@@ -8090,7 +8090,8 @@ invalid.</p>
 <li>
 <p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the
 numeric identifier for the parameter.
-If <em>e</em> is present, then of <em>e</em> must <a href="#Evaluation">evaluate to</a>
+If <em>e</em> is present, then of <em>e</em> must
+<a href="#Evaluation_Evaluating-Expressions">evaluate to</a>
 a value that is
 <a href="#Evaluation_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
@@ -8102,7 +8103,7 @@ component) or the previous parameter identifier plus one.</p>
 <li>
 <p>The optional expression <em>e</em> after the keywords <code>set</code> <code>opcode</code> specifies the
 opcode of the command for setting the parameter.
-If <em>e</em> is present, <em>e</em> must <a href="#Evaluation">evaluate to</a>
+If <em>e</em> is present, <em>e</em> must <a href="#Evaluation_Evaluating-Expressions">evaluate to</a>
 a value that is
 <a href="#Evaluation_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
@@ -8113,7 +8114,8 @@ plus one.</p>
 <li>
 <p>The optional expression <em>e</em> after the keywords <code>save</code> <code>opcode</code> specifies
 the opcode of the command for saving the parameter.
-If <em>e</em> is present, then the <em>e</em> must <a href="#Evaluation">evaluate to</a>
+If <em>e</em> is present, then the <em>e</em> must
+<a href="#Evaluation_Evaluating-Expressions">evaluate to</a>
 a value that is <a href="#Evaluation_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 If <em>e</em> is not present, then the default value is either zero (for
@@ -8338,7 +8340,7 @@ The second kind is called a <strong>special port instance specifier</strong>.</p
 <p>The optional expression <em>e</em> enclosed in brackets specifies the
 number of port instances in the port instance array.
 If no such expression appears, the default value is 1.
-The expression <em>e</em> must <a href="#Evaluation">evaluate</a> to
+The expression <em>e</em> must <a href="#Evaluation_Evaluating-Expressions">evaluate to</a>
 a value that is <a href="#Evaluation_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 After conversion, the value <em>n</em> must be greater than zero.</p>
@@ -8369,7 +8371,8 @@ from a specific type at the other end of the connection.</p>
 <li>
 <p>The optional expression <em>e</em> appearing after the keyword
 <code>priority</code> specifies a priority for the port instance.
-The expression <em>e</em> must <a href="#Evaluation">evaluate</a> to a value
+The expression <em>e</em> must <a href="#Evaluation_Evaluating-Expressions">evaluate to</a> a
+value
 that is <a href="#Evaluation_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 The priority applies to the component&#8217;s message queue and may appear only for
@@ -8756,8 +8759,8 @@ consisting of <em>s</em> elements of type <em>T</em>.</p>
 <li>
 <p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the
 numeric identifier for the record.
-If <em>e</em> is present, then <em>e</em> must <a href="#Evaluation">evaluate to</a>
-a value that is <a href="#Evaluation_Type-Conversion">convertible to</a>
+If <em>e</em> is present, then <em>e</em> must <a href="#Evaluation_Evaluating-Expressions">evaluate
+to</a> a value that is <a href="#Evaluation_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 After conversion, the value <em>n</em> must be nonnegative.
 If <em>e</em> is not present, then the
@@ -8961,9 +8964,8 @@ A telemetry limit is one of the following:</p>
 <li>
 <p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the
 numeric identifier for the channel.
-If <em>e</em> is present, then <em>e</em> must <a href="#Evaluation">evaluate</a>
-to a value that is
-<a href="#Evaluation_Type-Conversion">convertible to</a>
+If <em>e</em> is present, then <em>e</em> must <a href="#Evaluation_Evaluating-Expressions">evaluate
+to</a> a value that is <a href="#Evaluation_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 After conversion, the value <em>n</em> must be nonnegative.
 If <em>e</em> is not present, then the
@@ -8992,8 +8994,8 @@ in each specifier.</p>
 <li>
 <p>The type of the expression in each limit must be a
 <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
-Each limit must <a href="#Evaluation">evaluate</a> to a value that is
-<a href="#Evaluation_Type-Conversion">convertible to</a>
+Each limit must <a href="#Evaluation_Evaluating-Expressions">evaluate to</a> a value that
+is <a href="#Evaluation_Type-Conversion">convertible to</a>
 the type of the channel.</p>
 </li>
 <li>
@@ -9214,7 +9216,8 @@ but it is not an
 <li>
 <p>The optional expression <em>e</em> following <code>id</code> specifies the numeric
 identifier for the packet.
-If <em>e</em> is present, then <em>e</em> must <a href="#Evaluation">evaluate to</a>
+If <em>e</em> is present, then <em>e</em> must <a href="#Evaluation_Evaluating-Expressions">evaluate
+to</a>
 a value that is
 <a href="#Evaluation_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
@@ -9229,7 +9232,7 @@ packet appearing in a packet group) or the previous packet identifier plus one.<
 The group is a number that governs the sending of the packet.
 In the F Prime flight software, sending of packets can be filtered
 by group, so that only packets in certain groups are sent.
-<em>e</em> must <a href="#Evaluation">evaluate to</a> a value that is
+<em>e</em> must <a href="#Evaluation_Evaluating-Expressions">evaluate to</a> a value that is
 <a href="#Evaluation_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 After conversion, the value <em>n</em> must be nonnegative.</p>
@@ -9346,8 +9349,9 @@ If there are no parameters, then the argument list may be omitted.</p>
 <ol class="loweralpha" type="a">
 <li>
 <p>If <em>p</em> is a constant template parameter, then <em>A</em> must be a constant
-template argument. The expression in <em>A</em> must <a href="#Evaluation">evaluate</a>
-to a value that is <a href="#Evaluation_Type-Conversion">convertible to</a> the type
+template argument. The expression in <em>A</em> must
+<a href="#Evaluation_Evaluating-Expressions">evaluate to</a>
+a value that is <a href="#Evaluation_Type-Conversion">convertible to</a> the type
 specified in <em>p</em>.</p>
 </li>
 <li>
@@ -10034,7 +10038,8 @@ is a comma.</p>
 <a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">common type</a>.</p>
 </li>
 <li>
-<p>The value of the expression is formed by <a href="#Evaluation">evaluating</a>
+<p>The value of the expression is formed by
+<a href="#Evaluation_Evaluating-Expressions">evaluating</a>
 each element to a value and then <a href="#Evaluation_Type-Conversion">converting</a>
 each value to the common type.</p>
 </li>
@@ -10076,12 +10081,13 @@ an array value.</p>
 with element type <em>T</em> and size <em>n</em>.</p>
 </li>
 <li>
-<p>The type of \$e_2\$ must be <a href="#Type-Checking_Type-Conversion">convertible to</a>
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+<p>The type of \$e_2\$ must be <a href="#Type-Checking_Type-Conversion">convertible
+to</a> <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 \$e_2\$ must
-<a href="#Evaluation">evaluate</a> to a value <em>m</em> after
-<a href="#Evaluation_Type-Conversion">conversion</a> to <em>Integer</em>.
-<em>m</em> must be greater than or equal to zero and less than <em>n</em>.</p>
+<a href="#Evaluation_Evaluating-Expressions">evaluate to</a> a value
+that is <a href="#Evaluation_Type-Conversion">convertible to</a> <em>Integer</em>.
+After conversion, the value <em>m</em> must be greater than or equal to zero and less
+than <em>n</em>.</p>
 </li>
 <li>
 <p>Evaluation of \$e_1\$ <code>[</code> \$e_2\$ <code>]</code> occurs as follows:</p>
@@ -14879,7 +14885,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-26 18:48:49 -0700
+Last updated 2026-10-26 19:01:36 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
