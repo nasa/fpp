@@ -199,11 +199,11 @@ according to the following rules.
   to a value that <<Evaluation_Type-Conversion,may be converted 
   to a value of type _T''_>>.
 
-. Let _T''_ be the <<Types_Range-Types,range type>> _T'_ `in` _range_,
+. Let _T_ be the <<Types_Range-Types,range type>> _T'_ `in` _range_,
   where _range_ is constructed from the range in the type name by substituting
   each range bound _B_ that is an expression _e_ with the value
-  produced by evaluating _e_ and converting the result to _T'_.  _T''_ is the 
-  type named by the range type name.  It must be a valid range type.
+  produced by evaluating _e_ and converting the result to _T'_.  _T_ is the 
+  type named by the range type name. It must be a valid range type.
 
 ==== Examples
 
