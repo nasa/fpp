@@ -88,9 +88,8 @@ is a finite number, and the result of the conversion
 would not be a finite number.
 
 * stem:[T_1] is a floating-point type, stem:[T_2] is a primitive integer type, 
-stem:[v_1] is a finite number, and the integer part of stem:[v_1] is larger 
-than the largest value or smaller than the smallest value
-that may be represented at stem:[T_2].
+stem:[v_1] is a finite number, and stem:[v_1] is larger than the largest value 
+or smaller than the smallest value that may be represented at stem:[T_2].
 
 ==== Range Values
 
