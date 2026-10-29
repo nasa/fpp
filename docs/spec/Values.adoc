@@ -26,7 +26,12 @@ A *value* is one of the following:
 
 Every value _v_ belongs to exactly one <<Types_Canonical-Types,canonical type>>
 _T_, except that
-every string value belongs to every string type.
+
+* Every string value belongs to every string type.
+
+* For every primitive integer type or floating-point type _T_, every value _v_ 
+of type _T_ belongs to every <<Types_Range-Types,range type>> with base type 
+_T_ such that _v_ is in range for the range type.
 
 Every value that belongs to type _T_ also belongs to every
 <<Types_Alias-Types,alias type>> whose

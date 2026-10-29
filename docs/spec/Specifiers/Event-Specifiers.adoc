@@ -52,9 +52,10 @@ If there are no parameters, the list may be omitted.
 
 * The optional expression _e_ following `id` specifies the numeric
 identifier for instances of the event.
-If _e_ is present, then the type of _e_ must be convertible to
-<<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
-to a nonnegative integer.
+If _e_ is present, then _e_ must <<Evaluation_Evaluating-Expressions,evaluate 
+to>> a value that is <<Evaluation_Type-Conversion,convertible to>>
+<<Types_Internal-Types_Integer,_Integer_>>.
+After conversion, the value _n_ must be nonnegative.
 If _e_ is not present, then the default identifier is either zero (for the
 first
 event appearing in a component) or the previous event identifier plus one.
@@ -69,9 +70,10 @@ argument whose type is a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 
 ** The expression _e_ following `throttle` specifies the *maximum throttle
 count* for instances of _E_.
-The type of _e_ must be convertible to
-<<Types_Internal-Types_Integer,_Integer_>> and must evaluate to an integer
-in the range stem:[[1, 2^31)].
+_e_ must <<Evaluation_Evaluating-Expressions,evaluate to>> a value that is 
+<<Evaluation_Type-Conversion,convertible to>>
+<<Types_Internal-Types_Integer,_Integer_>>.
+After conversion, the value _n_ must be in the range stem:[[1, 2^31)].
 When throttling is specified for an event _E_,
 the framework maintains a *throttle count* for _E_.
 The throttle count
@@ -84,16 +86,11 @@ count for identifier _E_ is reset.
 period*.
 _e_ must satisfy the following rules:
 
-*** The type of _e_ must be convertible to the
+*** _e_ must <<Evaluation_Evaluating-Expressions,evaluate to >> a value that is
+<<Evaluation_Type-Conversion,convertible to>> the
 <<Types_Internal-Types_Anonymous-Struct-Types,
-anonymous struct type>> _T =_ `{ seconds: U32, useconds: U32 }`.
-
-*** After conversion to _T_, _e_ must evaluate to an
-<<Values_Anonymous-Struct-Values,anonymous struct value>>
-`{ seconds =` _s_ `: U32, useconds =` _u_ `: U32 }`.
-
-*** _s_ must be in the range stem:[[0, 2^32)] and _u_ must be in the range
-stem:[[0,10^6)].
+anonymous struct type>> _T =_ `{ seconds: U32, useconds: U32 in [0, 1000000) 
+}`.
 
 +
 +
