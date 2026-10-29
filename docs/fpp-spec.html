@@ -9949,22 +9949,7 @@ according to the following rules.</p>
 <li>
 <p><em>type-name</em> must name a <a href="#Types">type</a> whose
 <a href="#Types_Underlying-Types">underlying type</a> <em>T'</em> is a
-<a href="#Types_Primitive-Numeric-Types">primitive numeric type</a> or a
-<a href="#Types_Range-Types">range type</a>.</p>
-</li>
-<li>
-<p>Let <em>T''</em> be the primitive numeric type defined as follows:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>If <em>T'</em> is a primitive numeric type, then let <em>T''</em> be <em>T</em>.</p>
-</li>
-<li>
-<p>Otherwise <em>T'</em> is a range type <em>T'''</em> <code>in</code> <em>range</em>, where
-<em>T'''</em> is a primitive numeric type. In this case, let <em>T''</em> be <em>T'''</em>.</p>
-</li>
-</ol>
-</div>
+<a href="#Types_Primitive-Numeric-Types">primitive numeric type</a>.</p>
 </li>
 <li>
 <p>For each range bound <em>B</em>, if <em>B</em> is an expression <em>e</em>, then <em>e</em> must evaluate
@@ -9972,10 +9957,10 @@ to a value that <a href="#Evaluation_Type-Conversion">may be converted
 to a value of type <em>T''</em></a>.</p>
 </li>
 <li>
-<p>Let <em>T'''</em> be the <a href="#Types_Range-Types">range type</a> <em>T''</em> <code>in</code> <em>range</em>,
+<p>Let <em>T''</em> be the <a href="#Types_Range-Types">range type</a> <em>T'</em> <code>in</code> <em>range</em>,
 where <em>range</em> is constructed from the range in the type name by substituting
 each range bound <em>B</em> that is an expression <em>e</em> with the value
-produced by evaluating <em>e</em> and converting the result to <em>T''</em>.  <em>T'''</em> is the
+produced by evaluating <em>e</em> and converting the result to <em>T'</em>.  <em>T''</em> is the
 type named by the range type name.  It must be a valid range type.</p>
 </li>
 </ol>
@@ -14909,7 +14894,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-28 18:37:34 -0700
+Last updated 2026-10-29 08:28:51 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

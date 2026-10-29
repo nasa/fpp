@@ -193,24 +193,16 @@ according to the following rules.
 
 . _type-name_ must name a <<Types,type>> whose
   <<Types_Underlying-Types,underlying type>> _T'_ is a
-  <<Types_Primitive-Numeric-Types,primitive numeric type>> or a
-  <<Types_Range-Types,range type>>.
-
-. Let _T''_ be the primitive numeric type defined as follows:
-
-.. If _T'_ is a primitive numeric type, then let _T''_ be _T_.
-
-.. Otherwise _T'_ is a range type _T'''_ `in` _range_, where
-   _T'''_ is a primitive numeric type. In this case, let _T''_ be _T'''_.
+  <<Types_Primitive-Numeric-Types,primitive numeric type>>.
 
 . For each range bound _B_, if _B_ is an expression _e_, then _e_ must evaluate
   to a value that <<Evaluation_Type-Conversion,may be converted 
   to a value of type _T''_>>.
 
-. Let _T'''_ be the <<Types_Range-Types,range type>> _T''_ `in` _range_,
+. Let _T''_ be the <<Types_Range-Types,range type>> _T'_ `in` _range_,
   where _range_ is constructed from the range in the type name by substituting
   each range bound _B_ that is an expression _e_ with the value
-  produced by evaluating _e_ and converting the result to _T''_.  _T'''_ is the 
+  produced by evaluating _e_ and converting the result to _T'_.  _T''_ is the 
   type named by the range type name.  It must be a valid range type.
 
 ==== Examples
