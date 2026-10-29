@@ -73,12 +73,27 @@ For example:
 ==== Floating-Point Values
 
 We use the standard rules for IEEE floating-point values to convert
-among integer values to and from floating-point values and
+integer values to and from floating-point values and
 floating-point values to and from each other.
+Attempting any of the following conversions causes an error:
+
+* stem:[T_1] is a floating-point type, stem:[v_1] is `NaN`
+or `Inf`, and stem:[T_2] is an integer type.
+
+* stem:[T_1] is `F64`, stem:[T_2] is `F32`, stem:[v_1]
+is not `Nan` or `Inf`, and stem:[v_1] is larger than
+the largest value or smaller than the smallest value
+that may be represented at `F32`.
+
+* stem:[T_1] is a floating-point type, stem:[v_2] is a primitive integer type, 
+stem:[v_1] is not `Nan` or `Inf`, and the integer part of stem:[v_1] is larger 
+than the largest value or smaller than the smallest value
+that may be represented at stem:[T_2].
 
 ==== Range Values
 
-If either of stem:[T_1] and stem:[T_2] is a range type, then do the following:
+If either of stem:[T_1] and stem:[T_2] is a <<Types_Range-Types,range type>>, 
+then do the following:
 
 . If stem:[T_1] is a range type and stem:[T_2] is a primitive numeric type, 
 then let stem:[v_2] be the result of 

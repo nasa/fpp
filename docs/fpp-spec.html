@@ -14389,14 +14389,36 @@ For example:</p>
 <h4 id="Evaluation_Type-Conversion_Floating-Point-Values">23.2.3. Floating-Point Values</h4>
 <div class="paragraph">
 <p>We use the standard rules for IEEE floating-point values to convert
-among integer values to and from floating-point values and
-floating-point values to and from each other.</p>
+integer values to and from floating-point values and
+floating-point values to and from each other.
+Attempting any of the following conversions causes an error:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>\$T_1\$ is a floating-point type, \$v_1\$ is <code>NaN</code>
+or <code>Inf</code>, and \$T_2\$ is an integer type.</p>
+</li>
+<li>
+<p>\$T_1\$ is <code>F64</code>, \$T_2\$ is <code>F32</code>, \$v_1\$
+is not <code>Nan</code> or <code>Inf</code>, and \$v_1\$ is larger than
+the largest value or smaller than the smallest value
+that may be represented at <code>F32</code>.</p>
+</li>
+<li>
+<p>\$T_1\$ is a floating-point type, \$v_2\$ is a primitive integer type,
+\$v_1\$ is not <code>Nan</code> or <code>Inf</code>, and the integer part of \$v_1\$ is larger
+than the largest value or smaller than the smallest value
+that may be represented at \$T_2\$.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Evaluation_Type-Conversion_Range-Values">23.2.4. Range Values</h4>
 <div class="paragraph">
-<p>If either of \$T_1\$ and \$T_2\$ is a range type, then do the following:</p>
+<p>If either of \$T_1\$ and \$T_2\$ is a <a href="#Types_Range-Types">range type</a>,
+then do the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -14885,7 +14907,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-26 19:01:36 -0700
+Last updated 2026-10-28 18:21:57 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
