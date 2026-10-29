@@ -60,11 +60,19 @@ namespace M {
   }
 
   void readParameters() {
-    M::c1.readParamFile();
+    {
+      using namespace M;
+
+      M::c1.readParamFile();
+    }
   }
 
   void loadParameters() {
-    M::c1.loadParamsSpecial();
+    {
+      using namespace M;
+
+      M::c1.loadParamsSpecial();
+    }
     M::c2.loadParameters();
   }
 
