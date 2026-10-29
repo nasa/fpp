@@ -75,18 +75,20 @@ For example:
 We use the standard rules for IEEE floating-point values to convert
 integer values to and from floating-point values and
 floating-point values to and from each other.
+
+We say that a floating-point value is a *finite number*
+if it is not `+` or `-` `Nan` or `Inf`.
 Attempting any of the following conversions causes an error:
 
-* stem:[T_1] is a floating-point type, stem:[v_1] is `NaN`
-or `Inf`, and stem:[T_2] is an integer type.
+* stem:[T_1] is a floating-point type, stem:[v_1] is not a
+finite number, and stem:[T_2] is an integer type.
 
 * stem:[T_1] is `F64`, stem:[T_2] is `F32`, stem:[v_1]
-is not `Nan` or `Inf`, and stem:[v_1] is larger than
-the largest value or smaller than the smallest value
-that may be represented at `F32`.
+is a finite number, and the result of the conversion
+would not be a finite number.
 
-* stem:[T_1] is a floating-point type, stem:[v_2] is a primitive integer type, 
-stem:[v_1] is not `Nan` or `Inf`, and the integer part of stem:[v_1] is larger 
+* stem:[T_1] is a floating-point type, stem:[T_2] is a primitive integer type, 
+stem:[v_1] is a finite number, and the integer part of stem:[v_1] is larger 
 than the largest value or smaller than the smallest value
 that may be represented at stem:[T_2].
 

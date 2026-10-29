@@ -14390,24 +14390,27 @@ For example:</p>
 <div class="paragraph">
 <p>We use the standard rules for IEEE floating-point values to convert
 integer values to and from floating-point values and
-floating-point values to and from each other.
+floating-point values to and from each other.</p>
+</div>
+<div class="paragraph">
+<p>We say that a floating-point value is a <strong>finite number</strong>
+if it is not <code>+</code> or <code>-</code> <code>Nan</code> or <code>Inf</code>.
 Attempting any of the following conversions causes an error:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>\$T_1\$ is a floating-point type, \$v_1\$ is <code>NaN</code>
-or <code>Inf</code>, and \$T_2\$ is an integer type.</p>
+<p>\$T_1\$ is a floating-point type, \$v_1\$ is not a
+finite number, and \$T_2\$ is an integer type.</p>
 </li>
 <li>
 <p>\$T_1\$ is <code>F64</code>, \$T_2\$ is <code>F32</code>, \$v_1\$
-is not <code>Nan</code> or <code>Inf</code>, and \$v_1\$ is larger than
-the largest value or smaller than the smallest value
-that may be represented at <code>F32</code>.</p>
+is a finite number, and the result of the conversion
+would not be a finite number.</p>
 </li>
 <li>
-<p>\$T_1\$ is a floating-point type, \$v_2\$ is a primitive integer type,
-\$v_1\$ is not <code>Nan</code> or <code>Inf</code>, and the integer part of \$v_1\$ is larger
+<p>\$T_1\$ is a floating-point type, \$T_2\$ is a primitive integer type,
+\$v_1\$ is a finite number, and the integer part of \$v_1\$ is larger
 than the largest value or smaller than the smallest value
 that may be represented at \$T_2\$.</p>
 </li>
@@ -14907,7 +14910,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-10-28 18:21:57 -0700
+Last updated 2026-10-28 18:35:01 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
