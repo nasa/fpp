@@ -142,40 +142,47 @@ object AddDependencies
       isAbsolute
     ).map(addDependencies (a)).getOrElse(Right(a))
 
-  private def addDependenciesHelper(a: Analysis, specLoc: Ast.SpecLoc, file: File): Result = {
-    val dependencyFileSet = a.dependencyFileSet + file
-    val directDependencyFileSet = a.level match {
-      case 1 => a.directDependencyFileSet + file
-      case _ => a.directDependencyFileSet
-    }
-    val a1 = a.copy(
-      dependencyFileSet = dependencyFileSet,
-      directDependencyFileSet = directDependencyFileSet
-    )
+  private def addDependenciesForFile(a: Analysis, file: File): Result =
+    val scopeNameList = a.scopeNameList
     val result = for {
       tu <- Parser.parseFile (Parser.transUnit) (None) (file)
-      pair <- ResolveSpecInclude.transUnit(a1, tu)
-      a2 <- ComputeDependencies.tuList(
-        pair._1.copy(
+      (a, tu) <- ResolveSpecInclude.transUnit(a, tu)
+      a <- ComputeDependencies.tuList(
+        a.copy(
           scopeNameList = Nil,
-          dependencyTuMap = pair._1.dependencyTuMap + (file -> pair._2)
+          dependencyTuMap = a.dependencyTuMap + (file -> tu)
         ),
-        List(pair._2)
+        List(tu)
       )
-    } yield a2.copy(scopeNameList = a1.scopeNameList)
+    } yield a.copy(scopeNameList = scopeNameList)
     result match {
       case Left(FileError.CannotOpen(_, _)) => {
-        val a = a1.copy(missingDependencyFileSet = a1.missingDependencyFileSet + file)
-        Right(a)
+        val missingDependencyFileSet = a.missingDependencyFileSet + file
+        Right(a.copy(missingDependencyFileSet = missingDependencyFileSet))
       }
       case _ => result
     }
-  }
+
+  private def updateDirectDependencyFileSet(a: Analysis, file: File) =
+    val directDependencyFileSet = a.directDependencyFileSet + file
+    a.copy(directDependencyFileSet = directDependencyFileSet)
+
+  private def updateDependencyFileSet(a: Analysis, file: File) =
+    val dependencyFileSet = a.dependencyFileSet + file
+    a.copy(dependencyFileSet = dependencyFileSet)
 
   private def addDependencies (a: Analysis) (specLoc: Ast.SpecLoc): Result = {
     val file = getFile(specLoc)
-    if !a.inputFileSet.contains(file) && !a.dependencyFileSet.contains(file)
-    then addDependenciesHelper(a, specLoc, file)
+    if !a.inputFileSet.contains(file)
+    then
+      val a1 = if a.level == 1
+               then updateDirectDependencyFileSet(a, file)
+               else a
+      if !a1.dependencyFileSet.contains(file)
+      then
+        val a2 = updateDependencyFileSet(a1, file)
+        addDependenciesForFile(a2, file)
+      else Right(a1)
     else Right(a)
   }
 

@@ -12,6 +12,7 @@ def_system
 dictionary
 dictionary_no_deployment_top
 direct
+direct_already_seen
 enum_constant
 expr_array
 expr_binop
