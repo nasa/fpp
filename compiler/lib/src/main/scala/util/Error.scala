@@ -339,6 +339,12 @@ sealed trait Error {
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
         System.err.println("previous definition is here:")
         System.err.println(prevLoc)
+      case SemanticError.SerializedSizeTooLarge(loc, msg, size, constName, constSize, constLoc) =>
+        Error.print (Some(loc)) (
+          s"$msg: at least $size bytes are required, but $constName is $constSize bytes"
+        )
+        System.err.println(s"$constName is defined here:")
+        System.err.println(constLoc)
       case SemanticError.StateMachine.CallSiteTypeMismatch(
         loc,
         teKind,
@@ -838,6 +844,15 @@ object SemanticError {
     name: String,
     loc: Location,
     prevLoc: Location
+  ) extends Error
+  /** Serialized size too large for a framework buffer */
+  final case class SerializedSizeTooLarge(
+    loc: Location,
+    msg: String,
+    size: BigInt,
+    constName: String,
+    constSize: BigInt,
+    constLoc: Location
   ) extends Error
   /** State machine semantic errors */
   object StateMachine {

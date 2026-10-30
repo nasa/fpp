@@ -1,6 +1,8 @@
 tests="
 bad_id
 bad_limit_type
+buffer_size_ok
+buffer_size_too_large
 duplicate_id_explicit
 duplicate_id_implicit
 duplicate_limit_high

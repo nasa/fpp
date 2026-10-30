@@ -44,6 +44,8 @@ If there are command parameters, each parameter must be
 a <<Types_Displayable-Types,displayable type>>.
 If there are no parameters, the list may be omitted.
 `ref` may not appear in any of the parameters.
+The serialized parameters must fit in the
+<<Definitions_Framework-Definitions_Buffer-Sizes,framework buffer>> for command arguments.
 
 * The optional expression _e_ following `opcode` specifies the numeric
 opcode for the command.

@@ -236,3 +236,62 @@ with the following qualified names:
 * `Fw.Time`
 
 * `Fw.Tlm`
+
+==== Buffer Sizes
+
+The F Prime framework serializes the arguments of commands and
+events and the values of parameters and telemetry channels into
+buffers of fixed size.
+The table below lists the data serialized for each kind of
+<<Specifiers,specifier>> and the framework constant _B_ that specifies the
+size of the buffer.
+
+|===
+|Specifier|Serialized Data|_B_
+
+|<<Specifiers_Command-Specifiers,Command specifier>>
+|The command parameters
+|`FW_CMD_ARG_BUFFER_MAX_SIZE`
+
+|<<Specifiers_Event-Specifiers,Event specifier>>
+|The event parameters
+|`FW_LOG_BUFFER_MAX_SIZE`
+
+|<<Specifiers_Parameter-Specifiers,Parameter specifier>>
+|The parameter value
+|`FW_PARAM_BUFFER_MAX_SIZE`
+
+|<<Specifiers_Telemetry-Channel-Specifiers,Telemetry channel specifier>>
+|The channel value
+|`FW_TLM_BUFFER_MAX_SIZE`
+
+|===
+
+If the model contains a framework constant definition _B_ with value _b_,
+then for each specifier of the corresponding kind,
+the *minimum serialized size* of the serialized data must be at most _b_.
+The minimum serialized size of the serialized data is the sum of the
+minimum serialized sizes of its types, where the minimum serialized size
+of a type _T_ is defined as follows:
+
+* If the <<Types_Underlying-Types,underlying type>> of _T_ is a
+<<Types_String-Types,string type>>, then the minimum serialized size
+of _T_ is the serialized size of the framework type `FwSizeStoreType`.
+This is the size of an empty string.
+
+* If the underlying type of _T_ is an array type with size _n_ and
+element type _T'_, then the minimum serialized size of _T_ is _n_ times
+the minimum serialized size of _T'_.
+
+* If the underlying type of _T_ is a struct type, then the minimum
+serialized size of _T_ is the sum of the minimum serialized sizes of
+its members, where a member with a size _n_ counts _n_ times.
+
+* Otherwise the minimum serialized size of _T_ is the
+<<Types_Serialized-Sizes,serialized size>> of _T_.
+
+So the check reports an error only when no value of the serialized
+data can fit in the buffer.
+The minimum serialized size does not include data that depends on
+the configuration of the F Prime C++ framework, such as the
+argument sizes stored in an event when `FW_AMPCS_COMPATIBLE` is enabled.

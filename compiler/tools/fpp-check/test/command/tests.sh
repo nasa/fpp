@@ -2,6 +2,8 @@ tests="
 async_passive
 bad_opcode
 bad_priority
+buffer_size_ok
+buffer_size_too_large
 duplicate_name
 duplicate_name_param_save
 duplicate_name_param_set

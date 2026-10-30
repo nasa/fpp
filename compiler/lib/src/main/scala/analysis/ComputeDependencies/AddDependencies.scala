@@ -52,6 +52,42 @@ object AddDependencies
     } yield a
   }
 
+  override def specCommandAnnotatedNode(
+    a: Analysis,
+    node: Ast.Annotated[AstNode[Ast.SpecCommand]]
+  ) =
+    for {
+      a <- super.specCommandAnnotatedNode(a, node)
+      a <- frameworkBufferUses(a, CheckFrameworkBufferSizes.cmdArgBuffer)
+    } yield a
+
+  override def specEventAnnotatedNode(
+    a: Analysis,
+    node: Ast.Annotated[AstNode[Ast.SpecEvent]]
+  ) =
+    for {
+      a <- super.specEventAnnotatedNode(a, node)
+      a <- frameworkBufferUses(a, CheckFrameworkBufferSizes.logBuffer)
+    } yield a
+
+  override def specParamAnnotatedNode(
+    a: Analysis,
+    node: Ast.Annotated[AstNode[Ast.SpecParam]]
+  ) =
+    for {
+      a <- super.specParamAnnotatedNode(a, node)
+      a <- frameworkBufferUses(a, CheckFrameworkBufferSizes.paramBuffer)
+    } yield a
+
+  override def specTlmChannelAnnotatedNode(
+    a: Analysis,
+    node: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]
+  ) =
+    for {
+      a <- super.specTlmChannelAnnotatedNode(a, node)
+      a <- frameworkBufferUses(a, CheckFrameworkBufferSizes.tlmBuffer)
+    } yield a
+
   override def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     analyzeUse(a, Ast.SpecLoc.StateMachine, use, node.data.isAbsolute)
 
@@ -141,6 +177,20 @@ object AddDependencies
       use,
       isAbsolute
     ).map(addDependencies (a)).getOrElse(Right(a))
+
+  /** Add a dependency for the framework constant that specifies the size
+   *  of a framework buffer. The constant is optional: if it has no
+   *  location specifier, then there is no dependency. */
+  private def frameworkBufferUses(
+    a: Analysis,
+    buffer: CheckFrameworkBufferSizes.Buffer
+  ): Result =
+    analyzeUse(
+      a,
+      Ast.SpecLoc.Constant,
+      Name.Qualified.fromIdentList(List(buffer.sizeName)),
+      true
+    )
 
   private def addDependenciesForFile(a: Analysis, file: File): Result =
     val scopeNameList = a.scopeNameList

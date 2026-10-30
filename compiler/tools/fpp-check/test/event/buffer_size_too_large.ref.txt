@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/event/buffer_size_too_large.fpp:17.3
+  event E(x: U32, y: U64) \
+  ^
+error: arguments of event E: at least 12 bytes are required, but FW_LOG_BUFFER_MAX_SIZE is 8 bytes
+FW_LOG_BUFFER_MAX_SIZE is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/event/buffer_size_too_large.fpp:1.1
+constant FW_LOG_BUFFER_MAX_SIZE = 8
+^

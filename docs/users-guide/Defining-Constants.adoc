@@ -811,3 +811,47 @@ constant FW_FIXED_LENGTH_STRING_SIZE = "abc"
 ^
 error: the F Prime framework constant FW_FIXED_LENGTH_STRING_SIZE must have an integer type
 ----
+
+The analyzer also uses framework constants to check that
+the commands, events, parameters, and telemetry channels of a
+component fit in the buffers that F Prime uses to carry them.
+For example, `FW_TLM_BUFFER_MAX_SIZE` specifies the size
+of the buffer that carries the value of a telemetry channel.
+If this constant is defined, then the analyzer checks that a
+serialized value of every telemetry channel can fit in the buffer.
+So this model is invalid, because a value of type `A` requires
+16 bytes:
+
+[source,fpp]
+--------
+constant FW_TLM_BUFFER_MAX_SIZE = 8
+
+module Fw {
+
+  port Time
+  port Tlm
+
+}
+
+passive component C {
+
+  telemetry port tlmOut
+  time get port timeGetOut
+
+  array A = [2] F64
+
+  telemetry T: A
+
+}
+--------
+
+A string can be serialized with any length up to its size,
+so the analyzer counts each string as empty.
+It reports an error only when no value can fit in the buffer.
+The rules are spelled out in detail in the
+https://nasa.github.io/fpp/fpp-spec.html#Definitions_Framework-Definitions_Buffer-Sizes[_The
+FPP Language Specification_].
+This check catches at compile time a definition whose serialized size
+always exceeds the buffer, which would otherwise cause a
+run-time assertion failure, for example when a mission reduces
+`FW_COM_BUFFER_MAX_SIZE` to fit a smaller link.

@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/event/buffer_size_string_in_struct.fpp:22.3
+  event E(s: S) \
+  ^
+error: arguments of event E: at least 10 bytes are required, but FW_LOG_BUFFER_MAX_SIZE is 9 bytes
+FW_LOG_BUFFER_MAX_SIZE is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/event/buffer_size_string_in_struct.fpp:3.1
+constant FW_LOG_BUFFER_MAX_SIZE = 9
+^
