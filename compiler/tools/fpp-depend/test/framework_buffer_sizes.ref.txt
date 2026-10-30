@@ -1,0 +1,4 @@
+[ local path prefix ]/compiler/tools/fpp-depend/test/cmd_arg_buffer.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/log_buffer.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/param_buffer.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/tlm_buffer.fpp

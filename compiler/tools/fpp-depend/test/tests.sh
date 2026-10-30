@@ -29,6 +29,7 @@ filenames_auto
 filenames_include
 filenames_include_auto
 framework
+framework_buffer_sizes
 framework_include
 include
 included_dep

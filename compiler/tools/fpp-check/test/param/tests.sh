@@ -3,6 +3,8 @@ bad_default
 bad_id
 bad_save_opcode
 bad_set_opcode
+buffer_size_ok
+buffer_size_too_large
 duplicate_id_explicit
 duplicate_id_implicit
 duplicate_name

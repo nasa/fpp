@@ -47,6 +47,8 @@ A telemetry limit is one of the following:
 
 . The type name specifies the type _T_ of the telemetry channel.
 _T_ must be a <<Types_Displayable-Types,displayable type>>.
+A serialized value of type _T_ must fit in the
+<<Definitions_Framework-Definitions_Buffer-Sizes,framework buffer>> for telemetry values.
 
 . The optional expression _e_ after the keyword `id` specifies the
 numeric identifier for the channel.

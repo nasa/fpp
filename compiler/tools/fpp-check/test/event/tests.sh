@@ -6,6 +6,9 @@ bad_throttle_interval_useconds
 bad_throttle_interval
 bad_throttle_seconds
 bad_throttle
+buffer_size_ok
+buffer_size_string_in_struct
+buffer_size_too_large
 duplicate_id_explicit
 duplicate_id_implicit
 duplicate_name

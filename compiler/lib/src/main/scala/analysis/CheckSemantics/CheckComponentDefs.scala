@@ -18,6 +18,7 @@ object CheckComponentDefs
     for {
       a <- super.defComponentAnnotatedNode(a1, aNode)
       c <- a.component.get.complete
+      _ <- CheckFrameworkBufferSizes.component(a, c)
     }
     yield {
       val symbol = Symbol.Component(aNode)
