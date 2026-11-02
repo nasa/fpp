@@ -42,6 +42,11 @@ direct() {
   remove_path_prefix < tmp.out.txt > direct_output.ref.txt
 }
 
+direct_already_seen() {
+  update '-d tmp.out.txt' direct_already_seen
+  remove_path_prefix < tmp.out.txt > direct_already_seen_output.ref.txt
+}
+
 filenames() {
   update '-g filenames_generated_output.ref.txt -u filenames_ut_output.ref.txt' \
     ../../fpp-filenames/test/ok filenames

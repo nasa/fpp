@@ -65,6 +65,7 @@ namespace M {
 
   void configComponents(const TopologyState& state) {
     {
+      using namespace M;
       using namespace ConfigObjects::M_health;
 
       // Test that ConfigObjects::M_health::pingEntries is in scope here
