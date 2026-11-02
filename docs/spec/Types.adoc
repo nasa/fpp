@@ -138,7 +138,11 @@ A range type _T_ = _T'_ `in` _range_ has the following meaning:
 
 . There are no other values of _T_.
 
-A range type _T_ must contain at least one value.
+A range type _T_ is *valid* if the <<Types_Default-Values,default value>>
+associated with _T_ is a value of _T_.
+In particular, a valid range type must contain at least one value.
+For example, `U32 in (1, 0)` is not a valid range type.
+The the default value is 2, which does not lie in the range.
 
 Note that the values contained in a range type are values of the base
 type, which is a primitive numeric type.
@@ -268,6 +272,51 @@ every variable is initialized when it is created.
 
 * The default value associated with each
 <<Types_Primitive-Numeric-Types,primitive numeric type>> is zero.
+
+* The default value associated with each
+<<Types_Range-Types,range type>> _T_ is computed as follows.
+The default value of a range type is defined so that (1) it is
+a valid value of the base type of _T_ and (2) it is a valid value
+of _T_ if and only if _T_ is a valid range type.
+
+.. If the base type of _T_ is a primitive integer type, then
+
+... If _T_ has a lower bound and the lower bound is a valid value
+of the base type, then the default value is the lower bound.
+
+... Otherwise if _T_ has a lower bound, then the default value
+is the lower bound plus one.
+
+... Otherwise if _T_ has an upper bound and the upper bound is
+a valid value of the base type, then the default value is the upper bound.
+
+... Otherwise if _T_ has an upper bound, then the default value
+is the upper bound minus one.
+
+... Otherwise the default value is zero.
+
+.. Otherwise the base type of _T_ is a floating-point type.
+Proceed as follows:
+
+... If _T_ has a lower bound and the lower bound is a valid value
+of the base type, then the default value is the lower bound.
+
+... Otherwise if _T_ has a lower bound and the lower bound is NaN
+or + infinity, then the default value is the lower bound.
+
+... Otherwise if _T_ has a lower bound, then the default value
+is the smallest value of the base type that is greater than the lower bound.
+
+... Otherwise if _T_ has an upper bound and the upper bound is
+a valid value of the base type, then the default value is the upper bound.
+
+... Otherwise if _T_ has an upper bound and the upper bound is NaN
+or - infinity, then the default value is the upper bound.
+
+... Otherwise if _T_ has an upper bound, then the default value
+is the greatest value of the base type that is less than the lower bound.
+
+... Otherwise the default value is zero.
 
 * The default value associated with
 <<Types_The-Boolean-Type,`bool`>> is `false`.
