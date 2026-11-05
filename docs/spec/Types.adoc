@@ -147,10 +147,29 @@ In particular, a valid range type must contain at least one value.
 For example, `U32 in (1, 0)` is not a valid range type.
 The the default value is 2, which does not lie in the range.
 
-Note that the values contained in a range type are values of the base
+Note the following:
+
+* The values contained in a range type are values of the base
 type, which is a primitive numeric type.
 There are no values that are themselves assigned a range type.
 For more information on the kinds of values, see the <<Values,Values section>>.
+
+* A range type _T_ `in` `(--, --)` contains exactly
+the values of _T_. When _T_ is `F32` or `F64`, the range
+includes all values of NaN and infinity.
+The same is true if either or both of the parentheses are replaced
+with square brackets.
+
+Note also the following for range types with base type `F32` or `F64`:
+
+* A range type that has any NaN value as a bound contains no values (and 
+therefore is invalid).
+Because any comparison of a floating-point value to NaN evaluates to false,
+the bound cannot be satisfied.
+
+* Positive and negative infinity are allowed as bounds.
+They behave according to the standard rules for comparing floating-point 
+values, e.g., any finite number compares less than + infinity.
 
 For example:
 
@@ -291,7 +310,7 @@ of the base type, then the default value is the lower bound.
 is the lower bound plus one.
 
 ... Otherwise if _T_ has an upper bound and the upper bound is
-a valid value of the base type, then the default value is the upper bound.
+a valid value of _T_, then the default value is the upper bound.
 
 ... Otherwise if _T_ has an upper bound, then the default value
 is the upper bound minus one.
@@ -302,7 +321,7 @@ is the upper bound minus one.
 Proceed as follows:
 
 ... If _T_ has a lower bound and the lower bound is a valid value
-of the base type, then the default value is the lower bound.
+of _T_, then the default value is the lower bound.
 
 ... Otherwise if _T_ has a lower bound and the lower bound is NaN
 or + infinity, then the default value is the lower bound.

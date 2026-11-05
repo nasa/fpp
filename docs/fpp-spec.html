@@ -12645,10 +12645,42 @@ For example, <code>U32 in (1, 0)</code> is not a valid range type.
 The the default value is 2, which does not lie in the range.</p>
 </div>
 <div class="paragraph">
-<p>Note that the values contained in a range type are values of the base
+<p>Note the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The values contained in a range type are values of the base
 type, which is a primitive numeric type.
 There are no values that are themselves assigned a range type.
 For more information on the kinds of values, see the <a href="#Values">Values section</a>.</p>
+</li>
+<li>
+<p>A range type <em>T</em> <code>in</code> <code>(--, --)</code> contains exactly
+the values of <em>T</em>. When <em>T</em> is <code>F32</code> or <code>F64</code>, the range
+includes all values of NaN and infinity.
+The same is true if either or both of the parentheses are replaced
+with square brackets.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note also the following for range types with base type <code>F32</code> or <code>F64</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A range type that has any NaN value as a bound contains no values (and
+therefore is invalid).
+Because any comparison of a floating-point value to NaN evaluates to false,
+the bound cannot be satisfied.</p>
+</li>
+<li>
+<p>Positive and negative infinity are allowed as bounds.
+They behave according to the standard rules for comparing floating-point
+values, e.g., any finite number compares less than + infinity.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>For example:</p>
@@ -12871,7 +12903,7 @@ is the lower bound plus one.</p>
 </li>
 <li>
 <p>Otherwise if <em>T</em> has an upper bound and the upper bound is
-a valid value of the base type, then the default value is the upper bound.</p>
+a valid value of <em>T</em>, then the default value is the upper bound.</p>
 </li>
 <li>
 <p>Otherwise if <em>T</em> has an upper bound, then the default value
@@ -12890,7 +12922,7 @@ Proceed as follows:</p>
 <ol class="lowerroman" type="i">
 <li>
 <p>If <em>T</em> has a lower bound and the lower bound is a valid value
-of the base type, then the default value is the lower bound.</p>
+of <em>T</em>, then the default value is the lower bound.</p>
 </li>
 <li>
 <p>Otherwise if <em>T</em> has a lower bound and the lower bound is NaN
@@ -14973,7 +15005,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-04 17:12:51 -0800
+Last updated 2026-11-05 08:59:24 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
