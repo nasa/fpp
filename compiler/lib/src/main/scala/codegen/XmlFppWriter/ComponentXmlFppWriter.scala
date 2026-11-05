@@ -11,14 +11,14 @@ object ComponentXmlFppWriter extends LineUtils {
   /** Writes a component file */
   def writeComponentFile(file: XmlFppWriter.File): XmlFppWriter.Result =
     for (tuMember <- FppBuilder.tuMember(file))
-      yield FppWriter.tuMember(tuMember)
+      yield FppWriter().tuMember(tuMember)
 
   /** Writes an imported file */
   private def writeImportedFile
     (memberGenerator: FppBuilder.MemberGenerator)
     (file: XmlFppWriter.File): XmlFppWriter.Result =
       for (members <- FppBuilder.mapChildren(file, memberGenerator))
-        yield Line.blankSeparated (FppWriter.componentMember) (members)
+        yield Line.blankSeparated (FppWriter().componentMember) (members)
 
   /** Writes a commands file */
   val writeCommandsFile: XmlFppWriter.File => XmlFppWriter.Result = writeImportedFile(FppBuilder.MemberGenerator.Command)

@@ -66,7 +66,7 @@ object FPPLocateUses {
         }
         val specLocNode = AstNode.create(Ast.SpecLoc(kind, qualIdentNode, fileNode, isDictionaryDef))
         val specLocAnnotatedNode = (Nil, specLocNode, Nil)
-        FppWriter.specLocAnnotatedNode((), specLocAnnotatedNode)
+        FppWriter().specLocAnnotatedNode((), specLocAnnotatedNode)
       }
       case _ => Nil
     }

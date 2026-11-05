@@ -722,6 +722,7 @@ does so like this:
 [source,c++]
 ----
 {
+  using namespace SystemReference;
   using namespace ConfigConstants::SystemReference_cmdSeq;
   using namespace ConfigObjects::SystemReference_cmdSeq;
 

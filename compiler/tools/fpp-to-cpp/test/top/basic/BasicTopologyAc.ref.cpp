@@ -55,6 +55,7 @@ namespace M {
 
   void initComponents(const TopologyState& state) {
     {
+      using namespace M;
       using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
 
@@ -68,6 +69,7 @@ namespace M {
 
   void configComponents(const TopologyState& state) {
     {
+      using namespace M;
       using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
 
@@ -75,6 +77,8 @@ namespace M {
       (void) X;
       // Test that ConfigObjects::M_active2::x is in scope here
       (void) x;
+      // Test that M::active2 is in scope as active2 here
+      (void) active2;
       M::active2.config();
     }
   }
@@ -121,6 +125,7 @@ namespace M {
 
   void startTasks(const TopologyState& state) {
     {
+      using namespace M;
       using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
 
@@ -142,6 +147,7 @@ namespace M {
 
   void stopTasks(const TopologyState& state) {
     {
+      using namespace M;
       using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
 
@@ -153,6 +159,7 @@ namespace M {
 
   void freeThreads(const TopologyState& state) {
     {
+      using namespace M;
       using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
 
@@ -164,6 +171,7 @@ namespace M {
 
   void tearDownComponents(const TopologyState& state) {
     {
+      using namespace M;
       using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
 
@@ -173,6 +181,7 @@ namespace M {
 
   void deinitComponents(const TopologyState& state) {
     {
+      using namespace M;
       using namespace ConfigConstants::M_active2;
       using namespace ConfigObjects::M_active2;
 

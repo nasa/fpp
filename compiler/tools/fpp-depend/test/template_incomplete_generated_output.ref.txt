@@ -1,2 +1,4 @@
 IncompleteArrArrayAc.cpp
 IncompleteArrArrayAc.hpp
+IncompleteGenArrArrayAc.cpp
+IncompleteGenArrArrayAc.hpp

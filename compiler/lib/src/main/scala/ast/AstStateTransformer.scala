@@ -35,6 +35,15 @@ trait AstStateTransformer extends AstTransformer {
     yield (pair._1, pair._2.reverse)
   }
 
+  /** Transform a list and flatten the result */
+  def transformFlatList[A, B](
+    s: State,
+    list: List[A],
+    transform: (In, A) => Result[List[B]]
+  ): Result[List[B]] =
+    for ((s, bs) <- transformList(s, list, transform))
+      yield (s, bs.flatten)
+
   def tuMember(s: State, member: Ast.TUMember): Result[List[Ast.TUMember]] =
     matchModuleMember(s, member)
 

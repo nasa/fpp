@@ -9,7 +9,7 @@ object TopologyXmlFppWriter extends LineUtils {
 
   def writeFile(file: XmlFppWriter.File): XmlFppWriter.Result =
     for (tuMember <- FppBuilder.tuMemberList(file))
-      yield FppWriter.tuMemberList(tuMember)
+      yield FppWriter().tuMemberList(tuMember)
 
   /** Builds FPP for translating topology XML */
   private object FppBuilder {

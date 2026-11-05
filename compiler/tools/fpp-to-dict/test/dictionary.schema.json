@@ -114,6 +114,9 @@
                     "items": {
                         "type": "string"
                     }
+                },
+                "annotation": {
+                    "type": "string"
                 }
             },
             "required": [
@@ -577,6 +580,9 @@
                         "items": {
                             "type": "string"
                         }
+                    },
+                    "annotation": {
+                        "type": "string"
                     }
                 },
                 "required": [

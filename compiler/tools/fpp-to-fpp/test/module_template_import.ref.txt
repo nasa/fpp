@@ -1,0 +1,5 @@
+expand T {
+
+  constant a = 0
+
+}

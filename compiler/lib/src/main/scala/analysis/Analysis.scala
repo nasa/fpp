@@ -19,10 +19,15 @@ case class Analysis(
   directDependencyFileSet: Set[File] = Set(),
   /** The set of dependency files that could not be opened */
   missingDependencyFileSet: Set[File] = Set(),
+  /** The mapping from dependency files to the translation units
+   *  parsed from them, with include specifiers resolved */
+  dependencyTuMap: Map[File, Ast.TransUnit] = Map(),
   /** The set of files included when parsing input */
   includedFileSet: Set[File] = Set(),
   /** A map from pairs (spec loc kind, qualified name) to spec locs. */
   locationSpecifierMap: Map[(Ast.SpecLoc.Kind, Name.Qualified), AstNode[Ast.SpecLoc]] = Map(),
+  /** The set of AstIds of state enums added during analysis */
+  stateEnumIdSet: Set[AstNode.Id] = Set(),
   /** A list of unqualified names representing the enclosing scope names,
    *  with the innermost name at the head of the list. For exapmle, inside
    *  module B where B is inside A and A is at the top level, the module name
@@ -88,14 +93,14 @@ case class Analysis(
   tlmPacketSet: Option[TlmPacketSet] = None,
   /** The mapping from nodes to implied uses */
   impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map(),
-  /** Node ID of the template expansion currently */
-  template: Option[AstNode.Id] = None,
-  /** Maps template expansion AST nodes to their */
-  templateExpansionMap: Map[AstNode.Id, TemplateExpansion] = Map(),
-  /** Tracks the current expansion we are analyzing inside of */
+  /** Node ID of the current template definition */
+  templateDefId: Option[AstNode.Id] = None,
+  /** The current template expansion */
   templateExpansion: Option[TemplateExpansion] = None,
-  /** Node ID of the template definition we are currently cloning inside of */
-  templateDefinition: Option[AstNode.Id] = None,
+  /** Node ID of the current template expansion */
+  templateExpansionId: Option[AstNode.Id] = None,
+  /** Mapping from template expansion nodes to their expansions */
+  templateExpansionMap: Map[AstNode.Id, TemplateExpansion] = Map(),
   /** The set of symbols defined with a dictionary specifier */
   dictionarySymbolSet: Set[Symbol] = Set(),
   /** The mapping from system symbols to systems */

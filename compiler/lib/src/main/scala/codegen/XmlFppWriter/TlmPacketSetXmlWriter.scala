@@ -10,7 +10,7 @@ object TlmPacketSetXmlFppWriter extends LineUtils {
 
   def writeFile(file: XmlFppWriter.File): XmlFppWriter.Result =
     for (topologyMember <- FppBuilder.topologyMember(file))
-      yield FppWriter.topologyMember(topologyMember)
+      yield FppWriter().topologyMember(topologyMember)
 
   /** Builds FPP for translating telemetry packet XML */
   private object FppBuilder {

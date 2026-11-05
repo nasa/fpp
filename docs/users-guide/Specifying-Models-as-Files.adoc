@@ -924,12 +924,12 @@ enabled.
 Then option 1 corresponds to the output of the tool, and option 2 corresponds
 to the output plus the contents of _file_.
 
-==== Module Template Expansions
+==== Module Template Definitions and Expansions
 
 Expanding a
 <<Defining-and-Using-Module-Templates,module template>>
-can introduce uses of symbols, which can cause new dependencies to
-appear.
+can introduce uses of symbols.
+However, these uses are already recorded in the template definition.
 For example, suppose the file `a.fpp` looks like this
 
 [source,fpp]
@@ -978,11 +978,9 @@ locate template T at "T.fpp"
 +
 in `locs.fpp`.
 
-. Expand the definition of `T` in `template.fpp`.
-
 . Add `a.fpp` to the set of dependency files, based
-on the use of `a` in the expanded template and the
-location
+on the use of `a` in the template definition the
+location specifier
 
 +
 [source,fpp]
@@ -993,11 +991,17 @@ locate constant a at "a.fpp"
 +
 in `locs.fpp`.
 
-In general, the analyzer runs dependency analysis,
-then expands templates, then runs dependency analysis again.
-Because <<Defining-and-Using-Module-Templates_Nesting-of-Module-Templates,
-nested templates are not allowed>>, it suffices to expand
-templates and rerun dependency analysis once.
+Note that there is also a use of `a` in `expand.fpp`, at the
+point of expansion.
+This dependency is already recorded in the analysis of the template definition.
+Because <<Defining-Systems,systems and deployment topologies>> may not appear
+in module template definitions, no template expansion is required
+to perform dependency analysis.
+(If a system or deployment topology were allowed in template definitions,
+then we would have to expand the template to discover the 
+<<Dictionary-Definitions,dictionary
+definitions>> on which the of the expanded system or deployment topology 
+depends.)
 
 ==== Dependencies Between Build Modules
 

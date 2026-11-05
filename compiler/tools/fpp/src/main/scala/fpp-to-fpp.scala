@@ -11,9 +11,9 @@ import scopt.OParser
 object FPPToFPP {
 
   case class Options(
-    include: Boolean = false,
     expand: Boolean = false,
-    files: List[File] = List()
+    files: List[File] = List(),
+    imports: List[File] = Nil,
   )
 
   def command(options: Options) = {
@@ -22,43 +22,32 @@ object FPPToFPP {
       case Nil => List(File.StdIn)
       case list => list
     }
-    Result.seq(
-      ToolUtils.parseFiles(files),
-      List(
-        resolveIncludes (options),
-        expandTemplates (options),
-        writeFpp (options)
-      )
-    )
+    for {
+      tul <- ToolUtils.parseFiles(files ++ options.imports)
+      (a, tul) <- expandSyntax (options) (Analysis(), tul)
+      tulFiles = tul.take(files.length)
+      _ <- writeFpp (a, options) (tulFiles)
+    }
+    yield ()
   }
 
   def toolMain(args: Array[String]) =
     Tool(name).mainMethod(args, oparser, Options(), command)
 
-  def resolveIncludes(options: Options)(tul: List[Ast.TransUnit]):
-    Result.Result[List[Ast.TransUnit]] =
-  {
-    options.include match {
-      case true =>
-        ResolveSpecInclude.transUnitList(Analysis(), tul).map(_._2)
-      case false => Right(tul)
-    }
-  }
-
-  def expandTemplates(options: Options)(tul: List[Ast.TransUnit]):
-    Result.Result[List[Ast.TransUnit]] =
+  def expandSyntax(options: Options)(a: Analysis, tul: List[Ast.TransUnit]):
+    Result.Result[(Analysis, List[Ast.TransUnit])] =
   {
     options.expand match {
-      case true =>
-        ExpandSyntaxAndEnterSymbols.tuList(Analysis(), tul).map(_._2)
-      case false => Right(tul)
+      case true => ExpandSyntaxAndEnterSymbols.tuList(a, tul)
+      case false => Right(a, tul)
     }
   }
 
-  def writeFpp(options: Options)(tul: List[Ast.TransUnit]):
+  def writeFpp(a: Analysis, options: Options)(tul: List[Ast.TransUnit]):
     Result.Result[List[Ast.TransUnit]] =
   {
-    val lines = tul.map(FppWriter.transUnit).flatten
+    val fppWriter = FppWriter(a)
+    val lines = tul.flatMap(fppWriter.transUnit)
     lines.map(Line.write(Line.stdout))
     Right(tul)
   }
@@ -72,13 +61,14 @@ object FPPToFPP {
     OParser.sequence(
       programName(name),
       head(name, Version.v),
-      opt[Unit]('i', "include")
-        .action((_, c) => c.copy(include = true))
-        .text("resolve include specifiers"),
       opt[Unit]('e', "expand")
         .action((_, c) => c.copy(expand = true))
-        .text("expand all syntax"),
+        .text("expand syntax"),
       help('h', "help").text("print this message and exit"),
+      opt[Seq[String]]('i', "imports")
+        .valueName("<file1>,<file2>...")
+        .action((i, c) => c.copy(imports = i.toList.map(File.fromString(_))))
+        .text("files to import"),
       arg[String]("file ...")
         .unbounded()
         .optional()

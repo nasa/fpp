@@ -23,8 +23,12 @@ module Dep {
 
   instance c: C base id 0x100
 
-  deployment topology Expanded {
+  topology Sub {
     instance c
+  }
+
+  deployment topology Expanded {
+    import Sub
   }
 
   system Expanded: Expanded

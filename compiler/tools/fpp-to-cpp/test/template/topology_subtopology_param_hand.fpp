@@ -24,13 +24,18 @@ topology Sub {
 
 module M {
 
-  @ Deployment topology that imports a subtopology through a template parameter
-  deployment topology SubParam {
+  @ Topology that imports a subtopology through a template parameter
+  topology Wired {
     import Sub
     instance cIn
     connections C {
       Sub.p -> cIn.p
     }
+  }
+
+  @ Deployment topology importing the topology from the template
+  deployment topology SubParam {
+    import Wired
   }
 
 }

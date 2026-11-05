@@ -34,7 +34,7 @@ symbol defined in _fl_.
 
 . Parse each of the files in _fl_, generating a list _tul_ of translation units.
 
-. https://github.com/nasa/fpp/wiki/Expanding-Syntax-and-Entering-Symbols[Expand 
+. https://github.com/nasa/fpp/wiki/Expand-Syntax-and-Enter-Symbols[Expand 
 syntax and enter symbols] for _tul_.
 
 . For each definition _d_ appearing in _tul_ write out a location specifier

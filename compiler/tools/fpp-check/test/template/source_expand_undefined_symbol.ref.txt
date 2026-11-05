@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/source_expand_undefined_symbol.fpp:7.16
+  constant a = b
+               ^
+error: symbol b is not defined
+note: looking for a constant here

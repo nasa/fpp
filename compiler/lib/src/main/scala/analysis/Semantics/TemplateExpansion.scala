@@ -3,7 +3,7 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** An FPP template */
+/** An FPP template expansion */
 case class TemplateExpansion(
   /** The AST node defining the template */
   defNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]],

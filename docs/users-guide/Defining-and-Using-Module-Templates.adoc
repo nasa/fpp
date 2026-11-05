@@ -80,7 +80,7 @@ template definition to be replicated at each expansion point.
 After template expansion, the model looks like this:
 
 [source,fpp]
---------
+----
 module template T {
 
   constant c = 0
@@ -106,7 +106,7 @@ module N {
   }
 
 }
---------
+----
 
 You can see this by running the tool `fpp-to-fpp -e` on the
 original model shown above.
@@ -230,7 +230,7 @@ Here we provide 1 and 2 as the arguments, and we write
 After template expansion, the model looks like this:
 
 [source,fpp]
---------
+----
 module template T(constant p: U32) {
 
   constant c = p
@@ -256,7 +256,7 @@ module N {
   }
 
 }
---------
+----
 
 Notice that the `expand T { ... }` syntax provides the bindings
 of the constant values at the points of expansion.
@@ -568,7 +568,7 @@ expand M.T
 After template expansion, the model looks like this:
 
 [source,fpp]
---------
+----
 module M {
 
   constant a = 0
@@ -586,7 +586,7 @@ expand M.T {
   constant b = a
 
 }
---------
+----
 
 Notice that in the expanded template, there is a use of the
 name `a`.
@@ -627,7 +627,7 @@ expand M.T
 Here is the model after expansion:
 
 [source,fpp]
---------
+----
 module M {
 
   constant a = 0
@@ -647,7 +647,7 @@ expand M.T {
   constant b = a
 
 }
---------
+----
 
 Here the symbol `a` is defined at the point of the expansion.
 However, the definition there gives `a` the value 1, whereas

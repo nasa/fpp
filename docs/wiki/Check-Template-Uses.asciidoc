@@ -1,5 +1,5 @@
 This algorithm traverses a source model and checks that each use
-of a module template definition refers to a valid template definition.
+of a module template definition refers to a template definition.
 It also constructs the use-def map entries for template expansion
 specifiers.
 

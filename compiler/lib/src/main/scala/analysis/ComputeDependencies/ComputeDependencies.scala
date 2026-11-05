@@ -11,7 +11,7 @@ object ComputeDependencies {
     for {
       pair <- ResolveSpecInclude.transformList(
         a.copy(level = a.level + 1),
-        tul, 
+        tul,
         ResolveSpecInclude.transUnit
       )
       a <- Right(pair._1)
@@ -22,7 +22,7 @@ object ComputeDependencies {
       }
       a <- BuildSpecLocMap.visitList(a, tul, BuildSpecLocMap.transUnit)
       a <- ConstructImpliedUseMap.visitList(a, tul, ConstructImpliedUseMap.transUnit)
-      a <- AddDependencies.tuList(a, tul)
+      a <- AddDependencies.visitList(a, tul, AddDependencies.transUnit)
     }
     yield {
       val includedFileSet = a.includedFileSet
