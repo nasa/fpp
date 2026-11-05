@@ -55,6 +55,7 @@ syn keyword fppKeyword id
 syn keyword fppKeyword if
 syn keyword fppKeyword implements
 syn keyword fppKeyword import
+syn keyword fppKeyword in
 syn keyword fppKeyword include
 syn keyword fppKeyword initial
 syn keyword fppKeyword input

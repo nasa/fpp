@@ -88,7 +88,7 @@ it is specified in the model source.
 appearing in a 
 <<Specifiers_Connection-Graph-Specifiers,direct connection graph>> of _D_,
 if _E_ has a port number  expression _e_ in the FPP source, then
-<<Evaluation,evaluate>> _e_,
+<<Evaluation_Evaluating-Expressions,evaluate>> _e_,
 <<Type-Checking_Type-Conversion,convert>> the result to a value _n_ of type
 _Integer_, and assign the port number _n_ at endpoint _E_ of connection _C_.
 Check that _n_ is in bounds for the port instance being numbered.
