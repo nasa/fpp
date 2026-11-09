@@ -798,6 +798,27 @@ object AstWriter extends AstVisitor with LineUtils {
     tn: Ast.TypeNameQualIdent
   ) = addPrefix("type name", qualIdent) (tn.name.data)
 
+  override def typeNameRangeNode(
+    in: In,
+    node: AstNode[Ast.TypeName],
+    tn: Ast.TypeNameRange
+  ) = {
+    def bound(position: String, b: Ast.TypeNameRange.Bound) = {
+      val (kind, eOpt) = b
+      val prefix = s"$kind $position bound"
+      eOpt match {
+        case Some(e) => addPrefix(prefix, exprNode) (e)
+        case None => lines(s"$prefix --")
+      }
+    }
+    lines("type name range") ++
+    List.concat(
+      typeNameNode(tn.typeName),
+      bound("lower", tn.lowerBound),
+      bound("upper", tn.upperBound)
+    ).map(indentIn)
+  }
+
   override def typeNameStringNode(
     in: In,
     node: AstNode[Ast.TypeName],

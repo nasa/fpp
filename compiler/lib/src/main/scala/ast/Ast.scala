@@ -1009,13 +1009,17 @@ object Ast {
   }
   final case class TypeNameRange(
     typeName: AstNode[TypeName],
-    lowerBoundOpt: Option[TypeNameRange.Bound],
-    upperBoundOpt: Option[TypeNameRange.Bound]
+    lowerBound: TypeNameRange.Bound,
+    upperBound: TypeNameRange.Bound
   ) extends TypeName
   object TypeNameRange {
     enum BoundKind:
       case INCLUSIVE, EXCLUSIVE
-    type Bound = (BoundKind, AstNode[Expr])
+      override def toString = this match
+        case INCLUSIVE => "inclusive"
+        case EXCLUSIVE => "exclusive"
+    /** A range bound. None represents the bound -- */
+    type Bound = (BoundKind, Option[AstNode[Expr]])
   }
   final case class TypeNameString(size: Option[AstNode[Expr]]) extends TypeName
 
