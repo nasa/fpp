@@ -70,7 +70,7 @@ module M {
     }
 
     port out = passive2.p
-    port in = active2.p
+    port $in = active2.p
 
   }
 
@@ -80,7 +80,7 @@ module M {
 
     connections C2 {
 
-      Ports1.out -> Ports1.in
+      Ports1.out -> Ports1.$in
 
     }
 
