@@ -367,6 +367,9 @@ trait AstTransformer {
   def typeNameQualIdentNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent): ResultNode[Ast.TypeName] =
     defaultNode(in, node)
 
+  def typeNameRangeNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameRange): ResultNode[Ast.TypeName] =
+    defaultNode(in, node)
+
   def typeNameStringNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString): ResultNode[Ast.TypeName] =
     defaultNode(in, node)
 
@@ -636,6 +639,7 @@ trait AstTransformer {
       case tn : Ast.TypeNameFloat => typeNameFloatNode(in, node, tn)
       case tn : Ast.TypeNameInt => typeNameIntNode(in, node, tn)
       case tn : Ast.TypeNameQualIdent => typeNameQualIdentNode(in, node, tn)
+      case tn : Ast.TypeNameRange => typeNameRangeNode(in, node, tn)
       case tn : Ast.TypeNameString => typeNameStringNode(in, node, tn)
     }
 

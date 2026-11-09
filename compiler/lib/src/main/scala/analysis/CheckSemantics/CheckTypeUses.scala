@@ -138,6 +138,13 @@ object CheckTypeUses extends UseAnalyzer {
     Right(a.assignType(node -> t))
   }
 
+  override def typeNameRangeNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameRange) =
+    for (a <- super.typeNameRangeNode(a, node, tn))
+      yield
+        // TODO: For now, just assign the base type to the range
+        val t = a.typeMap(tn.typeName.id)
+        a.assignType(node -> t)
+
   override def typeNameStringNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
     for (a <- super.typeNameStringNode(a, node, tn))
       yield a.assignType(node -> Type.String(tn.size))
