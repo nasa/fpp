@@ -516,95 +516,80 @@ def module
 @ Type names
 def module
   ident TypeNames
-  def array
+  def alias type
     ident typeNameU32
-    size literal int 10
     type name U32
-  def array
+  def alias type
     ident typeNameF32
-    size literal int 10
     type name F32
-  def array
+  def alias type
     ident typeNameBool
-    size literal int 10
     type name bool
-  def array
+  def alias type
     ident typeNameString
-    size literal int 10
     type name string
       size literal int 256
-  def array
+  def alias type
     ident typeNameQID
-    size literal int 10
     type name qual ident a.b.c
-  def array
+  def alias type
     ident typeNameAbsoluteQID
-    size literal int 10
     type name qual ident .a.b.c
   @ Range type names
   def module
     ident Range
-    def array
+    def alias type
       ident inclusiveInclusive
-      size literal int 10
       type name range
         type name U8
         inclusive lower bound literal int 0
         inclusive upper bound literal int 10
-    def array
+    def alias type
       ident exclusiveExclusive
-      size literal int 10
       type name range
         type name U8
         exclusive lower bound literal int 0
         exclusive upper bound literal int 10
-    def array
+    def alias type
       ident inclusiveExclusive
-      size literal int 10
       type name range
         type name U8
         inclusive lower bound literal int 0
         exclusive upper bound literal int 10
-    def array
+    def alias type
       ident exclusiveInclusive
-      size literal int 10
       type name range
         type name U8
         exclusive lower bound literal int 0
         inclusive upper bound literal int 10
-    def array
+    def alias type
       ident noLowerBound
-      size literal int 10
       type name range
         type name I16
         exclusive lower bound --
         exclusive upper bound literal int 10
-    def array
+    def alias type
       ident noUpperBound
-      size literal int 10
       type name range
         type name U16
         inclusive lower bound literal int 0
         inclusive upper bound --
-    def array
+    def alias type
       ident noBounds
-      size literal int 10
       type name range
         type name U16
         inclusive lower bound --
         inclusive upper bound --
-    def array
+    def alias type
       ident floatBounds
-      size literal int 10
       type name range
         type name F32
         inclusive lower bound expr unop
                                 unop -
                                 literal float 1.5
         exclusive upper bound literal float 10.5
-    def array
+    def alias type
       ident exprBounds
-      size literal int 10
       type name range
         type name U32
         inclusive lower bound expr dot
@@ -619,16 +604,14 @@ def module
                                   literal int 2
                                   binop *
                                   ident c
-    def array
+    def alias type
       ident qualIdent
-      size literal int 10
       type name range
         type name qual ident a.b.c
         inclusive lower bound literal int 0
         inclusive upper bound literal int 10
-    def array
+    def alias type
       ident chained
-      size literal int 10
       type name range
         type name range
           type name qual ident a.b.c
@@ -636,9 +619,8 @@ def module
           inclusive upper bound --
         exclusive lower bound --
         inclusive upper bound literal int 5
-    def array
+    def alias type
       ident multiLine
-      size literal int 10
       type name range
         type name U8
         inclusive lower bound literal int 0
