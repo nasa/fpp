@@ -218,7 +218,7 @@ case class ComponentParameters (
   private def getParamIds = linesClassMember(
     List.concat(
       Line.blank :: lines(s"//! Parameter IDs"),
-      wrapInEnum(sortedParams.flatMap(writeParamIdConstant))
+      wrapInNamedEnum("ParamId", sortedParams.flatMap(writeParamIdConstant))
     )
   )
 
