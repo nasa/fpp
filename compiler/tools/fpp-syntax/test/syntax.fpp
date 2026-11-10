@@ -315,6 +315,26 @@ module TypeNames {
   array typeNameQID = [10] a.b.c
   array typeNameAbsoluteQID = [10] .a.b.c
 
+  @ Range type names
+  module Range {
+    array inclusiveInclusive = [10] U8 in [0, 10]
+    array exclusiveExclusive = [10] U8 in (0, 10)
+    array inclusiveExclusive = [10] U8 in [0, 10)
+    array exclusiveInclusive = [10] U8 in (0, 10]
+    array noLowerBound = [10] I16 in (--, 10)
+    array noUpperBound = [10] U16 in [0, --]
+    array noBounds = [10] U16 in [--, --]
+    array floatBounds = [10] F32 in [-1.5, 10.5)
+    array exprBounds = [10] U32 in [a.b, a.b + 2 * c]
+    array qualIdent = [10] a.b.c in [0, 10]
+    array chained = [10] a.b.c in [0, --] in (--, 5]
+    array multiLine = [10] U8 in [
+      0,
+      10
+    ]
+  }
+  @< Range type names
+
 }
 @< Type names
 
@@ -398,6 +418,7 @@ module Expressions {
     constant typeFloat = sizeof(F64)
     constant typeQualId = sizeof(TypeNames.typeNameU32)
     constant typeString = sizeof(string size 20)
+    constant typeRange = sizeof(U8 in [0, 10])
   }
   @< SizeOf
 

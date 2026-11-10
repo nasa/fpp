@@ -541,6 +541,109 @@ def module
     ident typeNameAbsoluteQID
     size literal int 10
     type name qual ident .a.b.c
+  @ Range type names
+  def module
+    ident Range
+    def array
+      ident inclusiveInclusive
+      size literal int 10
+      type name range
+        type name U8
+        inclusive lower bound literal int 0
+        inclusive upper bound literal int 10
+    def array
+      ident exclusiveExclusive
+      size literal int 10
+      type name range
+        type name U8
+        exclusive lower bound literal int 0
+        exclusive upper bound literal int 10
+    def array
+      ident inclusiveExclusive
+      size literal int 10
+      type name range
+        type name U8
+        inclusive lower bound literal int 0
+        exclusive upper bound literal int 10
+    def array
+      ident exclusiveInclusive
+      size literal int 10
+      type name range
+        type name U8
+        exclusive lower bound literal int 0
+        inclusive upper bound literal int 10
+    def array
+      ident noLowerBound
+      size literal int 10
+      type name range
+        type name I16
+        exclusive lower bound --
+        exclusive upper bound literal int 10
+    def array
+      ident noUpperBound
+      size literal int 10
+      type name range
+        type name U16
+        inclusive lower bound literal int 0
+        inclusive upper bound --
+    def array
+      ident noBounds
+      size literal int 10
+      type name range
+        type name U16
+        inclusive lower bound --
+        inclusive upper bound --
+    def array
+      ident floatBounds
+      size literal int 10
+      type name range
+        type name F32
+        inclusive lower bound expr unop
+                                unop -
+                                literal float 1.5
+        exclusive upper bound literal float 10.5
+    def array
+      ident exprBounds
+      size literal int 10
+      type name range
+        type name U32
+        inclusive lower bound expr dot
+                                ident a
+                                ident b
+        inclusive upper bound expr binop
+                                expr dot
+                                  ident a
+                                  ident b
+                                binop +
+                                expr binop
+                                  literal int 2
+                                  binop *
+                                  ident c
+    def array
+      ident qualIdent
+      size literal int 10
+      type name range
+        type name qual ident a.b.c
+        inclusive lower bound literal int 0
+        inclusive upper bound literal int 10
+    def array
+      ident chained
+      size literal int 10
+      type name range
+        type name range
+          type name qual ident a.b.c
+          inclusive lower bound literal int 0
+          inclusive upper bound --
+        exclusive lower bound --
+        inclusive upper bound literal int 5
+    def array
+      ident multiLine
+      size literal int 10
+      type name range
+        type name U8
+        inclusive lower bound literal int 0
+        inclusive upper bound literal int 10
+  @< Range type names
 @< Type names
 @ Expressions
 def module
@@ -724,5 +827,12 @@ def module
       expr sizeof
         type name string
           size literal int 20
+    def constant
+      ident typeRange
+      expr sizeof
+        type name range
+          type name U8
+          inclusive lower bound literal int 0
+          inclusive upper bound literal int 10
   @< SizeOf
 @< Expressions
