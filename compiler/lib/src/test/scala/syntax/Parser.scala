@@ -64,7 +64,9 @@ class ParserSpec extends AnyWordSpec {
       List(
         "type a = U32",
         "type a = F32",
-        "dictionary type a = string"
+        "dictionary type a = string",
+        "type a = U8 in [0, 10]",
+        "dictionary type a = F32 in (--, 10.5)"
       )
     )
   }
@@ -76,7 +78,8 @@ class ParserSpec extends AnyWordSpec {
         "array a = [10] U32",
         "array a = [10] U32 default 0",
         "array a = [10] U32 default 0 format \"{} counts\"",
-        "dictionary array a = [10] U32"
+        "dictionary array a = [10] U32",
+        "array a = [10] U32 in [1, 5] default 1"
       )
     )
   }
@@ -368,7 +371,9 @@ class ParserSpec extends AnyWordSpec {
            }""",
         "sizeof(U32)",
         "sizeof(string size 10)",
-        "sizeof(a.b.c)"
+        "sizeof(a.b.c)",
+        "sizeof(U32 in [0, 10])",
+        "1 - -1",
       )
     )
   }
@@ -380,6 +385,9 @@ class ParserSpec extends AnyWordSpec {
         "@",
         "a.",
         "bool",
+        // -- is a single token, not two minus signs
+        "--1",
+        "1--1",
       )
     )
   }
@@ -490,6 +498,17 @@ class ParserSpec extends AnyWordSpec {
         "connections C {}",
         "connections C { a.b -> c.d }",
         "connections C { a.b -> c.d, e.f -> g.h }",
+        "connections C { a.out -> c.$in }",
+      )
+    )
+  }
+
+  "spec connection graph direct error" should {
+    parseAllError(
+      Parser.specConnectionGraph,
+      List(
+        // in is a reserved word
+        "connections C { a.out -> c.in }",
       )
     )
   }
@@ -754,6 +773,17 @@ class ParserSpec extends AnyWordSpec {
       List(
         "port a = a.b.c.d",
         "port b = c.b",
+        "port $in = c.b",
+      )
+    )
+  }
+
+  "spec topology port error" should {
+    parseAllError(
+      Parser.specTopPort,
+      List(
+        // in is a reserved word
+        "port in = c.b",
       )
     )
   }
@@ -789,8 +819,77 @@ class ParserSpec extends AnyWordSpec {
         "a",
         "a.b",
         "a.b.c",
+        "U8 in [0, 10]",
+        "U8 in (0, 10)",
+        "U8 in [0, 10)",
+        "U8 in (0, 10]",
+        "I16 in (--, 10)",
+        "I16 in [--, 10)",
+        "U16 in [0, --)",
+        "U16 in [0, --]",
+        "U16 in [--, --]",
+        "F32 in [-1.5, 10.5)",
+        "U32 in [a, a + b * 2]",
+        "U32 in [(0), sizeof(U8)]",
+        "a.b in [0, 10]",
+        ".a.b in [0, 10]",
+        "T in [0, --] in (--, 5]",
+        """U8 in [
+             0,
+             10
+           ]""",
+        """U8 in (
+             --,
+             10
+           )""",
       )
     )
+  }
+
+  "type name range AST" should {
+    import Ast.TypeNameRange.BoundKind.{EXCLUSIVE, INCLUSIVE}
+    "represent bounds and bound kinds" in {
+      val Right(tn) = Parser.parseString(Parser.typeName)("I16 in (--, 10]").runtimeChecked
+      tn match {
+        case Ast.TypeNameRange(
+          AstNode(Ast.TypeNameInt(Ast.I16), _),
+          (EXCLUSIVE, None),
+          (INCLUSIVE, Some(AstNode(Ast.ExprLiteralInt("10"), _)))
+        ) => ()
+        case _ => fail(s"unexpected AST $tn")
+      }
+    }
+    "associate chained ranges to the left" in {
+      val Right(tn) = Parser.parseString(Parser.typeName)("T in [0, --] in (--, 5)").runtimeChecked
+      tn match {
+        case Ast.TypeNameRange(
+          AstNode(
+            Ast.TypeNameRange(
+              AstNode(Ast.TypeNameQualIdent(AstNode(Ast.QualIdent.Unqualified("T", false), _)), _),
+              (INCLUSIVE, Some(AstNode(Ast.ExprLiteralInt("0"), _))),
+              (INCLUSIVE, None)
+            ),
+            _
+          ),
+          (EXCLUSIVE, None),
+          (EXCLUSIVE, Some(AstNode(Ast.ExprLiteralInt("5"), _)))
+        ) => ()
+        case _ => fail(s"unexpected AST $tn")
+      }
+    }
+    "record locations for the type names inside ranges" in {
+      val Right(tn) = Parser.parseString(Parser.typeName)("  U8 in [0, 1] in [0, 1]").runtimeChecked
+      def checkLoc(node: AstNode[Ast.TypeName]) = {
+        val pos = Locations.get(node.id).pos
+        assert(pos.line == 1 && pos.column == 3)
+      }
+      tn match {
+        case Ast.TypeNameRange(outer @ AstNode(Ast.TypeNameRange(inner, _, _), _), _, _) =>
+          checkLoc(outer)
+          checkLoc(inner)
+        case _ => fail(s"unexpected AST $tn")
+      }
+    }
   }
 
   "template ok" should {
@@ -1046,6 +1145,27 @@ class ParserSpec extends AnyWordSpec {
         "@",
         "a.",
         "1+3",
+        // Missing range
+        "U8 in",
+        // Missing brackets or parentheses
+        "U8 in 0, 10",
+        "U8 in [0, 10",
+        "U8 in 0, 10]",
+        // Wrong brackets
+        "U8 in {0, 10}",
+        // Missing comma
+        "U8 in [0 10]",
+        // Wrong number of bounds
+        "U8 in []",
+        "U8 in [0]",
+        "U8 in [0, ]",
+        "U8 in [, 10]",
+        "U8 in [0, 1, 2]",
+        // Bound is not an expression or --
+        "U8 in [-, 10]",
+        "U8 in [0, U8]",
+        // in is a reserved word
+        "in",
       )
     )
   }
