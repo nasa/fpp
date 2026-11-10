@@ -805,7 +805,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     def bound(position: String, b: Ast.TypeNameRange.Bound) = {
       val (kind, eOpt) = b
-      val prefix = s"$kind $position bound"
+      val prefix = s"${boundKind(kind)} $position bound"
       eOpt match {
         case Some(e) => addPrefix(prefix, exprNode) (e)
         case None => lines(s"$prefix --")
@@ -866,6 +866,12 @@ object AstWriter extends AstVisitor with LineUtils {
     (a: AstNode[A]) => f(a.data)
 
   private def binop(op: Ast.Binop) = lines(s"binop ${op.toString}")
+
+  private def boundKind(kind: Ast.TypeNameRange.BoundKind) =
+    kind match {
+      case Ast.TypeNameRange.BoundKind.INCLUSIVE => "inclusive"
+      case Ast.TypeNameRange.BoundKind.EXCLUSIVE => "exclusive"
+    }
 
   private def componentMember(member: Ast.ComponentMember) = {
     val (a1, _, a2) = member.node

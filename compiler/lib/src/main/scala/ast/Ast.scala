@@ -1015,9 +1015,6 @@ object Ast {
   object TypeNameRange {
     enum BoundKind:
       case INCLUSIVE, EXCLUSIVE
-      override def toString = this match
-        case INCLUSIVE => "inclusive"
-        case EXCLUSIVE => "exclusive"
     /** A range bound. None represents the bound -- */
     type Bound = (BoundKind, Option[AstNode[Expr]])
   }

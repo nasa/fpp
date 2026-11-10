@@ -1083,6 +1083,33 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
+  "type name range format round trip OK" should {
+    roundTripAllOK(
+      List(
+        "type T = U8 in [0, 10]",
+        "type T = U8 in (0, 10)",
+        "type T = U8 in [0, 10)",
+        "type T = U8 in (0, 10]",
+        "type T = I16 in (--, 10)",
+        "type T = I16 in [--, 10)",
+        "type T = U16 in [0, --)",
+        "type T = U16 in [0, --]",
+        "type T = U16 in [--, --]",
+        "type T = F32 in [-1.5, 10.5)",
+        "type T = U32 in [a, a + b * 2]",
+        "type T = U32 in [(0), sizeof(U8 in [0, 1])]",
+        "type T = .a.b in [0, 10]",
+        "type T = $in in [0, 10]",
+        "type T = S in [0, --] in (--, 5]",
+        "dictionary type T = U8 in [0, 10]",
+        "array A = [3] U32 in [1, 5] default 1",
+        "struct S { x: U32 in [0, 10] }",
+        "constant c = sizeof(I8 in (--, 0))",
+        "port P(x: U8 in [0, 10]) -> F64 in (0, --)",
+      )
+    )
+  }
+
   "trans unit OK" should {
     parseAllOK(
       Parser.transUnit,
