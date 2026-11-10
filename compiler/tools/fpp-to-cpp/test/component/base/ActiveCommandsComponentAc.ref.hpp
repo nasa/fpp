@@ -116,7 +116,7 @@ class ActiveCommandsComponentBase :
     };
 
     //! Command opcodes
-    enum {
+    enum Opcode {
       OPCODE_CMD_SYNC = 0x0, //!< A sync command with no params
       OPCODE_CMD_SYNC_PRIMITIVE = 0x10, //!< An async command with primitive params
       OPCODE_CMD_SYNC_STRING = 0x11, //!< A sync command with string params

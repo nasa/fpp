@@ -111,7 +111,7 @@ class PassiveParamsComponentBase :
     };
 
     //! Command opcodes
-    enum {
+    enum Opcode {
       OPCODE_PARAMU32_SET = 0x0, //!< Opcode to set parameter ParamU32
       OPCODE_PARAMU32_SAVE = 0x1, //!< Opcode to save parameter ParamU32
       OPCODE_PARAMF64_SET = 0x2, //!< Opcode to set parameter ParamF64
@@ -127,7 +127,7 @@ class PassiveParamsComponentBase :
     };
 
     //! Parameter IDs
-    enum {
+    enum ParamId {
       PARAMID_PARAMU32 = 0x0, //!< A parameter with U32 data
                               //!< Second line of annotation
       PARAMID_PARAMF64 = 0x1, //!< A parameter with F64 data
