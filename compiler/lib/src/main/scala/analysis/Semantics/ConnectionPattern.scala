@@ -28,7 +28,7 @@ object ConnectionPattern {
     pattern: Ast.SpecConnectionGraph.Pattern
   ): Result.Result[ConnectionPattern] = {
     def getInstance(node: AstNode[Ast.QualIdent]) =
-      for (instance <- a.getComponentInstance(node.id))
+      for (instance <- a.getRepresentedComponentInstance(node.id))
         yield (instance, Locations.get(node.id))
     for {
       source <- getInstance(pattern.source)

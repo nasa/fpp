@@ -18,6 +18,9 @@ not_deployment_topology
 ok
 omit_instance_not_defined
 omit_instance_not_in_topology
+template_ok
+shadowed_instance_error
+shadowed_instance_ok
 "
 
 ok()

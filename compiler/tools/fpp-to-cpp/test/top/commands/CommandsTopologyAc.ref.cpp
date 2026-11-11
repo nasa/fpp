@@ -81,7 +81,11 @@ namespace M {
   }
 
   void regCommands() {
-    M::c1.regCommandsSpecial();
+    {
+      using namespace M;
+
+      M::c1.regCommandsSpecial();
+    }
     M::c2.regCommands();
   }
 

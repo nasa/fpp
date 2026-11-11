@@ -1,0 +1,4 @@
+[ local path prefix ]/compiler/tools/fpp-depend/test/template_arg_instance.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/template_arg_type.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/template_body_dep.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/template_param_iface.fpp

@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/nested_expand.fpp:7.3
+  expand T1
+  ^
+error: template expansions cannot be nested
+enclosing template expansion is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/template/nested_expand.fpp:5.1
+expand T1 {
+^

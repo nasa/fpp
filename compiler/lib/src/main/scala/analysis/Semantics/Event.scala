@@ -52,12 +52,12 @@ object Event {
             ("seconds", Type.U32),
             ("useconds", Type.U32),
           )
-        ))
+        )).runtimeChecked
         def getMember(member: String, maxValue: BigInt) = {
           val Value.PrimitiveInt(v, Type.PrimitiveInt.U32) = Analysis.convertValueToType(
             intervalValue.get(member).get,
             Type.U32
-          )
+          ).runtimeChecked
 
           if v < 0 || v > maxValue
           then Left(

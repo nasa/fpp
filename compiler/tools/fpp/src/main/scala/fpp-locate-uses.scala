@@ -26,22 +26,20 @@ object FPPLocateUses {
     }
     val a = Analysis(inputFileSet = options.files.toSet)
     for {
-      aTulTul <- ToolUtils.parseFilesAndResolveAsts(a, files, options.imports)
-      a <- Right(aTulTul._1)
-      tulFiles <- Right(aTulTul._2)
-      tulImports <- Right(aTulTul._3)
-      a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
+      tul <- ToolUtils.parseFiles(files ++ options.imports)
+      (a, tul) <- CheckSemantics.tuList(a, tul)
+      tulFiles = tul.take(files.length)
       a <- UsedSymbols.visitList(a, tulFiles, UsedSymbols.transUnit)
     } yield {
-      val list = a.usedSymbolSet.flatMap(writeUsedSymbol(a, options) _).toList
+      val list = a.usedSymbolSet.flatMap(writeUsedSymbol(a, options)).toList
       mapSeq(list, System.out.println(_))
     }
   }
 
   def writeUsedSymbol(a: Analysis, options: Options)(s: Symbol): List[Line] = {
     val loc = Locations.get(s.getNodeId)
-    loc.file match {
-      case File.Path(path) => {
+    (loc.file, specLocKind(s)) match {
+      case (File.Path(path), Some(kind)) => {
         val name = a.getQualifiedName(s)
         val nameList = {
           s match {
@@ -50,7 +48,7 @@ object FPPLocateUses {
           }
         }
         val nodeList = nameList.map(s => AstNode.create(s))
-        val qualIdentNode = AstNode.create(Ast.QualIdent.fromNodeList(nodeList))
+        val qualIdentNode = AstNode.create(Ast.QualIdent.fromNodeList(nodeList, false))
         val baseDir = options.dir match {
           case Some(dir) => dir
           case None => ""
@@ -58,23 +56,6 @@ object FPPLocateUses {
         val baseDirPath = java.nio.file.Paths.get(baseDir).toAbsolutePath
         val relativePath = baseDirPath.relativize(path)
         val fileNode = AstNode.create(relativePath.normalize.toString)
-        val kind = s match {
-          case _: Symbol.AbsType => Ast.SpecLoc.Type
-          case _: Symbol.AliasType => Ast.SpecLoc.Type
-          case _: Symbol.Array => Ast.SpecLoc.Type
-          case _: Symbol.Component => Ast.SpecLoc.Component
-          case _: Symbol.ComponentInstance => Ast.SpecLoc.Instance
-          case _: Symbol.Constant => Ast.SpecLoc.Constant
-          case _: Symbol.Enum => Ast.SpecLoc.Type
-          case _: Symbol.EnumConstant => Ast.SpecLoc.Type
-          case _: Symbol.Interface => Ast.SpecLoc.Interface
-          case _: Symbol.Module => throw InternalError("use should not be module symbol")
-          case _: Symbol.Port => Ast.SpecLoc.Port
-          case _: Symbol.StateMachine => Ast.SpecLoc.StateMachine
-          case _: Symbol.Struct => Ast.SpecLoc.Type
-          case _: Symbol.System => throw InternalError("use should not be system symbol")
-          case _: Symbol.Topology => Ast.SpecLoc.Instance
-        }
         val isDictionaryDef = s match {
           case Symbol.Array(aNode) => aNode._2.data.isDictionaryDef
           case Symbol.AliasType(aNode) => aNode._2.data.isDictionaryDef
@@ -85,11 +66,36 @@ object FPPLocateUses {
         }
         val specLocNode = AstNode.create(Ast.SpecLoc(kind, qualIdentNode, fileNode, isDictionaryDef))
         val specLocAnnotatedNode = (Nil, specLocNode, Nil)
-        FppWriter.specLocAnnotatedNode((), specLocAnnotatedNode)
+        FppWriter().specLocAnnotatedNode((), specLocAnnotatedNode)
       }
-      case File.StdIn => Nil
+      case _ => Nil
     }
   }
+
+  /** Gets the kind of location specifier to write for a used symbol.
+   *  Returns None if the use requires no location specifier. */
+  def specLocKind(s: Symbol): Option[Ast.SpecLoc.Kind] =
+    s match {
+      case _: Symbol.AbsType => Some(Ast.SpecLoc.Type)
+      case _: Symbol.AliasType => Some(Ast.SpecLoc.Type)
+      case _: Symbol.Array => Some(Ast.SpecLoc.Type)
+      case _: Symbol.Component => Some(Ast.SpecLoc.Component)
+      case _: Symbol.ComponentInstance => Some(Ast.SpecLoc.Instance)
+      case _: Symbol.Constant => Some(Ast.SpecLoc.Constant)
+      case _: Symbol.Enum => Some(Ast.SpecLoc.Type)
+      case _: Symbol.EnumConstant => Some(Ast.SpecLoc.Type)
+      case _: Symbol.Interface => Some(Ast.SpecLoc.Interface)
+      case _: Symbol.Module => throw InternalError("use should not be module symbol")
+      case _: Symbol.Port => Some(Ast.SpecLoc.Port)
+      case _: Symbol.StateMachine => Some(Ast.SpecLoc.StateMachine)
+      case _: Symbol.Struct => Some(Ast.SpecLoc.Type)
+      case _: Symbol.System => throw InternalError("use should not be system symbol")
+      case _: Symbol.Topology => Some(Ast.SpecLoc.Instance)
+      case _: Symbol.Template => Some(Ast.SpecLoc.Template)
+      case _: Symbol.TemplateConstantArg => None
+      case _: Symbol.TemplateTypeArg => None
+      case _: Symbol.TemplateInterfaceArg => None
+    }
 
   def toolMain(args: Array[String]) =
     Tool(name).mainMethod(args, oparser, Options(), command)

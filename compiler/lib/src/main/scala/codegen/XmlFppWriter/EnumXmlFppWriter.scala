@@ -9,7 +9,7 @@ object EnumXmlFppWriter extends LineUtils {
 
   def writeFile(file: XmlFppWriter.File): XmlFppWriter.Result =
     for (tuMember <- FppBuilder.tuMember(file))
-      yield FppWriter.tuMember(tuMember)
+      yield FppWriter().tuMember(tuMember)
 
   private object FppBuilder {
 

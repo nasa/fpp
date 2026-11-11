@@ -1,0 +1,42 @@
+This algorithm traverses the source model and checks dictionary definitions.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis
+data structure] _a_
+representing the results of analysis so far.
+
+==  Output
+
+. An analysis data structure _a_ with updated
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[dictionary symbol set],
+or an error.
+
+== Procedure
+
+Visit each translation unit in _tul_ with input _a_,
+yielding either _a'_ or an error.
+
+=== AST Visitor Methods
+
+Each method accepts an analysis data structure _a_ as input
+and yields either an updated analysis data structure _a'_ or an error as
+output.
+
+==== Translation Units
+
+For each translation unit _tu_, visit each
+definition appearing in _tu_.
+
+==== Definitions
+
+For each definition _d_ that represents a
+https://github.com/nasa/fpp/wiki/Analysis[dictionary definition]
+
+. If _d_ obeys the rules for dictionary definitions, then
+add _d_ to the dictionary symbol set.
+
+. Otherwise return an error.

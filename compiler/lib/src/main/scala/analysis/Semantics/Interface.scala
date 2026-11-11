@@ -12,6 +12,9 @@ case class Interface(
   /* The port interface of the component */
   portInterface: PortInterface = PortInterface("interface"),
 ) {
+
+  def getUnqualifiedName: String = aNode._2.data.name
+
   /** Add a port instance */
   def addPortInstance(instance: PortInstance): Result.Result[Interface] =
     for {

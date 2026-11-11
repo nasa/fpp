@@ -32,13 +32,17 @@ module M {
     dictionary enum E2 { A, B, C }
     struct S { x: U32 }
     dictionary struct S2 { a: U32 }
-    state machine S
+    state machine SM
   }
 
   instance c: C base id 0x100
 
   topology T {
 
+  }
+
+  module template Tmpl(constant n: U32) {
+    array TArr = [n] U32
   }
 
   system S: T

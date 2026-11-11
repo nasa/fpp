@@ -23,6 +23,8 @@ interface_ok
 interface_path_error
 port_ok
 port_path_error
+shadowed_error
+shadowed_ok
 state_machine_ok
 state_machine_path_error
 struct_dictionary_error
@@ -30,6 +32,12 @@ struct_ok
 struct_path_error
 system_ok
 system_path_error
+template_body_expanded_path_error
+template_body_inconsistent_path_error
+template_body_ok
+template_body_path_error
+template_ok
+template_path_error
 topology_ok
 topology_path_error
 "

@@ -401,11 +401,11 @@ abstract class ComponentCppWriterUtils(
       }
       (p, p.getType) match {
         case (_, Some(PortInstance.Type.DefPort(symbol))) =>
-          val typeWriter = writeTypeAsGeneralPortParamType (symbol) _
-          val tuples = symbol.node._2.data.params.map(makeTuple (typeWriter) _)
+          val typeWriter = writeTypeAsGeneralPortParamType (symbol)
+          val tuples = symbol.node._2.data.params.map(makeTuple (typeWriter))
           m + (portName -> tuples)
         case (PortInstance.Internal(node, _, _), _) =>
-          val tuples = node._2.data.params.map(makeTuple (writeTypeAsInternalPortParamType) _)
+          val tuples = node._2.data.params.map(makeTuple (writeTypeAsInternalPortParamType))
           m + (portName -> tuples)
         case _ => m
       }

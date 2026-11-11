@@ -24,7 +24,8 @@ object FPPLocateDefs {
       case list => list
     }
     for {
-      tul <- ToolUtils.parseFilesAndResolveAsts(Analysis(), files).map(_._2)
+      tul <- ToolUtils.parseFiles(files)
+      (_, tul) <- ExpandSyntaxAndEnterSymbols.tuList(Analysis(), tul)
     }
     yield {
       val config = LocateDefsFppWriter.State(options.dir)

@@ -82,6 +82,7 @@ case class Component(
       containerMap,
       eventMap,
       paramMap,
+      recordMap,
       tlmChannelMap
     ).maxBy(maxInMap)
     maxInMap(maxMap)

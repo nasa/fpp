@@ -1,0 +1,85 @@
+the *state machine analysis data structure* represents the results of source analysis
+on an FPP state machine.
+It contains the following members.
+
+* *Flattened choice transition map:*
+A map from
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[transition expressions]
+to
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[transitions].
+The keys in the map are transition expressions
+appearing in choices in the hierarchical state machine.
+For each key _e_, the map records the flattened transition represented
+by _e_ .
+Each flattened transition records the entry and exit actions implied
+by the state hierarchy.
+
+* *Flattened state transition map:*
+A map _m_ from 
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[signal symbols]
+to
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[state-transition
+maps].
+For each signal _s_ in _m_, _m(s)_ is a state transition map.
+Each key in _m(s)_ is a leaf state.
+For each leaf state _S_ in _m(s)_,
+_m(s)(S)_ records the flattened guarded transition out of _S_ on signal _s_.
+Each flattened transition records the entry and exit actions implied
+by the state hierarchy.
+
+* *Nested scope:* A
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[state machine nested
+scope] object
+that represents the current position in a scope traversal.
+
+* *Parent state map:* A map from
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[state machine
+symbols] to their parent state symbols.
+For example, the symbol for a state definition appearing inside a state
+definition _S_ is mapped to the symbol _S_.
+
+* *Scope name list:* A list of unqualified names representing the enclosing
+scopes, with the innermost name at the head of the list.
+The scope name list operates in the same way as the scope name list
+for the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis data structure].
+
+* *Signal-transition map:*
+The current 
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[signal-transition 
+map]
+in the computation of the flattened state transition map.
+
+* *Symbol-scope map:* A map from
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[state machine symbols]
+to their
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[state machine scopes].
+
+* *Reverse transition graph:* A data structure like the
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[transition graph]
+that records, for each node _n_, the arcs from nodes _n'_ to node
+_n_ in the transition graph.
+
+* *Transition graph:* The
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[transition
+graph] for the state machine.
+
+* *Type option map:*
+A map from 
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[typed elements]
+to optional
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[types].
+
+* *Use-def map:* A map from uses
+(https://github.com/nasa/fpp/wiki/Analysis#data-structures[identifiers]
+and
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[qualified
+identifiers] that refer to definitions of state machine symbols)
+to the
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[state machine symbols]
+representing their definitions.
+
+* *Visited symbol set:* The set of
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[state machine symbols]
+visited so far.
+

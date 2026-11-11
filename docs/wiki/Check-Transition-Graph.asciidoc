@@ -1,0 +1,133 @@
+This algorithm constructs and checks the transition graph
+for a state machine definition.
+
+== Input
+
+. A state machine definition _smd_.
+
+. A
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[state 
+machine analysis data structure]
+_sma_ representing the results of analysis so far.
+
+== Output
+
+. _sma_ with the
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[transition
+graph]
+updated if the check passes; otherwise an error.
+
+== Procedure
+
+. Construct the transition graph.
+
+. Check the transition graph for reachability.
+
+. Check for choice cycles in the transition graph.
+
+. Construct the reverse transition graph.
+
+
+=== Constructing the Transition Graph
+
+. Let _n_ be the target of the initial transition
+specifier of the state machine.
+
+. Let _G_ be the transition graph whose initial node
+is _n_ and whose node map is empty.
+
+. For each transition graph node _n_ in the state machine,
+set _G.arcMap(n)_ to the empty map.
+
+. For each transition expression _e_ in _smd_, except for the transition
+expression in the initial transition of the state machine, do
+the following:
+
+.. Let _n_ be the start node corresponding to _e_.
+This is the state where _e_ appears, if _e_ appears in an initial
+transition or state transition, or the choice where _e_ appears.
+
+.. Let _n'_ be the end node corresponding to _e_.
+This is the state or choice referred to by _e_.
+
+.. Construct the
+https://github.com/nasa/fpp/wiki/Analysis#state-machine-data-structures[arc]
+_a_ corresponding to the transition from _n_ to _n'_.
+
+.. Add _a_ to the set _G.arcMap(n)_.
+
+. Set the transition graph of _sma_ to _G_.
+
+=== Checking for Reachability
+
+*Algorithm:*
+
+. Let _R_ be an empty set of transition graph nodes.
+
+. Visit the initial node of the transition graph and update _R_.
+
+. Check that _R_ contains all the nodes of the transition graph.
+
+*Visiting nodes:*
+To visit a node _n_ of the transition graph _T_, do the following:
+
+. If _R_ contains _n_, then do nothing.
+
+. Otherwise
+
+.. Add _n_ to _R_.
+
+.. Visit all the nodes _n'_ such that there is an arc from
+_n_ to _n'_ in _T_.
+
+=== Checking for Choice Cycles
+
+*Algorithm:*
+
+. Let _visited_ be an empty set of choice definitions.
+
+. For each choice definition _c_ that is a node in the
+transition graph
+
+.. Let _L_ be an empty list of transition graph arcs.
+
+.. Let _S_ be an empty set of choice definitions.
+
+.. Visit _c_ with _L_ and _S_.
+
+*Visiting choice definitions:*
+To visit a choice definition _c_ with list _L_ and set _S_,
+do the following:
+
+. Check whether _c_ appears in _S_.
+If so, then _L_ represents a choice cycle.
+Throw a semantic error.
+Use _L_ to construct the error message.
+
+. Otherwise if _c_ is not in _visited_, then
+
+.. Add _c_ to _S_.
+
+.. For each arc _a_ from _c_ to a choice definition _c'_
+
+... Add _a_ to _L_.
+
+... Visit _c'_.
+
+.. Add _c_ to _visited_.
+
+.. Remove _c_ from _S_.
+
+. Otherwise we have already visited _c_; do nothing.
+
+=== Constructing the Reverse Transition Graph
+
+. Let _m_ be the
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[reverse
+transition graph] of _sma_.
+To begin it has the initial node _n_, and it maps _n_ to the empty
+set of arcs.
+
+. Visit each node _n_ in the transition graph.
+For each arc _a_ from _n_ to _n'_,
+add _a_ to the set _m.arcMap(n')_.

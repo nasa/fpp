@@ -21,8 +21,8 @@ object FPPCheck {
     }
     val a = Analysis(inputFileSet = options.files.toSet)
     for {
-      aTul <- ToolUtils.parseFilesAndResolveAsts(a, files)
-      a <- CheckSemantics.tuList(aTul._1, aTul._2)
+      tul <- ToolUtils.parseFiles(files)
+      (a, _) <- CheckSemantics.tuList(a, tul)
       _ <- options.unconnectedFile match {
         case Some(file) => writeUnconnectedPorts(a, file)
         case None => Right(())

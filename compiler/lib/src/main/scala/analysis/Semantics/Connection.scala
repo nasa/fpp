@@ -15,7 +15,7 @@ case class Connection(
   override def toString = s"${from.toString} -> ${to.toString}"
 
   /** Checks the types of a connection */
-  def checkTypes: Result.Result[Unit] = {
+  def checkTypes(a: Analysis): Result.Result[Unit] = {
     val fromInstance = from.port.portInstance
     val fromType = fromInstance.getType
     val toInstance = to.port.portInstance
@@ -23,8 +23,8 @@ case class Connection(
     if (PortInstance.Type.areCompatible(fromType, toType))
       Right(())
     else {
-      val fromTypeString = PortInstance.Type.show(fromType)
-      val toTypeString = PortInstance.Type.show(toType)
+      val fromTypeString = PortInstance.Type.show(a, fromType)
+      val toTypeString = PortInstance.Type.show(a, toType)
       val msg = s"cannot connect port types $fromTypeString and $toTypeString"
       val fromLoc = fromInstance.getLoc
       val toLoc = toInstance.getLoc
@@ -34,7 +34,7 @@ case class Connection(
 
   /** Checks the case of a serial port connected to a typed port,
    *  in either direction. The port type may not have a return type. */
-  def checkSerialWithTypedInput: Result.Result[Unit] = {
+  def checkSerialWithTypedInput(a: Analysis): Result.Result[Unit] = {
     val fromInstance = from.port.portInstance
     val fromType = fromInstance.getType
     val toInstance = to.port.portInstance
@@ -46,7 +46,7 @@ case class Connection(
       ) =>
         aNode._2.data.returnType match {
           case Some(_) =>
-            val toTypeString = PortInstance.Type.show(toType)
+            val toTypeString = PortInstance.Type.show(a, toType)
             val msg =
               s"cannot connect serial output port to input port of type $toTypeString, which returns a value"
             val fromLoc = fromInstance.getLoc
@@ -67,7 +67,7 @@ case class Connection(
       ) =>
         aNode._2.data.returnType match {
           case Some(_) =>
-            val fromTypeString = PortInstance.Type.show(fromType)
+            val fromTypeString = PortInstance.Type.show(a, fromType)
             val msg =
               s"cannot connect output port of type $fromTypeString, which returns a value, to serial input port"
             val fromLoc = fromInstance.getLoc
@@ -109,18 +109,16 @@ case class Connection(
     def portMatchingExists(pml: List[Component.PortMatching], pi: PortInstance): Boolean =
       pml.exists(pm => pi.equals(pm.instance1) || pi.equals(pm.instance2))
 
-    (from.port.interfaceInstance, to.port.interfaceInstance) match {
-      case (InterfaceInstance.InterfaceComponentInstance(fromCi), InterfaceInstance.InterfaceComponentInstance(toCi)) => {
-        val fromPi = from.port.portInstance
-        val toPi = to.port.portInstance
-        val fromPml = fromCi.component.portMatchingList
-        val toPml = toCi.component.portMatchingList
-
-        portMatchingExists(fromPml, fromPi) || portMatchingExists(toPml, toPi)
+    def isConstrainedAt(endpoint: Connection.Endpoint): Boolean = {
+      val port = endpoint.getUnderlyingEndpoint().port
+      port.interfaceInstance match {
+        case InterfaceInstance.InterfaceComponentInstance(ci) =>
+          portMatchingExists(ci.component.portMatchingList, port.portInstance)
+        case _ => false
       }
-
-      case _ => false
     }
+
+    isConstrainedAt(from) || isConstrainedAt(to)
   }
 
   /** Compare two connections */
@@ -167,12 +165,8 @@ object Connection {
         to <- Endpoint.fromAst(a, connection.toPort, connection.toIndex)
         connection <- Right(Connection(from, to, connection.isUnmatched))
         _ <- connection.checkDirections
-        _ <- connection.checkTypes
-        _ <- connection.checkSerialWithTypedInput
-        _ <- 
-          if !connection.isMatchConstrained && connection.isUnmatched 
-          then Left(SemanticError.MissingPortMatching(connection.getLoc))
-          else Right(())
+        _ <- connection.checkTypes(a)
+        _ <- connection.checkSerialWithTypedInput(a)
       }
       yield connection
 
@@ -217,18 +211,33 @@ object Connection {
       case None => Right(())
     }
 
-    /** Get underlying endpoint by stripping off topology port aliases */
+    /** Get underlying endpoint by stripping off topology port aliases
+     *  and template interface parameters */
     def getUnderlyingEndpoint(): Endpoint = {
-      port.interfaceInstance match {
-        // This endpoint is already a component instance
-        case InterfaceInstance.InterfaceComponentInstance(ci) => this
-        case InterfaceInstance.InterfaceTopology(top) => this.copy(
-          // Look up the mapping for this port instance
-          port = top.portMap(port.portInstance.getUnqualifiedName).pii,
-          topologyPort = Some(this)
-          // Recursively resolve the endpoint to a component instance
-        ).getUnderlyingEndpoint()
+      def underlyingEndpointHelper(ii: InterfaceInstance): Endpoint = {
+        ii match {
+          // This endpoint is already a component instance
+          case InterfaceInstance.InterfaceComponentInstance(_) => this
+          case InterfaceInstance.InterfaceTopology(top) => this.copy(
+            // Look up the mapping for this port instance
+            port = top.portMap(port.portInstance.getUnqualifiedName).pii,
+            topologyPort = Some(this)
+            // Recursively resolve the endpoint to a component instance
+          ).getUnderlyingEndpoint()
+          case InterfaceInstance.InterfaceTemplateArg(_, _, boundInstance) =>
+            this.copy(
+              port = PortInstanceIdentifier(
+                boundInstance,
+                boundInstance.getInterface.portMap.getOrElse(
+                  port.portInstance.getUnqualifiedName,
+                  port.portInstance
+                )
+              )
+            ).getUnderlyingEndpoint()
+        }
       }
+
+      underlyingEndpointHelper(port.interfaceInstance)
     }
 
   }

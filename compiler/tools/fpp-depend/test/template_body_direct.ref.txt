@@ -1,0 +1,2 @@
+[ local path prefix ]/compiler/tools/fpp-depend/test/template_body_direct_comp.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/template_body_direct_const.fpp

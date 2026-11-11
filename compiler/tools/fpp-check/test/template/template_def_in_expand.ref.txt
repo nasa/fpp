@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/template_def_in_expand.fpp:7.3
+  module template T2 {
+  ^
+error: module template definitions cannot appear inside a template expansion
+enclosing template expansion is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/template/template_def_in_expand.fpp:5.1
+expand T1 {
+^

@@ -116,6 +116,30 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     members.flatMap(matchModuleMember(s1, _))
   }
 
+  override def defModuleTemplateAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    writeSpecLoc(s, Ast.SpecLoc.Template, data.name, node)
+  }
+
+  override def specTemplateExpandAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+  ) = {
+    // If the template has been expanded, its generated definitions live in the
+    // members list. Locate them so that files using expansion-generated
+    // symbols can resolve them. The generated definitions are placed in the
+    // enclosing scope, so we do not push a scope name here.
+    val (_, node, _) = aNode
+    node.data.members match {
+      case Some(members) => members.flatMap(matchModuleMember(s, _))
+      case None => Nil
+    }
+  }
+
   override def defPortAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefPort]]
@@ -166,7 +190,8 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     loc.file match {
       case File.Path(path) => {
         val nodeList = (name :: s.scopeNameList).reverse.map(s => AstNode.create(s))
-        val qualIdentNode = AstNode.create(Ast.QualIdent.fromNodeList(nodeList))
+        val isAbsolute = true
+        val qualIdentNode = AstNode.create(Ast.QualIdent.fromNodeList(nodeList, isAbsolute))
         val baseDir = s.baseDir match {
           case Some(dir) => dir
           case None => ""
@@ -176,7 +201,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
         val fileNode = AstNode.create(relativePath.normalize.toString)
         val specLocNode = AstNode.create(Ast.SpecLoc(kind, qualIdentNode, fileNode, isDictionaryDef))
         val specLocAnnotatedNode = (Nil, specLocNode, Nil)
-        FppWriter.specLocAnnotatedNode((), specLocAnnotatedNode)
+        FppWriter().specLocAnnotatedNode((), specLocAnnotatedNode)
       }
       case File.StdIn => Nil
     }

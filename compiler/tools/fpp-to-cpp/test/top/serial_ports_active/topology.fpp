@@ -1,7 +1,7 @@
 module SerialPortsActive {
 
-  instance sender: Sender base id 0x100
-  instance receiver: Receiver base id 0x200 \
+  instance sender: Components.Sender base id 0x100
+  instance receiver: Components.Receiver base id 0x200 \
     queue size 10 \
     stack size 1024
 

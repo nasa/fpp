@@ -1,12 +1,13 @@
 package fpp.compiler.codegen
 
+import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.syntax._
 import fpp.compiler.util._
 import scala.language.implicitConversions
 
 /** Write out FPP source */
-object FppWriter extends AstVisitor with LineUtils {
+class FppWriter(a: Analysis = Analysis()) extends AstVisitor with LineUtils {
 
   type In = Unit
 
@@ -262,6 +263,38 @@ object FppWriter extends AstVisitor with LineUtils {
     List(Line.blank, line("}"))
   }
 
+  override def defModuleTemplateAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines (s"module template ${ident(data.name)}").
+      join ("") (paramList (templateParam) (data.params)).
+      addSuffix(" {") ++
+    (Line.blank :: (Line.blankSeparated (moduleMember) (data.members)).map(indentIn)) ++
+    List(Line.blank, line("}"))
+  }
+
+  override def specTemplateExpandAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+  ): Out = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val header =
+      lines("expand").
+        join(" ") (qualIdent(data.template.data)).
+        join ("") (templateArgList(data.args))
+    data.members match {
+      case None => header
+      case Some(members) =>
+        header.addSuffix(" {") ++
+        (Line.blank :: Line.blankSeparated (moduleMember) (members)).map(indentIn) ++
+        List(Line.blank, line("}"))
+    }
+  }
+
   override def defPortAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefPort]]
@@ -306,9 +339,18 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     data.members match {
-        case Some(members) if members.nonEmpty =>
+        case Some(members) =>
+            // Filter out state enum members added during syntax expansion
+            val members1 = members.filter {
+              _.node._2 match {
+                case Ast.StateMachineMember.DefEnum(node) =>
+                  !a.stateEnumIdSet.contains(node.id)
+                case _ => true
+              }
+            }
+            // Write out the members
             List(line(s"state machine ${ident(data.name)} {"), Line.blank) ++
-            (Line.blankSeparated(stateMachineMember)(members)).map(indentIn) ++
+            (Line.blankSeparated(stateMachineMember)(members1)).map(indentIn) ++
             List(Line.blank, line("}"))
         case _ =>
             List(line(s"state machine ${ident(data.name)}"))
@@ -381,13 +423,16 @@ object FppWriter extends AstVisitor with LineUtils {
     in: In,
     node: AstNode[Ast.Expr],
     e: Ast.ExprDot
-  ) = exprNode(e.e).join (".") (lines(e.id.data))
+  ) = exprNode(e.e).join (".") (identAsLines(e.id.data))
 
   override def exprIdentNode(
     in: In,
     node: AstNode[Ast.Expr],
     e: Ast.ExprIdent
-  ) = lines(e.value)
+  ) = {
+    val id = ident(e.value)
+    lines(if e.isAbsolute then s".$id" else id)
+  }
 
   override def exprLiteralBoolNode(
     in: In,
@@ -849,14 +894,37 @@ object FppWriter extends AstVisitor with LineUtils {
     lines(name).join (": ") (typeNameNode(fp.typeName))
   }
 
-  private def formalParamList(fpl: Ast.FormalParamList) =
-    fpl match {
+  private val formalParamList = paramList (formalParam)
+
+  private def paramList[T] (f: T => List[Line]) (params: List[Ast.Annotated[AstNode[T]]]) =
+    params match {
       case Nil => Nil
       case _ =>
         lines("(") ++
-        fpl.flatMap(annotateNode(formalParam)).map(indentIn) ++
+        params.flatMap(annotateNode(f)).map(indentIn) ++
         lines(")")
     }
+
+  private def templateArg(arg: Ast.TemplateArg) =
+    arg match {
+      case Ast.TemplateArg.Constant(e) =>
+        lines("constant").join(" ") (exprNode(e))
+      case Ast.TemplateArg.Type(name) =>
+        lines("type").join(" ") (typeNameNode(name))
+      case Ast.TemplateArg.Interface(i) =>
+        lines("instance").join(" ") (qualIdent(i.data))
+    }
+
+  private def argList[T] (f: T => List[Line]) (args: List[AstNode[T]]) =
+    args match {
+      case Nil => Nil
+      case _ =>
+        lines("(") ++
+        args.flatMap({ case node => f(node.data) }).map(indentIn) ++
+        lines(")")
+    }
+
+  private val templateArgList = argList (templateArg)
 
   private def ident(id: Ast.Ident) =
     if (Lexer.reservedWordSet.contains(id)) "$" ++ id else id
@@ -867,14 +935,25 @@ object FppWriter extends AstVisitor with LineUtils {
     qualIdent(pii.interfaceInstance.data).
     addSuffix(s".${ident(pii.portName.data)}")
 
+  private def prefixWithDictionary(s: String, isDictionaryDef: Boolean) =
+    if isDictionaryDef then
+      s"dictionary $s"
+    else
+      s
+
   private def qualIdent(qid: Ast.QualIdent): Out =
     lines(qualIdentString(qid))
 
-  private def qualIdentString(qid: Ast.QualIdent): String =
+  private def qualIdentString(qid: Ast.QualIdent): String = {
+    val s = relativeQualIdentString(qid)
+    if qid.isAbsolute then s".$s" else s
+  }
+
+  private def relativeQualIdentString(qid: Ast.QualIdent): String =
     qid match {
-      case Ast.QualIdent.Unqualified(name) => ident(name)
+      case Ast.QualIdent.Unqualified(name, _) => ident(name)
       case Ast.QualIdent.Qualified(qualifier, name) =>
-        qualIdentString(qualifier.data) ++ "." ++ ident(name.data)
+        relativeQualIdentString(qualifier.data) ++ "." ++ ident(name.data)
     }
 
   private def queueFull(qf: Ast.QueueFull) = lines(qf.toString)
@@ -900,6 +979,19 @@ object FppWriter extends AstVisitor with LineUtils {
       join (" ") (typeNameNode(member.typeName)).
       joinOpt (member.format) (" format ") (applyToData(string))
 
+  private def templateParam(tp: Ast.TemplateParam) = {
+    tp match {
+      case Ast.TemplateParam.Constant(name, typeName) =>
+        lines(s"constant ${ident(name)}: ").
+          join("") (typeNameNode(typeName))
+      case Ast.TemplateParam.Type(name) =>
+        lines(s"type ${ident(name)}")
+      case Ast.TemplateParam.Interface(name, interface) =>
+        lines(s"instance ${ident(name)}: ").
+          join("") (qualIdent(interface.data))
+    }
+  }
+
   private def tlmChannelId(tci: Ast.TlmChannelIdentifier) =
     qualIdent(tci.componentInstance.data).
     addSuffix(s".${ident(tci.channelName.data)}")
@@ -916,9 +1008,4 @@ object FppWriter extends AstVisitor with LineUtils {
 
   private def unop(op: Ast.Unop) = op.toString
 
-  private def prefixWithDictionary(s: String, isDictionaryDef: Boolean) =
-    if isDictionaryDef then
-      s"dictionary $s"
-    else
-      s
 }

@@ -1,0 +1,104 @@
+== Expansion of Templates
+
+Expansion of templates performs partial analysis
+and syntactic expansion.
+It produces a new model according to the following rules:
+
+. For each <<Specifiers_Template-Expansion-Specifiers_Syntax,unexpanded 
+template
+expansion specifier>> _S_ in the source model,
+transform _S_ into an
+expanded template expansion specifier _E_ = _S_ `{` _X_ `}`, where _X_
+is a copy of the module member list provided
+by the template definition to which _S_ refers.
+The syntax _X_ behaves as if it were literally included in
+the model at the point of _E_, except that there are
+special rules for 
+<<Scoping-of-Names_Resolution-of-Identifiers_Inside-an-Expanded-Template,
+resolving names>> that appear inside _E_.
+
+. For each expanded template expansion specifier _E_ = _S_ `{` _X_ `}`
+in the source model, leave _E_ unchanged.
+
+Note in particular that applying template expansion twice
+(or, more generally, any number of times greater than one)
+is equivalent to applying template expansion once.
+
+=== Algorithm
+
+Let _M_ be the model initially presented to the analyzer,
+with <<Specifiers_Include-Specifiers,include specifiers>> resolved.
+Construct the output model _M'_ as follows:
+
+. Perform enough analysis on _M_ to 
+  <<Definitions_Module-Template-Definitions_Semantics,check all the template definitions>> and to 
+  match all template expansion specifiers with the template definitions to which they refer.
+
+. For each unexpanded template expansion specifier _S_ in _M_, do the 
+  following:
+
+.. Let _T_ be the template definition referred to in _S_.
+
+.. Let _X_ be a copy of the syntax specified in the body of _T_.
+
+.. Replace _S_ with _S_ `{` _X_ `}`.
+
+=== Examples
+
+==== Example 1
+
+*Model _M_:*
+
+[source,fpp]
+----
+module M {
+
+  constant a = 0
+
+  module template T(constant b: U32) {
+
+    constant c = a + b
+
+  }
+
+}
+
+module N {
+
+  expand M.T(constant 1)
+
+}
+----
+
+*Model _M'_:*
+
+[source,fpp]
+----
+module M {
+
+  constant a = 0
+
+  module template T(constant b: U32) {
+
+    constant c = a + b
+
+  }
+
+}
+
+module N {
+
+  expand M.T(constant 1) {
+
+    constant c = a + b
+
+  }
+
+}
+----
+
+==== Example 2
+
+Let model _M_ be the same as model _M'_ from the previous section.
+Then the template expansion specifier is expanded, so template
+expansion leaves the model unchanged (stem:[M' = M]).

@@ -72,6 +72,7 @@ enum
 event
 every
 exit
+expand
 external
 false
 fatal
@@ -133,6 +134,7 @@ string
 struct
 sync
 telemetry
+template
 text
 throttle
 time

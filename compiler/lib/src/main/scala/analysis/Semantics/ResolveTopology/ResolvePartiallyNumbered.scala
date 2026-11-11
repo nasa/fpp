@@ -50,14 +50,14 @@ object ResolvePartiallyNumbered {
       // Check the source
       _ <- {
         val (instance, loc) = pattern.source
-        t.lookUpInstanceAt(InterfaceInstance.fromComponentInstance(instance), loc)
+        t.lookUpComponentInstanceAt(instance, loc)
       }
       // Check the targets
       _ <- Result.map(
         pattern.targets.toList,
         (pair: (ComponentInstance, Location)) => {
           val (instance, loc) = pair
-          t.lookUpInstanceAt(InterfaceInstance.fromComponentInstance(instance), loc)
+          t.lookUpComponentInstanceAt(instance, loc)
         }
       )
     }
@@ -65,7 +65,7 @@ object ResolvePartiallyNumbered {
 
   /** Compute the transitively imported topologies */
   private def computeTransitiveImports(a: Analysis, t: Topology) = {
-    val tis = t.directTopologies.keys.foldLeft (Set[Symbol.Topology]()) ((tis, ts) => {
+    val tis = t.getImportedTopologySymbols(a).foldLeft (Set[Symbol.Topology]()) ((tis, ts) => {
       val t = a.topologyMap(ts)
       tis.union(t.transitiveImportSet) + ts
     })
@@ -99,10 +99,12 @@ object ResolvePartiallyNumbered {
     // Check whether an instance exists
     def endpointExists(endpoint: Connection.Endpoint) = {
       val instance = endpoint.port.interfaceInstance
-      t.instanceMap.get(instance) match {
-        case Some(_) => true
-        case None => false
+      def componentInstanceExists = instance match {
+        case InterfaceInstance.InterfaceComponentInstance(ci) =>
+          t.componentInstanceMap.contains(ci)
+        case _ => false
       }
+      t.instanceMap.contains(instance) || componentInstanceExists
     }
     // Check whether a connection exists
     def exists(connection: Connection) =
@@ -136,8 +138,9 @@ object ResolvePartiallyNumbered {
     // Clear out connections of T and reprocess them
     // Resolve all port instance identifiers to their 'true' component instance port
     Right(t.localConnectionMap.foldLeft (t.copy(
-      localConnectionMap = Map(),
       connectionMap = Map(),
+      unmatchedConnectionSet = Set(),
+      localConnectionMap = Map(),
       outputConnectionMap = TreeMap(),
       inputConnectionMap = TreeMap(),
       fromPortNumberMap = TreeMap(),
@@ -156,7 +159,7 @@ object ResolvePartiallyNumbered {
     }
     def importInstances(into: Topology, fromSymbol: Symbol.Topology) =
       a.topologyMap(fromSymbol).instanceMap.foldLeft (into) (importInstance)
-    Right(t.directTopologies.keys.foldLeft (t) (importInstances))
+    Right(t.getImportedTopologySymbols(a).foldLeft (t) (importInstances))
   }
 
   /** Resolve this topology to a partially numbered topology */

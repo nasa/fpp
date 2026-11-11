@@ -1,0 +1,34 @@
+This algorithm traverses a state machine definition and checks
+that, within each state definition, each transition uses a unique
+signal.
+
+== Input
+
+. A state machine definition _smd_.
+
+. A
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[state 
+machine analysis data structure]
+_sma_ representing the results of analysis so far.
+
+== Output
+
+. _sma_ if the check succeeds; otherwise an error.
+
+== Procedure
+
+Visit each state definition _d_ that is a transitive member of _smd_ and
+do the following:
+
+. Initialize a set _S_ of signal symbols to an empty map.
+
+.  Visit each state transition specifier _sts_ that is a member of _d_
+and do the following:
+
+.. Use the
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[use-def map]
+of _sma_ to look up the symbol _s_ referred to in the `on` clause of _sts_.
+
+.. If _S_ contains a mapping from _s_ to _sts'_, then use _sts'_ to report the error.
+
+.. Otherwise map _s_ to _sts_ in _S_.

@@ -1,0 +1,10 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port_matching/template_missing_connection.fpp:34.7
+      i.pOut -> c2.pIn
+      ^
+  expanded at [ local path prefix ]/compiler/tools/fpp-check/test/port_matching/template_missing_connection.fpp:41.1
+error: no match for this connection
+port matching is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/port_matching/template_missing_connection.fpp:12.3
+  match pIn with pOut
+  ^

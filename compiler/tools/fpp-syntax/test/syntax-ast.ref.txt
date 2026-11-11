@@ -142,19 +142,19 @@ def module
     @< Async product receive port
     @ Internal Component State machine definition
     def state machine
-      ident S
+      ident SM
     @< State machine definition
     @ State machine instance 1
     spec state machine instance
       ident s1
-      state machine qual ident S
+      state machine qual ident SM
       priority literal int 10
       queue full drop
     @< State machine instance 1
     @ State machine instance 2
     spec state machine instance
       ident s2
-      state machine qual ident S
+      state machine qual ident SM
     @< State machine instance 2
     @ State machine for outside definition
     spec state machine instance
@@ -304,10 +304,56 @@ def module
       ident x
       literal int 0
   @< Module definition
-  @ Include specifier
-  spec include
-    file constant.fppi
-  @< Include specifier
+  def module
+    ident Constants
+    @ Include specifier
+    spec include
+      file constant.fppi
+    @< Include specifier
+  @ Module template definition
+  def module template
+    ident MT
+    @ Constant template parameter
+    constant template param
+      ident c
+      type name U32
+    @< Constant template parameter
+    @ Type template parameter
+    type template param
+      ident Ty
+    @< Type template parameter
+    @ Interface instance template parameter
+    instance template param
+      ident i
+      qual ident I
+    @< Interface instance template parameter
+    def constant
+      ident a
+      ident c
+  @< Module template definition
+  @ Unexpanded template expansion specifier
+  expand
+    qual ident MT
+    constant template arg
+      literal int 0
+    type template arg
+      type name U32
+    instance template arg
+      qual ident i1
+  @< Unexpanded template expansion specifier
+  @ Expanded template expansion specifier
+  expand
+    qual ident MT
+    constant template arg
+      literal int 0
+    type template arg
+      type name U32
+    instance template arg
+      qual ident i1
+    def constant
+      ident b
+      literal int 0
+  @< Expanded template expansion specifier
   @ Port definition
   def port
     ident P
@@ -344,6 +390,10 @@ def module
     spec interface instance
       qual ident i1
     @< Public instance specifier
+    @ Public instance specifier with absolute qualified identifier
+    spec interface instance
+      qual ident .i1Abs
+    @< Public instance specifier with absolute qualified identifier
     @ Direct connection graph specifier
     spec connection graph direct
       ident C
@@ -360,6 +410,9 @@ def module
       unmatched connection
         from port qual ident i1.p1
         to port qual ident i2.p2
+      connection
+        from port qual ident .i1.p3
+        to port qual ident .i2.p3
     @< Direct connection graph specifier
     @ Graph pattern specifier
     spec connection graph pattern
@@ -386,6 +439,8 @@ def module
             qual ident i1.c1
           tlm channel identifier
             qual ident i2.c2
+          tlm channel identifier
+            qual ident .i1.c3
         @< Telemetry packet
         @ Include specifier
         spec include
@@ -393,26 +448,32 @@ def module
         @< Include specifier
       omitted
         qual ident i3.c3
+        qual ident .i3.c4
     @< Telemetry packet group
     @ Topology port specifier
     spec top port
       ident a
       qual ident b.a
     @< Topology port specifier
+    @ Topology port specifier with absolute qualified identifier
+    spec top port
+      ident aAbs
+      qual ident .b.a
+    @< Topology port specifier with absolute qualified identifier
   @< Topology definition
   @ Deployment topology
   def deployment topology
-    ident T
+    ident T1
   @< Deployment topology
   @ Topology definition with one implements
   def topology
-    ident T
+    ident T2
     implements
       qual ident I
   @< Topology definition with one implements
   @ Topology definition with two implements
   def topology
-    ident T
+    ident T3
     implements
       qual ident I
       qual ident I
@@ -422,18 +483,35 @@ def module
     ident S
     qual ident M.T
   @< System definition
+  @ System definition with absolute qualified identifier
+  def system
+    ident SAbs
+    qual ident .M.T
+  @< System definition with absolute qualified identifier
   @ Location specifier
   spec loc
     kind instance
     symbol qual ident i
     file instances.fpp
   @< Location specifier
+  @ Location specifier with absolute qualified identifier
+  spec loc
+    kind instance
+    symbol qual ident .i
+    file instances.fpp
+  @< Location specifier with absolute qualified identifier
   @ System location specifier
   spec loc
     kind system
     symbol qual ident S
     file system.fpp
   @< System location specifier
+  @ Template location specifier
+  spec loc
+    kind template
+    symbol qual ident MT
+    file template.fpp
+  @< Template location specifier
 @< Definitions and specifiers
 @ Type names
 def module
@@ -459,6 +537,10 @@ def module
     ident typeNameQID
     size literal int 10
     type name qual ident a.b.c
+  def array
+    ident typeNameAbsoluteQID
+    size literal int 10
+    type name qual ident .a.b.c
 @< Type names
 @ Expressions
 def module
@@ -530,7 +612,7 @@ def module
   @< Array Subscript
   @ Array Subscript with member selection
   def constant
-    ident arraySubExp2
+    ident arraySubExp3
     expr array subscript
       expr dot
         expr array subscript
@@ -559,6 +641,15 @@ def module
         ident b
       ident c
   @< Dot
+  @ Dot with absolute qualified identifier
+  def constant
+    ident dotAbsoluteExp
+    expr dot
+      expr dot
+        ident .a
+        ident b
+      ident c
+  @< Dot with absolute qualified identifier
   @ FP literal
   def constant
     ident fpLiteralExp
@@ -569,6 +660,11 @@ def module
     ident identExp
     ident x
   @< Identifier
+  @ Identifier with absolute qualified identifier
+  def constant
+    ident identAbsoluteExp
+    ident .x
+  @< Identifier with absolute qualified identifier
   @ Int literal
   def constant
     ident intLiteralExp

@@ -154,6 +154,9 @@ object CheckTypeUses extends UseAnalyzer {
         case Symbol.Array(node) => defArrayAnnotatedNode(a, node)
         case Symbol.Enum(node) => defEnumAnnotatedNode(a, node)
         case Symbol.Struct(node) => defStructAnnotatedNode(a, node)
+        case arg: Symbol.TemplateTypeArg =>
+          if (a.typeMap.contains(arg.value.id)) Right(a)
+          else templateTypeArg(a, arg)
         case _ => Right(a)
       }
       t <- a.typeMap.get(symbol.getNodeId) match {

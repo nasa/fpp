@@ -17,18 +17,16 @@ object FPPToLayout {
     )
 
     def command(options: Options) = {
-        fpp.compiler.util.Error.setTool(Tool(name))
-         val files = options.files.reverse match {
+        Error.setTool(Tool(name))
+        val files = options.files.reverse match {
             case Nil  => List(File.StdIn)
             case list => list
         }
         val a = Analysis(inputFileSet = options.files.toSet)
         for {
-            aTulTul <- ToolUtils.parseFilesAndResolveAsts(a, files, options.imports)
-            a <- Right(aTulTul._1)
-            tulFiles <- Right(aTulTul._2)
-            tulImports <- Right(aTulTul._3)
-            a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
+            tul <- ToolUtils.parseFiles(files ++ options.imports)
+            (a, tul) <- CheckSemantics.tuList(a, tul)
+            tulFiles = tul.take(files.length)
             state <- {
                 val dir = options.dir match {
                     case Some(dir1) => dir1

@@ -1,0 +1,56 @@
+This algorithm traverses a state machine definition and
+checks the initial transition specifiers.
+
+== Input
+
+. A state machine definition _smd_.
+
+. A
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[state 
+machine analysis data structure]
+_sma_ representing the results of analysis so far.
+
+== Output
+
+. _sma_ if the check passes; otherwise an error.
+
+== Procedure
+
+If _smd_ has state machine members, then
+
+. Check that _smd_ has exactly one initial transition specifier
+in its members.
+
+. Visit each of the state machine members _smm_ of _smd_ as specified below.
+
+=== Visiting State Machine Members
+
+Visit a state machine member _smm_ as follows:
+
+. If _smm_ is an initial transition specifier _s_, then
+check that the state definition or choice definition referred to in the enter 
+expression of _s_ leads to a member of the enclosing state machine.
+
+. Otherwise if _smm_ is a state definition _d_ with state
+definition member sequence _sdms_ and _sdms_ has at least one
+state definition, then
+
+.. Check that _sdms_ has exactly one initial transition specifier.
+
+.. Visit each element _sdm_ of _sdms_.
+
+. Otherwise do nothing.
+
+=== Visiting State Definition Members
+
+Visit a state definition member _sdm_ as follows:
+
+. If _smm_ is an initial transition specifier _s_, then
+check that the state definition or choice definition referred to in the enter 
+expression of _s_ leads to a member of the enclosing state definition.
+
+. Otherwise if _sdm_ is a state definition,
+then visit it in the same way as for the corresponding state
+machine member.
+
+. Otherwise do nothing.

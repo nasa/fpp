@@ -1,0 +1,88 @@
+This algorithm assigns a type option to each typed element.
+It checks the type options for consistency with the semantic rules.
+
+== Input
+
+. A state machine definition _smd_.
+
+. A
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[state 
+machine analysis data structure]
+_sma_ representing the results of analysis so far.
+
+== Output
+
+. _sma_ with the
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[type option map]
+updated if the check passes; otherwise an error.
+
+== Procedure
+
+. Compute the type option map.
+
+. Check the types of the actions and guards.
+
+=== Computing the Type Option Map
+
+*Algorithm:*
+
+. Let _m_ be the 
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[type option map]
+of _sma_.
+
+. Visit each typed element _e_ of _smd_.
+
+*Visiting typed elements:*
+To visit a typed element _e_, do the following:
+
+. If the mapping _m(e)_ exists, then do nothing.
+
+. Otherwise if _e_ is an initial transition specifier,
+a state entry specifier, or a state exit specifier, then
+then set _m(e)_ to _None_.
+
+. Otherwise if _e_ is a state transition specifier _sts_, then
+
+.. Let _o_ be the type option specified in the signal of _sts_.
+
+.. Set _m(sts)_ to _o_.
+
+. Otherwise _e_ is a choice _c_.
+
+.. Let _r_ be the
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[reverse
+transition graph] of _sma_.
+
+.. If _r.arcMap(j)_ is empty, then set _m(j)_ to _None_.
+This happens when _c_ is the initial node of the transition graph.
+
+.. Otherwise
+
+... Let _E_ be the set of typed elements implied by the arc set _r.arcMap(j)_.
+
+... Visit each typed element in _E_.
+
+... Let _O_ be the set of type options _m(e)_ such that _e_ is an
+element of _E_.
+
+... Let _o_ be the common type option of _O_.
+If there is no common type option, then return an error.
+
+... Set _m(j)_ to _o_.
+
+=== Checking the Types of Actions and Guards
+
+. Visit each typed element _e_ of _smd_.
+
+.. Let _o_ be the type option associated with _e_ in the type option map.
+
+.. If _e_ is a initial transition specifier, a state entry specifier,
+or a state exit specifier, then check
+that _o_ is convertible to the type option of each of the
+actions specified in _e_.
+
+.. Otherwise if _e_ is a state transition specifier
+or choice definition, then
+check that all guards and actions specified in _e_ have
+type options _o'_ such that _o_ is convertible to _o'_.
+

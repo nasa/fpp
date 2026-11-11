@@ -1,0 +1,7 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/constant_param_array_promote_bad_subscript.fpp:11.21
+  constant e = c[0][3]
+                    ^
+  expanded at [ local path prefix ]/compiler/tools/fpp-check/test/template/constant_param_array_promote_bad_subscript.fpp:15.1
+error: invalid integer value 3
+index value is not in the range [0, 2]

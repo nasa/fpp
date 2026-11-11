@@ -33,8 +33,8 @@ object FormatCppWriter {
       }
       case _ => default
     }
-    def rational(precision: Option[BigInt], rt: Rational.Type) = tn.data match {
-      case Ast.TypeNameFloat(_) =>
+    def rational(precision: Option[BigInt], rt: Rational.Type) = s.a.typeMap(tn.id).getUnderlyingType match {
+      case _: Type.Float =>
         val precisionStr = precision match {
           case Some(p) => s".${p.toString}"
           case None => ""

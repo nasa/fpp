@@ -47,7 +47,7 @@ object DictionaryJsonWriter extends AstStateVisitor {
             DictionaryJsonEncoderState.getSystemFileName(baseName)
         }
         val json = {
-            val Right(topSymbol) = s.a.getTopologySymbol(data.topology.id): @unchecked
+            val Right(topSymbol) = s.a.getTopologySymbol(data.topology.id).runtimeChecked
             constructJson(s, topSymbol)
         }
         writeJson(s, fileName, json)

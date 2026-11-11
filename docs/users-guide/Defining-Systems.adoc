@@ -71,3 +71,9 @@ deployment topology T {
 system S1: T
 system S2: T # Error: only one system allowed
 --------
+
+Because only one system is allowed, you may not put a system
+inside a <<Defining-and-Using-Module-Templates,module template>>.
+And because of the one-to-one correspondence between systems and
+deployment topologies in the current version of FPP, you may
+not put a deployment topology inside a module template.

@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/arg_kind_instance_param_type_arg.fpp:13.10
+expand T(type U32)
+         ^
+error: invalid argument for template parameter i: expected a instance argument, got a type argument
+template parameter is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/template/arg_kind_instance_param_type_arg.fpp:7.19
+module template T(instance i: I) {
+                  ^

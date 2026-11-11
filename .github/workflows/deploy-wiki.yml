@@ -1,0 +1,45 @@
+name: Deploy Wiki
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: [ "docs/wiki/**" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-wiki
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.repository == 'nasa/fpp'
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v6
+      with:
+        path: fpp
+    - name: Check out wiki
+      uses: actions/checkout@v6
+      with:
+        repository: ${{ github.repository }}.wiki
+        path: wiki
+    - name: Copy wiki sources
+      run: rsync -a --delete --exclude .git fpp/docs/wiki/ wiki/
+    - name: Commit and push
+      working-directory: wiki
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add -A
+        if git diff --cached --quiet
+        then
+          echo "Wiki is up to date"
+          exit 0
+        fi
+        git commit -m "Deploy docs/wiki from ${GITHUB_REPOSITORY}@${GITHUB_SHA}"
+        git push

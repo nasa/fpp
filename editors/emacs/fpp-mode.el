@@ -36,14 +36,14 @@
 (defconst fpp-mode-definition-keywords
   '("type" "array" "component" "instance" "constant" "deployment"
     "enum" "machine" "module" "omit" "packet" "packets"
-    "port" "state" "struct" "system" "topology")
+    "port" "state" "struct" "system" "template" "topology")
   "FPP keywords for definitions.")
 
 (defconst fpp-mode-keywords
   '("action" "active" "activity" "always"  "assert"
     "at" "base" "block" "change" "choice" "command"
     "connections" "cpu" "default" "diagnostic" "dictionary" "do"
-    "drop" "else" "entry" "event" "every" "exit" "external"
+    "drop" "else" "entry" "event" "every" "exit" "expand" "external"
     "false" "fatal" "format" "get" "guard"
     "guarded" "health" "high" "hook" "id" "if" "import" "implements"
     "include" "initial" "input" "interface" "internal"

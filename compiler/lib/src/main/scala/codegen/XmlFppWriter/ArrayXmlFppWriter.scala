@@ -11,12 +11,12 @@ object ArrayXmlFppWriter extends LineUtils {
 
   def writeFile(file: XmlFppWriter.File): XmlFppWriter.Result =
     for (tuMember <- FppBuilder.tuMember(file))
-      yield FppWriter.tuMember(tuMember)
+      yield FppWriter().tuMember(tuMember)
 
   private object FppBuilder {
 
     /** Translates an XML type to an FPP type name */
-    def translateType(file: XmlFppWriter.File): Node => Result.Result[Ast.TypeName] = file.translateType(node => Right(node.text)) _
+    def translateType(file: XmlFppWriter.File): Node => Result.Result[Ast.TypeName] = file.translateType(node => Right(node.text))
 
     /** Translates a block of default values from FPP to XML */
     def translateDefaults(node: scala.xml.Node, tn: Ast.TypeName): (Option[AstNode[Ast.Expr]], List[String]) = {

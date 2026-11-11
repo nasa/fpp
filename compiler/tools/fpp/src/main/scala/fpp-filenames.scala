@@ -23,23 +23,33 @@ object FPPFilenames {
       case list => list
     }
     for {
-      tul <- ToolUtils.parseFilesAndResolveAsts(Analysis(), files).map(_._2)
+      tul <- ToolUtils.parseFiles(files)
+      (a, tul) <- expandSyntaxAndEnterSymbols(tul)
       files <-
         CppWriter.getMode(options.template, options.unitTest) match {
-          case CppWriter.Autocode => ComputeGeneratedFiles.getAutocodeFiles(tul)
-          case CppWriter.ImplTemplate => ComputeGeneratedFiles.getImplFiles(tul)
+          case CppWriter.Autocode => ComputeGeneratedFiles.getAutocodeFiles(a, tul)
+          case CppWriter.ImplTemplate => ComputeGeneratedFiles.getImplFiles(a, tul)
           case CppWriter.UnitTest => ComputeGeneratedFiles.getTestFiles(
-            tul,
+            a, tul,
             CppWriter.getTestHelperMode(options.autoTestHelpers)
           )
           case CppWriter.UnitTestTemplate => ComputeGeneratedFiles.getTestImplFiles(
-            tul,
+            a, tul,
             CppWriter.getTestHelperMode(options.autoTestHelpers)
           )
         }
     }
     yield files.sorted.map(System.out.println)
   }
+
+  def expandSyntaxAndEnterSymbols(tul: List[Ast.TransUnit]):
+    Result.Result[(Analysis, List[Ast.TransUnit])] =
+      for {
+        (a, tul) <- ResolveSpecInclude.transUnitList(Analysis(), tul)
+        (a, tul) <- AddStateEnums.transformList(a, tul, AddStateEnums.transUnit)
+        a <- EnterSymbols.visitList(Analysis(), tul, EnterSymbols.transUnit)
+      }
+      yield (a, tul)
 
   def toolMain(args: Array[String]) =
     Tool(name).mainMethod(args, oparser, Options(), command)

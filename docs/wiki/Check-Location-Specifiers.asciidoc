@@ -1,0 +1,37 @@
+This algorithm checks that for each location specifier, the specified location
+matches the actual location of the symbol.
+
+== Input
+
+. An https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis data structure]
+_a_.
+
+. A list _tul_ of FPP translation units.
+
+==  Output
+
+. An analysis data structure _a_ with updated location specifier map,
+or an error.
+
+== Procedure
+
+. *Build the location specifier map:* Use the same algorithm
+as for
+https://github.com/nasa/fpp/wiki/Computing-Dependencies[computing dependencies].
+
+. *Check specified locations:* Traverse each translation unit _tu_ in _tul_, updating the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[scope name list]
+as modules are entered and exited.
+For each definition _d_ encountered other than a module definition, do the following:
+
+.. Use the scope name list to construct the unique qualified name _N_ associated with _d_.
+
+.. Look in the location specifier map to get the location _l_ associated with _N_, if any.
+
+.. If _l_ exists, then do the following:
+
+... Check that _l_ matches the actual location of _d_. If not, then return an error.
+
+... Check that _d_ is a dictionary definition and _l_ is a dictionary specifier
+or _d_ is not a dictionary definition and _l_ is not a dictionary specifier.
+If not, then throw an error.

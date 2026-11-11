@@ -1,0 +1,6 @@
+locate component C at "template_arg_uses.fpp"
+locate instance i1 at "template_arg_uses.fpp"
+locate interface I at "template_arg_uses.fpp"
+locate port P at "template_arg_uses.fpp"
+locate template T at "template_arg_uses.fpp"
+locate type Elt at "template_arg_uses.fpp"

@@ -53,7 +53,8 @@ case class TopConfigObjects(
     )
   }
 
-  private def getConfigObjectLines: List[Line] = {
+  /** Configuration objects generated for one instance, including built-in objects. */
+  def getInstanceConfigObjectLines(ci: ComponentInstance): Option[List[Line]] = {
     def specialGen(ci: ComponentInstance, qn: String) = {
       qn match {
         case "Svc.Health" => getHealthCode(ci, getPingEntryBlock)
@@ -61,13 +62,14 @@ case class TopConfigObjects(
       }
     }
 
-    def getCode(ci: ComponentInstance) = getSpecialCode(ci, specialGen) match {
-      case None => (
-        getCodeForPhase (CppWriter.Phases.configObjects) (ci)
-      ).map(lines)
+    getSpecialCode(ci, specialGen) match {
+      case None => getCodeForPhase (CppWriter.Phases.configObjects) (ci).map(lines)
       case code => code
     }
-    val pairs = instances.map(ci => (ci, getCode(ci))).
+  }
+
+  private def getConfigObjectLines: List[Line] = {
+    val pairs = instances.map(ci => (ci, getInstanceConfigObjectLines(ci))).
       filter(_._2.isDefined).map {
         case (ci, codeOpt) => (ci, codeOpt.get)
       }

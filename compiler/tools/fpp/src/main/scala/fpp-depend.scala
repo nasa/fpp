@@ -45,9 +45,8 @@ object FPPDepend {
     }
     val a = Analysis(inputFileSet = options.files.toSet, dictionaryGeneration = true)
     for {
-      aTul <- ToolUtils.parseFilesAndResolveAsts(a, files)
-      a <- Right(aTul._1)
-      tul <- Right(aTul._2)
+      tul <- ToolUtils.parseFiles(files)
+      (a, tul) <- ResolveSpecInclude.transUnitList(a, tul)
       a <- ComputeDependencies.tuList(a, tul)
       _ <- options.directFile match {
         case Some(file) => writeIterable(a.directDependencyFileSet, file)
@@ -70,9 +69,14 @@ object FPPDepend {
           }
         case None => Right(())
       }
+      (a, expandedTul) <- {
+        if options.generatedAutocodeFile.isDefined || options.unitTestFile.isDefined
+        then expandSyntax(a, tul)
+        else Right((a, tul))
+      }
       _ <- options.generatedAutocodeFile match {
         case Some(file) =>
-          for (files <- ComputeGeneratedFiles.getAutocodeFiles(tul))
+          for (files <- ComputeGeneratedFiles.getAutocodeFiles(a, expandedTul))
           yield writeIterable(files, file)
         case None => Right(())
       }
@@ -80,7 +84,7 @@ object FPPDepend {
         case Some(file) =>
           for {
             files <- ComputeGeneratedFiles.getTestFiles(
-              tul,
+              a, expandedTul,
               CppWriter.getTestHelperMode(options.autoTestHelpers)
             )
           }
@@ -97,6 +101,17 @@ object FPPDepend {
       }
     } yield mapIterable(a.dependencyFileSet, System.out.println(_))
   }
+
+  /** Expand syntax in the input translation units.
+   *  Expand the syntax in the input together with the dependency
+   *  files parsed during dependency analysis. Return the expanded input
+   *  translation units. */
+  def expandSyntax(a: Analysis, tul: List[Ast.TransUnit]):
+    Result.Result[(Analysis, List[Ast.TransUnit])] =
+      val depTul = a.dependencyTuMap.toList.sortBy(_._1.toString).map(_._2)
+      for ((a, tul1) <- ExpandSyntaxAndEnterSymbols.tuList(a, tul ++ depTul))
+        // The expanded input translation units come first
+        yield (a, tul1.take(tul.length))
 
   def writeIterable[T](
     its: Iterable[T],

@@ -1,0 +1,128 @@
+This algorithm traverses the source model and constructs the dictionary map.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis
+data structure] _a_
+representing the results of analysis so far.
+
+== Output
+
+An updated analysis _a'_ with the dictionary map filled in if the
+dictionaries in _tul_ are valid; otherwise an error.
+
+== Procedure
+
+Visit each translation unit in _tul_ with input _a_,
+yielding either _a'_ or an error.
+
+=== AST Visitor Methods
+
+Each method accepts an analysis data structure _a_ as input
+and yields either an updated analysis data structure _a'_ or an error as
+output.
+
+==== Translation Units
+
+For each translation unit _tu_, visit each
+definition appearing in _tu_.
+
+==== Topology Definitions
+
+For each topology definition _d_:
+
+. Let the *dictionary element kinds* be
+commands, events, telemetry channels, parameters, records, and containers.
+
+. Construct the unique topology symbol _s_ for _d_.
+
+. Look up the topology _t_ corresponding to _s_ in the topology map of _a_.
+
+. Create a new dictionary _D_.
+
+. Compute the used symbol set of _D_:
+
+.. Let _S_ be the union of the following sets:
+
+... For each component instance _ci_ of _t_,
+the set of symbols directly used in each dictionary element
+kind of _ci_.
+
+... The implied uses of _t_, as recorded in the
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[implied use map]
+of _a_.
+
+... The https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[dictionary
+symbol set]
+of _a_.
+
+.. Let _S'_ be the set of symbols transitively used in the symbols of _S_
+(i.e., the symbols of _S_, the symbols used in those symbols, and so forth).
+
+.. Let _S'_ be the used symbol set.
+
+. For each dictionary element kind _k_, for each component instance _ci_ of
+_t_
+
+.. Look up the component _C_ of _ci_.
+
+.. For each mapping _(i, s)_ from a component-local identifier _i_ to a
+specifier _s_ of kind _k_ in _C_, do the following:
+
+... Let _b_ be the base ID of _ci_.
+
+... Let _i' = b + i_.
+
+... Construct a dictionary entry _e = (ci, s)_.
+
+... Add _(i', e)_ to the mapping for kind _k_ in _D_.
+
+In a telemetry channel identifier, the component instance use resolves to
+the component instance that it
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[represents].
+Report an error if it does not represent a component instance.
+
+. For each telemetry packet set specifier _s~s~_ in _d_
+
+.. Create a new telemetry packet set _S_.
+
+.. For each telemetry packet specifier _s~p~_ of _s~s~_
+
+... Create a new telemetry packet _p_.
+
+... For each telemetry channel identifier _tci_ in _s~p~_
+
+.... Check that _tci_ refers to a telemetry channel _c_ in _D_.
+
+.... Add the global numerical identifier for _c_ to the telemetry channel
+identifiers of _p_.
+
+... Resolve the packet identifier _i_ of _p_.
+
+... Map _i_ to _p_ in _S_. Check for duplicate identifiers.
+
+.. Check for duplicate packet names in _S_.
+
+.. For each telemetry channel identifier _tci_ in
+the omitted list of _s~s~_
+
+... Check that _tci_ refers to a telemetry channel _c_ in _D_.
+
+... Add the global numerical identifier for _c_ to the omitted channel
+identifiers of _S_.
+
+.. Check that the union of the channels named in the packets of _S_ (as
+a set) and the set of omitted channels is equal to the set
+of channels in _D_.
+
+.. Check that no channel is both used in a packet of _S_ and included
+in the omitted set of _S_.
+
+.. Add _S_ to the telemetry packet set map of _D_. Check for duplicate names.
+
+. Map _s_ to _D_ in the dictionary map of _a_.
+
+. Return _a_ as the result.

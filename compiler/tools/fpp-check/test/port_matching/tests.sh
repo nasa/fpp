@@ -1,9 +1,16 @@
 tests="
 ok
 mismatched_sizes
+missing_connection
 p1_not_port_instance
 p1_not_valid
 p2_not_port_instance
 p2_not_valid
 repeated_name
+template_matched_remote_arg
+template_mismatched_port_numbers
+template_missing_connection
+template_ok
+template_unmatched
+template_unmatched_remote_arg
 "

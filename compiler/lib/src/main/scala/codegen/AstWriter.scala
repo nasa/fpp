@@ -2,7 +2,6 @@ package fpp.compiler.codegen
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
-import fpp.compiler.ast.Ast.QualIdent
 
 /** Write out an FPP AST */
 object AstWriter extends AstVisitor with LineUtils {
@@ -173,6 +172,34 @@ object AstWriter extends AstVisitor with LineUtils {
     (ident(data.name) ++ data.members.flatMap(moduleMember)).map(indentIn)
   }
 
+  override def defModuleTemplateAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("def module template") ++
+    List.concat(
+      ident(data.name),
+      templateParamList(data.params),
+      data.members.flatMap(moduleMember)
+    ).map(indentIn)
+  }
+
+  override def specTemplateExpandAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("expand") ++
+    List.concat(
+      qualIdent(data.template.data),
+      templateArgList(data.args),
+      data.members.getOrElse(Nil).flatMap(moduleMember)
+    ).map(indentIn)
+  }
+
   override def defPortAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefPort]]
@@ -306,7 +333,7 @@ object AstWriter extends AstVisitor with LineUtils {
     node: AstNode[Ast.Expr],
     e: Ast.ExprIdent
   ) =
-    ident(e.value)
+    ident(if e.isAbsolute then s".${e.value}" else e.value)
 
   override def exprLiteralBoolNode(
     in: In,
@@ -866,6 +893,46 @@ object AstWriter extends AstVisitor with LineUtils {
   private def formalParamList(params: Ast.FormalParamList) =
     params.flatMap(annotateNode(formalParam))
 
+  private def templateParam(tp: Ast.TemplateParam) = {
+    tp match {
+      case Ast.TemplateParam.Constant(name, typeName) =>
+        line("constant template param") ::
+        List.concat(
+          ident(name),
+          typeNameNode(typeName)
+        ).map(indentIn)
+      case Ast.TemplateParam.Type(name) =>
+        line("type template param") ::
+        ident(name).map(indentIn)
+      case Ast.TemplateParam.Interface(name, interface) =>
+        line("instance template param") ::
+        List.concat(
+          ident(name),
+          qualIdent(interface.data)
+        ).map(indentIn)
+    }
+  }
+
+  private def templateParamList(params: Ast.TemplateParamList) =
+    params.flatMap(annotateNode(templateParam))
+
+  private def templateArg(tp: AstNode[Ast.TemplateArg]) = {
+    tp.data match {
+      case Ast.TemplateArg.Constant(e) =>
+        line("constant template arg") ::
+        exprNode(e).map(indentIn)
+      case Ast.TemplateArg.Type(name) =>
+        line("type template arg") ::
+        typeNameNode(name).map(indentIn)
+      case Ast.TemplateArg.Interface(i) =>
+        line("instance template arg") ::
+        qualIdent(i.data).map(indentIn)
+    }
+  }
+
+  private def templateArgList(args: Ast.TemplateArgList) =
+    args.flatMap(templateArg)
+
   private def ident(s: String) = lines("ident " ++ s)
 
   private def moduleMember(member: Ast.ModuleMember) = {
@@ -875,23 +942,34 @@ object AstWriter extends AstVisitor with LineUtils {
   }
 
   private def portInstanceIdentifier(pii: Ast.PortInstanceIdentifier): Out = {
-    val qid = Ast.QualIdent.Qualified(pii.interfaceInstance, pii.portName)
+    val qid = Ast.QualIdent.Qualified(
+      pii.interfaceInstance,
+      pii.portName,
+    )
     qualIdent(qid)
   }
 
   private def tlmChannelIdentifier(tci: Ast.TlmChannelIdentifier): Out = {
-    val qid = Ast.QualIdent.Qualified(tci.componentInstance, tci.channelName)
+    val qid = Ast.QualIdent.Qualified(
+      tci.componentInstance,
+      tci.channelName,
+    )
     qualIdent(qid)
   }
 
   private def qualIdent(qid: Ast.QualIdent): Out =
     lines("qual ident " ++ qualIdentString(qid))
 
-  private def qualIdentString(qid: Ast.QualIdent): String =
+  private def qualIdentString(qid: Ast.QualIdent): String = {
+    val s = relativeQualIdentString(qid)
+    if qid.isAbsolute then s".$s" else s
+  }
+
+  private def relativeQualIdentString(qid: Ast.QualIdent): String =
     qid match {
-      case Ast.QualIdent.Unqualified(name) => name
+      case Ast.QualIdent.Unqualified(name, _) => name
       case Ast.QualIdent.Qualified(qualifier, name) =>
-        qualIdentString(qualifier.data) ++ "." ++ name.data
+        relativeQualIdentString(qualifier.data) ++ "." ++ name.data
     }
 
   private def queueFull(qf: Ast.QueueFull) = {

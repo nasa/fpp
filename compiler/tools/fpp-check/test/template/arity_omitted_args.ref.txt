@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/arity_omitted_args.fpp:5.1
+expand T
+^
+error: expected 1 template argument, got 0
+template defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/template/arity_omitted_args.fpp:1.1
+module template T(constant p: U32) {
+^

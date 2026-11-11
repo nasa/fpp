@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/array/default_shadowed_error.fpp:7.27
+  array A = [3] S default [ s, s, s ]
+                          ^
+error: cannot convert [3] { x: Integer, e: enum E } to array A

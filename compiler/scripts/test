@@ -15,7 +15,7 @@ num_failed=0
     num_failed=`expr $num_failed + $?`
   done
 
-  echo 
+  echo
   if test $num_failed -eq 0
   then
     printf "All tests "

@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/shadowed_instance_error.fpp:16.12
+        c1.T
+           ^
+error: T is not a telemetry channel of component C

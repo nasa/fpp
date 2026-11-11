@@ -19,13 +19,13 @@ object CheckTopologyDefs
       case None =>
         // Topology is not in the map: visit it
         for {
-          // Resolve connections on topologies directly imported into this topology
+          // Resolve connections on topologies imported into this topology
           a <- {
-            // Resolve topologies directly imported by top, updating a
+            // Resolve topologies imported by top, updating a.
             val top = a.partialTopologyMap(symbol)
-            val tops = top.directTopologies.toList
-            Result.foldLeft (tops) (a) ((a, tl) => {
-              defTopologyAnnotatedNode(a, tl._1.node)
+            val tops = top.getImportedTopologySymbols(a)
+            Result.foldLeft (tops) (a) ((a, ts) => {
+              defTopologyAnnotatedNode(a, ts.node)
             })
           }
 

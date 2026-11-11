@@ -27,8 +27,26 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
   /** A use of a type definition */
   def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified): Result = default(a)
 
-  /** A use of a state machine definition*/
+  /** A use of a state machine definition */
   def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
+
+  /** A use of a template definition */
+  def templateUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
+
+  /** A use of a template constant parameter */
+  override def templateConstantArg(a: Analysis, arg: Symbol.TemplateConstantArg) = {
+    exprNode(a, arg.value)
+  }
+
+  /** A use of a template type parameter */
+  override def templateTypeArg(a: Analysis, arg: Symbol.TemplateTypeArg) = {
+    typeNameNode(a, arg.value)
+  }
+
+  /** A use of a template interface parameter */
+  override def templateInterfaceArg(a: Analysis, arg: Symbol.TemplateInterfaceArg) = {
+    qualIdentNode (interfaceInstanceUse) (a, arg.value)
+  }
 
   /** An implied constant use */
   def impliedConstantUse(a: Analysis, iu: ImpliedUse) = {
@@ -96,27 +114,15 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     } yield a
   }
 
-  override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) = {
-    def nameOpt(e: Ast.Expr, qualifier: List[Name.Unqualified]): Option[Name.Qualified] = {
-      e match {
-        case Ast.ExprIdent(id) => {
-          val list = id :: qualifier
-          val use = Name.Qualified.fromIdentList(list)
-          Some(use)
-        }
-        case Ast.ExprDot(e1, id) => nameOpt(e1.data, id.data :: qualifier)
-        case _ => None
-      }
-    }
-
-    nameOpt(e, Nil) match {
+  override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) =
+    node.data.getIdentListOpt match {
+      // e is a qualified identifier
       // Assume the entire qualified identifier is a use
-      case Some(use) => constantUse(a, node, use)
-      // This is some other type of dot expression (not a qual ident)
+      case Some(il) => constantUse(a, node, Name.Qualified.fromIdentList(il))
+      // e is not a qualified identifier
       // Analyze the left side, which may contain constant uses
       case None => exprNode(a, e.e)
     }
-  }
 
   override def exprIdentNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprIdent) = {
     val use = Name.Qualified(Nil, e.value)
@@ -206,9 +212,56 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     portInstanceIdentifierNode(a, data.underlyingPort)
   }
 
+  private def portInstanceIdentifierNode(a: Analysis, node: AstNode[Ast.PortInstanceIdentifier]): Result =
+    qualIdentNode (interfaceInstanceUse) (a, node.data.interfaceInstance)
+
   override def typeNameQualIdentNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent) = {
     val use = Name.Qualified.fromQualIdent(tn.name.data)
     typeUse(a, node, use)
+  }
+
+  override def specTemplateExpandAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- templateUse(
+        a,
+        data.template,
+        Name.Qualified.fromQualIdent(data.template.data)
+      )
+
+      a <- super.specTemplateExpandAnnotatedNode(a, aNode)
+    } yield a
+  }
+
+  override def defModuleTemplateAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = {
+    def templateParam(
+      a: Analysis,
+      pNode: Ast.Annotated[AstNode[Ast.TemplateParam]]
+    ) = {
+      val (_, node, _) = pNode
+      node.data match {
+        case Ast.TemplateParam.Constant(_, tn) => typeNameNode(a, tn)
+        case Ast.TemplateParam.Interface(_, interface) =>
+          qualIdentNode(interfaceUse)(a, interface)
+        case _: Ast.TemplateParam.Type => Right(a)
+      }
+    }
+
+    Result.foldLeft (aNode._2.data.params) (a) (templateParam)
+  }
+
+  protected def qualIdentNode
+    (f: (Analysis, AstNode[Ast.QualIdent], Name.Qualified) => Result)
+    (a: Analysis, qualIdent: AstNode[Ast.QualIdent]): Result = {
+    val use = Name.Qualified.fromQualIdent(qualIdent.data)
+    f(a, qualIdent, use)
   }
 
   override def typeNameStringNode(
@@ -221,16 +274,6 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
       a <- visitImpliedUses(a, id)
       a <- super.typeNameStringNode(a, node, tn)
     } yield a
-  }
-
-  private def portInstanceIdentifierNode(a: Analysis, node: AstNode[Ast.PortInstanceIdentifier]): Result =
-    qualIdentNode (interfaceInstanceUse) (a, node.data.interfaceInstance)
-
-  private def qualIdentNode
-    (f: (Analysis, AstNode[Ast.QualIdent], Name.Qualified) => Result)
-    (a: Analysis, qualIdent: AstNode[Ast.QualIdent]): Result = {
-    val use = Name.Qualified.fromQualIdent(qualIdent.data)
-    f(a, qualIdent, use)
   }
 
   private def tlmChannelIdentifierNode (

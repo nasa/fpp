@@ -12,6 +12,7 @@ trait TypeExpressionAnalyzer
   with StateMachineAnalyzer
   with TlmPacketSetAnalyzer
   with TopologyAnalyzer
+  with TemplateExpandAnalyzer
 {
 
   def defEnumConstantAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnumConstant]]): Result = {
@@ -295,5 +296,36 @@ trait TypeExpressionAnalyzer
       a <- exprNode(a, data.group)
     } yield a
   }
+
+  override def defModuleTemplateAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    Result.foldLeft(data.params) (a) ((a, param) => {
+      param._2.data match {
+        case Ast.TemplateParam.Constant(name, typeName) =>
+          typeNameNode(a, typeName)
+        case _ => Right(a)
+      }
+    })
+  }
+
+  override def templateConstantArg(a: Analysis, arg: Symbol.TemplateConstantArg) = {
+    for {
+      a <- exprNode(a, arg.value)
+    } yield a
+  }
+
+  override def templateTypeArg(a: Analysis, arg: Symbol.TemplateTypeArg) = {
+    for {
+      a <- typeNameNode(a, arg.value)
+    } yield a
+  }
+
+  override def templateArgNode(a: Analysis, node: AstNode[Ast.TemplateArg]) =
+    node.data match {
+      case Ast.TemplateArg.Constant(e) => exprNode(a, e)
+      case Ast.TemplateArg.Type(typeName) => typeNameNode(a, typeName)
+      case _ : Ast.TemplateArg.Interface => Right(a)
+    }
 
 }

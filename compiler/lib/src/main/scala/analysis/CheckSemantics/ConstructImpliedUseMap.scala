@@ -4,7 +4,9 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Construct the implied use map */
-object ConstructImpliedUseMap extends TypeExpressionAnalyzer {
+object ConstructImpliedUseMap
+  extends TypeExpressionAnalyzer
+  with ModuleTemplateDefAnalyzer {
 
   override def specPortInstanceAnnotatedNode(
     a: Analysis,

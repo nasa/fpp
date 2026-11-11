@@ -1,0 +1,28 @@
+This algorithm traverses the a source model and computes
+the implied values of enumeration constants that have
+no explicit value.
+
+== Input
+
+. A list _tul_ of translation units.
+
+. An 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis 
+data structure] _a_
+representing the results of analysis so far.
+
+== Output
+
+. The analysis _a_ with an updated
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[value map],
+if the evaluation succeeds; otherwise an error.
+
+== Procedure
+
+For each enum definition _d_:
+
+. Check that _d_ has all explicit constants _C_ `=` _e_ or all implied constants _C_.
+If not, throw an error.
+
+. If _d_ has implied constants, then add the implicit values 0, 1, 2, ... to the 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[value map].

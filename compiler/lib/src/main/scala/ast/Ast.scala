@@ -10,6 +10,12 @@ object Ast {
   /** Formal parameter list */
   type FormalParamList = List[Annotated[AstNode[FormalParam]]]
 
+  /** Template parameter list */
+  type TemplateParamList = List[Annotated[AstNode[TemplateParam]]]
+
+  /** Template argument list */
+  type TemplateArgList = List[AstNode[TemplateArg]]
+
   /** Identifier */
   type Ident = String
 
@@ -160,6 +166,7 @@ object Ast {
     final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node
     final case class DefInterface(node: AstNode[Ast.DefInterface]) extends Node
     final case class DefModule(node: AstNode[Ast.DefModule]) extends Node
+    final case class DefModuleTemplate(node: AstNode[Ast.DefModuleTemplate]) extends Node
     final case class DefPort(node: AstNode[Ast.DefPort]) extends Node
     final case class DefStateMachine(node: AstNode[Ast.DefStateMachine]) extends Node
     final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
@@ -167,7 +174,33 @@ object Ast {
     final case class DefTopology(node: AstNode[Ast.DefTopology]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
     final case class SpecLoc(node: AstNode[Ast.SpecLoc]) extends Node
+    final case class SpecTemplateExpand(node: AstNode[Ast.SpecTemplateExpand]) extends Node
   }
+
+  /** Template parameter */
+  sealed trait TemplateParam
+  object TemplateParam {
+    final case class Constant(
+      name: Ident,
+      typeName: AstNode[Ast.TypeName]
+    ) extends TemplateParam
+
+    final case class Type(
+      name: Ident
+    ) extends TemplateParam
+
+    final case class Interface(
+      name: Ident,
+      interface: AstNode[QualIdent],
+    ) extends TemplateParam
+  }
+
+  /** Module template definition */
+  final case class DefModuleTemplate(
+    name: Ident,
+    params: TemplateParamList,
+    members: List[ModuleMember]
+  )
 
   /** Port definition */
   final case class DefPort(
@@ -306,12 +339,30 @@ object Ast {
   )
 
   /** Expression */
-  sealed trait Expr
+  sealed trait Expr {
+
+    /** Gets the identifier list, if the expression represents a qualified identifier */
+    def getIdentListOpt: Option[List[Ident]] = None
+
+    /** Gets isAbsolute, if the expression represents a equalified identifier */
+    def getIsAbsoluteOpt: Option[Boolean] = None
+
+  }
+
   final case class ExprArray(elts: List[AstNode[Expr]]) extends Expr
   final case class ExprArraySubscript(e1: AstNode[Expr], e2: AstNode[Expr]) extends Expr
   final case class ExprBinop(e1: AstNode[Expr], op: Binop, e2: AstNode[Expr]) extends Expr
-  final case class ExprDot(e: AstNode[Expr], id: AstNode[Ident]) extends Expr
-  final case class ExprIdent(value: Ident) extends Expr
+  final case class ExprDot(e: AstNode[Expr], id: AstNode[Ident]) extends Expr {
+    override def getIdentListOpt =
+      e.data.getIdentListOpt.map(_ ++ List(id.data))
+    override def getIsAbsoluteOpt =
+      e.data.getIsAbsoluteOpt
+  }
+  final case class ExprIdent(value: Ident, isAbsolute: Boolean) extends Expr {
+    override def getIdentListOpt = Some(List(value))
+    override def getIsAbsoluteOpt = Some(isAbsolute)
+  }
+
   final case class ExprLiteralBool(value: LiteralBool) extends Expr
   final case class ExprLiteralFloat(value: String) extends Expr
   final case class ExprLiteralInt(value: String) extends Expr
@@ -379,6 +430,9 @@ object Ast {
   /** A possibly-qualified identifier */
   sealed trait QualIdent {
 
+    /** Whether the identifier is resolved absolutely */
+    def isAbsolute: Boolean
+
     /** Convert a qualified identifier to a list of identifiers */
     def toIdentList: List[Ident]
 
@@ -387,26 +441,38 @@ object Ast {
   object QualIdent {
 
     /** An unqualified identifier */
-    case class Unqualified(name: Ident) extends QualIdent {
+    case class Unqualified(name: Ident, isAbsolute: Boolean) extends QualIdent {
 
       override def toIdentList = List(name)
 
     }
 
     /** A qualified identifier */
-    case class Qualified(qualifier: AstNode[QualIdent], name: AstNode[Ident]) extends QualIdent {
+    case class Qualified(
+      qualifier: AstNode[QualIdent],
+      name: AstNode[Ident]
+    ) extends QualIdent {
+
+      override def isAbsolute = qualifier.data.isAbsolute
 
       override def toIdentList = qualifier.data.toIdentList ++ List(name.data)
 
     }
 
     /** Construct a qualified identifier from a node list */
-    def fromNodeList(nodeList: QualIdent.NodeList): QualIdent =
+    def fromNodeList(nodeList: QualIdent.NodeList, isAbsolute: Boolean): QualIdent =
       QualIdent.NodeList.split(nodeList) match {
-        case (Nil, name) => QualIdent.Unqualified(name.data)
+        case (Nil, name) => QualIdent.Unqualified(name.data, isAbsolute)
         case (qualifier, name) => {
-          val qualifier1 = fromNodeList(qualifier)
-          val node = AstNode.create(qualifier1, QualIdent.NodeList.name(qualifier).id)
+          val qualifier1 = fromNodeList(qualifier, isAbsolute)
+          val id = QualIdent.NodeList.name(qualifier).id
+          val node = AstNode.create(qualifier1)
+          Locations.getOpt(id) match {
+            case None => ()
+            case Some(loc) =>
+              Locations.put(node.id, loc)
+              ()
+          }
           QualIdent.Qualified(node, name)
         }
       }
@@ -435,8 +501,8 @@ object Ast {
     object Node {
 
       /** Create a QualIdent node from a node list */
-      def fromNodeList(nodeList: NodeList): AstNode[QualIdent] = {
-        val qualIdent = QualIdent.fromNodeList(nodeList)
+      def fromNodeList(nodeList: NodeList, isAbsolute: Boolean): AstNode[QualIdent] = {
+        val qualIdent = QualIdent.fromNodeList(nodeList, isAbsolute)
         val node = AstNode.create(qualIdent)
         val loc = Locations.get(nodeList.head.id)
         Locations.put(node.id, loc)
@@ -639,6 +705,9 @@ object Ast {
     case object Interface extends Kind {
       override def toString = "interface"
     }
+    case object Template extends Kind {
+      override def toString = "template"
+    }
   }
 
   /** Parameter specifier */
@@ -766,6 +835,21 @@ object Ast {
     stateMachine: AstNode[QualIdent],
     priority: Option[AstNode[Expr]],
     queueFull: Option[QueueFull]
+  )
+
+  /** Template argument */
+  sealed trait TemplateArg
+  object TemplateArg {
+    final case class Constant(expr: AstNode[Expr]) extends TemplateArg
+    final case class Type(typeName: AstNode[TypeName]) extends TemplateArg
+    final case class Interface(instance: AstNode[QualIdent]) extends TemplateArg
+  }
+
+  /** Template expansion specifier */
+  final case class SpecTemplateExpand(
+    template: AstNode[QualIdent],
+    args: TemplateArgList,
+    members: Option[List[ModuleMember]]
   )
 
   /** Telemetry channel specifier */
@@ -910,10 +994,18 @@ object Ast {
   }
 
   /** Type name */
-  sealed trait TypeName
+  sealed trait TypeName {
+
+    /** Gets isAbsolute if the type name represents a qualified identifier */
+    def getIsAbsoluteOpt: Option[Boolean] = None
+
+  }
+
   final case class TypeNameFloat(name: TypeFloat) extends TypeName
   final case class TypeNameInt(name: TypeInt) extends TypeName
-  final case class TypeNameQualIdent(name: AstNode[QualIdent]) extends TypeName
+  final case class TypeNameQualIdent(name: AstNode[QualIdent]) extends TypeName {
+    override def getIsAbsoluteOpt = Some(name.data.isAbsolute)
+  }
   case object TypeNameBool extends TypeName
   final case class TypeNameString(size: Option[AstNode[Expr]]) extends TypeName
 

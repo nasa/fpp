@@ -1,0 +1,5 @@
+#!/bin/sh
+
+export COMPILER_ROOT=../../../..
+
+sh ../scripts/update-ref.sh

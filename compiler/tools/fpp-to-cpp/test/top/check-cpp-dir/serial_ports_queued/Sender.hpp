@@ -5,21 +5,25 @@
 
 namespace SerialPortsQueued {
 
-  class Sender :
-    public SenderComponentBase
-  {
+  namespace Components {
 
-    public:
+    class Sender :
+      public SenderComponentBase
+    {
 
-      Sender() {
+      public:
 
-      }
+        Sender() {
 
-      Sender(const char* name) {
+        }
 
-      }
+        Sender(const char* name) {
 
-  };
+        }
+
+    };
+
+  }
 
 }
 

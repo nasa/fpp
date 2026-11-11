@@ -30,10 +30,10 @@ trait CppWriterUtils extends LineUtils {
     if cond then value else default
 
   /** Guards a list with a Boolean condition */
-  def guardedList[T] = guardedValue (Nil: List[T]) _
+  def guardedList[T] = guardedValue (Nil: List[T])
 
   /** Guards an option type with a Boolean condition */
-  def guardedOption[T] = guardedValue (None: Option[T]) _
+  def guardedOption[T] = guardedValue (None: Option[T])
 
   /** Add an access tag to a nonempty list of class members */
   def addAccessTag(

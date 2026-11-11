@@ -1,32 +1,36 @@
 module SerialPortsActive {
 
-  array A = [3] U32
-  enum E { A, B }
-  struct S { x: U32 }
+  module Components {
 
-  port PTyped(
-      x1: U32,
-      x2: F32,
-      x3: bool,
-      x4: string,
-      x5: A,
-      x6: E,
-      x7: S
-  )
+    array A = [3] U32
+    enum E { A, B }
+    struct S { x: U32 }
 
-  passive component Sender {
+    port PTyped(
+        x1: U32,
+        x2: F32,
+        x3: bool,
+        x4: string,
+        x5: A,
+        x6: E,
+        x7: S
+    )
 
-    output port pTyped: [4] PTyped
-    output port pSerial: [8] serial
+    passive component Sender {
 
-  }
+      output port pTyped: [4] PTyped
+      output port pSerial: [8] serial
 
-  active component Receiver {
+    }
 
-    sync input port pTypedSync: [2] PTyped
-    async input port pTypedAsync: [2] PTyped
-    sync input port pSerialSync: [4] serial
-    async input port pSerialAsync: [4] serial
+    active component Receiver {
+
+      sync input port pTypedSync: [2] PTyped
+      async input port pTypedAsync: [2] PTyped
+      sync input port pSerialSync: [4] serial
+      async input port pSerialAsync: [4] serial
+
+    }
 
   }
 

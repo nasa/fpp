@@ -116,7 +116,7 @@ object CppWriter extends LineUtils{
     val path = java.nio.file.Paths.get(s.dir, fileName)
     val file = File.Path(path)
     for (writer <- file.openWrite()) yield {
-      lines.map(Line.write(writer) _)
+      lines.map(Line.write(writer))
       writer.close()
     }
   }

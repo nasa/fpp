@@ -1,0 +1,33 @@
+This algorithm checks the framework constant definitions
+to ensure that they have valid values.
+
+== Prerequisites
+
+The following analysis passes must have been run:
+
+. https://github.com/nasa/fpp/wiki/Check-Framework-Definitions[Check Framework 
+  Definitions].
+
+. https://github.com/nasa/fpp/wiki/Evaluate-Constant-Expressions[Evaluate 
+  Constant Expressions].
+
+== Input
+
+An 
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[analysis 
+data structure] _a_
+representing the results of analysis so far.
+
+== Output
+
+The unmodified analysis _a_, if the check passes; 
+otherwise an error.
+
+== Procedure
+
+For each framework constant definition _D_ in _a_
+
+. Look in the https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[value map]
+   to find the value _v_ provided by _D_.
+
+. Check that _v_ conforms to the rules for _D_.

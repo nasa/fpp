@@ -1,0 +1,42 @@
+== Input
+
+. A state machine definition _d_
+
+== Output
+
+. If the semantic check passes, a 
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[state 
+machine analysis data structure] _sma_ representing the results of the 
+analysis.
+
+. Otherwise an error and no output.
+
+
+== Procedure
+
+. Create an empty state machine analysis _sma_.
+
+. https://github.com/nasa/fpp/wiki/Enter-State-Machine-Symbols[Enter state 
+machine symbols] for _sma_ and _d_.
+
+. https://github.com/nasa/fpp/wiki/Check-State-Machine-Uses[Check state machine 
+uses] for _sma_ and _d_.
+
+. https://github.com/nasa/fpp/wiki/Check-Initial-Transitions[Check initial 
+transitions] for _sma_ and _d_.
+
+. https://github.com/nasa/fpp/wiki/Check-Signal-Uses[Check signal uses] for 
+_sma_ and _d_.
+
+. https://github.com/nasa/fpp/wiki/Check-Transition-Graph[Check the transition 
+graph] for _sma_ and _d_.
+
+. https://github.com/nasa/fpp/wiki/Check-Typed-Elements[Check typed
+elements] for _sma_ and _d_.
+
+. https://github.com/nasa/fpp/wiki/Compute-Flattened-State-Transition-Map[Compute the 
+flattened state transition map] for _sma_ and _d_.
+
+. https://github.com/nasa/fpp/wiki/Compute-Flattened-Choice-Transition-Map[Compute the 
+flattened choice transition map] for _sma_ and _d_.
+

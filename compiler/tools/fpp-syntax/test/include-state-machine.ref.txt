@@ -1,5 +1,15 @@
 def state machine
   ident M
+  def enum
+    ident State
+    type name U8
+    @ The uninitialized state
+    def enum constant
+      ident __FPRIME_UNINITIALIZED
+    def enum constant
+      ident S1
+    def enum constant
+      ident S2_S1
   @ Action a1
   def action
     ident a1

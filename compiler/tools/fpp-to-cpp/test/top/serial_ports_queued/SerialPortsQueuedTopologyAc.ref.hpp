@@ -18,14 +18,14 @@
 namespace SerialPortsQueued {
 
   //! receiver
-  extern SerialPortsQueued::Receiver receiver;
+  extern SerialPortsQueued::Components::Receiver receiver;
 
 }
 
 namespace SerialPortsQueued {
 
   //! sender
-  extern SerialPortsQueued::Sender sender;
+  extern SerialPortsQueued::Components::Sender sender;
 
 }
 

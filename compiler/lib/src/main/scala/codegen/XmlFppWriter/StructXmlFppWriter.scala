@@ -10,14 +10,14 @@ object StructXmlFppWriter extends LineUtils {
 
   def writeFile(file: XmlFppWriter.File): XmlFppWriter.Result =
     for (tuMember <- FppBuilder.tuMemberList(file))
-      yield FppWriter.tuMemberList(tuMember)
+      yield FppWriter().tuMemberList(tuMember)
 
   /** Builds FPP for translating Serializable XML */
   private object FppBuilder {
 
     /** Translates an XML type to an FPP type name */
     def translateType(file: XmlFppWriter.File): Node => Result.Result[Ast.TypeName] = 
-      file.translateType(node => file.getAttribute(node, "type")) _
+      file.translateType(node => file.getAttribute(node, "type"))
 
     /** Extracts a struct type member */
     def structTypeMemberAnnotatedNode(

@@ -300,12 +300,15 @@ module Module1 {
       myFirstC1.pOut -> myFirstC2.pIn
     }
 
+    @ Pre annotation for Packets
     telemetry packets Packets {
+      @ Pre annotation for MyTlmPacket1
       packet MyTlmPacket1 id 0 group 0 {
         Module1.myFirstC1.TlmChannel1
         Module1.myFirstC1.TlmChannel2
       }
 
+      @ Pre annotation for MyTlmPacket2
       packet MyTlmPacket2 id 1 group 1 {
         Module1.myFirstC2.TlmChannel1
       }

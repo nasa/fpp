@@ -1,0 +1,96 @@
+This algorithm traverses a state machine definition and enters state
+machine symbols into their scopes.
+
+== Input
+
+. A state machine definition _smd_.
+
+. A
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[state 
+machine analysis data structure]
+_sma_ representing the results of analysis so far.
+
+== Output
+
+. An updated state machine analysis _sma'_ with state machine symbols entered.
+
+== Procedure
+
+Visit each of the state machine members _smm_ of _smd_ as specified below.
+
+=== Visiting State Machine Members
+
+Visit a state machine member _smm_ as follows:
+
+. *Action, guard, choice, and signal definitions:*
+If _smm_ is an action, guard, choice, or signal definition  _d_
+with name _n_, then
+
+.. Construct the unique
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[state machine symbol] 
+_s_ of the correct kind for _d_.
+
+.. Add the mapping from _n_ to _s_ in the 
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[nested
+scope] of _sma_ in the correct name group for the definition kind.
+There is a separate name group for each of actions, guards, and signal
+definitions.
+Choice definitions reside in the state name group.
+
+.. Add _s_ to the
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[parent
+symbol map] of _sma_.
+
+. *State definitions:* If _smm_ is a state definition _d_ with name _n_, 
+then
+
+.. Construct the unique
+https://github.com/nasa/fpp/wiki/Analysis#data-structures[state
+definition symbol] _sym_ for _d_.
+
+.. Add the mapping from _n_ to _sym_ in the innermost 
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[nested 
+scope] of _sma_ in the state name group.
+
+.. Add _sym_ to the 
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[parent symbol map]
+of _sma_.
+
+.. Create a fresh state machine scope _s_.
+
+.. Push _s_ onto the 
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[nested 
+scope] of _sma_.
+
+.. Add _n_ to the scope name list of _sma_.
+
+.. Visit each state definition member _sdm_ of _d_,
+yielding a new state machine analysis _sma_.
+
+.. Remove _n_ from the scope name list of _a_.
+
+.. Let _s'_ be the innermost nested scope of _sma_.
+
+.. Add the mapping from _sym_ to _s'_ in the 
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[symbol-scope 
+map] of _sma_.
+
+.. Pop _s'_ off the nested scope of _sma_.
+
+. *Other members:* For other state machine members, do nothing.
+
+=== Visiting State Definition Members
+
+Visit a state definition member _sdm_ as follows:
+
+. *Choice definitions and state definitions:*
+If _sdm_ is a choice definition _d_ or a state definition _d_, then
+
+.. Visit _d_ as specified for the corresponding state machine member.
+
+.. Add the symbol _s_ associated with _d_ to the
+https://github.com/nasa/fpp/wiki/State-Machine-Analysis-Data-Structure[parent symbol map]
+of _sma_.
+
+. *Other members:*
+For other state definition members, do nothing.

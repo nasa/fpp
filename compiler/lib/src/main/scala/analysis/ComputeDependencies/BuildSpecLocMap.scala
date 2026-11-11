@@ -6,6 +6,11 @@ import fpp.compiler.util._
 /** Build the location specifier map */
 object BuildSpecLocMap extends ModuleAnalyzer {
 
+  override def defModuleTemplateAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = visitList(a, aNode._2.data.members, matchModuleMember)
+
   override def specLocAnnotatedNode(
     a: Analysis,
     node: Ast.Annotated[AstNode[Ast.SpecLoc]]
@@ -13,7 +18,12 @@ object BuildSpecLocMap extends ModuleAnalyzer {
     val specNode = node._2
     val spec = specNode.data
     val symbol = spec.symbol
-    val qualifiedName = Name.Qualified.fromIdentList(a.scopeNameList.reverse ++ symbol.data.toIdentList)
+    val qualifiedName = {
+      val prefix =
+        if symbol.data.isAbsolute
+        then Nil else a.scopeNameList.reverse
+      Name.Qualified.fromIdentList(prefix ++ symbol.data.toIdentList)
+    }
     val key = (spec.kind, qualifiedName)
     a.locationSpecifierMap.get(key) match {
       case None => {

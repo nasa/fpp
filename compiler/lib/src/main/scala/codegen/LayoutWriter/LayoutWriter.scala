@@ -74,7 +74,7 @@ object LayoutWriter extends AstStateVisitor with LineUtils {
         java.nio.file.Files.createDirectories(path)
         val file = File.Path(java.nio.file.Paths.get(s.dir, dirName, fileName))
         for (writer <- file.openWrite()) yield {
-            lines.map(Line.write(writer) _)
+            lines.map(Line.write(writer))
             writer.close()
         }
     }

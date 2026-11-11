@@ -236,7 +236,7 @@ object hpp {
 
   def main(args: Array[String]): Unit = {
     val output = CppDocHppWriter.visitCppDoc(Program.cppDoc)
-    output.map(Line.write(Line.stdout) _)
+    output.map(Line.write(Line.stdout))
     ()
   }
 
@@ -246,7 +246,7 @@ object cpp {
 
   def main(args: Array[String]): Unit = {
     val output = CppDocCppWriter.visitCppDoc(Program.cppDoc)
-    output.map(Line.write(Line.stdout) _)
+    output.map(Line.write(Line.stdout))
     ()
   }
 
@@ -256,7 +256,7 @@ object otherCpp {
 
   def main(args: Array[String]): Unit = {
     val output = CppDocCppWriter.visitCppDoc(Program.cppDoc, Some("Other"))
-    output.map(Line.write(Line.stdout) _)
+    output.map(Line.write(Line.stdout))
     ()
   }
 

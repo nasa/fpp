@@ -1,10 +1,13 @@
 tests="
+array_common_type_conversion
 array_index_negative
 array_index_out_of_bounds
 dictionary_error
 dictionary_ok
 invalid_array_index_type
 invalid_array_type
+shadowed_error
+shadowed_ok
 undef_1
 undef_2
 undef_3

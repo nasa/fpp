@@ -4,6 +4,7 @@
 // \brief  cpp file for QueuedExternalParams component base class
 // ======================================================================
 
+#include "Fw/Prm/ParamValid.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #if FW_ENABLE_TEXT_LOGGING
@@ -1689,6 +1690,7 @@ void QueuedExternalParamsComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMI32EXT, this->m_param_ParamI32Ext_valid);
 
   _id = _baseId + PARAMID_PARAMF64EXT;
 
@@ -1714,6 +1716,7 @@ void QueuedExternalParamsComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMF64EXT, this->m_param_ParamF64Ext_valid);
 
   _id = _baseId + PARAMID_PARAMSTRINGEXT;
 
@@ -1760,6 +1763,7 @@ void QueuedExternalParamsComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMSTRINGEXT, this->m_param_ParamStringExt_valid);
 
   _id = _baseId + PARAMID_PARAMENUMEXT;
 
@@ -1785,6 +1789,7 @@ void QueuedExternalParamsComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMENUMEXT, this->m_param_ParamEnumExt_valid);
 
   _id = _baseId + PARAMID_PARAMARRAYEXT;
 
@@ -1831,6 +1836,7 @@ void QueuedExternalParamsComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMARRAYEXT, this->m_param_ParamArrayExt_valid);
 
   _id = _baseId + PARAMID_PARAMSTRUCTEXT;
 
@@ -1856,6 +1862,7 @@ void QueuedExternalParamsComponentBase ::
   }
 
   this->m_paramLock.unlock();
+  this->parameterLoaded(PARAMID_PARAMSTRUCTEXT, this->m_param_ParamStructExt_valid);
 
   // Call notifier
   this->parametersLoaded();
@@ -3493,6 +3500,17 @@ void QueuedExternalParamsComponentBase ::
   parametersLoaded()
 {
   // Do nothing by default
+}
+
+void QueuedExternalParamsComponentBase ::
+  parameterLoaded(
+      FwPrmIdType id,
+      Fw::ParamValid valid
+  )
+{
+  if (FW_PARAM_OK(valid)) {
+    this->parameterUpdated(id);
+  }
 }
 
 // ----------------------------------------------------------------------

@@ -11,7 +11,7 @@ object ComputeDependencies {
     for {
       pair <- ResolveSpecInclude.transformList(
         a.copy(level = a.level + 1),
-        tul, 
+        tul,
         ResolveSpecInclude.transUnit
       )
       a <- Right(pair._1)
