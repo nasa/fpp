@@ -166,6 +166,12 @@ object AnalysisJsonEncoder extends JsonEncoder{
   private implicit val endpointEncoder: Encoder[Connection.Endpoint] =
     io.circe.generic.semiauto.deriveEncoder[Connection.Endpoint]
 
+  // The AST of a connection is already in the AST output, so the
+  // analysis output omits it
+  private implicit val connectionEncoder: Encoder[Connection] =
+    io.circe.generic.semiauto.deriveEncoder[Connection].
+      mapJsonObject(_.remove("astOpt"))
+
   private implicit val portInstanceEncoder: Encoder[PortInstance] =
     io.circe.generic.semiauto.deriveEncoder[PortInstance]
 

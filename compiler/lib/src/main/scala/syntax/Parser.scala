@@ -582,9 +582,10 @@ object Parser extends Parsers {
 
   def specConnectionGraph: Parser[Ast.SpecConnectionGraph] = {
     def directGraph = {
-      (connections ~> ident) ~! (lbrace ~>! elementSequence(
+      (connections ~> ident) ~! (lbrace ~>! annotatedElementSequence(
         connection,
-        comma
+        comma,
+        id
       ) <~! rbrace) ^^ { case ident ~ connections =>
         Ast.SpecConnectionGraph.Direct(ident, connections)
       }

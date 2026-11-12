@@ -515,7 +515,11 @@ class FppWriter(a: Analysis = Analysis()) extends AstVisitor with LineUtils {
     def direct(scg: Ast.SpecConnectionGraph.Direct) =
       lines(s"connections ${ident(scg.name)}").
       joinNoIndent (" ") (
-        addBraces(scg.connections.flatMap(connection))
+        addBraces(
+          scg.connections.flatMap { case (pre, c, post) =>
+            annotate(pre, connection(c), post)
+          }
+        )
       )
     def pattern(scg: Ast.SpecConnectionGraph.Pattern) = {
       Line.addPrefix(
