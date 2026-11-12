@@ -327,63 +327,69 @@
                                   "Direct" : {
                                     "name" : "C1",
                                     "connections" : [
-                                      {
-                                        "isUnmatched" : false,
-                                        "fromPort" : {
-                                          "AstNode" : {
-                                            "data" : {
-                                              "interfaceInstance" : {
-                                                "AstNode" : {
-                                                  "data" : {
-                                                    "Unqualified" : {
-                                                      "name" : "c1",
-                                                      "isAbsolute" : false
-                                                    }
-                                                  },
-                                                  "id" : 31
+                                      [
+                                        [
+                                        ],
+                                        {
+                                          "isUnmatched" : false,
+                                          "fromPort" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "interfaceInstance" : {
+                                                  "AstNode" : {
+                                                    "data" : {
+                                                      "Unqualified" : {
+                                                        "name" : "c1",
+                                                        "isAbsolute" : false
+                                                      }
+                                                    },
+                                                    "id" : 47
+                                                  }
+                                                },
+                                                "portName" : {
+                                                  "AstNode" : {
+                                                    "data" : "pOut",
+                                                    "id" : 46
+                                                  }
                                                 }
                                               },
-                                              "portName" : {
-                                                "AstNode" : {
-                                                  "data" : "pOut",
-                                                  "id" : 30
-                                                }
-                                              }
-                                            },
-                                            "id" : 32
-                                          }
-                                        },
-                                        "fromIndex" : "None",
-                                        "toPort" : {
-                                          "AstNode" : {
-                                            "data" : {
-                                              "interfaceInstance" : {
-                                                "AstNode" : {
-                                                  "data" : {
-                                                    "Unqualified" : {
-                                                      "name" : "c2",
-                                                      "isAbsolute" : false
-                                                    }
-                                                  },
-                                                  "id" : 35
+                                              "id" : 48
+                                            }
+                                          },
+                                          "fromIndex" : "None",
+                                          "toPort" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "interfaceInstance" : {
+                                                  "AstNode" : {
+                                                    "data" : {
+                                                      "Unqualified" : {
+                                                        "name" : "c2",
+                                                        "isAbsolute" : false
+                                                      }
+                                                    },
+                                                    "id" : 51
+                                                  }
+                                                },
+                                                "portName" : {
+                                                  "AstNode" : {
+                                                    "data" : "pIn",
+                                                    "id" : 50
+                                                  }
                                                 }
                                               },
-                                              "portName" : {
-                                                "AstNode" : {
-                                                  "data" : "pIn",
-                                                  "id" : 34
-                                                }
-                                              }
-                                            },
-                                            "id" : 36
-                                          }
+                                              "id" : 52
+                                            }
+                                          },
+                                          "toIndex" : "None"
                                         },
-                                        "toIndex" : "None"
-                                      }
+                                        [
+                                        ]
+                                      ]
                                     ]
                                   }
                                 },
-                                "id" : 37
+                                "id" : 53
                               }
                             }
                           }
@@ -403,63 +409,69 @@
                                   "Direct" : {
                                     "name" : "C2",
                                     "connections" : [
-                                      {
-                                        "isUnmatched" : false,
-                                        "fromPort" : {
-                                          "AstNode" : {
-                                            "data" : {
-                                              "interfaceInstance" : {
-                                                "AstNode" : {
-                                                  "data" : {
-                                                    "Unqualified" : {
-                                                      "name" : "c2",
-                                                      "isAbsolute" : false
-                                                    }
-                                                  },
-                                                  "id" : 58
+                                      [
+                                        [
+                                        ],
+                                        {
+                                          "isUnmatched" : false,
+                                          "fromPort" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "interfaceInstance" : {
+                                                  "AstNode" : {
+                                                    "data" : {
+                                                      "Unqualified" : {
+                                                        "name" : "c2",
+                                                        "isAbsolute" : false
+                                                      }
+                                                    },
+                                                    "id" : 122
+                                                  }
+                                                },
+                                                "portName" : {
+                                                  "AstNode" : {
+                                                    "data" : "pOut",
+                                                    "id" : 121
+                                                  }
                                                 }
                                               },
-                                              "portName" : {
-                                                "AstNode" : {
-                                                  "data" : "pOut",
-                                                  "id" : 57
-                                                }
-                                              }
-                                            },
-                                            "id" : 59
-                                          }
-                                        },
-                                        "fromIndex" : "None",
-                                        "toPort" : {
-                                          "AstNode" : {
-                                            "data" : {
-                                              "interfaceInstance" : {
-                                                "AstNode" : {
-                                                  "data" : {
-                                                    "Unqualified" : {
-                                                      "name" : "c1",
-                                                      "isAbsolute" : false
-                                                    }
-                                                  },
-                                                  "id" : 62
+                                              "id" : 123
+                                            }
+                                          },
+                                          "fromIndex" : "None",
+                                          "toPort" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "interfaceInstance" : {
+                                                  "AstNode" : {
+                                                    "data" : {
+                                                      "Unqualified" : {
+                                                        "name" : "c1",
+                                                        "isAbsolute" : false
+                                                      }
+                                                    },
+                                                    "id" : 126
+                                                  }
+                                                },
+                                                "portName" : {
+                                                  "AstNode" : {
+                                                    "data" : "pIn",
+                                                    "id" : 125
+                                                  }
                                                 }
                                               },
-                                              "portName" : {
-                                                "AstNode" : {
-                                                  "data" : "pIn",
-                                                  "id" : 61
-                                                }
-                                              }
-                                            },
-                                            "id" : 63
-                                          }
+                                              "id" : 127
+                                            }
+                                          },
+                                          "toIndex" : "None"
                                         },
-                                        "toIndex" : "None"
-                                      }
+                                        [
+                                        ]
+                                      ]
                                     ]
                                   }
                                 },
-                                "id" : 64
+                                "id" : 128
                               }
                             }
                           }
@@ -471,7 +483,7 @@
                     "implements" : [
                     ]
                   },
-                  "id" : 65
+                  "id" : 129
                 }
               }
             }
@@ -710,115 +722,115 @@
     },
     "37" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "22.3",
+      "pos" : "23.5",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "38" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.5",
+      "pos" : "23.8",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "39" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.8",
+      "pos" : "23.5",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "40" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.5",
+      "pos" : "23.5",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "41" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.5",
+      "pos" : "23.16",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "42" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.16",
+      "pos" : "23.19",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "43" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.19",
+      "pos" : "23.16",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "44" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.16",
+      "pos" : "23.16",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "45" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.16",
+      "pos" : "23.5",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "46" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "27.3",
+      "pos" : "23.8",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "47" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.5",
+      "pos" : "23.5",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "48" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.8",
+      "pos" : "23.5",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "49" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.5",
+      "pos" : "23.16",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "50" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.5",
+      "pos" : "23.19",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "51" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.16",
+      "pos" : "23.16",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "52" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.19",
+      "pos" : "23.16",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "53" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.16",
+      "pos" : "22.3",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "54" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.16",
+      "pos" : "28.5",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "55" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "27.3",
+      "pos" : "28.8",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
@@ -830,19 +842,19 @@
     },
     "57" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.8",
+      "pos" : "28.5",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "58" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.5",
+      "pos" : "28.16",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "59" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.5",
+      "pos" : "28.19",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
@@ -854,29 +866,413 @@
     },
     "61" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.19",
+      "pos" : "28.16",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "62" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.16",
+      "pos" : "28.5",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "63" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "28.16",
+      "pos" : "28.8",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "64" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-      "pos" : "27.3",
+      "pos" : "28.5",
       "includingLoc" : "None",
       "expandingLoc" : "None"
     },
     "65" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "66" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "67" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.19",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "68" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "69" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "70" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "71" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.8",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "72" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "73" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "74" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "75" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.19",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "76" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "77" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "78" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "27.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "79" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "80" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.8",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "81" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "82" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "83" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "84" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.19",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "85" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "86" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "87" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "88" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.8",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "89" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "90" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "91" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "92" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.19",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "93" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "94" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "95" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "96" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.8",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "97" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "98" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "99" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "100" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.19",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "101" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "102" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "103" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "27.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "104" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "105" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.8",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "106" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "107" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "108" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "109" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.19",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "110" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "111" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "112" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "113" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.8",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "114" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "115" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "116" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "117" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.19",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "118" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "119" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "120" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "121" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.8",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "122" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "123" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.5",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "124" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "125" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.19",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "126" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "127" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "28.16",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "128" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+      "pos" : "27.3",
+      "includingLoc" : "None",
+      "expandingLoc" : "None"
+    },
+    "129" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
       "pos" : "14.1",
       "includingLoc" : "None",
@@ -1084,9 +1480,9 @@
       }
     },
     "topologyMap" : {
-      "65" : {
+      "129" : {
         "aNode" : {
-          "astNodeId" : 65
+          "astNodeId" : 129
         },
         "qualifiedName" : {
           "qualifier" : [
@@ -2715,25 +3111,25 @@
           "unqualifiedName" : "c2"
         }
       },
-      "31" : {
+      "47" : {
         "ComponentInstance" : {
           "nodeId" : 18,
           "unqualifiedName" : "c1"
         }
       },
-      "35" : {
+      "51" : {
         "ComponentInstance" : {
           "nodeId" : 22,
           "unqualifiedName" : "c2"
         }
       },
-      "58" : {
+      "122" : {
         "ComponentInstance" : {
           "nodeId" : 22,
           "unqualifiedName" : "c2"
         }
       },
-      "62" : {
+      "126" : {
         "ComponentInstance" : {
           "nodeId" : 18,
           "unqualifiedName" : "c1"
