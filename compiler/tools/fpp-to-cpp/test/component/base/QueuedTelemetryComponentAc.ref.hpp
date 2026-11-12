@@ -116,7 +116,7 @@ class QueuedTelemetryComponentBase :
     };
 
     //! Channel IDs
-    enum {
+    enum ChannelId {
       CHANNELID_CHANNELU32FORMAT = 0x0, //!< Channel ID for ChannelU32Format
       CHANNELID_CHANNELF32FORMAT = 0x1, //!< Channel ID for ChannelF32Format
       CHANNELID_CHANNELSTRINGFORMAT = 0x2, //!< Channel ID for ChannelStringFormat

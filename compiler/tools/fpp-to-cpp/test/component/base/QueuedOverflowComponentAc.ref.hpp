@@ -89,7 +89,7 @@ class QueuedOverflowComponentBase :
     };
 
     //! Command opcodes
-    enum {
+    enum Opcode {
       OPCODE_CMD_HOOK = 0x0, //!< A command with queue full 'hook' behavior
       OPCODE_CMD_PARAMS_PRIORITY_HOOK = 0x1, //!< A command with params, priority, and queue full 'hook' behavior
     };

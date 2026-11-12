@@ -33,7 +33,8 @@ case class ComponentEvents (
         linesClassMember(
           List.concat(
             Line.blank :: lines(s"//! Event IDs"),
-            wrapInEnum(
+            wrapInNamedEnum(
+              "EventId",
               sortedEvents.flatMap((id, event) =>
                 writeEnumConstant(
                   eventIdConstantName(event.getName),
