@@ -1001,12 +1001,23 @@ object Ast {
 
   }
 
+  case object TypeNameBool extends TypeName
   final case class TypeNameFloat(name: TypeFloat) extends TypeName
   final case class TypeNameInt(name: TypeInt) extends TypeName
   final case class TypeNameQualIdent(name: AstNode[QualIdent]) extends TypeName {
     override def getIsAbsoluteOpt = Some(name.data.isAbsolute)
   }
-  case object TypeNameBool extends TypeName
+  final case class TypeNameRange(
+    typeName: AstNode[TypeName],
+    lowerBound: TypeNameRange.Bound,
+    upperBound: TypeNameRange.Bound
+  ) extends TypeName
+  object TypeNameRange {
+    enum BoundKind:
+      case INCLUSIVE, EXCLUSIVE
+    /** A range bound. None represents the bound -- */
+    type Bound = (BoundKind, Option[AstNode[Expr]])
+  }
   final case class TypeNameString(size: Option[AstNode[Expr]]) extends TypeName
 
   /** Unary operation */

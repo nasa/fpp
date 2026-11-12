@@ -526,31 +526,116 @@ def module
 @ Type names
 def module
   ident TypeNames
-  def array
+  def alias type
     ident typeNameU32
-    size literal int 10
     type name U32
-  def array
+  def alias type
     ident typeNameF32
-    size literal int 10
     type name F32
-  def array
+  def alias type
     ident typeNameBool
-    size literal int 10
     type name bool
-  def array
+  def alias type
     ident typeNameString
-    size literal int 10
     type name string
       size literal int 256
-  def array
+  def alias type
     ident typeNameQID
-    size literal int 10
     type name qual ident a.b.c
-  def array
+  def alias type
     ident typeNameAbsoluteQID
-    size literal int 10
     type name qual ident .a.b.c
+  @ Range type names
+  def module
+    ident Range
+    def alias type
+      ident inclusiveInclusive
+      type name range
+        type name U8
+        inclusive lower bound literal int 0
+        inclusive upper bound literal int 10
+    def alias type
+      ident exclusiveExclusive
+      type name range
+        type name U8
+        exclusive lower bound literal int 0
+        exclusive upper bound literal int 10
+    def alias type
+      ident inclusiveExclusive
+      type name range
+        type name U8
+        inclusive lower bound literal int 0
+        exclusive upper bound literal int 10
+    def alias type
+      ident exclusiveInclusive
+      type name range
+        type name U8
+        exclusive lower bound literal int 0
+        inclusive upper bound literal int 10
+    def alias type
+      ident noLowerBound
+      type name range
+        type name I16
+        exclusive lower bound --
+        exclusive upper bound literal int 10
+    def alias type
+      ident noUpperBound
+      type name range
+        type name U16
+        inclusive lower bound literal int 0
+        inclusive upper bound --
+    def alias type
+      ident noBounds
+      type name range
+        type name U16
+        inclusive lower bound --
+        inclusive upper bound --
+    def alias type
+      ident floatBounds
+      type name range
+        type name F32
+        inclusive lower bound expr unop
+                                unop -
+                                literal float 1.5
+        exclusive upper bound literal float 10.5
+    def alias type
+      ident exprBounds
+      type name range
+        type name U32
+        inclusive lower bound expr dot
+                                ident a
+                                ident b
+        inclusive upper bound expr binop
+                                expr dot
+                                  ident a
+                                  ident b
+                                binop +
+                                expr binop
+                                  literal int 2
+                                  binop *
+                                  ident c
+    def alias type
+      ident qualIdent
+      type name range
+        type name qual ident a.b.c
+        inclusive lower bound literal int 0
+        inclusive upper bound literal int 10
+    def alias type
+      ident chained
+      type name range
+        type name range
+          type name qual ident a.b.c
+          inclusive lower bound literal int 0
+          inclusive upper bound --
+        exclusive lower bound --
+        inclusive upper bound literal int 5
+    def alias type
+      ident multiLine
+      type name range
+        type name U8
+        inclusive lower bound literal int 0
+        inclusive upper bound literal int 10
+  @< Range type names
 @< Type names
 @ Expressions
 def module
@@ -734,5 +819,12 @@ def module
       expr sizeof
         type name string
           size literal int 20
+    def constant
+      ident typeRange
+      expr sizeof
+        type name range
+          type name U8
+          inclusive lower bound literal int 0
+          inclusive upper bound literal int 10
   @< SizeOf
 @< Expressions

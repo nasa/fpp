@@ -832,6 +832,34 @@ class FppWriter(a: Analysis = Analysis()) extends AstVisitor with LineUtils {
     tn: Ast.TypeNameQualIdent
   ) = qualIdent(tn.name.data)
 
+  override def typeNameRangeNode(
+    in: In,
+    node: AstNode[Ast.TypeName],
+    tn: Ast.TypeNameRange
+  ) = {
+    import Ast.TypeNameRange.BoundKind.{EXCLUSIVE, INCLUSIVE}
+    def bound(eOpt: Option[AstNode[Ast.Expr]]) = eOpt match {
+      case Some(e) => exprNode(e)
+      case None => lines("--")
+    }
+    val (lowerKind, lowerOpt) = tn.lowerBound
+    val (upperKind, upperOpt) = tn.upperBound
+    val lowerBracket = lowerKind match {
+      case INCLUSIVE => "["
+      case EXCLUSIVE => "("
+    }
+    val upperBracket = upperKind match {
+      case INCLUSIVE => "]"
+      case EXCLUSIVE => ")"
+    }
+    val range = Line.addPrefixAndSuffix(
+      lowerBracket,
+      bound(lowerOpt).join (", ") (bound(upperOpt)),
+      upperBracket
+    )
+    typeNameNode(tn.typeName).join (" in ") (range)
+  }
+
   override def typeNameStringNode(
     in: In,
     node: AstNode[Ast.TypeName],

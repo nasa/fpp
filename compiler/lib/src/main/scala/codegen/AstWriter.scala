@@ -798,6 +798,27 @@ object AstWriter extends AstVisitor with LineUtils {
     tn: Ast.TypeNameQualIdent
   ) = addPrefix("type name", qualIdent) (tn.name.data)
 
+  override def typeNameRangeNode(
+    in: In,
+    node: AstNode[Ast.TypeName],
+    tn: Ast.TypeNameRange
+  ) = {
+    def bound(position: String, b: Ast.TypeNameRange.Bound) = {
+      val (kind, eOpt) = b
+      val prefix = s"${boundKind(kind)} $position bound"
+      eOpt match {
+        case Some(e) => addPrefix(prefix, exprNode) (e)
+        case None => lines(s"$prefix --")
+      }
+    }
+    lines("type name range") ++
+    List.concat(
+      typeNameNode(tn.typeName),
+      bound("lower", tn.lowerBound),
+      bound("upper", tn.upperBound)
+    ).map(indentIn)
+  }
+
   override def typeNameStringNode(
     in: In,
     node: AstNode[Ast.TypeName],
@@ -845,6 +866,12 @@ object AstWriter extends AstVisitor with LineUtils {
     (a: AstNode[A]) => f(a.data)
 
   private def binop(op: Ast.Binop) = lines(s"binop ${op.toString}")
+
+  private def boundKind(kind: Ast.TypeNameRange.BoundKind) =
+    kind match {
+      case Ast.TypeNameRange.BoundKind.INCLUSIVE => "inclusive"
+      case Ast.TypeNameRange.BoundKind.EXCLUSIVE => "exclusive"
+    }
 
   private def componentMember(member: Ast.ComponentMember) = {
     val (a1, _, a2) = member.node
