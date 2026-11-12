@@ -27,7 +27,7 @@ case class ComponentCommands (
   private def getOpcodes = linesClassMember(
     Line.blank ::
     line(s"//! Command opcodes") ::
-    wrapInEnum(sortedCmds.flatMap(writeOpcodeConstant))
+    wrapInNamedEnum("Opcode", sortedCmds.flatMap(writeOpcodeConstant))
   )
 
   private def writeOpcodeConstant(

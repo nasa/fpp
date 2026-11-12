@@ -23,7 +23,7 @@ case class ComponentTelemetry(
       Line.blank ::
         List.concat(
           lines(s"//! Channel IDs"),
-          wrapInEnum(channelIds)
+          wrapInNamedEnum("ChannelId", channelIds)
         )
     )
     guardedList(hasChannels)(List(member))
