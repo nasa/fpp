@@ -585,7 +585,7 @@ object Parser extends Parsers {
       (connections ~> ident) ~! (lbrace ~>! annotatedElementSequence(
         connection,
         comma,
-        id
+        { case x => x }
       ) <~! rbrace) ^^ { case ident ~ connections =>
         Ast.SpecConnectionGraph.Direct(ident, connections)
       }
