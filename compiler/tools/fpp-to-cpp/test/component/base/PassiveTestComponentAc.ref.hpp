@@ -124,7 +124,7 @@ class PassiveTestComponentBase :
     };
 
     //! Command opcodes
-    enum {
+    enum Opcode {
       OPCODE_CMD_SYNC = 0x0, //!< A sync command with no params
       OPCODE_CMD_SYNC_PRIMITIVE = 0x10, //!< An async command with primitive params
       OPCODE_CMD_SYNC_STRING = 0x11, //!< A sync command with string params
@@ -164,7 +164,7 @@ class PassiveTestComponentBase :
     };
 
     //! Event IDs
-    enum {
+    enum EventId {
       EVENTID_EVENTACTIVITYHIGH = 0x0, //!< An activity high event with no params
       EVENTID_EVENTACTIVITYLOWTHROTTLED = 0x10, //!< An activity low, throttled event with primitive params
       EVENTID_EVENTCOMMAND = 0x11, //!< A command event with string params
@@ -184,7 +184,7 @@ class PassiveTestComponentBase :
     };
 
     //! Channel IDs
-    enum {
+    enum ChannelId {
       CHANNELID_CHANNELU32FORMAT = 0x0, //!< Channel ID for ChannelU32Format
       CHANNELID_CHANNELF32FORMAT = 0x1, //!< Channel ID for ChannelF32Format
       CHANNELID_CHANNELSTRINGFORMAT = 0x2, //!< Channel ID for ChannelStringFormat
@@ -200,7 +200,7 @@ class PassiveTestComponentBase :
     };
 
     //! Parameter IDs
-    enum {
+    enum ParamId {
       PARAMID_PARAMU32 = 0x0, //!< A parameter with U32 data
                               //!< Second line of annotation
       PARAMID_PARAMF64 = 0x1, //!< A parameter with F64 data

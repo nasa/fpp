@@ -19,6 +19,7 @@ do
     mv $base.$suffix config
   done
 done
+cp config/FppConstantsAc.hpp config/TlmPacketizerConfig
 
 # Move definitions from FpConfig.fpp and PlatformTypes.fpp into config
 fp_config_aliases="

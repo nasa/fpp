@@ -112,7 +112,7 @@ class PassiveExternalParamsComponentBase :
     };
 
     //! Command opcodes
-    enum {
+    enum Opcode {
       OPCODE_PARAMI32EXT_SET = 0x0, //!< Opcode to set parameter ParamI32Ext
       OPCODE_PARAMI32EXT_SAVE = 0x1, //!< Opcode to save parameter ParamI32Ext
       OPCODE_PARAMF64EXT_SET = 0x2, //!< Opcode to set parameter ParamF64Ext
@@ -128,7 +128,7 @@ class PassiveExternalParamsComponentBase :
     };
 
     //! Parameter IDs
-    enum {
+    enum ParamId {
       PARAMID_PARAMI32EXT = 0x0, //!< An externally stored parameter with I32 data
                                  //!< Second line of annotation
       PARAMID_PARAMF64EXT = 0x1, //!< An externally stored parameter with F64 data

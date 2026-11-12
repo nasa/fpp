@@ -118,7 +118,7 @@ class QueuedEventsComponentBase :
     };
 
     //! Event IDs
-    enum {
+    enum EventId {
       EVENTID_EVENTACTIVITYHIGH = 0x0, //!< An activity high event with no params
       EVENTID_EVENTACTIVITYLOWTHROTTLED = 0x10, //!< An activity low, throttled event with primitive params
       EVENTID_EVENTCOMMAND = 0x11, //!< A command event with string params
