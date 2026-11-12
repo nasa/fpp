@@ -151,7 +151,7 @@ object TopologyXmlFppWriter extends LineUtils {
         for (connections <- connectionList(file))
           yield (
             Nil,
-            Ast.SpecConnectionGraph.Direct("XML", connections),
+            Ast.SpecConnectionGraph.Direct("XML", connections.map(c => (Nil, c, Nil))),
             Nil
           )
 

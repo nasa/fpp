@@ -401,11 +401,13 @@ def module
     @ Direct connection graph specifier
     spec connection graph direct
       ident C
+      @ Connection
       connection
         from port qual ident i1.p
         index literal int 0
         to port qual ident i2.p
         index literal int 1
+      @< Connection
       unmatched connection
         from port qual ident i1.p1
         index literal int 0

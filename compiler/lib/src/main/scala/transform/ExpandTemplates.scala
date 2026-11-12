@@ -475,7 +475,14 @@ object ExpandTemplates extends AstUnitTransformer
 
     data match {
       case data @ Ast.SpecConnectionGraph.Direct(_, connections) =>
-        for (connections <- transformList(a, connections, connection))
+        def annotatedConnection(
+          a: Analysis,
+          aConnection: Ast.Annotated[Ast.SpecConnectionGraph.Connection]
+        ) = {
+          val (pre, c, post) = aConnection
+          for (pair <- connection(a, c)) yield ((), (pre, pair._2, post))
+        }
+        for (connections <- transformList(a, connections, annotatedConnection))
           yield {
             val dataCopy = data.copy(connections = connections)
             val node = cloneAnnotatedNode(a, aNode, dataCopy)
