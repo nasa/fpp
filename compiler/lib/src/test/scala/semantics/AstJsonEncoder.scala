@@ -1,14 +1,30 @@
-package fpp.compiler.codegen
+package fpp.compiler.test
 
 import fpp.compiler.ast._
-import fpp.compiler.util._
 import io.circe._
 import io.circe.generic.auto._
 import io.circe.generic.semiauto._
 import io.circe.syntax._
 
-/** JSON encoder for Ast objects */
-object AstJsonEncoder extends JsonEncoder {
+/** JSON encoder for Ast objects
+ *
+ *  This exists only to support testing. Encoding the AST to JSON gives a
+ *  generic way to walk every node of a translation unit, which lets a test
+ *  check a whole-AST invariant (for example, that every AstNode id is unique
+ *  after template expansion) without writing a visitor for each node type.
+ *  Nothing in the compiler proper encodes the AST as JSON.
+ */
+object AstJsonEncoder {
+
+  /** Encodes a value of Option type
+   *
+   *  Without this, Circe erases None to null and Some(x) to the encoding of x,
+   *  which loses the distinction between an absent node and a present one.
+   */
+  private implicit def optionEncoder[A](implicit encoder: Encoder[A]): Encoder[Option[A]] = {
+    case Some(value) => Json.obj("Some" -> encoder(value))
+    case None => Json.fromString("None")
+  }
 
   // JSON encoder for AST nodes
   private implicit def astNodeEncoder[T: Encoder]: Encoder[AstNode[T]] =
@@ -91,10 +107,6 @@ object AstJsonEncoder extends JsonEncoder {
   // ----------------------------------------------------------------------
 
   /** Converts Ast to JSON */
-  def astToJson(tul: List[Ast.TransUnit]): Json = 
-    Json.obj(
-      "fppVersion" -> Version.v.asJson,
-      "ast" -> tul.asJson
-    )
+  def astToJson(tul: List[Ast.TransUnit]): Json = tul.asJson
 
 }
