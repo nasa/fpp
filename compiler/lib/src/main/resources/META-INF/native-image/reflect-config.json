@@ -1,0 +1,21 @@
+[
+{
+  "name":"fpp.compiler.syntax.Parser$",
+  "fields":[{"name":"0bitmap$1"}]
+},
+{
+  "name":"java.lang.ClassValue"
+},
+{
+  "name":"java.lang.invoke.VarHandle",
+  "methods":[{"name":"releaseFence","parameterTypes":[] }]
+},
+{
+  "name":"scopt.OParser$",
+  "fields":[{"name":"0bitmap$1"}]
+},
+{
+  "name":"sun.misc.Unsafe",
+  "allDeclaredFields":true
+}
+]

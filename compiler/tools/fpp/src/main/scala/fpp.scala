@@ -21,7 +21,6 @@ object FPP {
       case "to-cpp"      => FPPToCpp.toolMain(options.args)
       case "to-dict"     => FPPToDict.toolMain(options.args)
       case "to-fpp"      => FPPToFPP.toolMain(options.args)
-      case "to-json"     => FPPtoJson.toolMain(options.args)
       case "to-layout"   => FPPToLayout.toolMain(options.args)
     }
 
@@ -66,7 +65,6 @@ syntax      parses FPP source files into an abstract syntax tree (AST) and optio
 to-cpp      parses FPP models, performs semantic checking on them, and writes out C++ files
 to-dict     writes JSON dictionaries corresponding to F Prime topologies
 to-fpp      parses FPP source files optionally expands source and writes out FPP source files
-to-json     parses an FPP model, performs semantic checking on it, and writes out the model in JSON
 to-layout   writes layout text files for connection graphs within F Prime topologies
 """),
       help('h', "help").text("print this message and exit"),
@@ -78,7 +76,7 @@ to-layout   writes layout text files for connection graphs within F Prime topolo
           c match {
             case "check" | "depend" | "filenames" | "from-xml" |
                  "locate-defs" | "locate-uses" | "syntax" | "to-cpp" |
-                 "to-dict" | "to-fpp" | "to-json" | "to-layout" =>
+                 "to-dict" | "to-fpp" | "to-layout" =>
               Right(())
             case _ => Left(s"invalid fpp command '$c'")
           }
