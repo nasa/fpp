@@ -49,6 +49,22 @@ object Event {
         val id = every.id
         val loc = Locations.get(id)
         def getMember(member: String, maxValue: BigInt) = {
+          def getAnonStructValue =
+            val v = a.valueMap(id)
+            val members = Map(
+              ("seconds", Type.U32),
+              ("useconds", Type.U32)
+            )
+            val t = Type.AnonStruct(members)
+            Analysis.convertValueToType(loc, (v, t))
+          def getIntervalValue(asv: Value) =
+            val Value.AnonStruct(intervalValue) = asv.runtimeChecked
+            val v = intervalValue(member)
+            Analysis.convertValueToType(loc, (v, Type.U32))
+          def getPrimitiveIntValue(v: Value) =
+            val Value.PrimitiveInt(piv, Type.PrimitiveInt.U32) = v.runtimeChecked
+            piv
+          // TODO: Remove this once we have the range checking in place
           def checkRange(v: BigInt) =
             if v < 0 || v > maxValue
             then Left(
@@ -58,24 +74,12 @@ object Event {
             )
             else Right(v.longValue)
           for {
-            ivStruct <- Right(
-              Analysis.convertValueToTypeUnchecked(
-                a.valueMap(id),
-                Type.AnonStruct(Map(("seconds", Type.U32), ("useconds", Type.U32)))
-              )
-            )
-            v <- {
-              val Value.AnonStruct(intervalValue) = ivStruct.runtimeChecked
-              val Value.PrimitiveInt(v, Type.PrimitiveInt.U32) = Analysis.convertValueToTypeUnchecked(
-                intervalValue.get(member).get,
-                Type.U32
-              ).runtimeChecked
-              Right(v)
-            }
-            // TODO: Remove this once we have the range checking in place
-            result <- checkRange(v)
+            v <- getAnonStructValue
+            v <- getIntervalValue(v)
+            v <- Right(getPrimitiveIntValue(v))
+            v <- checkRange(v)
           }
-          yield result
+          yield v
         }
         for {
           seconds <- getMember("seconds", UInt.MaxValue)
