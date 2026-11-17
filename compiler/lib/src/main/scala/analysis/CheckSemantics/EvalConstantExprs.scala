@@ -75,7 +75,7 @@ object EvalConstantExprs extends UseAnalyzer {
               val loc = Locations.get(e.id)
               val v= a.valueMap(e.id)
               // TODO: Convert to the rep type of the enum
-              Analysis.convertValueToType(loc, (v, Type.Integer))
+              Analysis.convertValueToType(loc, v -> Type.Integer)
             }
           }
           yield {
@@ -109,12 +109,8 @@ object EvalConstantExprs extends UseAnalyzer {
       a <- FinalizeTypeDefs.typeNameNode(a, paramDef.typeName)
       ty <- Right(a.typeMap(paramDef.typeName.id))
       v <- Right(a.valueMap(value.id))
-      newVal <- {
-        v.convertToType(ty) match {
-          case Some(v) => Right(v)
-          case None => Left(SemanticError.TypeMismatch(loc, s"cannot convert value $v to type $ty"))
-        }
-      }
+      valTy <- Right(a.typeMap(value.id))
+      newVal <- Analysis.convertValueToType(loc, v -> ty)
     } yield a.assignType(value -> ty).assignValue(value -> newVal)
   }
 
@@ -131,7 +127,7 @@ object EvalConstantExprs extends UseAnalyzer {
           val id = node.id
           val loc = Locations.get(id)
           val v = a.valueMap(id)
-          Analysis.convertValueToType(loc, (v, eltType))
+          Analysis.convertValueToType(loc, v -> eltType)
         }
         Result.map(e.elts, f)
       }

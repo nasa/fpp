@@ -56,11 +56,11 @@ object Event {
               ("useconds", Type.U32)
             )
             val t = Type.AnonStruct(members)
-            Analysis.convertValueToType(loc, (v, t))
+            Analysis.convertValueToType(loc, v -> t)
           def getIntervalValue(asv: Value) =
             val Value.AnonStruct(intervalValue) = asv.runtimeChecked
             val v = intervalValue(member)
-            Analysis.convertValueToType(loc, (v, Type.U32))
+            Analysis.convertValueToType(loc, v -> Type.U32)
           def getPrimitiveIntValue(v: Value) =
             val Value.PrimitiveInt(piv, Type.PrimitiveInt.U32) = v.runtimeChecked
             piv

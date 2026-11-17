@@ -59,7 +59,7 @@ object FinalizeTypeDefs
             val loc = Locations.get(id)
             for {
               _ <- Analysis.convertTypes(loc, v.getType -> arrayType)
-              v <- Analysis.convertValueToType(loc, (v, arrayType))
+              v <- Analysis.convertValueToType(loc, v -> arrayType)
             } yield {
               val array @ Value.Array(_, _) = v.runtimeChecked
               array
@@ -126,7 +126,7 @@ object FinalizeTypeDefs
             val loc = Locations.get(id)
             for {
               _ <- Analysis.convertTypes(loc, v.getType -> structType)
-              v <- Analysis.convertValueToType(loc, (v, structType))
+              v <- Analysis.convertValueToType(loc, v -> structType)
             } yield {
               val struct @ Value.Struct(_, _) = v.runtimeChecked
               struct
@@ -223,7 +223,7 @@ object FinalizeTypeDefs
           val v = a.valueMap(id)
           for {
             // TODO: Convert to FwSizeStoreType
-            v <- Analysis.convertValueToType(loc, (v, Type.Integer))
+            v <- Analysis.convertValueToType(loc, v -> Type.Integer)
             t <- {
               val Value.Integer(size) = v.runtimeChecked
               if Type.String.isValidSize(size) then Right(t)

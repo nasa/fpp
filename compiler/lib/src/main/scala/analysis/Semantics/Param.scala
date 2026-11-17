@@ -38,7 +38,7 @@ object Param {
         val loc = Locations.get(default.id)
         for {
           _ <- Analysis.convertTypes(loc, defaultType -> paramType)
-          v <- Analysis.convertValueToType(loc, (defaultValue, paramType))
+          v <- Analysis.convertValueToType(loc, defaultValue -> paramType)
         }
         yield v
       }

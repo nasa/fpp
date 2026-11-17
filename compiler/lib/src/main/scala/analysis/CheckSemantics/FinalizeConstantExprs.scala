@@ -29,7 +29,7 @@ object FinalizeConstantExprs extends UseAnalyzer
         def f(node: AstNode[Ast.Expr]) = {
           val id = node.id
           val v = a.valueMap(id)
-          Analysis.convertValueToType(loc, (v, eltType))
+          Analysis.convertValueToType(loc, v -> eltType)
         }
         Result.map(e.elts, f)
       }
@@ -179,12 +179,8 @@ object FinalizeConstantExprs extends UseAnalyzer
       a <- super.templateConstantArg(a, arg)
       ty <- Right(a.typeMap(paramDef.typeName.id))
       v <- Right(a.valueMap(value.id))
-      newVal <- {
-        v.convertToType(ty) match {
-          case Some(v) => Right(v)
-          case None => Left(SemanticError.TypeMismatch(loc, s"cannot convert value $v to type $ty"))
-        }
-      }
+      newVal <- Analysis.convertValueToType(loc, v -> ty)
     } yield a.assignType(value -> ty).assignValue(value -> newVal)
   }
+
 }
