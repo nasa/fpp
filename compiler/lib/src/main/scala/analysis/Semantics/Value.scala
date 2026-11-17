@@ -122,11 +122,7 @@ object Value {
   {
 
     override private[analysis] def binop(op: Binop)(v: Value) = v match {
-      case PrimitiveInt(value1, kind1) => {
-        val result1 = op.intOp(value, value1)
-        val result2 = if (kind1 == kind) PrimitiveInt(result1, kind) else Integer(result1)
-        Some(result2)
-      }
+      case PrimitiveInt(value1, _) => Some(Integer(op.intOp(value, value1)))
       case Integer(value1) => Some(Integer(op.intOp(value, value1)))
       case Float(value1, kind1) => {
         val result = op.doubleOp(value.toFloat, value1)
@@ -190,10 +186,7 @@ object Value {
     }
 
     override private[analysis] def binop(op: Binop)(v: Value) = v match {
-      case PrimitiveInt(value1, kind1) => {
-        val result = op.intOp(value, value1)
-        Some(Integer(result))
-      }
+      case PrimitiveInt(value1, _) => Some(Integer(op.intOp(value, value1)))
       case Integer(value1) => Some(Integer(op.intOp(value, value1)))
       case Float(value1, kind1) => {
         val result = op.doubleOp(value.toFloat, value1)
@@ -233,7 +226,7 @@ object Value {
   case class Float(value: Double, kind: Type.Float.Kind) extends Value {
 
     override private[analysis] def binop(op: Binop)(v: Value) = v match {
-      case PrimitiveInt(value1, kind1) => {
+      case PrimitiveInt(value1, _) => {
         val result = op.doubleOp(value, value1.toDouble)
         Some(Float(result.toFloat, Type.Float.F64))
       }
@@ -241,13 +234,8 @@ object Value {
         val result = op.doubleOp(value, value1.toDouble)
         Some(Float(result.toDouble, Type.Float.F64))
       }
-      case Float(value1, kind1) => {
-        val result1 = op.doubleOp(value, value1)
-        val result2 = 
-          if (kind1 == kind) Float(result1, kind) 
-          else Float(result1, Type.Float.F64)
-        Some(result2)
-      }
+      case Float(value1, _) =>
+        Some(Float(op.doubleOp(value, value1), Type.Float.F64))
       case enumConstant : EnumConstant =>
         binop(op)(enumConstant.convertToRepType)
       case _ => None

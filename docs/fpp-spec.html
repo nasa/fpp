@@ -13413,8 +13413,9 @@ semantic analyzer does the following:</p>
 \$e_1\$ and \$e_2\$.</p>
 </li>
 <li>
-<p>If \$T\$ is a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>,
-then use \$T\$.</p>
+<p>If the <a href="#Types_Underlying-Types">underlying type</a>
+of \$T\$ is a <a href="#Types_Floating-Point-Types">floating-point type</a>,
+then use <code>F64</code>.</p>
 </li>
 <li>
 <p>Otherwise if \$T\$ <a href="#Type-Checking_Type-Conversion">may be converted to</a>
@@ -15009,7 +15010,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-17 11:13:57 -0800
+Last updated 2026-11-17 13:50:50 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

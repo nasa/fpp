@@ -39,12 +39,12 @@ class ValueSpec extends AnyWordSpec {
 
   "add" should {
     val triples = List(
-      (createI8(1), createI8(2), Some(createI8(3))),
+      (createI8(1), createI8(2), Some(Integer(3))),
       (createI8(1), Integer(2), Some(Integer(3))),
       (createI8(1), createF32(2), Some(createF64(3))),
-      (createF32(1), createF32(2), Some(createF32(3))),
+      (createF32(1), createF32(2), Some(createF64(3))),
       (createF32(1), createF64(2), Some(createF64(3))),
-      (enumeration, createI32(1), Some(createI32(1))),
+      (enumeration, createI32(1), Some(Integer(1))),
       (enumeration, createI16(1), Some(Integer(1))),
       (createI32(1), String("abc"), None),
       (createI32(1), defaultAnonArray3U32, None),
@@ -61,12 +61,12 @@ class ValueSpec extends AnyWordSpec {
 
   "sub" should {
     val triples = List(
-      (createI8(1), createI8(2), Some(createI8(-1))),
+      (createI8(1), createI8(2), Some(Integer(-1))),
       (createI8(1), Integer(2), Some(Integer(-1))),
       (createI8(1), createF32(2), Some(createF64(-1))),
-      (createF32(1), createF32(2), Some(createF32(-1))),
+      (createF32(1), createF32(2), Some(createF64(-1))),
       (createF32(1), createF64(2), Some(createF64(-1))),
-      (enumeration, createI32(1), Some(createI32(-1))),
+      (enumeration, createI32(1), Some(Integer(-1))),
       (enumeration, createI16(1), Some(Integer(-1))),
       (createI32(1), String("abc"), None),
       (createI32(1), defaultAnonArray3U32, None),
@@ -83,12 +83,12 @@ class ValueSpec extends AnyWordSpec {
 
   "mul" should {
     val triples = List(
-      (createI8(1), createI8(2), Some(createI8(2))),
+      (createI8(1), createI8(2), Some(Integer(2))),
       (createI8(1), Integer(2), Some(Integer(2))),
       (createI8(1), createF32(2), Some(createF64(2))),
-      (createF32(1), createF32(2), Some(createF32(2))),
+      (createF32(1), createF32(2), Some(createF64(2))),
       (createF32(1), createF64(2), Some(createF64(2))),
-      (enumeration, createI32(1), Some(createI32(0))),
+      (enumeration, createI32(1), Some(Integer(0))),
       (enumeration, createI16(1), Some(Integer(0))),
       (createI32(1), String("abc"), None),
       (createI32(1), defaultAnonArray3U32, None),
@@ -105,12 +105,12 @@ class ValueSpec extends AnyWordSpec {
 
   "div" should {
     val triples = List(
-      (createI8(1), createI8(2), Some(createI8(0))),
+      (createI8(1), createI8(2), Some(Integer(0))),
       (createI8(1), Integer(2), Some(Integer(0))),
       (createI8(1), createF32(2), Some(createF64(0.5))),
-      (createF32(1), createF32(2), Some(createF32(0.5))),
+      (createF32(1), createF32(2), Some(createF64(0.5))),
       (createF32(1), createF64(2), Some(createF64(0.5))),
-      (enumeration, createI32(1), Some(createI32(0))),
+      (enumeration, createI32(1), Some(Integer(0))),
       (enumeration, createI16(1), Some(Integer(0))),
       (createI32(1), String("abc"), None),
       (createI32(1), defaultAnonArray3U32, None),
