@@ -78,8 +78,8 @@ identifier>> that refers to an
 <<Definitions_Alias-Type-Definitions,alias type definition>>,
 <<Definitions_Array-Definitions,array definition>>,
 <<Definitions_Enum-Definitions,enum definition>>,
-<<Definitions_Struct-Definitions,struct definition>>
-<<Definitions_Vector-Definitions,vector definition>>
+<<Definitions_Struct-Definitions,struct definition>>,
+<<Definitions_Vector-Definitions,vector definition>>,
 or
 <<Definitions,bound parameter definition>>
  via the

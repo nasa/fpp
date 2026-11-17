@@ -179,20 +179,17 @@ A vector value has the form `[` stem:[v_0] `,` stem:[...] `,`
 stem:[v_{k-1}] `]` `:` stem:[Q],
 where
 
-. stem:[k] is a nonnegative integer called the *length* of the vector value.
-If stem:[Q] refers to a vector definition of maximum size stem:[n], then
-stem:[0 <= k <= n].
-The length may be zero, in which case the value is the empty vector `[ ]`.
-
 . stem:[Q] is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>>
 that refers to a
 <<Definitions_Vector-Definitions,vector definition>>
-with element type stem:[T].
+with element type stem:[T] and maximum size stem:[n].
+
+. stem:[k] is an integer in the range stem:[[0,n\]] called the *length*
+of the vector value.
 
 . For each stem:[i in [0,k-1]], stem:[v_i] is a value of type stem:[T].
-Note that stem:[T] need not be a canonical type, exactly as for an
-<<Values_Array-Values,array value>>.
+Note that stem:[T] need not be a canonical type.
 
 The canonical type of the value is stem:[Q].
 
