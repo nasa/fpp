@@ -41,9 +41,9 @@ For each member _m_,
 * The optional expression `[` _e_ `]` specifies the
 *size* of _m_, i.e., the number of elements stored in _m_.
 If present, _e_ must have a
-<<Types_Internal-Types_Numeric-Types,numeric type>>, and it must
-evaluate to a value stem:[n > 0] after conversion to
-<<Types_Internal-Types_Integer,_Integer_>>.
+type that <<Type-Checking_Type-Conversion,is convertible to>> _Integer_,
+and it must evaluate to a value stem:[n > 0] after
+<<Evaluation_Type-Conversion,type conversion>>.
 If _e_ is not present, then _m_ represents a single value of type stem:[T_m].
 Otherwise _m_ represents an array of _n_ values of type stem:[T_m].
 

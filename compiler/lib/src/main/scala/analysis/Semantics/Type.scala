@@ -216,6 +216,7 @@ object Type {
     override def isCanonical = false
     override def isDisplayable = getUnderlyingType.isDisplayable
     override def getUnderlyingType = aliasType.getUnderlyingType
+    override def isConvertibleToNumeric = getUnderlyingType.isConvertibleToNumeric
   }
 
   /** A named array type */

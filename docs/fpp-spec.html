@@ -2555,13 +2555,13 @@ We also say that <em>I</em> is an instance of <em>D</em>.</p>
 </li>
 <li>
 <p>The expression following the keywords <code>base</code> <code>id</code> must have a
-<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
+type that <a href="#Type-Checking_Type-Conversion">is convertible to</a> <em>Integer</em>.
 It associates a base identifier with the component instance.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
 <p>The base identifier must evaluate to a nonnegative integer after
-<a href="#Type-Checking_Type-Conversion">type conversion</a>.</p>
+<a href="#Evaluation_Type-Conversion">conversion</a> to <em>Integer</em>.</p>
 </li>
 <li>
 <p>For each component instance, for each
@@ -2627,32 +2627,34 @@ a default implementation path.</p>
 </li>
 <li>
 <p>If present, the expression following the keywords <code>queue</code> <code>size</code> must
-have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>
-and must evaluate to a nonnegative integer after
-<a href="#Type-Checking_Type-Conversion">type conversion</a>.
+have a type that <a href="#Type-Checking_Type-Conversion">is convertible to</a>
+<em>Integer</em> and must evaluate to a nonnegative integer after
+<a href="#Evaluation_Type-Conversion">conversion</a> to <em>Integer</em>.
 It specifies the queue size for active and queued components.
 The queue size is required for active and queued components
 and is not allowed for passive components.</p>
 </li>
 <li>
 <p>If present, the expression following the keywords <code>stack</code> <code>size</code> must
-have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>
-and must evaluate to a nonnegative integer after
-<a href="#Type-Checking_Type-Conversion">type conversion</a>.
+have a type that <a href="#Type-Checking_Type-Conversion">is convertible to</a>
+<em>Integer</em> and must evaluate to a nonnegative integer after
+<a href="#Evaluation_Type-Conversion">conversion</a> to <em>Integer</em>.
 It specifies the stack size in bytes for active components.
 The stack size is optional for active components and is not allowed
 for queued or passive components.</p>
 </li>
 <li>
 <p>If present, the expression following the keyword <code>priority</code> must
-have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
+have a type that <a href="#Type-Checking_Type-Conversion">is convertible to</a>
+<em>Integer</em>.
 It specifies the thread priority for active components.
 The priority is optional for active components and is not allowed
 for queued or passive components.</p>
 </li>
 <li>
 <p>If present, the expression following the keyword <code>cpu</code> must
-have a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
+have a type that <a href="#Type-Checking_Type-Conversion">is convertible to</a>
+<em>Integer</em>.
 It specifies the CPU affinity for active components.
 The CPU affinity is optional for active components and is not allowed
 for queued or passive components.</p>
@@ -4036,9 +4038,9 @@ identifier appearing in the struct type member sequence must be distinct.</p>
 <p>The optional expression <code>[</code> <em>e</em> <code>]</code> specifies the
 <strong>size</strong> of <em>m</em>, i.e., the number of elements stored in <em>m</em>.
 If present, <em>e</em> must have a
-<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, and it must
-evaluate to a value \$n &gt; 0\$ after conversion to
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+type that <a href="#Type-Checking_Type-Conversion">is convertible to</a> <em>Integer</em>,
+and it must evaluate to a value \$n &gt; 0\$ after
+<a href="#Evaluation_Type-Conversion">type conversion</a>.
 If <em>e</em> is not present, then <em>m</em> represents a single value of type \$T_m\$.
 Otherwise <em>m</em> represents an array of <em>n</em> values of type \$T_m\$.</p>
 </li>
@@ -7578,8 +7580,8 @@ It may also serve another purpose (e.g., teardown).</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The expression following the keyword <code>phase</code> must have
-a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.
+<p>The expression following the keyword <code>phase</code> must have a
+type that <a href="#Type-Checking_Type-Conversion">is convertible to</a> <em>Integer</em>.
 It provides an integer identifier for an initialization phase.</p>
 </li>
 <li>
@@ -9767,9 +9769,9 @@ string size 256</code></pre>
 <div class="paragraph">
 <p>The optional expression following the keyword <code>size</code> is called the <strong>size
 expression</strong> of the string type name.  If present, it must have a
-<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, and it must
-evaluate to a value in the range [0,2<sup>31</sup>) after conversion to
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.</p>
+type that <a href="#Type-Checking_Type-Conversion">is convertible to</a> <em>Integer</em>.
+and it must evaluate to a value that is in the range [0,2<sup>31</sup>) after
+<a href="#Evaluation_Type-Conversion">conversion</a> to <em>Integer</em>.</p>
 </div>
 <div class="paragraph">
 <p>At each point in the model where a string type name appears, the following
@@ -9954,8 +9956,8 @@ according to the following rules.</p>
 </li>
 <li>
 <p>For each range bound <em>B</em>, if <em>B</em> is an expression <em>e</em>, then <em>e</em> must have
-a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, and it must
-must evaluate to a value that <a href="#Evaluation_Type-Conversion">may be converted
+a type that <a href="#Type-Checking_Type-Conversion">may be converted to</a> <em>T'</em>, and
+it must must evaluate to a value that <a href="#Evaluation_Type-Conversion">may be converted
 to a value of type <em>T''</em></a>.</p>
 </li>
 <li>
@@ -15007,7 +15009,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-16 16:37:20 -0800
+Last updated 2026-11-17 11:13:57 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

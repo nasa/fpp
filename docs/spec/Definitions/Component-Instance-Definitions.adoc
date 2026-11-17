@@ -54,11 +54,11 @@ This component definition _D_ is called the component definition
 We also say that _I_ is an instance of _D_.
 
 . The expression following the keywords `base` `id` must have a
-<<Types_Internal-Types_Numeric-Types,numeric type>>.
+type that <<Type-Checking_Type-Conversion,is convertible to>> _Integer_.
 It associates a base identifier with the component instance.
 
 .. The base identifier must evaluate to a nonnegative integer after
-<<Type-Checking_Type-Conversion,type conversion>>.
+<<Evaluation_Type-Conversion,conversion>> to _Integer_.
 
 .. For each component instance, for each
 command, event, telemetry, or parameter identifier,
@@ -109,29 +109,31 @@ of the component instance and the name of the component to generate
 a default implementation path.
 
 . If present, the expression following the keywords `queue` `size` must
-have a <<Types_Internal-Types_Numeric-Types,numeric type>>
-and must evaluate to a nonnegative integer after
-<<Type-Checking_Type-Conversion,type conversion>>.
+have a type that <<Type-Checking_Type-Conversion,is convertible to>> 
+_Integer_ and must evaluate to a nonnegative integer after
+<<Evaluation_Type-Conversion,conversion>> to _Integer_.
 It specifies the queue size for active and queued components.
 The queue size is required for active and queued components
 and is not allowed for passive components.
 
 . If present, the expression following the keywords `stack` `size` must
-have a <<Types_Internal-Types_Numeric-Types,numeric type>>
-and must evaluate to a nonnegative integer after
-<<Type-Checking_Type-Conversion,type conversion>>.
+have a type that <<Type-Checking_Type-Conversion,is convertible to>> 
+_Integer_ and must evaluate to a nonnegative integer after
+<<Evaluation_Type-Conversion,conversion>> to _Integer_.
 It specifies the stack size in bytes for active components.
 The stack size is optional for active components and is not allowed
 for queued or passive components.
 
 . If present, the expression following the keyword `priority` must
-have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
+have a type that <<Type-Checking_Type-Conversion,is convertible to>> 
+_Integer_.
 It specifies the thread priority for active components.
 The priority is optional for active components and is not allowed
 for queued or passive components.
 
 . If present, the expression following the keyword `cpu` must
-have a <<Types_Internal-Types_Numeric-Types,numeric type>>.
+have a type that <<Type-Checking_Type-Conversion,is convertible to>> 
+_Integer_.
 It specifies the CPU affinity for active components.
 The CPU affinity is optional for active components and is not allowed
 for queued or passive components.

@@ -13,8 +13,8 @@ It may also serve another purpose (e.g., teardown).
 
 ==== Semantics
 
-* The expression following the keyword `phase` must have
-a <<Types_Internal-Types_Numeric-Types,numeric type>>.
+* The expression following the keyword `phase` must have a
+type that <<Type-Checking_Type-Conversion,is convertible to>> _Integer_.
 It provides an integer identifier for an initialization phase.
 
 * Each component instance may have at most one init specifier

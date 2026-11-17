@@ -355,7 +355,7 @@ class TemplatesSpec extends AnyWordSpec {
     /** Get the integer value of the node with the given id */
     private def intValue(a: Analysis, id: AstNode.Id): BigInt =
         a.valueMap.get(id) match {
-            case Some(v) => Analysis.convertValueToType(v, Type.Integer) match {
+            case Some(v) => Analysis.convertValueToTypeUnchecked(v, Type.Integer) match {
                 case Value.Integer(i) => i
                 case v1 => fail(s"$v1 should be an integer value")
             }
