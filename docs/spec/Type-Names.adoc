@@ -195,8 +195,9 @@ according to the following rules.
   <<Types_Underlying-Types,underlying type>> _T'_ is a
   <<Types_Primitive-Numeric-Types,primitive numeric type>>.
 
-. For each range bound _B_, if _B_ is an expression _e_, then _e_ must evaluate
-  to a value that <<Evaluation_Type-Conversion,may be converted 
+. For each range bound _B_, if _B_ is an expression _e_, then _e_ must have
+  a <<Types_Internal-Types_Numeric-Types,numeric type>>, and it must
+  must evaluate to a value that <<Evaluation_Type-Conversion,may be converted 
   to a value of type _T''_>>.
 
 . Let _T_ be the <<Types_Range-Types,range type>> _T'_ `in` _range_,
