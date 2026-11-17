@@ -119,21 +119,27 @@ object EvalConstantExprs extends UseAnalyzer {
   }
 
   override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray) =
-    for (a <- super.exprArrayNode(a, node, e))
-      yield {
+    for {
+      a <- super.exprArrayNode(a, node, e)
+      elts <- {
         val eltType = a.typeMap(node.id) match {
           case Type.AnonArray(_, eltType) => eltType
           case Type.Array(_, Type.AnonArray(_, eltType), _, _) => eltType
           case _ => throw InternalError("element type of array expression should be AnonArray or Array")
         }
         def f(node: AstNode[Ast.Expr]) = {
-          val v = a.valueMap(node.id)
-          Analysis.convertValueToTypeUnchecked(v, eltType)
+          val id = node.id
+          val loc = Locations.get(id)
+          val v = a.valueMap(id)
+          Analysis.convertValueToType(loc, (v, eltType))
         }
-        val elts = e.elts.map(f)
-        val v = Value.AnonArray(elts)
-        a.assignValue(node -> v)
+        Result.map(e.elts, f)
       }
+    }
+    yield {
+      val v = Value.AnonArray(elts)
+      a.assignValue(node -> v)
+    }
 
   override def exprArraySubscriptNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArraySubscript) = {
     for {
