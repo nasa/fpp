@@ -25,12 +25,15 @@ object FinalizeConstantExprs extends UseAnalyzer
           case _ => Right(())
         }
       }
-    } yield {
-      def f(node: AstNode[Ast.Expr]) = {
-        val v = a.valueMap(node.id)
-        Analysis.convertValueToTypeUnchecked(v, eltType)
+      elts <- {
+        def f(node: AstNode[Ast.Expr]) = {
+          val id = node.id
+          val v = a.valueMap(id)
+          Analysis.convertValueToType(loc, (v, eltType))
+        }
+        Result.map(e.elts, f)
       }
-      val elts = e.elts.map(f)
+    } yield {
       val v = Value.AnonArray(elts)
       a.assignType(node -> Type.AnonArray(Some(e.elts.size), eltType))
         .assignValue(node -> v)

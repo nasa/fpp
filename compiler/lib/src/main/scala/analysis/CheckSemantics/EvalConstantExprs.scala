@@ -65,23 +65,32 @@ object EvalConstantExprs extends UseAnalyzer {
 
   override def defEnumConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnumConstant]]) = {
     val (_, node, _) = aNode
+    val id = node.id
     if (!a.valueMap.contains(node.id)) {
       node.data.value match {
         case Some(e) => 
-          for (a <- super.defEnumConstantAnnotatedNode(a, aNode))
-            yield {
-              val intValue = Analysis.convertValueToTypeUnchecked(a.valueMap(e.id), Type.Integer) match {
-                case Value.Integer(intValue) => intValue
-                case _ => throw InternalError("conversion to Integer type should yield Integer value")
-              }
-              val enumType = a.typeMap(node.id) match {
-                case enumType : Type.Enum => enumType
-                case _ => throw InternalError("type of enum constant definition should be enum type")
-              }
-              val value = (node.data.name, intValue)
-              val enumValue = Value.EnumConstant(value, enumType)
-              a.assignValue(node -> enumValue)
+          for {
+            a <- super.defEnumConstantAnnotatedNode(a, aNode)
+            v <- {
+              val loc = Locations.get(e.id)
+              val v= a.valueMap(e.id)
+              // TODO: Convert to the rep type of the enum
+              Analysis.convertValueToType(loc, (v, Type.Integer))
             }
+          }
+          yield {
+            val intValue = v match {
+              case Value.Integer(intValue) => intValue
+              case _ => throw InternalError("conversion to Integer type should yield Integer value")
+            }
+            val enumType = a.typeMap(node.id) match {
+              case enumType : Type.Enum => enumType
+              case _ => throw InternalError("type of enum constant definition should be enum type")
+            }
+            val value = (node.data.name, intValue)
+            val enumValue = Value.EnumConstant(value, enumType)
+            a.assignValue(node -> enumValue)
+          }
         case None => throw InternalError("implied enum constants should already be evaluated")
       }
     }

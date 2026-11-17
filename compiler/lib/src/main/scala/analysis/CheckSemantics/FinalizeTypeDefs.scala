@@ -222,6 +222,7 @@ object FinalizeTypeDefs
           val loc = Locations.get(id)
           val v = a.valueMap(id)
           for {
+            // TODO: Convert to FwSizeStoreType
             v <- Analysis.convertValueToType(loc, (v, Type.Integer))
             t <- {
               val Value.Integer(size) = v.runtimeChecked
