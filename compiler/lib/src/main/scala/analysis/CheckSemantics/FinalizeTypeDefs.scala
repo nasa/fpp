@@ -57,11 +57,13 @@ object FinalizeTypeDefs
             val id = defaultNode.id
             val v = a.valueMap(id)
             val loc = Locations.get(id)
-            for (_ <- Analysis.convertTypes(loc, v.getType -> arrayType))
-              yield {
-                val array @ Value.Array(_, _) = Analysis.convertValueToTypeUnchecked(v, arrayType).runtimeChecked
-                array
-              }
+            for {
+              _ <- Analysis.convertTypes(loc, v.getType -> arrayType)
+              v <- Analysis.convertValueToType(loc, (v, arrayType))
+            } yield {
+              val array @ Value.Array(_, _) = v.runtimeChecked
+              array
+            }
           }
           case None => {
             val Some(anonArray) = arrayType.anonArray.getDefaultValue.runtimeChecked
@@ -122,11 +124,13 @@ object FinalizeTypeDefs
             val id = defaultNode.id
             val v = a.valueMap(id)
             val loc = Locations.get(id)
-            for (_ <- Analysis.convertTypes(loc, v.getType -> structType))
-              yield {
-                val struct @ Value.Struct(_, _) = Analysis.convertValueToTypeUnchecked(v, structType).runtimeChecked
-                struct
-              }
+            for {
+              _ <- Analysis.convertTypes(loc, v.getType -> structType)
+              v <- Analysis.convertValueToType(loc, (v, structType))
+            } yield {
+              val struct @ Value.Struct(_, _) = v.runtimeChecked
+              struct
+            }
           }
           case None => {
             val Some(anonStruct) = structType.anonStruct.getDefaultValue.runtimeChecked
@@ -215,15 +219,19 @@ object FinalizeTypeDefs
       t.size match {
         case Some(e) => {
           val id = e.id
-          val Value.Integer(size) = Analysis.convertValueToTypeUnchecked(
-            a.valueMap(id),
-            Type.Integer
-          ).runtimeChecked
-          if Type.String.isValidSize(size) then Right(t)
-          else {
-            val loc = Locations.get(id)
-            Left(SemanticError.InvalidStringSize(loc, size))
-          }
+          val loc = Locations.get(id)
+          val v = a.valueMap(id)
+          for {
+            v <- Analysis.convertValueToType(loc, (v, Type.Integer))
+            t <- {
+              val Value.Integer(size) = v.runtimeChecked
+              if Type.String.isValidSize(size) then Right(t)
+              else {
+                val loc = Locations.get(id)
+                Left(SemanticError.InvalidStringSize(loc, size))
+              }
+            }
+          } yield t
         }
         case None => Right(t)
       }

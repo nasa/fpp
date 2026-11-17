@@ -750,6 +750,14 @@ object Analysis {
       case None => throw InternalError(s"cannot convert value $v to type $t")
     }
 
+  /** Convert a value to a type */
+  def convertValueToType(loc: Location, pair: (Value, Type)): Result.Result[Value] =
+    val (v -> t) = pair
+    v.convertToType(t) match {
+      case Some(v) => Right(v)
+      case None => Left(SemanticError.TypeMismatch(loc, s"cannot convert value $v to type $t"))
+    }
+
   /** Gets the number of ref params in a formal param list */
   def getNumRefParams(params: Ast.FormalParamList): Int =
     params.filter(aNode => {
