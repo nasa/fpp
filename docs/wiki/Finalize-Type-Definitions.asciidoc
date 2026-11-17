@@ -103,5 +103,5 @@ For each type _t_:
 
 .. Visit _d_
 
-.. Use the updated type of _d_ to update the array sizes, default values, and
-format specifiers appearing in _t_.  
+.. Use the updated type of _d_ to update the array sizes, range bounds,
+default values, and format specifiers appearing in _t_.  

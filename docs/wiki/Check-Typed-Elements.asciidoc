@@ -45,7 +45,10 @@ then set _m(e)_ to _None_.
 
 .. Let _o_ be the type option specified in the signal of _sts_.
 
-.. Set _m(sts)_ to _o_.
+.. Let _o'_ be _o_ after using the analysis data structure to fill in
+the range bounds of _o'_, if any.
+
+.. Set _m(sts)_ to _o'_.
 
 . Otherwise _e_ is a choice _c_.
 

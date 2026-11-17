@@ -1,6 +1,6 @@
 This algorithm traverses the source model and computes
 the types of constant symbols and
-expressions, except that array size expressions
+expressions, except that size expressions in types
 and default value expressions in type definitions are still unevaluated.
 As the algorithm computes types, it checks for typing errors.
 
@@ -94,15 +94,15 @@ parameter symbol] of _n_ with argument _p_, visit the type name _p_.
 ==== Type Names
 
 For each string type name that has a size expression, check that 
-the size expression has a numeric type.
+the size expression is convertible to _Integer_.
 
 For each range type name _N_
 
 . Check that the type name of _N_ names a type whose underlying type
-is a primitive numeric type.
+is a primitive numeric type _T_.
 
-. Check that each of the range bound expressions of _N_, if any, has a numeric 
-  type.
+. Check that each of the range bound expressions of _N_, if any, is
+convertible to _T_.
 
 ==== Expressions
 

@@ -1963,7 +1963,9 @@ The type <em>T</em> is called the <strong>element type</strong> of the array typ
 <p>The expression following the keyword <code>default</code> is optional.
 If present, it specifies the <a href="#Types_Default-Values">default value</a> associated
 with the type.
-The expression must <a href="#Evaluation_Evaluating-Expressions">evaluate to</a> a value
+The type of the expression must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T'</em>, and the
+expression must <a href="#Evaluation_Evaluating-Expressions">evaluate to</a> a value
 that is <a href="#Evaluation_Type-Conversion">convertible to</a> <em>T'</em>.</p>
 </div>
 <div class="paragraph">
@@ -4058,7 +4060,9 @@ translator applies the format to each element.</p>
 <p>The expression following the keyword <code>default</code> is optional.
 If present, it specifies the <a href="#Types_Default-Values">default value</a>
 associated with the type.
-The expression must <a href="#Evaluation_Evaluating-Expressions">evaluate to</a> a value
+The type of the expression must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T</em>, and
+the expression must <a href="#Evaluation_Evaluating-Expressions">evaluate to</a> a value
 that is <a href="#Evaluation_Type-Conversion">convertible to</a> <em>T</em>.
 If the expression specifies a value for a member with size
 greater than one, then the value is applied to each element.</p>
@@ -15010,7 +15014,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-17 13:50:50 -0800
+Last updated 2026-11-17 14:40:25 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
