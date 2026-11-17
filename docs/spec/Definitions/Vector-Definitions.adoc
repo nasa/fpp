@@ -12,7 +12,7 @@ _[_
 `dictionary`
 _]_
 `vector` <<Lexical-Elements_Identifiers,_identifier_>> `=`
-_vector-size_ <<Type-Names,_type-name_>>
+_vector-size_
 _[_
 `default` <<Expressions,_expression_>>
 _]_
@@ -24,7 +24,7 @@ The *size specifier* _vector-size_ has one of the following forms:
 
 * `[` `size` <<Expressions,_expression_>> `]`
 
-* `[` <<Type-Names,_type-name_>> `size` <<Expressions,_expression_>> `]`
+* `[` `size` <<Expressions,_expression_>> `:` <<Type-Names,_type-name_>> `]`
 
 ==== Semantics
 
@@ -37,7 +37,7 @@ _n_ greater than zero. _n_ is called the *maximum size* of the vector type _T'_.
 A value of type _T'_ has a *length* in the range [0, _n_], which is the number of
 elements that it stores.
 
-The type name preceding the keyword `size`, if present, names the
+The type name after the keyword size expression, if present, names the
 *size-prefix type* _Tp_ of the vector type _T'_.
 It specifies the type used to serialize the length of the vector as a length
 prefix in the standard F Prime serialized format (see
@@ -79,7 +79,7 @@ vector V = [size 3] U8
 
 # Defines a vector type W of at most 3 U8 elements.
 # The length is serialized using a U16 length prefix.
-vector W = [U16 size 3] U8
+vector W = [size 3: U16] U8
 
 # Defines a vector type X of at most 4 F32 elements
 # with default value [ 1, 2 ], which has length 2

@@ -2021,7 +2021,7 @@ It is analogous to an <a href="#Definitions_Array-Definitions">array</a>, but va
 <code>dictionary</code>
 <em>]</em>
 <code>vector</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code>
-<em>vector-size</em> <a href="#Type-Names"><em>type-name</em></a>
+<em>vector-size</em>
 <em>[</em>
 <code>default</code> <a href="#Expressions"><em>expression</em></a>
 <em>]</em>
@@ -2038,7 +2038,7 @@ It is analogous to an <a href="#Definitions_Array-Definitions">array</a>, but va
 <p><code>[</code> <code>size</code> <a href="#Expressions"><em>expression</em></a> <code>]</code></p>
 </li>
 <li>
-<p><code>[</code> <a href="#Type-Names"><em>type-name</em></a> <code>size</code> <a href="#Expressions"><em>expression</em></a> <code>]</code></p>
+<p><code>[</code> <code>size</code> <a href="#Expressions"><em>expression</em></a> <code>:</code> <a href="#Type-Names"><em>type-name</em></a> <code>]</code></p>
 </li>
 </ul>
 </div>
@@ -2057,7 +2057,7 @@ A value of type <em>T'</em> has a <strong>length</strong> in the range [0, <em>n
 elements that it stores.</p>
 </div>
 <div class="paragraph">
-<p>The type name preceding the keyword <code>size</code>, if present, names the
+<p>The type name after the keyword size expression, if present, names the
 <strong>size-prefix type</strong> <em>Tp</em> of the vector type <em>T'</em>.
 It specifies the type used to serialize the length of the vector as a length
 prefix in the standard F Prime serialized format (see
@@ -2103,7 +2103,7 @@ vector V = [size 3] U8
 
 # Defines a vector type W of at most 3 U8 elements.
 # The length is serialized using a U16 length prefix.
-vector W = [U16 size 3] U8
+vector W = [size 3: U16] U8
 
 # Defines a vector type X of at most 4 F32 elements
 # with default value [ 1, 2 ], which has length 2
@@ -14931,7 +14931,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-17 06:39:09 -0800
+Last updated 2026-11-17 06:39:17 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
