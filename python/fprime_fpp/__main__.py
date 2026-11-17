@@ -53,6 +53,10 @@ def main():
     name = Path(sys.argv[0]).name
     subcommand = name[len("fpp-"):] if name.startswith("fpp-") else name
 
+    if name == "fpp-to-json":
+        print(f"[ERROR] fpp-to-json is no longer supported. Please migrate to fprime-fpp-python", file=sys.stderr)
+        sys.exit(-41)
+
     # Determine the arguments supplied to fpp/fpp.jar
     base_arguments = [] if subcommand == "fpp" else [subcommand]
     base_arguments += sys.argv[1:]
@@ -62,7 +66,7 @@ def main():
     jar_file = Path(__file__).parent / "fpp.jar"
 
     # Prefer the binary file if it exists
-    if binary_file.exists() and name != "fpp-to-json":
+    if binary_file.exists():
         process = subprocess.run([str(binary_file)] + base_arguments)
     # Then check for the JAR file
     elif jar_file.exists():
