@@ -36,8 +36,11 @@ object Param {
         val defaultValue = a.valueMap(default.id)
         val defaultType = a.typeMap(default.id)
         val loc = Locations.get(default.id)
-        for (_ <- Analysis.convertTypes(loc, defaultType -> paramType))
-          yield Analysis.convertValueToTypeUnchecked(defaultValue, paramType)
+        for {
+          _ <- Analysis.convertTypes(loc, defaultType -> paramType)
+          v <- Analysis.convertValueToType(loc, (defaultValue, paramType))
+        }
+        yield v
       }
       def computeOpcode(intOpt: Option[BigInt], defaultOpcode: BigInt) =
         intOpt match {
