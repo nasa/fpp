@@ -76,7 +76,7 @@ of stem:[v'_1] followed by the characters of stem:[v'_2].
 
 .. Evaluate stem:[e_1] to a value stem:[v_1].
 <<Type-Checking_Type-Conversion,Convert>>
-stem:[v_1] to a value stem:[n] of type _T_.
+stem:[v_1] to a value stem:[n] of type _Integer_.
 
 .. Evaluate stem:[e_2] to a value stem:[v_2].
 <<Type-Checking_Type-Conversion,Convert>>

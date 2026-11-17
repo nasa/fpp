@@ -129,14 +129,14 @@ object Value {
         Some(Float(result.toFloat, Type.Float.F64))
       }
       case enumConstant : EnumConstant =>
-        binop(op)(enumConstant.convertToRepType)
+        binop(op)(enumConstant.convertToInteger)
       case _ => None
     }
 
     override private[analysis] def intShiftOp(op: Binop.intShiftOp)(v: Value) = v match {
-      case PrimitiveInt(value1, kind1) => Some(PrimitiveInt(op(value, value1.toInt), kind))
+      case PrimitiveInt(value1, _) => Some(Integer(op(value, value1.toInt)))
       case Integer(value1) => Some(Integer(op(value, value1.toInt)))
-      case enumConstant: EnumConstant => intShiftOp(op)(enumConstant.convertToRepType)
+      case enumConstant: EnumConstant => intShiftOp(op)(enumConstant.convertToInteger)
       case _ => None
     }
 
@@ -193,14 +193,14 @@ object Value {
         Some(Float(result.toFloat, Type.Float.F64))
       }
       case enumConstant : EnumConstant =>
-        binop(op)(enumConstant.convertToRepType)
+        binop(op)(enumConstant.convertToInteger)
       case _ => None
     }
 
     override private[analysis] def intShiftOp(op: Binop.intShiftOp)(v: Value) = v match {
       case PrimitiveInt(value1, kind1) => Some(Integer(op(value, value1.toInt)))
       case Integer(value1) => Some(Integer(op(value, value1.toInt)))
-      case enumConstant: EnumConstant => intShiftOp(op)(enumConstant.convertToRepType)
+      case enumConstant: EnumConstant => intShiftOp(op)(enumConstant.convertToInteger)
       case _ => None
     }
 
@@ -237,7 +237,7 @@ object Value {
       case Float(value1, _) =>
         Some(Float(op.doubleOp(value, value1), Type.Float.F64))
       case enumConstant : EnumConstant =>
-        binop(op)(enumConstant.convertToRepType)
+        binop(op)(enumConstant.convertToInteger)
       case _ => None
     }
 
@@ -402,12 +402,16 @@ object Value {
   /** Enum constant values */
   case class EnumConstant(value: (Name.Unqualified, BigInt), t: Type.Enum) extends Value {
 
-    override private[analysis] def binop(op: Binop)(v: Value) = convertToRepType.binop(op)(v)
+    override private[analysis] def binop(op: Binop)(v: Value) = convertToInteger.binop(op)(v)
 
-    override private[analysis] def intShiftOp(op: Binop.intShiftOp)(v: Value) = convertToRepType.intShiftOp(op)(v)
+    override private[analysis] def intShiftOp(op: Binop.intShiftOp)(v: Value) =
+      convertToInteger.intShiftOp(op)(v)
 
     /** Convert the enum to the representation type */
     def convertToRepType: PrimitiveInt = PrimitiveInt(value._2, t.repType.kind)
+
+    /** Convert the enum to Integer */
+    def convertToInteger: Integer = Integer(value._2)
 
     override def convertToDistinctType(t: Type) =
       convertToRepType.convertToDistinctType(t.getUnderlyingType) match {

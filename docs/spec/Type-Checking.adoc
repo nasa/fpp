@@ -269,10 +269,7 @@ the semantic analyzer does the following:
   <<Types_Internal-Types_Integer-Types,integer type>>
   or an <<Types_Enum-Types,enum type>>.
 
-. If stem:[T_1] is an integer type, then use stem:[T_1]
-  as the type of the expression.
-
-. Otherwise use <<Types_Internal-Types_Integer,_Integer_>>
+. Use <<Types_Internal-Types_Integer,_Integer_>>
   as the type of the expression.
 
 **Examples:**
