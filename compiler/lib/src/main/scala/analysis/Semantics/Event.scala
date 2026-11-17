@@ -46,26 +46,35 @@ object Event {
         else Right(())
       }
       def getEveryIntervalValue(every: AstNode[Ast.Expr]) = {
-        val loc = Locations.get(every.id)
-        val Value.AnonStruct(intervalValue) = Analysis.convertValueToTypeUnchecked(a.valueMap(every.id), Type.AnonStruct(
-          Map(
-            ("seconds", Type.U32),
-            ("useconds", Type.U32),
-          )
-        )).runtimeChecked
+        val id = every.id
+        val loc = Locations.get(id)
         def getMember(member: String, maxValue: BigInt) = {
-          val Value.PrimitiveInt(v, Type.PrimitiveInt.U32) = Analysis.convertValueToTypeUnchecked(
-            intervalValue.get(member).get,
-            Type.U32
-          ).runtimeChecked
-
-          if v < 0 || v > maxValue
-          then Left(
-            SemanticError.InvalidIntValue(
-              loc, v, s"$member must be in the range [0, $maxValue]"
+          for {
+            ivStruct <- Right(
+              Analysis.convertValueToTypeUnchecked(
+                a.valueMap(id),
+                Type.AnonStruct(Map(("seconds", Type.U32), ("useconds", Type.U32)))
+              )
             )
-          )
-          else Right(v.longValue)
+            v <- {
+              val Value.AnonStruct(intervalValue) = ivStruct.runtimeChecked
+              val Value.PrimitiveInt(v, Type.PrimitiveInt.U32) = Analysis.convertValueToTypeUnchecked(
+                intervalValue.get(member).get,
+                Type.U32
+              ).runtimeChecked
+              Right(v)
+            }
+            result <- {
+              if v < 0 || v > maxValue
+              then Left(
+                SemanticError.InvalidIntValue(
+                  loc, v, s"$member must be in the range [0, $maxValue]"
+                )
+              )
+              else Right(v.longValue)
+            }
+          }
+          yield result
         }
         for {
           seconds <- getMember("seconds", UInt.MaxValue)
