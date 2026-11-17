@@ -1039,12 +1039,50 @@ object Parser extends Parsers {
         accept("U32", { case Token.U32() => Ast.TypeNameInt(Ast.U32) }) |
         accept("U64", { case Token.U64() => Ast.TypeNameInt(Ast.U64) })
 
-    accept("bool", { case Token.BOOL() => Ast.TypeNameBool }) |
-      string ~> opt(size ~>! exprNode) ^^ (e => Ast.TypeNameString(e)) |
-      typeNameFloat |
-      typeNameInt |
-      node(qualIdent) ^^ (qid => Ast.TypeNameQualIdent(qid)) |
-      failure("type name expected")
+    def baseTypeName =
+      accept("bool", { case Token.BOOL() => Ast.TypeNameBool }) |
+        string ~> opt(size ~>! exprNode) ^^ (e => Ast.TypeNameString(e)) |
+        typeNameFloat |
+        typeNameInt |
+        node(qualIdent) ^^ (qid => Ast.TypeNameQualIdent(qid)) |
+        failure("type name expected")
+
+    def rangeBound =
+      minusMinus ^^ (_ => None) |
+        exprNode ^^ (e => Some(e))
+
+    def lowerBoundKind =
+      lbracket ^^ (_ => Ast.TypeNameRange.BoundKind.INCLUSIVE) |
+        lparen ^^ (_ => Ast.TypeNameRange.BoundKind.EXCLUSIVE) |
+        failure("[ or ( expected")
+
+    def upperBoundKind =
+      rbracket ^^ (_ => Ast.TypeNameRange.BoundKind.INCLUSIVE) |
+        rparen ^^ (_ => Ast.TypeNameRange.BoundKind.EXCLUSIVE) |
+        failure("] or ) expected")
+
+    def range =
+      lowerBoundKind ~! rangeBound ~! (comma ~>! rangeBound) ~! upperBoundKind ^^ {
+        case lowerKind ~ lower ~ upper ~ upperKind =>
+          ((lowerKind, lower), (upperKind, upper))
+      }
+
+    final case class PositionedTypeName(tn: Ast.TypeName) extends Positional
+
+    // A type name followed by zero or more ranges
+    // Each range wraps the type name to its left in a node
+    // located at the start of the base type name
+    positioned(baseTypeName ^^ (tn => PositionedTypeName(tn))) ~
+      rep(inToken ~>! range) ^^ {
+        case ptn ~ ranges =>
+          val loc = Location(ParserState.file, ptn.pos, ParserState.includingLoc)
+          ranges.foldLeft (ptn.tn) {
+            case (tn, (lower, upper)) =>
+              val node = AstNode.create(tn)
+              Locations.put(node.id, loc)
+              Ast.TypeNameRange(node, lower, upper)
+          }
+      }
   }
 
   private def templateParam: Parser[Ast.TemplateParam] = {
@@ -1276,6 +1314,8 @@ object Parser extends Parsers {
 
   private def importToken = accept("import", { case t: Token.IMPORT => t })
 
+  private def inToken = accept("in", { case t: Token.IN => t })
+
   private def include = accept("include", { case t: Token.INCLUDE => t })
 
   private def initial = accept("initial", { case t: Token.INITIAL => t })
@@ -1312,6 +1352,8 @@ object Parser extends Parsers {
   private def machine = accept("machine", { case t: Token.MACHINE => t })
 
   private def minus = accept("-", { case t: Token.MINUS => t })
+
+  private def minusMinus = accept("--", { case t: Token.MINUS_MINUS => t })
 
   private def module = accept("module", { case t: Token.MODULE => t })
 

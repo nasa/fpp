@@ -114,6 +114,32 @@ object ExpandTemplates extends AstUnitTransformer
     Right((), cloneNode(a, node, Ast.TypeNameQualIdent(qidNode)))
   }
 
+  override def typeNameRangeNode(
+    a: Analysis,
+    node: AstNode[Ast.TypeName],
+    tn: Ast.TypeNameRange
+  ) =
+    def cloneExprOpt(eOpt: Option[AstNode[Ast.Expr]]) =
+      eOpt match {
+        case None => Right(None)
+        case Some(e) =>
+          for ((_, e) <- matchExprNode(a, e)) yield Some(e)
+      }
+    def cloneBound(bound: Ast.TypeNameRange.Bound) =
+      val (kind, eOpt) = bound
+      for (eOpt <- cloneExprOpt(eOpt))
+        yield (kind, eOpt)
+    for {
+      (_, typeName) <- matchTypeName(a, tn.typeName)
+      lowerBound <- cloneBound(tn.lowerBound)
+      upperBound <- cloneBound(tn.upperBound)
+    }
+    yield {
+      val tn1 = Ast.TypeNameRange(typeName, lowerBound, upperBound)
+      val node1 = cloneNode(a, node, tn1)
+      ((), node1)
+    }
+
   override def typeNameStringNode(
     a: Analysis,
     node: AstNode[Ast.TypeName],

@@ -163,6 +163,8 @@ trait AstVisitor {
 
   def typeNameQualIdentNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent): Out = default(in)
 
+  def typeNameRangeNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameRange): Out = default(in)
+
   def typeNameStringNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString): Out = default(in)
 
   final def matchComponentMember(in: In, member: Ast.ComponentMember): Out = {
@@ -299,6 +301,7 @@ trait AstVisitor {
       case tn : Ast.TypeNameFloat => typeNameFloatNode(in, node, tn)
       case tn : Ast.TypeNameInt => typeNameIntNode(in, node, tn)
       case tn : Ast.TypeNameQualIdent => typeNameQualIdentNode(in, node, tn)
+      case tn : Ast.TypeNameRange => typeNameRangeNode(in, node, tn)
       case tn : Ast.TypeNameString => typeNameStringNode(in, node, tn)
     }
 

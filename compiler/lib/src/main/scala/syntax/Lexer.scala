@@ -74,6 +74,7 @@ object Lexer {
     ("if", IF),
     ("implements", IMPLEMENTS),
     ("import", IMPORT),
+    ("in", IN),
     ("include", INCLUDE),
     ("initial", INITIAL),
     ("input", INPUT),
@@ -282,6 +283,7 @@ object Lexer {
         case IF => Token.IF()
         case IMPLEMENTS => Token.IMPLEMENTS()
         case IMPORT => Token.IMPORT()
+        case IN => Token.IN()
         case INCLUDE => Token.INCLUDE()
         case INITIAL => Token.INITIAL()
         case INPUT => Token.INPUT()
@@ -301,6 +303,7 @@ object Lexer {
         case MACHINE => Token.MACHINE()
         case MATCH => Token.MATCH()
         case MINUS => Token.MINUS()
+        case MINUS_MINUS => Token.MINUS_MINUS()
         case MODULE => Token.MODULE()
         case OMIT => Token.OMIT()
         case ON => Token.ON()
@@ -545,11 +548,16 @@ object Lexer {
           eatNewlines()
         case '-' =>
           nextChar()
-          if (ch == '>') {
-            token = RARROW
+          if (ch == '-') {
+            token = MINUS_MINUS
             nextChar()
-          } else token = MINUS
-          eatNewlines()
+          } else {
+            if (ch == '>') {
+              token = RARROW
+              nextChar()
+            } else token = MINUS
+            eatNewlines()
+          }
         case '+' =>
           nextChar()
           token = PLUS

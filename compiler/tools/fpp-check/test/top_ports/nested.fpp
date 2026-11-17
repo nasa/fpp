@@ -20,7 +20,7 @@ topology A {
   instance c2
 
   port out = c1.pOut
-  port in = c2.pIn
+  port $in = c2.pIn
 }
 
 topology B {
@@ -36,7 +36,7 @@ topology C {
   instance B
 
   connections P {
-    B.out -> A.in
+    B.out -> A.$in
   }
 
 }

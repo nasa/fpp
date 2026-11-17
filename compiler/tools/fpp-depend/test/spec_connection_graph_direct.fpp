@@ -7,7 +7,7 @@ topology T {
 
   connections C {
 
-    a.out[b] -> c.in[d]
+    a.out[b] -> c.$in[d]
 
   }
 

@@ -308,12 +308,32 @@ module DefinitionsAndSpecifiers {
 @ Type names
 module TypeNames {
 
-  array typeNameU32 = [10] U32
-  array typeNameF32 = [10] F32
-  array typeNameBool = [10] bool
-  array typeNameString = [10] string size 256
-  array typeNameQID = [10] a.b.c
-  array typeNameAbsoluteQID = [10] .a.b.c
+  type typeNameU32 = U32
+  type typeNameF32 = F32
+  type typeNameBool = bool
+  type typeNameString = string size 256
+  type typeNameQID = a.b.c
+  type typeNameAbsoluteQID = .a.b.c
+
+  @ Range type names
+  module Range {
+    type inclusiveInclusive = U8 in [0, 10]
+    type exclusiveExclusive = U8 in (0, 10)
+    type inclusiveExclusive = U8 in [0, 10)
+    type exclusiveInclusive = U8 in (0, 10]
+    type noLowerBound = I16 in (--, 10)
+    type noUpperBound = U16 in [0, --]
+    type noBounds = U16 in [--, --]
+    type floatBounds = F32 in [-1.5, 10.5)
+    type exprBounds = U32 in [a.b, a.b + 2 * c]
+    type qualIdent = a.b.c in [0, 10]
+    type chained = a.b.c in [0, --] in (--, 5]
+    type multiLine = U8 in [
+      0,
+      10
+    ]
+  }
+  @< Range type names
 
 }
 @< Type names
@@ -398,6 +418,7 @@ module Expressions {
     constant typeFloat = sizeof(F64)
     constant typeQualId = sizeof(TypeNames.typeNameU32)
     constant typeString = sizeof(string size 20)
+    constant typeRange = sizeof(U8 in [0, 10])
   }
   @< SizeOf
 

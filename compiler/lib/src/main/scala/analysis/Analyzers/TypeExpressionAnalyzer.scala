@@ -48,6 +48,13 @@ trait TypeExpressionAnalyzer
 
   def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]): Result = matchTypeNameNode(a, node)
 
+  override def typeNameRangeNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameRange) =
+    for {
+      a <- typeNameNode(a, tn.typeName)
+      a <- opt(exprNode)(a, tn.lowerBound._2)
+      a <- opt(exprNode)(a, tn.upperBound._2)
+    } yield a
+
   override def typeNameStringNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
     opt(exprNode)(a, tn.size)
 

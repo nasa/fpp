@@ -67,6 +67,7 @@ object Token {
   final case class IF() extends Token
   final case class IMPLEMENTS() extends Token
   final case class IMPORT() extends Token
+  final case class IN() extends Token
   final case class INCLUDE() extends Token
   final case class INITIAL() extends Token
   final case class INPUT() extends Token
@@ -85,6 +86,7 @@ object Token {
   final case class MACHINE() extends Token
   final case class MATCH() extends Token
   final case class MINUS() extends Token
+  final case class MINUS_MINUS() extends Token
   final case class MODULE() extends Token
   final case class OMIT() extends Token
   final case class ON() extends Token
@@ -222,6 +224,7 @@ enum TokenId {
   case IF
   case IMPLEMENTS
   case IMPORT
+  case IN
   case INCLUDE
   case INITIAL
   case INPUT
@@ -297,6 +300,7 @@ enum TokenId {
   case LBRACKET
   case LPAREN
   case MINUS
+  case MINUS_MINUS
   case PLUS
   case RARROW
   case RBRACE

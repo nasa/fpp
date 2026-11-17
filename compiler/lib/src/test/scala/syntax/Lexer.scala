@@ -130,6 +130,56 @@ class LexerSpec extends AnyWordSpec {
     }
   }
 
+  "range syntax" should {
+    def lex(s: String) =
+      Lexer.Scanner(
+        FppFile.StdIn,
+        s.toCharArray
+      )(using Context()).list()
+    "lex \"in\" to IN" in {
+      lex("in") match {
+        case Right(Token.IN() :: List()) => ()
+        case _ => assert(false)
+      }
+    }
+    "lex \"$in\" to an identifier" in {
+      lex("$in") match {
+        case Right(Token.IDENTIFIER("in") :: List()) => ()
+        case _ => assert(false)
+      }
+    }
+    "lex \"--\" to MINUS_MINUS" in {
+      lex("--") match {
+        case Right(Token.MINUS_MINUS() :: List()) => ()
+        case _ => assert(false)
+      }
+    }
+    "lex \"- -\" to two MINUS tokens" in {
+      lex("- -") match {
+        case Right(Token.MINUS() :: Token.MINUS() :: List()) => ()
+        case _ => assert(false)
+      }
+    }
+    "lex \"--->\" to MINUS_MINUS followed by RARROW" in {
+      lex("--->") match {
+        case Right(Token.MINUS_MINUS() :: Token.RARROW() :: List()) => ()
+        case _ => assert(false)
+      }
+    }
+    "lex \"---\" to MINUS_MINUS followed by MINUS" in {
+      lex("---") match {
+        case Right(Token.MINUS_MINUS() :: Token.MINUS() :: List()) => ()
+        case _ => assert(false)
+      }
+    }
+    "not suppress a newline after \"--\"" in {
+      lex("--\n") match {
+        case Right(Token.MINUS_MINUS() :: Token.EOL() :: List()) => ()
+        case _ => assert(false)
+      }
+    }
+  }
+
   "string literal" should {
     def lex(s: String): Unit = {
       Lexer.Scanner(
