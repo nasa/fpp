@@ -46,7 +46,7 @@ object EvalConstantExprs extends UseAnalyzer {
     ): Result.Result[Unit] = ids match {
       case Nil => Right(())
       case id :: tail => {
-        val v = Analysis.convertValueToType(a.valueMap(id), Type.Integer)
+        val v = Analysis.convertValueToTypeUnchecked(a.valueMap(id), Type.Integer)
         values.get(v) match {
           case None => checkForDuplicateValue(a, tail, values + (v -> id))
           case Some(prevId) => {
@@ -70,7 +70,7 @@ object EvalConstantExprs extends UseAnalyzer {
         case Some(e) => 
           for (a <- super.defEnumConstantAnnotatedNode(a, aNode))
             yield {
-              val intValue = Analysis.convertValueToType(a.valueMap(e.id), Type.Integer) match {
+              val intValue = Analysis.convertValueToTypeUnchecked(a.valueMap(e.id), Type.Integer) match {
                 case Value.Integer(intValue) => intValue
                 case _ => throw InternalError("conversion to Integer type should yield Integer value")
               }
@@ -119,7 +119,7 @@ object EvalConstantExprs extends UseAnalyzer {
         }
         def f(node: AstNode[Ast.Expr]) = {
           val v = a.valueMap(node.id)
-          Analysis.convertValueToType(v, eltType)
+          Analysis.convertValueToTypeUnchecked(v, eltType)
         }
         val elts = e.elts.map(f)
         val v = Value.AnonArray(elts)

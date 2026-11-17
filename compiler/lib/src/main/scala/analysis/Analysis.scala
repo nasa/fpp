@@ -449,7 +449,7 @@ case class Analysis(
 
   /** Gets a BigInt value from an AST node */
   def getBigIntValue(id: AstNode.Id): BigInt = {
-    val Value.Integer(v) = Analysis.convertValueToType(
+    val Value.Integer(v) = Analysis.convertValueToTypeUnchecked(
       valueMap(id),
       Type.Integer
     ).runtimeChecked
@@ -743,8 +743,8 @@ object Analysis {
     }
   }
 
-  /** Convert a value to a type */
-  def convertValueToType(v: Value, t: Type): Value =
+  /** Convert a value to a type with no checking */
+  def convertValueToTypeUnchecked(v: Value, t: Type): Value =
     v.convertToType(t) match {
       case Some(v) => v
       case None => throw InternalError(s"cannot convert value $v to type $t")

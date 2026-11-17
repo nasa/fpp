@@ -59,7 +59,7 @@ object FinalizeTypeDefs
             val loc = Locations.get(id)
             for (_ <- Analysis.convertTypes(loc, v.getType -> arrayType))
               yield {
-                val array @ Value.Array(_, _) = Analysis.convertValueToType(v, arrayType).runtimeChecked
+                val array @ Value.Array(_, _) = Analysis.convertValueToTypeUnchecked(v, arrayType).runtimeChecked
                 array
               }
           }
@@ -124,7 +124,7 @@ object FinalizeTypeDefs
             val loc = Locations.get(id)
             for (_ <- Analysis.convertTypes(loc, v.getType -> structType))
               yield {
-                val struct @ Value.Struct(_, _) = Analysis.convertValueToType(v, structType).runtimeChecked
+                val struct @ Value.Struct(_, _) = Analysis.convertValueToTypeUnchecked(v, structType).runtimeChecked
                 struct
               }
           }
@@ -215,7 +215,7 @@ object FinalizeTypeDefs
       t.size match {
         case Some(e) => {
           val id = e.id
-          val Value.Integer(size) = Analysis.convertValueToType(
+          val Value.Integer(size) = Analysis.convertValueToTypeUnchecked(
             a.valueMap(id),
             Type.Integer
           ).runtimeChecked

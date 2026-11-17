@@ -47,14 +47,14 @@ object Event {
       }
       def getEveryIntervalValue(every: AstNode[Ast.Expr]) = {
         val loc = Locations.get(every.id)
-        val Value.AnonStruct(intervalValue) = Analysis.convertValueToType(a.valueMap(every.id), Type.AnonStruct(
+        val Value.AnonStruct(intervalValue) = Analysis.convertValueToTypeUnchecked(a.valueMap(every.id), Type.AnonStruct(
           Map(
             ("seconds", Type.U32),
             ("useconds", Type.U32),
           )
         )).runtimeChecked
         def getMember(member: String, maxValue: BigInt) = {
-          val Value.PrimitiveInt(v, Type.PrimitiveInt.U32) = Analysis.convertValueToType(
+          val Value.PrimitiveInt(v, Type.PrimitiveInt.U32) = Analysis.convertValueToTypeUnchecked(
             intervalValue.get(member).get,
             Type.U32
           ).runtimeChecked

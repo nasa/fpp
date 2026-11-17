@@ -28,7 +28,7 @@ object FinalizeConstantExprs extends UseAnalyzer
     } yield {
       def f(node: AstNode[Ast.Expr]) = {
         val v = a.valueMap(node.id)
-        Analysis.convertValueToType(v, eltType)
+        Analysis.convertValueToTypeUnchecked(v, eltType)
       }
       val elts = e.elts.map(f)
       val v = Value.AnonArray(elts)
