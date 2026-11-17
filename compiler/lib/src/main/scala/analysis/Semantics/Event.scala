@@ -49,6 +49,14 @@ object Event {
         val id = every.id
         val loc = Locations.get(id)
         def getMember(member: String, maxValue: BigInt) = {
+          def checkRange(v: BigInt) =
+            if v < 0 || v > maxValue
+            then Left(
+              SemanticError.InvalidIntValue(
+                loc, v, s"$member must be in the range [0, $maxValue]"
+              )
+            )
+            else Right(v.longValue)
           for {
             ivStruct <- Right(
               Analysis.convertValueToTypeUnchecked(
@@ -64,15 +72,8 @@ object Event {
               ).runtimeChecked
               Right(v)
             }
-            result <- {
-              if v < 0 || v > maxValue
-              then Left(
-                SemanticError.InvalidIntValue(
-                  loc, v, s"$member must be in the range [0, $maxValue]"
-                )
-              )
-              else Right(v.longValue)
-            }
+            // TODO: Remove this once we have the range checking in place
+            result <- checkRange(v)
           }
           yield result
         }
