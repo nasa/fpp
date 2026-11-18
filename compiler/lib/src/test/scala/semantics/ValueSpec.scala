@@ -244,13 +244,13 @@ class ValueSpec extends AnyWordSpec {
 
   "negate" should {
     val pairs = List(
-      (createI8(1), Some(createI8(-1))),
-      (createF32(1), Some(createF32(-1))),
+      (createI8(1), Some(Integer(-1))),
+      (createF32(1), Some(createF64(-1))),
       (Integer(1), Some(Integer(-1))),
       (defaultString, None),
       (defaultAnonArray3U32, None),
       (anonStruct, None),
-      (EnumConstant(("X", 1), Types.defaultEnum), Some(createI32(-1))),
+      (EnumConstant(("X", 1), Types.defaultEnum), Some(Integer(-1))),
     )
     pairs.foreach {
       pair => s"evaluate ${pair._1} to ${pair._2}" in

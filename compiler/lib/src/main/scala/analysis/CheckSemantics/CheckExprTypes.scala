@@ -233,7 +233,7 @@ object CheckExprTypes extends UseAnalyzer {
       a <- super.exprUnopNode(a, node, e)
       t <- {
         val t1 = a.typeMap(e.e.id)
-        convertToNumeric(loc, t1)
+        convertToWidestNumeric(loc, t1)
       }
     } yield a.assignType(node -> t)
   }

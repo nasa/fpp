@@ -173,7 +173,7 @@ object Value {
       PrimitiveInt(v, kind)
     }
 
-    override def unary_- = Some(PrimitiveInt(-value, kind))
+    override def unary_- = Some(Integer(-value))
 
   }
 
@@ -259,7 +259,7 @@ object Value {
       case Type.Float.F64 => this
     }
 
-    override def unary_- = Some(Float(-value, kind))
+    override def unary_- = Some(Float(-value, Type.Float.F64))
 
   }
 
@@ -425,7 +425,7 @@ object Value {
 
     override def toString = value.toString ++ ": " ++ t.node._2.data.name
 
-    override def unary_- = - convertToRepType
+    override def unary_- = - convertToInteger
 
   }
 

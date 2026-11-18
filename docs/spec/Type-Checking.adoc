@@ -188,7 +188,9 @@ negation expression>> `-` stem:[e], the semantic analyzer does the following:
 
 . Compute the type stem:[T] of stem:[e].
 
-. If stem:[T] is a <<Types_Internal-Types_Numeric-Types,numeric type>>, then use stem:[T].
+. If the <<Types_Underlying-Types,underlying type>>
+of stem:[T] is a <<Types_Floating-Point-Types,floating-point type>>,
+then use `F64`.
 
 . Otherwise if stem:[T] <<Type-Checking_Type-Conversion,may be converted to>>
 _Integer_, then use _Integer_.
