@@ -221,11 +221,14 @@ object FinalizeTypeDefs
           val id = e.id
           val loc = Locations.get(id)
           val v = a.valueMap(id)
+          val fwSizeStoreType = {
+            val sym = a.frameworkDefinitions.typeMap("FwSizeStoreType")
+            a.typeMap(sym.getNodeId).getUnderlyingType
+          }
           for {
-            // TODO: Convert to FwSizeStoreType
-            v <- Analysis.convertValueToType(loc, v -> Type.Integer)
+            v <- Analysis.convertValueToType(loc, v -> fwSizeStoreType)
             t <- {
-              val Value.Integer(size) = v.runtimeChecked
+              val Value.PrimitiveInt(size, _) = v.runtimeChecked
               if Type.String.isValidSize(size) then Right(t)
               else {
                 val loc = Locations.get(id)
