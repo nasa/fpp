@@ -157,7 +157,7 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     val (_, node1, _) = node
     val data = node1.data
     data match {
-      case direct : Ast.SpecConnectionGraph.Direct => visitList(a, direct.connections, connection)
+      case direct : Ast.SpecConnectionGraph.Direct => visitList(a, direct.connections.map(_._2), connection)
       case pattern : Ast.SpecConnectionGraph.Pattern => for {
         a <- qualIdentNode (interfaceInstanceUse) (a, pattern.source)
         a <- visitList(a, pattern.targets, qualIdentNode(interfaceInstanceUse))

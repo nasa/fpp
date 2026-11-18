@@ -178,7 +178,7 @@ trait TypeExpressionAnalyzer
     val (_, node1, _) = node
     val data = node1.data
     data match {
-      case direct : Ast.SpecConnectionGraph.Direct => visitList(a, direct.connections, connection)
+      case direct : Ast.SpecConnectionGraph.Direct => visitList(a, direct.connections.map(_._2), connection)
       case pattern => Right(a)
     }
   }

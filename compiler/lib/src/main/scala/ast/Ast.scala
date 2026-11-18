@@ -563,7 +563,7 @@ object Ast {
 
     final case class Direct(
       name: Ident,
-      connections: List[Connection]
+      connections: List[Annotated[Connection]]
     ) extends SpecConnectionGraph
 
     object Pattern {

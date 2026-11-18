@@ -220,7 +220,9 @@ module DefinitionsAndSpecifiers {
 
     @ Direct connection graph specifier
     connections C {
+      @ Connection
       i1.p[0] -> i2.p[1]
+      @< Connection
       unmatched i1.p1[0] -> i2.p2[0]
       unmatched i1.p1 -> i2.p2
       .i1.p3 -> .i2.p3

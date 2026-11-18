@@ -9,7 +9,9 @@ case class Connection(
   from: Connection.Endpoint,
   /** The to endpoint */
   to: Connection.Endpoint,
-  isUnmatched: Boolean = false
+  isUnmatched: Boolean = false,
+  /** The AST connection, with its annotations, if there is one */
+  astOpt: Option[Ast.Annotated[Ast.SpecConnectionGraph.Connection]] = None
 ) extends Ordered[Connection] {
 
   override def toString = s"${from.toString} -> ${to.toString}"
@@ -158,17 +160,23 @@ case class Connection(
 object Connection {
 
   /** Constructs a connection from an AST connection */
-  def fromAst(a: Analysis, connection: Ast.SpecConnectionGraph.Connection):
-    Result.Result[Connection] =
-      for {
-        from <- Endpoint.fromAst(a, connection.fromPort, connection.fromIndex)
-        to <- Endpoint.fromAst(a, connection.toPort, connection.toIndex)
-        connection <- Right(Connection(from, to, connection.isUnmatched))
-        _ <- connection.checkDirections
-        _ <- connection.checkTypes(a)
-        _ <- connection.checkSerialWithTypedInput(a)
-      }
-      yield connection
+  def fromAst(
+    a: Analysis,
+    aConnection: Ast.Annotated[Ast.SpecConnectionGraph.Connection]
+  ): Result.Result[Connection] = {
+    val connection = aConnection._2
+    for {
+      from <- Endpoint.fromAst(a, connection.fromPort, connection.fromIndex)
+      to <- Endpoint.fromAst(a, connection.toPort, connection.toIndex)
+      connection <- Right(
+        Connection(from, to, connection.isUnmatched, Some(aConnection))
+      )
+      _ <- connection.checkDirections
+      _ <- connection.checkTypes(a)
+      _ <- connection.checkSerialWithTypedInput(a)
+    }
+    yield connection
+  }
 
   /** A connection endpoint */
   case class Endpoint(

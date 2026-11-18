@@ -7,5 +7,9 @@ topology T implements I1,I2{
 
     port p2 = i1.p2
 
-    connections Conn { i1.pOut -> i2.pIn }
+    connections Conn {
+      @ Connection
+      i1.pOut -> i2.pIn @< Connection
+      i2.pOut -> i1.pIn
+    }
 }

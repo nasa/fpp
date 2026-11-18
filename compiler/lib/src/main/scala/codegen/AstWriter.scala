@@ -443,7 +443,7 @@ object AstWriter extends AstVisitor with LineUtils {
       }
       lines("spec connection graph direct") ++ (
         ident(g.name) ++
-        g.connections.flatMap(connection)
+        g.connections.flatMap { case (pre, c, post) => annotate(pre, connection(c), post) }
       ).map(indentIn)
     }
     def pattern(g: Ast.SpecConnectionGraph.Pattern) = {
