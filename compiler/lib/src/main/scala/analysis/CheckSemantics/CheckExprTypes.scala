@@ -172,8 +172,8 @@ object CheckExprTypes extends UseAnalyzer {
         case _ => for {
           t <- a.commonType(e.e1.id, e.e2.id, loc)
           _ <- e.op match {
-            case Ast.Binop.Add => convertToWidestNumericOrString(loc, t)
-            case _ => convertToWidestNumeric(loc, t)
+            case Ast.Binop.Add => convertToNumericOrString(loc, t)
+            case _ => convertToNumeric(loc, t)
           }
         } yield t
       }
@@ -233,7 +233,7 @@ object CheckExprTypes extends UseAnalyzer {
       a <- super.exprUnopNode(a, node, e)
       t <- {
         val t1 = a.typeMap(e.e.id)
-        convertToWidestNumeric(loc, t1)
+        convertToNumeric(loc, t1)
       }
     } yield a.assignType(node -> t)
   }
@@ -508,15 +508,6 @@ object CheckExprTypes extends UseAnalyzer {
     }
 
   private def convertToNumeric(loc: Location, t: Type): Result.Result[Type] = {
-    if (t.isNumeric) Right(t)
-    else if (t.isConvertibleTo(Type.Integer)) Right(Type.Integer)
-    else {
-      val error = SemanticError.InvalidType(loc, s"cannot convert $t to a numeric type")
-      Left(error)
-    }
-  }
-
-  private def convertToWidestNumeric(loc: Location, t: Type): Result.Result[Type] = {
     if (t.getUnderlyingType.isFloat) Right(t)
     else if (t.isConvertibleTo(Type.Integer)) Right(Type.Integer)
     else {
@@ -525,8 +516,8 @@ object CheckExprTypes extends UseAnalyzer {
     }
   }
 
-  private def convertToWidestNumericOrString(loc: Location, t: Type): Result.Result[Type] =
-    (t, convertToWidestNumeric(loc, t)) match {
+  private def convertToNumericOrString(loc: Location, t: Type): Result.Result[Type] =
+    (t, convertToNumeric(loc, t)) match {
       case (_, Right(t1)) => Right(t1)
       case (_: Type.String, _) => Right(t)
       case _ =>
