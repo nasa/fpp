@@ -71,21 +71,20 @@ object EvalConstantExprs extends UseAnalyzer {
         case Some(e) => 
           for {
             a <- super.defEnumConstantAnnotatedNode(a, aNode)
+            enumType = a.typeMap(node.id) match {
+              case enumType : Type.Enum => enumType
+              case _ => throw InternalError("type of enum constant definition should be enum type")
+            }
             v <- {
               val loc = Locations.get(e.id)
-              val v= a.valueMap(e.id)
-              // TODO: Convert to the rep type of the enum
-              Analysis.convertValueToType(loc, v -> Type.Integer)
+              val v = a.valueMap(e.id)
+              Analysis.convertValueToType(loc, v -> enumType.repType)
             }
           }
           yield {
             val intValue = v match {
-              case Value.Integer(intValue) => intValue
-              case _ => throw InternalError("conversion to Integer type should yield Integer value")
-            }
-            val enumType = a.typeMap(node.id) match {
-              case enumType : Type.Enum => enumType
-              case _ => throw InternalError("type of enum constant definition should be enum type")
+              case Value.PrimitiveInt(intValue, _) => intValue
+              case _ => throw InternalError("conversion to representation type should yield primitive integer value")
             }
             val value = (node.data.name, intValue)
             val enumValue = Value.EnumConstant(value, enumType)
