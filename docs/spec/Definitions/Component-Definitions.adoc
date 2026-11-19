@@ -65,6 +65,8 @@ identifier values.
 
 * An <<Definitions_Enum-Definitions,enum definition>>
 
+* A <<Definitions_Vector-Definitions,vector definition>>
+
 * An <<Specifiers_Event-Specifiers,event specifier>>.
 All events specified in a component must have distinct names and identifier
 values.

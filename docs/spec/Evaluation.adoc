@@ -21,6 +21,12 @@ The following rules govern the conversion of a value stem:[v_1] of canonical typ
 stem:[T_1]
 to a value stem:[v_2] of canonical type stem:[T_2].
 
+. The type stem:[T_1] must be <<Type-Checking_Type-Conversion,convertible to>>
+  stem:[T_2].
+
+. The value stem:[v_1] must be convertible to a value of type stem:[v_2] as
+described below.
+
 ==== Unsigned Primitive Integer Values
 
 . If stem:[T_1] and stem:[T_2] are both unsigned primitive integer types and
@@ -120,6 +126,54 @@ anonymous array type or array type, both with stem:[n] elements, then
 element stem:[i] of stem:[v_1] to type stem:[T'_2].
 
 . Let stem:[v_2] be the unique array value of type stem:[T_2]
+with value stem:[w_i] at each element stem:[i].
+
+Otherwise if stem:[T_1] is a vector type, stem:[T_2] is an anonymous
+array type or array type with stem:[n] elements, and stem:[v_1] has
+stem:[k] elements, then
+
+. Check that stem:[k = n].
+
+. Let stem:[T'_2] be the element type of stem:[T_2].
+
+. For each stem:[i in [0,n-1\]], let stem:[w_i] be the result of converting
+element stem:[i] of stem:[v_1] to type stem:[T'_2].
+
+. Let stem:[v_2] be the unique array value of type stem:[T_2]
+with value stem:[w_i] at each element stem:[i].
+
+Otherwise the conversion is not valid.
+
+==== Vector Values
+
+If stem:[T_2] is a vector type and stem:[T_1 = T_2], then
+let stem:[v_2 = v_1].
+
+Otherwise if stem:[T_1] is an anonymous array type or array type,
+stem:[T_2] is a vector type, and stem:[v_1] has stem:[k] elements, then
+
+. Let stem:[T'_2] be the element type of stem:[T_2].
+
+. For each stem:[i in [0,k-1\]], let stem:[w_i] be the result of
+<<Evaluation_Type-Conversion,converting>> element stem:[i] of stem:[v_1]
+to type stem:[T'_2].
+
+. Let stem:[v_2] be the unique vector value of type stem:[T_2]
+with value stem:[w_i] at each element stem:[i].
+
+Otherwise if stem:[T_1] is a vector type, stem:[T_2] is a vector type,
+and stem:[v_1] has stem:[k] elements, then
+
+. Check that stem:[k] is less than or equal to the maximum size of
+stem:[T_2].
+
+. Let stem:[T'_2] be the element type of stem:[T_2].
+
+. For each stem:[i in [0,k-1\]], let stem:[w_i] be the result of
+<<Evaluation_Type-Conversion,converting>> element stem:[i] of stem:[v_1]
+to type stem:[T'_2].
+
+. Let stem:[v_2] be the unique vector value of type stem:[T_2]
 with value stem:[w_i] at each element stem:[i].
 
 Otherwise the conversion is not valid.

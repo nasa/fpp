@@ -12,3 +12,5 @@ A *type definition* is one of the following:
 
 * An <<Definitions_Enum-Definitions,enum definition>>.
 
+* A <<Definitions_Vector-Definitions,vector definition>>.
+

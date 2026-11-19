@@ -143,6 +143,7 @@ true
 type
 unmatched
 update
+vector
 warning
 with
 yellow

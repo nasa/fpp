@@ -71,6 +71,17 @@ An array type is written using its
 <<Scoping-of-Names_Names-of-Definitions,unique qualified
 name>>.
 
+=== Vector Types
+
+A *vector type* is a type associated with a
+<<Definitions_Vector-Definitions,vector definition>>.
+There is one vector type per vector definition.
+Each vector type is computed after resolving constants,
+so a vector type has a constant integer value for its maximum size.
+A vector type is written using its
+<<Scoping-of-Names_Names-of-Definitions,unique qualified
+name>>.
+
 === Enum Types
 
 An *enum type* is a type associated with an
@@ -173,6 +184,7 @@ It is one of the following:
 * A <<Types_String-Types,string type>>.
 * An <<Types_Enum-Types,enum type>>.
 * An <<Types_Array-Types,array type>> whose member type is a displayable type.
+* A <<Types_Vector-Types,vector type>> whose element type is a displayable type.
 * A <<Types_Struct-Types,struct type>> whose member types are all displayable types.
 * An <<Types_Alias-Types,alias type>> whose <<Types_Underlying-Types,underlying
 type>> is a displayable type.
@@ -187,6 +199,9 @@ is one of the following:
 * An <<Types_Array-Types,array type>> or
 <<Types_Internal-Types_Anonymous-Array-Types,anonymous array type>> whose
 member type has numeric members.
+
+* A <<Types_Vector-Types,vector type>> whose element type has numeric
+members.
 
 * A <<Types_Struct-Types,struct type>> or
 <<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct type>> whose
@@ -231,6 +246,12 @@ of type _T_ that has the default value of the member type
 of _T_ at each member.
 See the section on <<Definitions_Array-Definitions,
 array definitions>> for examples.
+
+* The default value associated with a
+<<Types_Vector-Types,vector type>> _T_ is (1)
+the default value specified in the vector definition,
+if one is given; otherwise (2) the unique value
+of type _T_ that has no elements.
 
 * The default value associated with an
 <<Types_Enum-Types,enum type>> is (1) the default value
@@ -290,6 +311,16 @@ This is the maximum space required to store the characters of the string.
 * If _T_ is an
 <<Types_Array-Types,array type>> with element type _T'_ and size _n_, then _s_
 is _n_ times the serialized size of _T'_.
+
+* If _T_ is a
+<<Types_Vector-Types,vector type>> with element type _T'_, maximum size _n_,
+and length representation type _Tp_, then _s_ is the sum of the following two numbers:
+
+** The serialized size of _Tp_.
+This is the space used to store the length of the vector.
+
+** The number _n_ times the serialized size of _T'_.
+This is the maximum space required to store the elements of the vector.
 
 * If _T_ is an
 <<Types_Enum-Types,enum type>>, then _s_ is the serialized size of the
