@@ -153,13 +153,11 @@ An array value has the form `[` stem:[v_0] `,` stem:[...] `,`
 stem:[v_{n-1}] `]` `:` stem:[Q],
 where
 
-. stem:[n] is a positive integer called the *size* of the array value.
-
 . stem:[Q] is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>>
 that refers to a
 <<Definitions_Array-Definitions,array definition>>
-with member type stem:[T].
+with member type stem:[T] and size stem:[n].
 
 . For each stem:[i in [0,n-1]], stem:[v_i] is a value of type stem:[T].
 Note that stem:[T] need not be a canonical type.
@@ -267,8 +265,8 @@ depends on the type _T_ of _v_:
 * Otherwise if _v_ is an <<Types_Array-Types,array type>>, then _s_ is the sum
   of the serialized sizes of the elements of _v_.
 
-* Otherwise if _v_ is a <<Types_Vector-Types,vector type>> with size-prefix type
-  _Tp_, then _s_ is the sum of the following two numbers:
+* Otherwise if _v_ is a <<Types_Vector-Types,vector type>> with length
+  representation type _Tp_, then _s_ is the sum of the following two numbers:
 
 ** The serialized size of _Tp_.
    This is the space used to store the length of the vector.

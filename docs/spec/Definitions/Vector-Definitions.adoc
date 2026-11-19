@@ -9,7 +9,7 @@ _[_
 `dictionary`
 _]_
 `vector` <<Lexical-Elements_Identifiers,_identifier_>> `=`
-_vector-size_ <<Type-Names,_type-name_>>
+`[` `]` <<Type-Names,_type-name_>> _vector-size_
 _[_
 `default` <<Expressions,_expression_>>
 _]_
@@ -19,16 +19,16 @@ _]_
 
 _vector-size_ has one of the following forms:
 
-* `[` `size` <<Expressions,_expression_>> `]`
+* `size` <<Expressions,_expression_>>
 
-* `[` `size` <<Expressions,_expression_>> `:` <<Type-Names,_type-name_>> `]`
+* `size` <<Expressions,_expression_>> `:` <<Type-Names,_type-name_>>
 
 ==== Semantics
 
 The identifier is the name _N_ of the new type.
 The expression in _vector-size_ must evaluate to a compile-time constant
 numeric value _n_ whose value is greater than zero.
-The type name following _vector-size_ names the type _T_ of each vector
+The type name preceding _vector-size_ names the type _T_ of each vector
 element.
 
 The definition associates the name _N_ with a new type _T'_
@@ -37,10 +37,11 @@ The value _n_ is called the *maximum size* of the vector type _T'_.
 The type _T_ is called the *element type* of the vector type _T'_.
 
 The type name in _vector-size_ is optional.
-If present, it names the *size-prefix type* of _T'_.
-The <<Types_Underlying-Types,underlying type>> of the size-prefix type must be
+If present, it names the *length representation type* of _T'_.
+The <<Types_Underlying-Types,underlying type>> of the length representation
+type must be
 an unsigned <<Types_Primitive-Integer-Types,primitive integer type>>.
-If the type name is absent, then the size-prefix type is the
+If the type name is absent, then the length representation type is the
 <<Definitions_Framework-Definitions_Type-Definitions,framework type>>
 `FwSizeStoreType`, and _vector-size_ represents an
 <<Definitions-and-Uses_Implied-Uses,implied use>> of `FwSizeStoreType`.
@@ -64,15 +65,16 @@ definition must conform to the rules stated in the
 [source,fpp]
 ----
 # Defines a vector type A of at most 3 U8 elements with default value [ ]
-vector A = [size 3] U8
+vector A = [] U8 size 3
 
-# Defines a vector type B of at most 3 U8 elements with size-prefix type U16
-vector B = [size 3: U16] U8
+# Defines a vector type B of at most 3 U8 elements with length representation
+# type U16
+vector B = [] U8 size 3: U16
 
 # Defines a vector type C of at most 4 F32 elements with default value [ 1, 2 ]
-vector C = [size 4] F32 default [ 1, 2 ]
+vector C = [] F32 size 4 default [ 1, 2 ]
 
 # Defines a vector type D of at most 3 F32 elements with default value [ ]
 # and element format {.03f}
-vector D = [size 3] F32 format "{.03f}"
+vector D = [] F32 size 3 format "{.03f}"
 ----

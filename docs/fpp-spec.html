@@ -2017,7 +2017,7 @@ it.</p>
 <code>dictionary</code>
 <em>]</em>
 <code>vector</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code>
-<em>vector-size</em> <a href="#Type-Names"><em>type-name</em></a>
+<code>[</code> <code>]</code> <a href="#Type-Names"><em>type-name</em></a> <em>vector-size</em>
 <em>[</em>
 <code>default</code> <a href="#Expressions"><em>expression</em></a>
 <em>]</em>
@@ -2031,10 +2031,10 @@ it.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>[</code> <code>size</code> <a href="#Expressions"><em>expression</em></a> <code>]</code></p>
+<p><code>size</code> <a href="#Expressions"><em>expression</em></a></p>
 </li>
 <li>
-<p><code>[</code> <code>size</code> <a href="#Expressions"><em>expression</em></a> <code>:</code> <a href="#Type-Names"><em>type-name</em></a> <code>]</code></p>
+<p><code>size</code> <a href="#Expressions"><em>expression</em></a> <code>:</code> <a href="#Type-Names"><em>type-name</em></a></p>
 </li>
 </ul>
 </div>
@@ -2045,7 +2045,7 @@ it.</p>
 <p>The identifier is the name <em>N</em> of the new type.
 The expression in <em>vector-size</em> must evaluate to a compile-time constant
 numeric value <em>n</em> whose value is greater than zero.
-The type name following <em>vector-size</em> names the type <em>T</em> of each vector
+The type name preceding <em>vector-size</em> names the type <em>T</em> of each vector
 element.</p>
 </div>
 <div class="paragraph">
@@ -2056,10 +2056,11 @@ The type <em>T</em> is called the <strong>element type</strong> of the vector ty
 </div>
 <div class="paragraph">
 <p>The type name in <em>vector-size</em> is optional.
-If present, it names the <strong>size-prefix type</strong> of <em>T'</em>.
-The <a href="#Types_Underlying-Types">underlying type</a> of the size-prefix type must be
+If present, it names the <strong>length representation type</strong> of <em>T'</em>.
+The <a href="#Types_Underlying-Types">underlying type</a> of the length representation
+type must be
 an unsigned <a href="#Types_Primitive-Integer-Types">primitive integer type</a>.
-If the type name is absent, then the size-prefix type is the
+If the type name is absent, then the length representation type is the
 <a href="#Definitions_Framework-Definitions_Type-Definitions">framework type</a>
 <code>FwSizeStoreType</code>, and <em>vector-size</em> represents an
 <a href="#Definitions-and-Uses_Implied-Uses">implied use</a> of <code>FwSizeStoreType</code>.</p>
@@ -2087,17 +2088,18 @@ definition must conform to the rules stated in the
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># Defines a vector type A of at most 3 U8 elements with default value [ ]
-vector A = [size 3] U8
+vector A = [] U8 size 3
 
-# Defines a vector type B of at most 3 U8 elements with size-prefix type U16
-vector B = [size 3: U16] U8
+# Defines a vector type B of at most 3 U8 elements with length representation
+# type U16
+vector B = [] U8 size 3: U16
 
 # Defines a vector type C of at most 4 F32 elements with default value [ 1, 2 ]
-vector C = [size 4] F32 default [ 1, 2 ]
+vector C = [] F32 size 4 default [ 1, 2 ]
 
 # Defines a vector type D of at most 3 F32 elements with default value [ ]
 # and element format {.03f}
-vector D = [size 3] F32 format "{.03f}"</code></pre>
+vector D = [] F32 size 3 format "{.03f}"</code></pre>
 </div>
 </div>
 </div>
@@ -10620,7 +10622,7 @@ constant b = sizeof(F64) # sizeof(F64) evaluates to 8
 array A = [3] U16
 constant c = sizeof(A) # sizeof(A) evaluates to 6
 
-vector V = [size 3: U16] U16
+vector V = [] U16 size 3: U16
 constant d = sizeof(V) # sizeof(V) evaluates to 8</code></pre>
 </div>
 </div>
@@ -12922,7 +12924,7 @@ is <em>n</em> times the serialized size of <em>T'</em>.</p>
 <li>
 <p>If <em>T</em> is a
 <a href="#Types_Vector-Types">vector type</a> with element type <em>T'</em>, maximum size <em>n</em>,
-and size-prefix type <em>Tp</em>, then <em>s</em> is the sum of the following two numbers:</p>
+and length representation type <em>Tp</em>, then <em>s</em> is the sum of the following two numbers:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -13452,8 +13454,8 @@ In general, \$T_1\$ is convertible to \$T_2\$ if values of
 type \$T_1\$ may be <a href="#Evaluation_Type-Conversion">converted to</a>
 values of type \$T_2\$. However, in some cases this rule
 does not hold; in these cases, we catch the error during value conversion.
-This happens, for example, when attempting to convert an array value
-with four elements to a vector type with maximum size three.</p>
+This happens, for example, when attempting to convert a vector value
+with two elements to an array type of size three.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -13502,13 +13504,21 @@ array type \$T_2\$ if \$T_1\$ may be converted to the member type of
 \$T_2\$.</p>
 </li>
 <li>
-<p>An <a href="#Types_Array-Types">array type</a>,
-<a href="#Types_Internal-Types_Anonymous-Array-Types">anonymous array type</a>, or
-<a href="#Types_Vector-Types">vector type</a> \$T_1\$ may be converted to a
-vector type \$T_2\$ if the element type of \$T_1\$ may be converted
-to the element type of \$T_2\$.
-Note that, unlike an array type, a vector type is never convertible from a
-numeric type, Boolean type, enum type, or string type.</p>
+<p>An anonymous array type \$T_1 =\$ <em>[</em> \$n\$ <em>]</em> \$T'_1\$
+may be converted to a <a href="#Types_Vector-Types">vector type</a> \$T_2\$
+with element type \$T'_2\$ and maximum size \$m\$
+if \$n &lt;= m\$ and \$T'_1\$ may be converted to \$T'_2\$.</p>
+</li>
+<li>
+<p>A <a href="#Types_Vector-Types">vector type</a> \$T_1\$ with element type
+\$T'_1\$ may be converted to an anonymous array type
+\$T_2 =\$ <em>[</em> \$n\$ <em>]</em> \$T'_2\$
+if \$T'_1\$ may be converted to \$T'_2\$.</p>
+</li>
+<li>
+<p>A <a href="#Types_Vector-Types">vector type</a> \$T_1\$ with element type
+\$T'_1\$ may be converted to a vector type \$T_2\$ with element type
+\$T'_2\$ if \$T'_1\$ may be converted to \$T'_2\$.</p>
 </li>
 <li>
 <p>If \$T_1\$ or \$T_2\$ or both are
@@ -13552,7 +13562,12 @@ for each member \$m_i\$ <code>:</code> \$T_i\$ of \$T'\$,
 <p>Type convertibility is transitive: if \$T_1\$ may be converted to
 \$T_2\$
 and \$T_2\$ may be converted to \$T_3\$, then \$T_1\$
-may be converted to \$T_3\$.</p>
+may be converted to \$T_3\$.
+The one exception is that a
+<a href="#Types_Internal-Types_Numeric-Types">numeric type</a>,
+<a href="#Types_The-Boolean-Type">Boolean type</a>, <a href="#Types_Enum-Types">enum type</a>, or
+<a href="#Types_String-Types">string type</a> may never be converted to a
+<a href="#Types_Vector-Types">vector type</a>.</p>
 </li>
 </ol>
 </div>
@@ -14090,14 +14105,11 @@ where</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>\$n\$ is a positive integer called the <strong>size</strong> of the array value.</p>
-</li>
-<li>
 <p>\$Q\$ is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a>
 that refers to a
 <a href="#Definitions_Array-Definitions">array definition</a>
-with member type \$T\$.</p>
+with member type \$T\$ and size \$n\$.</p>
 </li>
 <li>
 <p>For each \$i in [0,n-1\$], \$v_i\$ is a value of type \$T\$.
@@ -14248,8 +14260,8 @@ depends on the type <em>T</em> of <em>v</em>:</p>
 of the serialized sizes of the elements of <em>v</em>.</p>
 </li>
 <li>
-<p>Otherwise if <em>v</em> is a <a href="#Types_Vector-Types">vector type</a> with size-prefix type
-<em>Tp</em>, then <em>s</em> is the sum of the following two numbers:</p>
+<p>Otherwise if <em>v</em> is a <a href="#Types_Vector-Types">vector type</a> with length
+representation type <em>Tp</em>, then <em>s</em> is the sum of the following two numbers:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -14464,6 +14476,29 @@ with value \$w_i\$ at each element \$i\$.</p>
 </ol>
 </div>
 <div class="paragraph">
+<p>Otherwise if \$T_1\$ is a vector type, \$T_2\$ is an anonymous
+array type or array type with \$n\$ elements, and \$v_1\$ has
+\$k\$ elements, then</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check that \$k = n\$.</p>
+</li>
+<li>
+<p>Let \$T'_2\$ be the element type of \$T_2\$.</p>
+</li>
+<li>
+<p>For each \$i in [0,n-1]\$, let \$w_i\$ be the result of converting
+element \$i\$ of \$v_1\$ to type \$T'_2\$.</p>
+</li>
+<li>
+<p>Let \$v_2\$ be the unique array value of type \$T_2\$
+with value \$w_i\$ at each element \$i\$.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
 <p>Otherwise the conversion is not valid.</p>
 </div>
 </div>
@@ -14474,9 +14509,28 @@ with value \$w_i\$ at each element \$i\$.</p>
 let \$v_2 = v_1\$.</p>
 </div>
 <div class="paragraph">
-<p>Otherwise if \$T_1\$ is an anonymous array type, array type, or vector
-type, \$v_1\$ has \$k\$ elements, and \$T_2\$ is a vector type,
-then</p>
+<p>Otherwise if \$T_1\$ is an anonymous array type or array type,
+\$T_2\$ is a vector type, and \$v_1\$ has \$k\$ elements, then</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let \$T'_2\$ be the element type of \$T_2\$.</p>
+</li>
+<li>
+<p>For each \$i in [0,k-1]\$, let \$w_i\$ be the result of
+<a href="#Evaluation_Type-Conversion">converting</a> element \$i\$ of \$v_1\$
+to type \$T'_2\$.</p>
+</li>
+<li>
+<p>Let \$v_2\$ be the unique vector value of type \$T_2\$
+with value \$w_i\$ at each element \$i\$.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Otherwise if \$T_1\$ is a vector type, \$T_2\$ is a vector type,
+and \$v_1\$ has \$k\$ elements, then</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -14892,7 +14946,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-11-17 07:21:40 -0800
+Last updated 2026-11-18 17:44:16 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
