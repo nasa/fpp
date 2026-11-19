@@ -5,6 +5,7 @@ on:
     branches: [ "main", "release/**" ]
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -34,7 +35,21 @@ jobs:
       run: |
         cd compiler/
         sbt test
+    # The full fpp test suite on the JVM is slow, so skip it on PRs.
+    # PRs still run the full suite against the native images
+    # (see build-native.yml). The JVM suite runs on merges into main and
+    # release branches, and it can be run manually via workflow_dispatch.
+    - name: Run fpp smoke tests
+      if: github.event_name == 'pull_request'
+      run: |
+        cd compiler/
+        for tool in fpp `sed 's/^/fpp-/' tools.txt`
+        do
+          bin/$tool --help > /dev/null < /dev/null || exit 1
+          echo "$tool --help: ok"
+        done
     - name: Run fpp tests
+      if: github.event_name != 'pull_request'
       run: |
         export PATH=~/.local/share/coursier/bin:$PATH
         cd compiler/
