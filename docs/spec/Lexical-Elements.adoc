@@ -61,6 +61,7 @@ constant
 container
 cpu
 default
+deployment
 diagnostic
 dictionary
 do
@@ -86,6 +87,7 @@ high
 hook
 id
 if
+implements
 import
 include
 initial
@@ -133,6 +135,7 @@ state
 string
 struct
 sync
+system
 telemetry
 template
 text
